@@ -119,8 +119,6 @@ INSTALLED_APPS = (
     'hrcms.module',
     'hrcms.portal',
 
-    'bootstrap3',
-    
     'horizon',
     'compressor',
     #'django_select2',
