@@ -10,6 +10,7 @@ from . import views
 
 urlpatterns = patterns('',
     
+	url(r'^(?P<id>[\w\.\-]+)/detail/$', views.DetailView.as_view(), name='detail'),
     url(r'$', views.PortalView.as_view(), name='index'),
-
+    
 )

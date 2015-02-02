@@ -102,6 +102,7 @@ ROOT_URLCONF = 'hrcms.urls'
 TEMPLATE_DIRS = (
 )
 
+MARKITUP_FILTER = ('markitup.renderers.render_rest', {'safe_mode': True})
 
 INSTALLED_APPS = (
     'django',
@@ -124,7 +125,7 @@ INSTALLED_APPS = (
     'compressor',
     #'django_select2',
 
-
+    'markitup',
     'feincms',
     'mptt',
     'feincms.module.page',

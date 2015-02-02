@@ -1,0 +1,25 @@
+{% extends "horizon/common/_modal_form.html" %}
+{% load i18n %}
+{% load url from future %}
+{% load markitup_tags %}
+
+{% block form_id %}pozadavek_na_oceneni{% endblock %}
+{% block form_action %}{% url "horizon:module:auth:login" %}{% endblock %}
+
+{% block modal-header %}
+Device {{ device.name }}
+{% endblock %}
+
+
+{% block modal-body %}
+
+{{ device.short_description|render_markup|safe }}
+{{ device.description|render_markup|safe }}
+{{ device.technical_details|render_markup|safe }}
+
+{% endblock %}
+
+{% block modal-footer %}
+<a href="{% url 'horizon:portal:device_catalog:detail' device.id %}" class="btn btn-default">{% trans "Full screen" %}</a>
+<a href="#" class="btn btn-primary btn-default" data-dismiss="modal">{% trans "Close" %}</a>
+{% endblock %}

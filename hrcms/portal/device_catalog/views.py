@@ -17,6 +17,7 @@ import logging
 from django.conf import settings
 
 from .tables import DeviceTable
+from .forms import DummyForm
 
 from roboticeclient.common.horizon import DjangoClient
 from roboticeclient.control.v1.base import RoboticeControlClient
@@ -39,3 +40,18 @@ class PortalView(tables.DataTableView):
         devices = robotice_client.devices.list(self.request)
 
         return devices
+
+class DetailView(forms.ModalFormView):
+    form_class = DummyForm
+    template_name = 'portal/device_catalog/detail.html'
+    success_url = reverse_lazy('horizon:portal:device_catalog:index')
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+
+        context["device"] = robotice_client.devices.get(self.request, self.kwargs["id"])
+
+        return context
+
+    def get_initial(self):
+        return {}
