@@ -19,15 +19,7 @@ from django.conf import settings
 from .tables import DeviceTable
 from .forms import DummyForm
 
-from roboticeclient.common.horizon import DjangoClient
-from roboticeclient.control.v1.base import RoboticeControlClient
-
-log = logging.getLogger('utils.robotice_client')
-
-# only change base client class
-RoboticeControlClient.client_class = DjangoClient
-
-robotice_client = RoboticeControlClient(type="control")
+from .client import robotice_client
 
 class PortalView(tables.DataTableView):
     table_class = DeviceTable
