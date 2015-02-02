@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div id="intro">
+	{{ block.super }}
+	<div class="container">
+		<div class="row centered">
+			{{ table.render }}
+		</div>
+	</div>
+</div>
+{% endblock %}
