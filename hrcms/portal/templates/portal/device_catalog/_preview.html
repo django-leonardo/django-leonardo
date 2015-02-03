@@ -4,7 +4,7 @@
 {% load markitup_tags %}
 
 {% block form_id %}pozadavek_na_oceneni{% endblock %}
-{% block form_action %}{% url "horizon:module:auth:login" %}{% endblock %}
+{% block form_action %}.{% endblock %}
 
 {% block modal-header %}
 Device {{ device.name }}
@@ -20,6 +20,6 @@ Device {{ device.name }}
 {% endblock %}
 
 {% block modal-footer %}
-<a href="{% url 'horizon:portal:device_catalog:detail' device.id %}" class="btn btn-default">{% trans "Full screen" %}</a>
-<a href="#" class="btn btn-primary btn-default" data-dismiss="modal">{% trans "Close" %}</a>
+<a href="#" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</a>
+<a href="{% url 'horizon:portal:device_catalog:detail' device.id %}" class="btn btn-primary btn-default">{% trans "Detail" %}</a>
 {% endblock %}

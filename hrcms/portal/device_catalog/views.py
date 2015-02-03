@@ -47,3 +47,18 @@ class DetailView(forms.ModalFormView):
 
     def get_initial(self):
         return {}
+
+class PreviewView(forms.ModalFormView):
+    form_class = DeviceTable
+    template_name = 'portal/device_catalog/preview.html'
+    success_url = reverse_lazy('horizon:portal:device_catalog:index')
+
+    def get_context_data(self, **kwargs):
+        context = super(PreviewView, self).get_context_data(**kwargs)
+
+        context["device"] = robotice_client.devices.get(self.request, self.kwargs["id"])
+
+        return context
+
+    def get_initial(self):
+        return {}

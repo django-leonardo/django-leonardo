@@ -3,6 +3,8 @@ from django.conf import settings
 from django.core import urlresolvers
 from django.template.defaultfilters import timesince
 from django.utils.http import urlencode
+from django.core.urlresolvers import reverse
+
 from django.utils.translation import ugettext_lazy as _
 
 from horizon import tables
@@ -56,7 +58,7 @@ class PreviewAction(tables.LinkAction):
     verbose_name = "Preview"
     name = "preview_action"
     success_url = "horizon:portal:device_catalog:index"
-    url = "horizon:portal:device_catalog:detail"
+    url = "horizon:portal:device_catalog:preview"
 
     classes = ("ajax-modal",)
 
@@ -68,6 +70,7 @@ class DetailAction(tables.LinkAction):
     name = "detail_action"
     success_url = "horizon:portal:device_catalog:index"
     url = "horizon:portal:device_catalog:detail"
+    classes = ("ajax-modal",)
 
     def get_link_url(self, datum):
         return urlresolvers.reverse(self.url, args=[datum["id"]])
@@ -75,7 +78,9 @@ class DetailAction(tables.LinkAction):
 class DeviceTable(tables.DataTable):
 
     id = tables.Column('id', verbose_name=_("ID"), hidden=True)
-    name = tables.Column('name', verbose_name=_("Device Name"))
+    name = tables.Column('name',
+        verbose_name=_("Device Name"),
+        link=(lambda x: reverse("horizon:portal:device_catalog:detail", args=[x["id"]])))
     metrics = tables.Column('metrics', verbose_name=_("Metrics"), filters=(lambda x: ", ".join([metric["name"] for metric in x]),))
     related = tables.Column('related', verbose_name=_("Related devices"), filters=(lambda x: ", ".join([metric["name"] for metric in x]),))
     required = tables.Column('required', verbose_name=_("Required devices"), filters=(lambda x: ", ".join([metric["name"] for metric in x]),))

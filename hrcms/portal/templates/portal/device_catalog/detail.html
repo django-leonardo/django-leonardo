@@ -1,8 +1,18 @@
-{% extends "base.html" %}
-{% load i18n %}
+{% extends 'base.html' %}
 
-{% block title %}{% trans "Detail" %}{% endblock %}
+{% load i18n %}
+{% load url from future %}
+{% load markitup_tags %}
 
 {% block main %}
-{% include "portal/device_catalog/_detail.html" %}
+
+<div id="intro">
+	<div class="container">
+		<div class="row centered">
+			{{ device.short_description|render_markup|safe }}
+			{{ device.description|render_markup|safe }}
+			{{ device.technical_details|render_markup|safe }}
+		</div>
+	</div>
+</div>
 {% endblock %}
