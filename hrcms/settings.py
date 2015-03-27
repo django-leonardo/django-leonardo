@@ -117,11 +117,17 @@ INSTALLED_APPS = (
 
     'hrcms',
     'hrcms.module',
-    'hrcms.portal',
+    #'hrcms.portal',
+    
+    'boardie',
 
     'horizon',
     'compressor',
     #'django_select2',
+
+    # filer
+    'filer',
+    'easy_thumbnails',
 
     'markitup',
     'feincms',
@@ -164,6 +170,23 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.xing',
 )
+
+# For easy_thumbnails to support retina displays (recent MacBooks, iOS)
+
+#THUMBNAIL_HIGH_RESOLUTION = True
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    #'easy_thumbnails.processors.scale_and_crop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters',
+)
+
+# File download permissions are an experimental
+# feature. The api may change at any time.
+
+FILER_ENABLE_PERMISSIONS = True
 
 ##########################
 
@@ -233,10 +256,20 @@ LOGGING = {
     }
 }
 
+# migrations support
+MIGRATION_MODULES = {
+    'page': 'hrcms.migrations.page',
+    'boardie': 'boardie.migrations',
+    'application': 'hrcms.migrations.application',
+    'filer': 'filer.migrations_django',
+}
+
+
 # include FEIN_CMS and HORIZON conf
 try:
     from hrcms.conf.feincms import *
     from hrcms.conf.horizon import *
+    #from boardie.conf.django import *
 except Exception, e:
     raise e
 
@@ -245,4 +278,3 @@ try:
     from local_settings import *
 except Exception, e:
     raise e
-
