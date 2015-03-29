@@ -56,7 +56,7 @@ django-admin-tools==0.5.2
 -e git+https://github.com/michaelkuty/form_designer#egg=form_designer
 
 # horizon
--e git+https://github.com/openstack/horizon@2014.1.4#egg=horizon
+-e git+https://github.com/openstack/horizon@2015.1.0b3#egg=horizon
 lockfile==0.10.2
 
 netaddr>=0.7.12
