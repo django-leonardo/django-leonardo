@@ -1,21 +1,22 @@
 
 =====
-hrCMS
+dhCMS
 =====
 
-Another Django CMS.
+A collection of awesome Django libraries, resources and shiny things.
+Full featured framework for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
-Devstack for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
 Uses
 ====
 
 - Backend
 
-	- Django 1.7 +
+	- Django 1.8
 	- FeinCMS
-	- Horizon Juno +
+	- Horizon
 	- Oscar
+	- Oscar API
 	- Form Designer
 	- Remote Forms
 	- Django Rest Framework

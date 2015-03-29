@@ -34,9 +34,15 @@ PAGE_REGIONS = (
 
 PAGE_TEMPLATES = (
     {
-        'title': _('Standard'),
-        'key': 'base',
-        'path': 'base.html',
+        'title': _('Page'),
+        'key': 'page',
+        'path': 'layout/page.html',
+        'regions': PAGE_REGIONS,
+    },
+    {
+        'title': _('Dashboard'),
+        'key': 'dashboard',
+        'path': 'layout/dashboard.html',
         'regions': PAGE_REGIONS,
     },
     {
