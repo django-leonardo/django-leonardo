@@ -1,0 +1,30 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load feincms_tags %}
+
+{% block content %}
+<script type="text/javascript" language="javascript" src="/static/lib/yed/GraphMLViewer.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+if (!RunPlayer(
+	"id", "{{ widget.fe_identifier }}",
+	"width", "{{ widget.width }}",
+	"height", "{{ widget.height }}",
+	"graphUrl", "/media/files/{{ widget.file.file.name }}",
+	"overview", "false",
+	"toolbar", "false",
+	"tooltips", "true",
+	"movable", "false",
+	"links", "true",
+	"linksInNewWindow", "true",
+	"viewport", "full"
+)) {
+	if (!InstallFlashUpdate("width", "100%", "height", "100%")) {
+		document.write('This content requires the Adobe Flash Player 9.0.38 or higher. <a href=http://www.adobe.com/go/getflash/>Get Flash</a>');
+	}
+}
+//-->
+</script>
+{% endblock %}
+

@@ -1,0 +1,118 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+{% load admin_modify %}
+{% load adminmedia %}
+{% load webcms_tags %}
+
+{% block extrahead %}
+{{ block.super }}
+{% url admin:jsi18n as jsi18nurl %}
+<script type="text/javascript" src='{{ jsi18nurl|default:"../../../jsi18n/" }}'></script>
+{{ media }}
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
+{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% block content_title %}
+<h2>
+{% if change %}
+{% trans "Update" %} <em>{{ adminform.form.instance }}</em>
+{% endif %}</h2>
+{% endblock %}
+
+{% block object-tools %}
+{% if change %}
+<li><a href="history/" class="historylink">{% trans "History" %}</a></li>
+{% if has_absolute_url %}
+<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
+{% endif%}
+{% endif %}
+<li><a href="../" class="historylink">{% trans "Back to list" %}</a></li>
+{% endblock %}
+
+{% block content %}
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form" class="webcms-form">
+	{% csrf_token %}
+
+	{% block form_top %}{% endblock %}
+
+	{% if is_popup %}
+	<div style="display:none;">
+		<input type="hidden" name="_popup" value="1" />
+	</div>
+	{% endif %}
+
+	<div class="admin-form-tabs">
+		<div class="span-6">
+		<h3>{% trans "Select properties page" %}</h3>
+		<ul>
+			{% for fieldset in adminform %}
+			{% if fieldset.name %}
+			{% if fieldset.name == "FEINCMS_CONTENT" %}
+			<li><a href="#tab-page-regions">{% trans "Content regions" %}</a></li>
+			{% else %}
+			<li><a href="#tab-{{ fieldset.name|slugify }}">{{ fieldset.name }}</a></li>
+			{% endif %}
+			{% else %}
+			<li><a href="#tab-default">{% trans "Basic properties" %}</a></li>
+			{% endif %}
+			{% endfor %}
+			{% block after_field_sets_tabs %}{% endblock %}
+			{% for inline_admin_formset in inline_admin_formsets %}
+			{% if not inline_admin_formset.opts.verbose_name_plural|slugify|startswith:"feincms" %}
+			<li><a href="#tab-{{ inline_admin_formset.formset.prefix }}">{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</a></li>
+			{% endif %}
+			{% endfor %}
+			{% block after_related_objects_tabs %}{% endblock %}
+		</ul>
+	</div>
+	<div class="span-18">
+		<div class="tabs-container">
+
+			{% if not is_popup %}
+			<div class="admin-form-actions">
+				{% submit_row %}
+			</div>
+			{% endif %}
+
+			{% for fieldset in adminform %}
+			{% include "admin/includes/fieldset.html" %}
+			{% endfor %}
+
+			{% block after_field_sets %}{% endblock %}
+
+			{% for inline_admin_formset in inline_admin_formsets %}
+			{% include inline_admin_formset.opts.template %}
+			{% endfor %}
+
+			{% block after_related_objects %}{% endblock %}
+
+			<div class="admin-form-buttons">
+				{% submit_row %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% block after_tabs %}{% endblock %}
+
+{% prepopulated_fields_js %}
+
+</form>
+<script type="text/javascript">
+{% if adminform and add %}
+document.getElementById("{{ adminform.first_field.id_for_label }}").focus();
+{% endif %}
+
+jQuery(document).ready(function() {
+	jQuery('.admin-form-actions button, .admin-form-buttons button, .object-tools a').button();
+	jQuery('.admin-form-tabs').tabs();
+});
+</script>
+{% endblock %}

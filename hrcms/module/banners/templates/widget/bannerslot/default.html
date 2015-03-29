@@ -1,0 +1,30 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="banner-images ui-helper-clearfix">
+	<div id="{{ widget.fe_identifier }}-images">
+		{% for banner in widget.slot.banner_set.all %}
+		<div class="banner" style="display:{% if forloop.first %}block{% else %}none{% endif %};">
+			<a href="{{ banner.destination }}">
+				<img src="/media/files/{{ banner.file.file }}" alt="" />
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+	<div id="{{ widget.fe_identifier }}-controls" class="banner-controls"></div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#{{ widget.fe_identifier }}-images').cycle({ 
+		fx: 'fade', 
+		speed: 'slow', 
+		timeout: {{ widget.rotation_speed|default:"4000" }}, 
+		pager: '#{{ widget.fe_identifier }}-controls' 
+	});
+});
+</script>
+{% endblock %}
+

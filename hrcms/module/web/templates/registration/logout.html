@@ -1,0 +1,20 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load webcms_store_tags %}
+
+{% block head_title %}
+{% trans "Customer Logout" %}
+{% endblock %}
+
+{% block page_title %}
+{% trans "Customer Logout" %}
+{% endblock %}
+
+{% block breadcrumbs %}
+<li><strong>{% trans "Customer Logout" %}</strong></li>
+{% endblock %}
+
+{% block content %}
+<p class="success">{% trans "You have been successfully logged out." %}</p>
+{% endblock %}

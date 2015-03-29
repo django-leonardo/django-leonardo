@@ -1,0 +1,18 @@
+{% extends "widget/base.html" %}
+
+{% load feincms_page_tags %}
+{% load webcms_tags %}
+
+{% block content %}
+{% with root.level as level %}
+{% feincms_navigation of root as toplevel level=lvl,depth=depth %}
+{% for p in toplevel %}
+<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}{% if p|is_equal_or_parent_of:current %}ui-state-highlight{% endif %} button" href="{{ p|get_url }}"><span><span>{{ p.title }}</span></span></a>
+{% endfor %}
+{% endwith %}
+<script type="text/javascript">
+$(document).ready(function() {
+//	$("#{{ widget.fe_identifier }} a").button();
+});
+</script>
+{% endblock %}

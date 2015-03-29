@@ -1,0 +1,74 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+{% load webcms_tags %}
+
+{% block content_title %}
+<h2>{% trans "Available translations" %}</h2>
+{% endblock %}
+
+{% block object-tools %}
+<li><a href="{% url webcms_admin:devel_dashboard %}">{% trans "Project setup" %}</a></li>
+{% endblock %}
+
+{% block content %}
+{% if has_pos %}
+<div class="admin-form-tabs">
+	<div class="span-4">
+		<h3>{% trans "Select language" %}</h3>
+		<ul>
+			{% for lid,language,pos in languages %}
+			{% if pos %}
+			<li><a href="#tab-{{ lid }}">{{ language }}</a></li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="span-20 last">
+		<div class="tabs-container">
+			{% for lid,language,pos in languages %}
+			{% if pos %}
+			<div id="tab-{{ lid }}">
+				<table cellspacing="0">
+					<thead>
+						<tr>
+							<th>{% trans "Application" %}</th>
+							<th class="r">{% trans "Progress"%}</th>
+							<th class="r">{% trans "Messages" %}</th>
+							<th class="r">{% trans "Translated" %}</th>
+							<th class="r">{% trans "Fuzzy"%}</th>
+							<th class="r">{% trans "Obsolete"%}</th>
+							<th>{% trans "File" %}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for app,path,po in pos %}
+						<tr class="{% cycle row1,row2 %}">
+							<td><a href="{% url rosetta-language-selection lid,forloop.counter0 %}{% if do_django %}?django{% endif %}{% if do_rosetta %}?rosetta{% endif %}">{{ app|title }}</a></td>
+							<td class="r">{{po.percent_translated|floatformat:2}}%</td>
+							<td class="r">{{po|length}}</td>
+							<td class="r">{{po.translated_entries|length}}</td>
+							<td class="r">{{po.fuzzy_entries|length}}</td>
+							<td class="r">{{po.obsolete_entries|length}}</td>
+							<td class="hint">{{ path|slice:"29:" }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery('.admin-form-tabs').tabs();
+});
+</script>
+{% else %}
+<h1>{% trans "Nothing to translate!" %}</h1>
+<p>{% trans "You haven't specified any languages in your settings file, or haven't yet generated a batch of translation catalogs." %}</p>
+<p>{% blocktrans with "http://docs.djangoproject.com/en/dev/topics/i18n/#topics-i18n" as i18n_doc_link  %}Please refer to <a href="{{i18n_doc_link}}">Django's I18N documentation</a> for a guide on how to set up internationalization for your project.{% endblocktrans %}</p>
+{% endif %}
+{% endblock %}

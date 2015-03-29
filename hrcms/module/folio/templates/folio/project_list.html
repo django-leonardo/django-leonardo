@@ -1,0 +1,72 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load thumbnail %}
+{% load webcms_tags %}
+
+{% block content %}
+{% if object_list %}
+<div class="span-18">
+	<div class="object-grid ui-helper-clearfix">
+		{% for object in object_list %}
+		{% url webcms.module.folio.apps.complete/webcms_folio_project_detail object.project.translation.slug object.translation.slug as project_url %}
+		<div class="span-8{% if forloop.counter|mod:'3' == 0 %} last{% endif %}">
+			<div class="folio_item object-cell ui-helper-clearfix">
+				<a class="object-image" href="" title="{{ object }}">
+					{% if object.media_category %}
+					{% if object.media_category.get_featured_image.file %}
+					{% thumbnail object.media_category.get_featured_image.file "190x190" crop="center" format="PNG" as image %}
+					<img alt="{{ object }}" src="{{ image.url }}" />
+					{% endthumbnail %}
+					{% else %}
+					{% thumbnail request.webcms_options.no_image "190x190" crop="center" format="PNG" as alt_image %}
+					<img alt="{{ object }}" src="{{ alt_image.url }}" />
+					{% endthumbnail %}
+					{% endif %}
+					{% else %}
+					{% if object.get_main_file.file %}
+					{% thumbnail object.get_main_file.file.file "190x190" crop="center" format="PNG" as image %}
+					<img alt="{{ object }}" src="{{ image.url }}" />
+					{% endthumbnail %}
+					{% else %}
+					{% thumbnail request.webcms_options.no_image "190x190" crop="center" format="PNG" as alt_image %}
+					<img alt="{{ object }}" src="{{ alt_image.url }}" />
+					{% endthumbnail %}
+					{% endif %}
+					{% endif %}
+				</a>
+				<div class="object-text">
+					<h3><a href="{{ project_url }}" title="{{ object }}">{{ object }}</a></h3>
+					{% if object.translation.summary %}
+					<p>{{ object.translation.summary }}</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	{% else %}
+	<p>{% trans "No project in this category." %}</p>
+	{% endif %}
+</div>
+<div class="span-6">
+	</div>
+</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+jQuery(document).ready(function() {
+	jQuery(".object-tabs").tabs();
+	jQuery("a[rel='product_images']").colorbox({
+		current: "{% trans 'photo {current} of {total}' %}",
+		previous: "{% trans 'previous' %}",
+		next: "{% trans 'next' %}",
+		close: "{% trans 'close' %}"
+	});
+	jQuery("#product_print").bind('click', function() {
+		window.print();
+		return false;
+	});
+});
+/* ]]> */
+</script>
+{% endblock %}

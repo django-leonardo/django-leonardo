@@ -1,0 +1,105 @@
+{% load i18n %}
+{% load assets %}
+{% load webcms_admin_tags %}
+{% load webcms_asset_tags %}
+
+<script type="text/javascript">
+var feincms = {
+	"admin_index": "{% url admin:index %}",
+	{% if FEINCMS_JQUERY_NO_CONFLICT %}
+	"jQuery": jQuery.noConflict(true)
+	{% else %}
+	"jQuery": jQuery
+	{% endif %}
+};
+</script>
+
+<div id="fe_controls" style="display:none;">
+	<div id="fe_handle">
+		<a href="#" id="fe_show_toolbar_button" title='{% trans "Show HTFS Admin Menu" %}'></a>
+	</div>
+	<div id="fe_toolbar">
+		<div id="branding">
+			<h1 id="site-name"><a href="/">HTFS In-line Admin</a></h1>
+		</div>
+		
+		<div id="fe_toolbar_user">
+			<a title='{% trans "Hide this menu" %}' href="#" id="fe_hide_toolbar_button">{% trans "Hide this menu" %}</a>
+			<a title='{% trans "Quit frontend administration" %}' href="?frontend_editing=0">{% trans "Quit In-line admin" %}</a>
+			<a target='_blank' title='{% trans "Open HTFS admininstration application" %}' href="{% url admin:page_page_change request.webcms_page.pk %}">{% trans "Open BackOffice" %}...</a>
+		</div>
+
+		<ul id="fe_list" class="sf-menu">
+			<li><a id="fe_page_update">{% trans "Page Properties" %}</a></li>
+			{% comment %}
+			<li><a id="fe_site_update">{% trans "Site Properties" %}</a></li>
+			{% endcomment %}
+		</ul>
+		<h3>{% trans "Page visuals" %}</h3>
+		<ul>
+			<li>{% trans "Layout" %}: <strong>{{ request.webcms_page.template.title }}</strong>
+			</li>
+			<li>{% trans "Columns" %}:
+				<strong>{{ request.webcms_page.options.col1_width }}</strong> | 
+				<strong>{{ request.webcms_page.options.col3_width }}</strong> |
+				<strong>{{ request.webcms_page.options.col2_width }}</strong>
+			</li>
+			<li>{% trans "Show grid" %}: <strong id="showgrid">xxx</strong></li>
+			<li>{% trans "Template" %}: <strong>{{ request.webcms_page.options.template}}</strong></li>
+			{% if request.webcms_options.template == 'local' or request.webcms_options.template == request.webcms_options.site.name %}
+			{% set_template_styles request.webcms_options.template 'local' 'True' %}
+			{% else %}
+			{% set_template_styles request.webcms_options.template 'global' 'True' %}
+			{% endif %}
+			<li>{% trans "Theme" %}: <strong id="styleswitch-container">
+			{% for template_style in template_styles %}
+			<a class="{% if template_style == request.webcms_options.theme %}active{% endif %}" href="#" title="{{ template_style }}">{{ template_style }}</a>
+			{% endfor %}
+			</strong></li>
+		</ul>
+		<h3>{% trans "Add widget to page" %}</h3>
+		<div id="fe_widget_create_box" class="ui-helper-clearfix">
+			{% for widget in request.webcms_options.widgets %}
+			<div class="fe_box_new webcms-widget normal-widget span-24 new-{{ widget.name|lower }}">
+				<div class="ui-helper-clearfix webcms-content template-default">
+					<h3 class="widget-title" title="{{ widget.label }}"><span>{{ widget.label }}</span></h3>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% comment %}
+	<div class="fe_panel" id="fe_remote_content" style="display: none;">
+		<div class="fe_panel_title">
+			
+			<a class="fe_panel_close" href="">Close</a>
+			
+			<h3>Versions</h3>
+		</div>
+		<div class="fe_panel_content">
+			<div class="scroll">xxx xxx</div>
+		</div>
+	</div>
+	{% endcomment %}
+</div>
+
+
+<div id="fe_tools">
+	<a id="fe_tools_edit" title="{% trans "Edit widget" %}">{% trans "Edit widget" %}</a>
+	<a id="fe_tools_remove" title="{% trans "Remove widget" %}">{% trans "Remove widget" %}</a>
+	<a id="fe_tools_info" title="{% trans "Widget info" %}">{% trans "Widget info" %}</a>
+</div>
+
+<div id="fe_subtools">
+	<a id="fe_subtools_edit" title="{% trans "Edit widget" %}">{% trans "Edit widget" %}</a>
+	<a id="fe_subtools_remove" title="{% trans "Remove widget" %}">{% trans "Remove widget" %}</a>
+	<a id="fe_subtools_info" title="{% trans "Widget info" %}">{% trans "Widget info" %}</a>
+</div>
+
+{% assets "webcms_fe_css" %}<link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />{% endassets %}
+{% assets "webcms_admin_css" %}<link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />{% endassets %}
+
+{% assets "webcms_fe_js" %}<script type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}
+
+<script type="text/javascript" src="/static/lib/tinymce/3.4/tiny_mce.js"></script>
+<script type="text/javascript" src="/static/lib/tinymce/3.4/jquery.tinymce.js"></script>

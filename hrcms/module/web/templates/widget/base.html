@@ -1,0 +1,32 @@
+{% load applicationcontent_tags %}
+
+{% fragment request "_page_breadcrumbs" %}{% block breadcrumbs %}{% endblock %}{% endfragment %}
+{% fragment request "_head_title" %}{% block head_title %}{% endblock %}{% endfragment %}
+{% fragment request "_page_title" %}{% block page_title %}{% endblock %}{% endfragment %}
+{% fragment request "_page_subtitle" %}{% block page_subtitle %}{% endblock %}{% endfragment %}
+{% fragment request "extra_meta" %}{% block meta %}{% endblock %}{% endfragment %}
+
+{% fragment request "current_brand" %}{% block current_brand %}{% endblock %}{% endfragment %}
+{% fragment request "current_product" %}{% block current_product %}{% endblock %}{% endfragment %}
+{% fragment request "current_category" %}{% block current_category %}{% endblock %}{% endfragment %}
+{% fragment request "current_manufacturer" %}{% block current_manufacturer %}{% endblock %}{% endfragment %}
+
+{% if widget.options %}
+<div id="{{ widget.fe_identifier }}" class="fe_box webcms-widget webcms-{{ widget.widget_name }}-widget {{ widget.render_box_classes }}">
+<div class="ui-helper-clearfix webcms-content{% if widget.options.boxed %} boxed{% endif %}{% if widget.options.padded %} padded{% endif %} template-{{ widget.options.template_name }} {{ widget.widget_name }}-{{ widget.options.template_name }}">
+{% block title %}
+{% if widget.options.label %}
+<a id="{{ widget.options.label|slugify }}"></a>
+{% if widget.options.style == 'nested_box' %}
+<h3 class="widget-title"><span>{{ widget.options.label }}</span></h3>
+{% else %}
+<h2 class="widget-title"><span>{{ widget.options.label }}</span></h2>
+{% endif %}
+{% endif %}
+{% endblock %}
+{% endif %}
+{% block content %}{% endblock %}
+{% if widget.options %}
+</div>
+</div>
+{% endif %}

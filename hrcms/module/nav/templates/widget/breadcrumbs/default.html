@@ -1,0 +1,37 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<ul class="{{ widget.orientation }}">
+{% if widget.orientation == "vertical" %}
+{% for url, more, title in trail %}
+<li {% if forloop.first %}class="first"{% endif %}>
+	{% if url %}
+	<a href="{{ url }}">{% if forloop.first and widget.root_label %}{{ widget.root_label }}{% else %}{{ title }}{% endif %}</a>
+	{% else %}
+	<strong>{{ title }}</strong>
+	{% endif %}
+</li>
+{% endfor %}
+{% if not include_self %}
+{{ extension|safe }}
+{% endif %}
+{% else %}
+{% for url, more, title in trail %}
+{% if title != '' %}
+<li {% if forloop.first %}class="first"{% endif %}>
+	{% if url and title %}
+	<a href="{{ url }}">{% if forloop.first and widget.root_label %}{{ widget.root_label }}{% else %}{{ title }}{% endif %}</a>
+	{% else %}
+	<strong>{{ title }}</strong>
+	{% endif %}
+</li>
+{% endif %}
+{% endfor %}
+{% if not include_self %}
+{{ extension|safe }}
+{% endif %}
+{% endif %}
+</ul>
+{% endblock %}

@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"PO-Revision-Date: 2011-10-16 20:21\n"
+"Last-Translator: <mail@newt.cz>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.5\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n>1 && n<5 ? 1 : 2;\n"
+
+#: models.py:13 models.py:26
+msgid "Preview"
+msgstr "Náhled"
+
+#: models.py:14 models.py:27
+msgid "Content"
+msgstr "Obsah"
+
+#: models.py:18
+msgid "News entry layout"
+msgstr "Šablona novinky"
+
+#: models.py:40
+msgid "published"
+msgstr "zveřejněna"
+
+#: models.py:41
+msgid "title"
+msgstr "název"
+
+#: models.py:42
+msgid "This is used for the generated navigation too."
+msgstr "Používá se také pro generovanou navigaci."
+
+#: models.py:44
+msgid "published on"
+msgstr "zveřejněno"
+
+#: models.py:45
+msgid "Will be set automatically once you tick the `published` checkbox above."
+msgstr ""
+"Bude nastaveno automaticky, jakmile zaškrtnete políčko \"uveřejnit\" výše."
+
+#: models.py:50
+msgid "news entry"
+msgstr "Aktualita"
+
+#: models.py:51
+msgid "news entries"
+msgstr "Aktuality"
+
+#: extensions/tags.py:7
+msgid "tags"
+msgstr "tagy"
+
+#: extensions/translations.py:9
+msgid "language"
+msgstr "jazyk"
+
+#: extensions/translations.py:12
+msgid "translation of"
+msgstr "překlad"
+
+#: extensions/translations.py:15
+msgid "Leave this empty for entries in the primary language."
+msgstr "Nechte prázdné pro položky v primárním jazyku."
+
+#: extensions/translations.py:36
+msgid "available translations"
+msgstr "překlady k dispozici"
+
+#: templates/news/news_entry_detail.html:14
+msgid "News archive"
+msgstr "Archiv aktualit"
+
+#: templates/news/news_entry_list.html:16
+#: templates/widget/lastnews/cycle.html:16
+msgid "More"
+msgstr "Více"
+
+#: templates/widget/lastnews/default.html:17
+#: templates/widget/lastnews/grid.html:19
+msgid "Detail"
+msgstr "Detail"
+
+#: widget/lastnews/models.py:12
+msgid "news count"
+msgstr "počet zpráv"
+
+#: widget/lastnews/models.py:13
+msgid "show archive button"
+msgstr "zobrazit tlačítko 'archiv'"
+
+#: widget/lastnews/models.py:20 widget/lastnews/models.py:21
+msgid "last news"
+msgstr "poslední aktuality"

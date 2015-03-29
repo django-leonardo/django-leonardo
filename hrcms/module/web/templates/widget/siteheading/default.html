@@ -1,0 +1,24 @@
+{% extends "widget/base.html" %}
+
+{% load thumbnail %}
+
+{% block content %}
+{% if widget.logo %}
+<h2>
+	<a href="/">
+		{% if widget.size %}
+		{% thumbnail widget.logo.file size as image %}
+		<img src='{{ image.url }}' alt="{{ widget.site_title }}" />
+		{% endthumbnail %}
+		{% else %}
+		<img src='/media/files/{{ widget.logo.file }}' alt="{{ widget.site_title }}" />
+		{% endif %}
+	</a>
+</h2>
+{% else %}
+<h2><a href="/">{{ widget.site_title }}</a></h2>
+{% endif %}
+{% if widget.tagline %}
+<span>{{ widget.tagline }}</span>
+{% endif %}
+{% endblock %}

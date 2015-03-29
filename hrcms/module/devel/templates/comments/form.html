@@ -1,0 +1,39 @@
+{% load comments %}
+<form action="{% comment_form_target %}" method="POST">{% csrf_token %}
+	<input type="hidden" name="next" value="{{ product.get_absolute_url }}" />
+	{% for field in form %}
+    {% ifnotequal field.name "url" %}
+	    {% if field.is_hidden %}
+	      {{ field }}
+	    {% else %}
+		  {% ifequal field.name "comment" %}
+		  <p>
+			<span class="label">Rating</span>
+			<input type="radio" name="rating" value="" />None
+			<input type="radio" name="rating" value="1" />1
+			<input type="radio" name="rating" value="2" />2
+			<input type="radio" name="rating" value="3" />3
+			<input type="radio" name="rating" value="4" />4
+			<input type="radio" name="rating" value="5" />5
+		  </p>
+		  <p
+	        {% if field.errors %} class="error"{% endif %}
+	        {% if field.errors %}{{ field.errors }}{% endif %}
+	        <label for="{{ field.field_id }}">{{ field.label_tag }}</label><br/>{{ field }}
+	      </p>	      
+		  {% else %}
+	      <p
+	        {% if field.errors %} class="error"{% endif %}
+	        {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
+	        {% if field.errors %}{{ field.errors }}{% endif %}
+	        <span class="label"><label for="{{ field.field_id }}">{{ field.label_tag }}</label></span>{{ field }}
+	      </p>
+		  {% endifequal %}
+	    {% endif %}
+	{% endifnotequal %}
+  {% endfor %}
+  <p class="submit">
+    <input type="submit" name="submit" class="submit-post" value="Post">
+    <input type="submit" name="submit" class="submit-preview" value="Preview">
+  </p>
+</form>

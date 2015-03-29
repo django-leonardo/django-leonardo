@@ -1,0 +1,31 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load feincms_tags %}
+{% load feincms_page_tags %}
+
+{% block content %}
+<ul class="slide-container">
+{% for child_page in page.get_children %}
+	<li class="slide-item slide-{{ forloop.counter }}">{% feincms_render_region child_page region options.request %}</li>
+{% endfor %}
+</ul>
+<script type="text/javascript">
+$(document).ready(function() {
+	var width = $("#{{ widget.fe_identifier }} .template-slide").width();
+	var handle = 120;
+	var items = {{ page.get_children.count }} - 1;
+	var panel = width - (handle * items);
+	$("#{{ widget.fe_identifier }} .slide-container").hSlides({
+		totalWidth: width, 
+		totalHeight: 350,
+		minPanelWidth: handle, 
+		maxPanelWidth: panel,
+		panelPositioning: 'bottom',
+		eventHandler: 'hover',
+		panelSelector: 'li.slide-item',
+		activeClass: 'active'
+	});
+});
+</script>
+{% endblock %}

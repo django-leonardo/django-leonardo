@@ -1,0 +1,1548 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"PO-Revision-Date: 2012-09-06 11:21\n"
+"Last-Translator:   <mail@newt.cz>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.6.3\n"
+
+#: templates/admin/404.html:4 templates/admin/404.html.py:8
+msgid "Page not found"
+msgstr "Stránka nebyla nalezena"
+
+#: templates/admin/404.html:10
+msgid "We're sorry, but the requested page could not be found."
+msgstr "Je nám líto, ale požadovaná stránka nebyla nalezena."
+
+#: templates/admin/500.html:4 templates/admin_doc/bookmarklets.html:3
+#: templates/livesettings/group_settings.html:14
+#: templates/rosetta/languages.html:6 templates/rosetta/pofile.html:22
+msgid "Home"
+msgstr "Domů"
+
+#: templates/admin/500.html:4
+msgid "Server error"
+msgstr "Chyba serveru"
+
+#: templates/admin/500.html:6
+msgid "Server error (500)"
+msgstr "Chyba serveru (500)"
+
+#: templates/admin/500.html:9
+msgid "Server Error <em>(500)</em>"
+msgstr "Chyba serveru <em>(500)</em>"
+
+#: templates/admin/500.html:10
+msgid ""
+"There's been an error. It's been reported to the site administrators via e-"
+"mail and should be fixed shortly. Thanks for your patience."
+msgstr ""
+"Došlo k chybě. Ta byla oznámena správci webu prostřednictvím e-mailu. Změna "
+"by měla být provedena brzké době. Děkujeme za vaši trpělivost."
+
+#: templates/admin/actions.html:5
+msgid "Run the selected action"
+msgstr "Spustit vybranou akci"
+
+#: templates/admin/actions.html:5 templates/rosetta/pofile.html:51
+msgid "Go"
+msgstr "Použít"
+
+#: templates/admin/base.html:7 templates/admin/base_site.html:8
+msgid "HTFS Admin"
+msgstr "HTFS správce"
+
+#: templates/admin/base.html:63
+msgid "Logged user"
+msgstr "Přihlášený uživatel"
+
+#: templates/admin/base.html:73
+#: templates/admin/auth/user/change_password.html:42
+#: templates/livesettings/group_settings.html:11
+msgid "Change password"
+msgstr "Změna hesla"
+
+#: templates/admin/base.html:82 templates/livesettings/group_settings.html:11
+msgid "Log out"
+msgstr "Odhlásit se"
+
+#: templates/admin/base.html:107
+msgid "Thank you for using our CMS!"
+msgstr "Děkujeme Vám, že používáte naše CMS!"
+
+#: templates/admin/base.html:108
+msgid "For any questions, please refer to"
+msgstr "Pro jakékoliv dotazy, podívejte se do"
+
+#: templates/admin/base.html:109
+msgid "our documentation"
+msgstr "naší dokumentace"
+
+#: templates/admin/base.html:110
+msgid "If you come across any problem"
+msgstr "Pokud narazíte na nějaký problém"
+
+#: templates/admin/base.html:111
+msgid "send us feedback"
+msgstr "pošlete nám svůj komentář"
+
+#: templates/admin/base.html:113
+msgid "Powered by"
+msgstr "Powered by"
+
+#: templates/admin/base_devel.html:35 templates/admin/base_devel.html.py:38
+msgid "WebCMS Administration"
+msgstr "WebCMS administrace"
+
+#: templates/admin/change_form.html:25
+msgid "Update"
+msgstr "Aktualizovat"
+
+#: templates/admin/change_form.html:31
+msgid "History"
+msgstr "Historie"
+
+#: templates/admin/change_form.html:33
+#: templates/admin/edit_inline/stacked.html:11
+#: templates/admin/edit_inline/tabular.html:26
+msgid "View on site"
+msgstr "Navštivte stránky"
+
+#: templates/admin/change_form.html:36
+msgid "Back to list"
+msgstr "Zpět na seznam"
+
+#: templates/admin/change_form.html:53
+msgid "Select properties page"
+msgstr "Vyberte stránku s vlastnostmi"
+
+#: templates/admin/change_form.html:58
+msgid "Content regions"
+msgstr "Obsah stránky"
+
+#: templates/admin/change_form.html:63
+#: templates/admin/webcms/page/page_update.html:7
+#: templates/admin/webcms/page/page_update.html:16
+msgid "Basic properties"
+msgstr "Základní vlastnosti"
+
+#: templates/admin/change_list.html:51
+#, python-format
+msgid "Add %(name)s"
+msgstr "Přidat %(name)s "
+
+#: templates/admin/change_list.html:53 templates/admin_extra/analytics.html:6
+#: templates/admin_extra/project_status.html:6
+msgid "Project dashboard"
+msgstr "Úvodní strana"
+
+#: templates/admin/change_list.html:86
+#: templates/admin/auth/user/change_password.html:24
+#: templates/livesettings/group_settings.html:22
+#: templates/livesettings/site_settings.html:28
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] "Prosím opravte chybu níže."
+msgstr[1] "Prosím opravte chyby níže."
+
+#: templates/admin/delete_confirmation.html:7
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+"Smazání %(object_name)s  ' %(escaped_object)s ' povede k odstranění "
+"souvisejících objektů, ale Váš účet nemá oprávnění mazat následující typy "
+"objektů:"
+
+#: templates/admin/delete_confirmation.html:14
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+"Jste si jisti, že chcete smazat %(object_name)s  \" %(escaped_object)s \"? "
+"Všechny následující související položky budou odstraněny:"
+
+#: templates/admin/delete_confirmation.html:19
+#: templates/admin/delete_selected_confirmation.html:28
+msgid "Yes, I'm sure"
+msgstr "Ano, jsem si jist."
+
+#: templates/admin/delete_selected_confirmation.html:7
+#, python-format
+msgid ""
+"Deleting the %(object_name)s would result in deleting related objects, but "
+"your account doesn't have permission to delete the following types of "
+"objects:"
+msgstr ""
+"Smazání %(object_name)s  povede k odstranění souvisejících objektů, ale Váš "
+"účet nemá oprávnění mazat následující typy objektů:"
+
+#: templates/admin/delete_selected_confirmation.html:14
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(object_name)s objects? All of "
+"the following objects and their related items will be deleted:"
+msgstr ""
+"Jste si jisti, že chcete smazat vybrané %(object_name)s  objekty? Všechny "
+"tyto objekty a  související položky budou odstraněny:"
+
+#: templates/admin/files.html:6 templates/admin/index.html:8
+#: templates/admin_doc/index.html:11 templates/admin_doc/model_detail.html:11
+#: templates/admin_doc/model_index.html:10
+#: templates/admin_doc/template_filter_index.html:11
+#: templates/admin_doc/template_tag_index.html:11
+#: templates/admin_doc/view_index.html:13
+#: templates/livesettings/site_settings.html:16
+#: templates/rosetta/languages.old.html:11
+msgid "Project setup"
+msgstr "Nástroje projektu"
+
+#: templates/admin/filter.html:3
+#, python-format
+msgid "Filter by \"%(filter_title)s\""
+msgstr "Filtrovat dle \"%(filter_title)s\""
+
+#: templates/admin/index.html:16 templates/rosetta/languages.html:33
+#: templates/rosetta/languages.old.html:35
+msgid "Application"
+msgstr "Aplikace"
+
+#: templates/admin/index.html:17 templates/admin_doc/index.html:31
+msgid "Models"
+msgstr "Modely"
+
+#: templates/admin/index.html:24
+#, python-format
+msgid "%(name)s"
+msgstr " %(name)s "
+
+#: templates/admin/index.html:36
+msgid "You don't have permission to edit anything."
+msgstr "Nemáte povolení editovat cokoliv."
+
+#: templates/admin/invalid_setup.html:6
+msgid ""
+"Something's wrong with your database installation. Make sure the appropriate "
+"database tables have been created, and make sure the database is readable by "
+"the appropriate user."
+msgstr ""
+"Něco se děje s vaší databázi instalace. Ujistěte se, že příslušné databázové "
+"tabulky byly vytvořeny, a ujistěte se, že databáze je čitelná příslušným "
+"uživatelem."
+
+#: templates/admin/login.html:13
+msgid "Login to HTFS Administration"
+msgstr "Přihlášení do administrace HTFS"
+
+#: templates/admin/login.html:25 templates/auth/user_perms.html:34
+#: templates/auth/user_perms.html.py:63
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+#: templates/admin/login.html:32
+#: templates/admin/auth/user/change_password.html:32
+msgid "Password"
+msgstr "Heslo"
+
+#: templates/admin/login.html:39
+msgid "Log in"
+msgstr "Přihlásit se"
+
+#: templates/admin/object_history.html:10
+msgid "Date/time"
+msgstr "Datum"
+
+#: templates/admin/object_history.html:11
+msgid "User"
+msgstr "Uživatel"
+
+#: templates/admin/object_history.html:12
+msgid "Action"
+msgstr "Akce"
+
+#: templates/admin/object_history.html:26
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
+msgstr ""
+"Tento objekt nemá historii změn. Pravděpodobně nebyl přidán přes "
+"administraci strány."
+
+#: templates/admin/object_history.html:29
+msgid "Back to detail"
+msgstr "Zpět na detail"
+
+#: templates/admin/pagination.html:9
+msgid "item"
+msgstr "položka"
+
+#: templates/admin/pagination.html:9
+msgid "items"
+msgstr "položek"
+
+#: templates/admin/pagination.html:12
+msgid "Show all"
+msgstr "Zobrazit vše"
+
+#: templates/admin/pagination.html:16 templates/admin/submit_line.html:4
+#: templates/admin/feincms/fe_editor.html:16
+#: templates/admin/webcms/page/page_simple_update.html:39
+#: templates/theme/css_editor.html:33
+msgid "Save"
+msgstr "Uložit"
+
+#: templates/admin/search_form.html:6
+msgid "Search items"
+msgstr "Hledat položky"
+
+#: templates/admin/search_form.html:9 templates/rosetta/pofile.html:49
+#: templates/rosetta/pofile.old.html:33
+msgid "Search"
+msgstr "Hledat"
+
+#: templates/admin/search_form.html:11
+msgid "Clear"
+msgstr "Vymazat"
+
+#: templates/admin/search_form.html:22
+#, python-format
+msgid "1 item"
+msgid_plural "%(counter)s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/search_form.html:22
+#, python-format
+msgid "out of total %(full_result_count)s"
+msgstr ""
+
+#: templates/admin/submit_line.html:7
+msgid "Delete"
+msgstr "Smazat"
+
+#: templates/admin/submit_line.html:10
+msgid "Save as new"
+msgstr "Uložit jako nový"
+
+#: templates/admin/submit_line.html:13
+msgid "Save and add another"
+msgstr "Uložit a přidat další"
+
+#: templates/admin/submit_line.html:16
+msgid "Save and continue editing"
+msgstr "Uložit a pokračovat v úpravách"
+
+#: templates/admin/auth/user/change_password.html:28
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgstr "Zadejte nové heslo pro <strong> %(username)s .</strong>"
+
+#: templates/admin/auth/user/change_password.html:37
+msgid "Password (again)"
+msgstr "Heslo (znovu)"
+
+#: templates/admin/auth/user/change_password.html:38
+msgid "Enter the same password as above, for verification."
+msgstr "Zadejte stejné heslo jako výše, pro ověření."
+
+#: templates/admin/edit_inline/stacked.html:75
+#: templates/admin/edit_inline/tabular.html:110
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr "Přidat další %(verbose_name)s "
+
+#: templates/admin/edit_inline/stacked.html:78
+#: templates/admin/edit_inline/tabular.html:113
+#: templates/admin/webcms/page/page_simple_update.html:37
+msgid "Remove"
+msgstr "Odstranit"
+
+#: templates/admin/edit_inline/tabular.html:13
+msgid "Delete?"
+msgstr "Smazat?"
+
+#: templates/admin/feincms/fe_tools.html:19
+msgid "Show HTFS Admin Menu"
+msgstr "Zobrazit HTFS administraci"
+
+#: templates/admin/feincms/fe_tools.html:27
+msgid "Hide this menu"
+msgstr "Skrýt toto menu"
+
+#: templates/admin/feincms/fe_tools.html:28
+msgid "Quit frontend administration"
+msgstr "Ukončit administraci stránek"
+
+#: templates/admin/feincms/fe_tools.html:28
+#, fuzzy
+msgid "Quit In-line admin"
+msgstr "Ukončit Správu"
+
+#: templates/admin/feincms/fe_tools.html:29
+msgid "Open HTFS admininstration application"
+msgstr "Otevřít admininstrační aplikaci"
+
+#: templates/admin/feincms/fe_tools.html:29
+msgid "Open BackOffice"
+msgstr "Otevřít admin. aplikaci"
+
+#: templates/admin/feincms/fe_tools.html:33
+msgid "Page Properties"
+msgstr "Vlastnosti stránky"
+
+#: templates/admin/feincms/fe_tools.html:39
+msgid "Page visuals"
+msgstr "Vizální nastavení"
+
+#: templates/admin/feincms/fe_tools.html:41
+#: templates/admin/webcms/page/page_simple_update.html:12
+msgid "Layout"
+msgstr "Rozvržení stránky"
+
+#: templates/admin/feincms/fe_tools.html:43
+msgid "Columns"
+msgstr "Sloupce"
+
+#: templates/admin/feincms/fe_tools.html:48
+msgid "Show grid"
+msgstr "Zobrazit mřížku"
+
+#: templates/admin/feincms/fe_tools.html:49
+msgid "Template"
+msgstr "Šablona"
+
+#: templates/admin/feincms/fe_tools.html:55
+msgid "Theme"
+msgstr "Téma"
+
+#: templates/admin/feincms/fe_tools.html:61
+#, fuzzy
+msgid "Add widget to page"
+msgstr "Přetahujte komponenty na stránku"
+
+#: templates/admin/feincms/fe_tools.html:90
+#: templates/admin/feincms/fe_tools.html:96
+msgid "Edit widget"
+msgstr "Upravit"
+
+#: templates/admin/feincms/fe_tools.html:91
+#: templates/admin/feincms/fe_tools.html:97
+msgid "Remove widget"
+msgstr "Odstranit"
+
+#: templates/admin/feincms/fe_tools.html:92
+#: templates/admin/feincms/fe_tools.html:98
+msgid "Widget info"
+msgstr "Info"
+
+#: templates/admin/webcms/page/page_simple_update.html:6
+msgid "Manage page"
+msgstr "Správa stránky"
+
+#: templates/admin/webcms/page/page_simple_update.html:10
+msgid "Basic"
+msgstr "Základ"
+
+#: templates/admin/webcms/page/page_simple_update.html:11
+#: templates/admin/webcms/page/page_update.html:10
+msgid "Navigation"
+msgstr "Navigace"
+
+#: templates/admin/webcms/page/page_simple_update.html:13
+msgid "Widgets"
+msgstr "Widgety"
+
+#: templates/admin/webcms/page/page_simple_update.html:38
+msgid "Show"
+msgstr "Zobrazit"
+
+#: templates/admin/webcms/page/page_update.html:8
+msgid "Titles"
+msgstr "Nadpisy"
+
+#: templates/admin/webcms/page/page_update.html:9
+msgid "Publishing"
+msgstr "Publikování"
+
+#: templates/admin/webcms/page/page_update.html:11
+msgid "SEO"
+msgstr "SEO"
+
+#: templates/admin/webcms/page/page_update.html:12
+msgid "Design"
+msgstr "Design"
+
+#: templates/admin/webcms/page/page_update.html:20
+msgid "Languages"
+msgstr "Jazyky"
+
+#: templates/admin/webcms/page/page_update.html:69
+msgid "Page Structure"
+msgstr "Struktura stránek"
+
+#: templates/admin/webcms/page/page_update.html:71
+msgid "Page layout"
+msgstr "Rozvržení stránky"
+
+#: templates/admin/webcms/page/page_update.html:74
+msgid "1 column"
+msgstr "1 sloupec"
+
+#: templates/admin/webcms/page/page_update.html:79
+#: templates/admin/webcms/page/page_update.html:84
+msgid "2 columns"
+msgstr "2 sloupce"
+
+#: templates/admin/webcms/page/page_update.html:79
+msgid "sidebar on left"
+msgstr "boční sloupec vlevo"
+
+#: templates/admin/webcms/page/page_update.html:84
+msgid "sidebar on right"
+msgstr "boční sloupec vpravo"
+
+#: templates/admin/webcms/page/page_update.html:89
+msgid "2 same columns"
+msgstr "2 stejné sloupce"
+
+#: templates/admin/webcms/page/page_update.html:94
+msgid "3 columns"
+msgstr "3 sloupce"
+
+#: templates/admin/webcms/page/page_update.html:99
+msgid "3 same columns"
+msgstr "3 stejné sloupce"
+
+#: templates/admin/webcms/page/page_update.html:104
+msgid "Void"
+msgstr "prázdná stránka"
+
+#: templates/admin/webcms/page/page_update.html:110
+msgid "Column settings"
+msgstr "Nastavení sloupců"
+
+#: templates/admin/webcms/page/page_update.html:117
+msgid "Page Theme"
+msgstr "Téma"
+
+#: templates/admin/webcms/site/site_update.html:7
+msgid "Browse site"
+msgstr "Procházení stránek"
+
+#: templates/admin/webcms/site/site_update.html:8
+msgid "Drag and drop to the site tree"
+msgstr "Přetáhněte na strom stránek"
+
+#: templates/admin/webcms/site/site_update.html:8
+msgid "New page"
+msgstr "Nová stránka"
+
+#: templates/admin/webcms/widget/widget_delete.html:5
+msgid "Deleting widget may shift positions of other widgets."
+msgstr "Smazání prvku může posunout ostatní."
+
+#: templates/admin/webcms/widget/widget_info.html:2
+msgid "Type"
+msgstr "Typ"
+
+#: templates/admin/webcms/widget/widget_info.html:3
+#: templates/admin_doc/index.html:17
+msgid "Page"
+msgstr "Strana"
+
+#: templates/admin/webcms/widget/widget_info.html:4
+msgid "Region"
+msgstr "Region"
+
+#: templates/admin/webcms/widget/widget_info.html:4
+msgid "ordering"
+msgstr "řazení"
+
+#: templates/admin/webcms/widget/widget_info.html:5
+msgid "Display"
+msgstr "Zobrazit"
+
+#: templates/admin/webcms/widget/widget_update.html:6
+msgid "Widget Options"
+msgstr "Možnosti widgetu"
+
+#: templates/admin/webcms/widget/widget_update.html:7
+msgid "Content Options"
+msgstr "Možnosti obsahu"
+
+#: templates/admin/webcms/widget/widget_update.html:8
+msgid "Box Options"
+msgstr "Možnosti boxu"
+
+#: templates/admin/webcms/widget/widget_update.html:24
+msgid "Box Dimensions"
+msgstr "Rozměry boxu"
+
+#: templates/admin/webcms/widget/widget_update.html:25
+msgid "Horizontal axis"
+msgstr "Horizontální osa"
+
+#: templates/admin/webcms/widget/widget_update.html:27
+msgid "Content width"
+msgstr "Šířka obsahu"
+
+#: templates/admin/webcms/widget/widget_update.html:33
+msgid "Padding left"
+msgstr "Odsazení zleva"
+
+#: templates/admin/webcms/widget/widget_update.html:39
+msgid "Padding right"
+msgstr "Odsazení zprava"
+
+#: templates/admin/webcms/widget/widget_update.html:44
+msgid "Vertical axis"
+msgstr "Vertikální osa"
+
+#: templates/admin/webcms/widget/widget_update.html:46
+msgid "Content height"
+msgstr "Výška obsahu"
+
+#: templates/admin/webcms/widget/widget_update.html:52
+msgid "Padding top"
+msgstr "Odsazení shora"
+
+#: templates/admin/webcms/widget/widget_update.html:58
+msgid "Padding bottom"
+msgstr "Odsazení ze spoda"
+
+#: templates/admin/webcms/widget/widget_update.html:65
+msgid "Box Style"
+msgstr "Styl bloku"
+
+#: templates/admin/webcms/widget/widget_update.html:88
+msgid "Preview Widget"
+msgstr "Náhled prvku"
+
+#: templates/admin/webcms/widget/widget_update.html:92
+msgid "Widget Content"
+msgstr "Obsah"
+
+#: templates/admin/webcms/widget/widget_update.html:103
+msgid "Widget options"
+msgstr "Nastavení"
+
+#: templates/admin/webcms/widget/widget_update.html:118
+msgid "Box options"
+msgstr "Možnosti boxu"
+
+#: templates/admin_doc/bookmarklets.html:3 templates/admin_doc/index.html:5
+#: templates/admin_doc/index.html.py:8
+#: templates/livesettings/group_settings.html:11
+msgid "Documentation"
+msgstr "Dokumentace"
+
+#: templates/admin_doc/bookmarklets.html:3 templates/admin_doc/index.html:39
+msgid "Bookmarklets"
+msgstr "Bookmarklety"
+
+#: templates/admin_doc/bookmarklets.html:4
+msgid "Documentation bookmarklets"
+msgstr "Dokumentace bookmarkletu "
+
+#: templates/admin_doc/bookmarklets.html:8
+#, fuzzy
+msgid ""
+"To install bookmarklets, drag the link to your bookmarks toolbar, or right-"
+"click the link and add it to your bookmarks. Now you can select the "
+"bookmarklet from any page in the site.  Note that some of these bookmarklets "
+"require you to be viewing the site from a computer designated as \"internal"
+"\" (talk to your system administrator if you aren't sure if your computer is "
+"\"internal\")."
+msgstr ""
+"\n"
+"Chcete-li nainstalovat bookmarklety, přetáhněte odkaz na vaše liště záložek, "
+"nebo pravým-tlačítkem myši klikněte na odkaz a přidejte je mezi své záložky. "
+"Nyní si můžete vybrat bookmarklet z libovolné stránky na webu. Všimněte si, "
+"že některé z těchto bookmarkletů vyžadují, aby byly prohlíženy z počítače "
+"označeného jako \"vnitřní\" ( pokud si nejste jisti, zda je počítač \"vnitřní"
+"\" se poraďte se svým správcem sítě.).\n"
+
+#: templates/admin_doc/bookmarklets.html:11
+msgid "Documentation for this page"
+msgstr "Dokumentace k této stránce"
+
+#: templates/admin_doc/bookmarklets.html:12
+msgid ""
+"Jumps you from any page to the documentation for the view that generates "
+"that page."
+msgstr ""
+"Přesměruje Vás z libovolné stránky na dokumentaci na pohled, který vytváří "
+"stránku."
+
+#: templates/admin_doc/bookmarklets.html:14
+msgid "Show object ID"
+msgstr "Zobrazit objekt ID"
+
+#: templates/admin_doc/bookmarklets.html:15
+msgid ""
+"Shows the content-type and unique ID for pages that represent a single "
+"object."
+msgstr ""
+"Zobrazí obsahový typ a jedinečné ID pro stránky, které představují jeden "
+"objekt."
+
+#: templates/admin_doc/bookmarklets.html:17
+msgid "Edit this object (current window)"
+msgstr "Editovat tento objekt (aktuální okno)"
+
+#: templates/admin_doc/bookmarklets.html:18
+msgid "Jumps to the admin page for pages that represent a single object."
+msgstr ""
+"Přesměrování na administrátorské stránky pro stránky, které představují "
+"jeden objekt."
+
+#: templates/admin_doc/bookmarklets.html:20
+msgid "Edit this object (new window)"
+msgstr "Editovat tento objekt (nové okno)"
+
+#: templates/admin_doc/bookmarklets.html:21
+msgid "As above, but opens the admin page in a new window."
+msgstr "Jak je uvedeno výše, ale otevírá administrační stránku v novém okně."
+
+#: templates/admin_doc/index.html:18
+msgid "Description"
+msgstr "Popis"
+
+#: templates/admin_doc/index.html:23
+msgid "Tags"
+msgstr "Tagy"
+
+#: templates/admin_doc/index.html:24
+msgid "List of all the template tags and their functions."
+msgstr "Seznam všech značek šablon a jejich funkce."
+
+#: templates/admin_doc/index.html:27
+msgid "Filters"
+msgstr "Filtry"
+
+#: templates/admin_doc/index.html:28
+msgid ""
+"Filters are actions which can be applied to variables in a template to alter "
+"the output."
+msgstr "Filtry jsou akce, které mění výstup proměnných v šablonách."
+
+#: templates/admin_doc/index.html:32
+msgid ""
+"Models are descriptions of all the objects in the system and their "
+"associated fields. Each model has a list of fields which can be accessed as "
+"template variables."
+msgstr ""
+"Modely jsou popis všech objektů v systému a jejich vlastnosti. Každý model "
+"má seznam vlastností, ke kterým lze přistupovat jako k proměnným šablon."
+
+#: templates/admin_doc/index.html:35
+msgid "Views"
+msgstr "Zobrazení"
+
+#: templates/admin_doc/index.html:36
+msgid ""
+"Each page on the public site is generated by a view. The view defines which "
+"template is used to generate the page and which objects are available to "
+"that template."
+msgstr ""
+"Každá stránka je generována pohledem. Pohled definuje, která šablona se "
+"používá k vygenerování stránky a které objekty jsou k dispozici v této "
+"šabloně."
+
+#: templates/admin_doc/index.html:40
+msgid "Tools for your browser to quickly access admin functionality."
+msgstr "Nástroje prohlížeče pro rychlý přístup do administrace."
+
+#: templates/admin_doc/model_index.html:6
+msgid "Model Documentation"
+msgstr "Dokumentace modelů"
+
+#: templates/admin_doc/view_detail.html:13
+#: templates/admin_doc/view_index.html:9
+msgid "Controller Documentation"
+msgstr "Dokumentace controlleru"
+
+#: templates/admin_doc/view_index.html:34
+msgid "URL pattern"
+msgstr "URL vzor"
+
+#: templates/admin_extra/project_status.html:12
+#: templates/theme/theme_home.html:12
+msgid "Select information page"
+msgstr "Zvolte stranu možností"
+
+#: templates/admin_extra/project_status.html:14
+msgid "Project summary"
+msgstr "Souhrn projektu"
+
+#: templates/admin_extra/project_status.html:15
+#: templates/admin_extra/project_status.html:43
+#: templates/theme/theme_home.html:42
+msgid "Important pages"
+msgstr "Důležité stránky"
+
+#: templates/admin_extra/project_status.html:16
+#: templates/admin_extra/project_status.html:81
+#: templates/theme/theme_home.html:80
+msgid "Project settings"
+msgstr "Nastavení projektu"
+
+#: templates/admin_extra/project_status.html:17
+#: templates/admin_extra/project_status.html:62
+#: templates/theme/theme_home.html:61
+msgid "Code summary"
+msgstr "Shrnutí kódu"
+
+#: templates/admin_extra/project_status.html:18
+#: templates/admin_extra/project_status.html:100
+msgid "Disk usage"
+msgstr "Využití disku"
+
+#: templates/admin_extra/project_status.html:24
+#: templates/theme/theme_home.html:23
+msgid "Installed modules"
+msgstr "Instalované modely"
+
+#: templates/admin_extra/project_status.html:28
+#: templates/admin_extra/project_status.html:47
+#: templates/theme/theme_home.html:27 templates/theme/theme_home.html.py:46
+msgid "Group"
+msgstr "Skupina"
+
+#: templates/admin_extra/project_status.html:29
+#: templates/admin_extra/project_status.html:48
+#: templates/theme/theme_home.html:28 templates/theme/theme_home.html.py:47
+msgid "Module"
+msgstr "Modul"
+
+#: templates/admin_extra/project_status.html:66
+#: templates/admin_extra/project_status.html:85
+#: templates/theme/theme_home.html:65
+msgid "Setting"
+msgstr "Nastavení"
+
+#: templates/admin_extra/project_status.html:67
+#: templates/admin_extra/project_status.html:86
+#: templates/theme/theme_home.html:66
+msgid "Value"
+msgstr "Hodnota"
+
+#: templates/auth/user_perms.html:6 templates/auth/user_perms.html.py:10
+msgid "User permissions"
+msgstr "Uživatelská oprvnění"
+
+#: templates/auth/user_perms.html:14
+#, fuzzy
+msgid "Dashboard"
+msgstr "Úvodní strana"
+
+#: templates/auth/user_perms.html:20
+#, fuzzy
+msgid "Select page"
+msgstr "Vyberte jazyk"
+
+#: templates/auth/user_perms.html:22 templates/auth/user_perms.html.py:30
+#, fuzzy
+msgid "Site staff"
+msgstr "Weby"
+
+#: templates/auth/user_perms.html:23 templates/auth/user_perms.html.py:59
+msgid "Site managers"
+msgstr "Správci stránek"
+
+#: templates/auth/user_perms.html:24 templates/auth/user_perms.html.py:84
+msgid "User groups"
+msgstr "Skupiny uživatelů"
+
+#: templates/auth/user_perms.html:35 templates/auth/user_perms.html.py:64
+#: templates/auth/user_perms.html:89
+msgid "Permissions"
+msgstr "Oprávnění"
+
+#: templates/auth/user_perms.html:36 templates/auth/user_perms.html.py:65
+#, fuzzy
+msgid "Groups"
+msgstr "Skupina"
+
+#: templates/auth/user_perms.html:72 templates/rosetta/languages.html:16
+#: templates/rosetta/pofile.html:43
+msgid "All"
+msgstr "Všichni"
+
+#: templates/auth/user_perms.html:88
+msgid "Name"
+msgstr "Jméno"
+
+#: templates/livesettings/_admin_site_views.html:4
+msgid "Sites"
+msgstr "Weby"
+
+#: templates/livesettings/group_settings.html:15
+msgid "Edit Group Settings"
+msgstr ""
+
+#: templates/livesettings/group_settings.html:28
+#, python-format
+msgid "Settings included in %(name)s."
+msgstr "Nastavení zahrnuté v %(name)s ."
+
+#: templates/livesettings/group_settings.html:53
+#: templates/livesettings/site_settings.html:74
+msgid "You don't have permission to edit values."
+msgstr "Nemáte oprávnění k úpravám hodnot."
+
+#: templates/livesettings/site_settings.html:15
+msgid "Export settings"
+msgstr "Export nastavení"
+
+#: templates/livesettings/site_settings.html:21
+msgid "Livesettings are disabled for this site."
+msgstr "Nastavení jsou zakázána na těchto stránkách."
+
+#: templates/livesettings/site_settings.html:22
+msgid "All configuration options must be edited in the site settings.py file."
+msgstr "Všechny možnosti nastavení musí být uloženy v souboru settings.py."
+
+#: templates/livesettings/site_settings.html:36
+msgid "Select options page"
+msgstr "Zvolte stranu možností"
+
+#: templates/livesettings/site_settings.html:67
+msgid "Save settings"
+msgstr "Uložit nastavení"
+
+#: templates/pagination/pagination.html:5
+#: templates/pagination/pagination.html:7
+msgid "previous"
+msgstr "předchozí"
+
+#: templates/pagination/pagination.html:21
+#: templates/pagination/pagination.html:23
+msgid "next"
+msgstr "další"
+
+#: templates/registration/logged_out.html:6
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+
+#: templates/registration/logged_out.html:8
+msgid "Log in again"
+msgstr "Znovu přihlásit"
+
+#: templates/rosetta/languages.html:4 templates/rosetta/languages.html.py:6
+msgid "Language selection"
+msgstr "Výběr jazyka"
+
+#: templates/rosetta/languages.html:9
+#, fuzzy
+msgid "Select application to translate"
+msgstr "Nic k překladu!"
+
+#: templates/rosetta/languages.html:13
+#, fuzzy
+msgid "Project"
+msgstr "Nástroje projektu"
+
+#: templates/rosetta/languages.html:14
+msgid "Third party"
+msgstr ""
+
+#: templates/rosetta/languages.html:34 templates/rosetta/languages.old.html:36
+msgid "Progress"
+msgstr "Pokrok"
+
+#: templates/rosetta/languages.html:35 templates/rosetta/languages.old.html:37
+msgid "Messages"
+msgstr "Zprávy"
+
+#: templates/rosetta/languages.html:36 templates/rosetta/languages.old.html:38
+msgid "Translated"
+msgstr "Přeloženo"
+
+#: templates/rosetta/languages.html:37 templates/rosetta/languages.old.html:39
+#: templates/rosetta/pofile.html:76 templates/rosetta/pofile.old.html:54
+msgid "Fuzzy"
+msgstr "Odhad"
+
+#: templates/rosetta/languages.html:38 templates/rosetta/languages.old.html:40
+msgid "Obsolete"
+msgstr "Nepoužité"
+
+#: templates/rosetta/languages.html:39 templates/rosetta/languages.old.html:41
+msgid "File"
+msgstr "Soubor"
+
+#: templates/rosetta/languages.html:62 templates/rosetta/languages.old.html:70
+msgid "Nothing to translate!"
+msgstr "Nic k překladu!"
+
+#: templates/rosetta/languages.html:63 templates/rosetta/languages.old.html:71
+msgid ""
+"You haven't specified any languages in your settings file, or haven't yet "
+"generated a batch of translation catalogs."
+msgstr ""
+"Nespecifikovali jste žádný jazyk v souboru nastavení, a nebo  jste "
+"nevygenerovali dávku generovaných překládacích katalogů."
+
+#: templates/rosetta/languages.html:64 templates/rosetta/languages.old.html:72
+#, python-format
+msgid ""
+"Please refer to <a href=\"%(i18n_doc_link)s\">Django's I18N documentation</"
+"a> for a guide on how to set up internationalization for your project."
+msgstr ""
+"Prosím, nahlédněte do <a href=\"%(i18n_doc_link)s\">dokumentace Django I18N</"
+"a> pro návod, jak nastavit internacionalizaci pro svůj projekt."
+
+#: templates/rosetta/languages.old.html:7 templates/rosetta/pofile.old.html:15
+msgid "Available translations"
+msgstr "Dostupné překlady"
+
+#: templates/rosetta/languages.old.html:18
+msgid "Select language"
+msgstr "Vyberte jazyk"
+
+#: templates/rosetta/pofile.html:8
+msgid "Pick another file"
+msgstr ""
+
+#: templates/rosetta/pofile.html:9 templates/rosetta/pofile.old.html:14
+msgid "Download this catalog"
+msgstr "Stáhnout katalog"
+
+#: templates/rosetta/pofile.html:25
+#, python-format
+msgid "Progress: %(percent_translated)s%%"
+msgstr ""
+
+#: templates/rosetta/pofile.html:27
+msgid "File is read-only: download the file when done editing!"
+msgstr ""
+
+#: templates/rosetta/pofile.html:28
+msgid ""
+"Some items in your last translation block couldn't be saved: this usually "
+"happens when the catalog file changes on disk after you last loaded it."
+msgstr ""
+
+#: templates/rosetta/pofile.html:33 templates/rosetta/pofile.old.html:10
+#, python-format
+msgid "Translate into %(rosetta_i18n_lang_name)s"
+msgstr ""
+
+#: templates/rosetta/pofile.html:40 templates/rosetta/pofile.old.html:24
+msgid "Untranslated only"
+msgstr "Pouze nepřeložené"
+
+#: templates/rosetta/pofile.html:41 templates/rosetta/pofile.old.html:25
+msgid "Translated only"
+msgstr "Pouze přeložené"
+
+#: templates/rosetta/pofile.html:42 templates/rosetta/pofile.old.html:26
+msgid "Fuzzy only"
+msgstr "Pouze odhady"
+
+#: templates/rosetta/pofile.html:73 templates/rosetta/pofile.old.html:51
+msgid "Original"
+msgstr "Původní"
+
+#: templates/rosetta/pofile.html:77 templates/rosetta/pofile.old.html:55
+msgid "Occurrences(s)"
+msgstr "Výskyt(y)"
+
+#: templates/rosetta/pofile.html:91 templates/rosetta/pofile.html.py:94
+#: templates/rosetta/pofile.html:109 templates/rosetta/pofile.html.py:112
+#, fuzzy
+msgid "Context hint"
+msgstr "Výška obsahu"
+
+#: templates/rosetta/pofile.html:119 templates/rosetta/pofile.old.html:79
+msgid "suggest"
+msgstr "doporučení"
+
+#: templates/rosetta/pofile.html:130 templates/rosetta/pofile.old.html:90
+#, python-format
+msgid "%(more_count)s more"
+msgid_plural "%(more_count)s more"
+msgstr[0] "%(more_count)s další"
+msgstr[1] "%(more_count)s další"
+
+#: templates/rosetta/pofile.html:142 templates/rosetta/pofile.old.html:43
+#: templates/rosetta/pofile.old.html:125
+msgid "Save and translate next block"
+msgstr "Uložit překlad"
+
+#: templates/rosetta/pofile.html:146 templates/rosetta/pofile.old.html:100
+msgid "Skip to page:"
+msgstr ""
+
+#: templates/rosetta/pofile.html:159 templates/rosetta/pofile.old.html:113
+msgid "Displaying:"
+msgstr "Zobrazuji:"
+
+#: templates/rosetta/pofile.html:163
+#, fuzzy, python-format
+msgid "%(hits)s/%(message_number)s message"
+msgid_plural "%(hits)s/%(message_number)s messages"
+msgstr[0] "Zobrazeno %(hits)s z %(message_number)s zpráv"
+msgstr[1] "Zobrazeno %(hits)s z %(message_number)s zpráv"
+
+#: templates/rosetta/pofile.old.html:21
+msgid "Filter by status"
+msgstr "Filtrovat dle stavu"
+
+#: templates/rosetta/pofile.old.html:23
+msgid "All translations"
+msgstr "Všechny překlady"
+
+#: templates/rosetta/pofile.old.html:28
+msgid "Search for keywords"
+msgstr "Hledat klíčová slova"
+
+#: templates/theme/css_editor.html:7
+msgid "Update CSS style file"
+msgstr ""
+
+#: templates/theme/css_editor.html:11 templates/theme/css_list.html:11
+#: templates/theme/theme_home.html:6
+#, fuzzy
+msgid "Edit theme"
+msgstr "téma"
+
+#: templates/theme/css_editor.html:17 templates/theme/css_list.html:17
+#, fuzzy
+msgid "Select css file"
+msgstr "Vyberte jazyk"
+
+#: templates/theme/css_list.html:7
+msgid "Update CSS styles"
+msgstr ""
+
+#: templates/theme/theme_home.html:14
+msgid "Styles (css, saas)"
+msgstr ""
+
+#: templates/theme/theme_home.html:15
+msgid "Scripts (js)"
+msgstr ""
+
+#: templates/theme/theme_home.html:16
+#, fuzzy
+msgid "Images"
+msgstr "Strana"
+
+#: templates/theme/theme_home.html:17
+#, fuzzy
+msgid "Utilities"
+msgstr "Filtry"
+
+#: templates/widget/clientinfo/grid.html:9
+msgid "Operating System"
+msgstr "Operační systém"
+
+#: templates/widget/clientinfo/grid.html:15
+msgid "Device Type"
+msgstr "Typ zařízení"
+
+#: templates/widget/clientinfo/grid.html:21
+msgid "Web Browser"
+msgstr "Webový prohlížeč"
+
+#: templates/widget/clientinfo/grid.html:27
+msgid "Browser Size"
+msgstr "Velikost okna"
+
+#: templates/widget/clientinfo/grid.html:33
+msgid "Screen Resolution"
+msgstr "Rozlišení obrazovky"
+
+#: templates/widget/clientinfo/grid.html:39
+msgid "Color Depth"
+msgstr "Barevná hloubka"
+
+#: templates/widget/clientinfo/grid.html:45
+msgid "IP Address"
+msgstr "IP adresa"
+
+#: templates/widget/clientinfo/grid.html:51
+msgid "Flash Version"
+msgstr "Verze Flashe"
+
+#: templates/widget/clientinfo/grid.html:57
+msgid "JavaScript"
+msgstr "JavaScript zapnutý"
+
+#: templates/widget/clientinfo/grid.html:63
+msgid "Cookies"
+msgstr "Cookies povoleny"
+
+#: templates/widget/sessionstatus/default.html:8
+msgid "Fragments"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:4
+msgid "Largest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:5
+msgid "2nd Largest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:6
+msgid "3rd Largest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:7
+msgid "3rd Smallest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:8
+msgid "2nd Smallest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:9
+msgid "Smallest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_list.html:4
+msgid "Ordered List"
+msgstr ""
+
+#: templates/widget/visualtest/test_list.html:34
+msgid "Unordered List"
+msgstr ""
+
+#: templates/widget/visualtest/test_list.html:41
+msgid "Definition List"
+msgstr ""
+
+#: templates/widget/visualtest/test_states.html:4
+#, fuzzy
+msgid "Interaction states"
+msgstr "stavy relace"
+
+#: templates/widget/visualtest/test_states.html:48
+msgid "Status alerts"
+msgstr ""
+
+#: templates/widget/whoisform/default.html:21
+#, fuzzy
+msgid "Domain"
+msgstr "Název domény"
+
+#: templates/widget/whoisform/default.html:22
+msgid "Status"
+msgstr ""
+
+#: templates/widget/whoisform/default.html:23
+msgid "Expires"
+msgstr ""
+
+#: templates/widget/whoisform/default.html:32
+#, fuzzy
+msgid "Domain is available"
+msgstr "Název domény"
+
+#: templates/widget/whoisform/default.html:34
+msgid "Domain is occupied"
+msgstr ""
+
+#: views/theme.py:22
+#, fuzzy
+msgid "File content"
+msgstr "Obsah"
+
+#: widget/clientinfo/models.py:13
+msgid "browser information"
+msgstr "informace o prohlížeči"
+
+#: widget/clientinfo/models.py:14
+msgid "operating system"
+msgstr "operační systém"
+
+#: widget/clientinfo/models.py:15
+msgid "IP address"
+msgstr "IP adresa"
+
+#: widget/clientinfo/models.py:16
+msgid "hostname"
+msgstr "DNS název"
+
+#: widget/clientinfo/models.py:20
+msgid "show info"
+msgstr "zobrazit informace"
+
+#: widget/clientinfo/models.py:24 widget/clientinfo/models.py:25
+msgid "client info"
+msgstr "informace o klientovi"
+
+#: widget/sessionstatus/models.py:12
+msgid "brief"
+msgstr "stručný"
+
+#: widget/sessionstatus/models.py:13
+msgid "full"
+msgstr "kompletní"
+
+#: widget/sessionstatus/models.py:17
+msgid "verbosity level"
+msgstr "výpis"
+
+#: widget/sessionstatus/models.py:34
+msgid "session status"
+msgstr "stav relace"
+
+#: widget/sessionstatus/models.py:35
+msgid "session statuses"
+msgstr "stavy relace"
+
+#: widget/themeswitcher/models.py:12
+msgid "theme"
+msgstr "téma"
+
+#: widget/themeswitcher/models.py:13
+msgid "template"
+msgstr "šablona"
+
+#: widget/themeswitcher/models.py:17
+msgid "scope"
+msgstr "rozsah"
+
+#: widget/themeswitcher/models.py:21
+msgid "theme switcher"
+msgstr "nastavení tématu"
+
+#: widget/themeswitcher/models.py:22
+msgid "theme switchers"
+msgstr "nastavení témat"
+
+#: widget/visualtest/models.py:15
+msgid "paragraphs"
+msgstr "odstavce"
+
+#: widget/visualtest/models.py:16
+msgid "lists"
+msgstr "seznamy"
+
+#: widget/visualtest/models.py:17
+msgid "headings"
+msgstr "nadpisy"
+
+#: widget/visualtest/models.py:18
+msgid "tables"
+msgstr "tabulky"
+
+#: widget/visualtest/models.py:19
+msgid "forms"
+msgstr "formuláře"
+
+#: widget/visualtest/models.py:20
+#, fuzzy
+msgid "states"
+msgstr "stavy"
+
+#: widget/visualtest/models.py:21
+#, fuzzy
+msgid "content"
+msgstr "Obsah"
+
+#: widget/visualtest/models.py:22
+msgid "misc"
+msgstr "ostatní"
+
+#: widget/visualtest/models.py:26
+msgid "Date taken"
+msgstr "Datum vytvoření"
+
+#: widget/visualtest/models.py:66
+msgid "Contact details"
+msgstr "Kontaktní údaje"
+
+#: widget/visualtest/models.py:79
+msgid "type of test"
+msgstr "typ testu"
+
+#: widget/visualtest/models.py:86
+msgid "visual tester"
+msgstr "vizuální tester"
+
+#: widget/visualtest/models.py:87
+msgid "visual testers"
+msgstr "vizuální testery"
+
+#: widget/whoisform/forms.py:7
+msgid "domain name"
+msgstr "Název domény"
+
+#: widget/whoisform/models.py:20
+msgid ".cz"
+msgstr ""
+
+#: widget/whoisform/models.py:21
+msgid ".eu"
+msgstr ""
+
+#: widget/whoisform/models.py:22
+msgid ".sk"
+msgstr ""
+
+#: widget/whoisform/models.py:23
+msgid ".com"
+msgstr ""
+
+#: widget/whoisform/models.py:24
+msgid ".net"
+msgstr ""
+
+#: widget/whoisform/models.py:25
+msgid ".org"
+msgstr ""
+
+#: widget/whoisform/models.py:26
+msgid ".info"
+msgstr ""
+
+#: widget/whoisform/models.py:27
+msgid ".biz"
+msgstr ""
+
+#: widget/whoisform/models.py:28
+msgid ".mobi"
+msgstr ""
+
+#: widget/whoisform/models.py:29
+#, fuzzy
+msgid ".name"
+msgstr " %(name)s "
+
+#: widget/whoisform/models.py:34
+msgid "search multiple domains?"
+msgstr "Prohledat více domén?"
+
+#: widget/whoisform/models.py:35
+msgid "top level domains"
+msgstr "domény nejvyšší úrovně"
+
+#: widget/whoisform/models.py:39
+msgid "whois form"
+msgstr "whois formulář"
+
+#: widget/whoisform/models.py:40
+msgid "whois forms"
+msgstr "whois formuláře"
+
+#~ msgid "Open Admin"
+#~ msgstr "Otevřít Správu"
+
+#~ msgid "Hide Menu"
+#~ msgstr "Skrýt menu"
+
+#~ msgid "Page Design"
+#~ msgstr "Vzhled stránky"
+
+#~ msgid "Site Properties"
+#~ msgstr "Vlastnosti stránek"
+
+#~ msgid "Add Widget"
+#~ msgstr "Přidat prvek"
+
+#~ msgid "Click here to select the objects across all pages"
+#~ msgstr "Klikněte zde pro výběr objektů na všech stranách"
+
+#~ msgid "Clear selection"
+#~ msgstr "Zrušit výběr"
+
+#~ msgid ""
+#~ "First, enter a username and password. Then, you'll be able to edit more "
+#~ "user options."
+#~ msgstr ""
+#~ "Nejprve je třeba zadat uživatelské jméno a heslo. Pak budete moci upravit "
+#~ "více uživatelských možností."
+
+#~ msgid "Enter a username and password."
+#~ msgstr "Zadejte uživatelské jméno a heslo."
+
+#~ msgid "Required fields"
+#~ msgstr "Povinná pole"
+
+#~ msgid "Log me in, please"
+#~ msgstr "Přihlásit se, prosím"
+
+#~ msgid "Cancel"
+#~ msgstr "Zrušit"
+
+#~ msgid "WebCMS Admin"
+#~ msgstr "WebCMS Admin"
+
+#~ msgid "Administration Login"
+#~ msgstr "Přihlášení do administrace"
+
+#~ msgid "edit"
+#~ msgstr "upravit"
+
+#~ msgid "remove"
+#~ msgstr "odstranit"
+
+#~ msgid "Confirm"
+#~ msgstr "Potvrdit"
+
+#~ msgid "Close"
+#~ msgstr "Zavřít"
+
+#~ msgid "Box Model"
+#~ msgstr "Box model"
+
+#~ msgid "Misc. Options"
+#~ msgstr "Různé možnosti"
+
+#~ msgid "Outer Margins"
+#~ msgstr "Vnější odsazení"
+
+#~ msgid "Inner Padding"
+#~ msgstr "Vnitřní odsazení"
+
+#~ msgid "Save properties"
+#~ msgstr "Uložit vlastnosti"
+
+#~ msgid "SEO Settings"
+#~ msgstr "SEO nastavení"
+
+#~ msgid "Save changes"
+#~ msgstr "Uložit změny"
+
+#~ msgid "Show toolbar"
+#~ msgstr "Zobrazit panel"
+
+#~ msgid "Stop editing"
+#~ msgstr "Konec editace"
+
+#~ msgid "Hide toolbar"
+#~ msgstr "Skrýt panel"
+
+#~ msgid "View whole site"
+#~ msgstr "Navštivte stránky"
+
+#~ msgid "HTML"
+#~ msgstr "HTML"
+
+#~ msgid "Title"
+#~ msgstr "Název"
+
+#~ msgid "Source"
+#~ msgstr "Zdroj"
+
+#~ msgid "View documentation"
+#~ msgstr "Dokumentace pohledů"

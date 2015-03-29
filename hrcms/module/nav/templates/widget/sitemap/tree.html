@@ -1,0 +1,36 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load feincms_page_tags %}
+
+{% block content %}
+<table>
+{% for root in page_list %}
+	{% for child_page in root.get_children %}
+	{% if child_page.in_navigation %}
+	<li><a href="{{ child_page.get_absolute_url }}">{{ child_page }}</a>
+	{% if child_page.get_children %}
+	<ul>
+	{% for sub_child_page in child_page.get_children %}
+		{% if sub_child_page.in_navigation %}
+		<li><a href="{{ sub_child_page.get_absolute_url }}">{{ sub_child_page }}</a>
+		{% if sub_child_page.get_children %}
+		<ul>
+		{% for sub_sub_child_page in sub_child_page.get_children %}
+		{% if sub_sub_child_page.in_navigation %}
+			<li><a href="{{ sub_sub_child_page.get_absolute_url }}">{{ sub_sub_child_page.title }}</a></li>
+		{% endif %}
+	{% endfor %}
+	</ul>
+	{% endif %}
+	</li>
+	{% endif %}
+	{% endfor %}
+	</ul>
+	{% endif %}
+	</td>
+	{% endif %}
+	{% endfor %}
+{% endfor %}
+</table>
+{% endblock %}

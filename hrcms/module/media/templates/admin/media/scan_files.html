@@ -1,0 +1,36 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+{% load webcms_form_tags %}
+
+{% block title %}{% trans "Scan files" %}{% endblock %}
+
+{% block object-tools %}
+<li><a href="{% url webcms_admin:media_file_changelist %}">{% trans "Media files" %}</a></li>
+<li><a href="{% url webcms_admin:dashboard %}">{% trans "Project dashboard" %}</a></li>
+{% endblock %}
+
+{% block content_title %}
+<h2>{% trans "Scan files" %}</h2>
+{% endblock %}
+
+{% block content %}
+{% if report %}
+<div id="report">
+	{{ report }}
+</div>
+{% endif %}
+<div id="data">
+	<form method="post" action="." enctype="multipart/form-data" class="form">
+		<div class="admin-form-buttons">
+			{% csrf_token %}
+			<button type="submit">{% trans 'Start Scan' %}</button>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery('.admin-form-buttons button').button();
+});
+</script>
+{% endblock %}

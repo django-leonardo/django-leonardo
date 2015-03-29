@@ -1,0 +1,52 @@
+{% extends "widget/base.html" %}
+
+{% load feincms_page_tags %}
+{% load webcms_tags %}
+
+{% block content %}
+{% if depth == 1 %}
+{% with root.level as level %}
+{% feincms_navigation of root as toplevel level=lvl,depth=depth %}
+<ul id="{{ widget.fe_identifier }}-list">
+{% for p in toplevel %}
+<li><a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}{% if p|is_equal_or_parent_of:current %}active{% endif %}" href="{{ p.get_absolute_url }}">{{ p.title }}</a></li>
+{% endfor %}
+</ul>
+{% endwith %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#{{ widget.fe_identifier }}-list").lavaLamp();
+});
+</script>
+{% else %}
+{% with root.level as level %}
+{% feincms_navigation of root as toplevel level=lvl,depth=1 %}
+<ul id="{{ widget.fe_identifier }}-list" class="superfish">
+{% for p in toplevel %}
+<li>
+	<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}{% if p|is_equal_or_parent_of:current %}active{% endif %}" href="{{ p.get_absolute_url }}">{{ p.title }}</a>
+
+	{% if depth > 1 %}
+	{% feincms_navigation_extended of p as level level=lvl2,depth=1 %}
+	{% for p2 in level %}
+	{% if forloop.first %}<ul>{% endif %}
+	<li>
+		<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}" href="{{ p2|get_url }}">{{ p2.title }}</a>
+	</li>
+	{% if forloop.last %}</ul>{% endif %}
+	{% endfor %}
+	{% endif %}
+
+</li>
+{% endfor %}
+</ul>
+{% endwith %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#{{ widget.fe_identifier }}-list").superfish();
+	$("#{{ widget.fe_identifier }}-list").lavaLamp();
+});
+</script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,5 @@
+{% load i18n %}
+{% trans "Type" %}: <strong>{{ type|capfirst }}</strong><br />
+{% trans "Page" %}: {{ object.parent }}<br />
+{% trans "Region" %}: <strong>{{ object.region }}</strong>, {% trans "ordering" %}: <strong>{{ object.ordering }}</strong><br />
+{% trans "Display" %}: <strong>{{ object.options.template_name }}</strong>

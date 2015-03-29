@@ -1,0 +1,45 @@
+{% extends "widget/base.html" %}
+
+{% load webcms_tags %}
+{% load thumbnail %}
+
+{% block content %}
+<div class="annotated-image-wrapper">
+<div class="annotated-image" style="width:{{ widget.width }}px; height:{{widget.height }}px;position:relative;">
+{% with widget.get_size as size %}
+{% thumbnail widget.image.image.file size format="PNG" as image %}
+<img src='{{ image.url }}' alt='' />
+{% endthumbnail %}
+{% endwith %}
+{% for annotation in annotations %}
+<div class="annotation" style="left:{{ annotation.left }}px; top:{{ annotation.top }}px;">
+	<div class="annotation-area" style="width:{{ annotation.width }}px; height:{{ annotation.height }}px;">
+	&nbsp;
+	</div>
+	<div class="annotation-point">
+		{% if annotation.obj.number %}
+		<div class="annotation-number">{{ annotation.obj.number }}</div>
+		{% endif %}
+		<div class="annotation-message">
+			<h3>{% if annotation.obj.number %}({{ annotation.obj.number }}){% endif %} {{ annotation.obj.translation.title }}</h3>
+			{{ annotation.obj.translation.description|safe }}
+		</div>
+		<div class="annotation-arrow">&nbsp;</div>
+	</div>
+</div>
+{% endfor %}
+</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#{{ widget.fe_identifier }} .annotation-point").hover(function() {
+		$(this).find('.annotation-message').toggle();
+		$(this).find('.annotation-arrow').toggle();
+	},
+	function() {
+		$(this).find('.annotation-message').toggle();
+		$(this).find('.annotation-arrow').toggle();
+	});
+});
+</script>
+{% endblock %}

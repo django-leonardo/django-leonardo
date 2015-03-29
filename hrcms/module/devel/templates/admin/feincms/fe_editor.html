@@ -1,0 +1,20 @@
+{% load feincms_compat_tags i18n admin_modify adminmedia %}
+
+{% include "admin/feincms/_messages_js.html" %}
+{% include "admin/feincms/_regions_js.html" %}
+
+{% for inc in object.feincms_item_editor_includes.head %}{% include inc %}{% endfor %}
+
+<div class="content_main" id="frontend_editor">
+
+<form method="post" action=".">
+	{% csrf_token %}
+	<table>
+		{{ form }}
+	</table>
+	<div class="submit-row" >
+		<input type="submit" value="{% trans "Save" %}" class="default" name="_save" />
+	</div>
+</form>
+
+</div>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
+{% load feincms_tags %}
+{% load assets %}
+
+	<head>
+		<title>{{ object.page_title }}</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="robots" content="all,follow" />
+		<meta name="generator" content="{{ request.leonardo.system.label }} {{ request.leonardo.system.version }}" />
+		<meta http-equiv="author" content="Newt" />
+		{% assets "blueprint_css" %}<link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />{% endassets %}
+		{% assets "jquery_ui_css" %}<link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />{% endassets %}
+		{% assets "webcms_css" %}<link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />{% endassets %}
+		<link rel="stylesheet" type="text/css" href="/media/lib/webcms-themes/default/print.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/media/lib/webcms-themes/{{ request.webcms_options.template }}/print.css" media="screen" />
+		<style type="text/css">
+			body {background-color:#000; padding:50px 0px;}
+			.container {padding:50px; min-width:700px; width:700px; background-color:#fff; font-size:14px; }
+			.simpleimage-default { text-align:center; }
+		</style>
+	</head>
+	<body class="page_{{ object.slug }}">
+		<div id="main">
+			<div class="container">
+				{% for child_page in object.get_children %}
+				{% if child_page.in_navigation %}
+				{% if child_page.get_children %}
+				{% for sub_child_page in child_page.get_children %}
+				{% if sub_child_page.in_navigation %}
+					{% if object.level == 1 %}
+					{% feincms_render_region sub_child_page "col3" request %}
+					{% endif %}
+					{% for sub_sub_child_page in sub_child_page.get_children %}
+					{% if sub_sub_child_page.in_navigation %}
+					{% if object.level == 0 %}
+					{% feincms_render_region sub_sub_child_page "col3" request %}
+					{% endif %}
+					{% endif %}
+					{% endfor %}
+				{% endif %}
+				{% endfor %}
+				{% else %}
+				{% feincms_render_region child_page "col3" request %}
+				{% endif %}
+				{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</body>
+</html>

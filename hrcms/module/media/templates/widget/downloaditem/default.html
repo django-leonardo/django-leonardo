@@ -1,0 +1,10 @@
+{% extends "widget/base.html" %}
+
+{% load webcms_tags %}
+{% load thumbnail %}
+
+{% block content %}
+<ul class="file-list">
+	<li class="file-{{ widget.file.type }}"><a href="{{ widget.file.file.url }}" target="_blank"><span>{% if widget.file.translation.name %}{{ widget.file.translation.name }}{% else %}{{ widget.file }}{% endif %}</span></a> ({{ widget.file.type }}, {{ widget.file.file.size|filesizeformat }})</li>
+</ul>
+{% endblock %}

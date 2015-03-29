@@ -1,0 +1,284 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"PO-Revision-Date: 2011-10-16 20:20\n"
+"Last-Translator: <mail@newt.cz>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.5\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n>1 && n<5 ? 1 : 2;\n"
+
+#: templates/googlesearch/googlesearch_results.html:8
+msgid "You searched for"
+msgstr "Hledaný výraz"
+
+#: templates/googlesearch/googlesearch_results.html:10
+msgid "No search query entered"
+msgstr "Nebyl zadán vyhledávací dotaz"
+
+#: templates/widget/breadcrumbs/detail.html:7
+msgid "You are here"
+msgstr "Nacházíte se na"
+
+#: templates/widget/linearnavigation/default.html:11
+#: templates/widget/linearnavigation/default.html:13
+#: templates/widget/linearnavigation/default.html:25
+msgid "prev"
+msgstr "Před."
+
+#: templates/widget/linearnavigation/default.html:18
+#: templates/widget/linearnavigation/default.html:20
+#: templates/widget/linearnavigation/default.html:28
+#: templates/widget/linearnavigation/inline.html:16
+#: templates/widget/linearnavigation/inline.html:18
+msgid "next"
+msgstr "Další"
+
+#: templates/widget/linearnavigation/inline.html:10
+#: templates/widget/linearnavigation/inline.html:12
+msgid "previous"
+msgstr "předchozí"
+
+#: templates/widget/sitesearch/default.html:12
+#: templates/widget/sitesearch/default.html:19
+msgid "Search"
+msgstr "Vyhledat"
+
+#: templates/widget/tagcloud/default.html:5
+msgid "Popular Tags"
+msgstr "Populární tagy"
+
+#: templates/widget/tagcloud/default.html:11
+msgid "View all tags"
+msgstr "Zobrazit všechny tagy"
+
+#: widget/breadcrumbs/models.py:12 widget/treenavigation/models.py:12
+msgid "horizontal"
+msgstr "horizontální"
+
+#: widget/breadcrumbs/models.py:13 widget/treenavigation/models.py:13
+msgid "vertical"
+msgstr "vertikální"
+
+#: widget/breadcrumbs/models.py:29 widget/treenavigation/models.py:28
+msgid "orientation"
+msgstr "orientace"
+
+#: widget/breadcrumbs/models.py:30
+msgid "root label"
+msgstr "označení kořenového prvku"
+
+#: widget/breadcrumbs/models.py:34 widget/breadcrumbs/models.py:35
+msgid "breadcrumbs"
+msgstr "drobečky"
+
+#: widget/contentnavigation/models.py:10
+msgid "include contextual pages"
+msgstr "včetně kontextových stránek"
+
+#: widget/contentnavigation/models.py:11
+msgid "include text headers"
+msgstr "včetně napisů"
+
+#: widget/contentnavigation/models.py:15
+msgid "content navigation"
+msgstr "obsahová navigace"
+
+#: widget/contentnavigation/models.py:16
+msgid "content navigations"
+msgstr "obsahové navigace"
+
+#: widget/contextnavigation/models.py:13
+msgid "self"
+msgstr "vlastní stránka"
+
+#: widget/contextnavigation/models.py:14
+msgid "one level"
+msgstr "jedna úroveň"
+
+#: widget/contextnavigation/models.py:15
+msgid "all levels"
+msgstr "všechy úrovně"
+
+#: widget/contextnavigation/models.py:19 widget/linearnavigation/models.py:12
+msgid "none"
+msgstr "žádný"
+
+#: widget/contextnavigation/models.py:20
+msgid "link"
+msgstr "odkaz"
+
+#: widget/contextnavigation/models.py:21
+msgid "button"
+msgstr "tlačítko"
+
+#: widget/contextnavigation/models.py:25
+msgid "source"
+msgstr "zdroj"
+
+#: widget/contextnavigation/models.py:25
+msgid "The child pages of root page are displayed in the context navigation."
+msgstr "Podstránky kořenové stránky jsou zobrazené v kontextové navigaci."
+
+#: widget/contextnavigation/models.py:26
+msgid "display region"
+msgstr "zobrazit region"
+
+#: widget/contextnavigation/models.py:26
+msgid "Which region of selected pages do you wish to display."
+msgstr "Který region vybraných stránek si přejete zobrazit."
+
+#: widget/contextnavigation/models.py:27 widget/treenavigation/models.py:30
+msgid "depth"
+msgstr "hloubka"
+
+#: widget/contextnavigation/models.py:27
+msgid "Depth to which display child pages."
+msgstr "Hloubka, do které zobrazovat stránky."
+
+#: widget/contextnavigation/models.py:28
+msgid "link style"
+msgstr "styl odkazů"
+
+#: widget/contextnavigation/models.py:28
+msgid "Visual style of links to displayed pages."
+msgstr "Vizuální styl odkazů na zobrazené stránky."
+
+#: widget/contextnavigation/models.py:29
+msgid "link texts"
+msgstr "text odkazu"
+
+#: widget/contextnavigation/models.py:29
+msgid "Arbitrary text of links. If empty, page's title will be used instead."
+msgstr ""
+"Libovolný text odkazů. Pokud necháte prázdné, použije se místo toho titulek "
+"stránky."
+
+#: widget/contextnavigation/models.py:33
+msgid "contextual content"
+msgstr "kontextový obsah"
+
+#: widget/contextnavigation/models.py:34
+msgid "contextual contents"
+msgstr "kontextové obsahy"
+
+#: widget/linearnavigation/models.py:13
+msgid "parents"
+msgstr "rodiče"
+
+#: widget/linearnavigation/models.py:14
+msgid "siblings"
+msgstr "první koleno"
+
+#: widget/linearnavigation/models.py:15
+msgid "cousins"
+msgstr "druhé koleno"
+
+#: widget/linearnavigation/models.py:19
+msgid "previous/next"
+msgstr "předchozí/další"
+
+#: widget/linearnavigation/models.py:20
+msgid "page title"
+msgstr "název stránky"
+
+#: widget/linearnavigation/models.py:24
+msgid "traverse"
+msgstr "přechod"
+
+#: widget/linearnavigation/models.py:25
+msgid "links"
+msgstr "odkazy"
+
+#: widget/linearnavigation/models.py:29
+msgid "linear navigation"
+msgstr "lineární navigace"
+
+#: widget/linearnavigation/models.py:30
+msgid "linear navigations"
+msgstr "lineární navigace"
+
+#: widget/sitemap/models.py:16
+msgid "site map"
+msgstr "mapa stránek"
+
+#: widget/sitemap/models.py:17
+msgid "site maps"
+msgstr "mapy stránek"
+
+#: widget/sitesearch/models.py:10
+msgid "Google Custom Search"
+msgstr "Google Custom Search"
+
+#: widget/sitesearch/models.py:11
+msgid "Django Haystack"
+msgstr "Django Haystack"
+
+#: widget/sitesearch/models.py:15
+msgid "engine"
+msgstr "technologie"
+
+#: widget/sitesearch/models.py:16
+msgid "inline"
+msgstr "v řádku"
+
+#: widget/sitesearch/models.py:20
+msgid "site search"
+msgstr "vyhledávání na stránkách"
+
+#: widget/sitesearch/models.py:21
+msgid "site searches"
+msgstr "vyhledávání na stránkách"
+
+#: widget/treenavigation/models.py:17
+msgid "primary"
+msgstr "primární"
+
+#: widget/treenavigation/models.py:18
+msgid "secondary"
+msgstr "sekundární"
+
+#: widget/treenavigation/models.py:19
+msgid "common"
+msgstr "obecné"
+
+#: widget/treenavigation/models.py:23
+msgid "only one level"
+msgstr "pouze jedna úroveň"
+
+#: widget/treenavigation/models.py:24
+msgid "subpages too"
+msgstr "včetně podstránek"
+
+#: widget/treenavigation/models.py:29
+msgid "priority"
+msgstr "priorita"
+
+#: widget/treenavigation/models.py:31
+msgid "root page"
+msgstr "kořenová stránka"
+
+#: widget/treenavigation/models.py:31
+msgid "If no root page is set, widget's parent page will be used."
+msgstr ""
+"Není-li nastavena hlavní stránka, bude pro hlavní stránku použita stránka, "
+"kde se nachází komponenta."
+
+#: widget/treenavigation/models.py:35
+msgid "navigation menu"
+msgstr "navigační menu"
+
+#: widget/treenavigation/models.py:36
+msgid "navigation menus"
+msgstr "navigační menu"

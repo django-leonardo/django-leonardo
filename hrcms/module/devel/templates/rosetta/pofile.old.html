@@ -1,0 +1,141 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+{% load webcms_tags %}
+{% load rosetta %}
+
+{% block pagetitle %}{{MESSAGES_SOURCE_LANGUAGE_NAME}} - {{rosetta_i18n_lang_name}} ({{ rosetta_i18n_pofile.percent_translated|floatformat:0 }}%){% endblock %}
+
+{% block content_title %}
+<h2>{% blocktrans  %}Translate into {{rosetta_i18n_lang_name}}{% endblocktrans %}</h2>
+{% endblock %}
+
+{% block object-tools %}
+<li><a href="{% url rosetta-download-file %}">{% trans "Download this catalog" %}</a></li>
+<li><a href="{% url rosetta-pick-file %}">{% trans "Available translations" %}</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="span-4">
+	<div id="changelist-filter">
+		<h3>{% trans "Filter by status" %}</h3>
+		<ul>
+			<li {% ifequal rosetta_i18n_filter 'all' %}class="selected"{% endifequal %}><a href="?filter=all">{% trans "All translations" %}</a></li>
+			<li {% ifequal rosetta_i18n_filter 'untranslated' %}class="selected"{% endifequal %}><a href="?filter=untranslated">{% trans "Untranslated only" %}</a></li>
+			<li {% ifequal rosetta_i18n_filter 'translated' %}class="selected"{% endifequal %}><a href="?filter=translated">{% trans "Translated only" %}</a></li>
+			<li {% ifequal rosetta_i18n_filter 'fuzzy' %}class="selected"{% endifequal %}><a href="?filter=fuzzy">{% trans "Fuzzy only" %}</a></li>
+		</ul>
+		<h3>{% trans "Search for keywords" %}</h3>
+		<form id="changelist-search" action="" method="post">
+			<div>
+				{% rosetta_csrf_token %}
+				<input type="text" size="40" name="query" value="{% if query %}{{query}}{% endif %}" id="searchbar" />
+				<button type="submit" name="search">{% trans "Search" %}</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="span-20">
+	<div id="changelist" class="rosetta-translations{% if rosetta_i18n_lang_bidi %} rtl{% endif %}">
+
+	<div class="admin-form-actions">
+		<button type="submit" class="default" name="_next">{% trans "Save and translate next block" %}</button>
+	</div>
+
+<form method="post" action=".">
+	{% rosetta_csrf_token %}
+	<table>
+		<thead>
+			<tr>
+				<th>{% trans "Original" %}</th>
+				{% if main_language %}<th>{{ main_language }}</th>{% endif %}
+				<th>{{ rosetta_i18n_lang_name }}</th>
+				<th class="c">{% trans "Fuzzy" %}</th>
+				<th>{% trans "Occurrences(s)" %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for  message in messages %}
+			<tr class="{% cycle row1,row2 %}">
+				{% if message.msgid_plural %}
+					<td class="original plural">
+						<div class="plural-container">
+							<span class="part">{{message.msgid|format_message|linebreaksbr}}</span>
+							<span class="part">{{message.msgid_plural|format_message|linebreaksbr}}</span>
+						</div>
+					</td>
+					<td class="translation">
+						{% for k, msgstr in message.msgstr_plural.items|dictsort:"0"  %}
+							<label for="m_{{message.id}}_{{k}}">{{k}}:</label>
+							<textarea rows="{{message.msgid|format_message|lines_count}}" cols="40" id="m_{{message.id}}_{{k}}" name="m_{{message.id}}_{{k}}">{{msgstr}}</textarea>
+						{% endfor %}
+					</td>
+				{% else %}
+					<td class="original">{{ message.msgid|format_message|linebreaksbr }}</td>
+					{% if main_language %}<td class="original">{{ message.main_lang|format_message|linebreaksbr }}</td>{% endif %}
+					<td class="translation">
+						<textarea rows="{{message.msgid|format_message|lines_count}}" cols="40" name="m_{{message.id}}">{{message.msgstr}}</textarea>
+						{% if ENABLE_TRANSLATION_SUGGESTIONS %}<a href="#" class="suggest">{% trans "suggest" %}</a>{% endif %}
+					</td>
+				{% endif %}
+					<td class="c">
+						<input type="checkbox" name="f_{{message.id}}" value="1" {% if message|is_fuzzy %}checked="checked"{% endif %} />
+					</td>
+					<td class="location">
+						{% for fn,lineno in message.occurrences %}
+							<code{% if forloop.counter|gt:"3" %} class="hide"{% endif %}>{{ fn }}:{{lineno}}</code> 
+						{% endfor %}
+						{% if message.occurrences|length|gt:"3" %}
+							<a href="#">&hellip; ({% blocktrans count message.occurrences|length|minus:"3" as more_count %}{{more_count}} more{% plural %}{{more_count}} more{% endblocktrans %})</a>
+						{% endif %}
+					</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class="admin-form-buttons">
+		<div class="admin-form-pagination">
+			{% if needs_pagination %}
+			{% trans "Skip to page:" %}
+			{% for i in page_range %}
+				{% ifequal i '...' %}
+				<span class="space">{{ i }}</span>
+				{% else %}
+				{% ifequal i page %}
+					<span class="this-page">{{i}}</span>
+				{% else %}    
+					<a href="?page={{i}}{% if query %}&amp;query={{query}}{% endif %}">{{i}}</a>
+				{% endifequal %}
+				{% endifequal %}
+			{% endfor %}
+			{% else %}
+			{% trans "Displaying:" %}
+			{% endif %}
+			<strong>
+			{% comment %}
+			{% blocktrans count rosetta_i18n_pofile|length as message_number and paginator.object_list|length as hits %}{{hits}}/{{message_number}} message{% plural %}{{hits}}/{{message_number}} messages{% endblocktrans %}
+			{% endcomment %}
+			</strong>
+		</div>
+		{% if query %}
+		<input type="hidden" name="query" value="{{query}}"  />
+		{% endif %}
+		<button type="submit" class="default" name="_next">{% trans "Save and translate next block" %}</button>
+	</div>
+</form>
+	</div>
+</div>
+
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>    
+<script type="text/javascript">
+//<!--
+google.load("jquery", "1.3");
+google.load("language", "1");
+
+{% if ENABLE_TRANSLATION_SUGGESTIONS %}
+{% endif %}
+{% include 'rosetta/js/rosetta.js' %}
+//-->
+</script>
+{% endblock %}

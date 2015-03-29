@@ -1,0 +1,110 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+
+{% block object-tools %}
+<li><a href="{% url webcms_admin:dashboard %}">{% trans "Project dashboard" %}</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="admin-form-tabs">
+	<div class="span-6">
+		<h3>{% trans "Select information page" %}</h3>
+		<ul>
+			<li><a href="#project">{% trans "Project summary" %}</a></li>
+			<li><a href="#pages">{% trans "Important pages" %}</a></li>
+			<li><a href="#settings">{% trans "Project settings" %}</a></li>
+			<li><a href="#code">{% trans "Code summary" %}</a></li>
+			<li><a href="#disk">{% trans "Disk usage" %}</a></li>
+		</ul>
+	</div>
+
+	<div class="span-18">
+		<div id="project">
+			<h2>{% trans "Installed modules" %}</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>{% trans "Group" %}</th>
+						<th>{% trans "Module" %}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for module in modules %}
+					<tr class="{% cycle odd,even %}">
+						<th>...</th>
+						<td>{{ module }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div id="pages">
+			<h2>{% trans "Important pages" %}</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>{% trans "Group" %}</th>
+						<th>{% trans "Module" %}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for app in apps %}
+					<tr class="{% cycle odd,even %}">
+						<th>{{ app }}</th>
+						<td></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div id="code">
+			<h2>{% trans "Code summary" %}</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>{% trans "Setting" %}</th>
+						<th>{% trans "Value" %}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for var in request.META.items|dictsort:"0" %}
+					<tr class="{% cycle odd,even %}">
+						<td>{{ var.0 }}</td>
+						<td><code>{{ var.1|pprint }}</code></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div id="settings">
+			<h2>{% trans "Project settings" %}</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>{% trans "Setting" %}</th>
+						<th>{% trans "Value" %}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for var in settings.items|dictsort:"0" %}
+						<tr class="{% cycle odd,even %}">
+							<td>{{ var.0 }}</td>
+							<td><code>{{ var.1|pprint }}</code></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div id="disk">
+			<h2>{% trans "Disk usage" %}</h2>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery('.admin-form-tabs').tabs();
+});
+</script>
+{% endblock %}

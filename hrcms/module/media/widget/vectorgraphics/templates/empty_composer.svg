@@ -1,0 +1,6 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40">
+{% for component in composer.components.all%}
+<image x="0" y="0" width="{{component.markup.width}}" height="{{component.markup.height}}" xlink:href="{{component.markup.file.url}}" orm_id="{{component.id}}" orm_page_id="{{component.parent.id}}" orm_region="{{component.region}}" orm_ordering="{{component.ordering}}"/>{%endfor%}{% for composer in composer.composers.all%}
+<image x="0" y="0" width="{{composer.markup.width}}" height="{{composer.markup.height}}" xlink:href="{{composer.markup.file.url}}" orm_id="{{composer.id}}" orm_page_id="{{composer.parent.id}}" orm_region="{{composer.region}}" orm_ordering="{{composer.ordering}}"/>{%endfor%}
+</svg>

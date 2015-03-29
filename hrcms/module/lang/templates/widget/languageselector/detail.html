@@ -1,0 +1,16 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="ui-helper-clearfix">
+	<span>{% trans "Select your language" %}:</span>
+	{% for key,lang in languages.items %}
+	{% if lang.page %}
+	<a id="set_lang_{{ lang.code }}" href="{{ lang.page.get_absolute_url }}{{ lang.suffix }}">
+		<img src="/static/lib/webcms/img/flags/{{ lang.code }}.gif" alt="{{ lang.label }}" />
+	</a>
+	{% endif %}
+	{% endfor %}
+</div>
+{% endblock %}

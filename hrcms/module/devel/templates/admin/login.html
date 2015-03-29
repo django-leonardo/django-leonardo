@@ -1,0 +1,52 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+{% load webcms_form_tags %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="/static/lib/webcms/css/login.css" type="text/css" />
+{% endblock %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block content_title %}
+<h2>{% trans "Login to HTFS Administration" %}</h2>
+{% endblock %}
+
+{% block content %}
+{% if error_message %}
+<p class="errornote">{{ error_message }}</p>
+{% endif %}
+<div class="login_box">
+	<form class="form" action="{{ app_path }}" method="post" id="login-form">
+		{% csrf_token %}
+		<div class="fieldset ui-helper-clearfix">
+			<div class="span-8">
+				<label for="id_username">{% trans 'Username' %}:</label>
+			</div>
+			<div class="span-16 last">
+				<input type="text" name="username" id="id_username" />
+			</div>
+			<br style="clear:both;" />
+			<div class="span-8">
+				<label for="id_password">{% trans 'Password' %}:</label>
+			</div>
+			<div class="span-16 last">
+				<input type="password" name="password" id="id_password" />
+			</div>
+		</div>
+		<div class="buttonset clear">
+			<button type="submit">{% trans 'Log in' %}</button>
+			<input type="hidden" name="this_is_the_login_form" value="1" />
+			<input type="hidden" name="next" value="/admin/" />
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+document.getElementById('id_username').focus();
+$(document).ready(function() {
+
+	$('button').button();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,6 @@
+<div class="breadcrumbs">
+<a href="{{ root.url }}">{{ root.name }}</a>
+{% if year %} | <a href="{{ year.url }}">{{ year.name }}</a>{% endif %}
+{% if month %} | <a href="{{ month.url }}">{{ month.name }}</a>{% endif %}
+{% if day %} | <a href="{{ day.url }}">{{ day.name }}</a>{% endif %}
+</div>

@@ -1,0 +1,36 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load thumbnail %}
+{% load webcms_tags %}
+
+{% block content %}
+<div class="span-12">
+	<ul class="vertical">
+		{% for object in widget.get_categories %}
+		{% if forloop.counter0|mod:'2' == 0 %}
+		{% url webcms.module.blog.apps.blog/webcms_blog_category_list object.translation.slug as webcms_blog_category_list %}
+		{% if request.path|startswith:webcms_blog_category_list %}
+		<li><strong>{{ object }}</strong></li>
+		{% else %}
+		<li><a href="{{ webcms_blog_category_list }}" title="{{ object }}">{{ object }}</a></li>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+<div class="span-12 last">
+	<ul class="vertical">
+		{% for object in widget.get_categories %}
+		{% if forloop.counter|mod:'2' == 0 %}
+		{% url webcms.module.blog.apps.blog/webcms_blog_category_list object.translation.slug as webcms_blog_category_list %}
+		{% if request.path|startswith:webcms_blog_category_list %}
+		<li><strong>{{ object }}</strong></li>
+		{% else %}
+		<li><a href="{{ webcms_blog_category_list }}" title="{{ object }}">{{ object }}</a></li>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

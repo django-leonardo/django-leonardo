@@ -1,0 +1,3 @@
+<object style="border:1px blue dotted" class='svg_preview' data="{{file.url}}" type="image/svg+xml" {% if width and height%}width="{{width}}" height="{{height}}"{%else%}width="0px" height="0px"{%endif%}>
+    <embed src="{{file.url}}" type="image/svg+xml" {% if width and height%}width="{{width}}" height="{{height}}"{%else%}width="0px" height="0px"{%endif%}/>
+</object>

@@ -1,0 +1,35 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content %}
+<div class="page-title">
+	<h2>Naši klienti</h2>
+</div>
+<div class="coda-slider-wrapper">
+	<div class="widget widget-padder widget-client-list coda-slider" id="coda-slider">
+		{% for object in object_list %}
+		{% if forloop.counter0|mod:"6" == 0 %}<div class="panel"><ul>{% endif %}
+		<li>
+			<a href="./{{ object.uri }}/" title="{{ object.title }}" class="client_image" style="background-image:url({% thumbnail object.image 200x130 %});">&nbsp;</a>
+		</li>
+		{% if forloop.counter|mod:"6" == 0 %}</ul></div>{% endif %}
+		{% if forloop.last and forloop.counter|mod:"6" != 0 %}</ul></div>{% endif %}
+		{% endfor %}
+	</div>
+</div>
+<div id="coda-nav-left-1" class="coda-nav-left"><a href="#" class="button" title="Slide left"><span>&#171;</span></a></div>
+{% comment %}
+<div id="coda-nav-1" class="coda-nav">
+	<ul>
+		{% for object in object_list %}
+		{% if forloop.counter0|mod:"6" == 0 %}
+		<li class="tab{{ forloop.counter|mod:"6" }}"><a href="#{{ forloop.counter|mod:"6" }}">{{ forloop.counter|mod:"6" }}</a></li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+{% endcomment %}
+<div id="coda-nav-right-1" class="coda-nav-right"><a href="#" class="button" title="Slide right"><span>&#187;</span></a></div>
+{% endblock %}

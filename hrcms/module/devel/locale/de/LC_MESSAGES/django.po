@@ -1,0 +1,1387 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: templates/admin/404.html:4 templates/admin/404.html.py:8
+msgid "Page not found"
+msgstr ""
+
+#: templates/admin/404.html:10
+msgid "We're sorry, but the requested page could not be found."
+msgstr ""
+
+#: templates/admin/500.html:4 templates/admin_doc/bookmarklets.html:3
+#: templates/livesettings/group_settings.html:14
+#: templates/rosetta/languages.html:6 templates/rosetta/pofile.html:22
+msgid "Home"
+msgstr ""
+
+#: templates/admin/500.html:4
+msgid "Server error"
+msgstr ""
+
+#: templates/admin/500.html:6
+msgid "Server error (500)"
+msgstr ""
+
+#: templates/admin/500.html:9
+msgid "Server Error <em>(500)</em>"
+msgstr ""
+
+#: templates/admin/500.html:10
+msgid ""
+"There's been an error. It's been reported to the site administrators via e-"
+"mail and should be fixed shortly. Thanks for your patience."
+msgstr ""
+
+#: templates/admin/actions.html:5
+msgid "Run the selected action"
+msgstr ""
+
+#: templates/admin/actions.html:5 templates/rosetta/pofile.html:51
+msgid "Go"
+msgstr ""
+
+#: templates/admin/base.html:7 templates/admin/base_site.html:8
+msgid "HTFS Admin"
+msgstr ""
+
+#: templates/admin/base.html:63
+msgid "Logged user"
+msgstr ""
+
+#: templates/admin/base.html:73
+#: templates/admin/auth/user/change_password.html:42
+#: templates/livesettings/group_settings.html:11
+msgid "Change password"
+msgstr ""
+
+#: templates/admin/base.html:82 templates/livesettings/group_settings.html:11
+msgid "Log out"
+msgstr ""
+
+#: templates/admin/base.html:107
+msgid "Thank you for using our CMS!"
+msgstr ""
+
+#: templates/admin/base.html:108
+msgid "For any questions, please refer to"
+msgstr ""
+
+#: templates/admin/base.html:109
+msgid "our documentation"
+msgstr ""
+
+#: templates/admin/base.html:110
+msgid "If you come across any problem"
+msgstr ""
+
+#: templates/admin/base.html:111
+msgid "send us feedback"
+msgstr ""
+
+#: templates/admin/base.html:113
+msgid "Powered by"
+msgstr ""
+
+#: templates/admin/base_devel.html:35 templates/admin/base_devel.html.py:38
+msgid "WebCMS Administration"
+msgstr ""
+
+#: templates/admin/change_form.html:25
+msgid "Update"
+msgstr ""
+
+#: templates/admin/change_form.html:31
+msgid "History"
+msgstr ""
+
+#: templates/admin/change_form.html:33
+#: templates/admin/edit_inline/stacked.html:11
+#: templates/admin/edit_inline/tabular.html:26
+msgid "View on site"
+msgstr ""
+
+#: templates/admin/change_form.html:36
+msgid "Back to list"
+msgstr ""
+
+#: templates/admin/change_form.html:53
+msgid "Select properties page"
+msgstr ""
+
+#: templates/admin/change_form.html:58
+msgid "Content regions"
+msgstr ""
+
+#: templates/admin/change_form.html:63
+#: templates/admin/webcms/page/page_update.html:7
+#: templates/admin/webcms/page/page_update.html:16
+msgid "Basic properties"
+msgstr ""
+
+#: templates/admin/change_list.html:51
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: templates/admin/change_list.html:53 templates/admin_extra/analytics.html:6
+#: templates/admin_extra/project_status.html:6
+msgid "Project dashboard"
+msgstr ""
+
+#: templates/admin/change_list.html:86
+#: templates/admin/auth/user/change_password.html:24
+#: templates/livesettings/group_settings.html:22
+#: templates/livesettings/site_settings.html:28
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/delete_confirmation.html:7
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: templates/admin/delete_confirmation.html:14
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+#: templates/admin/delete_confirmation.html:19
+#: templates/admin/delete_selected_confirmation.html:28
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: templates/admin/delete_selected_confirmation.html:7
+#, python-format
+msgid ""
+"Deleting the %(object_name)s would result in deleting related objects, but "
+"your account doesn't have permission to delete the following types of "
+"objects:"
+msgstr ""
+
+#: templates/admin/delete_selected_confirmation.html:14
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(object_name)s objects? All of "
+"the following objects and their related items will be deleted:"
+msgstr ""
+
+#: templates/admin/files.html:6 templates/admin/index.html:8
+#: templates/admin_doc/index.html:11 templates/admin_doc/model_detail.html:11
+#: templates/admin_doc/model_index.html:10
+#: templates/admin_doc/template_filter_index.html:11
+#: templates/admin_doc/template_tag_index.html:11
+#: templates/admin_doc/view_index.html:13
+#: templates/livesettings/site_settings.html:16
+#: templates/rosetta/languages.old.html:11
+msgid "Project setup"
+msgstr ""
+
+#: templates/admin/filter.html:3
+#, python-format
+msgid "Filter by \"%(filter_title)s\""
+msgstr ""
+
+#: templates/admin/index.html:16 templates/rosetta/languages.html:33
+#: templates/rosetta/languages.old.html:35
+msgid "Application"
+msgstr ""
+
+#: templates/admin/index.html:17 templates/admin_doc/index.html:31
+msgid "Models"
+msgstr ""
+
+#: templates/admin/index.html:24
+#, python-format
+msgid "%(name)s"
+msgstr ""
+
+#: templates/admin/index.html:36
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: templates/admin/invalid_setup.html:6
+msgid ""
+"Something's wrong with your database installation. Make sure the appropriate "
+"database tables have been created, and make sure the database is readable by "
+"the appropriate user."
+msgstr ""
+
+#: templates/admin/login.html:13
+msgid "Login to HTFS Administration"
+msgstr ""
+
+#: templates/admin/login.html:25 templates/auth/user_perms.html:34
+#: templates/auth/user_perms.html.py:63
+msgid "Username"
+msgstr ""
+
+#: templates/admin/login.html:32
+#: templates/admin/auth/user/change_password.html:32
+msgid "Password"
+msgstr ""
+
+#: templates/admin/login.html:39
+msgid "Log in"
+msgstr ""
+
+#: templates/admin/object_history.html:10
+msgid "Date/time"
+msgstr ""
+
+#: templates/admin/object_history.html:11
+msgid "User"
+msgstr ""
+
+#: templates/admin/object_history.html:12
+msgid "Action"
+msgstr ""
+
+#: templates/admin/object_history.html:26
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
+msgstr ""
+
+#: templates/admin/object_history.html:29
+msgid "Back to detail"
+msgstr ""
+
+#: templates/admin/pagination.html:9
+msgid "item"
+msgstr ""
+
+#: templates/admin/pagination.html:9
+msgid "items"
+msgstr ""
+
+#: templates/admin/pagination.html:12
+msgid "Show all"
+msgstr ""
+
+#: templates/admin/pagination.html:16 templates/admin/submit_line.html:4
+#: templates/admin/feincms/fe_editor.html:16
+#: templates/admin/webcms/page/page_simple_update.html:39
+#: templates/theme/css_editor.html:33
+msgid "Save"
+msgstr ""
+
+#: templates/admin/search_form.html:6
+msgid "Search items"
+msgstr ""
+
+#: templates/admin/search_form.html:9 templates/rosetta/pofile.html:49
+#: templates/rosetta/pofile.old.html:33
+msgid "Search"
+msgstr ""
+
+#: templates/admin/search_form.html:11
+msgid "Clear"
+msgstr ""
+
+#: templates/admin/search_form.html:22
+#, python-format
+msgid "1 item"
+msgid_plural "%(counter)s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/search_form.html:22
+#, python-format
+msgid "out of total %(full_result_count)s"
+msgstr ""
+
+#: templates/admin/submit_line.html:7
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/submit_line.html:10
+msgid "Save as new"
+msgstr ""
+
+#: templates/admin/submit_line.html:13
+msgid "Save and add another"
+msgstr ""
+
+#: templates/admin/submit_line.html:16
+msgid "Save and continue editing"
+msgstr ""
+
+#: templates/admin/auth/user/change_password.html:28
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgstr ""
+
+#: templates/admin/auth/user/change_password.html:37
+msgid "Password (again)"
+msgstr ""
+
+#: templates/admin/auth/user/change_password.html:38
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: templates/admin/edit_inline/stacked.html:75
+#: templates/admin/edit_inline/tabular.html:110
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: templates/admin/edit_inline/stacked.html:78
+#: templates/admin/edit_inline/tabular.html:113
+#: templates/admin/webcms/page/page_simple_update.html:37
+msgid "Remove"
+msgstr ""
+
+#: templates/admin/edit_inline/tabular.html:13
+msgid "Delete?"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:19
+msgid "Show HTFS Admin Menu"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:27
+msgid "Hide this menu"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:28
+msgid "Quit frontend administration"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:28
+msgid "Quit In-line admin"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:29
+msgid "Open HTFS admininstration application"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:29
+msgid "Open BackOffice"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:33
+msgid "Page Properties"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:39
+msgid "Page visuals"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:41
+#: templates/admin/webcms/page/page_simple_update.html:12
+msgid "Layout"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:43
+msgid "Columns"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:48
+msgid "Show grid"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:49
+msgid "Template"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:55
+msgid "Theme"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:61
+msgid "Add widget to page"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:90
+#: templates/admin/feincms/fe_tools.html:96
+msgid "Edit widget"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:91
+#: templates/admin/feincms/fe_tools.html:97
+msgid "Remove widget"
+msgstr ""
+
+#: templates/admin/feincms/fe_tools.html:92
+#: templates/admin/feincms/fe_tools.html:98
+msgid "Widget info"
+msgstr ""
+
+#: templates/admin/webcms/page/page_simple_update.html:6
+msgid "Manage page"
+msgstr ""
+
+#: templates/admin/webcms/page/page_simple_update.html:10
+msgid "Basic"
+msgstr ""
+
+#: templates/admin/webcms/page/page_simple_update.html:11
+#: templates/admin/webcms/page/page_update.html:10
+msgid "Navigation"
+msgstr ""
+
+#: templates/admin/webcms/page/page_simple_update.html:13
+msgid "Widgets"
+msgstr ""
+
+#: templates/admin/webcms/page/page_simple_update.html:38
+msgid "Show"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:8
+msgid "Titles"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:9
+msgid "Publishing"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:11
+msgid "SEO"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:12
+msgid "Design"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:20
+msgid "Languages"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:69
+msgid "Page Structure"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:71
+msgid "Page layout"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:74
+msgid "1 column"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:79
+#: templates/admin/webcms/page/page_update.html:84
+msgid "2 columns"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:79
+msgid "sidebar on left"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:84
+msgid "sidebar on right"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:89
+msgid "2 same columns"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:94
+msgid "3 columns"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:99
+msgid "3 same columns"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:104
+msgid "Void"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:110
+msgid "Column settings"
+msgstr ""
+
+#: templates/admin/webcms/page/page_update.html:117
+msgid "Page Theme"
+msgstr ""
+
+#: templates/admin/webcms/site/site_update.html:7
+msgid "Browse site"
+msgstr ""
+
+#: templates/admin/webcms/site/site_update.html:8
+msgid "Drag and drop to the site tree"
+msgstr ""
+
+#: templates/admin/webcms/site/site_update.html:8
+msgid "New page"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_delete.html:5
+msgid "Deleting widget may shift positions of other widgets."
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_info.html:2
+msgid "Type"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_info.html:3
+#: templates/admin_doc/index.html:17
+msgid "Page"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_info.html:4
+msgid "Region"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_info.html:4
+msgid "ordering"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_info.html:5
+msgid "Display"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:6
+msgid "Widget Options"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:7
+msgid "Content Options"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:8
+msgid "Box Options"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:24
+msgid "Box Dimensions"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:25
+msgid "Horizontal axis"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:27
+msgid "Content width"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:33
+msgid "Padding left"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:39
+msgid "Padding right"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:44
+msgid "Vertical axis"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:46
+msgid "Content height"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:52
+msgid "Padding top"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:58
+msgid "Padding bottom"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:65
+msgid "Box Style"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:88
+msgid "Preview Widget"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:92
+msgid "Widget Content"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:103
+msgid "Widget options"
+msgstr ""
+
+#: templates/admin/webcms/widget/widget_update.html:118
+msgid "Box options"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:3 templates/admin_doc/index.html:5
+#: templates/admin_doc/index.html.py:8
+#: templates/livesettings/group_settings.html:11
+msgid "Documentation"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:3 templates/admin_doc/index.html:39
+msgid "Bookmarklets"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:4
+msgid "Documentation bookmarklets"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:8
+msgid ""
+"To install bookmarklets, drag the link to your bookmarks toolbar, or right-"
+"click the link and add it to your bookmarks. Now you can select the "
+"bookmarklet from any page in the site.  Note that some of these bookmarklets "
+"require you to be viewing the site from a computer designated as \"internal"
+"\" (talk to your system administrator if you aren't sure if your computer is "
+"\"internal\")."
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:11
+msgid "Documentation for this page"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:12
+msgid ""
+"Jumps you from any page to the documentation for the view that generates "
+"that page."
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:14
+msgid "Show object ID"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:15
+msgid ""
+"Shows the content-type and unique ID for pages that represent a single "
+"object."
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:17
+msgid "Edit this object (current window)"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:18
+msgid "Jumps to the admin page for pages that represent a single object."
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:20
+msgid "Edit this object (new window)"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:21
+msgid "As above, but opens the admin page in a new window."
+msgstr ""
+
+#: templates/admin_doc/index.html:18
+msgid "Description"
+msgstr ""
+
+#: templates/admin_doc/index.html:23
+msgid "Tags"
+msgstr ""
+
+#: templates/admin_doc/index.html:24
+msgid "List of all the template tags and their functions."
+msgstr ""
+
+#: templates/admin_doc/index.html:27
+msgid "Filters"
+msgstr ""
+
+#: templates/admin_doc/index.html:28
+msgid ""
+"Filters are actions which can be applied to variables in a template to alter "
+"the output."
+msgstr ""
+
+#: templates/admin_doc/index.html:32
+msgid ""
+"Models are descriptions of all the objects in the system and their "
+"associated fields. Each model has a list of fields which can be accessed as "
+"template variables."
+msgstr ""
+
+#: templates/admin_doc/index.html:35
+msgid "Views"
+msgstr ""
+
+#: templates/admin_doc/index.html:36
+msgid ""
+"Each page on the public site is generated by a view. The view defines which "
+"template is used to generate the page and which objects are available to "
+"that template."
+msgstr ""
+
+#: templates/admin_doc/index.html:40
+msgid "Tools for your browser to quickly access admin functionality."
+msgstr ""
+
+#: templates/admin_doc/model_index.html:6
+msgid "Model Documentation"
+msgstr ""
+
+#: templates/admin_doc/view_detail.html:13
+#: templates/admin_doc/view_index.html:9
+msgid "Controller Documentation"
+msgstr ""
+
+#: templates/admin_doc/view_index.html:34
+msgid "URL pattern"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:12
+#: templates/theme/theme_home.html:12
+msgid "Select information page"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:14
+msgid "Project summary"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:15
+#: templates/admin_extra/project_status.html:43
+#: templates/theme/theme_home.html:42
+msgid "Important pages"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:16
+#: templates/admin_extra/project_status.html:81
+#: templates/theme/theme_home.html:80
+msgid "Project settings"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:17
+#: templates/admin_extra/project_status.html:62
+#: templates/theme/theme_home.html:61
+msgid "Code summary"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:18
+#: templates/admin_extra/project_status.html:100
+msgid "Disk usage"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:24
+#: templates/theme/theme_home.html:23
+msgid "Installed modules"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:28
+#: templates/admin_extra/project_status.html:47
+#: templates/theme/theme_home.html:27 templates/theme/theme_home.html.py:46
+msgid "Group"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:29
+#: templates/admin_extra/project_status.html:48
+#: templates/theme/theme_home.html:28 templates/theme/theme_home.html.py:47
+msgid "Module"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:66
+#: templates/admin_extra/project_status.html:85
+#: templates/theme/theme_home.html:65
+msgid "Setting"
+msgstr ""
+
+#: templates/admin_extra/project_status.html:67
+#: templates/admin_extra/project_status.html:86
+#: templates/theme/theme_home.html:66
+msgid "Value"
+msgstr ""
+
+#: templates/auth/user_perms.html:6 templates/auth/user_perms.html.py:10
+msgid "User permissions"
+msgstr ""
+
+#: templates/auth/user_perms.html:14
+msgid "Dashboard"
+msgstr ""
+
+#: templates/auth/user_perms.html:20
+msgid "Select page"
+msgstr ""
+
+#: templates/auth/user_perms.html:22 templates/auth/user_perms.html.py:30
+msgid "Site staff"
+msgstr ""
+
+#: templates/auth/user_perms.html:23 templates/auth/user_perms.html.py:59
+msgid "Site managers"
+msgstr ""
+
+#: templates/auth/user_perms.html:24 templates/auth/user_perms.html.py:84
+msgid "User groups"
+msgstr ""
+
+#: templates/auth/user_perms.html:35 templates/auth/user_perms.html.py:64
+#: templates/auth/user_perms.html:89
+msgid "Permissions"
+msgstr ""
+
+#: templates/auth/user_perms.html:36 templates/auth/user_perms.html.py:65
+msgid "Groups"
+msgstr ""
+
+#: templates/auth/user_perms.html:72 templates/rosetta/languages.html:16
+#: templates/rosetta/pofile.html:43
+msgid "All"
+msgstr ""
+
+#: templates/auth/user_perms.html:88
+msgid "Name"
+msgstr ""
+
+#: templates/livesettings/_admin_site_views.html:4
+msgid "Sites"
+msgstr ""
+
+#: templates/livesettings/group_settings.html:15
+msgid "Edit Group Settings"
+msgstr ""
+
+#: templates/livesettings/group_settings.html:28
+#, python-format
+msgid "Settings included in %(name)s."
+msgstr ""
+
+#: templates/livesettings/group_settings.html:53
+#: templates/livesettings/site_settings.html:74
+msgid "You don't have permission to edit values."
+msgstr ""
+
+#: templates/livesettings/site_settings.html:15
+msgid "Export settings"
+msgstr ""
+
+#: templates/livesettings/site_settings.html:21
+msgid "Livesettings are disabled for this site."
+msgstr ""
+
+#: templates/livesettings/site_settings.html:22
+msgid "All configuration options must be edited in the site settings.py file."
+msgstr ""
+
+#: templates/livesettings/site_settings.html:36
+msgid "Select options page"
+msgstr ""
+
+#: templates/livesettings/site_settings.html:67
+msgid "Save settings"
+msgstr ""
+
+#: templates/pagination/pagination.html:5
+#: templates/pagination/pagination.html:7
+msgid "previous"
+msgstr ""
+
+#: templates/pagination/pagination.html:21
+#: templates/pagination/pagination.html:23
+msgid "next"
+msgstr ""
+
+#: templates/registration/logged_out.html:6
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+
+#: templates/registration/logged_out.html:8
+msgid "Log in again"
+msgstr ""
+
+#: templates/rosetta/languages.html:4 templates/rosetta/languages.html.py:6
+msgid "Language selection"
+msgstr ""
+
+#: templates/rosetta/languages.html:9
+msgid "Select application to translate"
+msgstr ""
+
+#: templates/rosetta/languages.html:13
+msgid "Project"
+msgstr ""
+
+#: templates/rosetta/languages.html:14
+msgid "Third party"
+msgstr ""
+
+#: templates/rosetta/languages.html:34 templates/rosetta/languages.old.html:36
+msgid "Progress"
+msgstr ""
+
+#: templates/rosetta/languages.html:35 templates/rosetta/languages.old.html:37
+msgid "Messages"
+msgstr ""
+
+#: templates/rosetta/languages.html:36 templates/rosetta/languages.old.html:38
+msgid "Translated"
+msgstr ""
+
+#: templates/rosetta/languages.html:37 templates/rosetta/languages.old.html:39
+#: templates/rosetta/pofile.html:76 templates/rosetta/pofile.old.html:54
+msgid "Fuzzy"
+msgstr ""
+
+#: templates/rosetta/languages.html:38 templates/rosetta/languages.old.html:40
+msgid "Obsolete"
+msgstr ""
+
+#: templates/rosetta/languages.html:39 templates/rosetta/languages.old.html:41
+msgid "File"
+msgstr ""
+
+#: templates/rosetta/languages.html:62 templates/rosetta/languages.old.html:70
+msgid "Nothing to translate!"
+msgstr ""
+
+#: templates/rosetta/languages.html:63 templates/rosetta/languages.old.html:71
+msgid ""
+"You haven't specified any languages in your settings file, or haven't yet "
+"generated a batch of translation catalogs."
+msgstr ""
+
+#: templates/rosetta/languages.html:64 templates/rosetta/languages.old.html:72
+#, python-format
+msgid ""
+"Please refer to <a href=\"%(i18n_doc_link)s\">Django's I18N documentation</"
+"a> for a guide on how to set up internationalization for your project."
+msgstr ""
+
+#: templates/rosetta/languages.old.html:7 templates/rosetta/pofile.old.html:15
+msgid "Available translations"
+msgstr ""
+
+#: templates/rosetta/languages.old.html:18
+msgid "Select language"
+msgstr ""
+
+#: templates/rosetta/pofile.html:8
+msgid "Pick another file"
+msgstr ""
+
+#: templates/rosetta/pofile.html:9 templates/rosetta/pofile.old.html:14
+msgid "Download this catalog"
+msgstr ""
+
+#: templates/rosetta/pofile.html:25
+#, python-format
+msgid "Progress: %(percent_translated)s%%"
+msgstr ""
+
+#: templates/rosetta/pofile.html:27
+msgid "File is read-only: download the file when done editing!"
+msgstr ""
+
+#: templates/rosetta/pofile.html:28
+msgid ""
+"Some items in your last translation block couldn't be saved: this usually "
+"happens when the catalog file changes on disk after you last loaded it."
+msgstr ""
+
+#: templates/rosetta/pofile.html:33 templates/rosetta/pofile.old.html:10
+#, python-format
+msgid "Translate into %(rosetta_i18n_lang_name)s"
+msgstr ""
+
+#: templates/rosetta/pofile.html:40 templates/rosetta/pofile.old.html:24
+msgid "Untranslated only"
+msgstr ""
+
+#: templates/rosetta/pofile.html:41 templates/rosetta/pofile.old.html:25
+msgid "Translated only"
+msgstr ""
+
+#: templates/rosetta/pofile.html:42 templates/rosetta/pofile.old.html:26
+msgid "Fuzzy only"
+msgstr ""
+
+#: templates/rosetta/pofile.html:73 templates/rosetta/pofile.old.html:51
+msgid "Original"
+msgstr ""
+
+#: templates/rosetta/pofile.html:77 templates/rosetta/pofile.old.html:55
+msgid "Occurrences(s)"
+msgstr ""
+
+#: templates/rosetta/pofile.html:91 templates/rosetta/pofile.html.py:94
+#: templates/rosetta/pofile.html:109 templates/rosetta/pofile.html.py:112
+msgid "Context hint"
+msgstr ""
+
+#: templates/rosetta/pofile.html:119 templates/rosetta/pofile.old.html:79
+msgid "suggest"
+msgstr ""
+
+#: templates/rosetta/pofile.html:130 templates/rosetta/pofile.old.html:90
+#, python-format
+msgid "%(more_count)s more"
+msgid_plural "%(more_count)s more"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/rosetta/pofile.html:142 templates/rosetta/pofile.old.html:43
+#: templates/rosetta/pofile.old.html:125
+msgid "Save and translate next block"
+msgstr ""
+
+#: templates/rosetta/pofile.html:146 templates/rosetta/pofile.old.html:100
+msgid "Skip to page:"
+msgstr ""
+
+#: templates/rosetta/pofile.html:159 templates/rosetta/pofile.old.html:113
+msgid "Displaying:"
+msgstr ""
+
+#: templates/rosetta/pofile.html:163
+#, python-format
+msgid "%(hits)s/%(message_number)s message"
+msgid_plural "%(hits)s/%(message_number)s messages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/rosetta/pofile.old.html:21
+msgid "Filter by status"
+msgstr ""
+
+#: templates/rosetta/pofile.old.html:23
+msgid "All translations"
+msgstr ""
+
+#: templates/rosetta/pofile.old.html:28
+msgid "Search for keywords"
+msgstr ""
+
+#: templates/theme/css_editor.html:7
+msgid "Update CSS style file"
+msgstr ""
+
+#: templates/theme/css_editor.html:11 templates/theme/css_list.html:11
+#: templates/theme/theme_home.html:6
+msgid "Edit theme"
+msgstr ""
+
+#: templates/theme/css_editor.html:17 templates/theme/css_list.html:17
+msgid "Select css file"
+msgstr ""
+
+#: templates/theme/css_list.html:7
+msgid "Update CSS styles"
+msgstr ""
+
+#: templates/theme/theme_home.html:14
+msgid "Styles (css, saas)"
+msgstr ""
+
+#: templates/theme/theme_home.html:15
+msgid "Scripts (js)"
+msgstr ""
+
+#: templates/theme/theme_home.html:16
+msgid "Images"
+msgstr ""
+
+#: templates/theme/theme_home.html:17
+msgid "Utilities"
+msgstr ""
+
+#: templates/widget/clientinfo/grid.html:9
+msgid "Operating System"
+msgstr ""
+
+#: templates/widget/clientinfo/grid.html:15
+msgid "Device Type"
+msgstr ""
+
+#: templates/widget/clientinfo/grid.html:21
+msgid "Web Browser"
+msgstr ""
+
+#: templates/widget/clientinfo/grid.html:27
+msgid "Browser Size"
+msgstr ""
+
+#: templates/widget/clientinfo/grid.html:33
+msgid "Screen Resolution"
+msgstr ""
+
+#: templates/widget/clientinfo/grid.html:39
+msgid "Color Depth"
+msgstr ""
+
+#: templates/widget/clientinfo/grid.html:45
+msgid "IP Address"
+msgstr ""
+
+#: templates/widget/clientinfo/grid.html:51
+msgid "Flash Version"
+msgstr ""
+
+#: templates/widget/clientinfo/grid.html:57
+msgid "JavaScript"
+msgstr ""
+
+#: templates/widget/clientinfo/grid.html:63
+msgid "Cookies"
+msgstr ""
+
+#: templates/widget/sessionstatus/default.html:8
+msgid "Fragments"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:4
+msgid "Largest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:5
+msgid "2nd Largest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:6
+msgid "3rd Largest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:7
+msgid "3rd Smallest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:8
+msgid "2nd Smallest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_heading.html:9
+msgid "Smallest Heading"
+msgstr ""
+
+#: templates/widget/visualtest/test_list.html:4
+msgid "Ordered List"
+msgstr ""
+
+#: templates/widget/visualtest/test_list.html:34
+msgid "Unordered List"
+msgstr ""
+
+#: templates/widget/visualtest/test_list.html:41
+msgid "Definition List"
+msgstr ""
+
+#: templates/widget/visualtest/test_states.html:4
+msgid "Interaction states"
+msgstr ""
+
+#: templates/widget/visualtest/test_states.html:48
+msgid "Status alerts"
+msgstr ""
+
+#: templates/widget/whoisform/default.html:21
+msgid "Domain"
+msgstr ""
+
+#: templates/widget/whoisform/default.html:22
+msgid "Status"
+msgstr ""
+
+#: templates/widget/whoisform/default.html:23
+msgid "Expires"
+msgstr ""
+
+#: templates/widget/whoisform/default.html:32
+msgid "Domain is available"
+msgstr ""
+
+#: templates/widget/whoisform/default.html:34
+msgid "Domain is occupied"
+msgstr ""
+
+#: views/theme.py:22
+msgid "File content"
+msgstr ""
+
+#: widget/clientinfo/models.py:13
+msgid "browser information"
+msgstr ""
+
+#: widget/clientinfo/models.py:14
+msgid "operating system"
+msgstr ""
+
+#: widget/clientinfo/models.py:15
+msgid "IP address"
+msgstr ""
+
+#: widget/clientinfo/models.py:16
+msgid "hostname"
+msgstr ""
+
+#: widget/clientinfo/models.py:20
+msgid "show info"
+msgstr ""
+
+#: widget/clientinfo/models.py:24 widget/clientinfo/models.py:25
+msgid "client info"
+msgstr ""
+
+#: widget/sessionstatus/models.py:12
+msgid "brief"
+msgstr ""
+
+#: widget/sessionstatus/models.py:13
+msgid "full"
+msgstr ""
+
+#: widget/sessionstatus/models.py:17
+msgid "verbosity level"
+msgstr ""
+
+#: widget/sessionstatus/models.py:34
+msgid "session status"
+msgstr ""
+
+#: widget/sessionstatus/models.py:35
+msgid "session statuses"
+msgstr ""
+
+#: widget/themeswitcher/models.py:12
+msgid "theme"
+msgstr ""
+
+#: widget/themeswitcher/models.py:13
+msgid "template"
+msgstr ""
+
+#: widget/themeswitcher/models.py:17
+msgid "scope"
+msgstr ""
+
+#: widget/themeswitcher/models.py:21
+msgid "theme switcher"
+msgstr ""
+
+#: widget/themeswitcher/models.py:22
+msgid "theme switchers"
+msgstr ""
+
+#: widget/visualtest/models.py:15
+msgid "paragraphs"
+msgstr ""
+
+#: widget/visualtest/models.py:16
+msgid "lists"
+msgstr ""
+
+#: widget/visualtest/models.py:17
+msgid "headings"
+msgstr ""
+
+#: widget/visualtest/models.py:18
+msgid "tables"
+msgstr ""
+
+#: widget/visualtest/models.py:19
+msgid "forms"
+msgstr ""
+
+#: widget/visualtest/models.py:20
+msgid "states"
+msgstr ""
+
+#: widget/visualtest/models.py:21
+msgid "content"
+msgstr ""
+
+#: widget/visualtest/models.py:22
+msgid "misc"
+msgstr ""
+
+#: widget/visualtest/models.py:26
+msgid "Date taken"
+msgstr ""
+
+#: widget/visualtest/models.py:66
+msgid "Contact details"
+msgstr ""
+
+#: widget/visualtest/models.py:79
+msgid "type of test"
+msgstr ""
+
+#: widget/visualtest/models.py:86
+msgid "visual tester"
+msgstr ""
+
+#: widget/visualtest/models.py:87
+msgid "visual testers"
+msgstr ""
+
+#: widget/whoisform/forms.py:7
+msgid "domain name"
+msgstr ""
+
+#: widget/whoisform/models.py:20
+msgid ".cz"
+msgstr ""
+
+#: widget/whoisform/models.py:21
+msgid ".eu"
+msgstr ""
+
+#: widget/whoisform/models.py:22
+msgid ".sk"
+msgstr ""
+
+#: widget/whoisform/models.py:23
+msgid ".com"
+msgstr ""
+
+#: widget/whoisform/models.py:24
+msgid ".net"
+msgstr ""
+
+#: widget/whoisform/models.py:25
+msgid ".org"
+msgstr ""
+
+#: widget/whoisform/models.py:26
+msgid ".info"
+msgstr ""
+
+#: widget/whoisform/models.py:27
+msgid ".biz"
+msgstr ""
+
+#: widget/whoisform/models.py:28
+msgid ".mobi"
+msgstr ""
+
+#: widget/whoisform/models.py:29
+msgid ".name"
+msgstr ""
+
+#: widget/whoisform/models.py:34
+msgid "search multiple domains?"
+msgstr ""
+
+#: widget/whoisform/models.py:35
+msgid "top level domains"
+msgstr ""
+
+#: widget/whoisform/models.py:39
+msgid "whois form"
+msgstr ""
+
+#: widget/whoisform/models.py:40
+msgid "whois forms"
+msgstr ""

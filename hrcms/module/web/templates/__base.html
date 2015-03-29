@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
+{% load webcms_tags feincms_tags feincms_page_tags applicationcontent_tags analytical %}
+{% spaceless %}
+	<head>
+		<title>{% head_title request %} | {{ request.webcms_options.meta_title }}</title>
+		{% analytical_head_top %}
+		{% include "base/head_meta.html" %}
+		{% include "base/head_assets.html" %}
+		{% include "base/head_extra_assets.html" %}
+		{% analytical_head_bottom %} 
+	</head>
+	<body class="{% block body_layout %}{% endblock %} page_{{ webcms_page.slug }} {% body_classes webcms_page %}">
+		{% analytical_body_top %}
+		{% feincms_frontend_editing webcms_page request %}
+		<div id="container">
+			<div id="wrapper">
+				<div id="header">
+					<div class="container region">
+						{% block body_header %}{% endblock %}
+					</div>
+				</div>
+				<div id="toolbar">
+					<div class="container region">
+						{% block body_toolbar %}{% endblock %}
+					</div>
+				</div>
+				<div id="main">
+					<div class="container">
+						{% block body_col1 %}{% endblock %}
+						{% block body_col3 %}{% endblock %}
+						{% block body_col2 %}{% endblock %}
+						{% block body_col4 %}{% endblock %}
+					</div>
+				</div>
+				<div id="helper">
+					<div class="container region">
+						{% block body_helper %}{% endblock %}
+					</div>
+				</div>
+			</div>
+			<div id="footer">
+				<div class="container region">
+					{% block body_footer %}{% endblock %}
+				</div>
+			</div>
+		</div>
+		<div id="dialog"></div>
+		{% include "base/body_assets.html" %}
+		{% analytical_body_bottom %}
+	</body>
+{% endspaceless %}
+</html>

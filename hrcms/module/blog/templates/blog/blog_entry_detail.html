@@ -1,0 +1,39 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load feincms_tags %}
+{% load breadcrumbs %}
+{% load applicationcontent_tags %}
+{% load tagging_tags %}
+
+{% block page_title %}
+&nbsp;
+{% endblock %}
+
+{% block content %}
+<div class="object-detail">
+	<div class="object-meta">
+		{{ entry.published_on|date:"SHORT_DATE_FORMAT" }}
+		{% if entry.categories.all %}
+		<br />
+		{% for category in entry.categories.all %}
+		<a href="{% url webcms.module.blog.apps.blog/webcms_blog_category_list category.translation.slug %}">{{ category.translation.title }}</a>{% if not forloop.last %}, {% endif %}
+		{% endfor %}
+		{% endif %}
+	</div>
+	<h2><a href='{% url webcms.module.blog.apps.blog/webcms_blog_entry_detail entry.published_on|date:"Y" entry.published_on|date:"m" entry.published_on|date:"d" entry.slug %}' title="{{ entry.title }}">{{ entry.title }}</a></h2>
+	<div class="object-text">
+		{% feincms_render_region entry "main" request %}
+	</div>
+</div>
+{% comment %}
+{% tags_for_object entry as tag_list %}
+{% if tag_list %}
+<p id="tags">Tags:
+{% for tag in tag_list %}
+<a href="/elephantblog/tag/{{ tag.name }}/">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
+{% endfor %}
+</p>
+{% endif %}
+{% endcomment %}
+{% endblock %}

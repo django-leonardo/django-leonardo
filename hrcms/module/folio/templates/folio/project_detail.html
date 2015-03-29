@@ -1,0 +1,41 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content %}
+<div class="object-detail">
+	<div class="object-meta">
+		{{ object.created|date:"F Y" }}<br />
+		{% for tech in object.services.all %}
+		<abbr>{{ tech.title }}</abbr>
+		{% endfor %}
+	</div>
+	<h2>{{ object }}</h2>
+	
+	{% for file in object.files.all %}
+	<div class="object-image">
+		{% thumbnail file.file "720x480" format="PNG" as image %}
+		<a href="" rel="clearbox[image]"><img src="{{ image.url }}" /></a>
+		{% endthumbnail %}
+	</div>
+	{% endfor %}
+
+	{% for file in object.media_category.media.all %}
+	{{ file.file }}
+	{% comment %}
+	<div class="object-image">
+		{% thumbnail file.file "720x480" format="PNG" as image %}
+		<a href="" rel="clearbox[image]"><img src="{{ image.url }}" /></a>
+		{% endthumbnail %}
+	</div>
+	{% endcomment %}
+	{% endfor %}
+
+	{% if object.translation.description %}
+	<div class="object-text">
+		{{ object.translation.description|safe }}
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

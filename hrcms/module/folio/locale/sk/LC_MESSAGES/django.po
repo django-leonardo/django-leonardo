@@ -1,0 +1,260 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n>1 && n<5 ? 1 : 2;\n"
+
+#: models.py:25 models.py:79 models.py:127
+msgid "logo"
+msgstr ""
+
+#: models.py:36
+msgid "portfolio category"
+msgstr ""
+
+#: models.py:37
+msgid "portfolio categories"
+msgstr ""
+
+#: models.py:62 models.py:111 models.py:160 models.py:228 models.py:284
+msgid "title"
+msgstr ""
+
+#: models.py:63 models.py:112 models.py:161 models.py:229
+msgid "slug"
+msgstr ""
+
+#: models.py:64 models.py:113 models.py:162 models.py:230 models.py:285
+msgid "summary"
+msgstr ""
+
+#: models.py:65 models.py:114 models.py:163 models.py:231
+msgid "description"
+msgstr ""
+
+#: models.py:68
+msgid "category text"
+msgstr ""
+
+#: models.py:69
+msgid "category texts"
+msgstr ""
+
+#: models.py:84
+msgid "service"
+msgstr ""
+
+#: models.py:85 models.py:180
+msgid "services"
+msgstr ""
+
+#: models.py:117
+msgid "service translation"
+msgstr ""
+
+#: models.py:118
+msgid "service translations"
+msgstr ""
+
+#: models.py:128 models.py:325
+msgid "ordering"
+msgstr ""
+
+#: models.py:129 models.py:326
+msgid "active"
+msgstr ""
+
+#: models.py:133 models.py:177
+msgid "client"
+msgstr ""
+
+#: models.py:134
+msgid "clients"
+msgstr ""
+
+#: models.py:166
+msgid "client translation"
+msgstr ""
+
+#: models.py:167
+msgid "client translations"
+msgstr ""
+
+#: models.py:176
+msgid "categories"
+msgstr ""
+
+#: models.py:178
+msgid "files"
+msgstr ""
+
+#: models.py:179
+msgid "media category"
+msgstr ""
+
+#: models.py:189
+msgid "project"
+msgstr ""
+
+#: models.py:190
+msgid "projects"
+msgstr ""
+
+#: models.py:234
+msgid "project text"
+msgstr ""
+
+#: models.py:235
+msgid "project texts"
+msgstr ""
+
+#: models.py:241
+msgid "One or more characters"
+msgstr ""
+
+#: models.py:242
+msgid "Integer number"
+msgstr ""
+
+#: models.py:243
+msgid "Yes or No"
+msgstr ""
+
+#: models.py:244
+msgid "Decimal number"
+msgstr ""
+
+#: models.py:251
+msgid "sort order"
+msgstr ""
+
+#: models.py:252
+msgid "field validations"
+msgstr ""
+
+#: models.py:253
+msgid "error message"
+msgstr ""
+
+#: models.py:253
+msgid "Invalid entry"
+msgstr ""
+
+#: models.py:259
+msgid "attribute option"
+msgstr ""
+
+#: models.py:260
+msgid "attribute options"
+msgstr ""
+
+#: models.py:288
+msgid "attribute option translation"
+msgstr ""
+
+#: models.py:289
+msgid "attribute option translations"
+msgstr ""
+
+#: models.py:299
+msgid "language"
+msgstr ""
+
+#: models.py:301
+msgid "Value"
+msgstr ""
+
+#: models.py:312
+msgid "Project attribute"
+msgstr ""
+
+#: models.py:313
+msgid "Project attributes"
+msgstr ""
+
+#: models.py:327
+msgid "featured"
+msgstr ""
+
+#: models.py:330
+msgid "Project file"
+msgstr ""
+
+#: models.py:331
+msgid "Project files"
+msgstr ""
+
+#: models.py:337
+msgid "All portfolio categories"
+msgstr ""
+
+#: conf/admin.py:7
+msgid "Projects"
+msgstr ""
+
+#: conf/admin.py:8
+msgid "Extra properties"
+msgstr ""
+
+#: conf/admin.py:9
+msgid "Categories"
+msgstr ""
+
+#: conf/admin.py:10
+msgid "Clients"
+msgstr ""
+
+#: conf/admin.py:11
+msgid "Services"
+msgstr ""
+
+#: templates/folio/project_list.html:49
+msgid "No project in this category."
+msgstr ""
+
+#: templates/folio/project_list.html:60
+#, python-brace-format
+msgid "photo {current} of {total}"
+msgstr ""
+
+#: templates/folio/project_list.html:61
+msgid "previous"
+msgstr ""
+
+#: templates/folio/project_list.html:62
+msgid "next"
+msgstr ""
+
+#: templates/folio/project_list.html:63
+msgid "close"
+msgstr ""
+
+#: widget/featuredprojects/models.py:11
+msgid "project count"
+msgstr ""
+
+#: widget/featuredprojects/models.py:12
+msgid "show link button"
+msgstr ""
+
+#: widget/featuredprojects/models.py:19 widget/featuredprojects/models.py:20
+msgid "featured projects"
+msgstr ""
+
+#: widget/projectcategories/models.py:17 widget/projectcategories/models.py:18
+msgid "project categories"
+msgstr ""

@@ -1,0 +1,32 @@
+{% extends "widget/base.html" %}
+
+{% load webcms_tags %}
+{% load thumbnail %}
+
+{% block content %}
+{% with widget.get_size as size %}
+{% if widget.on_click == "open_modal" %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$("a[rel='{{ widget.fe_identifier }}']").colorbox();
+});
+</script>
+{% thumbnail widget.image.file "800x800" as image %}
+<a href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
+{% endthumbnail %}
+{% endif %} 
+{% if widget.on_click == "go_to_page" %}
+<a href="{{ widget.parent|get_url }}">
+{% endif %}
+{% if widget.size %}
+{% thumbnail widget.image.file size format="PNG" as thumb %}
+<img src='{{ thumb.url }}' alt='' />
+{% endthumbnail %}
+{% else %}
+<img src='/media/files/{{ widget.image.file }}' alt='' />
+{% endif %}
+{% if widget.on_click %}
+</a>
+{% endif %} 
+{% endwith %}
+{% endblock %}

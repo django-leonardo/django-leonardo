@@ -1,0 +1,34 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content %}
+{% for object in widget.list.link_set.all %}
+<div class="{% cycle 'odd' 'even' %} link_item">
+	<div class="object-list ui-helper-clearfix">
+		{% thumbnail object.image.file "150x400" format="PNG" as image %}
+		<div class="object-image">
+			<img src="{{ image.url }}" alt="icon" /><br />
+		</div>
+		{% endthumbnail %}
+		<h3><a href="{{ object.web_address }}" class="button {% if object.target == '_modal' %}modal{% endif %} {% if object.target == '_blank' %}blank{% endif %}">{{ object }}</a></h3>
+		<div class="object-text">
+			{{ object.translation.description|safe }}
+		</div>
+		<div class="object-buttons">
+			<a href="{{ object.web_address }}" class="button {% if object.target == '_modal' %}modal{% endif %} {% if object.target == '_blank' %}blank{% endif %}"><span><span>{% trans "Link" %}</span></span></span></a>
+		</div>
+	</div>
+</div>
+{% endfor %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#{{ widget.fe_identifier }} a.modal").colorbox();
+	$("#{{ widget.fe_identifier }} a.blank").bind('click', function() {
+		window.open($(this).attr('href'));
+		return false;
+	});
+});
+</script>
+{% endblock %}

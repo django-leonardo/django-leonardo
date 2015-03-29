@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cross-domain-policy>
+   <!-- allow other crossdomain.xml files in subdirectories -->
+   <site-control permitted-cross-domain-policies="all"/>
+   <allow-access-from domain="live.yworks.com"/>
+   <allow-access-from domain="www.yworks-live.com"/>
+</cross-domain-policy>

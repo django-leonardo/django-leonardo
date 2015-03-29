@@ -1,0 +1,40 @@
+
+{% load i18n %}
+{% load thumbnail %}
+{% load leonardo_tags %}
+{% load leonardo_utils %}
+
+{% switch object.list %}
+	{% case "grid" %}
+	<div class="boxed_port">
+		{% for file in object.get_file_list %}
+		<a href="{% thumbnail file.file 800x800 %}" rel="clearbox[gallery=Galerie]">
+			<img alt="{{ file.title }}" src="{% thumbnail file.file 100x100 %}" />
+		</a>
+		{% endfor %}
+	</div>
+	<hr class="space" />
+	{% case "journal" %}
+		{% for file in object.get_file_list %}
+		<div class="dj-media-item ui-widget ui-corner-all ui-widget-content">
+			<div class="dj-media-item-image">
+				<a rel="clearbox[gallery]" href="{{ file.display.url }}">
+					<img src="{{ file.medium_image.url }}" alt="{{ file.title }}" />
+				</a>
+			</div>
+			<div class="dj-media-item-title">
+				<h3>{{ file.title }}</h3>
+			</div>
+		</div>
+		{% endfor %}
+	{% case "list" %}
+		<div class="boxed_port">
+			<h3>{{ object.caption }}</h3>
+			<ul>
+			{% for file in object.get_file_list %}
+			<li><a title="{{ file.title }}" href="{{ file.file.path }}" class="cboxelement">{{ file.translation.caption }}</a></li>
+			{% endfor %}
+			</ul>
+		</div>
+		<hr class="space" />
+	{% endswitch %}
