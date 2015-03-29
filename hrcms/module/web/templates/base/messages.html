@@ -1,0 +1,9 @@
+{% if messages %}
+{% for message in messages %}
+<p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+{% endfor %}
+{% endif %}
+
+{% if visitor_messages %}
+{% for message in visitor_messages %}<p class="info">{{ message }}</p>{% endfor %}
+{% endif %} 

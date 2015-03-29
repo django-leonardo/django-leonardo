@@ -1,0 +1,48 @@
+{% load i18n %}{% load webcms_store_tags %}{% load webcms_tags %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{% trans "Infomail" %} {% webcms_store_name %}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+{% include "email/styles.css" %}
+{% block styles %}
+{% endblock %}
+</style>
+</head>
+<body text="#000000" bgcolor="#ECECEC">
+	<table width="100%" cellspacing="0" border="0" id="backgroundTable" cellpadding="20" bgcolor="#ECECEC">
+		<tr>
+			<td>
+				<table width="800" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="white">
+					<tr>
+						<td>
+							<table width="100%" border="0" cellspacing="0" cellpadding="24" class="obsah" bgcolor="white">
+								<tr>
+									<td>
+										<table width="100%" cellpadding="0" cellspacing="0" class="logoheader">
+											<tr>
+												<td align="left"><img src="{% webcms_site_logo %}" alt="{% webcms_store_name %}" /></td>
+												<td align="right"><font size="+1" color="#00285A">{% block title %}{% endblock %}</font></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td>{% block content %}{% endblock %}</td>
+								</tr>
+								<tr>
+									<td>
+										<p>{% trans "Regards" %},</p>
+										<p>{% webcms_store_name %}</p>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	
+</body>
+</html>

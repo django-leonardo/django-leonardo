@@ -1,0 +1,279 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n>1 && n<5 ? 1 : 2;\n"
+
+#: templates/googlesearch/googlesearch_results.html:8
+msgid "You searched for"
+msgstr ""
+
+#: templates/googlesearch/googlesearch_results.html:10
+msgid "No search query entered"
+msgstr ""
+
+#: templates/widget/breadcrumbs/detail.html:7
+msgid "You are here"
+msgstr ""
+
+#: templates/widget/linearnavigation/default.html:11
+#: templates/widget/linearnavigation/default.html:13
+#: templates/widget/linearnavigation/default.html:25
+msgid "prev"
+msgstr ""
+
+#: templates/widget/linearnavigation/default.html:18
+#: templates/widget/linearnavigation/default.html:20
+#: templates/widget/linearnavigation/default.html:28
+#: templates/widget/linearnavigation/inline.html:16
+#: templates/widget/linearnavigation/inline.html:18
+msgid "next"
+msgstr ""
+
+#: templates/widget/linearnavigation/inline.html:10
+#: templates/widget/linearnavigation/inline.html:12
+msgid "previous"
+msgstr ""
+
+#: templates/widget/sitesearch/default.html:12
+#: templates/widget/sitesearch/default.html:19
+msgid "Search"
+msgstr ""
+
+#: templates/widget/tagcloud/default.html:5
+msgid "Popular Tags"
+msgstr ""
+
+#: templates/widget/tagcloud/default.html:11
+msgid "View all tags"
+msgstr ""
+
+#: widget/breadcrumbs/models.py:12 widget/treenavigation/models.py:12
+msgid "horizontal"
+msgstr ""
+
+#: widget/breadcrumbs/models.py:13 widget/treenavigation/models.py:13
+msgid "vertical"
+msgstr ""
+
+#: widget/breadcrumbs/models.py:29 widget/treenavigation/models.py:28
+msgid "orientation"
+msgstr ""
+
+#: widget/breadcrumbs/models.py:30
+msgid "root label"
+msgstr ""
+
+#: widget/breadcrumbs/models.py:34 widget/breadcrumbs/models.py:35
+msgid "breadcrumbs"
+msgstr ""
+
+#: widget/contentnavigation/models.py:10
+msgid "include contextual pages"
+msgstr ""
+
+#: widget/contentnavigation/models.py:11
+msgid "include text headers"
+msgstr ""
+
+#: widget/contentnavigation/models.py:15
+msgid "content navigation"
+msgstr ""
+
+#: widget/contentnavigation/models.py:16
+msgid "content navigations"
+msgstr ""
+
+#: widget/contextnavigation/models.py:13
+msgid "self"
+msgstr ""
+
+#: widget/contextnavigation/models.py:14
+msgid "one level"
+msgstr ""
+
+#: widget/contextnavigation/models.py:15
+msgid "all levels"
+msgstr ""
+
+#: widget/contextnavigation/models.py:19 widget/linearnavigation/models.py:12
+msgid "none"
+msgstr ""
+
+#: widget/contextnavigation/models.py:20
+msgid "link"
+msgstr ""
+
+#: widget/contextnavigation/models.py:21
+msgid "button"
+msgstr ""
+
+#: widget/contextnavigation/models.py:25
+msgid "source"
+msgstr ""
+
+#: widget/contextnavigation/models.py:25
+msgid "The child pages of root page are displayed in the context navigation."
+msgstr ""
+
+#: widget/contextnavigation/models.py:26
+msgid "display region"
+msgstr ""
+
+#: widget/contextnavigation/models.py:26
+msgid "Which region of selected pages do you wish to display."
+msgstr ""
+
+#: widget/contextnavigation/models.py:27 widget/treenavigation/models.py:30
+msgid "depth"
+msgstr ""
+
+#: widget/contextnavigation/models.py:27
+msgid "Depth to which display child pages."
+msgstr ""
+
+#: widget/contextnavigation/models.py:28
+msgid "link style"
+msgstr ""
+
+#: widget/contextnavigation/models.py:28
+msgid "Visual style of links to displayed pages."
+msgstr ""
+
+#: widget/contextnavigation/models.py:29
+msgid "link texts"
+msgstr ""
+
+#: widget/contextnavigation/models.py:29
+msgid "Arbitrary text of links. If empty, page's title will be used instead."
+msgstr ""
+
+#: widget/contextnavigation/models.py:33
+msgid "contextual content"
+msgstr ""
+
+#: widget/contextnavigation/models.py:34
+msgid "contextual contents"
+msgstr ""
+
+#: widget/linearnavigation/models.py:13
+msgid "parents"
+msgstr ""
+
+#: widget/linearnavigation/models.py:14
+msgid "siblings"
+msgstr ""
+
+#: widget/linearnavigation/models.py:15
+msgid "cousins"
+msgstr ""
+
+#: widget/linearnavigation/models.py:19
+msgid "previous/next"
+msgstr ""
+
+#: widget/linearnavigation/models.py:20
+msgid "page title"
+msgstr ""
+
+#: widget/linearnavigation/models.py:24
+msgid "traverse"
+msgstr ""
+
+#: widget/linearnavigation/models.py:25
+msgid "links"
+msgstr ""
+
+#: widget/linearnavigation/models.py:29
+msgid "linear navigation"
+msgstr ""
+
+#: widget/linearnavigation/models.py:30
+msgid "linear navigations"
+msgstr ""
+
+#: widget/sitemap/models.py:16
+msgid "site map"
+msgstr ""
+
+#: widget/sitemap/models.py:17
+msgid "site maps"
+msgstr ""
+
+#: widget/sitesearch/models.py:10
+msgid "Google Custom Search"
+msgstr ""
+
+#: widget/sitesearch/models.py:11
+msgid "Django Haystack"
+msgstr ""
+
+#: widget/sitesearch/models.py:15
+msgid "engine"
+msgstr ""
+
+#: widget/sitesearch/models.py:16
+msgid "inline"
+msgstr ""
+
+#: widget/sitesearch/models.py:20
+msgid "site search"
+msgstr ""
+
+#: widget/sitesearch/models.py:21
+msgid "site searches"
+msgstr ""
+
+#: widget/treenavigation/models.py:17
+msgid "primary"
+msgstr ""
+
+#: widget/treenavigation/models.py:18
+msgid "secondary"
+msgstr ""
+
+#: widget/treenavigation/models.py:19
+msgid "common"
+msgstr ""
+
+#: widget/treenavigation/models.py:23
+msgid "only one level"
+msgstr ""
+
+#: widget/treenavigation/models.py:24
+msgid "subpages too"
+msgstr ""
+
+#: widget/treenavigation/models.py:29
+msgid "priority"
+msgstr ""
+
+#: widget/treenavigation/models.py:31
+msgid "root page"
+msgstr ""
+
+#: widget/treenavigation/models.py:31
+msgid "If no root page is set, widget's parent page will be used."
+msgstr ""
+
+#: widget/treenavigation/models.py:35
+msgid "navigation menu"
+msgstr ""
+
+#: widget/treenavigation/models.py:36
+msgid "navigation menus"
+msgstr ""

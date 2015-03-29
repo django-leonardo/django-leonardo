@@ -1,0 +1,14 @@
+
+{% block title %}
+{% if widget.options.label %}
+<a id="{{ widget.options.label|slugify }}"></a>
+{% if widget.options.style == 'nested_box' %}
+<h3 class="section-title">{{ widget.options.label }}</h3>
+{% else %}
+<h2 class="section-title">{{ widget.options.label }}</h2>
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}

@@ -1,0 +1,229 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-14 23:01+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:19 models.py:33
+msgid "Document content"
+msgstr ""
+
+#: models.py:20 models.py:34
+msgid "Front page"
+msgstr ""
+
+#: models.py:21 models.py:35
+msgid "Content preview"
+msgstr ""
+
+#: models.py:25
+msgid "Document layout"
+msgstr ""
+
+#: models.py:39
+msgid "Web page (HTML)"
+msgstr ""
+
+#: models.py:40
+msgid "E-mail message (HTML)"
+msgstr ""
+
+#: models.py:41
+msgid "Print format (PDF)"
+msgstr ""
+
+#: models.py:42
+msgid "Print format (ODT)"
+msgstr ""
+
+#: models.py:53
+msgid "title"
+msgstr ""
+
+#: models.py:54
+msgid "language"
+msgstr ""
+
+#: models.py:55
+msgid "outputs"
+msgstr ""
+
+#: models.py:56
+msgid "supplier"
+msgstr ""
+
+#: models.py:57
+msgid "client"
+msgstr ""
+
+#: models.py:58
+msgid "description"
+msgstr ""
+
+#: models.py:59
+msgid "published"
+msgstr ""
+
+#: models.py:60
+msgid "published on"
+msgstr ""
+
+#: models.py:61
+msgid "Will be set automatically once you set the `published` above."
+msgstr ""
+
+#: models.py:62
+msgid "author"
+msgstr ""
+
+#: models.py:67
+msgid "document"
+msgstr ""
+
+#: models.py:68
+msgid "documents"
+msgstr ""
+
+#: conf/admin.py:11
+msgid "Documents"
+msgstr ""
+
+#: conf/admin.py:16
+msgid "Business entities"
+msgstr ""
+
+#: conf/admin.py:20
+msgid "Document management"
+msgstr ""
+
+#: conf/admin.py:20
+msgid "Complete electronic store management and utilities."
+msgstr ""
+
+#: templates/doc/document_detail.html:13
+msgid "Document list"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:15
+#: templates/widget/doc_offer/default.html:57
+#: templates/widget/doc_offer/default.html:184
+msgid "Core features"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:29
+#: templates/widget/doc_offer/default.html:136
+#: templates/widget/doc_offer/default.html:189
+msgid "Work on project"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:41
+#: templates/widget/doc_offer/default.html:96
+msgid "Recommended features"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:62
+#: templates/widget/doc_offer/default.html:101
+msgid "Service feature"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:63
+msgid "Price per feature"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:69
+#: templates/widget/doc_offer/default.html:108
+#: templates/widget/doc_offer/default.html:148
+#: templates/widget/doc_offer/default.html:178
+msgid "Total price"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:75
+#: templates/widget/doc_offer/default.html:114
+msgid "Total annual price"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:102
+#: templates/widget/doc_offer/default.html:142
+#: templates/widget/doc_offer/default.html:172
+msgid "Price"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:140
+msgid "Work"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:141
+msgid "Hours"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:167
+msgid "Price totals"
+msgstr ""
+
+#: templates/widget/doc_offer/default.html:173
+msgid "Annual price"
+msgstr ""
+
+#: widget/graph/models.py:11
+msgid "Full"
+msgstr ""
+
+#: widget/graph/models.py:15
+msgid "graph"
+msgstr ""
+
+#: widget/graph/models.py:16
+msgid "width"
+msgstr ""
+
+#: widget/graph/models.py:17
+msgid "height"
+msgstr ""
+
+#: widget/graph/models.py:18
+msgid "toolbar"
+msgstr ""
+
+#: widget/graph/models.py:19
+msgid "overview"
+msgstr ""
+
+#: widget/graph/models.py:20
+msgid "movable"
+msgstr ""
+
+#: widget/graph/models.py:21
+msgid "tooltips"
+msgstr ""
+
+#: widget/graph/models.py:22
+msgid "links"
+msgstr ""
+
+#: widget/graph/models.py:23
+msgid "open in new window"
+msgstr ""
+
+#: widget/graph/models.py:24
+msgid "viewport"
+msgstr ""
+
+#: widget/graph/models.py:28
+msgid "simple graph"
+msgstr ""
+
+#: widget/graph/models.py:29
+msgid "simple graphs"
+msgstr ""

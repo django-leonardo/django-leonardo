@@ -1,0 +1,15 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="ui-helper-clearfix">
+	{% for key,lang in languages.items %}
+	{% if lang.page %}
+	<a {% if request.path == lang.page.get_absolute_url %}class="active"{% endif %} id="set_lang_{{ lang.code }}" href="{{ lang.page.get_absolute_url }}{{ lang.suffix }}">
+		<img src="/static/lib/webcms/img/flags/{{ lang.code }}.gif" alt="{{ lang.label }}" />
+	</a>
+	{% endif %}
+	{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% if widget.options.template_name == "default" %}
+{% for entry in entries %}
+<h3><a href="{{ entry.links.0.href }}" target="_blank">{{ entry.title }}</a></h3>
+<p>{{ entry.summary|safe }}</p>
+{% endfor %}
+{% endif %}
+{% if widget.options.template_name == "list" %}
+<ul class="vertical">
+{% for entry in entries %}
+<li><a href="{{ entry.links.0.href }}" target="_blank">{{ entry.title }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}

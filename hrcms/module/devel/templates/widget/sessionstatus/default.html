@@ -1,0 +1,19 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+{% for key,fragment in fragments.items %}
+{% if forloop.first %}
+<h3>{% trans "Fragments" %}:</h3>
+<ul class="vertical">
+{% endif %}
+<li>{{ key }}: {{ fragment }}</li>
+{% if forloop.last %}
+</ul>
+{% endif %}
+{% endfor %}
+{% comment %}
+{{ request.webcms_options }}
+{% endcomment %}
+{% endblock %}

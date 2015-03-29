@@ -1,0 +1,55 @@
+{% load i18n feinheit_thumbnail %}
+<div class="entry">
+ <h1 class="content">Blog</h1>
+ {% for object in object_list %}
+        <div class="entry bottom">
+            {% if object.mediafilecontent_set.all.0.mediafile.type == 'image' %}
+            <table class="blog_headline content">
+                <tr>
+                    <td class="headline_image" width="155" >
+                        {% if object.mediafilecontent_set.all.0.mediafile.type == 'image' %}
+                        <a href="{{ object.get_absolute_url }}" title="{{ object.title }}">
+                        <img src="{{ object.mediafilecontent_set.all.0.mediafile.file.name|cropscale:'155x155' }}" /></a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="heading content">{{ object.published_on|date:"SHORT_DATE_FORMAT" }} | <a href="{{ object.get_absolute_url }}" title="{{ object.title }}">{{ object.title }}</a>
+                        </span>
+                        {{ object.richtextcontent_set.all.0.render }}
+                        {% if object.richtextcontent_set.all.1 %}
+                        <a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="content button entry_more">{% trans 'more...' %}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+            {% else %}            
+                <span class="heading content">{{ object.published_on|date:"SHORT_DATE_FORMAT" }} | <a href="{{ object.get_absolute_url }}" title="{{ object.title }}">{{ object.title }}</a>
+                </span>
+                 {{ object.richtextcontent_set.all.0.render }}
+                {% if object.richtextcontent_set.all.1 %}
+                <a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="content entry_more">{% trans 'more...' %}</a>
+                {% endif %}
+            {% endif %}
+        </div>
+        {% if not forloop.last %}
+          <div class="separator"></div>
+        {% endif %}
+    {% endfor %}
+    
+    {% if page_obj.has_other_pages %}
+    <div class="separator"></div>
+    <div class="pagination">
+            <span class="current">
+                {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
+            </span>
+            
+            {% if page_obj.has_previous %}
+                <a class="step-back" href="?page={{ page_obj.previous_page_number }}">{% trans 'previous' %}</a>
+            {% endif %}
+    
+            {% if page_obj.has_next %}
+                <a class="step-forward" href="?page={{ page_obj.next_page_number }}">{% trans 'next' %}</a>
+            {% endif %}
+    </div>
+    {% endif %}
+</div>

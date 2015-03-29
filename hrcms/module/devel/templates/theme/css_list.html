@@ -1,0 +1,27 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+{% load webcms_tags %}
+
+{% block content_title %}
+<h2>{% trans "Update CSS styles" %}</h2>
+{% endblock %}
+
+{% block object-tools %}
+<li><a href="{% url webcms_admin:dashboard %}">{% trans "Edit theme" %}</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="admin-form-areas">
+	<div class="span-4">
+		<h3>{% trans "Select css file" %}</h3>
+		<ul>
+			{% for file in parsed_css %}
+			<li><a href="{% url webcms_devel_admin_css_edit file.name %}">{{ file.name }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="span-20">
+	</div>
+</div>
+{% endblock %}

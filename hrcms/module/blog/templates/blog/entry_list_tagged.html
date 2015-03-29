@@ -1,0 +1,19 @@
+{% load feincms_tags i18n %}
+
+ <h1 class="tag-header">{% trans 'tag' %}: {{ tag }}</h1>
+ {% for object in object_list %}
+        <div class="entry">
+		    <h1><a href="{{ object.get_absolute_url }}" title="{{ object.title }}">{{ object.title }}</a></h1>
+		    <h3> {% trans 'By' %} <a href="#">{{ object.user.get_full_name }}</a>. {% trans 'Posted on' %} {{ object.published_on|date:"SHORT_DATE_FORMAT" }}
+                 {% trans 'at' %} {{ object.published_on|time:"H:i" }}</h3>
+		    <p style="font-weight:bold;"> {{ object.meta_description }} </p>
+		    {% feincms_render_region object "main" request %}
+        </div>
+		{% if not forloop.last %}
+		  <div class="separator"></div>
+		{% endif %}
+    {% endfor %}
+<br />
+{% if related_tags %}
+    <h2> {% trans 'Related Tags' %}: {{ related_tags }} </h2>
+{% endif %}

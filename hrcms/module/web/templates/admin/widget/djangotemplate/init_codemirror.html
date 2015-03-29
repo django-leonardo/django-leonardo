@@ -1,0 +1,28 @@
+{% comment %}
+<script type="text/javascript">
+(function($) {
+	contentblock_init_handlers.push(function(){
+		$('.order-machine textarea[class=item-djangotemplate], #frontend_editor textarea[class=item-djangotemplate]').each(function(){
+			wcms_djangotemplate_add_codemirror($(this));
+		});
+	});
+})(jQuery);
+
+var codemirror_added = {};
+
+function wcms_djangotemplate_add_codemirror(field) {
+	var id = field.attr("id");
+	if(!codemirror_added[id]) {
+		var editor = CodeMirror.fromTextArea(document.getElementById(id), {
+			lineNumbers: true,
+			matchBrackets: true
+		});
+
+		codemirror_added[id] = true;
+	}
+}
+</script>
+<style type="text/css">
+.item-djangotemplate { height:400px; width:100%;}
+</style>
+{% endcomment %}

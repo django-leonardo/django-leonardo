@@ -1,0 +1,12 @@
+{% if google_search_partner_id %}
+    <form id="frmSearch" action="{% url googlesearch_results %}" id="cref_iframe" class="search">
+        <p>
+            <input name="cx" value="{{ google_search_partner_id }}" type="hidden">
+        	<input name="cof" value="FORID:11" type="hidden">
+	        <input name="ie" value="ISO-8859-1" type="hidden">
+            <input type="text" name="q" value="{% if request.GET.q %}{{ request.GET.q }}{% else %}Search{% endif %}" class="search_txt" onfocus="if (this.value == '{% if request.GET.q %}{{ request.GET.q }}{% else %}Search{% endif %}') {this.value = '';}" onblur="if (this.value == '') {this.value = '{% if request.GET.q %}{{ request.GET.q }}{% else %}Search{% endif %}';}" />
+            <input type="submit" name="submit" value="" class="search_btn" />
+        </p>
+    </form><!--/search-->
+    <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cref_iframe"></script>
+{% endif %}

@@ -1,0 +1,738 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: config.py:6
+msgid "Media settings"
+msgstr ""
+
+#: config.py:11
+msgid "Synchronise folders"
+msgstr ""
+
+#: config.py:12
+msgid "If yes, every folder will be synced with a Media Category."
+msgstr ""
+
+#: config.py:20
+msgid "small thumb geomerty"
+msgstr ""
+
+#: config.py:22
+msgid "Geometry of small thumbnails. I.e.: \"400x50\" or \"x90\""
+msgstr ""
+
+#: config.py:29
+msgid "small thumb options"
+msgstr ""
+
+#: config.py:31
+msgid "Additional options for small thumnais."
+msgstr ""
+
+#: config.py:38
+msgid "medium thumb geomerty"
+msgstr ""
+
+#: config.py:40
+msgid "Geometry of medium thumbnails. I.e.: \"400x50\" or \"x90\""
+msgstr ""
+
+#: config.py:47
+msgid "medium thumb options"
+msgstr ""
+
+#: config.py:49
+msgid "Additional options for medium thumnais."
+msgstr ""
+
+#: config.py:56
+msgid "large thumb geomerty"
+msgstr ""
+
+#: config.py:58
+msgid "Geometry of large thumbnails. I.e.: \"400x50\" or \"x90\""
+msgstr ""
+
+#: config.py:65
+msgid "large thumb options"
+msgstr ""
+
+#: config.py:67
+msgid "Additional options for large thumbnais."
+msgstr ""
+
+#: fields.py:127
+msgid "and"
+msgstr ""
+
+#: fields.py:129
+#, python-format
+msgid ""
+"Use the left field to do %(model_name)s lookups in the fields %(field_list)s."
+msgstr ""
+
+#: forms.py:26
+msgid "This would create a loop in the hierarchy"
+msgstr ""
+
+#: forms.py:64
+#, python-format
+msgid ""
+"Cannot overwrite with different file type (attempt to overwrite a "
+"%(old_ext)s with a %(new_ext)s)"
+msgstr ""
+
+#: models.py:78 models.py:166 models.py:533
+msgid "name"
+msgstr ""
+
+#: models.py:78
+msgid "URL friendly name of the media category."
+msgstr ""
+
+#: models.py:79
+msgid "sort order"
+msgstr ""
+
+#: models.py:80 models.py:196 models.py:244
+msgid "created"
+msgstr ""
+
+#: models.py:81
+msgid "is active?"
+msgstr ""
+
+#: models.py:82
+msgid "is hidden?"
+msgstr ""
+
+#: models.py:83
+msgid "sync"
+msgstr ""
+
+#: models.py:109
+msgid "media category"
+msgstr ""
+
+#: models.py:110
+msgid "media categories"
+msgstr ""
+
+#: models.py:167
+msgid "excerpt"
+msgstr ""
+
+#: models.py:168 models.py:534 ext/annotatedimages/models.py:75
+msgid "description"
+msgstr ""
+
+#: models.py:171
+msgid "category translation"
+msgstr ""
+
+#: models.py:172
+msgid "category translations"
+msgstr ""
+
+#: models.py:178
+msgid "all media categories"
+msgstr ""
+
+#: models.py:193 models.py:568 widget/downloaditem/models.py:11
+msgid "file"
+msgstr ""
+
+#: models.py:194
+msgid "file name"
+msgstr ""
+
+#: models.py:195 models.py:362
+msgid "file type"
+msgstr ""
+
+#: models.py:197
+msgid "copyright"
+msgstr ""
+
+#: models.py:198 models.py:239
+msgid "file size"
+msgstr ""
+
+#: models.py:199
+msgid "hash"
+msgstr ""
+
+#: models.py:200
+msgid "metadata"
+msgstr ""
+
+#: models.py:201
+msgid "folder"
+msgstr ""
+
+#: models.py:202
+msgid "categories"
+msgstr ""
+
+#: models.py:207
+msgid "media file"
+msgstr ""
+
+#: models.py:208
+msgid "media files"
+msgstr ""
+
+#: models.py:234
+msgid "full path"
+msgstr ""
+
+#: models.py:379
+msgid "file info"
+msgstr ""
+
+#: models.py:505
+msgid "Image"
+msgstr ""
+
+#: models.py:506
+msgid "Video"
+msgstr ""
+
+#: models.py:507
+msgid "Audio"
+msgstr ""
+
+#: models.py:508
+msgid "Graph"
+msgstr ""
+
+#: models.py:509
+msgid "Ontology"
+msgstr ""
+
+#: models.py:510
+msgid "PDF document"
+msgstr ""
+
+#: models.py:511
+msgid "Flash"
+msgstr ""
+
+#: models.py:512
+msgid "Text"
+msgstr ""
+
+#: models.py:513
+msgid "Rich text"
+msgstr ""
+
+#: models.py:514 widget/vectorgraphics/models.py:211
+#: widget/vectorgraphics/models.py:212
+msgid "Vector graphics"
+msgstr ""
+
+#: models.py:515
+msgid "Zip archive"
+msgstr ""
+
+#: models.py:516
+msgid "Microsoft Word"
+msgstr ""
+
+#: models.py:517
+msgid "Microsoft Excel"
+msgstr ""
+
+#: models.py:518
+msgid "Microsoft PowerPoint"
+msgstr ""
+
+#: models.py:519
+msgid "Binary"
+msgstr ""
+
+#: models.py:520
+msgid "Folder"
+msgstr ""
+
+#: models.py:537
+msgid "media file translation"
+msgstr ""
+
+#: models.py:538
+msgid "media file translations"
+msgstr ""
+
+#: models.py:563
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:21
+msgid "Preview"
+msgstr ""
+
+#: models.py:567
+msgid "category"
+msgstr ""
+
+#: models.py:569
+msgid "ordering"
+msgstr ""
+
+#: models.py:570
+msgid "featured"
+msgstr ""
+
+#: models.py:571 ext/annotatedimages/models.py:40
+msgid "active"
+msgstr ""
+
+#: models.py:575
+msgid "category file"
+msgstr ""
+
+#: models.py:576
+msgid "category files"
+msgstr ""
+
+#: models.py:580
+msgid "All media categories"
+msgstr ""
+
+#: models.py:623
+msgid "Actions"
+msgstr ""
+
+#: models.py:680 models.py:733
+msgid "No input file given"
+msgstr ""
+
+#: models.py:704
+msgid "Could not access storage"
+msgstr ""
+
+#: models.py:725
+#, python-format
+msgid "%d files imported"
+msgstr ""
+
+#: models.py:727
+#, python-format
+msgid "ZIP file invalid: %s"
+msgstr ""
+
+#: views.py:196
+msgid "Folder name"
+msgstr ""
+
+#: views.py:197
+msgid "Location"
+msgstr ""
+
+#: ext/annotatedimages/models.py:18 ext/annotatedimages/models.py:35
+#: ext/annotatedimages/widget/annotatedimage/models.py:14
+#: widget/simpleimage/models.py:28
+msgid "image"
+msgstr ""
+
+#: ext/annotatedimages/models.py:21
+#: ext/annotatedimages/widget/annotatedimage/models.py:51
+msgid "annotated image"
+msgstr ""
+
+#: ext/annotatedimages/models.py:22
+#: ext/annotatedimages/widget/annotatedimage/models.py:52
+msgid "annotated images"
+msgstr ""
+
+#: ext/annotatedimages/models.py:28
+msgid "above"
+msgstr ""
+
+#: ext/annotatedimages/models.py:29
+msgid "below"
+msgstr ""
+
+#: ext/annotatedimages/models.py:30
+msgid "to left"
+msgstr ""
+
+#: ext/annotatedimages/models.py:31
+msgid "to right"
+msgstr ""
+
+#: ext/annotatedimages/models.py:36
+msgid "number"
+msgstr ""
+
+#: ext/annotatedimages/models.py:37
+msgid "position"
+msgstr ""
+
+#: ext/annotatedimages/models.py:38
+msgid "link"
+msgstr ""
+
+#: ext/annotatedimages/models.py:39
+msgid "date"
+msgstr ""
+
+#: ext/annotatedimages/models.py:41 widget/simpleimage/models.py:23
+msgid "left"
+msgstr ""
+
+#: ext/annotatedimages/models.py:42
+msgid "top"
+msgstr ""
+
+#: ext/annotatedimages/models.py:43
+#: ext/annotatedimages/widget/annotatedimage/models.py:16
+#: widget/flashobject/models.py:30 widget/pdfdocument/models.py:13
+#: widget/simplevideo/models.py:13
+msgid "width"
+msgstr ""
+
+#: ext/annotatedimages/models.py:44
+#: ext/annotatedimages/widget/annotatedimage/models.py:17
+#: widget/flashobject/models.py:31 widget/pdfdocument/models.py:12
+#: widget/simplevideo/models.py:14
+msgid "height"
+msgstr ""
+
+#: ext/annotatedimages/models.py:45
+msgid "author"
+msgstr ""
+
+#: ext/annotatedimages/models.py:49
+msgid "image annotation"
+msgstr ""
+
+#: ext/annotatedimages/models.py:50
+msgid "image annotations"
+msgstr ""
+
+#: ext/annotatedimages/models.py:74
+msgid "title"
+msgstr ""
+
+#: ext/annotatedimages/models.py:78
+msgid "annotation text"
+msgstr ""
+
+#: ext/annotatedimages/models.py:79
+msgid "annotation texts"
+msgstr ""
+
+#: ext/annotatedimages/widget/annotatedimage/models.py:15
+msgid "show info"
+msgstr ""
+
+#: templates/admin/media/create_folder.html:6
+#: templates/admin/media/create_folder.html:14
+msgid "Create new folder"
+msgstr ""
+
+#: templates/admin/media/create_folder.html:9
+#: templates/admin/media/scan_files.html:9
+#: templates/admin/media/select_folder.html:9
+#: templates/admin/media/upload_files.html:9
+msgid "Media files"
+msgstr ""
+
+#: templates/admin/media/create_folder.html:10
+#: templates/admin/media/scan_files.html:10
+#: templates/admin/media/select_folder.html:10
+#: templates/admin/media/upload_files.html:10
+#: templates/admin/media/file/change_list.html:10
+msgid "Project dashboard"
+msgstr ""
+
+#: templates/admin/media/create_folder.html:27
+msgid "Create folder and close"
+msgstr ""
+
+#: templates/admin/media/create_folder.html:28
+msgid "Create folder and upload files"
+msgstr ""
+
+#: templates/admin/media/scan_files.html:6
+#: templates/admin/media/scan_files.html:14
+msgid "Scan files"
+msgstr ""
+
+#: templates/admin/media/scan_files.html:27
+msgid "Start Scan"
+msgstr ""
+
+#: templates/admin/media/select_folder.html:6
+#: templates/admin/media/select_folder.html:14
+msgid "Select folder for upload"
+msgstr ""
+
+#: templates/admin/media/upload_files.html:6
+#: templates/admin/media/upload_files.html:14
+msgid "Upload files to folder"
+msgstr ""
+
+#: templates/admin/media/upload_files.html:34
+msgid "Select files to upload..."
+msgstr ""
+
+#: templates/admin/media/file/change_list.html:7
+msgid "Add folder"
+msgstr ""
+
+#: templates/admin/media/file/change_list.html:8
+msgid "Scan media"
+msgstr ""
+
+#: templates/admin/media/file/change_list.html:17
+msgid "Bulk upload a ZIP file"
+msgstr ""
+
+#: templates/admin/media/file/change_list.html:26
+msgid "Send"
+msgstr ""
+
+#: templates/admin/svg/edit_link.html:2
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:32
+#: widget/vectorgraphics/templates/admin/svgfile/edit_link.html:2
+msgid "Edit on site"
+msgstr ""
+
+#: templates/admin/svg/link.html:2
+#: widget/vectorgraphics/templates/admin/svgfile/link.html:2
+msgid "View"
+msgstr ""
+
+#: templates/media/category_detail_standalone.html:51
+msgid "LOADING..."
+msgstr ""
+
+#: templates/media/category_detail_standalone.html:53
+msgid "Click for next image"
+msgstr ""
+
+#: templates/media/category_list.html:30
+#: templates/media/category_list_nested.html:66
+msgid "Back to"
+msgstr ""
+
+#: templates/media/category_list_nested.html:49
+#: templates/media/category_list_nested.html:56
+msgid "items"
+msgstr ""
+
+#: templates/widget/flashobject/default.html:8
+#: templates/widget/simplevideo/default.html:8
+msgid ""
+"Click link to get Flash Player or try to enable JavaScript and reload the "
+"page."
+msgstr ""
+
+#: templates/widget/flashobject/default.html:9
+#: templates/widget/simplevideo/default.html:11
+msgid "Get Adobe Flash player"
+msgstr ""
+
+#: widget/downloaditem/models.py:15
+msgid "download item"
+msgstr ""
+
+#: widget/downloaditem/models.py:16
+msgid "download items"
+msgstr ""
+
+#: widget/downloadlist/models.py:11 widget/mediagallery/models.py:23
+msgid "files"
+msgstr ""
+
+#: widget/downloadlist/models.py:15
+msgid "download list"
+msgstr ""
+
+#: widget/downloadlist/models.py:16
+msgid "download lists"
+msgstr ""
+
+#: widget/flashobject/models.py:11
+msgid "version 10 and newer"
+msgstr ""
+
+#: widget/flashobject/models.py:12
+msgid "version 9 and newer"
+msgstr ""
+
+#: widget/flashobject/models.py:28
+msgid "flash file"
+msgstr ""
+
+#: widget/flashobject/models.py:29
+msgid "flash version"
+msgstr ""
+
+#: widget/flashobject/models.py:32
+msgid "variables"
+msgstr ""
+
+#: widget/flashobject/models.py:33
+msgid "parameters"
+msgstr ""
+
+#: widget/flashobject/models.py:34
+msgid "attributes"
+msgstr ""
+
+#: widget/flashobject/models.py:38
+msgid "flash object"
+msgstr ""
+
+#: widget/flashobject/models.py:39
+msgid "flash objects"
+msgstr ""
+
+#: widget/internetvideo/models.py:25
+msgid "video link"
+msgstr ""
+
+#: widget/internetvideo/models.py:26
+msgid ""
+"This should be a link to a youtube or vimeo video, i.e.: http://www.youtube."
+"com/watch?v=zmj1rpzDRZ0"
+msgstr ""
+
+#: widget/internetvideo/models.py:42
+msgid "internet video"
+msgstr ""
+
+#: widget/internetvideo/models.py:43
+msgid "internet videos"
+msgstr ""
+
+#: widget/mediagallery/models.py:11
+msgid "modal window"
+msgstr ""
+
+#: widget/mediagallery/models.py:12
+msgid "link to file"
+msgstr ""
+
+#: widget/mediagallery/models.py:13
+msgid "on page"
+msgstr ""
+
+#: widget/mediagallery/models.py:17 widget/simpleimage/models.py:17
+msgid "small"
+msgstr ""
+
+#: widget/mediagallery/models.py:18 widget/simpleimage/models.py:18
+msgid "medium"
+msgstr ""
+
+#: widget/mediagallery/models.py:19 widget/simpleimage/models.py:19
+msgid "large"
+msgstr ""
+
+#: widget/mediagallery/models.py:24
+msgid "thumbnail size"
+msgstr ""
+
+#: widget/mediagallery/models.py:25
+msgid "detail view"
+msgstr ""
+
+#: widget/mediagallery/models.py:48
+msgid "media gallery"
+msgstr ""
+
+#: widget/mediagallery/models.py:49
+msgid "media galleries"
+msgstr ""
+
+#: widget/pdfdocument/models.py:11 widget/pdfdocument/models.py:17
+msgid "pdf document"
+msgstr ""
+
+#: widget/pdfdocument/models.py:18
+msgid "pdf documents"
+msgstr ""
+
+#: widget/simpleimage/models.py:12
+msgid "open in modal window"
+msgstr ""
+
+#: widget/simpleimage/models.py:13
+msgid "go to linked page"
+msgstr ""
+
+#: widget/simpleimage/models.py:24
+msgid "right"
+msgstr ""
+
+#: widget/simpleimage/models.py:29
+msgid "size"
+msgstr ""
+
+#: widget/simpleimage/models.py:30
+msgid "on click action"
+msgstr ""
+
+#: widget/simpleimage/models.py:31
+msgid "alignment"
+msgstr ""
+
+#: widget/simpleimage/models.py:43
+msgid "simple image"
+msgstr ""
+
+#: widget/simpleimage/models.py:44
+msgid "simple images"
+msgstr ""
+
+#: widget/simplevideo/models.py:11
+msgid "thumbnail"
+msgstr ""
+
+#: widget/simplevideo/models.py:12
+msgid "video"
+msgstr ""
+
+#: widget/simplevideo/models.py:18 widget/simplevideo/models.py:19
+msgid "simple video"
+msgstr ""
+
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:18
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:31
+msgid "View on site"
+msgstr ""
+
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:24
+msgid "Add child page"
+msgstr ""
+
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:27
+#, python-format
+msgid "Replace page %(to_replace)s"
+msgstr ""
+
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:30
+msgid "Create hidden copy of this page"
+msgstr ""
+
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:40
+msgid "Home"
+msgstr ""

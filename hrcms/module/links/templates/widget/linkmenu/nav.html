@@ -1,0 +1,18 @@
+{% extends "widget/base.html" %}
+
+{% block content %}
+<ul class="horizontal">
+{% for link in widget.list.link_set.all %}
+	<li><a href="{{ link.web_address }}" class="{% if link.target == '_modal' %}modal{% endif %} {% if link.target == '_blank' %}blank{% endif %}">{{ link }}</a></li>
+{% endfor %}
+</ul>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#{{ widget.fe_identifier }} a.modal").colorbox();
+	$("#{{ widget.fe_identifier }} a.blank").bind('click', function() {
+		window.open($(this).attr('href'));
+		return false;
+	});
+});
+</script>
+{% endblock %}

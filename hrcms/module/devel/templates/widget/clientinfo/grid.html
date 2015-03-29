@@ -1,0 +1,87 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="object-grid">
+	<div class="span-12">
+		<div class="object-cell">
+			<h3>{% trans "Operating System" %}</h3>
+			<p>{{ user_agent.os.name }} {{ user_agent.os.version }}</p>
+		</div>
+	</div>
+	<div class="span-12 last">
+		<div class="object-cell">
+			<h3>{% trans "Device Type" %}</h3>
+			<p>{% if request.is_simple_device %}Simple{% endif %}{% if request.is_touch_device %}Touch Device{% endif %}{% if request.is_wide_device %}Widescreen Device{% endif %}</p>
+		</div>
+	</div>
+	<div class="span-12">
+		<div class="object-cell">
+			<h3>{% trans "Web Browser" %}</h3>
+			<p>{{ user_agent.browser.name }}  {{ user_agent.browser.version }}</p>
+		</div>
+	</div>
+	<div class="span-12 last">
+		<div class="object-cell">
+			<h3>{% trans "Browser Size" %}</h3>
+			<p id="browser-size">N/A</p>
+		</div>
+	</div>
+	<div class="span-12">
+		<div class="object-cell">
+			<h3>{% trans "Screen Resolution" %}</h3>
+			<p id="screen-resolution">N/A</p>
+		</div>
+	</div>
+	<div class="span-12 last">
+		<div class="object-cell">
+			<h3>{% trans "Color Depth" %}</h3>
+			<p id="color-depth">N/A</p>
+		</div>
+	</div>
+	<div class="span-12">
+		<div class="object-cell">
+			<h3>{% trans "IP Address" %}</h3>
+			<p>{{ ip }}</p>
+		</div>
+	</div>
+	<div class="span-12 last">
+		<div class="object-cell">
+			<h3>{% trans "Flash Version" %}</h3>
+			<p id="flash-version">N/A</p>
+		</div>
+	</div>
+	<div class="span-12">
+		<div class="object-cell">
+			<h3>{% trans "JavaScript" %}</h3>
+			<p id="javascript">Disabled</p>
+		</div>
+	</div>
+	<div class="span-12 last">
+		<div class="object-cell">
+			<h3>{% trans "Cookies" %}</h3>
+			<p id="cookies">Disabled</p>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#javascript').html('Enabled');
+	$('#screen-resolution').html(screen.width + ' x ' + screen.height);
+	$('#browser-size').html($(window).width() + ' x ' + $(window).height());
+	$(window).bind('resize', function() {
+		$('#browser-size').html($(window).width() + ' x ' + $(window).height());
+	});
+	$('#color-depth').html(screen.colorDepth + ' bit');
+	var playerVersion = swfobject.getFlashPlayerVersion();
+	$('#flash-version').html(playerVersion.major + "." + playerVersion.minor + "." + playerVersion.release);
+	var TEST_COOKIE = 'test_cookie';
+	$.cookie(TEST_COOKIE, true);
+	if($.cookie(TEST_COOKIE)) {
+		$.cookie( TEST_COOKIE, null );
+		$('#cookies').html('Enabled');
+	}
+});
+</script>
+{% endblock %}

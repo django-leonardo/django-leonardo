@@ -1,0 +1,952 @@
+{% load i18n %}
+
+{% load webcms_form_tags %}
+
+<script type="text/javascript">
+/* <![CDATA[ */
+
+//	$("input, textarea, select").uniform();
+$(function(){
+	$("button").button();
+});
+
+/* ]]> */
+</script>
+
+<div class="span-12">
+	<form action="." method="post" class="form">
+		<div class="fieldset">
+			{{ form.character_field|form_field }}
+			{{ form.character_field|form_field }}
+		</div>
+	</form>
+</div>
+<div class="span-12 last">
+	<form action="." method="post" class="form">
+		<div class="fieldset-inline">
+			{{ form.boolean_field|form_field }}
+			{{ form.choice_field|form_field }}
+			{{ form.textarea_field|form_field }}
+		</div>
+	</form>
+</div>
+
+{% comment %}
+<script type="text/javascript">
+/* <![CDATA[ */
+
+$(function(){
+	// Accordion
+	$(".dj-pane-demo #accordion").accordion({ header: "h3.accordion-handle" });
+	// Tabs
+	$('.dj-pane-demo #tabs, #tabs-entities').tabs();
+	// Dialog
+	$('.dj-pane-demo #dialog').dialog({
+		autoOpen: false,
+		width: 600,
+		buttons: {
+			"Ok": function() { 
+				$(this).dialog("close"); 
+			}, 
+			"Cancel": function() { 
+				$(this).dialog("close"); 
+			} 
+		}
+	});
+	// Dialog Link
+	$('.dj-pane-demo #dialog_link').click(function(){
+		$('.dj-pane-demo #dialog').dialog('open');
+		return false;
+	});
+/*
+	// Datepicker
+	$('.dj-pane-demo #datepicker').datepicker({
+		inline: true
+	});
+	// Slider
+	$('.dj-pane-demo #slider').slider({
+		range: true,
+		values: [17, 67]
+	});
+	// Progressbar
+	$(".dj-pane-demo #progressbar").progressbar({
+		value: 20 
+	});
+*/
+
+});
+
+
+/* ]]> */
+</script>
+
+<div class="dj-pane dj-pane-demo ui-widget ui-widget-content ui-corner-all">
+	<div class="dj-pane-header ui-widget-header ui-corner-all">
+		<h3>Framework Icons</h3>
+	</div>
+	<div class="dj-pane-content">
+		<div id="icons" class="ui-widget ui-helper-clearfix">
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-carat-1-n"><span class="ui-icon ui-icon-carat-1-n"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-carat-1-ne"><span class="ui-icon ui-icon-carat-1-ne"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-carat-1-e"><span class="ui-icon ui-icon-carat-1-e"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-carat-1-se"><span class="ui-icon ui-icon-carat-1-se"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-carat-1-s"><span class="ui-icon ui-icon-carat-1-s"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-carat-1-sw"><span class="ui-icon ui-icon-carat-1-sw"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-carat-1-w"><span class="ui-icon ui-icon-carat-1-w"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-carat-1-nw"><span class="ui-icon ui-icon-carat-1-nw"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-carat-2-n-s"><span class="ui-icon ui-icon-carat-2-n-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-carat-2-e-w"><span class="ui-icon ui-icon-carat-2-e-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-triangle-1-n"><span class="ui-icon ui-icon-triangle-1-n"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-triangle-1-ne"><span class="ui-icon ui-icon-triangle-1-ne"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-triangle-1-e"><span class="ui-icon ui-icon-triangle-1-e"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-triangle-1-se"><span class="ui-icon ui-icon-triangle-1-se"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-triangle-1-s"><span class="ui-icon ui-icon-triangle-1-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-triangle-1-sw"><span class="ui-icon ui-icon-triangle-1-sw"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-triangle-1-w"><span class="ui-icon ui-icon-triangle-1-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-triangle-1-nw"><span class="ui-icon ui-icon-triangle-1-nw"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-triangle-2-n-s"><span class="ui-icon ui-icon-triangle-2-n-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-triangle-2-e-w"><span class="ui-icon ui-icon-triangle-2-e-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-1-n"><span class="ui-icon ui-icon-arrow-1-n"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-1-ne"><span class="ui-icon ui-icon-arrow-1-ne"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-1-e"><span class="ui-icon ui-icon-arrow-1-e"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-1-se"><span class="ui-icon ui-icon-arrow-1-se"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-1-s"><span class="ui-icon ui-icon-arrow-1-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-1-sw"><span class="ui-icon ui-icon-arrow-1-sw"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-1-w"><span class="ui-icon ui-icon-arrow-1-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-1-nw"><span class="ui-icon ui-icon-arrow-1-nw"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-2-n-s"><span class="ui-icon ui-icon-arrow-2-n-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-2-ne-sw"><span class="ui-icon ui-icon-arrow-2-ne-sw"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-2-e-w"><span class="ui-icon ui-icon-arrow-2-e-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-2-se-nw"><span class="ui-icon ui-icon-arrow-2-se-nw"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowstop-1-n"><span class="ui-icon ui-icon-arrowstop-1-n"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowstop-1-e"><span class="ui-icon ui-icon-arrowstop-1-e"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowstop-1-s"><span class="ui-icon ui-icon-arrowstop-1-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowstop-1-w"><span class="ui-icon ui-icon-arrowstop-1-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-1-n"><span class="ui-icon ui-icon-arrowthick-1-n"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-1-ne"><span class="ui-icon ui-icon-arrowthick-1-ne"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-1-e"><span class="ui-icon ui-icon-arrowthick-1-e"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-1-se"><span class="ui-icon ui-icon-arrowthick-1-se"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-1-s"><span class="ui-icon ui-icon-arrowthick-1-s"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-1-sw"><span class="ui-icon ui-icon-arrowthick-1-sw"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-1-w"><span class="ui-icon ui-icon-arrowthick-1-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-1-nw"><span class="ui-icon ui-icon-arrowthick-1-nw"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-2-n-s"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-2-ne-sw"><span class="ui-icon ui-icon-arrowthick-2-ne-sw"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-2-e-w"><span class="ui-icon ui-icon-arrowthick-2-e-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthick-2-se-nw"><span class="ui-icon ui-icon-arrowthick-2-se-nw"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthickstop-1-n"><span class="ui-icon ui-icon-arrowthickstop-1-n"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthickstop-1-e"><span class="ui-icon ui-icon-arrowthickstop-1-e"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthickstop-1-s"><span class="ui-icon ui-icon-arrowthickstop-1-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowthickstop-1-w"><span class="ui-icon ui-icon-arrowthickstop-1-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowreturnthick-1-w"><span class="ui-icon ui-icon-arrowreturnthick-1-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowreturnthick-1-n"><span class="ui-icon ui-icon-arrowreturnthick-1-n"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowreturnthick-1-e"><span class="ui-icon ui-icon-arrowreturnthick-1-e"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowreturnthick-1-s"><span class="ui-icon ui-icon-arrowreturnthick-1-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowreturn-1-w"><span class="ui-icon ui-icon-arrowreturn-1-w"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowreturn-1-n"><span class="ui-icon ui-icon-arrowreturn-1-n"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowreturn-1-e"><span class="ui-icon ui-icon-arrowreturn-1-e"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowreturn-1-s"><span class="ui-icon ui-icon-arrowreturn-1-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowrefresh-1-w"><span class="ui-icon ui-icon-arrowrefresh-1-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowrefresh-1-n"><span class="ui-icon ui-icon-arrowrefresh-1-n"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowrefresh-1-e"><span class="ui-icon ui-icon-arrowrefresh-1-e"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrowrefresh-1-s"><span class="ui-icon ui-icon-arrowrefresh-1-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-4"><span class="ui-icon ui-icon-arrow-4"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-arrow-4-diag"><span class="ui-icon ui-icon-arrow-4-diag"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-extlink"><span class="ui-icon ui-icon-extlink"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-newwin"><span class="ui-icon ui-icon-newwin"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-refresh"><span class="ui-icon ui-icon-refresh"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-shuffle"><span class="ui-icon ui-icon-shuffle"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-transfer-e-w"><span class="ui-icon ui-icon-transfer-e-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-transferthick-e-w"><span class="ui-icon ui-icon-transferthick-e-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-folder-collapsed"><span class="ui-icon ui-icon-folder-collapsed"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-folder-open"><span class="ui-icon ui-icon-folder-open"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-document"><span class="ui-icon ui-icon-document"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-document-b"><span class="ui-icon ui-icon-document-b"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-note"><span class="ui-icon ui-icon-note"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-mail-closed"><span class="ui-icon ui-icon-mail-closed"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-mail-open"><span class="ui-icon ui-icon-mail-open"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-suitcase"><span class="ui-icon ui-icon-suitcase"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-comment"><span class="ui-icon ui-icon-comment"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-person"><span class="ui-icon ui-icon-person"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-print"><span class="ui-icon ui-icon-print"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-trash"><span class="ui-icon ui-icon-trash"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-locked"><span class="ui-icon ui-icon-locked"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-unlocked"><span class="ui-icon ui-icon-unlocked"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-bookmark"><span class="ui-icon ui-icon-bookmark"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-tag"><span class="ui-icon ui-icon-tag"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-home"><span class="ui-icon ui-icon-home"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-flag"><span class="ui-icon ui-icon-flag"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-calculator"><span class="ui-icon ui-icon-calculator"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-cart"><span class="ui-icon ui-icon-cart"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-pencil"><span class="ui-icon ui-icon-pencil"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-clock"><span class="ui-icon ui-icon-clock"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-disk"><span class="ui-icon ui-icon-disk"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-calendar"><span class="ui-icon ui-icon-calendar"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-zoomin"><span class="ui-icon ui-icon-zoomin"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-zoomout"><span class="ui-icon ui-icon-zoomout"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-search"><span class="ui-icon ui-icon-search"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-wrench"><span class="ui-icon ui-icon-wrench"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-gear"><span class="ui-icon ui-icon-gear"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-heart"><span class="ui-icon ui-icon-heart"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-star"><span class="ui-icon ui-icon-star"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-link"><span class="ui-icon ui-icon-link"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-cancel"><span class="ui-icon ui-icon-cancel"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-plus"><span class="ui-icon ui-icon-plus"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-plusthick"><span class="ui-icon ui-icon-plusthick"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-minus"><span class="ui-icon ui-icon-minus"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-minusthick"><span class="ui-icon ui-icon-minusthick"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-close"><span class="ui-icon ui-icon-close"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-closethick"><span class="ui-icon ui-icon-closethick"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-key"><span class="ui-icon ui-icon-key"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-lightbulb"><span class="ui-icon ui-icon-lightbulb"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-scissors"><span class="ui-icon ui-icon-scissors"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-clipboard"><span class="ui-icon ui-icon-clipboard"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-copy"><span class="ui-icon ui-icon-copy"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-contact"><span class="ui-icon ui-icon-contact"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-image"><span class="ui-icon ui-icon-image"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-video"><span class="ui-icon ui-icon-video"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-script"><span class="ui-icon ui-icon-script"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-alert"><span class="ui-icon ui-icon-alert"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-info"><span class="ui-icon ui-icon-info"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-notice"><span class="ui-icon ui-icon-notice"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-help"><span class="ui-icon ui-icon-help"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-check"><span class="ui-icon ui-icon-check"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-bullet"><span class="ui-icon ui-icon-bullet"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-radio-off"><span class="ui-icon ui-icon-radio-off"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-radio-on"><span class="ui-icon ui-icon-radio-on"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-pin-w"><span class="ui-icon ui-icon-pin-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-pin-s"><span class="ui-icon ui-icon-pin-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-play"><span class="ui-icon ui-icon-play"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-pause"><span class="ui-icon ui-icon-pause"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-seek-next"><span class="ui-icon ui-icon-seek-next"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-seek-prev"><span class="ui-icon ui-icon-seek-prev"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-seek-end"><span class="ui-icon ui-icon-seek-end"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-seek-first"><span class="ui-icon ui-icon-seek-first"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-stop"><span class="ui-icon ui-icon-stop"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-eject"><span class="ui-icon ui-icon-eject"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-volume-off"><span class="ui-icon ui-icon-volume-off"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-volume-on"><span class="ui-icon ui-icon-volume-on"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-power"><span class="ui-icon ui-icon-power"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-signal-diag"><span class="ui-icon ui-icon-signal-diag"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-signal"><span class="ui-icon ui-icon-signal"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-battery-0"><span class="ui-icon ui-icon-battery-0"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-battery-1"><span class="ui-icon ui-icon-battery-1"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-battery-2"><span class="ui-icon ui-icon-battery-2"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-battery-3"><span class="ui-icon ui-icon-battery-3"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-plus"><span class="ui-icon ui-icon-circle-plus"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-minus"><span class="ui-icon ui-icon-circle-minus"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-close"><span class="ui-icon ui-icon-circle-close"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-triangle-e"><span class="ui-icon ui-icon-circle-triangle-e"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-triangle-s"><span class="ui-icon ui-icon-circle-triangle-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-triangle-w"><span class="ui-icon ui-icon-circle-triangle-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-triangle-n"><span class="ui-icon ui-icon-circle-triangle-n"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-arrow-e"><span class="ui-icon ui-icon-circle-arrow-e"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-arrow-s"><span class="ui-icon ui-icon-circle-arrow-s"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-arrow-w"><span class="ui-icon ui-icon-circle-arrow-w"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-arrow-n"><span class="ui-icon ui-icon-circle-arrow-n"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-zoomin"><span class="ui-icon ui-icon-circle-zoomin"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-zoomout"><span class="ui-icon ui-icon-circle-zoomout"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circle-check"><span class="ui-icon ui-icon-circle-check"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circlesmall-plus"><span class="ui-icon ui-icon-circlesmall-plus"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circlesmall-minus"><span class="ui-icon ui-icon-circlesmall-minus"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-circlesmall-close"><span class="ui-icon ui-icon-circlesmall-close"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-squaresmall-plus"><span class="ui-icon ui-icon-squaresmall-plus"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-squaresmall-minus"><span class="ui-icon ui-icon-squaresmall-minus"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-squaresmall-close"><span class="ui-icon ui-icon-squaresmall-close"></span></a>
+
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-grip-dotted-vertical"><span class="ui-icon ui-icon-grip-dotted-vertical"></span></a>
+			
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-grip-dotted-horizontal"><span class="ui-icon ui-icon-grip-dotted-horizontal"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-grip-solid-vertical"><span class="ui-icon ui-icon-grip-solid-vertical"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-grip-solid-horizontal"><span class="ui-icon ui-icon-grip-solid-horizontal"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-gripsmall-diagonal-se"><span class="ui-icon ui-icon-gripsmall-diagonal-se"></span></a>
+			<a class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" href="#" title=".ui-icon-grip-diagonal-se"><span class="ui-icon ui-icon-grip-diagonal-se"></span></a>
+		</div>
+		<br />
+	</div>
+</div>
+
+<div class="subcolumns">
+	<div class="c38l">
+		<div class="subcl">
+
+<div class="dj-pane dj-pane-demo ui-widget ui-widget-content ui-corner-all">
+	<div class="dj-pane-header ui-widget-header ui-corner-all">
+		<h3>Simple Form</h3>
+	</div>
+	<div class="dj-pane-content">
+	</div>
+	<div class="dj-pane-buttons ui-widget-content ui-helper-clearfix">
+		<p class="required">* {% trans "Required fields" %}</p>
+		<button class="fg-button ui-state-default ui-priority-primary ui-corner-all" type="submit">{% trans "Log me in, please" %}</button>
+		<a class="fg-button ui-state-default ui-priority-secondary ui-corner-all" href="#">{% trans "Cancel" %}</a>
+	</div>
+
+</div>
+
+		</div>
+	</div>
+	<div class="c62r">
+		<div class="subcr">
+
+<div class="dj-pane dj-pane-demo ui-widget ui-widget-content ui-corner-all">
+	<div class="dj-pane-header ui-widget-header ui-corner-all">
+		<h3>Tabular Form</h3>
+	</div>
+	<div class="dj-pane-content">
+	</div>
+</div>
+
+<div class="dj-pane dj-pane-demo ui-widget ui-widget-content ui-corner-all">
+	<div class="dj-pane-header ui-widget-header ui-corner-all">
+		<h3>Boxed Form</h3>
+	</div>
+	<div class="dj-pane-content">
+	</div>
+</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="dj-pane dj-pane-demo ui-widget ui-widget-content ui-corner-all">
+	<div class="dj-pane-header ui-widget-header ui-corner-all">
+		<h3>Form Buttons</h3>
+	</div>
+	<div class="dj-pane-content">
+		<h2>Basic button from different types of markup</h2>
+		<a href="#" class="fg-button ui-state-default ui-corner-all">Link</a>
+		<button class="fg-button ui-state-default ui-corner-all" type="button">Button element</button>
+
+		<h2>Buttons with priority & disabled</h2>
+		<button class="fg-button ui-state-default ui-priority-primary ui-corner-all">Primary</button>
+		<button class="fg-button ui-state-default ui-priority-secondary ui-corner-all">Secondary</button>
+		<button class="fg-button ui-state-default ui-state-disabled ui-corner-all">Disabled</button> 
+
+		<h2>Toggle buttons</h2>	
+		<button class="fg-button ui-state-default fg-button-toggleable ui-corner-all">Toggle</button>
+		<button class="fg-button ui-state-default fg-button-toggleable ui-corner-all">Toggle</button>
+		<button class="fg-button ui-state-default fg-button-toggleable ui-corner-all">Toggle</button> 
+
+		<h2>Icons in buttons</h2>
+		<a href="#" class="fg-button ui-state-default fg-button-icon-left ui-corner-all"><span class="ui-icon ui-icon-circle-plus"></span>Previous</a>
+		<a href="#" class="fg-button ui-state-default fg-button-icon-right ui-corner-all"><span class="ui-icon ui-icon-circle-plus"></span>Next</a>
+		<br /><br />
+		<h2>Radio button style toggle buttons set</h2>
+		<div class="fg-buttonset fg-buttonset-single">
+			<button class="fg-button ui-state-default ui-priority-primary ui-corner-left">Visual</button>
+			<button class="fg-button ui-state-default ui-priority-primary">Code</button>
+			<button class="fg-button ui-state-default ui-priority-primary">Split</button>
+			<button class="fg-button ui-state-default ui-priority-primary ui-corner-right">Preview</button>
+		</div>
+		<br /><br />
+		<h2>Multiple select buttons set</h2>
+		<div class="fg-buttonset fg-buttonset-multi">
+			<button class="fg-button ui-state-default ui-corner-left"><b>B</b></button>
+			<button class="fg-button ui-state-default"><i>I</i></button>
+			<button class="fg-button ui-state-default"><u>U</u></button>
+			<button class="fg-button ui-state-default ui-corner-right"><span class="strike">S</span></button>
+		</div>
+		<br /><br />
+		<h2>Buttons in a Toolbar</h2>
+		<div class="fg-toolbar ui-widget-header ui-corner-all ui-helper-clearfix">
+			<div class="fg-buttonset ui-helper-clearfix">
+				<a href="#" class="fg-button ui-state-default fg-button-icon-solo ui-corner-all" title="Open"><span class="ui-icon ui-icon-folder-open"></span> Open</a>
+				<a href="#" class="fg-button ui-state-default fg-button-icon-solo  ui-corner-all" title="Save"><span class="ui-icon ui-icon-disk"></span> Save</a>
+				<a href="#" class="fg-button ui-state-default fg-button-icon-solo  ui-corner-all" title="Delete"><span class="ui-icon ui-icon-trash"></span> Delete</a>
+			</div>
+
+			<div class="fg-buttonset fg-buttonset-multi">
+				<button class="fg-button ui-state-default ui-corner-left"><b>B</b></button>
+				<button class="fg-button ui-state-default"><i>I</i></button>
+				<button class="fg-button ui-state-default  ui-corner-right"><u>U</u></button>
+			</div>
+			<div class="fg-buttonset ui-helper-clearfix">
+				<a href="#" class="fg-button ui-state-default fg-button-icon-solo  ui-corner-all" title="Print"><span class="ui-icon ui-icon-print"></span> Print</a>
+				<a href="#" class="fg-button ui-state-default fg-button-icon-solo  ui-corner-all" title="Email"><span class="ui-icon ui-icon-mail-closed"></span> Email</a>
+			</div>
+			<div class="fg-buttonset fg-buttonset-single ui-helper-clearfix">
+				<button class="fg-button ui-state-default ui-state-active ui-priority-primary ui-corner-left">Edit</button>
+				<button class="fg-button ui-state-default ui-priority-primary ui-corner-right">View</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="dj-pane dj-pane-demo ui-widget ui-widget-content ui-corner-all">
+	<div class="dj-pane-header ui-widget-header ui-corner-all">
+		<h3>50% right: tabs</h3>
+	</div>
+	<div class="dj-pane-content">
+		<div id="tabs-entities">
+			<ul>
+				<li><a href="#tab-ascii">ASCII Character Set</a></li>
+				<li><a href="#tab-iso-8859">ISO 8859-1 Symbols and Characters</a></li>
+				<li><a href="#tab-symbol">Symbol Entities</a></li>
+			</ul>
+			<div id="tab-ascii">
+				<div style="padding:0.5em 1em;">
+<p>ASCII stands for the "American Standard Code for Information Interchange". It was designed in the early 60's, as a standard character-set for computers and hardware devices like teleprinters and tapedrives.</p>
+<p>ASCII is a 7-bit character set containing 128 characters. It contains the numbers from 0-9, the uppercase and lowercase English letters from A to Z, and some special characters.</p>
+<h3>ASCII Printable Characters</h3>
+<table cellspacing="0" class="dj-grid ui-widget ui-widget-content">
+<thead class="ui-widget-header">
+<tr>
+<th align="left">ASCII Character</th>
+<th align="left">HTML Entity Code</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> </td>
+<td>&amp;#32;</td>
+<td>space</td>
+</tr>
+<tr>
+<td>!</td>
+<td>&amp;#33;</td>
+<td>exclamation mark</td>
+</tr>
+<tr>
+<td>"</td>
+<td>&amp;#34;</td>
+<td>quotation mark</td>
+</tr>
+<tr>
+<td>#</td>
+<td>&amp;#35;</td>
+<td>number sign</td>
+</tr>
+<tr>
+<td>$</td>
+<td>&amp;#36;</td>
+<td>dollar sign</td>
+</tr>
+<tr>
+<td>%</td>
+<td>&amp;#37;</td>
+<td>percent sign</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>&amp;#38;</td>
+<td>ampersand</td>
+</tr>
+<tr>
+<td>'</td>
+<td>&amp;#39;</td>
+<td>apostrophe</td>
+</tr>
+<tr>
+<td>(</td>
+<td>&amp;#40;</td>
+<td>left parenthesis</td>
+</tr>
+<tr>
+<td>)</td>
+<td>&amp;#41;</td>
+<td>right parenthesis</td>
+</tr>
+<tr>
+<td>*</td>
+<td>&amp;#42;</td>
+<td>asterisk</td>
+</tr>
+<tr>
+<td>+</td>
+<td>&amp;#43;</td>
+<td>plus sign</td>
+</tr>
+<tr>
+<td>,</td>
+<td>&amp;#44;</td>
+<td>comma</td>
+</tr>
+<tr>
+<td>-</td>
+<td>&amp;#45;</td>
+<td>hyphen</td>
+</tr>
+<tr>
+<td>.</td>
+<td>&amp;#46;</td>
+<td>period</td>
+</tr>
+<tr>
+<td>/</td>
+<td>&amp;#47;</td>
+<td>slash</td>
+</tr>
+<tr>
+<td>0</td>
+<td>&amp;#48;</td>
+<td>digit 0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>&amp;#49;</td>
+<td>digit 1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>&amp;#50;</td>
+<td>digit 2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>&amp;#51;</td>
+<td>digit 3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>&amp;#52;</td>
+<td>digit 4</td>
+</tr>
+<tr>
+<td>5</td>
+<td>&amp;#53;</td>
+<td>digit 5</td>
+</tr>
+<tr>
+<td>6</td>
+<td>&amp;#54;</td>
+<td>digit 6</td>
+</tr>
+<tr>
+<td>7</td>
+<td>&amp;#55;</td>
+<td>digit 7</td>
+</tr>
+<tr>
+<td>8</td>
+<td>&amp;#56;</td>
+<td>digit 8</td>
+</tr>
+<tr>
+<td>9</td>
+<td>&amp;#57;</td>
+<td>digit 9</td>
+</tr>
+<tr>
+<td>:</td>
+<td>&amp;#58;</td>
+<td>colon</td>
+</tr>
+<tr>
+<td>;</td>
+<td>&amp;#59;</td>
+<td>semicolon</td>
+</tr>
+<tr>
+<td><</td>
+<td>&amp;#60;</td>
+<td>less-than</td>
+</tr>
+<tr>
+<td>=</td>
+<td>&amp;#61;</td>
+<td>equals-to</td>
+</tr>
+<tr>
+<td>></td>
+<td>&amp;#62;</td>
+<td>greater-than</td>
+</tr>
+<tr>
+<td>?</td>
+<td>&amp;#63;</td>
+<td>question mark</td>
+</tr>
+<tr>
+<td>@</td>
+<td>&amp;#64;</td>
+<td>at sign</td>
+</tr>
+<tr>
+<td>A</td>
+<td>&amp;#65;</td>
+<td>uppercase A</td>
+</tr>
+<tr>
+<td>B</td>
+<td>&amp;#66;</td>
+<td>uppercase B</td>
+</tr>
+<tr>
+<td>C</td>
+<td>&amp;#67;</td>
+<td>uppercase C</td>
+</tr>
+<tr>
+<td>D</td>
+<td>&amp;#68;</td>
+<td>uppercase D</td>
+</tr>
+<tr>
+<td>E</td>
+<td>&amp;#69;</td>
+<td>uppercase E</td>
+</tr>
+<tr>
+<td>F</td>
+<td>&amp;#70;</td>
+<td>uppercase F</td>
+</tr>
+<tr>
+<td>G</td>
+<td>&amp;#71;</td>
+<td>uppercase G</td>
+</tr>
+<tr>
+<td>H</td>
+<td>&amp;#72;</td>
+<td>uppercase H</td>
+</tr>
+<tr>
+<td>I</td>
+<td>&amp;#73;</td>
+<td>uppercase I</td>
+</tr>
+<tr>
+<td>J</td>
+<td>&amp;#74;</td>
+<td>uppercase J</td>
+</tr>
+<tr>
+<td>K</td>
+<td>&amp;#75;</td>
+<td>uppercase K</td>
+</tr>
+<tr>
+<td>L</td>
+<td>&amp;#76;</td>
+<td>uppercase L</td>
+</tr>
+<tr>
+<td>M</td>
+<td>&amp;#77;</td>
+<td>uppercase M</td>
+</tr>
+<tr>
+<td>N</td>
+<td>&amp;#78;</td>
+<td>uppercase N</td>
+</tr>
+<tr>
+<td>O</td>
+<td>&amp;#79;</td>
+<td>uppercase O</td>
+</tr>
+<tr>
+<td>P</td>
+<td>&amp;#80;</td>
+<td>uppercase P</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>&amp;#81;</td>
+<td>uppercase Q</td>
+</tr>
+<tr>
+<td>R</td>
+<td>&amp;#82;</td>
+<td>uppercase R</td>
+</tr>
+<tr>
+<td>S</td>
+<td>&amp;#83;</td>
+<td>uppercase S</td>
+</tr>
+<tr>
+<td>T</td>
+<td>&amp;#84;</td>
+<td>uppercase T</td>
+</tr>
+<tr>
+<td>U</td>
+<td>&amp;#85;</td>
+<td>uppercase U</td>
+</tr>
+<tr>
+<td>V</td>
+<td>&amp;#86;</td>
+<td>uppercase V</td>
+</tr>
+<tr>
+<td>W</td>
+<td>&amp;#87;</td>
+<td>uppercase W</td>
+</tr>
+<tr>
+<td>X</td>
+<td>&amp;#88;</td>
+<td>uppercase X</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>&amp;#89;</td>
+<td>uppercase Y</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>&amp;#90;</td>
+<td>uppercase Z</td>
+</tr>
+<tr>
+<td>[</td>
+<td>&amp;#91;</td>
+<td>left square bracket</td>
+</tr>
+<tr>
+<td>\</td>
+<td>&amp;#92;</td>
+<td>backslash</td>
+</tr>
+<tr>
+<td>]</td>
+<td>&amp;#93;</td>
+<td>right square bracket</td>
+</tr>
+<tr>
+<td>^</td>
+<td>&amp;#94;</td>
+<td>caret</td>
+</tr>
+<tr>
+<td>_</td>
+<td>&amp;#95;</td>
+<td>underscore</td>
+</tr>
+<tr>
+<td>`</td>
+<td>&amp;#96;</td>
+<td>grave accent</td>
+</tr>
+<tr>
+<td>a</td>
+<td>&amp;#97;</td>
+<td>lowercase a</td>
+</tr>
+<tr>
+<td>b</td>
+<td>&amp;#98;</td>
+<td>lowercase b</td>
+</tr>
+<tr>
+<td>c</td>
+<td>&amp;#99;</td>
+<td>lowercase c</td>
+</tr>
+<tr>
+<td>d</td>
+<td>&amp;#100;</td>
+<td>lowercase d</td>
+</tr>
+<tr>
+<td>e</td>
+<td>&amp;#101;</td>
+<td>lowercase e</td>
+</tr>
+<tr>
+<td>f</td>
+<td>&amp;#102;</td>
+<td>lowercase f</td>
+</tr>
+<tr>
+<td>g</td>
+<td>&amp;#103;</td>
+<td>lowercase g</td>
+</tr>
+<tr>
+<td>h</td>
+<td>&amp;#104;</td>
+<td>lowercase h</td>
+</tr>
+<tr>
+<td>i</td>
+<td>&amp;#105;</td>
+<td>lowercase i</td>
+</tr>
+<tr>
+<td>j</td>
+<td>&amp;#106;</td>
+<td>lowercase j</td>
+</tr>
+<tr>
+<td>k</td>
+<td>&amp;#107;</td>
+<td>lowercase k</td>
+</tr>
+<tr>
+<td>l</td>
+<td>&amp;#108;</td>
+<td>lowercase l</td>
+</tr>
+<tr>
+<td>m</td>
+<td>&amp;#109;</td>
+<td>lowercase m</td>
+</tr>
+<tr>
+<td>n</td>
+<td>&amp;#110;</td>
+<td>lowercase n</td>
+</tr>
+<tr>
+<td>o</td>
+<td>&amp;#111;</td>
+<td>lowercase o</td>
+</tr>
+<tr>
+<td>p</td>
+<td>&amp;#112;</td>
+<td>lowercase p</td>
+</tr>
+<tr>
+<td>q</td>
+<td>&amp;#113;</td>
+<td>lowercase q</td>
+</tr>
+<tr>
+<td>r</td>
+<td>&amp;#114;</td>
+<td>lowercase r</td>
+</tr>
+<tr>
+<td>s</td>
+<td>&amp;#115;</td>
+<td>lowercase s</td>
+</tr>
+<tr>
+<td>t</td>
+<td>&amp;#116;</td>
+<td>lowercase t</td>
+</tr>
+<tr>
+<td>u</td>
+<td>&amp;#117;</td>
+<td>lowercase u</td>
+</tr>
+<tr>
+<td>v</td>
+<td>&amp;#118;</td>
+<td>lowercase v</td>
+</tr>
+<tr>
+<td>w</td>
+<td>&amp;#119;</td>
+<td>lowercase w</td>
+</tr>
+<tr>
+<td>x</td>
+<td>&amp;#120;</td>
+<td>lowercase x</td>
+</tr>
+<tr>
+<td>y</td>
+<td>&amp;#121;</td>
+<td>lowercase y</td>
+</tr>
+<tr>
+<td>z</td>
+<td>&amp;#122;</td>
+<td>lowercase z</td>
+</tr>
+<tr>
+<td>{</td>
+<td>&amp;#123;</td>
+<td>left curly brace</td>
+</tr>
+<tr>
+<td>|</td>
+<td>&amp;#124;</td>
+<td>vertical bar</td>
+</tr>
+<tr>
+<td>}</td>
+<td>&amp;#125;</td>
+<td>right curly brace</td>
+</tr>
+<tr>
+<td>~</td>
+<td>&amp;#126;</td>
+<td>tilde</td>
+</tr>
+</tbody>
+</table>
+				</div>
+			</div>
+			<div id="tab-iso-8859">
+				<div style="padding:0.5em 1em;">
+<p>The first 128 characters of ISO-8859-1 is the original ASCII character-set. The higher part (codes from 160-255) contains the characters used in Western European countries and some commonly used special characters.</p>
+<p>Entities are used to implement reserved characters or to express characters that cannot easily be entered with the keyboard.</p>
+<h3>Reserved Characters</h3>
+<div class="ui-widget">
+	<div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;"> 
+		<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+		<strong>Note:</strong> Entity names are case sensitive!</p>
+	</div>
+</div>
+ 
+				</div>
+			</div>
+			<div id="tab-symbol">
+				<div style="padding:0.5em 1em;">
+
+<p>This entity reference includes mathematical symbols, Greek characters, various arrows, technical symbols and shapes.</p>
+<div class="ui-widget">
+	<div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;"> 
+		<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+		<strong>Note:</strong> Entity names are case sensitive!</p>
+	</div>
+</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</form>
+
+
+{% endcomment %}

@@ -1,0 +1,10 @@
+{% load assets %}
+{% load dajaxice_templatetags %} 
+
+{% dajaxice_js_import %}
+
+{% assets "webcms_js" %}<script type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}
+
+{% comment %}
+<script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=true&amp;ver=3'></script>
+{% endcomment %}

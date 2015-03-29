@@ -1,0 +1,13 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load googlesearch_inclusion_tags %}
+
+{% block content %}
+{% if request.GET.q %}
+<h3>{% trans "You searched for" %} <strong>{{ request.GET.q }}</strong></h3>
+{% else %}
+<p class='alert'>{% trans "No search query entered" %}</p>
+{% endif %}
+{% googlesearch_results %}
+{% endblock %}

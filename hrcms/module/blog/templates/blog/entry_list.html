@@ -1,0 +1,49 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load feincms_tags %}
+{% load breadcrumbs %}
+
+{% block breadcrumbs %}
+<li><strong>{% trans "Featured items" %}</strong></li>
+{% endblock %}
+
+{% block content %}
+{% for object in object_list %}
+<div class="object-list entry ui-helper-clearfix">
+	<div class="object-meta">
+		{{ object.published_on|date:"SHORT_DATE_FORMAT" }}{% if object.categories.all %}<br />
+		{% for category in object.categories.all %}
+		<a href="{% url webcms.module.blog.apps.blog/webcms_blog_category_list category.translation.slug %}">{{ category.translation.title }}</a>{% if not forloop.last %}, {% endif %}
+		{% endfor %}
+		{% endif %}
+	</div>
+	<h3><a href='{% url webcms.module.blog.apps.blog/webcms_blog_entry_detail object.published_on|date:"Y" object.published_on|date:"m" object.published_on|date:"d" object.slug %}' title="{{ object.title }}">{{ object.title }}</a></h3>
+	<div class="object-text">
+		{% feincms_render_region object "preview" request %}
+	</div>
+	<div class="object-buttons">
+		<a class="more" href='{% url webcms.module.blog.apps.blog/webcms_blog_entry_detail object.published_on|date:"Y" object.published_on|date:"m" object.published_on|date:"d" object.slug %}'>{% trans "Read more" %}</a>
+	</div>
+
+</div>
+{% empty %}
+<p class="info">{% trans "No entries found." %}</p>
+{% endfor %}
+
+{% if page_obj.has_other_pages %}
+<div class="pagination">
+	<span class="current">
+		{% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
+	</span>
+
+	{% if page_obj.has_previous %}
+		<a class="step-back" href="?page={{ page_obj.previous_page_number }}" rel="prev">{% trans 'previous' %}</a>
+	{% endif %}
+
+	{% if page_obj.has_next %}
+		<a class="step-forward" href="?page={{ page_obj.next_page_number }}" rel="next">{% trans 'next' %}</a>
+	{% endif %}
+</div>
+{% endif %}
+{% endblock %}

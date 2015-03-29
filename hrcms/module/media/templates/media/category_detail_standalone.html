@@ -1,0 +1,57 @@
+{% load i18n thumbnail %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>{{ object }}</title>
+		<link type="text/css" href="/static/lib/sideways/css/sideways.css" rel="stylesheet">
+		<script type="text/javascript" src="/static/lib/jquery/1.6/js/jquery.js"></script>
+		<script type="text/javascript" src="/static/lib/jquery-ui/1.8.7/js/jquery-ui.js"></script>
+		<script type="text/javascript" src="/static/lib/jquery/1.4/js/easing.js"></script>
+		<script type="text/javascript" src="/static/lib/jquery/1.6/js/mousewheel.js"></script>
+	</head>
+	<body>
+		<div id="outer_container">
+			<div id="customScrollBox">
+				<div class="container">
+					<div class="content">
+						<h1>{{ object }}
+							{% if object.translation.excerpt %}<br />
+							<span class="light">
+								<span class="grey">{{ object.translation.excerpt|safe }}</span>
+							</span>
+							{% endif %}
+						</h1>
+						{% if object.translation.description %}
+						<p>{{ object.translation.description|safe }}</p>
+						{% endif %}
+						<div id="toolbar"></div>
+						<div class="clear"></div>
+						{% for object in object.media.all %}
+						{% thumbnail object.file.file "145x90" crop="center" as thumb %}
+						{% thumbnail object.file.file "1920x1920" as image %}
+						<a class="thumb_link" href="{{ image.url }}" >
+							<img src="{{ thumb.url }}" title="{{ object.file }}" class="thumb" />
+						</a>
+						{% endthumbnail %}
+						{% endthumbnail %}
+						{% endfor %}
+						<p class="clear"></p>
+					</div>
+				</div>
+				<div id="dragger_container"><div id="dragger"></div></div>
+			</div>
+		</div>
+		<div id="bg">
+			{% for object in object.media.all %}{% if forloop.first %}
+			{% thumbnail object.file.file "1920x1920" as image %}
+			<img src="{{ image.url }}" title="{{ object.file }}" id="bgimg" />
+			{% endthumbnail %}
+			{% endif %}
+			{% endfor %}
+			<div id="preloader"><img src="/static/lib/sideways/img/ajax-loader_dark.gif" width="32" height="32" align="absmiddle" />{% trans "LOADING..." %}</div>
+			<div id="arrow_indicator"><img src="/static/lib/sideways/img/sw_arrow_indicator.png" width="50" height="50"  /></div>
+			<div id="nextimage_tip">{% trans "Click for next image" %}</div>
+		</div>
+		<script type="text/javascript" src="/static/lib/sideways/js/sideways.js"></script>
+	</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+{% if widget.orientation == "vertical" %}
+{% for url, more, title in trail %}
+<ul{% if forloop.first %} class="vertical ui-helper-clearfix"{% endif %}>
+	<li>
+		{% if url %}
+		<a href="{{ url }}">{% if forloop.first and widget.root_label %}{{ widget.root_label }}{% else %}{{ title }}{% endif %}</a>
+		{% else %}
+		<strong>{{ title }}</strong>
+		{% endif %}
+{% endfor %}
+{% for url, more, title in trail %}
+	</li>
+</ul>
+{% endfor %}
+{% else %}
+<ul>
+{% for url, more, title in trail %}
+<li>
+	{% if url %}
+	<a href="{{ url }}">{% if forloop.first and widget.root_label %}{{ widget.root_label }}{% else %}{{ title }}{% endif %}</a>
+	{% else %}
+	<strong>{{ title }}</strong>
+	{% endif %}
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

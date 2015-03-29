@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"PO-Revision-Date: 2011-03-28 22:19\n"
+"Last-Translator: <mail@newt.cz>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.5\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n>1 && n<5 ? 1 : 2;\n"
+
+#: widget/maplocation/models.py:19
+msgid "road map"
+msgstr "silniční mapa"
+
+#: widget/maplocation/models.py:20
+msgid "satellite"
+msgstr "satelitní mapa"
+
+#: widget/maplocation/models.py:21
+msgid "hybrid"
+msgstr "hybridní mapa"
+
+#: widget/maplocation/models.py:32
+msgid "title"
+msgstr "název"
+
+#: widget/maplocation/models.py:33
+msgid "description"
+msgstr "popis"
+
+#: widget/maplocation/models.py:34
+msgid "latitude"
+msgstr "zeměpisná šířka"
+
+#: widget/maplocation/models.py:35
+msgid "longitude"
+msgstr "zeměpisná délka"
+
+#: widget/maplocation/models.py:36
+msgid "zoom"
+msgstr "přiblížení"
+
+#: widget/maplocation/models.py:37
+msgid "map"
+msgstr "mapa"
+
+#: widget/maplocation/models.py:41
+msgid "map location"
+msgstr "místo na mapě"
+
+#: widget/maplocation/models.py:42
+msgid "map locations"
+msgstr "místa na mapě"

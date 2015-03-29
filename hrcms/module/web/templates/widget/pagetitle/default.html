@@ -1,0 +1,32 @@
+{% extends "widget/base.html" %}
+
+{% block content %}
+{% if title %}
+<div class="span-{% if subtitle %}8{% else %}24{% endif %}">
+	<a id="top"></a>
+	<h1>{{ title|safe }}</h1>
+</div>
+{% if subtitle %}
+<div class="span-16 last">
+	<p>{{ subtitle|safe|linebreaksbr }}</p>
+</div>
+{% endif %}
+{% else %}
+{% if page.content_title %}
+<div class="span-{% if page.content_subtitle %}8{% else %}24{% endif %}">
+	<a id="top"></a>
+	<h1>{{ page.content_title|safe }}</h1>
+</div>
+{% if page.content_subtitle %}
+<div class="span-16 last">
+	<p>{{ page.content_subtitle|safe|linebreaksbr }}</p>
+</div>
+{% endif %}
+{% else %}
+<div class="span-24">
+	<a id="top"></a>
+	<h1>{{ page.title|safe }}</h1>
+</div>
+{% endif %}
+{% endif %}
+{% endblock %}

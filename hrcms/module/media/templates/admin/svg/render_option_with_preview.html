@@ -1,0 +1,9 @@
+if (this.value){
+var preview = $(this).parent().parent().next().children('object.svg_preview');
+var option = $($(this).children('option[value='+this.value+']')[0]);
+var src = option.attr('src');
+var width = option.attr('width');
+var height = option.attr('height');
+preview.children().attr({'src':src, 'width':width, 'height':height});
+preview.attr({'data':src, 'width':width, 'height':height});
+}; 

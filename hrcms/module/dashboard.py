@@ -12,7 +12,7 @@ class AuthPanels(horizon.PanelGroup):
 class ModuleDashboard(horizon.Dashboard):
     name = _("Modules")
     slug = "module" # this map all to /
-    
+
     panels = (AuthPanels,)
 
     default_panel = 'auth'

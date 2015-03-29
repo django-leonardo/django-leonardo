@@ -1,0 +1,30 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load feincms_tags %}
+{% load webcms_tags %}
+
+{% block content %}
+<div class="cycle-container">
+	{% for object in widget.get_last_news %}
+	<div class="cycle-{{ forloop.counter }} news-item cycle-item">
+		<div class="news-text">
+			<h3><a href="/{{ LANGUAGE_CODE }}/news/{{ object.get_url }}">{{ object.title }}</a></h3>
+			<div class="meta">{{ object.published_on|date:"j. m. Y" }}</div>
+			{% feincms_render_region object "preview" request %}
+		</div>
+		<p class="a-right ui-helper-clearfix"><a href="/{{ LANGUAGE_CODE }}/news/{{ object.get_url }}" class="button button_secondary"><span><span>{% trans "More" %}</span></span></a></p>
+	</div>
+	{% endfor %}
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#{{ widget.fe_identifier }} .cycle-container").cycle({
+		fx: 'scrollUp',
+		speed: 'slow',
+		pause: 1,
+		timeout: "4000"
+	});
+});
+</script>
+{% endblock %}

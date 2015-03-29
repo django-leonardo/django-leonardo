@@ -1,0 +1,21 @@
+{% extends "widget/base.html" %}
+
+{% load webcms_tags %}
+{% load thumbnail %}
+
+{% block content %}
+<h4 style="text-align:center;"><a href="/media/files/{{ widget.file.file.name }}">Klikněte pro stažení souboru, pokud se dokument neotevře.</a></h4>
+<div id="{{ widget.fe_identifier }}-pdf" style="height:{{ object.height }}px; width:{{ object.width }}px;"></div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var pdf_document = new PDFObject({ 
+		url: "/media/files/{{ widget.file.file.name }}",
+		pdfOpenParams: {
+			navpanes: 1,
+			view: "FitV",
+			pagemode: "thumbs"
+		}
+	}).embed("{{ widget.fe_identifier }}-pdf");
+});
+</script>
+{% endblock %}

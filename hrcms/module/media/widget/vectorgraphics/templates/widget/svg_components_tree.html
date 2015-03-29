@@ -1,0 +1,15 @@
+{%load xul_tree_tags %}<p>
+      <ul>{% recursive_template for roots %}
+        {% if subnode != composer %}<li>
+        <input {%if subnode.svg_content_type %}
+				onchange="var corr=$(this).parents('div[id^=svgcomposercontenttype_set]').find('select[name$={{subnode.svg_content_type}}]').find('option[value={{subnode.id}}]');Boolean($(this).attr('checked'))&&corr.attr('selected','selected')||corr.removeAttr('selected');"{% else %}onchange="$(this).parent().next('ul').find('input[type=checkbox]').attr('checked', $(this).attr('checked')).trigger('change')"{% endif %} 
+				{%if subnode in components or subnode in composers or subnode in components.all or subnode in composers.all %}checked="true" {%endif%}type="checkbox" 
+				a=""/>{{subnode}}</li>{% endif %}
+				
+		{% if subnode.content.sidebar|length or subnode.children.count%}<ul>
+			{% if subnode.content.sidebar|length%}{% subnode for subnode.content.sidebar %}{% endif %}
+			{% if subnode.children.count %}{% subnode for subnode.children.all %}{% endif %}
+		</ul>{% endif %}
+		{% endrecursive_template %}
+	 </ul>
+</p>

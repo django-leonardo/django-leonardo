@@ -1,0 +1,26 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load feincms_tags %}
+
+{% block content %}
+<div class="object-grid">
+	{% with widget.news_count as count %}
+	{% for object in widget.get_last_news %}
+	{% url webcms.module.news.apps.news_archive/webcms_news_entry_detail object.slug as webcms_news_entry_detail %}
+	<div class="span-{% if count == 1 %}24{% endif %}{% if count == 2 %}12{% endif %}{% if count == 3 %}8{% endif %}{% if count == 4 %}6{% endif %}">
+		<div class="object-cell">
+			<div class="object-meta">{{ object.published_on|date:"j. m. Y" }}</div>
+			<h3><a href="{{ webcms_news_entry_detail }}">{{ object.title }}</a></h3>
+			<div class="object-text">
+				{% feincms_render_region object "preview" request %}
+			</div>
+			<div class="object-buttons">
+				<a href="{{ webcms_news_entry_detail }}" class="button"><span><span>{% trans "Detail" %}</span></span></a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+	{% endwith %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+{% load webcms_form_tags %}
+
+{% block title %}{% trans "Select folder for upload" %}{% endblock %}
+
+{% block object-tools %}
+<li><a href="{% url webcms_admin:media_file_changelist %}">{% trans "Media files" %}</a></li>
+<li><a href="{% url webcms_admin:dashboard %}">{% trans "Project dashboard" %}</a></li>
+{% endblock %}
+
+{% block content_title %}
+<h2>{% trans "Select folder for upload" %}</h2>
+{% endblock %}
+
+{% block content %}
+<form method="post" action="." enctype="multipart/form-data" class="form">
+	{% csrf_token %}
+	<div class="fieldset">
+		{% for choice in choices %}
+		<p><a href="./{{ choice.0 }}/">{{ choice.1 }}</a></p>
+		{% endfor %}
+	</div>
+	<div class="admin-form-buttons">
+	</div>
+</form>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery('.admin-form-buttons button').button();
+});
+</script>
+{% endblock %}

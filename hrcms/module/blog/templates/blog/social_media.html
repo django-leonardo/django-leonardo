@@ -1,0 +1,9 @@
+{% load disqus_tags %}
+<div class="blog-social-media">
+	<iframe src="http://www.facebook.com/plugins/like.php?href={{ object.get_absolute_url|urlencode }}&amp;layout=box_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:62px;" allowTransparency="true"></iframe>
+	<a href="http://twitter.com/share" class="twitter-share-button" data-url="{{ object.get_absolute_url|urlencode }}" data-count="vertical">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	<div class="comment-box">
+		<a href="{{ object.get_absolute_url }}#disqus_thread">0</a>
+	</div>
+	{% disqus_num_replies %}
+</div>

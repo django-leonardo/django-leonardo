@@ -1,0 +1,9 @@
+Zpráva z kontaktního formuláře
+
+Jméno: {{ data.name }}
+E-mail: {{ data.email }}
+Telefon: {{ data.phone|default:"-" }}{% if data.website %}
+WWW: {{ data.website }}{% endif %}{% if data.subject %}
+Předmět: {{ data.subject }}{% endif %}
+Zpráva:
+{{ data.content }}

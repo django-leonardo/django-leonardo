@@ -1,0 +1,30 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load thumbnail %}
+{% load webcms_tags %}
+
+{% block content %}
+<div class="object-grid">
+	{% for object in widget.get_projects %}
+	<div class="span-12{% if forloop.counter|mod:'2' == 0 %} last{% endif %}">
+		<div class="folio_item object-list ui-helper-clearfix">
+			<a class="object-image" href="{% url webcms.module.folio.apps.category/webcms_folio_project_detail object.category.translation.slug object.translation.slug %}" title="{{ object }}">
+				{% if object.files.get_featured_image.file %}
+				{% thumbnail object.files.get_featured_image.file "120x90" crop="center" format="PNG" as image %}
+				<img alt="{{ object }}" src="{{ image.url }}" />
+				{% endthumbnail %}
+				{% else %}
+				{% thumbnail request.webcms_options.no_image "120x90" crop="center" format="PNG" as alt_image %}
+				<img alt="{{ object }}" src="{{ alt_image.url }}" />
+				{% endthumbnail %}
+				{% endif %}
+			</a>
+			<div class="object-text">
+				<h3><a href="{% url webcms.module.folio.apps.category/webcms_folio_project_detail object.category.translation.slug object.translation.slug %}" title="{{ object }}">{{ object }}</a></h3>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}

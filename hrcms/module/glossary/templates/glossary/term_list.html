@@ -1,0 +1,53 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load webcms_tags %}
+
+{% block breadcrumbs %}
+<li><strong>{% trans "Glossary terms" %}</strong></li>
+{% endblock %}
+
+{% block content %}
+<ul class="horizontal ui-helper-clearfix">
+	{% for i in a_z %}
+	{% if i|in_list:used_letters %}
+	<li{% ifequal i starts_with %} class="current"{% endifequal %}><a href = "?l={{ i }}">{{ i }}</a></li>
+	{% else %}
+	<li><strong>{{ i|capfirst }}</strong></li>
+	{% endif %}
+	{% endfor %}
+</ul>
+
+{% comment %}
+<form method="get" action="">
+	<p>
+		<label for="id_q">Search:</label>
+		<input type="text" name="q" id="id_q" value="{{ query }}" />
+		<input type="submit" value="Submit" />
+	</p>
+</form>
+
+{% if query %}
+{% if not object_list %}
+<p>No results found</p>
+{% endif %}
+{% endif %}
+{% endcomment %}
+
+<dl>
+	{% for term in object_list %}
+	<dt><a href="{{ term.translation.slug }}/">{{ term.translation.name }}</a></dt>
+	<dd>{{ term.translation.excerpt|safe }}</dd>
+	{% endfor %}
+</dl>
+
+{% if is_paginated %}
+	{% if has_previous %}
+	<a href="?page={{ previous }}">previous</a>
+	{% endif %}
+	<span class="current">Page {{ page }} of {{ pages }}.</span>
+	{% if has_next %}
+	<a href="?page={{ next }}">next</a>
+	{% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+# -#- coding: utf-8 -#-
+
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from django.template.loader import render_to_string
+
+from hrcms.models import Widget
+
+ENGINE_CHOICES = (
+    ('gooole', _("Google Custom Search")),
+    ('haystack', _("Django Haystack")),
+)
+
+class SiteSearchWidget(Widget):
+    engine = models.CharField(max_length=255, verbose_name=_("engine"), choices=ENGINE_CHOICES, default="google")
+    inline = models.BooleanField(verbose_name=_("inline"), default=False)
+
+    class Meta:
+        abstract = True
+        verbose_name = _("site search")
+        verbose_name_plural = _("site searches")

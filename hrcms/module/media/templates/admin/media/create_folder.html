@@ -1,0 +1,36 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+{% load webcms_form_tags %}
+
+{% block title %}{% trans "Create new folder" %}{% endblock %}
+
+{% block object-tools %}
+<li><a href="{% url webcms_admin:media_file_changelist %}">{% trans "Media files" %}</a></li>
+<li><a href="{% url webcms_admin:dashboard %}">{% trans "Project dashboard" %}</a></li>
+{% endblock %}
+
+{% block content_title %}
+<h2>{% trans "Create new folder" %}</h2>
+{% endblock %}
+
+{% block content %}
+<form method="post" action="." enctype="multipart/form-data" class="form">
+	{% csrf_token %}
+	<div class="fieldset">
+		<div class="fieldrow">
+			{{ form.name|form_field }}
+			{{ form.folder|form_field }}
+		</div>
+	</div>
+	<div class="admin-form-buttons">
+		<button type="submit">{% trans 'Create folder and close' %}</button>
+		<button type="submit">{% trans 'Create folder and upload files' %}</button>
+	</div>
+</form>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery('.admin-form-buttons button').button();
+});
+</script>
+{% endblock %}

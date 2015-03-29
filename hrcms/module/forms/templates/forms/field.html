@@ -1,0 +1,30 @@
+{% comment %}
+{% load uni_form_field %}
+
+{% if field.is_hidden %}
+{{ field }}
+{% else %}
+{% if field.field %}
+<div id="field_{{ field.auto_id }}" class="field {% if field.errors %}field-error{% endif %} {% if field|is_checkbox %} checkbox{% endif %} {% if field.field.widget.attrs.class %} {{ field.field.widget.attrs.class }}{% endif %} ui-helper-clearfix">
+	{% if field.label %}
+	<label for="{{ field.auto_id }}">{{ field.label|safe }}{% if field.field.required %}<em>*</em>{% endif %}</label>
+	{% endif %}
+	<div class="widget">
+		{{ field|with_class }}
+		{% if field.errors %}
+		<div class="error">
+			{% for error in field.errors %}
+			<p id="error_{{ forloop.counter }}_{{ field.auto_id }}">{{ error|safe }}</p>
+			{% endfor %}
+		</div>
+		{% endif %}
+	</div>
+	{% if field.help_text %}
+	<div id="help_{{ field.auto_id }}" class="help">{{ field.help_text|safe }}</div>
+	{% endif %}
+</div>
+{% else %}
+<p class='error'>Error loading field "{{ field }}"</p>
+{% endif %}
+{% endif %}
+{% endcomment %}

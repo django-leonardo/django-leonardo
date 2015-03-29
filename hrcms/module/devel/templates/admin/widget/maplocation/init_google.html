@@ -1,0 +1,117 @@
+<script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=true&amp;ver=3'></script>
+<script type="text/javascript">
+
+(function($) {
+	contentblock_init_handlers.push(function(){
+		$('.order-machine select.item-maplocation, #frontend_editor select.item-maplocation').each(function(){
+			var id = $(this).attr("id");
+			if(!map_added[id]) {
+				// widget_maplocation_add_map($(this));
+			}
+		});
+	});
+})(jQuery);
+
+var map_added = {};
+
+function widget_maplocation_add_map(field) {
+	var id = field.attr("id");
+	var element = field.parent().parent().parent();
+
+	var latField = element.find(".latitude input");
+	var lngField = element.find(".longitude input");
+
+	var descriptionField = element.find(".description textarea");
+	var titleField = element.find(".title input");
+	var zoomField = element.find(".zoom input");
+	var mapTypeField = element.find(".map select");
+
+	element.append("<div class='form-row item-map'><div class='google-canvas'></div></div>");
+	var canvas = element.find(".google-canvas");
+
+	if(isNaN(parseInt(latField.val()))) {
+		var location = new google.maps.LatLng(50.000, 15.000);
+	}
+	else {
+		var location = new google.maps.LatLng(latField.val(), lngField.val());
+	}
+
+	var zoom = parseInt(zoomField.val());
+	if(isNaN(zoom)) {
+		zoom = 4;
+	}
+
+	var mapType = mapTypeField.val();
+
+	if(mapType != "") { 
+		mapType = google.maps.MapTypeId.ROADMAP;
+	}
+
+	var options = {
+		zoom: zoom , 
+		center: location, 
+		mapTypeId: mapType 
+	};
+
+	var map = new google.maps.Map(canvas.get(0), options);
+
+	var marker = new google.maps.Marker({
+		position: location,
+		map: map, 
+		draggable: true
+	});
+
+	var infoWindow = new google.maps.InfoWindow({content: updateInfo(titleField, descriptionField)});
+	infoWindow.open(map, marker);
+
+	var updateMarker = function() {
+		var location = new google.maps.LatLng(latField.val(), lngField.val());
+		marker.setPosition(location);
+		map.setCenter(location);
+	};
+
+	var updateFields = function() {
+		var location = marker.getPosition();
+		latField.val(location.lat());
+		lngField.val(location.lng());
+		zoomField.val(map.getZoom());
+		mapTypeField.val(map.getMapTypeId());
+	};
+
+	google.maps.event.addListener(map, "maptypeid_changed", updateFields);
+	google.maps.event.addListener(map, "zoom_changed", updateFields);
+	google.maps.event.addListener(marker, "drag", updateFields);
+	google.maps.event.addListener(marker, "dragend", updateFields);
+	
+	latField.keyup(updateMarker).change(updateMarker);
+	lngField.keyup(updateMarker).change(updateMarker);
+
+	titleField.change(function() { infoWindow.setContent(updateInfo(titleField, descriptionField)); });
+	titleField.keyup(function() { infoWindow.setContent(updateInfo(titleField, descriptionField)); });
+	descriptionField.change(function() { infoWindow.setContent(updateInfo(titleField, descriptionField)); });
+	descriptionField.keyup(function() { infoWindow.setContent(updateInfo(titleField, descriptionField)); });
+
+	// The widget area is resized, wich is causing a buggy Google Maps, this function fixes that issue
+	var fixMap = function() {
+		google.maps.event.trigger(map, "resize");
+		map.setCenter(location);
+	}
+
+	map_added[id] = true;
+    setTimeout(fixMap, 1000);
+}
+
+function updateInfo(titleField, descriptionField) {
+	if(titleField.val() =='' && descriptionField.val() == '') {
+		content = '';
+	}
+	else {
+		content = '<b>'+titleField.val()+'</b><br />'+descriptionField.val();
+	}
+	return content;
+}
+
+</script>
+<style type="text/css">
+.google-canvas { height:400px; width:700px;}
+</style>

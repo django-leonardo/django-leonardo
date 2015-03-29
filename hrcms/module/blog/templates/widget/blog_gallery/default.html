@@ -1,0 +1,28 @@
+{% extends "widget/base.html" %}
+
+{% load thumbnail %}
+
+{% block content %}
+<ul class="horizontal">
+{% for category_file in widget.category.media.all %}
+{% with category_file.file as file %}
+	<li>
+		{% if file.type == 'image' %}
+		{% thumbnail file.file widget.image_geom as image %}
+		<a href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
+		{% thumbnail file.file widget.thumb_geom crop="center" as thumb %}
+		<img src="{{ thumb.url }}" alt="" />
+		{% endthumbnail %}
+		</a>
+		{% endthumbnail %}
+		{% endif %}
+	</li>
+{% endwith %}
+{% endfor %}
+</ul>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("a[rel='{{ widget.fe_identifier }}']").colorbox();
+});
+</script>
+{% endblock %}

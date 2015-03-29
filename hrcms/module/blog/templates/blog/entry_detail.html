@@ -1,0 +1,14 @@
+{% load feincms_thumbnail disqus_tags i18n %}
+
+{% with feincms_object.tags.all as tags %}
+{% if tags %}
+<ul class="tags">
+{% for tag in tags %}
+<li>{{ tag }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+{{ content }}
+{% include "blog/social_media.html" %}

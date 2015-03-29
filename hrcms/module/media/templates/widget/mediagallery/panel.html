@@ -1,0 +1,27 @@
+{% extends "widget/base.html" %}
+
+{% load webcms_tags %}
+{% load feincms_thumbnail %}
+
+{% block content %}
+<div class="gallery">
+{% for category_file in widget.category.media.all %}
+{% with category_file.file as file %}
+		<a href="{{ link.web_address }}" rel="colorbox">
+			{% if file.type == 'image' %}
+			{% with widget.get_size as size %}
+			<img src='{{ file.file.name|thumbnail:size }}' alt='{{ file.file.name }}' /><br />
+			{% endwith %}
+			{% else %}
+			<span>{{ file.type }}</span>
+			{% endif %}
+		</a>
+{% endwith %}
+{% endfor %}
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#{{ widget.fe_identifier }} ul.gallery").panelGallery();
+});
+</script>
+{% endblock %}

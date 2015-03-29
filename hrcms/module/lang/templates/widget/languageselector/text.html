@@ -1,0 +1,13 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+{% for key,lang in languages.items %}
+	{% if lang.page %}
+	<a id="set_lang_{{ lang.code }}" href="{{ lang.page.get_absolute_url }}{{ lang.suffix }}">
+		<img src="/static/lib/webcms/img/flags/{{ lang.code }}.gif" alt="{{ lang.label }}" />
+	</a>
+	{% endif %}
+{% endfor %}
+{% endblock %}

@@ -7,11 +7,13 @@
 <html lang="en">
   {% block header %}
     {% include "_header.html" %}
+    {% feincms_render_region feincms_page "header" request %}
   {% endblock %}
 
   <body data-spy="scroll" data-offset="0" data-target="#navigation" ng-app='hz'>
     {% block navbar %}
       {% include "common/_nav_bar.html" %}
+      {% feincms_render_region feincms_page "toolbar" request %}
     {% endblock %}
 
   {% block content %}
@@ -31,6 +33,7 @@
     <div id="footerwrap">
       {% block footer %}
         {% include 'common/footer.html' %}
+        {% feincms_render_region feincms_page "footer" request %}
       {% endblock %}
     </div>
 
@@ -41,3 +44,7 @@
   <div id="modal_wrapper"></div>
   </body>
 </html>
+
+{% block body_helper %}{% feincms_render_region feincms_page "helper" request %}{% endblock %}
+
+{% block body_preview %}{% feincms_render_region feincms_page "preview" request %}{% endblock %}

@@ -1,0 +1,42 @@
+{% load feincms_tags breadcrumbs i18n disqus_tags %}
+
+
+{% block breadcrumbs %}
+    {% if drilldown_mode %}
+        {% drilldown date drilldown_mode %}
+    {% endif %}
+{% endblock %}
+
+ <h1>{{ title }}</h1>
+ {% for object in object_list %}
+        <div class="entry">
+            <h2><a href="{{ object.get_absolute_url }}" title="{{ object.title }}">{{ object.title }}</a></h2>
+            <h3> {% trans 'By' %} <a href="#">{{ object.user.get_full_name }}</a>. {% trans 'Posted on' %} {{ object.published_on|date:"SHORT_DATE_FORMAT" }}
+                 {% trans 'at' %} {{ object.published_on|time:"H:i" }}</h3>
+            <p style="font-weight:bold;"> {{ object.meta_description }} </p>
+            {{ object.richtextcontent_set.all.0.render }}
+			{% if object.richtextcontent_set.all.1 %}
+            <a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="entry_more">{% trans 'more...' %}</a>
+        	{% endif %}
+		</div>
+        {% if not forloop.last %}
+          <div class="separator"></div>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_other_pages %}
+    <div class="separator"></div>
+    <div class="pagination">
+            <span class="current">
+                {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_previous %}
+                <a class="step-back" href="?page={{ page_obj.previous_page_number }}" rel="prev">{% trans 'previous' %}</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a class="step-forward" href="?page={{ page_obj.next_page_number }}" rel="next">{% trans 'next' %}</a>
+            {% endif %}
+    </div>
+    {% endif %}

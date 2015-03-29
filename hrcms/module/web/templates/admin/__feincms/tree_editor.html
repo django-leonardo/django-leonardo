@@ -1,0 +1,23 @@
+{% extends "admin/change_list.html" %}
+
+{% load adminmedia %}
+{% load admin_list %}
+{% load i18n %}
+
+{% block extrahead %}
+{{ block.super }}
+
+<script type="text/javascript">
+var feincms = {
+	"tree_structure": {{ tree_structure|default:"null" }}
+};
+</script>
+<script type="text/javascript" src="{{ FEINCMS_ADMIN_MEDIA }}js/ie_compat.js"></script>
+<script type="text/javascript" src="{{ FEINCMS_ADMIN_MEDIA }}js/toolbox.js"></script>
+<script type="text/javascript" src="{{ FEINCMS_ADMIN_MEDIA }}js/fein_tree.js"></script>
+{% endblock %}
+
+{% block actions %}
+<button type="button" id="collapse_entire_tree">{% trans 'Collapse tree' %}</button>
+<button type="button" id="open_entire_tree">{% trans 'Expand tree' %}</button>
+{% endblock %}

@@ -1,0 +1,1138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Satchmo package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"PO-Revision-Date: 2010-06-17 11:11\n"
+"Last-Translator: <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.3\n"
+
+#: config.py:6
+#, fuzzy
+msgid "Web Settings"
+msgstr "Nastavenia"
+
+#: config.py:11
+msgid "meta keywords"
+msgstr ""
+
+#: config.py:13
+msgid ""
+"Default meta keywords. If you have multilingual site, use keywords in all "
+"languages."
+msgstr ""
+
+#: config.py:19
+msgid "meta description"
+msgstr ""
+
+#: config.py:21
+msgid ""
+"Default description of the site. If you have multilingual site, write "
+"description in all languages."
+msgstr ""
+
+#: config.py:27
+msgid "title of the site"
+msgstr ""
+
+#: config.py:29
+msgid "Title of the site to be shown in browser's title bar."
+msgstr ""
+
+#: config.py:35
+msgid "Under construction"
+msgstr ""
+
+#: config.py:36
+msgid "If yes, there will be just Under Construction notice instead of web."
+msgstr ""
+
+#: config.py:44
+msgid "Is private"
+msgstr ""
+
+#: config.py:45
+msgid ""
+"If yes, there will be just Login screen instead of web for anonymous users."
+msgstr ""
+
+#: models.py:17 models.py:33
+msgid "Content"
+msgstr "Obsah"
+
+#: models.py:18
+msgid "Left sidebar"
+msgstr "Lavý stĺpec"
+
+#: models.py:19
+msgid "Right sidebar"
+msgstr "Pravý stĺpec"
+
+#: models.py:20 models.py:32
+msgid "Header"
+msgstr "Záhlavie"
+
+#: models.py:21 models.py:34
+msgid "Footer"
+msgstr "Zápätie"
+
+#: models.py:22 models.py:35
+msgid "Toolbar"
+msgstr "Lišta"
+
+#: models.py:23 models.py:36
+msgid "Preview"
+msgstr "Náhľad"
+
+#: models.py:24 models.py:37
+msgid "Helper"
+msgstr "Pomocný panel"
+
+#: models.py:27 models.py:31
+msgid "Left column"
+msgstr "Lavý stĺpec"
+
+#: models.py:28
+msgid "Right column"
+msgstr "Pravý stĺpec"
+
+#: models.py:29
+msgid "Main content"
+msgstr "Hlavný obsah"
+
+#: models.py:30
+msgid "Center column"
+msgstr "Stredný stĺpec"
+
+#: models.py:45
+msgid "1 column"
+msgstr "1 stĺpec"
+
+#: models.py:55
+msgid "2 same columns"
+msgstr "2 rovnaké stĺpce"
+
+#: models.py:65
+msgid "2 columns right"
+msgstr "2 stĺpece vpravo"
+
+#: models.py:75
+msgid "2 columns left"
+msgstr "2 stĺpece vlevo"
+
+#: models.py:85
+msgid "3 columns"
+msgstr "3 stĺpece"
+
+#: models.py:95
+msgid "3 same columns"
+msgstr "3 rovnaké stĺpce"
+
+#: models.py:101
+msgid "Void"
+msgstr ""
+
+#: conf/admin.py:9
+msgid "Pages"
+msgstr "Stránky"
+
+#: conf/admin.py:9
+msgid "Manage site structure and content widgets."
+msgstr ""
+
+#: conf/admin.py:14
+#, fuzzy
+msgid "Files"
+msgstr "súborov"
+
+#: conf/admin.py:14
+msgid "All multimedial files uploaded to the site."
+msgstr ""
+
+#: conf/admin.py:19
+#, fuzzy
+msgid "Media categories"
+msgstr "kategórie obchodu"
+
+#: conf/admin.py:19
+msgid "Multimedial categories to be used in other modules."
+msgstr ""
+
+#: conf/admin.py:24
+msgid "News"
+msgstr "Novinky"
+
+#: conf/admin.py:24
+msgid "Periodical short messages ordered in timely manner."
+msgstr ""
+
+#: conf/admin.py:29
+#, fuzzy
+msgid "Links"
+msgstr "odkaz"
+
+#: conf/admin.py:29
+msgid "Links to the other pages or resources."
+msgstr ""
+
+#: conf/admin.py:34
+msgid "Link lists"
+msgstr ""
+
+#: conf/admin.py:34
+msgid "Lists of links."
+msgstr ""
+
+#: conf/admin.py:39
+msgid "Banners"
+msgstr ""
+
+#: conf/admin.py:39
+msgid "Easy management of banners."
+msgstr ""
+
+#: conf/admin.py:44
+msgid "Banner slots"
+msgstr ""
+
+#: conf/admin.py:44
+msgid "Easy management of multiple banner positions."
+msgstr ""
+
+#: conf/admin.py:49
+msgid "Glossary terms"
+msgstr ""
+
+#: conf/admin.py:49 conf/admin.py:54 conf/admin.py:59
+msgid "List of terms with synonims."
+msgstr ""
+
+#: conf/admin.py:54
+msgid "Image annotations"
+msgstr ""
+
+#: conf/admin.py:59
+msgid "Annotated images"
+msgstr ""
+
+#: conf/admin.py:64
+#, fuzzy
+msgid "FAQ categories"
+msgstr "Kategórie"
+
+#: conf/admin.py:69
+msgid "Frequest questions"
+msgstr ""
+
+#: conf/admin.py:74
+msgid "Flexible forms"
+msgstr ""
+
+#: conf/admin.py:79
+msgid "Form submissions"
+msgstr ""
+
+#: conf/admin.py:83
+#, fuzzy
+msgid "Web site"
+msgstr "WWW"
+
+#: conf/admin.py:83
+msgid "Basic web components and applications."
+msgstr ""
+
+#: conf/admin.py:86
+#, fuzzy
+msgid "Users"
+msgstr "Užívateľské role"
+
+#: conf/admin.py:86
+msgid "Administration of system users."
+msgstr ""
+
+#: conf/admin.py:88
+#, fuzzy
+msgid "Site setup"
+msgstr "Užívatelia"
+
+#: conf/admin.py:91
+#, fuzzy
+msgid "Advanced settings"
+msgstr "Nastavenia"
+
+#: conf/admin.py:91
+msgid "Advanced settings, analytics and maintenance tools."
+msgstr ""
+
+#: conf/admin.py:94
+#, fuzzy
+msgid "Project dashboard"
+msgstr "Úvodná stránka"
+
+#: conf/admin.py:94
+#, fuzzy
+msgid "Project admin dashboard."
+msgstr "Úvodná stránka"
+
+#: templates/admin/feincms/_messages_js.html:4
+msgid "Really delete item?"
+msgstr ""
+
+#: templates/admin/feincms/_messages_js.html:4
+msgid "Confirm to delete item"
+msgstr ""
+
+#: templates/admin/feincms/_messages_js.html:5
+msgid "Item deleted successfully."
+msgstr ""
+
+#: templates/admin/feincms/_messages_js.html:5
+msgid "Cannot delete item"
+msgstr ""
+
+#: templates/admin/feincms/_messages_js.html:6
+msgid "Cannot delete item, because it is parent of at least one other item."
+msgstr ""
+
+#: templates/admin/feincms/_messages_js.html:7
+#, fuzzy
+msgid "Change template"
+msgstr "django šablóna"
+
+#: templates/admin/feincms/_messages_js.html:8
+msgid "Really change template? <br />All changes are saved."
+msgstr ""
+
+#: templates/admin/feincms/_messages_js.html:9
+#, python-format
+msgid ""
+"Really change template? <br />All changes are saved and content from <strong>"
+"%(source_regions)s</strong> is moved to <strong>%(target_region)s</strong>."
+msgstr ""
+
+#: templates/admin/feincms/_messages_js.html:12
+#, fuzzy
+msgid "Hide"
+msgstr "Záhlavie"
+
+#: templates/admin/feincms/_messages_js.html:13
+msgid "Show"
+msgstr ""
+
+#: templates/admin/feincms/_messages_js.html:14
+msgid "After"
+msgstr ""
+
+#: templates/admin/feincms/_messages_js.html:15
+msgid "Before"
+msgstr ""
+
+#: templates/admin/feincms/_messages_js.html:16
+#, fuzzy
+msgid "Insert new:"
+msgstr "posledné novinky"
+
+#: templates/admin/feincms/content_editor.html:11
+msgid "Region empty"
+msgstr ""
+
+#: templates/admin/feincms/content_editor.html:15
+msgid ""
+"Content from the parent site is automatically inherited. To override this "
+"behaviour, add some content."
+msgstr ""
+
+#: templates/admin/feincms/content_editor.html:23
+msgid "Add new item"
+msgstr ""
+
+#: templates/admin/feincms/content_inline.html:9
+msgid "View on site"
+msgstr ""
+
+#: templates/admin/feincms/content_inline.html:91
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: templates/admin/feincms/content_inline.html:94
+msgid "Remove"
+msgstr "Odstrániť"
+
+#: templates/admin/feincms/item_editor.html:29
+msgid "available translations"
+msgstr ""
+
+#: templates/admin/feincms/recover_form.html:7
+#: templates/admin/feincms/revision_form.html:10
+msgid "Home"
+msgstr "Úvod"
+
+#: templates/admin/feincms/recover_form.html:10
+#, python-format
+msgid "Recover deleted %(verbose_name)s"
+msgstr ""
+
+#: templates/admin/feincms/recover_form.html:17
+msgid "Press the save button below to recover this version of the object."
+msgstr ""
+
+#: templates/admin/feincms/revision_form.html:14
+msgid "History"
+msgstr ""
+
+#: templates/admin/feincms/revision_form.html:15
+#, python-format
+msgid "Revert %(verbose_name)s"
+msgstr ""
+
+#: templates/admin/feincms/revision_form.html:28
+msgid "Press the save button below to revert to this version of the object."
+msgstr ""
+
+#: templates/admin/feincms/tree_editor.html:21
+msgid "Collapse tree"
+msgstr ""
+
+#: templates/admin/feincms/tree_editor.html:22
+msgid "Expand tree"
+msgstr ""
+
+#: templates/admin/feincms/page/page/item_editor.html:8
+msgid "Replace Page"
+msgstr ""
+
+#: templates/admin/feincms/page/page/item_editor.html:11
+#, fuzzy
+msgid "Copy Page"
+msgstr "Úvod"
+
+#: templates/admin/feincms/page/page/item_editor.html:12
+msgid "Edit On-site"
+msgstr ""
+
+#: templates/auth/login.html:7
+#, fuzzy
+msgid "User Login"
+msgstr "profil zákazníka"
+
+#: templates/auth/login.html:27
+msgid "Forgot your password?"
+msgstr ""
+
+#: templates/auth/login.html:27
+msgid "Request a new one!"
+msgstr ""
+
+#: templates/auth/login.html:29 templates/auth/password_reset_confirm.html:31
+#: templates/auth/password_reset_form.html:26
+#: templates/registration/password_change_form.html:32
+#: templates/registration/password_reset_confirm.html:30
+#: templates/registration/password_reset_form.html:28
+msgid "Required fields"
+msgstr ""
+
+#: templates/auth/logout.html:6
+msgid "Logout successful"
+msgstr ""
+
+#: templates/auth/logout.html:10 templates/registration/logout.html:19
+msgid "You have been successfully logged out."
+msgstr ""
+
+#: templates/auth/password_reset_complete.html:6
+msgid "Password reset complete"
+msgstr ""
+
+#: templates/auth/password_reset_complete.html:10
+#: templates/auth/password_reset_form.html:7
+#: templates/auth/password_reset_form.html:11
+msgid "Password Reset"
+msgstr ""
+
+#: templates/auth/password_reset_complete.html:14
+#: templates/registration/password_reset_complete.html:18
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr ""
+
+#: templates/auth/password_reset_complete.html:16
+#: templates/auth/password_reset_done.html:16
+#: templates/registration/password_reset_complete.html:20
+#: templates/registration/password_reset_form.html:29
+#: templates/widget/userlogin/default.html:26
+#: templates/widget/userlogin/default.html:30
+#, fuzzy
+msgid "Log In"
+msgstr "Vyhľadávanie"
+
+#: templates/auth/password_reset_confirm.html:8
+#: templates/auth/password_reset_confirm.html:15
+#: templates/auth/password_reset_confirm.html:24
+msgid "Enter new password"
+msgstr ""
+
+#: templates/auth/password_reset_confirm.html:10
+#: templates/auth/password_reset_confirm.html:15
+msgid "Password reset unsuccessful"
+msgstr ""
+
+#: templates/auth/password_reset_confirm.html:22
+#: templates/registration/password_reset_confirm.html:22
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: templates/auth/password_reset_confirm.html:36
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: templates/auth/password_reset_done.html:6
+#: templates/auth/password_reset_done.html:10
+msgid "Password reset e-mail sent"
+msgstr ""
+
+#: templates/auth/password_reset_done.html:14
+#: templates/registration/password_reset_done.html:18
+msgid ""
+"We've e-mailed a link to retrieve your new password to the e-mail address "
+"you submitted."
+msgstr ""
+
+#: templates/auth/password_reset_form.html:15
+msgid "Enter e-mail address you have entered during registration process."
+msgstr ""
+
+#: templates/auth/password_reset_form.html:16
+msgid ""
+"You will receive immediatelly a link with an option to set a new password."
+msgstr ""
+
+#: templates/auth/password_reset_form.html:20
+msgid "Account e-mail address"
+msgstr ""
+
+#: templates/auth/password_reset_form.html:27
+msgid "Back"
+msgstr "Späť"
+
+#: templates/email/base.html:4
+#, fuzzy
+msgid "Infomail"
+msgstr "e-mail"
+
+#: templates/email/base.html:35
+msgid "Regards"
+msgstr ""
+
+#: templates/pagination/pagination.html:4
+#: templates/pagination/pagination.html:27
+#, fuzzy
+msgid "items"
+msgstr "max. položiek"
+
+#: templates/pagination/pagination.html:7
+#, fuzzy
+msgid "Page"
+msgstr "Stránky"
+
+#: templates/registration/logout.html:7 templates/registration/logout.html:11
+#: templates/registration/logout.html:15
+msgid "Customer Logout"
+msgstr ""
+
+#: templates/registration/password_change_done.html:7
+#: templates/registration/password_change_form.html:7
+#, fuzzy
+msgid "My Account"
+msgstr "počet noviniek"
+
+#: templates/registration/password_change_done.html:7
+#: templates/registration/password_change_done.html:11
+#: templates/registration/password_change_done.html:15
+#: templates/registration/password_change_form.html:7
+#: templates/registration/password_change_form.html:11
+#: templates/registration/password_change_form.html:15
+#: templates/registration/password_reset_complete.html:6
+#: templates/registration/password_reset_complete.html:10
+#: templates/registration/password_reset_complete.html:14
+#: templates/registration/password_reset_confirm.html:7
+#: templates/registration/password_reset_confirm.html:11
+#: templates/registration/password_reset_confirm.html:15
+msgid "Password Change"
+msgstr ""
+
+#: templates/registration/password_change_done.html:19
+msgid "Password has been changed."
+msgstr ""
+
+#: templates/registration/password_change_form.html:21
+msgid ""
+"For the sake of security, please enter your old password, and then enter "
+"your new password twice."
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:35
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:39
+msgid "Save New Password"
+msgstr ""
+
+#: templates/registration/password_reset_done.html:6
+#: templates/registration/password_reset_done.html:10
+#: templates/registration/password_reset_done.html:14
+#: templates/registration/password_reset_form.html:7
+#: templates/registration/password_reset_form.html:11
+#: templates/registration/password_reset_form.html:15
+msgid "Forgotten Password"
+msgstr ""
+
+#: templates/registration/password_reset_form.html:19
+msgid ""
+"Enter your e-mail address and you will receive immediatelly a link with an "
+"option to set a new password."
+msgstr ""
+
+#: templates/widget/userlogin/default.html:10
+msgid "Close admin"
+msgstr ""
+
+#: templates/widget/userlogin/default.html:12
+msgid "Open admin"
+msgstr ""
+
+#: templates/widget/userlogin/default.html:17
+#: templates/widget/userlogin/default.html:21
+msgid "Log Out"
+msgstr ""
+
+#: views/auth.py:86
+msgid "Logged out"
+msgstr ""
+
+#: views/auth.py:113
+#, fuzzy
+msgid "E-mail"
+msgstr "Email"
+
+#: views/auth.py:122
+msgid ""
+"That e-mail address doesn't have an associated user account. Are you sure "
+"you've registered?"
+msgstr ""
+
+#: views/auth.py:148
+#, python-format
+msgid "Password reset on %s"
+msgstr ""
+
+#: views/auth.py:156
+msgid "New password"
+msgstr ""
+
+#: views/auth.py:157
+msgid "New password confirmation"
+msgstr ""
+
+#: views/auth.py:168
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: views/auth.py:182
+msgid "Old password"
+msgstr ""
+
+#: views/auth.py:190
+msgid "Your old password was entered incorrectly. Please enter it again."
+msgstr ""
+
+#: widget/application/models.py:33
+#, fuzzy
+msgid "external application"
+msgstr "Akcie"
+
+#: widget/application/models.py:34
+#, fuzzy
+msgid "external applications"
+msgstr "Akcie"
+
+#: widget/djangotemplate/models.py:18 widget/djangotemplate/models.py:32
+msgid "template"
+msgstr "šablóna"
+
+#: widget/djangotemplate/models.py:36
+msgid "django template"
+msgstr "django šablóna"
+
+#: widget/djangotemplate/models.py:37
+#, fuzzy
+msgid "django templates"
+msgstr "django šablóna"
+
+#: widget/feedreader/models.py:14
+msgid "Modal window"
+msgstr ""
+
+#: widget/feedreader/models.py:15
+msgid "Blank window"
+msgstr ""
+
+#: widget/feedreader/models.py:21
+#, fuzzy
+msgid "link"
+msgstr "odkaz"
+
+#: widget/feedreader/models.py:23
+msgid "max. items"
+msgstr "max. položiek"
+
+#: widget/feedreader/models.py:24
+msgid "last updated"
+msgstr "posledná aktualizácia"
+
+#: widget/feedreader/models.py:28
+msgid "feed reader"
+msgstr ""
+
+#: widget/feedreader/models.py:29
+msgid "feed readers"
+msgstr ""
+
+#: widget/htmltext/models.py:19 widget/htmltext/models.py:81
+#: widget/markuptext/models.py:13
+#, fuzzy
+msgid "text"
+msgstr "daľšia"
+
+#: widget/htmltext/models.py:30
+msgid "HTML Tidy"
+msgstr ""
+
+#: widget/htmltext/models.py:31
+msgid "Ignore the HTML validation warnings"
+msgstr ""
+
+#: widget/htmltext/models.py:55
+#, python-format
+msgid ""
+"HTML validation produced %(count)d warnings. Please review the updated "
+"content below before continuing: %(messages)s"
+msgstr ""
+
+#: widget/htmltext/models.py:85
+msgid "HTML text"
+msgstr ""
+
+#: widget/htmltext/models.py:86
+msgid "HTML texts"
+msgstr ""
+
+#: widget/markuptext/models.py:17
+msgid "markup text"
+msgstr ""
+
+#: widget/markuptext/models.py:18
+msgid "markup texts"
+msgstr ""
+
+#: widget/pagetitle/models.py:15
+msgid "page title"
+msgstr "titulok stránky"
+
+#: widget/pagetitle/models.py:16
+#, fuzzy
+msgid "page titles"
+msgstr "titulok stránky"
+
+#: widget/siteheading/models.py:11
+#, fuzzy
+msgid "Site Title"
+msgstr "názov"
+
+#: widget/siteheading/models.py:12
+#, fuzzy
+msgid "Logo"
+msgstr "Vyhľadávanie"
+
+#: widget/siteheading/models.py:13
+msgid "Tagline"
+msgstr ""
+
+#: widget/siteheading/models.py:17
+msgid "site heading"
+msgstr ""
+
+#: widget/siteheading/models.py:18
+msgid "site headings"
+msgstr ""
+
+#: widget/table/models.py:93
+#, fuzzy
+msgid "plain"
+msgstr "odkaz"
+
+#: widget/table/models.py:94
+msgid "title row"
+msgstr ""
+
+#: widget/table/models.py:96
+#, fuzzy
+msgid "title row and column"
+msgstr "Stredný stĺpec"
+
+#: widget/table/models.py:102
+#, fuzzy
+msgid "table"
+msgstr "označenie"
+
+#: widget/table/models.py:103
+msgid "tables"
+msgstr ""
+
+#: widget/table/models.py:112
+msgid "type"
+msgstr ""
+
+#: widget/table/models.py:116
+msgid "data"
+msgstr ""
+
+#: widget/userlogin/models.py:9
+msgid "inline"
+msgstr ""
+
+#: widget/userlogin/models.py:13
+msgid "user login"
+msgstr ""
+
+#: widget/userlogin/models.py:14
+msgid "user logins"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Store Management"
+#~ msgstr "správa obchodu"
+
+#~ msgid "Dashboard"
+#~ msgstr "Úvodná stránka"
+
+#~ msgid "Site overview"
+#~ msgstr "Prehľad doplnkov"
+
+#~ msgid "CMS"
+#~ msgstr "Web"
+
+#~ msgid "Comments"
+#~ msgstr "Komentáre"
+
+#~ msgid "Domains"
+#~ msgstr "Domény"
+
+#~ msgid "Redirections"
+#~ msgstr "Presmerovanie"
+
+#~ msgid "blog entries"
+#~ msgstr "položky blogu"
+
+#~ msgid "eshop products"
+#~ msgstr "produkty v obchode"
+
+#~ msgid "payment process"
+#~ msgstr "priebeh platby"
+
+#~ msgid "shopping cart"
+#~ msgstr "nákupný košík"
+
+#~ msgid "eshop core"
+#~ msgstr "jadro obchodu"
+
+#~ msgid "eshop accounts"
+#~ msgstr "účty zákazníkov"
+
+#~ msgid "Entry layout"
+#~ msgstr "novinka"
+
+#~ msgid "vertical"
+#~ msgstr "vertikálny"
+
+#~ msgid "horizontal"
+#~ msgstr "horizontálny"
+
+#~ msgid "HTFS"
+#~ msgstr "HTFS"
+
+#~ msgid "application sidebar"
+#~ msgstr "pomocný panel aplikácie"
+
+#~ msgid "language code"
+#~ msgstr "kód jazyku"
+
+#~ msgid "language name"
+#~ msgstr "názov jazyku"
+
+#~ msgid "no label"
+#~ msgstr "bez označenia"
+
+#~ msgid "orientation"
+#~ msgstr "orientácia"
+
+#~ msgid "show flag"
+#~ msgstr "ukázať vlajku"
+
+#~ msgid "language switcher"
+#~ msgstr "prepínanie jazyku"
+
+#~ msgid "language switchers"
+#~ msgstr "prepínanie jazykov"
+
+#~ msgid "news count"
+#~ msgstr "počet noviniek"
+
+#~ msgid "show link"
+#~ msgstr "zobraziť odkaz"
+
+#~ msgid "link label"
+#~ msgstr "označenie odkazu"
+
+#~ msgid "name"
+#~ msgstr "meno"
+
+#~ msgid "phone"
+#~ msgstr "telefón"
+
+#~ msgid "subject"
+#~ msgstr "predmet"
+
+#~ msgid "content"
+#~ msgstr "obsah"
+
+#~ msgid "contact form"
+#~ msgstr "kontaktný formulár"
+
+#~ msgid "contact forms"
+#~ msgstr "kontaktné formuláre"
+
+#, fuzzy
+#~ msgid "Message from contact form"
+#~ msgstr "kontaktný formulár"
+
+#, fuzzy
+#~ msgid "captcha contact form"
+#~ msgstr "kontaktný formulár"
+
+#, fuzzy
+#~ msgid "captcha contact forms"
+#~ msgstr "kontaktné formuláre"
+
+#~ msgid ""
+#~ "The rss field is updated several times a day. A change in the title will "
+#~ "only be visible on the home page after the next feed update."
+#~ msgstr ""
+#~ "RSS pole se aktualizuje niekoľko krát denne. Zmena názvu bude viditeľná "
+#~ "len na úvodnej stránke až po daľšej aktualizácií."
+
+#~ msgid "pre-rendered content"
+#~ msgstr "predgenerovaný obsahu"
+
+#~ msgid "RSS feed"
+#~ msgstr "RSS kanál"
+
+#~ msgid "RSS feeds"
+#~ msgstr "RSS kanály"
+
+#~ msgid "content title"
+#~ msgstr "titulok obsahu"
+
+#~ msgid "The first line is the main title, the following lines are subtitles."
+#~ msgstr "Prvý riadok je hlavný titul, následujúce riadky sú titulky."
+
+#~ msgid "Page title for browser window. Same as title by default."
+#~ msgstr ""
+#~ "Názov stránky pre okná prehliadača. Vo východzom nastavení je to rovnaká "
+#~ "hodnota ako názov."
+
+#~ msgid "Error"
+#~ msgstr "Chyba"
+
+#~ msgid "Could not find the page you were looking for."
+#~ msgstr "Hľadaná stránka nebola nájdená."
+
+#~ msgid "There was an error with the store.  The admin has been notified."
+#~ msgstr "V obchode došlo k chybe. Administátor obdržal protokol chyby."
+
+#~ msgid "Project"
+#~ msgstr "Projekt"
+
+#~ msgid "overview"
+#~ msgstr "prehľad"
+
+#~ msgid "Site"
+#~ msgstr "Stránky"
+
+#~ msgid "2_Pages"
+#~ msgstr "stránok"
+
+#~ msgid "Catalog"
+#~ msgstr "Katalóg"
+
+#~ msgid "2_Categories"
+#~ msgstr "kategorií"
+
+#~ msgid "2_Products"
+#~ msgstr "produktov"
+
+#~ msgid "2_Galleries"
+#~ msgstr "galerií"
+
+#~ msgid "Change Theme"
+#~ msgstr "Zmeniť vzhľad"
+
+#~ msgid "You are using"
+#~ msgstr "Používate"
+
+#~ msgid "with theme"
+#~ msgstr "s vzhľadom"
+
+#~ msgid "Approve a comment"
+#~ msgstr "Schváliť komentár"
+
+#~ msgid "Really make this comment public?"
+#~ msgstr "Naozaj zverejniť tento komentár verejnosti?"
+
+#~ msgid "Approve"
+#~ msgstr "Schváliť"
+
+#~ msgid "Thanks for approving"
+#~ msgstr "Ďakujeme za schválenie"
+
+#~ msgid ""
+#~ "Thanks for taking the time to improve the quality of discussion on our "
+#~ "site"
+#~ msgstr ""
+#~ "Ďakujeme za čas, ktorý ste venovali na zlepšenie  kvality diskusí na "
+#~ "našich stránkach"
+
+#~ msgid "Remove a comment"
+#~ msgstr "Odobrať komentár"
+
+#~ msgid "Really remove this comment?"
+#~ msgstr "Naozaj odstrániť teto komentár?"
+
+#~ msgid "Thanks for removing"
+#~ msgstr "Ďakujeme za odstránenie"
+
+#~ msgid "Flag this comment"
+#~ msgstr "Označiť tento komentár"
+
+#~ msgid "Really flag this comment?"
+#~ msgstr "Opravdu označiť tento komentár?"
+
+#~ msgid "Flag"
+#~ msgstr "Označenie"
+
+#~ msgid "Thanks for flagging"
+#~ msgstr "Ďakujeme za označenie"
+
+#~ msgid "Comment moderation queue"
+#~ msgstr "Fronta komentárov pre schválenie"
+
+#~ msgid "No comments to moderate"
+#~ msgstr "Žiadne komentáre na schválenie"
+
+#~ msgid "Action"
+#~ msgstr "Akcie"
+
+#~ msgid "Name"
+#~ msgstr "Meno"
+
+#~ msgid "Comment"
+#~ msgstr "Komentár"
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#~ msgid "Authenticated?"
+#~ msgstr "Overený?"
+
+#~ msgid "IP Address"
+#~ msgstr "IP adresa"
+
+#~ msgid "Date posted"
+#~ msgstr "Dátum pridania"
+
+#~ msgid "yes"
+#~ msgstr "áno"
+
+#~ msgid "no"
+#~ msgstr "nie"
+
+#~ msgid "%(comment_count)s comments."
+#~ msgstr " %(comment_count)s komentárov."
+
+#~ msgid "%(comment_username)s said on %(comment_submit_date)s"
+#~ msgstr "%(comment_username)s povedal dňa %(comment_submit_date)s"
+
+#~ msgid "No comments."
+#~ msgstr "Nie sú žiadne komentáre."
+
+#~ msgid "Post Comment"
+#~ msgstr "Odoslať komentár"
+
+#~ msgid "Submit"
+#~ msgstr "Odoslať"
+
+#~ msgid "Thanks!"
+#~ msgstr "Ďakujeme!"
+
+#~ msgid "previous"
+#~ msgstr "predchádzajúca"
+
+#~ msgid "Contact Form"
+#~ msgstr "Kontaktný formulár"
+
+#~ msgid "Change"
+#~ msgstr "Zmena"
+
+#, fuzzy
+#~ msgid "Theme switcher"
+#~ msgstr "prepínanie jazyku"
+
+#, fuzzy
+#~ msgid "Progress"
+#~ msgstr "Stránky"
+
+#, fuzzy
+#~ msgid "Messages"
+#~ msgstr "Stránky"
+
+#, fuzzy
+#~ msgid "eShop variables"
+#~ msgstr "kategórie obchodu"
+
+#, fuzzy
+#~ msgid "item"
+#~ msgstr "Stránky"
+
+#, fuzzy
+#~ msgid "Featured products"
+#~ msgstr "produkty v obchode"
+
+#~ msgid "Currently"
+#~ msgstr "Aktuálne"

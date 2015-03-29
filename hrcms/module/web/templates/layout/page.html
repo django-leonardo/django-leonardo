@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load feincms_tags %}
+
+{% block head_title %}{{ webcms_page.page_title }}{% endblock %}
+
+{% block body_title %}{{ webcms_page.title }}{% endblock %}
+
+{% block body_layout %}col3-layout{% endblock %}
+
+{% block body_col1 %}
+{% if display_options.col1_width > 0 %}
+<div class="span-{{ display_options.col1_width }}">
+	<div id="left_sidebar" class="sidebar region ui-helper-clearfix">
+		{% feincms_render_region webcms_page "col1" request %}
+	</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block body_col2 %}
+{% if display_options.col2_width > 0 %}
+<div class="span-{{ display_options.col2_width }} last">
+	<div id="right_sidebar" class="sidebar region ui-helper-clearfix">
+		{% feincms_render_region webcms_page "col2" request %}
+	</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block body_col3 %}
+{% if display_options.col3_width > 0 %}
+<div class="span-{{ display_options.col3_width }} {% if display_options.col2_width == 0 %}last{% endif %}">
+	<div class="region ui-helper-clearfix" id="content">
+		{% feincms_render_region webcms_page "col3" request %}
+	</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block body_header %}{% feincms_render_region webcms_page "header" request %}{% endblock %}
+
+{% block body_footer %}{% feincms_render_region webcms_page "footer" request %}{% endblock %}
+
+{% block body_toolbar %}{% feincms_render_region webcms_page "toolbar" request %}{% endblock %}
+
+{% block body_helper %}{% feincms_render_region webcms_page "helper" request %}{% endblock %}
+
+{% block body_preview %}{% feincms_render_region webcms_page "preview" request %}{% endblock %}

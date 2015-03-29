@@ -1,30 +1,40 @@
 
-=========
-Smugglers
-=========
+=====
+hrCMS
+=====
+
+Another Django CMS.
+
+Devstack for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
+
+Uses
+====
+
+- Backend
+
+	- Django 1.7 +
+	- FeinCMS
+	- Horizon Juno +
+	- Oscar
+	- Form Designer
+	- Remote Forms
+	- Django Rest Framework
+
+- Client
+
+	- AngularJS
+	- ReactJS
+	- Bootstrap 3
+	- ...
 
 Installation
----------------------
-
-requirements for psql:
-
-- postgis
-- binutils
-- libproj-dev
-- gdal-bin
-- postgresql-9.3-postgis-2.1
-
-create db
+============
 
 .. code-block:: bash
 
-	$ createdb  <db name>
-	$ psql <db name>
-	> CREATE EXTENSION postgis;
-	> CREATE EXTENSION postgis_topology;
+	pip install django-hrcms
 
-django settings
+	manage.py runserver 0.0.0.0:80
 
-.. code-block:: python
-
-	'ENGINE': 'django.contrib.gis.db.backends.postgis',
+Read More
+=========

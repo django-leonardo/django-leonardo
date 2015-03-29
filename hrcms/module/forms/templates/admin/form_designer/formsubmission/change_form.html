@@ -1,0 +1,5 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_related_objects %}
+<div style="padding: 10px; border: 1px solid #CCC">{{ original.formatted_data_html|safe }}</div>
+{% endblock %}

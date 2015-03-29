@@ -1,0 +1,13 @@
+{% load i18n %}
+{% load markup %}
+{% load leonardo_tags %}
+
+<div class="dj-pane dj-pane-devel-test-basic ui-widget ui-widget-content ui-corner-all">
+	{% if object.title %}
+	<div class="dj-pane-header ui-widget-header ui-corner-all">
+		<h3>{{ object.title }}</h3>
+	</div>
+	{% endif %}
+	<div class="dj-pane-content">
+	</div>
+</div>

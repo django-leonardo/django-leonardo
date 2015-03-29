@@ -1,0 +1,40 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load webcms_tags %}
+
+{% block content %}
+<div class="map-listeners">
+	<div class="map-listeners-clock">
+		<div id="{{ widget.fe_identifier }}-clock">
+			<p>{% trans "Click link to get Flash Player or try to enable JavaScript and reload the page." %}</p>
+			<p>
+				<a href="http://www.adobe.com/go/getflashplayer">
+					<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="{% trans 'Get Adobe Flash player' %}" />
+				</a>
+			</p>
+		</div>
+	</div>
+	{% for point in data %}
+	<div class="map-point" style="top:{{ point.axis_y }}px; left:{{ point.axis_x }}px;">
+		{{ data.ip }}
+	</div>
+	{% endfor %}
+	<div class="map-listeners-button">
+		{% comment %}
+		<a href="/listeners/" class="button"><span><span>{% trans "Large view" %}</span></span></a>
+		{% endcomment %}
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var vars = { };
+	var params = { bgcolor: '#000000', scale: "noscale", wmode: "transparent" };
+	var attributes = { id:'clock', name:'clock' };
+	var swf_path = '/static/theme/swf/clock.swf';
+	var swf_install_path = "/static/lib/swfobject/expressinstall.swf";
+	swfobject.embedSWF(swf_path, "{{ widget.fe_identifier }}-clock", 137, 63, "10.0.0", swf_install_path, vars, params, attributes );
+});
+</script>
+{% endblock %}

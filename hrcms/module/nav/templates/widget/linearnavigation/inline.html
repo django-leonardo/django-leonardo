@@ -1,0 +1,34 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+{% load webcms_tags %}
+
+{% block content %}
+<p>
+	{% if widget.link == 'text' %}
+	{% if prev %}
+	<a href="{{ prev|get_url }}">« {% trans "previous" %}</a>
+	{% else %}
+	<span>« {% trans "previous" %}</span>
+	{% endif %}
+	<span>◊</span>
+	{% if next %}
+	<a href="{{ next.get_absolute_url }}">{% trans "next" %} »</a>
+	{% else %}
+	<span>{% trans "next" %} »</span>
+	{% endif %}
+	{% else %}
+	{% if prev %}
+	<a href="{{ prev|get_url }}">« {{ prev.title }}</a>
+	{% endif %}
+	{% if prev %}
+	{% if next %}
+	<span>◊</span>
+	{% endif %}
+	{% endif %}
+	{% if next %}
+	<a href="{{ next.get_absolute_url }}">{{ next.title }} »</a>
+	{% endif %}
+	{% endif %}
+</p>
+{% endblock %}

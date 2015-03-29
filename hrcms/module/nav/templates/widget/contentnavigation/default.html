@@ -1,0 +1,11 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<ul class="vertical">
+	{% for header in headers %}
+	<li {% if forloop.last %}class="last"{% endif %}><a {% if forloop.last %}class="last"{% endif %} href="#{{ header.options.label|slugify }}">{{ header.options.label }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "widget/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<form action="{% url webcms.module.store.apps.core/webcms_store_search %}" method="get" class="form">
+	{% if widget.inline %}
+	<div>
+		<div class="f-left">
+			<input value="{{ query }}" type="text" class="input-text"  name="keywords" id="search_keywords" />
+		</div>
+		<button type="submit" class="button"><span><span>{% trans "Search" %}</span></span></button>
+	</div>
+	{% else %}
+	<div class="fieldset">
+		<input value="{{ query }}" type="text" class="input-text"  name="keywords" id="search_keywords" />
+	</div>
+	<div class="buttonset">
+		<button type="submit" class="button"><span><span>{% trans "Search" %}</span></span></button>
+	</div>
+	{% endif %}
+</form>
+{% endblock %}

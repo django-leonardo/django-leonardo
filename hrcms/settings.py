@@ -1,23 +1,17 @@
 
-from os.path import join, dirname, abspath, normpath
+from __future__ import absolute_import
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'PORT': '5432',
-        'HOST': '127.0.0.1',
-        'NAME': 'hrcms',
-        'PASSWORD': 'pwd',
-        'USER': 'hrcms'
-    }
-}
+import os
+from os.path import abspath, dirname, join, normpath
+
+from oscar import get_core_apps, OSCAR_MAIN_TEMPLATE_DIR
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '127.0.0.1:11211',
         'TIMEOUT': 120,
-        'KEY_PREFIX': 'CACHE_ROBOTICE_SITE'
+        'KEY_PREFIX': 'CACHE_HRCMS'
     }
 }
 
@@ -32,11 +26,7 @@ EMAIL = {
 
 RAVEN_CONFIG = {}
 
-SECRET_KEY = '6549874asdasdASD56451xyasdASDDSAsd'
-
 ALLOWED_HOSTS = ['*']
-
-SOUTH_TESTS_MIGRATE = False
 
 USE_TZ = True
 
@@ -79,8 +69,16 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.static',
     "allauth.socialaccount.context_processors.socialaccount",
+    # horizon
     'horizon.context_processors.horizon',
-    'feincms.context_processors.add_page_if_missing', # good point
+    # feinCMS
+    'feincms.context_processors.add_page_if_missing',
+    # oscar
+    'oscar.apps.search.context_processors.search_form',
+    'oscar.apps.promotions.context_processors.promotions',
+    'oscar.apps.checkout.context_processors.checkout',
+    'oscar.apps.customer.notifications.context_processors.notifications',
+    'oscar.core.context_processors.metadata',
 )
 
 TEMPLATE_LOADERS = (
@@ -94,18 +92,36 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+
+    # horizon
     'hrcms.middleware.HorizonMiddleware',
+
+    # oscar
+    'oscar.apps.basket.middleware.BasketMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'hrcms.urls'
 
+location = lambda x: os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), x)
+
 TEMPLATE_DIRS = (
+    location('templates'),
+    OSCAR_MAIN_TEMPLATE_DIR,
 )
 
 MARKITUP_FILTER = ('markitup.renderers.render_rest', {'safe_mode': True})
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django',
+
+    # admin tools
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'flat',  # theme
+
     'django_extensions',
     'django.contrib.contenttypes',
     'django.contrib.auth',
@@ -114,15 +130,36 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
+    'django.contrib.flatpages',
 
-    'hrcms',
-    'hrcms.module',
-    'hrcms.portal',
+    'rest_framework',
+    'oscarapi',
+
+    'hrcms.module.boardie',
+
+    #'hrcms.module.graph',
+    #'hrcms.module.time',
+    #'hrcms.module.time_series',
+
+    #'boardie',
+
+    'django_select2',
+
+    'livesettings',
+
+
+    'form_designer',
+    'django_remote_forms',
 
     'horizon',
     'compressor',
-    #'django_select2',
 
+    # filer
+    'filer',
+    'easy_thumbnails',
+
+    # CMS
     'markitup',
     'feincms',
     'mptt',
@@ -131,6 +168,15 @@ INSTALLED_APPS = (
     'feincms.module.medialibrary',
     'feincms.content.application',
     'feincms.content.comments',
+
+    'hrcms',
+    'hrcms.module',
+    'hrcms.module.eshop',
+    'hrcms.module.eshop.api',
+    'hrcms.module.nav',
+    'hrcms.module.lang',
+    'hrcms.module.web',
+    'hrcms.module.forms',
 
     'allauth',
     'allauth.account',
@@ -163,7 +209,40 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.vk',
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.xing',
+
+    'hrcms_site',
+
+] + get_core_apps() # oscar apps
+
+#ADMIN_TOOLS_MENU = 'hrcms.conf.menu.AdminDashboard'
+#ADMIN_TOOLS_INDEX_DASHBOARD = 'hrcms.conf.menu.AdminDashboard'
+
+# OSCAR 
+
+OSCAR_INITIAL_ORDER_STATUS = 'Pending'
+OSCAR_INITIAL_LINE_STATUS = 'Pending'
+OSCAR_ORDER_STATUS_PIPELINE = {
+    'Pending': ('Being processed', 'Cancelled',),
+    'Being processed': ('Processed', 'Cancelled',),
+    'Cancelled': (),
+}
+
+# For easy_thumbnails to support retina displays (recent MacBooks, iOS)
+
+THUMBNAIL_HIGH_RESOLUTION = True
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    #'easy_thumbnails.processors.scale_and_crop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters',
 )
+
+# File download permissions are an experimental
+# feature. The api may change at any time.
+
+FILER_ENABLE_PERMISSIONS = True
 
 ##########################
 
@@ -182,6 +261,7 @@ LOGOUT_ON_GET = True
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     "allauth.account.auth_backends.AuthenticationBackend",
+    'oscar.apps.customer.auth_backends.EmailBackend',
 )
 
 LOGGING = {
@@ -233,16 +313,53 @@ LOGGING = {
     }
 }
 
-# include FEIN_CMS and HORIZON conf
+DEFAULT_CHARSET = 'utf-8'
+
+# search
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+
+INSTALLED_APPS += ['whoosh']
+
+# migrations support
+MIGRATION_MODULES = {
+    'page': 'hrcms.migrations.page',
+    #'boardie': 'boardie.migrations',
+    'application': 'hrcms.migrations.application',
+    'filer': 'filer.migrations_django',
+}
+
+SECRET_KEY = None
+
+# helper
+# noqa 
+from local_settings import *
+
+if not SECRET_KEY:
+    LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                              'local')
+
+    from horizon.utils import secret_key
+
+    SECRET_KEY = secret_key.generate_or_read_from_file(os.path.join(LOCAL_PATH,
+                                                                    '.secret_key_store'))
+
 try:
     from hrcms.conf.feincms import *
     from hrcms.conf.horizon import *
+    from oscar.defaults import *
+    from hrcms.conf.static import *
 except Exception, e:
     raise e
 
-# override all
+from local_settings import *
+
 try:
-    from local_settings import *
+    import hrcms_site
+    from hrcms_site.conf.settings import *
 except Exception, e:
     raise e
-

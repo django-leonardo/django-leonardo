@@ -1,0 +1,1 @@
+<?xml version="1.0" standalone="no"?><node xmlns:xlink="http://www.w3.org/1999/xlink"><image x="0" y="0" width="{{size.0}}" height="{{size.1}}" xlink:href="{{url}}" orm_id="{{token.orm_id}}" orm_page_id="{{token.orm_page_id}}" orm_region="{{token.orm_region}}" orm_ordering="{{token.orm_ordering}}"/></node>
