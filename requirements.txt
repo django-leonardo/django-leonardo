@@ -1,5 +1,5 @@
 
-Django==1.8c1
+django<1.8
 
 # fein and related plugins
 FeinCMS==1.10.1
@@ -68,8 +68,12 @@ django-admin-tools==0.5.2
 -e git+https://github.com/michaelkuty/form_designer#egg=form_designer
 
 # horizon
--e git+https://github.com/openstack/horizon@2015.1.0b3#egg=horizon
+-e git+https://github.com/openstack/horizon@2014.1.4#egg=horizon
 lockfile==0.10.2
+cryptography
+greenlet>=0.4.5
+django-appconf
+PyYAML>=3.1.0
 
 netaddr>=0.7.12
 
@@ -98,3 +102,4 @@ xstatic-jsencrypt>=2.0.0.2 # MIT License
 xstatic-qunit>=1.14.0.2 # MIT License
 xstatic-rickshaw>=1.5.0 # BSD License (prior)
 xstatic-spin>=1.2.5.2 # MIT License
+xstatic-adminlte>=2.0.1.1
