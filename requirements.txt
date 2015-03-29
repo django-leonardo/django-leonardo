@@ -1,4 +1,6 @@
 
+Django==1.8c1
+
 # fein and related plugins
 FeinCMS==1.10.1
 
@@ -46,8 +48,8 @@ django-flat-theme==0.9.2
 django-admin-tools==0.5.2
 
 # oscar ecommerce
--e git+https://github.com/django-oscar/django-oscar.git@1.0.2#egg=oscar
--e git+https://github.com/django-oscar/django-oscar-api@0.0.18#oscarapi
+-e git+https://github.com/django-oscar/django-oscar.git@1.0.2#egg=django-oscar
+-e git+https://github.com/django-oscar/django-oscar-api@0.0.18#egg=django-oscar-api
 
 # forms
 -e git+https://github.com/WiserTogether/django-remote-forms#egg=django_remote_forms
