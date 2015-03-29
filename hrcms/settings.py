@@ -210,7 +210,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.xing',
 
-    'site',
+    'hrcms_site',
 
 ] + get_core_apps() # oscar apps
 
@@ -357,3 +357,9 @@ except Exception, e:
     raise e
 
 from local_settings import *
+
+try:
+    import hrcms_site
+    from hrcms_site.conf.settings import *
+except Exception, e:
+    raise e
