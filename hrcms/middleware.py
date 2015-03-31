@@ -1,42 +1,37 @@
 # -*- coding: UTF-8 -*-
-import os, datetime
+import datetime
 import json
 import logging
+import os
 import time
-import six
-
 from datetime import datetime, timedelta
-from django.conf import settings
-from django.contrib import auth
 
+import six
+from django import http, shortcuts
 from django.conf import settings
-from django.core.cache import cache
-from django.shortcuts import get_object_or_404
-from django.db.models import loading
+from django.contrib import messages as django_messages
+from django.contrib import auth
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth.views import redirect_to_login
 from django.contrib.sites.models import Site
 from django.core import exceptions, urlresolvers
-from django.utils.translation import ugettext_lazy as _, ugettext as __
-from django.http import HttpResponseRedirect
-from horizon import messages
+from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import loading
 from django.forms.models import model_to_dict
-
-from django.utils.translation import activate
-
-from django.conf import settings
-from django.contrib.auth import REDIRECT_FIELD_NAME  # noqa
-from django.contrib.auth.views import redirect_to_login  # noqa
-from django.contrib import messages as django_messages
-from django import http
-from django.http import HttpResponseRedirect  # noqa
-from django import shortcuts
-from django.utils.encoding import iri_to_uri  # noqa
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
+from django.utils.encoding import iri_to_uri
+from django.utils.translation import ugettext as __
 from django.utils.translation import ugettext_lazy as _
-
-
-from horizon import exceptions
+from django.utils.translation import activate
+from feincms.content.application.models import reverse
+from feincms.module.page.models import Page
+from horizon import exceptions, messages
 from horizon.utils import functions as utils
+from hrcms.module.web.models import build_options
+from livesettings import config_value
 
 LOG = logging.getLogger(__name__)
 
@@ -110,11 +105,11 @@ class HorizonMiddleware(object):
 
         request.session['last_activity'] = timestamp
 
-
     def process_response(self, request, response):
         """Convert HttpResponseRedirect to HttpResponse if request is via ajax
         to allow ajax request to redirect url
         """
+
         if request.is_ajax() and hasattr(request, 'horizon'):
             queued_msgs = request.horizon['async_messages']
             if type(response) == http.HttpResponseRedirect:
@@ -151,3 +146,56 @@ class HorizonMiddleware(object):
                 # etc.) and is not meant as a long-term solution.
                 response['X-Horizon-Messages'] = json.dumps(queued_msgs)
         return response
+
+
+class WebcmsMiddleware(object):
+    """old webcms middleware
+
+    added some extra to request and page
+
+    """
+    def process_request(self, request):
+        try:
+            webcms_options = {
+                'meta_description': config_value('WEB', 'META_KEYWORDS'),
+                'meta_keywords': config_value('WEB', 'META_DESCRIPTION'),
+                'meta_title': config_value('WEB', 'META_TITLE'),
+            }
+            is_private = config_value('WEB', 'IS_PRIVATE')
+        except:
+            webcms_options = {
+                'meta_description': '',
+                'meta_keywords': '',
+                'meta_title': '',
+            }
+            is_private = False
+
+        webcms_options['site'] = {
+            'name': settings.SITE_NAME,
+            'id': settings.SITE_ID,
+            'domain': settings.SITE_DOMAIN,
+        }
+
+        try:
+            page = Page.objects.best_match_for_path(request.path, raise404=True)
+            page.options = build_options(page)
+            webcms_options['template'] = page.options['template']
+            #webcms_options['theme'] = page.options['theme']
+            cls_list = []
+            for cls in page._feincms_content_types:
+                cls_list.append({
+                    'name': cls.__name__,
+                    'label': cls._meta.verbose_name
+                })
+            webcms_options['widgets'] = cls_list
+        except Exception, e:
+            raise e
+            page = None
+            webcms_options['template'] = 'default'
+            webcms_options['theme'] = 'light'
+            webcms_options['assets'] = False
+            webcms_options['widgets'] = False
+
+        webcms_options['is_private'] = is_private
+        request.webcms_page = page
+        request.webcms_options = webcms_options

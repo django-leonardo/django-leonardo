@@ -12,7 +12,6 @@
 
   <body data-spy="scroll" data-offset="0" data-target="#navigation" ng-app='hz'>
     {% block navbar %}
-      {% include "common/_nav_bar.html" %}
       {% feincms_render_region feincms_page "toolbar" request %}
     {% endblock %}
 
@@ -21,7 +20,6 @@
       <div id='main_content'>
         {% include "horizon/_messages.html" %}
         <div id='content_body' class="container">
-          {% block page_header %}{% endblock %}
           {% block main %}
             {% feincms_render_region feincms_page "main" request %}
           {% endblock %}
@@ -32,16 +30,14 @@
 
     <div id="footerwrap">
       {% block footer %}
-        {% include 'common/footer.html' %}
         {% feincms_render_region feincms_page "footer" request %}
       {% endblock %}
     </div>
 
-  <script src="{{ STATIC_URL }}assets/js/bootstrap.js"></script>
     {% block js %}
       {% include "horizon/_scripts.html" %}
     {% endblock %}
-  <div id="modal_wrapper"></div>
+    <div id="modal_wrapper"></div>
   </body>
 </html>
 

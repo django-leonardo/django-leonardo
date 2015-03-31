@@ -25,7 +25,7 @@ from django.shortcuts import redirect
 
 class LoginView(forms.ModalFormView):
     form_class = LoginForm
-    template_name = 'module/auth/login.html'
+    template_name = 'auth/login.html'
     success_url = reverse_lazy('horizon:user_home')
 
     redirect_field_name = "next"

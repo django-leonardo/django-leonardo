@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 
-from webcms.models import Widget
+from hrcms.models import Widget
 
 from elephantblog.models import Entry
 

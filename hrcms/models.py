@@ -1,189 +1,89 @@
 # -#- coding: utf-8 -#-
+from functools import update_wrapper
 
-from django.db import models
-
+import six
+from admin_tools.menu import items, Menu
 from django import http, template
-from django.db.models.signals import pre_save
 from django.conf import settings
 from django.contrib.admin.sites import AdminSite
-from django.utils.translation import ugettext_lazy as _
-from django.template.loader import render_to_string
-from django.template import RequestContext, Context, loader
-from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
-
+from django.db import models
+from django.db.models.signals import pre_save
+from django.shortcuts import render_to_response
+from django.template import Context, loader, RequestContext
+from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
-
 from django_assets import Bundle, register
-
-from feincms.module.page.models import Page
-
 from django_extensions.db.fields.json import JSONField
-
-#from webcms.listeners import page_check_options
-
-#pre_save.connect(page_check_options, sender=Page)
-
-from admin_tools.menu import items, Menu
-
+from feincms.module.page.models import Page
+from hrcms.signals import page_check_options
 from livesettings import config_value
+
+pre_save.connect(page_check_options, sender=Page)
+
+from django.contrib import admin
 
 
 class WebCmsAdminSite(AdminSite):
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url, include
+        from django.conf.urls import url, include
+        # Since this module gets imported in the application's root package,
+        # it cannot import models from other applications at the module level,
+        # and django.contrib.contenttypes.views imports ContentType.
+        from django.contrib.contenttypes import views as contenttype_views
 
         if settings.DEBUG:
             self.check_dependencies()
 
-        """
         def wrap(view, cacheable=False):
             def wrapper(*args, **kwargs):
                 return self.admin_view(view, cacheable)(*args, **kwargs)
+            wrapper.admin_site = self
             return update_wrapper(wrapper, view)
-        """
 
-        urlpatterns = patterns('',
-            url(r'^$',
-                wrap(self.dashboard),
-                name='dashboard'),
-            url(r'^analytics/$',
-                wrap(self.analytics),
-                name='analytics'),
-            url(r'^status/$',
-                wrap(self.project_status),
-                name='project_status'),
-            url(r'^media-files/$',
-                wrap(self.files),
-                name='files'),
-            url(r'^setup/$',
-                wrap(self.devel_dashboard),
-                name='devel_dashboard'),
-            url(r'^logout/$',
-                wrap(self.logout),
-                name='logout'),
-            url(r'^password_change/$',
-                wrap(self.password_change, cacheable=True),
-                name='password_change'),
-            url(r'^password_change/done/$',
-                wrap(self.password_change_done, cacheable=True),
+        # Admin-site-wide views.
+        urlpatterns = [
+            url(r'^$', wrap(self.index), name='index'),
+            url(r'^login/$', self.login, name='login'),
+            url(r'^logout/$', wrap(self.logout), name='logout'),
+            url(r'^password_change/$', wrap(self.password_change, cacheable=True), name='password_change'),
+            url(r'^password_change/done/$', wrap(self.password_change_done, cacheable=True),
                 name='password_change_done'),
-            url(r'^jsi18n/$',
-                wrap(self.i18n_javascript, cacheable=True),
-                name='jsi18n'),
-            url(r'^r/(?P<content_type_id>\d+)/(?P<object_id>.+)/$',
-                'django.views.defaults.shortcut'),
-            url(r'^(?P<app_label>\w+)/$',
-                wrap(self.app_index),
-                name='app_list')
-        )
+            url(r'^jsi18n/$', wrap(self.i18n_javascript, cacheable=True), name='jsi18n'),
+            url(r'^r/(?P<content_type_id>\d+)/(?P<object_id>.+)/$', wrap(contenttype_views.shortcut),
+                name='view_on_site'),
+        ]
 
-        for model, model_admin in self._registry.iteritems():
-            urlpatterns += patterns('',
-                url(r'^%s/%s/' % (model._meta.app_label, model._meta.module_name),
-                    include(model_admin.urls))
-            )
+        # Add in each model's views, and create a list of valid URLS for the
+        # app_index
+        valid_app_labels = []
+        for model, model_admin in six.iteritems(self._registry):
+            urlpatterns += [
+                url(r'^%s/%s/' % (model._meta.app_label, model._meta.model_name), include(model_admin.urls)),
+            ]
+            if model._meta.app_label not in valid_app_labels:
+                valid_app_labels.append(model._meta.app_label)
+
+        for model, model_admin in six.iteritems(admin.site._registry):
+            urlpatterns += [
+                url(r'^%s/%s/' % (model._meta.app_label, model._meta.model_name), include(model_admin.urls)),
+            ]
+            if model._meta.app_label not in valid_app_labels:
+                valid_app_labels.append(model._meta.app_label)
+
+
+        # If there were ModelAdmins registered, we should have a list of app
+        # labels for which we need to allow access to the app_index view,
+        if valid_app_labels:
+            regex = r'^(?P<app_label>' + '|'.join(valid_app_labels) + ')/$'
+            urlpatterns += [
+                url(regex, wrap(self.app_index), name='app_list'),
+            ]
         return urlpatterns
 
-    def urls(self):
-        return self.get_urls(), self.app_name, self.name
-    urls = property(urls)
-
-    def dashboard(self, request, extra_context=None):
-        """
-        Displays admin dashboard.
-        """
-        context = {
-            'title': _('Project dashboard'),
-        }
-        context.update(extra_context or {})
-        context_instance = template.RequestContext(request, current_app=self.name)
-        return render_to_response('admin_extra/dashboard.html', context,
-            context_instance=context_instance
-        )
-    dashboard = never_cache(dashboard)
-
-    def project_status(self, request, extra_context=None):
-        """
-        Displays project status.
-        """
-
-        from django.views.debug import get_safe_settings
-        installed_modules = []
-
-        for module in settings.INSTALLED_APPS:
-            if module.startswith('webcms.module'):
-                installed_modules.append(module.replace('webcms.module.', ''))
-            else:
-                pass
-
-        from project.conf.models import APPLICATION_CHOICES
-
-        installed_langs = settings.LANGUAGES
-
-        installed_apps = []
-
-        for app, label in APPLICATION_CHOICES:
-            installed_apps.append(label)
-
-        context = {
-            'title': _('Project status'),
-            'modules': installed_modules,
-            'apps': installed_apps,
-            'settings': get_safe_settings(),
-        }
-        context.update(extra_context or {})
-        context_instance = template.RequestContext(request, current_app=self.name)
-        return render_to_response('admin_extra/project_status.html', context,
-            context_instance=context_instance
-        )
-    project_status = never_cache(project_status)
-
-    def analytics(self, request, extra_context=None):
-        """Display site analytics"""
-        from webcms.utils.google import get_views
-        context = {
-            'title': _('Site analytics'),
-            'views': get_views(10, 2011),
-        }
-        context.update(extra_context or {})
-        context_instance = template.RequestContext(request, current_app=self.name)
-        return render_to_response('admin_extra/analytics.html', context,
-            context_instance=context_instance
-        )
-    analytics = never_cache(analytics)
-
-    def files(self, request, extra_context=None):
-        """
-        Displays site analytics.
-        """
-        context = {
-            'title': _('Site files'),
-        }
-        context.update(extra_context or {})
-        context_instance = template.RequestContext(request, current_app=self.name)
-        return render_to_response('admin/files.html', context,
-            context_instance=context_instance
-        )
-    files = never_cache(files)
-
-    def devel_dashboard(self, request, extra_context=None):
-        """
-        Displays development dashboard.
-        """
-        context = {
-            'title': _('Advanced project settings'),
-            'menu': DevelMenu(),
-        }
-        context.update(extra_context or {})
-        context_instance = template.RequestContext(request, current_app=self.name)
-        return render_to_response('admin/devel_dashboard.html', context,
-            context_instance=context_instance
-        )
-    devel_dashboard = never_cache(devel_dashboard)
-
-webcms_admin = WebCmsAdminSite(name="webcms_admin")
+webcms_admin = WebCmsAdminSite(name="admin")
 
 # rename
 hrcms_admin = webcms_admin

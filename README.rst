@@ -12,7 +12,7 @@ Uses
 
 - Backend
 
-	- Django 1.8
+	- Django 1.4 +
 	- FeinCMS
 	- Horizon
 	- Oscar
@@ -36,6 +36,50 @@ Installation
 	pip install django-hrcms
 
 	manage.py runserver 0.0.0.0:80
+
+Scaffold new app
+================
+
+Directory structure::
+
+    my_site
+        |-- __init__.py
+        |-- local
+            |-- __init__.py
+            |-- settings.py
+            |-- menu.py
+            |-- admin.py
+        |-- static
+            |-- css
+            |-- js
+
+APPS = [
+    'cms',
+    'blog',
+    'eshop',
+]
+
+Minimal config
+
+.. code-block:: python
+
+	SITE_ID = 1
+	SITE_NAME = 'hrcms'
+	SITE_DOMAIN = 'www.hrcms.cz'
+
+	LANGUAGE_CODE = 'cs'
+
+	RAVEN_CONFIG = {}
+
+	APPS = [
+	    'cms',
+	    'blog',
+	    'eshop',
+	]
+
+All settings will be included from local
+
+Note: we recommend ``local`` in ``.gitignore``
 
 Read More
 =========

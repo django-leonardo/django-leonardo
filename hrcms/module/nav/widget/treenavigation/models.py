@@ -57,5 +57,5 @@ class TreeNavigationWidget(Widget):
             'lvl5': self.level(root.level+4),
             'lvl6': self.level(root.level+5),
             'depth': self.depth,
-            'request': options['request'],
+            'request': request,
         })

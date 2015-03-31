@@ -1,50 +1,98 @@
 
 {% load feincms_tags %}
 {% load feincms_page_tags %}
-
-
+{% load branding i18n %}
 <!DOCTYPE html>
-<html lang="en">
-  {% block header %}
-    {% include "_header.html" %}
-    {% feincms_render_region feincms_page "header" request %}
-  {% endblock %}
-
-  <body data-spy="scroll" data-offset="0" data-target="#navigation" ng-app='hz'>
-    {% block navbar %}
-      {% include "common/_nav_bar.html" %}
-      {% feincms_render_region feincms_page "toolbar" request %}
+<html>
+  <head>
+    <meta content='IE=edge' http-equiv='X-UA-Compatible' />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+    {% include "horizon/_custom_meta.html" %}
+    <title>{% block title %}{% endblock %} - {% site_branding %}</title>
+    {% comment %} Load CSS sheets before Javascript  {% endcomment %}
+    {% block css %}
+    {% include "_stylesheets.html" %}
     {% endblock %}
+    {% include "horizon/_conf.html" %}
+    {% include "horizon/client_side/_script_loader.html" %}
+    {% include "horizon/_custom_head_js.html" %}
+  </head>
+  <body id="{% block body_id %}{% endblock %}" ng-app='hz' class="skin-blue {% if not request.user.is_authenticated %}sidebar-collapse sidebar-open{% endif %}">
+    <div class="wrapper">
+      <header class="main-header">
+        {% block header %}
+        {% include "_header.html" %}
+          {% feincms_render_region feincms_page "header" request %}
+        {% endblock %}
+      </header>
+      {% include "horizon/_messages.html" %}
+      {% block sidebar %}
+      <aside class="main-sidebar">
 
-  {% block content %}
-    <div id="container" class="main_container">
-      <div id='main_content'>
-        {% include "horizon/_messages.html" %}
-        <div id='content_body' class="container">
+        {% block navbar %}
+
+          <!-- Fixed navbar -->
+          <div id="navigation" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><b>Robotice</b></a>
+              </div>
+              <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                  {% feincms_render_region feincms_page "toolbar" request %}
+                </ul>
+
+              <div id="user_info" class="pull-right">
+
+                <ul class="nav navbar-nav">
+                  {% if request.user.is_authenticated %}
+                    <li><a class="fa fa-user" href="TODO">{{ request.user.username }}</a></li>
+                    <li><a href="{% url 'horizon:module:auth:logout' %}">Sign Out</a></li>
+                  {% else %}
+                    <li><a class="ajax-modal" href="{% url 'horizon:module:auth:login' %}">Sign In</a></li>
+                    <li><a class="ajax-modal" href="{% url 'horizon:module:auth:signup' %}">Sign Up</a></li>
+                  {% endif %}             
+                </ul>
+                
+              </div>
+              
+              </div>
+            </div>
+          </div>
+        {% endblock %}
+
+      </aside>
+      {% endblock %}
+      {% block content %}
+      <div class="content-wrapper">
+        <section class="content-header">
           {% block page_header %}{% endblock %}
+        </section>
+        <section class="content">
           {% block main %}
             {% feincms_render_region feincms_page "main" request %}
           {% endblock %}
-        </div>
+        </section>
       </div>
-    </div>
-  {% endblock %}
-
-    <div id="footerwrap">
-      {% block footer %}
-        {% include 'common/footer.html' %}
-        {% feincms_render_region feincms_page "footer" request %}
       {% endblock %}
+      <footer class="main-footer">
+        {% block footer %}
+          {% feincms_render_region feincms_page "footer" request %}
+        {% endblock %}
+      </footer>
     </div>
-
-  <script src="{{ STATIC_URL }}assets/js/bootstrap.js"></script>
     {% block js %}
-      {% include "horizon/_scripts.html" %}
+    {% include "horizon/_scripts.html" %}
     {% endblock %}
-  <div id="modal_wrapper"></div>
+    <div id="modal_wrapper"></div>
+
+    {% block body_helper %}{% feincms_render_region feincms_page "helper" request %}{% endblock %}
+
+    {% block body_preview %}{% feincms_render_region feincms_page "preview" request %}{% endblock %}
   </body>
 </html>
-
-{% block body_helper %}{% feincms_render_region feincms_page "helper" request %}{% endblock %}
-
-{% block body_preview %}{% feincms_render_region feincms_page "preview" request %}{% endblock %}

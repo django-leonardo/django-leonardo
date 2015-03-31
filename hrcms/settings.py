@@ -71,14 +71,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "allauth.socialaccount.context_processors.socialaccount",
     # horizon
     'horizon.context_processors.horizon',
-    # feinCMS
-    'feincms.context_processors.add_page_if_missing',
     # oscar
     'oscar.apps.search.context_processors.search_form',
     'oscar.apps.promotions.context_processors.promotions',
     'oscar.apps.checkout.context_processors.checkout',
     'oscar.apps.customer.notifications.context_processors.notifications',
     'oscar.core.context_processors.metadata',
+    # feinCMS
+    #'feincms.context_processors.add_page_if_missing',
 )
 
 TEMPLATE_LOADERS = (
@@ -92,9 +92,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 
     # horizon
     'hrcms.middleware.HorizonMiddleware',
+    'hrcms.middleware.WebcmsMiddleware',
+
+    # revision
+    'reversion.middleware.RevisionMiddleware',
 
     # oscar
     'oscar.apps.basket.middleware.BasketMiddleware',
@@ -117,9 +122,9 @@ INSTALLED_APPS = [
     'django',
 
     # admin tools
-    'admin_tools',
-    'admin_tools.theming',
-    'admin_tools.menu',
+    #'admin_tools',
+    #'admin_tools.theming',
+    #'admin_tools.menu',
     'flat',  # theme
 
     'django_extensions',
@@ -148,6 +153,7 @@ INSTALLED_APPS = [
 
     'livesettings',
 
+    'reversion',
 
     'form_designer',
     'django_remote_forms',
@@ -164,8 +170,6 @@ INSTALLED_APPS = [
     'feincms',
     'mptt',
     'feincms.module.page',
-    'feincms.module.blog',
-    'feincms.module.medialibrary',
     'feincms.content.application',
     'feincms.content.comments',
 
@@ -177,6 +181,9 @@ INSTALLED_APPS = [
     'hrcms.module.lang',
     'hrcms.module.web',
     'hrcms.module.forms',
+
+    'elephantblog',
+    'hrcms.module.blog',
 
     'allauth',
     'allauth.account',
@@ -347,19 +354,28 @@ if not SECRET_KEY:
 
     SECRET_KEY = secret_key.generate_or_read_from_file(os.path.join(LOCAL_PATH,
                                                                     '.secret_key_store'))
+from oscar.defaults import *
+
 
 try:
     from hrcms.conf.feincms import *
     from hrcms.conf.horizon import *
-    from oscar.defaults import *
     from hrcms.conf.static import *
 except Exception, e:
     raise e
 
 from local_settings import *
+from feincms.module.page.models import Page
+from feincms.content.application.models import ApplicationContent
 
 try:
-    import hrcms_site
     from hrcms_site.conf.settings import *
+    from hrcms_site.conf.models import *
+
+    Page.create_content_type(
+        ApplicationContent, APPLICATIONS=APPLICATION_CHOICES)
+    for ct in CONTENT_TYPES:
+        Page.create_content_type(ct)
+    Page.register_extensions(*PAGE_EXTENSIONS)
 except Exception, e:
     raise e

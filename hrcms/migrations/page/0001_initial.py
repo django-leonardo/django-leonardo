@@ -2,19 +2,17 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import feincms.contrib.fields
-import feincms.contrib.richtext
-import feincms.module.medialibrary.fields
-import django_extensions.db.fields.json
 import feincms.module.extensions.datepublisher
-import feincms.module.mixins
+import feincms.contrib.fields
 import feincms.extensions
+import feincms.contrib.richtext
+import feincms.module.mixins
+import django_extensions.db.fields.json
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('medialibrary', '__first__'),
     ]
 
     operations = [
@@ -25,7 +23,7 @@ class Migration(migrations.Migration):
                 ('parameters', feincms.contrib.fields.JSONField(null=True, editable=False)),
                 ('region', models.CharField(max_length=255)),
                 ('ordering', models.IntegerField(default=0, verbose_name='ordering')),
-                ('urlconf_path', models.CharField(max_length=100, verbose_name='application', choices=[(b'hrcms.portal.device_catalog.urls', b'Robotice Device Catalog'), (b'hrcms.module.eshop.urls', b'Eshop'), (b'hrcms.module.eshop.api.urls', b'Eshop API'), (b'hrcms.module.auth.urls', b'API Auth')])),
+                ('urlconf_path', models.CharField(max_length=100, verbose_name='application', choices=[(b'hrcms.portal.device_catalog.urls', b'Robotice Device Catalog'), (b'elephantblog.urls', b'Blog'), (b'hrcms.module.eshop.urls', b'Eshop'), (b'hrcms.module.eshop.api.urls', b'Eshop API'), (b'hrcms.module.auth.urls', b'API Auth')])),
             ],
             options={
                 'ordering': ['ordering'],
@@ -33,6 +31,25 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'application contents',
                 'db_table': 'page_page_applicationcontent',
                 'verbose_name': 'application content',
+                'permissions': [],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='BlogCategoriesWidget',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('options', django_extensions.db.fields.json.JSONField(verbose_name='widget options', editable=False, blank=True)),
+                ('prerendered_content', models.TextField(verbose_name='prerendered content', editable=False, blank=True)),
+                ('region', models.CharField(max_length=255)),
+                ('ordering', models.IntegerField(default=0, verbose_name='ordering')),
+            ],
+            options={
+                'ordering': ['ordering'],
+                'abstract': False,
+                'verbose_name_plural': 'blog categories',
+                'db_table': 'page_page_blogcategorieswidget',
+                'verbose_name': 'blog categories',
                 'permissions': [],
             },
             bases=(models.Model,),
@@ -186,25 +203,6 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='MediaFileContent',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('region', models.CharField(max_length=255)),
-                ('ordering', models.IntegerField(default=0, verbose_name='ordering')),
-                ('type', models.CharField(default=b'default', max_length=20, verbose_name='type', choices=[(b'default', 'default'), (b'lightbox', 'lightbox')])),
-                ('mediafile', feincms.module.medialibrary.fields.MediaFileForeignKey(related_name='+', verbose_name='media file', to='medialibrary.MediaFile')),
-            ],
-            options={
-                'ordering': ['ordering'],
-                'abstract': False,
-                'verbose_name_plural': 'media files',
-                'db_table': 'page_page_mediafilecontent',
-                'verbose_name': 'media file',
-                'permissions': [],
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
             name='Page',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -221,12 +219,13 @@ class Migration(migrations.Migration):
                 ('_cached_url', models.CharField(default='', editable=False, max_length=255, blank=True, verbose_name='Cached URL', db_index=True)),
                 ('publication_date', models.DateTimeField(default=feincms.module.extensions.datepublisher.granular_now, verbose_name='publication date')),
                 ('publication_end_date', models.DateTimeField(help_text='Leave empty if the entry should stay active forever.', null=True, verbose_name='publication end date', blank=True)),
-                ('language', models.CharField(default=b'af', max_length=10, verbose_name='language', choices=[(b'af', b'Afrikaans'), (b'ar', b'Arabic'), (b'ast', b'Asturian'), (b'az', b'Azerbaijani'), (b'bg', b'Bulgarian'), (b'be', b'Belarusian'), (b'bn', b'Bengali'), (b'br', b'Breton'), (b'bs', b'Bosnian'), (b'ca', b'Catalan'), (b'cs', b'Czech'), (b'cy', b'Welsh'), (b'da', b'Danish'), (b'de', b'German'), (b'el', b'Greek'), (b'en', b'English'), (b'en-au', b'Australian English'), (b'en-gb', b'British English'), (b'eo', b'Esperanto'), (b'es', b'Spanish'), (b'es-ar', b'Argentinian Spanish'), (b'es-mx', b'Mexican Spanish'), (b'es-ni', b'Nicaraguan Spanish'), (b'es-ve', b'Venezuelan Spanish'), (b'et', b'Estonian'), (b'eu', b'Basque'), (b'fa', b'Persian'), (b'fi', b'Finnish'), (b'fr', b'French'), (b'fy', b'Frisian'), (b'ga', b'Irish'), (b'gl', b'Galician'), (b'he', b'Hebrew'), (b'hi', b'Hindi'), (b'hr', b'Croatian'), (b'hu', b'Hungarian'), (b'ia', b'Interlingua'), (b'id', b'Indonesian'), (b'io', b'Ido'), (b'is', b'Icelandic'), (b'it', b'Italian'), (b'ja', b'Japanese'), (b'ka', b'Georgian'), (b'kk', b'Kazakh'), (b'km', b'Khmer'), (b'kn', b'Kannada'), (b'ko', b'Korean'), (b'lb', b'Luxembourgish'), (b'lt', b'Lithuanian'), (b'lv', b'Latvian'), (b'mk', b'Macedonian'), (b'ml', b'Malayalam'), (b'mn', b'Mongolian'), (b'mr', b'Marathi'), (b'my', b'Burmese'), (b'nb', b'Norwegian Bokmal'), (b'ne', b'Nepali'), (b'nl', b'Dutch'), (b'nn', b'Norwegian Nynorsk'), (b'os', b'Ossetic'), (b'pa', b'Punjabi'), (b'pl', b'Polish'), (b'pt', b'Portuguese'), (b'pt-br', b'Brazilian Portuguese'), (b'ro', b'Romanian'), (b'ru', b'Russian'), (b'sk', b'Slovak'), (b'sl', b'Slovenian'), (b'sq', b'Albanian'), (b'sr', b'Serbian'), (b'sr-latn', b'Serbian Latin'), (b'sv', b'Swedish'), (b'sw', b'Swahili'), (b'ta', b'Tamil'), (b'te', b'Telugu'), (b'th', b'Thai'), (b'tr', b'Turkish'), (b'tt', b'Tatar'), (b'udm', b'Udmurt'), (b'uk', b'Ukrainian'), (b'ur', b'Urdu'), (b'vi', b'Vietnamese'), (b'zh-cn', b'Simplified Chinese'), (b'zh-hans', b'Simplified Chinese'), (b'zh-hant', b'Traditional Chinese'), (b'zh-tw', b'Traditional Chinese')])),
+                ('language', models.CharField(default=b'cs', max_length=10, verbose_name='language', choices=[(b'cs', b'CS'), (b'en', b'EN')])),
+                ('navigation_extension', models.CharField(help_text='Select the module providing subpages for this page if you need to customize the navigation.', max_length=200, null=True, verbose_name='navigation extension', blank=True)),
                 ('meta_keywords', models.TextField(help_text='Keywords are ignored by most search engines.', verbose_name='meta keywords', blank=True)),
                 ('meta_description', models.TextField(help_text='This text is displayed on the search results page. It is however not used for the SEO ranking. Text longer than 140 characters is truncated.', verbose_name='meta description', blank=True)),
                 ('creation_date', models.DateTimeField(verbose_name='creation date', null=True, editable=False)),
                 ('modification_date', models.DateTimeField(verbose_name='modification date', null=True, editable=False)),
-                ('template_key', models.CharField(default=b'base', max_length=255, verbose_name='template', choices=[(b'base', 'Standard'), (b'api', 'API')])),
+                ('template_key', models.CharField(default=b'page', max_length=255, verbose_name='template', choices=[(b'page', 'Page'), (b'dashboard', 'Dashboard'), (b'api', 'API')])),
                 ('parent', models.ForeignKey(related_name='children', verbose_name='Parent', blank=True, to='page.Page', null=True)),
                 ('related_pages', models.ManyToManyField(help_text='Select pages that should be listed as related content.', related_name='page_page_related', null=True, to='page.Page', blank=True)),
                 ('symlinked_page', models.ForeignKey(related_name='page_page_symlinks', blank=True, to='page.Page', help_text='All content is inherited from this page if given.', null=True, verbose_name='symlinked page')),
@@ -255,6 +254,28 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'page titles',
                 'db_table': 'page_page_pagetitlewidget',
                 'verbose_name': 'page title',
+                'permissions': [],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='RecentBlogPostsWidget',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('options', django_extensions.db.fields.json.JSONField(verbose_name='widget options', editable=False, blank=True)),
+                ('prerendered_content', models.TextField(verbose_name='prerendered content', editable=False, blank=True)),
+                ('post_count', models.PositiveIntegerField(default=3, verbose_name='post count')),
+                ('show_button', models.BooleanField(default=True, verbose_name='show link button')),
+                ('region', models.CharField(max_length=255)),
+                ('ordering', models.IntegerField(default=0, verbose_name='ordering')),
+                ('parent', models.ForeignKey(related_name='recentblogpostswidget_set', to='page.Page')),
+            ],
+            options={
+                'ordering': ['ordering'],
+                'abstract': False,
+                'verbose_name_plural': 'recent blog posts',
+                'db_table': 'page_page_recentblogpostswidget',
+                'verbose_name': 'recent blog posts',
                 'permissions': [],
             },
             bases=(models.Model,),
@@ -389,12 +410,6 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.AddField(
-            model_name='mediafilecontent',
-            name='parent',
-            field=models.ForeignKey(related_name='mediafilecontent_set', to='page.Page'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
             model_name='linearnavigationwidget',
             name='parent',
             field=models.ForeignKey(related_name='linearnavigationwidget_set', to='page.Page'),
@@ -440,6 +455,12 @@ class Migration(migrations.Migration):
             model_name='breadcrumbswidget',
             name='parent',
             field=models.ForeignKey(related_name='breadcrumbswidget_set', to='page.Page'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='blogcategorieswidget',
+            name='parent',
+            field=models.ForeignKey(related_name='blogcategorieswidget_set', to='page.Page'),
             preserve_default=True,
         ),
         migrations.AddField(

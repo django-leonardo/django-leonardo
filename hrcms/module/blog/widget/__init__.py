@@ -1,3 +1,3 @@
 
-from blogcategories.models import BlogCategoriesWidget
-from recentblogposts.models import RecentBlogPostsWidget
+from .blogcategories.models import BlogCategoriesWidget
+from .recentblogposts.models import RecentBlogPostsWidget

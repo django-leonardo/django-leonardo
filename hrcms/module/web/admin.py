@@ -1,4 +1,6 @@
 
+from django.contrib import admin
+
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.contrib.redirects.admin import RedirectAdmin
@@ -9,12 +11,15 @@ from feincms.module.page.admin import PageAdmin as FeinPageAdmin
 from feincms.module.page.forms import PageAdminForm
 from feincms.module.page.models import Page
 from hrcms.models import webcms_admin
+from reversion.admin import VersionAdmin
+
+admin.site.unregister(Page)
 
 
-class PageAdmin(FeinPageAdmin):
+class PageAdmin(FeinPageAdmin, VersionAdmin):
     test = None
 
-webcms_admin.register(Page, PageAdmin)
-webcms_admin.register(User, UserAdmin)
-webcms_admin.register(Site, SiteAdmin)
-webcms_admin.register(Redirect, RedirectAdmin)
+admin.site.register(Page, PageAdmin)
+#admin.site.register(User, UserAdmin)
+#admin.site.register(Site, SiteAdmin)
+#admin.site.register(Redirect, RedirectAdmin)

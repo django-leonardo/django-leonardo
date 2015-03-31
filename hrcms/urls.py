@@ -3,36 +3,43 @@ import horizon
 from django.conf import settings
 from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
-from django.contrib import admin
+from hrcms.models import hrcms_admin
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
+from django.contrib import admin
 
 admin.autodiscover()
-
 
 urlpatterns = patterns('hrcms',
 
                        url(r'^doc/', include('django.contrib.admindocs.urls')),
 
                        url(r'^accounts/', include('allauth.urls')),
+                       url(r'^module/', include('hrcms.module.auth.urls')),
+)
 
-                       )
 
 # admin
 urlpatterns += patterns('',
-                        url(r'^admin', include(admin.site.urls)),
-                        url(r'^admin_tools/', include('admin_tools.urls')),
+                        url(r'^admin/', include(admin.site.urls)),
                         )
 
 urlpatterns += patterns('',
                         url(r'^settings/', include('livesettings.urls')),
                         )
 
+"""
 # search
 urlpatterns += patterns('',
                         url(r'^$', include('haystack.urls')),
                         url(r'^select2/', include('django_select2.urls')),
+                        )
+"""
+
+# Elephantblog urls
+urlpatterns += patterns('',
+                        url(r'^blog/', include('elephantblog.urls')),
                         )
 
 # horizon and feinCMS
