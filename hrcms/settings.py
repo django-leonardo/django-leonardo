@@ -184,7 +184,7 @@ MIGRATION_MODULES = {
 
 SECRET_KEY = None
 
-APPS=[]
+APPS = []
 
 try:
     # local settings
@@ -296,7 +296,7 @@ OAUTH_APPS = [
     'allauth.socialaccount.providers.xing',
 ]
 
-# first configure some defaults
+# first load some defaults
 
 try:
     from hrcms.conf.feincms import *
@@ -308,7 +308,7 @@ except Exception, e:
 from feincms.module.page.models import Page
 from feincms.content.application.models import ApplicationContent
 
-# secondary configure our app
+# configure our app
 
 try:
     from hrcms_site.conf.feincms import *
@@ -336,18 +336,14 @@ except Exception, e:
 
 """
 
-# enable reversion for every req
-if 'reversion' in INSTALLED_APPS:
-    MIDDLEWARE_CLASSES = merge(REVERSION_MIDDLEWARE, MIDDLEWARE_CLASSES)
-
 if 'cms' in APPS:
-    INSTALLED_APPS += CMS_APPS
+    INSTALLED_APPS = merge(INSTALLED_APPS, CMS_APPS)
 
 if 'blog' in APPS:
-    INSTALLED_APPS += BLOG_APPS
+    INSTALLED_APPS = merge(INSTALLED_APPS, BLOG_APPS)
 
 if 'oauth' in APPS:
-    INSTALLED_APPS += OAUTH_APPS
+    INSTALLED_APPS = merge(INSTALLED_APPS, OAUTH_APPS)
     TEMPLATE_CONTEXT_PROCESSORS = merge(
         OAUTH_CTP, TEMPLATE_CONTEXT_PROCESSORS)
     AUTHENTICATION_BACKENDS = merge(AUTHENTICATION_BACKENDS, OAUTH_BACKENDS)
@@ -385,16 +381,20 @@ if 'fulltext' or 'eshop' in APPS:
 
     INSTALLED_APPS = merge(['whoosh'], INSTALLED_APPS)
 
-# FINALLY OVERRIDE ALL
+# enable reversion for every req
+if 'reversion' in INSTALLED_APPS:
+    MIDDLEWARE_CLASSES = merge(REVERSION_MIDDLEWARE, MIDDLEWARE_CLASSES)
 
-try:
-    # full settings
-    from hrcms_site.local.settings import *
-except ImportError:
-    pass
+# FINALLY OVERRIDE ALL
 
 try:
     # local settings
     from local_settings import *
+except ImportError:
+    pass
+
+try:
+    # full settings
+    from hrcms_site.local.settings import *
 except ImportError:
     pass
