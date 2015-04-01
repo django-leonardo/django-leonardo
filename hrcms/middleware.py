@@ -173,7 +173,8 @@ class WebcmsMiddleware(object):
         webcms_options['site'] = {
             'name': settings.SITE_NAME,
             'id': settings.SITE_ID,
-            'domain': settings.SITE_DOMAIN,
+            'domain': getattr(
+                settings, 'SITE_DOMAIN', settings.SITE_NAME + '.cz'),
         }
 
         try:
