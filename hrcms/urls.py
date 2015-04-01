@@ -3,7 +3,7 @@ import horizon
 from django.conf import settings
 from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
-from hrcms.models import hrcms_admin
+from hrcms.site import hrcms_admin
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
@@ -22,7 +22,7 @@ urlpatterns = patterns('hrcms',
 
 # admin
 urlpatterns += patterns('',
-                        url(r'^admin/', include(admin.site.urls)),
+                        url(r'^admin/', include(hrcms_admin.urls)),
                         )
 
 urlpatterns += patterns('',

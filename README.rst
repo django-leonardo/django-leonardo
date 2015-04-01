@@ -44,20 +44,29 @@ Directory structure::
 
     my_site
         |-- __init__.py
+        |-- config
+            |-- __init__.py
+            |-- admin.py
+            |-- menu.py
+            |-- settings.py
         |-- local
             |-- __init__.py
-            |-- settings.py
-            |-- menu.py
-            |-- admin.py
+            |-- local_settings.py
         |-- static
             |-- css
             |-- js
 
-APPS = [
-    'cms',
-    'blog',
-    'eshop',
-]
+Configure parts
+
+* First we load all stuff from ``config`` dir, here can be app settings
+* Secondary we load configs from ``local`` which can be easily generated from Configuration Management Tools
+* If we found some supported ``APPS`` like a ``blog``, ``cms``, ``eshop`` we configure other required stuff for this cases.
+* Or use ``local_settings`` in your ``PYTHONPATH`` for all stuff
+
+Other configs
+
+* conf/feincms.py
+* conf/menu.py
 
 Minimal config
 
@@ -75,11 +84,14 @@ Minimal config
 	    'cms',
 	    'blog',
 	    'eshop',
+	    'oauth',
+	    'reversion',
+	    'fulltext'
 	]
 
-All settings will be included from local
+This settings start full app with default settings.
 
-Note: we recommend ``local`` in ``.gitignore``
+Note: If we generate config to ``local`` we recommend add ``local`` directory to ``.gitignore``
 
 Read More
 =========

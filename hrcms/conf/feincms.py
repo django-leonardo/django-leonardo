@@ -15,8 +15,8 @@ from hrcms.module.web.widget import *
 FEINCMS_REVERSE_MONKEY_PATCH = False
 
 FEINCMS_FRONTEND_EDITING = True
-"""
-Page.register_extensions(
+
+PAGE_EXTENSIONS = [
     'feincms.module.extensions.datepublisher',
     'feincms.module.extensions.translations',
     'feincms.module.page.extensions.relatedpages',
@@ -24,8 +24,42 @@ Page.register_extensions(
     'feincms.module.extensions.seo',
     'feincms.module.page.extensions.symlinks',
     'feincms.module.extensions.changedate',
+]
+
+APPLICATION_CHOICES = (
+    ('hrcms.portal.device_catalog.urls', 'Robotice Device Catalog'),
+    ('hrcms.module.auth.urls', 'API Auth', ),
+    ('hrcms.module.eshop.urls', 'Eshop', ),
+    ('hrcms.module.eshop.api.urls', 'Eshop API', ),
+    ('elephantblog.urls', 'Blog'),
 )
-"""
+
+CONTENT_TYPES = [
+    DjangoTemplateWidget,
+    PageTitleWidget,
+    PageTitleWidget,
+    TableWidget,
+    FeedReaderWidget,
+    UserLoginWidget,
+    LanguageSelectorWidget,
+    RichTextContent
+]
+
+NAVIGATION_CONTENT_TYPES = [
+    TreeNavigationWidget,
+    ContentNavigationWidget,
+    ContextNavigationWidget,
+    LinearNavigationWidget,
+    BreadcrumbsWidget,
+    SiteMapWidget,
+    SiteSearchWidget
+]
+
+BLOG_CONTENT_TYPES = [
+    BlogCategoriesWidget,
+    RecentBlogPostsWidget
+]
+
 
 PAGE_REGIONS = (
     ('main', _('Content')),
@@ -36,6 +70,8 @@ PAGE_REGIONS = (
     ('preview', _('Preview')),
     ('helper', _('Helper'))
 )
+
+#from hrcms.module.web.const import *
 
 PAGE_TEMPLATES = (
     {
@@ -58,7 +94,6 @@ PAGE_TEMPLATES = (
     },
 )
 
-#from hrcms.module.web.models import *
 
 Page.register_templates(*PAGE_TEMPLATES)
 
@@ -99,62 +134,4 @@ APPLICATION_CHOICES = (
     ('elephantblog.urls', 'Blog'),
 )
 
-"""
-
-Page.create_content_type(ApplicationContent, APPLICATIONS=APPLICATION_CHOICES)
-
-# core web widgets
-# Page.create_content_type(HtmlTextWidget) # not work something with
-# translation
-Page.create_content_type(DjangoTemplateWidget)
-Page.create_content_type(PageTitleWidget)
-Page.create_content_type(TableWidget)
-Page.create_content_type(FeedReaderWidget)
-Page.create_content_type(UserLoginWidget)
-
-# language widgets
-Page.create_content_type(LanguageSelectorWidget)
-
-#multimedia widgets
-Page.create_content_type(FlashObjectWidget)
-Page.create_content_type(InternetVideoWidget)
-Page.create_content_type(SimpleVideoWidget)
-Page.create_content_type(DownloadListWidget)
-Page.create_content_type(MediaGalleryWidget)
-Page.create_content_type(SimpleImageWidget)
-Page.create_content_type(VectorGraphicsWidget)
-Page.create_content_type(AnnotatedImageWidget)
-"""
-
-"""
-# navigation widgets
-Page.create_content_type(TreeNavigationWidget)
-Page.create_content_type(ContentNavigationWidget)
-Page.create_content_type(ContextNavigationWidget)
-Page.create_content_type(LinearNavigationWidget)
-Page.create_content_type(BreadcrumbsWidget)
-Page.create_content_type(SiteMapWidget)
-Page.create_content_type(SiteSearchWidget)
-"""
-
-"""
-# boardie
-Page.create_content_type(PolarClockWidget)
-
-Page.create_content_type(HorizonChartWidget)
-
-Page.create_content_type(AreaChartWidget)
-
-Page.create_content_type(SystemChartWidget)
-
-Page.create_content_type(AngularGaugeWidget)
-Page.create_content_type(ForceDirectedGraphWidget)
-Page.create_content_type(ArcDiagramWidget)
-"""
-
-"""
-Page.create_content_type(BlogCategoriesWidget)
-Page.create_content_type(RecentBlogPostsWidget)
-
 Page.register_with_reversion()
-"""
