@@ -5,23 +5,22 @@
 <!DOCTYPE html>
 <html>
   <head>
+    {% block header %}
     <meta content='IE=edge' http-equiv='X-UA-Compatible' />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
     {% include "horizon/_custom_meta.html" %}
     <title>{% block title %}{% endblock %} - {% site_branding %}</title>
     {% comment %} Load CSS sheets before Javascript  {% endcomment %}
+    {% include "_header.html" %}
+    {% endblock %}
     {% block css %}
     {% include "_stylesheets.html" %}
-    {% endblock %}
-    {% include "horizon/_conf.html" %}
-    {% include "horizon/client_side/_script_loader.html" %}
-    {% include "horizon/_custom_head_js.html" %}
+    {% endblock %}    
   </head>
   <body id="{% block body_id %}{% endblock %}" ng-app='hz' class="skin-blue {% if not request.user.is_authenticated %}sidebar-collapse sidebar-open{% endif %}">
     <div class="wrapper">
       <header class="main-header">
-        {% block header %}
-        {% include "_header.html" %}
+        {% block page_header %}
           {% feincms_render_region feincms_page "header" request %}
         {% endblock %}
       </header>
@@ -68,10 +67,12 @@
 
       </aside>
       {% endblock %}
+
       {% block content %}
+
       <div class="content-wrapper">
         <section class="content-header">
-          {% block page_header %}{% endblock %}
+
         </section>
         <section class="content">
           {% block main %}
@@ -82,6 +83,7 @@
       {% endblock %}
       <footer class="main-footer">
         {% block footer %}
+          <a href="/contrib/models/page/create" class="ajax-update">Edit !</a>
           {% feincms_render_region feincms_page "footer" request %}
         {% endblock %}
       </footer>

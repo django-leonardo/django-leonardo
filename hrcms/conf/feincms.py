@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from feincms.content.application.models import ApplicationContent
 from feincms.content.medialibrary.models import MediaFileContent
 from feincms.content.richtext.models import RichTextContent
-from feincms.module.page.models import Page
+from hrcms.models import Page
 from hrcms.module.blog import models
 from hrcms.module.blog.widget import *
 from hrcms.module.lang.widget import *
@@ -15,6 +15,8 @@ from hrcms.module.web.widget import *
 FEINCMS_REVERSE_MONKEY_PATCH = False
 
 FEINCMS_FRONTEND_EDITING = True
+
+#FEINCMS_CHECK_DATABASE_SCHEMA = False
 
 PAGE_EXTENSIONS = [
     'feincms.module.extensions.datepublisher',
@@ -35,7 +37,7 @@ APPLICATION_CHOICES = (
 )
 
 CONTENT_TYPES = [
-    DjangoTemplateWidget,
+    #DjangoTemplateWidget,
     PageTitleWidget,
     PageTitleWidget,
     TableWidget,
@@ -61,6 +63,7 @@ BLOG_CONTENT_TYPES = [
 ]
 
 
+"""
 PAGE_REGIONS = (
     ('main', _('Content')),
     ('sidebar', _('Sidebar'), 'inherited'),
@@ -70,8 +73,6 @@ PAGE_REGIONS = (
     ('preview', _('Preview')),
     ('helper', _('Helper'))
 )
-
-#from hrcms.module.web.const import *
 
 PAGE_TEMPLATES = (
     {
@@ -93,7 +94,9 @@ PAGE_TEMPLATES = (
         'regions': PAGE_REGIONS,
     },
 )
+"""
 
+from hrcms.module.web.const import *
 
 Page.register_templates(*PAGE_TEMPLATES)
 
@@ -134,4 +137,4 @@ APPLICATION_CHOICES = (
     ('elephantblog.urls', 'Blog'),
 )
 
-Page.register_with_reversion()
+#Page.register_with_reversion()

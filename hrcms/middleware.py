@@ -27,7 +27,7 @@ from django.utils.translation import ugettext as __
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import activate
 from feincms.content.application.models import reverse
-from feincms.module.page.models import Page
+from hrcms.models import Page
 from horizon import exceptions, messages
 from horizon.utils import functions as utils
 from hrcms.module.web.models import build_options
@@ -148,29 +148,32 @@ class HorizonMiddleware(object):
         return response
 
 
-class WebcmsMiddleware(object):
-    """old webcms middleware
+class LeonardoMiddleware(object):
+    """add extra context to request
 
     added some extra to request and page
+
+    note: for support old ``webcms`` stuff adds some
+    extra stuff which would be old after migration
 
     """
     def process_request(self, request):
         try:
-            webcms_options = {
+            leonardo_options = {
                 'meta_description': config_value('WEB', 'META_KEYWORDS'),
                 'meta_keywords': config_value('WEB', 'META_DESCRIPTION'),
                 'meta_title': config_value('WEB', 'META_TITLE'),
             }
             is_private = config_value('WEB', 'IS_PRIVATE')
         except:
-            webcms_options = {
+            leonardo_options = {
                 'meta_description': '',
                 'meta_keywords': '',
                 'meta_title': '',
             }
             is_private = False
 
-        webcms_options['site'] = {
+        leonardo_options['site'] = {
             'name': settings.SITE_NAME,
             'id': settings.SITE_ID,
             'domain': getattr(
@@ -180,23 +183,26 @@ class WebcmsMiddleware(object):
         try:
             page = Page.objects.best_match_for_path(request.path, raise404=True)
             page.options = build_options(page)
-            webcms_options['template'] = page.options['template']
-            #webcms_options['theme'] = page.options['theme']
+            leonardo_options['template'] = page.options['template']
+            #leonardo_options['theme'] = page.options['theme']
             cls_list = []
             for cls in page._feincms_content_types:
                 cls_list.append({
                     'name': cls.__name__,
                     'label': cls._meta.verbose_name
                 })
-            webcms_options['widgets'] = cls_list
+            leonardo_options['widgets'] = cls_list
         except Exception, e:
             raise e
             page = None
-            webcms_options['template'] = 'default'
-            webcms_options['theme'] = 'light'
-            webcms_options['assets'] = False
-            webcms_options['widgets'] = False
+            leonardo_options['template'] = 'default'
+            leonardo_options['theme'] = 'light'
+            leonardo_options['assets'] = False
+            leonardo_options['widgets'] = False
 
-        webcms_options['is_private'] = is_private
+        leonardo_options['is_private'] = is_private
+        request.leonardo_options = leonardo_options
+        request.leonardo_page = page
+        # old
         request.webcms_page = page
-        request.webcms_options = webcms_options
+        request.webcms_options = leonardo_options

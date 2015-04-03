@@ -28,7 +28,7 @@ class DjangoTemplateWidget(Widget):
         'head': ['admin/widget/djangotemplate/init_ace.html'],
     }
 
-    template = models.TextField(verbose_name=_("template"),)
+    #template = models.TextField(verbose_name=_("template"),)
 
     class Meta:
         abstract = True

@@ -18,7 +18,7 @@ class Default(object):
 
             # horizon
             'hrcms.middleware.HorizonMiddleware',
-            'hrcms.middleware.WebcmsMiddleware',
+            'hrcms.middleware.LeonardoMiddleware',
         ]
 
     @property
@@ -53,12 +53,13 @@ class Default(object):
 
             'horizon',
             'compressor',
-
+            'hrcms',
+            'horizon_contrib',
             # filer
             'filer',
             'easy_thumbnails',
 
-            'hrcms_site',
+            'project',
         ]
 
     @property
@@ -74,8 +75,7 @@ class Default(object):
             'django.core.context_processors.static',
             # horizon
             'horizon.context_processors.horizon',
-            # feinCMS
-            'feincms.context_processors.add_page_if_missing',
+            'hrcms.module.web.processors.add_page_if_missing',
         ]
 
 default = Default()

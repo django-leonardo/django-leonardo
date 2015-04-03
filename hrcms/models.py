@@ -17,12 +17,75 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django_assets import Bundle, register
 from django_extensions.db.fields.json import JSONField
-from feincms.module.page.models import Page
+from feincms.module.page.models import BasePage as FeinCMSPage
+from feincms.models import Base as FeinCMSBase
+
+from .const import *
 
 
-class Widget(models.Model):
-    options = JSONField(verbose_name=_('widget options'), blank=True, editable=False)
-    prerendered_content = models.TextField(_('prerendered content'), blank=True, editable=False)
+class Page(FeinCMSPage):
+
+    col1_width = models.IntegerField(verbose_name=_("Column 1 width"),
+        choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    col2_width = models.IntegerField(verbose_name=_("Column 2 width"),
+        choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    col3_width = models.IntegerField(verbose_name=_("Column 3 width"),
+        choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    col4_width = models.IntegerField(verbose_name=_("Column 4 width"),
+        choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    template_name = models.CharField(
+        verbose_name="Template", max_length=255,
+        help_text=_("Core HTML templates and CSS styles."), null=True, blank=True)
+    theme = models.CharField(verbose_name=_("Theme"), max_length=255, null=True, blank=True,
+                             help_text=_("Color and style extension to the template."))
+
+    class Meta:
+        verbose_name = _("Page")
+        verbose_name_plural = _("Pages")
+        ordering = ['tree_id', 'lft']
+
+
+class Widget(FeinCMSBase):
+    options = JSONField(
+        verbose_name=_('widget options'), blank=True, editable=False)
+    prerendered_content = models.TextField(
+        _('prerendered content'), blank=True, editable=False)
+
+    label = models.CharField(verbose_name=_("Title"), max_length=255)
+    template_name = models.CharField(
+        verbose_name=_("Display"), max_length=255)
+
+    span = models.IntegerField(verbose_name=_("Span"),
+        choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    vertical_span = models.IntegerField(verbose_name=_("V. Span"),
+        choices=ROW_CHOICES, default=DEFAULT_WIDTH)
+    align = models.IntegerField(verbose_name=_("Alignment"), choices=ALIGN_CHOICES)
+    vertical_align = models.IntegerField(
+        verbose_name=_("V. Alignment"), choices=VERTICAL_ALIGN_CHOICES, default=DEFAULT_CHOICE)
+    prepend = models.IntegerField(verbose_name=_("Prepend"),
+        choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    append = models.IntegerField(verbose_name=_("Append"),
+        choices=COLUMN_CHOICES, default=DEFAULT_CHOICE)
+    push = models.IntegerField(verbose_name=_("Push"),
+        choices=COLUMN_CHOICES, default=DEFAULT_CHOICE)
+    pull = models.IntegerField(verbose_name=_("Pull"),
+        choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    vertical_prepend = models.IntegerField(
+        verbose_name=_("V. Prepend"), choices=ROW_CHOICES, default=DEFAULT_CHOICE)
+    vertical_append = models.IntegerField(
+        verbose_name=_("V. Append"), choices=ROW_CHOICES, default=DEFAULT_CHOICE)
+    vertical_push = models.IntegerField(
+        verbose_name=_("V. Push"), choices=ROW_CHOICES, default=DEFAULT_CHOICE)
+    vertical_pull = models.IntegerField(verbose_name=_("V. Pull"),
+        choices=ROW_CHOICES, default=DEFAULT_CHOICE)
+    style = models.IntegerField(
+        verbose_name=_("Style"), choices=STYLE_CHOICES, default=DEFAULT_CHOICE)
+    border = models.IntegerField(
+        verbose_name=_("Border"), choices=BORDER_CHOICES, default=DEFAULT_CHOICE)
+    clear = models.IntegerField(
+        verbose_name=_("Clear"), choices=CLEAR_CHOICES, default=DEFAULT_CHOICE)
+    last = models.NullBooleanField(verbose_name=_('Is last?'))
+    visible = models.NullBooleanField(verbose_name=_('Is visible?'))
 
     class Meta:
         abstract = True
@@ -125,8 +188,8 @@ class Widget(models.Model):
             return self.prerendered_content
 
     def render_content(self, options):
-#        if options.has_key('use_xml') and options['use_xml']:
-#            template = loader.get_template(self.template_xml_name)
+        #        if options.has_key('use_xml') and options['use_xml']:
+        #            template = loader.get_template(self.template_xml_name)
         if options.has_key('format'):
             format = options.get('format')
             base_template = 'widget/doc_base.%s' % format
@@ -145,7 +208,7 @@ class Widget(models.Model):
         return template.render(context)
 
     def render_error(self, error_code):
-        return render_to_string("widget/error.html", { 
+        return render_to_string("widget/error.html", {
             'widget': self,
             'request': kwargs['request'],
         })

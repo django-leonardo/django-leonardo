@@ -11,31 +11,31 @@ from django.contrib import admin
 
 admin.autodiscover()
 
-urlpatterns = patterns('hrcms',
+urlpatterns = patterns('',
 
                        url(r'^doc/', include('django.contrib.admindocs.urls')),
-
-                       url(r'^accounts/', include('allauth.urls')),
-                       url(r'^module/', include('hrcms.module.auth.urls')),
-)
-
+                       )
 
 # admin
 urlpatterns += patterns('',
-                        url(r'^admin/', include(hrcms_admin.urls)),
+                        url(r'^admin/', include(admin.site.urls)),
+                        url(r'^contrib/', include('horizon_contrib.urls'),),
                         )
 
 urlpatterns += patterns('',
                         url(r'^settings/', include('livesettings.urls')),
                         )
 
-"""
 # search
 urlpatterns += patterns('',
-                        url(r'^$', include('haystack.urls')),
+                        #url(r'', include('haystack.urls')),
                         url(r'^select2/', include('django_select2.urls')),
                         )
-"""
+
+# All Auth
+urlpatterns += patterns('',
+                        url(r'^accounts/', include('allauth.urls')),
+                        )
 
 # Elephantblog urls
 urlpatterns += patterns('',
@@ -58,6 +58,7 @@ urlpatterns += patterns('',
                             name="set_language"),
                         url(r'^i18n/', include('django.conf.urls.i18n'))
                         )
+
 sitemaps = {
     'pages': PageSitemap,
 }
@@ -71,7 +72,6 @@ urlpatterns += patterns('',
                         (r'^crossdomain\.xml$',
                          TemplateView.as_view(template_name='crossdomain.xml')),
                         )
-
 
 if settings.DEBUG:
 

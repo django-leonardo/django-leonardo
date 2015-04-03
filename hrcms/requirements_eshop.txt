@@ -103,5 +103,4 @@ xstatic-jsencrypt>=2.0.0.2 # MIT License
 xstatic-qunit>=1.14.0.2 # MIT License
 xstatic-rickshaw>=1.5.0 # BSD License (prior)
 xstatic-spin>=1.2.5.2 # MIT License
-xstatic-adminlte==2.0.1.1
-xstatic-react==0.12.2.1
+xstatic-adminlte>=2.0.1.1

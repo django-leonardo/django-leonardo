@@ -29,6 +29,8 @@ import xstatic.pkg.jsencrypt
 import xstatic.pkg.qunit
 import xstatic.pkg.rickshaw
 import xstatic.pkg.spin
+import xstatic.pkg.adminlte
+import xstatic.pkg.react
 
 STATICFILES_DIRS = [
     ('horizon/lib/angular',
@@ -61,8 +63,11 @@ STATICFILES_DIRS = [
         xstatic.main.XStatic(xstatic.pkg.rickshaw).base_dir),
     ('horizon/lib',
         xstatic.main.XStatic(xstatic.pkg.spin).base_dir),
+    ('lib',
+        xstatic.main.XStatic(xstatic.pkg.adminlte).base_dir),
+    ('lib',
+        xstatic.main.XStatic(xstatic.pkg.react).base_dir),
 ]
-
 
 if xstatic.main.XStatic(xstatic.pkg.jquery_ui).version.startswith('1.10.'):
     # The 1.10.x versions already contain the 'ui' directory.

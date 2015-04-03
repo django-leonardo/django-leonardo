@@ -108,6 +108,8 @@ THUMBNAIL_PROCESSORS = (
 
 FILER_ENABLE_PERMISSIONS = True
 
+FEINCMS_USE_PAGE_ADMIN = False
+
 ##########################
 
 STATICFILES_FINDERS =(
@@ -238,20 +240,24 @@ CMS_APPS = [
     'markitup',
     'feincms',
     'mptt',
+
+    'hrcms.module',
+
     'feincms.module.page',
     'feincms.content.application',
     'feincms.content.comments',
-
-    'hrcms',
-    'hrcms.module',
 
     'hrcms.module.nav',
     'hrcms.module.lang',
     'hrcms.module.web',
     'hrcms.module.forms',
-    'hrcms.module.boardie',
+    #'hrcms.module.boardie',
     'form_designer',
     'django_remote_forms',
+]
+
+CMS_CTP = [
+    'hrcms.module.web.processors.add_page_if_missing'
 ]
 
 OAUTH_BACKENDS = [
@@ -305,19 +311,21 @@ try:
 except Exception, e:
     raise e
 
-from feincms.module.page.models import Page
+from hrcms.models import Page
 from feincms.content.application.models import ApplicationContent
 
 # configure our app
 
 try:
-    from hrcms_site.conf.feincms import *
+    from project.conf.feincms import *
 
     Page.create_content_type(
         ApplicationContent, APPLICATIONS=APPLICATION_CHOICES)
     for ct in CONTENT_TYPES:
         Page.create_content_type(ct)
     Page.register_extensions(*PAGE_EXTENSIONS)
+    Page.register_default_processors(
+        frontend_editing=FEINCMS_FRONTEND_EDITING)
 except ImportError:
     pass
 except Exception, e:
@@ -338,6 +346,7 @@ except Exception, e:
 
 if 'cms' in APPS:
     INSTALLED_APPS = merge(INSTALLED_APPS, CMS_APPS)
+    TEMPLATE_CONTEXT_PROCESSORS = merge(TEMPLATE_CONTEXT_PROCESSORS, CMS_CTP)
 
 if 'blog' in APPS:
     INSTALLED_APPS = merge(INSTALLED_APPS, BLOG_APPS)
@@ -395,6 +404,6 @@ except ImportError:
 
 try:
     # full settings
-    from hrcms_site.local.settings import *
+    from project.local.settings import *
 except ImportError:
     pass
