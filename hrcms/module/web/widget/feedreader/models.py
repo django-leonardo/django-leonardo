@@ -7,7 +7,7 @@ from django.db import models
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-from hrcms.models import Widget
+from hrcms.module.web.models import Widget
 
 TARGET_CHOICES = (
     ('modal', _('Modal window')),

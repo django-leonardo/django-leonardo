@@ -18,7 +18,6 @@ class Default(object):
 
             # horizon
             'hrcms.middleware.HorizonMiddleware',
-            'hrcms.middleware.LeonardoMiddleware',
         ]
 
     @property
@@ -75,7 +74,6 @@ class Default(object):
             'django.core.context_processors.static',
             # horizon
             'horizon.context_processors.horizon',
-            'hrcms.module.web.processors.add_page_if_missing',
         ]
 
 default = Default()

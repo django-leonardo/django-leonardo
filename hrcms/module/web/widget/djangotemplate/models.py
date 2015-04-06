@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext as __
 from django.utils.translation import ugettext_lazy as _
 from feincms.admin.item_editor import ItemEditorForm
-from hrcms.models import Widget
+from hrcms.module.web.models import Widget
 
 
 class DjangoTemplateWidgetAdminForm(ItemEditorForm):

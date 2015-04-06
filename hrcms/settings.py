@@ -179,7 +179,6 @@ LOGGING = {
 
 # migrations support
 MIGRATION_MODULES = {
-    'page': 'hrcms.migrations.page',
     'application': 'hrcms.migrations.application',
     'filer': 'filer.migrations_django',
 }
@@ -235,31 +234,6 @@ ESHOP_AUTH_BACKENDS = [
 
 BLOG_APPS = ['elephantblog', 'hrcms.module.blog']
 
-CMS_APPS = [
-    # CMS
-    'markitup',
-    'feincms',
-    'mptt',
-
-    'hrcms.module',
-
-    'feincms.module.page',
-    'feincms.content.application',
-    'feincms.content.comments',
-
-    'hrcms.module.nav',
-    'hrcms.module.lang',
-    'hrcms.module.web',
-    'hrcms.module.forms',
-    #'hrcms.module.boardie',
-    'form_designer',
-    'django_remote_forms',
-]
-
-CMS_CTP = [
-    'hrcms.module.web.processors.add_page_if_missing'
-]
-
 OAUTH_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
@@ -305,29 +279,8 @@ OAUTH_APPS = [
 # first load some defaults
 
 try:
-    from hrcms.conf.feincms import *
     from hrcms.conf.horizon import *
     from hrcms.conf.static import *
-except Exception, e:
-    raise e
-
-from hrcms.models import Page
-from feincms.content.application.models import ApplicationContent
-
-# configure our app
-
-try:
-    from project.conf.feincms import *
-
-    Page.create_content_type(
-        ApplicationContent, APPLICATIONS=APPLICATION_CHOICES)
-    for ct in CONTENT_TYPES:
-        Page.create_content_type(ct)
-    Page.register_extensions(*PAGE_EXTENSIONS)
-    Page.register_default_processors(
-        frontend_editing=FEINCMS_FRONTEND_EDITING)
-except ImportError:
-    pass
 except Exception, e:
     raise e
 
@@ -345,8 +298,34 @@ except Exception, e:
 """
 
 if 'cms' in APPS:
-    INSTALLED_APPS = merge(INSTALLED_APPS, CMS_APPS)
-    TEMPLATE_CONTEXT_PROCESSORS = merge(TEMPLATE_CONTEXT_PROCESSORS, CMS_CTP)
+
+    # import defaults
+    from hrcms.module.web import default as web_default
+    from hrcms.module.web.settings import *
+    from hrcms.module.web.models import Page
+    from feincms.content.application.models import ApplicationContent
+
+    try:
+        # override settings
+        from project.conf.feincms import *
+
+        # register stuff
+        Page.create_content_type(
+            ApplicationContent, APPLICATIONS=APPLICATION_CHOICES)
+        for ct in CONTENT_TYPES:
+            Page.create_content_type(ct)
+        Page.register_extensions(*PAGE_EXTENSIONS)
+        Page.register_default_processors(
+            frontend_editing=FEINCMS_FRONTEND_EDITING)
+    except ImportError:
+        pass
+    except Exception, e:
+        raise e
+
+    INSTALLED_APPS = merge(INSTALLED_APPS, web_default.apps)
+    TEMPLATE_CONTEXT_PROCESSORS = merge(
+        TEMPLATE_CONTEXT_PROCESSORS, web_default.ctp)
+    MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES, web_default.middlewares)
 
 if 'blog' in APPS:
     INSTALLED_APPS = merge(INSTALLED_APPS, BLOG_APPS)

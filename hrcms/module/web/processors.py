@@ -1,5 +1,5 @@
 
-from hrcms.models import Page
+from .models import Page
 
 
 def add_page_if_missing(request):

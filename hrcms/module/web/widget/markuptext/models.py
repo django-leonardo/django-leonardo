@@ -4,7 +4,7 @@ from django import forms
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from hrcms.models import Widget
+from hrcms.module.web.models import Widget
 from markupfield.fields import MarkupField
 
 

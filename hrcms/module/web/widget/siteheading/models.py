@@ -3,7 +3,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from hrcms.models import Widget
+from hrcms.module.web.models import Widget
 
 from webcms.module.media.models import File
 

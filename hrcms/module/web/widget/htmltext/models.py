@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from feincms import settings
 from feincms.admin.item_editor import ItemEditorForm
 from feincms.utils import get_object
-from hrcms.models import Widget
+from hrcms.module.web.models import Widget
 
 
 class HtmlTextWidgetAdminForm(ItemEditorForm):

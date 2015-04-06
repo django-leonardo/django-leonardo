@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 from django.template import RequestContext
 
-from hrcms.models import Widget
+from hrcms.module.web.models import Widget
 from feincms.content.application.models import ApplicationContent
 
 class ApplicationWidget(Widget, ApplicationContent):

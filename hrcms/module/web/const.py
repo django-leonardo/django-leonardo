@@ -1,6 +1,10 @@
 # -#- coding: utf-8 -#-
 from django.utils.translation import ugettext_lazy as _
 
+DEFAULT_WIDTH = 12
+
+DEFAULT_CHOICE = 0
+
 PAGE_REGIONS_LIST = (
     'col3', 'col1', 'col2', 'header', 'footer', 'toolbar', 'preview', 'helper',)
 
@@ -113,7 +117,7 @@ TEMPLATE_LAYOUTS = {
 }
 
 COLUMN_CHOICES = (
-    (0, u' — '),
+    (DEFAULT_CHOICE,  ' — '),
     (1, _('1 col')),
     (2, _('2 cols')),
     (3, _('3 cols')),
@@ -125,23 +129,11 @@ COLUMN_CHOICES = (
     (9, _('9 cols')),
     (10, _('10 cols')),
     (11, _('11 cols')),
-    (12, _('12 cols')),
-    (13, _('13 cols')),
-    (14, _('14 cols')),
-    (15, _('15 cols')),
-    (16, _('16 cols')),
-    (17, _('17 cols')),
-    (18, _('18 cols')),
-    (19, _('19 cols')),
-    (20, _('20 cols')),
-    (21, _('21 cols')),
-    (22, _('22 cols')),
-    (23, _('23 cols')),
-    (24, _('24 cols')),
+    (DEFAULT_WIDTH, _('12 cols')),
 )
 
 ROW_CHOICES = (
-    (0, u' — '),
+    (DEFAULT_CHOICE,   ' — '),
     (1, _('1 row')),
     (2, _('2 rows')),
     (3, _('3 rows')),
@@ -169,41 +161,42 @@ ROW_CHOICES = (
 )
 
 CLEAR_CHOICES = (
-    ('', _('none')),
-    ('f', _('break before')),
-    ('l', _('break after')),
+    (DEFAULT_CHOICE, _('none')),
+    (1, _('break before')),
+    (2, _('break after')),
 )
 
 BORDER_CHOICES = (
-    ('0', _('no border')),
-    ('1', _('border')),
-    ('2', _('wide border')),
+    (DEFAULT_CHOICE, _('no border')),
+    (1, _('border')),
+    (2, _('wide border')),
 )
 
 ALIGN_CHOICES = (
-    ('a', _('auto')),
-    ('l', _('left')),
-    ('c', _('center')),
-    ('r', _('right')),
+    (DEFAULT_CHOICE, _('auto')),
+    (1, _('left')),
+    (2, _('center')),
+    (3, _('right')),
 )
 
 VERTICAL_ALIGN_CHOICES = (
-    ('a', _('auto')),
-    ('t', _('top')),
-    ('m', _('middle')),
-    ('b', _('bottom')),
+    (DEFAULT_CHOICE, _('auto')),
+    (1, _('top')),
+    (2, _('middle')),
+    (3, _('bottom')),
 )
 
 STYLE_CHOICES = (
-    ('', _('none')),
-    ('nested_box', _('nested_box')),
-    ('padded', _('padded')),
-    ('boxed', _('single box')),
-    ('boxed-top', _('box top')),
-    ('boxed-middle', _('box middle')),
-    ('boxed-bottom', _('box bottom')),
+    (DEFAULT_CHOICE, _('none')),
+    (1, _('nested_box')),
+    (2, _('padded')),
+    (3, _('single box')),
+    (4, _('box top')),
+    (5, _('box middle')),
+    (6, _('box bottom')),
 )
 
+# this wil be on the Page model
 DEFAULT_DISPLAY_OPTIONS = {
     'label': None,
     'template_name': 'default',
