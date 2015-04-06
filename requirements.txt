@@ -11,7 +11,6 @@ South==1.0.2
 
 # django tools
 django-extensions==1.5.2
-django-markupfield==1.0.2
 djangorestframework==2.3.5
 django-floppyforms==1.1
 django-crispy-forms==1.2.8

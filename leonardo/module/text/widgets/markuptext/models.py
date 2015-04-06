@@ -5,6 +5,7 @@ from hrcms.module.boardie.models import WidgetMixin
 from hrcms.module.boardie.forms import AngularTextInput, AngularSelect, AngularTextarea, AngularRadioButton
 from crispy_forms.layout import Layout, TabHolder, Tab
 
+
 class MarkupTextContent(models.Model):
     """
     Content which can be used to input HTMLed text into the dashboard.

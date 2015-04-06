@@ -16,7 +16,7 @@ FEINCMS_FRONTEND_EDITING = True
 PAGE_EXTENSIONS = [
     'feincms.module.extensions.datepublisher',
     'feincms.module.extensions.translations',
-    #'feincms.module.page.extensions.relatedpages',
+    'feincms.module.page.extensions.relatedpages',
     'feincms.module.page.extensions.navigation',
     'feincms.module.extensions.seo',
     'feincms.module.page.extensions.symlinks',
@@ -34,7 +34,9 @@ APPLICATION_CHOICES = (
 CONTENT_TYPES = [
     ApplicationContent,
     RichTextContent,
-    SiteHeadingWidget
+    SiteHeadingWidget,
+    MarkupTextWidget,
+    FeedReaderWidget,
 ]
 
 
