@@ -46,6 +46,12 @@ Installation
 
 	pip install django-leonardo
 
+	# or latest
+
+	pip install git+https://github.com/django-leonardo/django-leonardo@develop#egg=leonardo
+
+	# start
+
 	manage.py runserver 0.0.0.0:80
 
 Scaffold new app
