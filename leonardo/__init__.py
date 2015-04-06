@@ -48,7 +48,7 @@ class Default(object):
 
             'livesettings',
 
-            'reversion',
+            #'reversion',
 
             'horizon',
             'compressor',
