@@ -1,4 +1,6 @@
 
+|PypiVersion| |Doc badge| |Pypi|
+
 ===============
 Django-Leonardo
 ===============
@@ -7,14 +9,15 @@ A collection of awesome Django libraries, resources and shiny things.
 Full featured framework for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
 
-Uses
-====
+Features based on
+=================
 
 - Backend
 
 	- Django 1.4 +
 	- FeinCMS
 	- Horizon
+	- Horizon Contrib
 	- Oscar - ecommerce
 	- Oscar API
 	- Form Designer
@@ -87,3 +90,8 @@ Read More
 * http://docs.openstack.org/developer/horizon/quickstart.html
 * http://feincms-django-cms.readthedocs.org/en/latest/index.html
 * https://django-oscar.readthedocs.org/en/releases-1.0/
+
+.. |Doc badge| image:: https://readthedocs.org/projects/django-leonardo/badge/?version=stable
+.. |Pypi| image:: https://pypip.in/d/django-leonardo/badge.svg?style=flat
+.. |PypiVersion| image:: https://pypip.in/version/django-leonardo/badge.svg?style=flat
+.. [Documentation] http://django-leonardo.readthedocs.org
