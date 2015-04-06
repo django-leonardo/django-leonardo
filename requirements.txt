@@ -74,6 +74,7 @@ cryptography
 greenlet>=0.4.5
 django-appconf
 PyYAML>=3.1.0
+horizon-contrib>=1.0.3
 
 netaddr>=0.7.12
 
