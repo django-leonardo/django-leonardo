@@ -8,6 +8,15 @@ Django-Leonardo
 A collection of awesome Django libraries, resources and shiny things.
 Full featured framework for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
+Use Cases
+=========
+
+- server-side
+
+	- CMS - FeinCMS
+	- E-Commerce - Oscar
+	- Dashboards - Horizon(OpenStack)
+	- API - Django Rest Framework
 
 Features based on
 =================
@@ -16,20 +25,19 @@ Features based on
 
 	- Django 1.4 +
 	- FeinCMS
-	- Horizon
-	- Horizon Contrib
-	- Oscar - ecommerce
-	- Oscar API
-	- Form Designer
-	- Remote Forms
-	- Django Rest Framework
+		- Page, Blog, Navigation, Form Designer, Remote Forms
+	- Horizon / horizon-contrib
+		- Dashboards, Panels, Modals, Tables, Tabs, Workflows
+	- Oscar
+		- Model, Processes, API
 
 - Client
 
 	- AngularJS
+		- SortTable, Filters, ..
 	- React
+	- AdminLTE 2 +
 	- Bootstrap 3
-	- ...
 
 Installation
 ============
