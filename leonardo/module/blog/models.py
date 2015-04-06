@@ -6,7 +6,6 @@ from feincms.content.richtext.models import RichTextContent
 
 Entry.register_extensions('feincms.module.extensions.datepublisher',
                           'feincms.module.extensions.translations',
-                          'elephantblog.extensions.blogping',
                           )
 Entry.register_regions(
     ('main', _('Main content area')),

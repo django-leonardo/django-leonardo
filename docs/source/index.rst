@@ -1,7 +1,9 @@
 
-hrCMS's documentation
-=====================
+===============
+Django-Leonardo
+===============
 
+Devstack for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
 
 Contents:

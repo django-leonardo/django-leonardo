@@ -2,7 +2,9 @@
 __pycache__/
 *.py[cod]
 
-hrcms/local/.secret_key_store
+leonardo/local/.secret_key_store
+
+docs/build/*
 
 # C extensions
 *.so

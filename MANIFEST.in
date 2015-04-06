@@ -1,0 +1,6 @@
+include LICENSE
+include MANIFEST.in
+include README.rst
+recursive-include leonardo/static *
+recursive-include leonardo/locale *
+recursive-include leonardo/templates *

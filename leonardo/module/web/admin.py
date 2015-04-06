@@ -2,10 +2,9 @@
 from django.contrib import admin
 from feincms.module.page.modeladmins import PageAdmin as FeinPageAdmin
 from .models import Page
-from reversion.admin import VersionAdmin
 
 
-class PageAdmin(FeinPageAdmin, VersionAdmin):
+class PageAdmin(FeinPageAdmin):
 
     pass
 

@@ -15,7 +15,7 @@ Uses
 	- Django 1.4 +
 	- FeinCMS
 	- Horizon
-	- Oscar
+	- Oscar - ecommerce
 	- Oscar API
 	- Form Designer
 	- Remote Forms
@@ -24,7 +24,7 @@ Uses
 - Client
 
 	- AngularJS
-	- ReactJS
+	- React
 	- Bootstrap 3
 	- ...
 
@@ -33,7 +33,7 @@ Installation
 
 .. code-block:: bash
 
-	pip install django-hrcms
+	pip install django-leonardo
 
 	manage.py runserver 0.0.0.0:80
 
@@ -56,42 +56,34 @@ Directory structure::
             |-- css
             |-- js
 
-Configure parts
+Configure files
 
-* First we load all stuff from ``config`` dir, here can be app settings
-* Secondary we load configs from ``local`` which can be easily generated from Configuration Management Tools
-* If we found some supported ``APPS`` like a ``blog``, ``cms``, ``eshop`` we configure other required stuff for this cases.
-* Or use ``local_settings`` in your ``PYTHONPATH`` for all stuff
-
-Other configs
-
-* conf/feincms.py
-* conf/menu.py
+* ``local_settings`` in your ``PYTHONPATH`` for all stuff
+* or ``settings``/``menu`` .. in ``conf``
 
 Minimal config
 
 .. code-block:: python
 
 	SITE_ID = 1
-	SITE_NAME = 'hrcms'
-	SITE_DOMAIN = 'www.hrcms.cz'
+	SITE_NAME = 'leonardo'
+	# or full domain
+	SITE_DOMAIN = 'www.leonardo.cz'
 
-	LANGUAGE_CODE = 'cs'
+	LANGUAGE_CODE = 'en'
 
 	RAVEN_CONFIG = {}
 
 	APPS = [
-	    'cms',
+	    'web',
 	    'blog',
 	    'eshop',
-	    'oauth',
-	    'reversion',
 	    'fulltext'
 	]
 
-This settings start full app with default settings.
-
-Note: If we generate config to ``local`` we recommend add ``local`` directory to ``.gitignore``
-
 Read More
 =========
+
+* http://docs.openstack.org/developer/horizon/quickstart.html
+* http://feincms-django-cms.readthedocs.org/en/latest/index.html
+* https://django-oscar.readthedocs.org/en/releases-1.0/
