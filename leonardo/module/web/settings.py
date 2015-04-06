@@ -33,7 +33,8 @@ APPLICATION_CHOICES = (
 
 CONTENT_TYPES = [
     ApplicationContent,
-    RichTextContent
+    RichTextContent,
+    SiteHeadingWidget
 ]
 
 
