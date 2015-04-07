@@ -185,6 +185,8 @@ MIGRATION_MODULES = {
     'filer': 'filer.migrations_django',
 }
 
+CRISPY_TEMPLATE_PACK = 'bootstrap'
+
 SECRET_KEY = None
 
 APPS = []
@@ -307,19 +309,22 @@ if 'web' in APPS:
     from leonardo.module.lang import default as lang_default
     from leonardo.module.web.settings import *
     from leonardo.module.web.models import Page
-    from feincms.content.application.models import ApplicationContent
+    from leonardo.module.web.widget import ApplicationWidget
 
     try:
         # override settings
         from project.conf.feincms import *
 
         # register stuff
+        # TODO: this is ugly shit but i must se pattern for automation
         Page.create_content_type(
-            ApplicationContent, APPLICATIONS=APPLICATION_CHOICES)
-        CONTENT_TYPES = merge(CONTENT_TYPES, nav_default.widgets)
-        CONTENT_TYPES = merge(CONTENT_TYPES, lang_default.widgets)
-        for ct in CONTENT_TYPES:
-            Page.create_content_type(ct)
+            ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
+        for ct in web_default.widgets:
+            Page.create_content_type(ct, optgroup='Web')
+        for ct in nav_default.widgets:
+            Page.create_content_type(ct, optgroup='Navigation')
+        for ct in lang_default.widgets:
+            Page.create_content_type(ct, optgroup='Translations')
         Page.register_extensions(*PAGE_EXTENSIONS)
         Page.register_default_processors(
             frontend_editing=FEINCMS_FRONTEND_EDITING)

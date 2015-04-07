@@ -37,6 +37,7 @@ CONTENT_TYPES = [
     SiteHeadingWidget,
     MarkupTextWidget,
     FeedReaderWidget,
+    HtmlTextWidget,
 ]
 
 
