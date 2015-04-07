@@ -52,7 +52,7 @@ class Widget(FeinCMSBase):
     prerendered_content = models.TextField(
         _('prerendered content'), blank=True, editable=False)
 
-    label = models.CharField(verbose_name=_("Title"), max_length=255)
+    label = models.CharField(verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template_name = models.CharField(
         verbose_name=_("Display"), max_length=255)
 
@@ -61,7 +61,7 @@ class Widget(FeinCMSBase):
     vertical_span = models.IntegerField(verbose_name=_("V. Span"),
                                         choices=ROW_CHOICES, default=DEFAULT_WIDTH)
     align = models.IntegerField(
-        verbose_name=_("Alignment"), choices=ALIGN_CHOICES)
+        verbose_name=_("Alignment"), choices=ALIGN_CHOICES, default=DEFAULT_CHOICE)
     vertical_align = models.IntegerField(
         verbose_name=_("V. Alignment"), choices=VERTICAL_ALIGN_CHOICES, default=DEFAULT_CHOICE)
     prepend = models.IntegerField(verbose_name=_("Prepend"),
