@@ -6,16 +6,8 @@
 <html>
   <head>
     {% block header %}
-    <meta content='IE=edge' http-equiv='X-UA-Compatible' />
-    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
-    {% include "horizon/_custom_meta.html" %}
-    <title>{% block title %}{% endblock %} - {% site_branding %}</title>
-    {% comment %} Load CSS sheets before Javascript  {% endcomment %}
     {% include "_header.html" %}
-    {% endblock %}
-    {% block css %}
-    {% include "_stylesheets.html" %}
-    {% endblock %}    
+    {% endblock header %}
   </head>
   <body id="{% block body_id %}{% endblock %}" ng-app='hz' class="skin-blue {% if not request.user.is_authenticated %}sidebar-collapse sidebar-open{% endif %}">
     <div class="wrapper">
@@ -43,14 +35,14 @@
               </div>
               <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                  {% feincms_render_region feincms_page "toolbar" request %}
+                  {% feincms_render_region feincms_page "col1" request %}
                 </ul>
 
               <div id="user_info" class="pull-right">
 
                 <ul class="nav navbar-nav">
                   {% if request.user.is_authenticated %}
-                    <li><a class="fa fa-user" href="TODO">{{ request.user.username }}</a></li>
+                    <li><a class="fa fa-user ajax-modal" href="{% url 'horizon:contrib:forms:update' 'user' request.user.id %}">{{ request.user.username }}</a></li>
                     <li><a href="{% url 'horizon:module:auth:logout' %}">Sign Out</a></li>
                   {% else %}
                     <li><a class="ajax-modal" href="{% url 'horizon:module:auth:login' %}">Sign In</a></li>
@@ -76,14 +68,13 @@
         </section>
         <section class="content">
           {% block main %}
-            {% feincms_render_region feincms_page "main" request %}
+            {% feincms_render_region feincms_page "col3" request %}
           {% endblock %}
         </section>
       </div>
       {% endblock %}
       <footer class="main-footer">
         {% block footer %}
-          <a href="/contrib/models/page/create" class="ajax-update">Edit !</a>
           {% feincms_render_region feincms_page "footer" request %}
         {% endblock %}
       </footer>
@@ -91,10 +82,17 @@
     {% block js %}
     {% include "horizon/_scripts.html" %}
     {% endblock %}
-    <div id="modal_wrapper"></div>
+
+    {% block body_header %}{% feincms_render_region feincms_page "header" request %}{% endblock %}
+
+    {% block body_footer %}{% feincms_render_region feincms_page "footer" request %}{% endblock %}
+
+    {% block body_toolbar %}{% feincms_render_region feincms_page "toolbar" request %}{% endblock %}
 
     {% block body_helper %}{% feincms_render_region feincms_page "helper" request %}{% endblock %}
 
     {% block body_preview %}{% feincms_render_region feincms_page "preview" request %}{% endblock %}
+
+    <div id="modal_wrapper"></div>
   </body>
 </html>

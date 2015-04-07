@@ -12,16 +12,19 @@
 {% include "horizon/_custom_head_js.html" %}
 {% include "_custom_head_js.html" %}
 
-<link href="{{ STATIC_URL }}assets/css/bootstrap.css" rel="stylesheet">
-<link href="{{ STATIC_URL }}horizon/main.css" rel="stylesheet">
-<link href="{{ STATIC_URL }}assets/css/main.css" rel="stylesheet">
+{% if request.user.is_authenticated and request.user.is_staff %}
+<script src="{{ STATIC_URL }}dashboard/js/inline_edit.js"></script>
+{% else %}
 
-<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+{% endif %} 
+
+{% comment %}
 
 <script src="{{ STATIC_URL }}assets/js/jquery.min.js"></script>
-<script src="{{ STATIC_URL }}horizon/lib/admin_lte.js"></script>
 <script src="{{ STATIC_URL }}assets/js/smoothscroll.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+{% endcomment %}
+
 
 </head>
