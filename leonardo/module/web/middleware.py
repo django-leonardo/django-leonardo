@@ -69,19 +69,8 @@ class WebMiddleware(object):
         try:
             page = Page.objects.best_match_for_path(
                 request.path)
-            #page.options = build_options(page)
-            #leonardo_options['template'] = page.options['template']
-            #leonardo_options['theme'] = page.options['theme']
-            cls_list = []
-            """
-            for cls in page._feincms_content_types:
-                cls_list.append({
-                    'name': cls.__name__,
-                    'label': cls._meta.verbose_name
-                })
-            leonardo_options['widgets'] = cls_list
-            """
-        except Exception, e:
+            leonardo_options['widgets'] = page._feincms_content_types
+        except Exception:
             page = None
             leonardo_options['template'] = 'default'
             leonardo_options['theme'] = 'light'
