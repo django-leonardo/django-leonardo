@@ -18,6 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django_assets import Bundle, register
 from django_extensions.db.fields.json import JSONField
+from feincms.admin.item_editor import FeinCMSInline, ItemEditorForm
 from feincms.models import Base as FeinCMSBase
 from feincms.module.page.models import BasePage as FeinCMSPage
 
@@ -46,13 +47,88 @@ class Page(FeinCMSPage):
         ordering = ['tree_id', 'lft']
 
 
+class WidgetForm(ItemEditorForm):
+
+    pass
+
+import copy
+
+class WidgetInline(FeinCMSInline):
+    form = WidgetForm
+
+    """
+    fieldsets = [
+        (None, {
+            'fields': [
+                [],
+            ],
+        }),
+        ('Position', {
+            'fields': [
+                ('align', 'vertical_align'),
+            ],
+        }),
+    ]
+
+    def get_fieldsets(self, request, obj=None):
+
+        fieldsets = copy.deepcopy(
+            super(WidgetInline, self).get_fieldsets(request, obj))
+
+        w_fields = [f.name for f in Widget._meta.fields]
+
+
+        fields = fieldsets[0][1]['fields']
+        raise Exception(self.model._meta.)
+        raise Exception(self.model.__class__.__subclasses__)
+        _fields = []
+        _fields1 = []
+        for f in fields:
+            if f in w_fields:
+                _fields.append(f)
+
+            else:
+                _fields1.append(fields[fields.index(f)])
+        #fieldsets[0][1]['fields'] = fields
+        widget_fieldset = [
+
+        ('KOKO', {
+            'fields': [
+                (),
+            ],
+        }),
+        ('Test', {
+            'fields': [
+                ('pull'),#[f.name for f in Widget._meta.fields],
+            ],
+        })]
+
+        return fieldsets + widget_fieldset
+    """
+
+    """
+    fieldsets = (
+        (None, {
+            'fields': [],
+        }),
+        ('KOKO', {
+            'fields': (),
+            })
+    )
+    """
+
+
 class Widget(FeinCMSBase):
+
+    feincms_item_editor_inline = WidgetInline
+
     options = JSONField(
         verbose_name=_('widget options'), blank=True, editable=False)
     prerendered_content = models.TextField(
         _('prerendered content'), blank=True, editable=False)
 
-    label = models.CharField(verbose_name=_("Title"), max_length=255, null=True, blank=True)
+    label = models.CharField(
+        verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template_name = models.CharField(
         verbose_name=_("Display"), max_length=255)
 
@@ -220,6 +296,9 @@ class Widget(FeinCMSBase):
         if self.options == {}:
             self.options = DEFAULT_DISPLAY_OPTIONS
             self.save()
+
+    def model_cls(self):
+        return self.__class__.__name__
 
 
 def build_options(page):

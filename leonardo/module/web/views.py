@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.views.generic.simple import direct_to_template
 
-from feincms.module.page.models import Page
+from .models import Page
 
 def page_xml_list(request, object_id=None):
     if object_id == None:

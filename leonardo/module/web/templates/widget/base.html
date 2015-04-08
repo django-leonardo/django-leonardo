@@ -12,7 +12,10 @@
 {% fragment request "current_manufacturer" %}{% block current_manufacturer %}{% endblock %}{% endfragment %}
 
 {% if widget.options %}
+
 <div id="{{ widget.fe_identifier }}" class="fe_box webcms-widget webcms-{{ widget.widget_name }}-widget {{ widget.render_box_classes }}">
+<a class="ajax-modal" href="{% url 'widget_update' widget.model_cls widget.id %}">Edit</a>
+
 <div class="ui-helper-clearfix webcms-content{% if widget.options.boxed %} boxed{% endif %}{% if widget.options.padded %} padded{% endif %} template-{{ widget.options.template_name }} {{ widget.widget_name }}-{{ widget.options.template_name }}">
 {% block title %}
 {% if widget.options.label %}

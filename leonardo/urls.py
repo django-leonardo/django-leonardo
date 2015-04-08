@@ -32,6 +32,12 @@ urlpatterns += patterns('',
                         url(r'^select2/', include('django_select2.urls')),
                         )
 
+# modules
+if 'web' in getattr(settings, 'APPS', []):
+    urlpatterns += patterns('',
+                            url(r'', include('leonardo.module.web.urls')),
+                                )
+
 # All Auth
 urlpatterns += patterns('',
                         url(r'^accounts/', include('allauth.urls')),

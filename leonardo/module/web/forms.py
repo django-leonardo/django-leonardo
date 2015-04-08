@@ -1,5 +1,60 @@
 
+
+from django import forms
 from django.forms.models import modelform_factory
+from horizon_contrib.common import get_class
+from horizon_contrib.forms import SelfHandlingModelForm
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Div, Layout, TabHolder, Fieldset, Tab, Field
+
+from .models import Widget
+
+class WidgetForm(SelfHandlingModelForm):
+
+    def __init__(self, *args, **kwargs):
+
+        super(WidgetForm, self).__init__(*args, **kwargs)
+
+        _fields = [f.name for f in Widget._meta.fields]
+
+        fields = [
+            f.name for f in self._meta.model._meta.fields
+            if f.name not in _fields and not isinstance(f.name, unicode)]
+
+        self.helper.layout = Layout(
+            TabHolder(
+                Tab('Main',
+                    *fields
+                    ),
+                Tab('Layout',
+                    *[Field(f, wrapper_class='col-lg-6 field-wrapper') for f in _fields]
+                    ),
+                Tab('Other',
+                    *_fields
+                    )
+            )
+        )
+
+
+def get_widget_update_form(**kwargs):
+    """
+    widget = get_widget_from_id(widget_id)
+
+    """
+    model_cls = get_class(kwargs['cls_name'])
+
+    form_class_base = getattr(
+        model_cls, 'feincms_item_editor_form', WidgetForm)
+
+    WidgetModelForm = modelform_factory(model_cls,
+                                        exclude=(
+                                            'parent', 'region', 'ordering'),
+                                        form=form_class_base,)
+
+    return WidgetModelForm
+
+"""
 
 from webcms.models import DEFAULT_DISPLAY_OPTIONS
 from webcms.forms import GenericWidgetModelForm, WidgetOptionsForm
@@ -55,3 +110,4 @@ def get_widget_update_forms(request, widget_id, set_initial, data=None):
         obj_form = WidgetModelForm(data=data,instance=widget, prefix='obj-form')
 
     return form, obj_form
+"""
