@@ -46,8 +46,6 @@ class Default(object):
 
             'django_select2',
 
-            'livesettings',
-
             #'reversion',
 
             'horizon',

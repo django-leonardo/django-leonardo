@@ -238,10 +238,13 @@ from leonardo.module.nav import default as nav_default
 from leonardo.module.lang import default as lang_default
 from leonardo.module.forms import default as forms_default
 """
+APPLICATION_CHOICES = [] # init
+
 from leonardo.module.web.settings import *
 from leonardo.module.web.models import Page
 from leonardo.module.web.widget import ApplicationWidget
 
+from leonardo.module.eshop import default
 try:
     # override settings
     from project.conf.feincms import *
@@ -252,27 +255,18 @@ try:
 
     # Try importing a modules from the module package
     package_string = '.'.join(['leonardo', 'module'])
+
+    # can be merged into one for cycle
+    # collect application settings
     for app in APPS:
         if module_has_submodule(import_module(package_string), app):
             mod = import_module('.{0}'.format(app), package_string)
 
             if hasattr(mod, 'default'):
 
-                Page.create_content_type(
-                    ApplicationWidget, APPLICATIONS=getattr(
+                APPLICATION_CHOICES = merge(APPLICATION_CHOICES, getattr(
                         mod.default, 'plugins', []))
 
-                for ct in getattr(mod.default, 'widgets'):
-                    Page.create_content_type(
-                        ct, optgroup=getattr(
-                            mod.default, 'optgroup', app.capitalize()))
-                    """
-                    mod_root = mod.__file__.split('__init__')[0]
-                    templates = os.listdir(mod_root + 'templates')
-                    if 'widget' in templates:
-                        for template in os.listdir(mod_root + 'templates/widget/' + ct.__name__.lower().replace('widget', '')):
-                            raise Exception(template)
-                    """
                 INSTALLED_APPS = merge(
                     INSTALLED_APPS, getattr(mod.default, 'apps', []))
 
@@ -285,13 +279,26 @@ try:
                 AUTHENTICATION_BACKENDS = merge(
                     AUTHENTICATION_BACKENDS, getattr(
                         mod.default, 'auth_backends', []))
+    # register external apps
+    Page.create_content_type(
+        ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
 
+    # register widgets
+    for app in APPS:
+        if module_has_submodule(import_module(package_string), app):
+            mod = import_module('.{0}'.format(app), package_string)
+
+            if hasattr(mod, 'default'):
+
+                for ct in getattr(mod.default, 'widgets', []):
+
+                    Page.create_content_type(
+                        ct, optgroup=getattr(
+                            mod.default, 'optgroup', app.capitalize()))
 
     Page.register_extensions(*PAGE_EXTENSIONS)
     Page.register_default_processors(
         frontend_editing=True)
-except ImportError:
-    pass
 except Exception, e:
     raise e
 

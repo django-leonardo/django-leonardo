@@ -22,10 +22,6 @@ urlpatterns += patterns('',
                         url(r'^contrib/', include('horizon_contrib.urls'),),
                         )
 
-urlpatterns += patterns('',
-                        url(r'^settings/', include('livesettings.urls')),
-                        )
-
 # search
 urlpatterns += patterns('',
                         #url(r'', include('haystack.urls')),

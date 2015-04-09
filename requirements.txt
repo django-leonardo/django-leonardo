@@ -44,7 +44,6 @@ django-appconf
 PyYAML>=3.1.0
 horizon-contrib>=1.0.3
 netaddr>=0.7.12
--e hg+http://bitbucket.org/bkroeze/django-livesettings/#egg=django-livesettings  # live settings
 django-keyedcache==1.5.1
 xstatic>=1.0.0 # MIT License
 xstatic-angular>=1.2.1.1 # MIT License
