@@ -5,8 +5,20 @@
 Django-Leonardo
 ===============
 
+This is a stable for daily use in development.
+
 A collection of awesome Django libraries, resources and shiny things.
 Full featured framework for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
+
+Fresh modules
+=============
+
+- web
+- blog
+- forms
+- lang
+- nav
+- eshop
 
 Use Cases
 =========
