@@ -236,6 +236,5 @@ class TimeSeriesWidgetMixin(WidgetMixin):
 
         return response
 
-    
     class Meta:
         abstract = True
