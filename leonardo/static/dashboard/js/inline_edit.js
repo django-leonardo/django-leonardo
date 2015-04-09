@@ -91,8 +91,9 @@ $(function () {
 
   //Create the handle
   var user_settings = $("<div />")
+          .attr("data-toggle","control-sidebar")
           .css(handle_css1)
-          .html("<i data-toggle='control-sidebar' class='fa fa-outdent'></i>")
+          .html("<i class='fa fa-outdent'></i>")
           .addClass("no-print");
 
   demo_settings.append(
