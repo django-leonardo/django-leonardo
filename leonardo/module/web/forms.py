@@ -1,26 +1,43 @@
 
+import operator
 
+from feincms.admin.item_editor import ItemEditorForm
+from crispy_forms.bootstrap import Tab, TabHolder
+from crispy_forms.layout import Field, Layout
 from django import forms
 from django.forms.models import modelform_factory
+from django.utils.translation import ugettext_lazy as _
+from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from horizon_contrib.forms import SelfHandlingModelForm
 
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Div, Layout, TabHolder, Fieldset, Tab, Field
 
-from .models import Widget
+class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
 
-class WidgetForm(SelfHandlingModelForm):
+    template_name = forms.ChoiceField(
+        choices=[],
+        widget=forms.RadioSelect,
+        initial='default.html',
+    )
 
     def __init__(self, *args, **kwargs):
 
+        items = []
+        for item in self._meta.model.templates():
+            items.append(
+                (item, item.split('.')[0].capitalize()))
+        if items:
+            # items.sort(key=operator.itemgetter(1))
+            #items.insert(0, ("", ("Select Template")))
+            pass
+        else:
+            items.insert(0, ("", _("No Template available")))
+
+        self.base_fields['template_name'].choices = items
+
         super(WidgetForm, self).__init__(*args, **kwargs)
 
-        _fields = [f.name for f in Widget._meta.fields]
-
-        fields = [
-            f.name for f in self._meta.model._meta.fields
-            if f.name not in _fields and not isinstance(f.name, unicode)]
+        fields = self._meta.model._meta.fields
 
         self.helper.layout = Layout(
             TabHolder(
@@ -28,15 +45,13 @@ class WidgetForm(SelfHandlingModelForm):
                     *fields
                     ),
                 Tab('Layout',
-                    *[Field(f, wrapper_class='col-lg-6 field-wrapper') for f in _fields]
+                    *[Field(f.name) for f in fields]
                     ),
-                Tab('Other',
-                    *_fields
-                    )
             )
         )
 
 
+@memoized
 def get_widget_update_form(**kwargs):
     """
     widget = get_widget_from_id(widget_id)

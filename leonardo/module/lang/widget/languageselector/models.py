@@ -46,7 +46,7 @@ class LanguageSelectorWidget(Widget):
                     languages[trans_page.language]['page'] = trans_page
                     languages[trans_page.language]['suffix'] = suffix
 
-        return render_to_string(self.template_name, {
+        return render_to_string(self.get_template_name(), {
             'widget': self,
             'page': page,
             'request': request,

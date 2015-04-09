@@ -4,7 +4,7 @@ from __future__ import absolute_import
 import os
 from os.path import abspath, dirname, join, normpath
 
-from oscar import get_core_apps as get_eshop_apps, OSCAR_MAIN_TEMPLATE_DIR
+from oscar import OSCAR_MAIN_TEMPLATE_DIR
 
 from leonardo import default, merge
 
@@ -217,68 +217,9 @@ from oscar.defaults import *
 REVERSION_MIDDLEWARE=[
     'reversion.middleware.RevisionMiddleware']
 
-ESHOP_MIDDLEWARE=[
-    'oscar.apps.basket.middleware.BasketMiddleware']
-
-ESHOP_CONTEXT_PROCESSORS=[
-    'oscar.apps.search.context_processors.search_form',
-    'oscar.apps.promotions.context_processors.promotions',
-    'oscar.apps.checkout.context_processors.checkout',
-    'oscar.apps.customer.notifications.context_processors.notifications',
-    'oscar.core.context_processors.metadata',
-]
-
-ESHOP_APPS = [
-    'leonardo.module.eshop',
-    'leonardo.module.eshop.api',
-    'oscarapi'] + get_eshop_apps()
-
-ESHOP_AUTH_BACKENDS = [
-    'oscar.apps.customer.auth_backends.EmailBackend',
-]
-
-BLOG_APPS = ['elephantblog', 'leonardo.module.blog']
-
-OAUTH_BACKENDS = [
-    "allauth.account.auth_backends.AuthenticationBackend",
-]
 
 OAUTH_CTP = [
     "allauth.socialaccount.context_processors.socialaccount"
-]
-
-OAUTH_APPS = [
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.amazon',
-    'allauth.socialaccount.providers.angellist',
-    'allauth.socialaccount.providers.bitbucket',
-    'allauth.socialaccount.providers.bitly',
-    'allauth.socialaccount.providers.coinbase',
-    'allauth.socialaccount.providers.dropbox',
-    #'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.flickr',
-    'allauth.socialaccount.providers.feedly',
-    'allauth.socialaccount.providers.fxa',
-    'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.hubic',
-    'allauth.socialaccount.providers.instagram',
-    'allauth.socialaccount.providers.linkedin',
-    'allauth.socialaccount.providers.linkedin_oauth2',
-    'allauth.socialaccount.providers.odnoklassniki',
-    'allauth.socialaccount.providers.openid',
-    'allauth.socialaccount.providers.persona',
-    'allauth.socialaccount.providers.soundcloud',
-    'allauth.socialaccount.providers.stackexchange',
-    'allauth.socialaccount.providers.tumblr',
-    'allauth.socialaccount.providers.twitch',
-    'allauth.socialaccount.providers.twitter',
-    'allauth.socialaccount.providers.vimeo',
-    'allauth.socialaccount.providers.vk',
-    'allauth.socialaccount.providers.weibo',
-    'allauth.socialaccount.providers.xing',
 ]
 
 # first load some defaults
@@ -289,93 +230,70 @@ try:
 except Exception, e:
     raise e
 
-# register common stuff
 
-"""aggregate for some apps
-
-    - web
-    - blog
-    - eshop
-    - oauth
-    - reversion
-    - fulltext
-    - forms
-
+# import defaults
 """
+#from leonardo.module.web import default as web_default
+from leonardo.module.nav import default as nav_default
+from leonardo.module.lang import default as lang_default
+from leonardo.module.forms import default as forms_default
+"""
+from leonardo.module.web.settings import *
+from leonardo.module.web.models import Page
+from leonardo.module.web.widget import ApplicationWidget
 
-if 'web' in APPS:
+try:
+    # override settings
+    from project.conf.feincms import *
 
-    # import defaults
-    from leonardo.module.web import default as web_default
-    from leonardo.module.nav import default as nav_default
-    from leonardo.module.lang import default as lang_default
-    from leonardo.module.forms import default as forms_default
-    from leonardo.module.web.settings import *
-    from leonardo.module.web.models import Page
-    from leonardo.module.web.widget import ApplicationWidget
+    from django.utils.importlib import import_module  # noqa
 
-    try:
-        # override settings
-        from project.conf.feincms import *
+    from django.utils.module_loading import module_has_submodule  # noqa
+
+    # Try importing a modules from the module package
+    package_string = '.'.join(['leonardo', 'module'])
+    for app in APPS:
+        if module_has_submodule(import_module(package_string), app):
+            mod = import_module('.{0}'.format(app), package_string)
+
+            if hasattr(mod, 'default'):
+
+                Page.create_content_type(
+                    ApplicationWidget, APPLICATIONS=getattr(
+                        mod.default, 'plugins', []))
+
+                for ct in getattr(mod.default, 'widgets'):
+                    Page.create_content_type(
+                        ct, optgroup=getattr(
+                            mod.default, 'optgroup', app.capitalize()))
+                    """
+                    mod_root = mod.__file__.split('__init__')[0]
+                    templates = os.listdir(mod_root + 'templates')
+                    if 'widget' in templates:
+                        for template in os.listdir(mod_root + 'templates/widget/' + ct.__name__.lower().replace('widget', '')):
+                            raise Exception(template)
+                    """
+                INSTALLED_APPS = merge(
+                    INSTALLED_APPS, getattr(mod.default, 'apps', []))
+
+                TEMPLATE_CONTEXT_PROCESSORS = merge(
+                    TEMPLATE_CONTEXT_PROCESSORS, getattr(
+                        mod.default, 'ctp', []))
+                MIDDLEWARE_CLASSES = merge(
+                                            MIDDLEWARE_CLASSES, getattr(
+                                            mod.default, 'middlewares', []))
+                AUTHENTICATION_BACKENDS = merge(
+                    AUTHENTICATION_BACKENDS, getattr(
+                        mod.default, 'auth_backends', []))
 
 
-        # register stuff
-        # TODO: this is ugly shit but i must se pattern for automation
-        Page.create_content_type(
-            ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
-        for ct in web_default.widgets:
-            Page.create_content_type(ct, optgroup='Web')
-        for ct in nav_default.widgets:
-            Page.create_content_type(ct, optgroup='Navigation')
-        for ct in lang_default.widgets:
-            Page.create_content_type(ct, optgroup='Translations')
-        for ct in forms_default.widgets:
-            Page.create_content_type(ct, optgroup='Forms')
-        Page.register_extensions(*PAGE_EXTENSIONS)
-        Page.register_default_processors(
-            frontend_editing=True)
-    except ImportError:
-        pass
-    except Exception, e:
-        raise e
-
-    INSTALLED_APPS = merge(INSTALLED_APPS, lang_default.apps)
-    INSTALLED_APPS = merge(INSTALLED_APPS, nav_default.apps)
-    INSTALLED_APPS = merge(INSTALLED_APPS, forms_default.apps)
-    INSTALLED_APPS = merge(INSTALLED_APPS, web_default.apps)
-    TEMPLATE_CONTEXT_PROCESSORS = merge(
-        TEMPLATE_CONTEXT_PROCESSORS, web_default.ctp)
-    MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES, web_default.middlewares)
-
-if 'blog' in APPS:
-    INSTALLED_APPS = merge(INSTALLED_APPS, BLOG_APPS)
-
-if 'oauth' in APPS:
-    INSTALLED_APPS = merge(INSTALLED_APPS, OAUTH_APPS)
-    TEMPLATE_CONTEXT_PROCESSORS = merge(
-        OAUTH_CTP, TEMPLATE_CONTEXT_PROCESSORS)
-    AUTHENTICATION_BACKENDS = merge(AUTHENTICATION_BACKENDS, OAUTH_BACKENDS)
-
-# configure eshop
-if 'eshop' in APPS or 'oscar' in INSTALLED_APPS:
-
-    INSTALLED_APPS = merge(INSTALLED_APPS, ESHOP_APPS)
-    MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES, ESHOP_MIDDLEWARE)
-    TEMPLATE_CONTEXT_PROCESSORS = merge(
-        ESHOP_CONTEXT_PROCESSORS, TEMPLATE_CONTEXT_PROCESSORS)
-    AUTHENTICATION_BACKENDS = merge(
-        AUTHENTICATION_BACKENDS, ESHOP_AUTH_BACKENDS)
-
-    # OSCAR SPECIFIC CONF
-
-    OSCAR_INITIAL_ORDER_STATUS = 'Pending'
-    OSCAR_INITIAL_LINE_STATUS = 'Pending'
-    OSCAR_ORDER_STATUS_PIPELINE = {
-        'Pending': ('Being processed', 'Cancelled',),
-        'Being processed': ('Processed', 'Cancelled',),
-        'Cancelled': (),
-    }
-    TEMPLATE_DIRS = merge(TEMPLATE_DIRS, OSCAR_MAIN_TEMPLATE_DIR)
+    Page.register_extensions(*PAGE_EXTENSIONS)
+    Page.register_default_processors(
+        frontend_editing=True)
+except ImportError:
+    pass
+except Exception, e:
+    raise e
 
 if 'fulltext' or 'eshop' in APPS:
 

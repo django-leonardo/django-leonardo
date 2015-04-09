@@ -26,7 +26,7 @@ class ContentNavigationWidget(Widget):
             if content.options.get('label', False):
                 headers.append(content)
 
-        return render_to_string(self.template_name, { 
+        return render_to_string(self.get_template_name(), { 
             'widget': self,
             'request': options['request'],
             'headers': headers,

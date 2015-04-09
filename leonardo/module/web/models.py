@@ -1,28 +1,22 @@
 # -#- coding: utf-8 -#-
 
-from functools import update_wrapper
+import os
+import sys
 
-import six
-from admin_tools.menu import items, Menu
-from django import http, template
-from django.conf import settings
-from django.contrib import admin
-from django.contrib.admin.sites import AdminSite
-from django.core.urlresolvers import reverse
+from django import forms
 from django.db import models
-from django.db.models.signals import pre_save
-from django.shortcuts import render_to_response
-from django.template import Context, loader, RequestContext
+from django.template import loader, RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-from django.views.decorators.cache import never_cache
-from django_assets import Bundle, register
 from django_extensions.db.fields.json import JSONField
 from feincms.admin.item_editor import FeinCMSInline, ItemEditorForm
 from feincms.models import Base as FeinCMSBase
 from feincms.module.page.models import BasePage as FeinCMSPage
+from horizon.utils.memoized import memoized
 
 from .const import *
+
+from .forms import WidgetForm
 
 
 class Page(FeinCMSPage):
@@ -47,75 +41,8 @@ class Page(FeinCMSPage):
         ordering = ['tree_id', 'lft']
 
 
-class WidgetForm(ItemEditorForm):
-
-    pass
-
-import copy
-
 class WidgetInline(FeinCMSInline):
     form = WidgetForm
-
-    """
-    fieldsets = [
-        (None, {
-            'fields': [
-                [],
-            ],
-        }),
-        ('Position', {
-            'fields': [
-                ('align', 'vertical_align'),
-            ],
-        }),
-    ]
-
-    def get_fieldsets(self, request, obj=None):
-
-        fieldsets = copy.deepcopy(
-            super(WidgetInline, self).get_fieldsets(request, obj))
-
-        w_fields = [f.name for f in Widget._meta.fields]
-
-
-        fields = fieldsets[0][1]['fields']
-        raise Exception(self.model._meta.)
-        raise Exception(self.model.__class__.__subclasses__)
-        _fields = []
-        _fields1 = []
-        for f in fields:
-            if f in w_fields:
-                _fields.append(f)
-
-            else:
-                _fields1.append(fields[fields.index(f)])
-        #fieldsets[0][1]['fields'] = fields
-        widget_fieldset = [
-
-        ('KOKO', {
-            'fields': [
-                (),
-            ],
-        }),
-        ('Test', {
-            'fields': [
-                ('pull'),#[f.name for f in Widget._meta.fields],
-            ],
-        })]
-
-        return fieldsets + widget_fieldset
-    """
-
-    """
-    fieldsets = (
-        (None, {
-            'fields': [],
-        }),
-        ('KOKO', {
-            'fields': (),
-            })
-    )
-    """
 
 
 class Widget(FeinCMSBase):
@@ -130,7 +57,7 @@ class Widget(FeinCMSBase):
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template_name = models.CharField(
-        verbose_name=_("Display"), max_length=255)
+        verbose_name=_("Display"), max_length=255, default='default.html')
 
     span = models.IntegerField(verbose_name=_("Span"),
                                choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
@@ -223,27 +150,9 @@ class Widget(FeinCMSBase):
         return u' '.join(classes)
     render_box_classes = property(_render_box_classes)
 
-    def _template_name(self):
-        try:
-            if self.options['template_name'] == '':
-                template = 'default'
-            else:
-                template = self.options['template_name']
-        except:
-            template = 'default'
-        return u'widget/%s/%s.html' % (self.widget_name, template)
-    template_name = property(_template_name)
-
-    def get_template_name(self, format):
-        try:
-            if self.options['template_name'] == '':
-                template = 'default'
-            else:
-                template = self.options['template_name']
-        except:
-            template = 'default'
-        return u'widget/%s/%s.%s' % (self.widget_name, template, format)
-    template_name = property(_template_name)
+    def get_template_name(self, format='html'):
+        return 'widget/%s/%s.%s' % (
+            self.widget_name, self.template_name, format)
 
     def _template_xml_name(self):
         template = 'default'
@@ -260,10 +169,6 @@ class Widget(FeinCMSBase):
 
     def render(self, **kwargs):
         return self.render_content(kwargs)
-        if self.prerendered_content == '':
-            return self.render_content(kwargs)
-        else:
-            return self.prerendered_content
 
     def render_content(self, options):
         #        if options.has_key('use_xml') and options['use_xml']:
@@ -300,35 +205,19 @@ class Widget(FeinCMSBase):
     def model_cls(self):
         return self.__class__.__name__
 
+    @classmethod
+    @memoized
+    def templates(cls):
+        """returns widget templates located in ``templates/widget/widgetname``
+        """
 
-def build_options(page):
-    if hasattr(page, 'parent'):
-        try:
-            template = page.parent.options['template']
-            theme = page.parent.options['theme']
-        except:
-            template = 'local'
-            theme = 'default'
-    else:
-        template = 'local'
-        theme = 'default'
-
-    # TODO load and set layout
-
-    #layout = TEMPLATE_LAYOUTS[page.template_key]
-
-    options = {
-        #'col1_width': layout[0],
-        #'col2_width': layout[1],
-        #'col3_width': layout[2],
-        #'col4_width': layout[3],
-        'template': template,
-        'theme': theme,
-    }
-    return options
-
-
-def check_options(page):
-    if page is not None and not hasattr(page, 'options'):
-        return build_options(page)
-    return {}
+        mod_root = sys.modules[cls.__module__].__file__.split('models.py')[0]
+        _templates = os.listdir(mod_root + 'templates')
+        if 'widget' in _templates:
+            try:
+                templates = os.listdir(
+                    mod_root + 'templates/widget/' +
+                    cls.__name__.lower().replace('widget', ''))
+            except OSError:
+                templates = []
+        return templates

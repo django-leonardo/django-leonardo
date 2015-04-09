@@ -5,7 +5,7 @@ South==1.0.2 # for some apps (oscar,django_extensions,filer)
 django-extensions==1.5.2
 djangorestframework==2.3.5
 django-floppyforms==1.1
-django-crispy-forms==1.2.8
+django-crispy-forms==1.4.0
 django-assets==0.8
 django-yamlfield==0.4
 django-markitup==2.2.2

@@ -27,7 +27,7 @@ from django.utils.translation import ugettext as __
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import activate
 from feincms.content.application.models import reverse
-from .models import Page, build_options
+from .models import Page
 from horizon import exceptions, messages
 from livesettings import config_value
 

@@ -39,7 +39,7 @@ class ContextNavigationWidget(Widget):
         else:
             root = options['request'].webcms_page
 
-        return render_to_string(self.template_name, { 
+        return render_to_string(self.get_template_name(), { 
             'widget': self,
             'page': root,
             'request': options['request'],

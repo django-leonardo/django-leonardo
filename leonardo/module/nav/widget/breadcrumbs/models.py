@@ -63,7 +63,7 @@ class BreadcrumbsWidget(Widget):
         if include_self:
             bc.append(('', True, page.short_title()))
 
-        return render_to_string(self.template_name, { 
+        return render_to_string(self.get_template_name(), { 
             'widget': self,
             'page': page,
             "trail": bc,

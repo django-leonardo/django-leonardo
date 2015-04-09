@@ -26,8 +26,10 @@ class Default(object):
     @property
     def apps(self):
         return [
+            'crispy_forms',
             'form_designer',
             'django_remote_forms',
+            'leonardo.module.forms',
         ]
 
     @property

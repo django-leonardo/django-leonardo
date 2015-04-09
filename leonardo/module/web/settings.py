@@ -22,7 +22,7 @@ PAGE_EXTENSIONS = [
     'feincms.module.page.extensions.symlinks',
     'feincms.module.extensions.changedate',
 ]
-
+"""
 APPLICATION_CHOICES = (
     ('hrcms.portal.device_catalog.urls', 'Robotice Device Catalog'),
     ('hrcms.module.auth.urls', 'API Auth', ),
@@ -30,6 +30,7 @@ APPLICATION_CHOICES = (
     ('hrcms.module.eshop.api.urls', 'Eshop API', ),
     ('elephantblog.urls', 'Blog'),
 )
+"""
 
 CONTENT_TYPES = [
     ApplicationContent,

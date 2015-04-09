@@ -1,13 +1,17 @@
 
 
 from django.apps import AppConfig
+from django.utils.translation import ugettext_lazy as _
 
 from .widget import *
+
 
 default_app_config = 'leonardo.module.lang.LanConfig'
 
 
 class Default(object):
+
+    optgroup = ('Translation')
 
     @property
     def apps(self):

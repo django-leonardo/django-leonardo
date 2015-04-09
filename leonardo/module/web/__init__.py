@@ -9,6 +9,8 @@ default_app_config = 'leonardo.module.web.WebConfig'
 
 class Default(object):
 
+    optgroup = 'Web'
+
     @property
     def middlewares(self):
         return [
@@ -26,17 +28,9 @@ class Default(object):
             'leonardo.module',
 
             'feincms.module.page',
-            'feincms.content.application',
-            #'feincms.content.comments',
 
-            'leonardo.module.nav',
-            'leonardo.module.lang',
-            'leonardo.module.forms',
             'leonardo.module.web',
-            #'hrcms.module.forms',
-            #'hrcms.module.boardie',
-            'form_designer',
-            'django_remote_forms',
+
         ]
 
     @property

@@ -1,5 +1,4 @@
 
-
 from django.apps import AppConfig
 
 from .widget import *
@@ -9,6 +8,14 @@ default_app_config = 'leonardo.module.nav.NavConfig'
 
 
 class Default(object):
+
+    optgroup = ('Navigation')
+
+    @property
+    def apps(self):
+        return [
+            'leonardo.module.nav'
+        ]
 
     @property
     def widgets(self):

@@ -46,7 +46,7 @@ class TreeNavigationWidget(Widget):
         else:
             root = self.parent
 
-        return render_to_string(self.template_name, { 
+        return render_to_string(self.get_template_name(), { 
             'widget': self,
             'current': request.webcms_page,
             'root': root,

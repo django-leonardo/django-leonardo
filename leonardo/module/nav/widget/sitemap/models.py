@@ -23,7 +23,7 @@ class SiteMapWidget(Widget):
         linkmenu_class = models.loading.get_model('page', 'linkmenuwidget')
         utils_list = linkmenu_class.objects.filter(parent__in=page_list)
 
-        return render_to_string(self.template_name, { 
+        return render_to_string(self.get_template_name(format='xml'), { 
             'widget': self,
             'page_list': page_list,
             'utils_list': utils_list,
