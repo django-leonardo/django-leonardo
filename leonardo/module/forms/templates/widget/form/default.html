@@ -1,22 +1,18 @@
 {% extends "widget/base.html" %}
 
 {% load i18n %}
-{% load webcms_form_tags %}
 
 {% block content %}
-<div id="form{{ widget.id }}">
-  {% if widget.show_form_title %}
-    <h2>{{ widget.form.title }}</h2>
+<div id="form{{ content.id }}">
+  {% if content.show_form_title %}
+    <h2>{{ content.form.title }}</h2>
   {% endif %}
   {% if form %}
-  <form method="post" action="#form{{ widget.id }}">{% csrf_token %}
-    <table>
-      {{ form }}
-      <tr>
-        <td>&nbsp;</td>
-        <td><input type="submit" value='{% trans "Submit" %}' /></td>
-      </tr>
-    </table>
+  <form method="post" action="#form{{ content.id }}" class="{{ content.formclass }}">
+    {% csrf_token %}
+    <input type="hidden" name="_formcontent" value="{{ content.id }}">
+    {{ form }}
+    <input type="submit" value="{{ content.submit_caption }}"></td>
   </form>
   {% else %}
     {{ message|safe }}

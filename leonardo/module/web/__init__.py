@@ -31,6 +31,7 @@ class Default(object):
 
             'leonardo.module.nav',
             'leonardo.module.lang',
+            'leonardo.module.forms',
             'leonardo.module.web',
             #'hrcms.module.forms',
             #'hrcms.module.boardie',

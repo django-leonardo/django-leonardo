@@ -1,2 +1,2 @@
 
-from .form.models import FormWidget
+from .form.models import FormWidget  # noqa

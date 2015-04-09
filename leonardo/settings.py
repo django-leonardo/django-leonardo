@@ -70,6 +70,7 @@ TEMPLATE_CONTEXT_PROCESSORS = default.ctp
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    'horizon.loaders.TemplateLoader',
 )
 
 
@@ -298,6 +299,7 @@ except Exception, e:
     - oauth
     - reversion
     - fulltext
+    - forms
 
 """
 
@@ -307,6 +309,7 @@ if 'web' in APPS:
     from leonardo.module.web import default as web_default
     from leonardo.module.nav import default as nav_default
     from leonardo.module.lang import default as lang_default
+    from leonardo.module.forms import default as forms_default
     from leonardo.module.web.settings import *
     from leonardo.module.web.models import Page
     from leonardo.module.web.widget import ApplicationWidget
@@ -314,6 +317,7 @@ if 'web' in APPS:
     try:
         # override settings
         from project.conf.feincms import *
+
 
         # register stuff
         # TODO: this is ugly shit but i must se pattern for automation
@@ -325,14 +329,19 @@ if 'web' in APPS:
             Page.create_content_type(ct, optgroup='Navigation')
         for ct in lang_default.widgets:
             Page.create_content_type(ct, optgroup='Translations')
+        for ct in forms_default.widgets:
+            Page.create_content_type(ct, optgroup='Forms')
         Page.register_extensions(*PAGE_EXTENSIONS)
         Page.register_default_processors(
-            frontend_editing=FEINCMS_FRONTEND_EDITING)
+            frontend_editing=True)
     except ImportError:
         pass
     except Exception, e:
         raise e
 
+    INSTALLED_APPS = merge(INSTALLED_APPS, lang_default.apps)
+    INSTALLED_APPS = merge(INSTALLED_APPS, nav_default.apps)
+    INSTALLED_APPS = merge(INSTALLED_APPS, forms_default.apps)
     INSTALLED_APPS = merge(INSTALLED_APPS, web_default.apps)
     TEMPLATE_CONTEXT_PROCESSORS = merge(
         TEMPLATE_CONTEXT_PROCESSORS, web_default.ctp)
