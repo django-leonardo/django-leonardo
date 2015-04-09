@@ -12,8 +12,9 @@
 {% include "horizon/_custom_head_js.html" %}
 {% include "_custom_head_js.html" %}
 
-{% if request.user.is_authenticated and request.user.is_staff %}
+{% if request.user.is_authenticated and request.user.is_staff and request.frontend_editing %}
 <script src="{{ STATIC_URL }}dashboard/js/inline_edit.js"></script>
+<script src="{{ STATIC_URL }}dashboard/js/app.js"></script>
 {% else %}
 
 {% endif %} 

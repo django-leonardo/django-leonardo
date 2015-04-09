@@ -43,6 +43,12 @@
                 <ul class="nav navbar-nav">
                   {% if request.user.is_authenticated %}
                     <li><a class="fa fa-user ajax-modal" href="{% url 'horizon:contrib:forms:update' 'user' request.user.id %}">{{ request.user.username }}</a></li>
+                    {% if request.user.is_staff and request.frontend_editing %}
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                      <a href="#" data-toggle="control-sidebar"><i class="fa fa-outdent"></i>{% trans 'Settings' %}</a>
+                    </li>
+                    {% endif %}
                     <li><a href="{% url 'horizon:module:auth:logout' %}">Sign Out</a></li>
                   {% else %}
                     <li><a class="ajax-modal" href="{% url 'horizon:module:auth:login' %}">Sign In</a></li>
@@ -81,6 +87,10 @@
           {% feincms_render_region feincms_page "footer" request %}
         {% endblock %}
       </footer>
+
+      {% if request.user.is_authenticated and request.user.is_staff and request.frontend_editing %}
+        {% include "common/user_sidebar.html" %}
+      {% endif %} 
 
     </div>
     {% block js %}
