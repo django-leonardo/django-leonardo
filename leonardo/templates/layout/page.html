@@ -68,6 +68,9 @@
         </section>
         <section class="content">
           {% block main %}
+            {% if request.frontend_editing %}
+            <a href="{% url 'widget_create' 'web.htmltextwidget' %}">Přidat</a>
+            {% endif %}
             {% feincms_render_region feincms_page "col3" request %}
           {% endblock %}
         </section>
@@ -78,6 +81,7 @@
           {% feincms_render_region feincms_page "footer" request %}
         {% endblock %}
       </footer>
+
     </div>
     {% block js %}
     {% include "horizon/_scripts.html" %}
