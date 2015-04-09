@@ -8,18 +8,25 @@ from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from feincms import settings
-from feincms.admin.item_editor import ItemEditorForm
+#from feincms.admin.item_editor import ItemEditorForm, FeinCMSInline
 from feincms.utils import get_object
 from leonardo.module.web.models import Widget
+from leonardo.module.web.forms import WidgetForm
 
 
-class HtmlTextWidgetAdminForm(ItemEditorForm):
+class HtmlTextWidgetAdminForm(WidgetForm):
     text = forms.CharField(
         widget=forms.Textarea, required=False, label=_('text'))
+
+    class Meta:
+
+        fields = ('text',)
+        widgets = {'template_name': forms.widgets.Select(choices=[])}
 
     def __init__(self, *args, **kwargs):
         super(HtmlTextWidgetAdminForm, self).__init__(*args, **kwargs)
         self.fields['text'].widget.attrs.update({'class': 'item-richtext'})
+
 
     #: If FEINCMS_TIDY_ALLOW_WARNINGS_OVERRIDE allows, we'll convert this into
     # a checkbox so the user can choose whether to ignore HTML validation
@@ -73,7 +80,7 @@ class HtmlTextWidgetAdminForm(ItemEditorForm):
 class HtmlTextWidget(Widget):
     form = HtmlTextWidgetAdminForm
 
-    feincms_item_editor_form = HtmlTextWidgetAdminForm
+    #feincms_item_editor_inline = MyInline
 
     feincms_item_editor_context_processors = (
         lambda x: settings.FEINCMS_RICHTEXT_INIT_CONTEXT,
@@ -83,7 +90,7 @@ class HtmlTextWidget(Widget):
     }
 
     text = models.TextField(
-        _('text'), blank=True, default="<p>%s</p>" % _('Empty element'))
+        _('text'), blank=True, default="<p>%s</p>" % ('Empty element'))
 
     class Meta:
         abstract = True

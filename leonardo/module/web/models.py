@@ -5,6 +5,7 @@ import sys
 
 from django import forms
 from django.db import models
+from django.forms.models import fields_for_model
 from django.template import loader, RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
@@ -15,7 +16,6 @@ from feincms.module.page.models import BasePage as FeinCMSPage
 from horizon.utils.memoized import memoized
 
 from .const import *
-
 from .forms import WidgetForm
 
 
@@ -43,6 +43,40 @@ class Page(FeinCMSPage):
 
 class WidgetInline(FeinCMSInline):
     form = WidgetForm
+
+    def __init__(self, *args, **kwargs):
+        super(WidgetInline, self).__init__(*args, **kwargs)
+        widget_fields = [f.name for f in Widget._meta.fields if f.name not in ['options', 'prerendered_content'] ]
+        self.fieldsets = [
+            (None, {
+                'fields': [
+                    [f for f in fields_for_model(
+                        self.model, exclude=widget_fields +
+                        ['region', 'ordering', 'parent'])],
+                ],
+            }),
+            (_('Theme'), {
+                'fields': [
+                    ('template_name', 'style', 'border', 'clear'),
+                ],
+            }),
+            (_('Layout'), {
+                'fields': [
+                    ('pull', 'align', 'push', 'pull'),
+                ],
+            }),
+            (_('Position'), {
+                'fields': [
+                    ('prepend', 'append', 'vertical_span'),
+                ],
+            }),
+            (_('Visibility'), {
+                'fields': [
+                    ('visible', 'last'),
+                ],
+            }),
+
+        ]
 
 
 class Widget(FeinCMSBase):

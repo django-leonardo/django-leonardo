@@ -12,6 +12,14 @@ from horizon_contrib.common import get_class
 from horizon_contrib.forms import SelfHandlingModelForm
 
 
+WIDGETS = {
+            'template_name': forms.RadioSelect(choices=[]),
+            'region': forms.widgets.HiddenInput,
+            'parent': forms.widgets.HiddenInput,
+            'ordering': forms.widgets.HiddenInput,
+            }
+
+
 class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
 
     template_name = forms.ChoiceField(
@@ -19,6 +27,10 @@ class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
         widget=forms.RadioSelect,
         initial='default.html',
     )
+
+    class Meta:
+
+        widgets = WIDGETS
 
     def __init__(self, *args, **kwargs):
 
@@ -65,7 +77,8 @@ def get_widget_update_form(**kwargs):
     WidgetModelForm = modelform_factory(model_cls,
                                         exclude=(
                                             'parent', 'region', 'ordering'),
-                                        form=form_class_base,)
+                                        form=form_class_base,
+                                        widgets=WIDGETS)
 
     return WidgetModelForm
 
