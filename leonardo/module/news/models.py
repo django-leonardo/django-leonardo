@@ -4,8 +4,7 @@ from django.contrib import admin
 from django.db import models
 from django.db.models import signals
 from django.utils.translation import ugettext_lazy as _
-
-from feincms.admin import editor
+from feincms.admin.item_editor import ItemEditor
 from feincms.management.checker import check_database_schema
 from feincms.models import Base
 from feincms.utils import get_object
@@ -14,12 +13,12 @@ preview = ('preview', _('Preview'))
 content = ('content', _('Content'))
 
 NEWS_ENTRY_TEMPLATES = (
-{
-    'title': _('News entry layout'),
-    'key': 'entry',
-    'path': 'layout/news_entry.html',
-    'regions': (preview, content,),
-},
+    {
+        'title': _('News entry layout'),
+        'key': 'entry',
+        'path': 'layout/news_entry.html',
+        'regions': (preview, content,),
+    },
 )
 
 NEWS_ENTRY_REGIONS = (
@@ -27,22 +26,24 @@ NEWS_ENTRY_REGIONS = (
     ('content', _('Content')),
 )
 
-#NEWS_ENTRY_REGIONS_LIST = ('preview', 'content', )
+
 
 class NewsEntryManager(models.Manager):
+
     def published(self):
         return self.filter(
             published__isnull=False,
             published_on__lte=datetime.now(),
         )
 
+
 class NewsEntry(Base):
     published = models.BooleanField(_('published'), default=False)
     title = models.CharField(_('title'), max_length=100,
-        help_text=_('This is used for the generated navigation too.'))
+                             help_text=_('This is used for the generated navigation too.'))
     slug = models.SlugField()
     published_on = models.DateTimeField(_('published on'), blank=True, null=True,
-        help_text=_('Will be set automatically once you tick the `published` checkbox above.'))
+                                        help_text=_('Will be set automatically once you tick the `published` checkbox above.'))
 
     class Meta:
         get_latest_by = 'published_on'
@@ -71,14 +72,16 @@ class NewsEntry(Base):
     def register_extension(cls, register_fn):
         register_fn(cls, NewsEntryAdmin)
 
-class NewsEntryAdmin(editor.ItemEditor):
+
+class NewsEntryAdmin(ItemEditor):
     date_hierarchy = 'published_on'
     list_display = ('__unicode__', 'published', 'published_on')
     list_filter = ('published',)
     search_fields = ('title', 'slug',)
     prepopulated_fields = {
         'slug': ('title',),
-        }
+    }
     raw_id_fields = []
 
-signals.post_syncdb.connect(check_database_schema(NewsEntry, __name__), weak=False)
+signals.post_syncdb.connect(
+    check_database_schema(NewsEntry, __name__), weak=False)
