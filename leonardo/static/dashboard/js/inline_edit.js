@@ -40,7 +40,7 @@ $(function () {
     "background": "#fff",
     "border": "0px solid #ddd",
     "width": "250px",
-    "z-index": "99999",
+    "z-index": "99990",
     "box-shadow": "0 1px 3px rgba(0,0,0,0.1)"
   };
 
@@ -57,7 +57,7 @@ $(function () {
     "border-radius": "5px 0px 0px 5px",
     "padding": "10px 15px",
     "font-size": "16px",
-    "z-index": "99999",
+    "z-index": "99990",
     "cursor": "pointer",
     "color": "#3c8dbc",
     "box-shadow": "0 1px 3px rgba(0,0,0,0.1)"
@@ -66,13 +66,13 @@ $(function () {
 
   var handle_css1 = {
     "position": "fixed",
-    "top": "90px",
+    "top": "115px",
     "right": "0",
     "background": "#fff",
     "border-radius": "5px 0px 0px 5px",
     "padding": "10px 15px",
     "font-size": "16px",
-    "z-index": "99998",
+    "z-index": "99999",
     "cursor": "pointer",
     "color": "#3c8dbc",
     "box-shadow": "0 1px 3px rgba(0,0,0,0.1)"
@@ -92,7 +92,7 @@ $(function () {
   //Create the handle
   var user_settings = $("<div />")
           .css(handle_css1)
-          .html("<a href='#' data-toggle='control-sidebar'><i class='fa fa-outdent'></i>Conf</a>")
+          .html("<i data-toggle='control-sidebar' class='fa fa-outdent'></i>")
           .addClass("no-print");
 
   demo_settings.append(
