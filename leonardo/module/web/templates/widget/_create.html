@@ -1,0 +1,27 @@
+{% extends "horizon/common/_modal.html" %}
+
+{% load i18n %}
+{% load url from future %}
+
+{% block form_id %}{{ form_id }}{% endblock %}
+{% block form_action %}{{ url }}{% endblock %}
+
+{% block modal-header %}{{ modal_header }}{% endblock %}
+
+{% block modal-body %}
+
+{% load crispy_forms_tags %}
+{% crispy form %}
+
+</div>
+<div class="right">
+  <h4>{{ heading }}:</h4>
+  <p>{{ help_text }}</p>
+</div>
+{% endblock %}
+
+{% block modal-footer %}
+  <input class="btn btn-primary pull-right" type="submit" value="{{ view_name }}" />
+  <a href="#" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</a>
+
+{% endblock %}

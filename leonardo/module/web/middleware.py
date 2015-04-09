@@ -80,6 +80,8 @@ class WebMiddleware(object):
         leonardo_options['is_private'] = is_private
         request.leonardo_options = leonardo_options
         request.leonardo_page = page
+        request.frontend_editing = request.COOKIES.get(
+            'frontend_editing', False)
         # old
         request.webcms_page = page
         request.webcms_options = leonardo_options
