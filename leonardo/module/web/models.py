@@ -253,3 +253,13 @@ class Widget(FeinCMSBase):
         if choices:
             return template_choices(res, suffix=suffix)
         return res
+
+    @classmethod
+    def fields(cls):
+        widget_fields = [
+            f.name for f in Widget._meta.fields
+            if f.name not in ['options', 'prerendered_content']]
+
+        return fields_for_model(
+                cls, exclude=widget_fields +
+                [], widgets=WIDGETS)

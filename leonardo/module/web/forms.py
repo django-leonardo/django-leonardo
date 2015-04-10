@@ -46,11 +46,16 @@ class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
         self.helper.layout = Layout(
             TabHolder(
                 Tab('Main',
-                    *fields
+                    *self._meta.model.fields()
                     ),
+                Tab('Theme',
+                    'template_name', 'style', 'theme',
+                    ),
+
                 Tab('Layout',
                     *[Field(f.name) for f in fields]
                     ),
+
             )
         )
 
