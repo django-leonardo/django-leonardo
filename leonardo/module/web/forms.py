@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from horizon_contrib.forms import SelfHandlingModelForm
-
+from leonardo.utils.templates import template_choices
 
 WIDGETS = {
             'template_name': forms.RadioSelect(choices=[]),
@@ -25,7 +25,6 @@ class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
     template_name = forms.ChoiceField(
         choices=[],
         widget=forms.RadioSelect,
-        initial='default.html',
     )
 
     class Meta:
@@ -35,19 +34,12 @@ class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
     def __init__(self, *args, **kwargs):
         super(WidgetForm, self).__init__(*args, **kwargs)
 
-        items = []
-        for item in self._meta.model.templates():
-            items.append(
-                (item, item.split('.')[0].capitalize()))
-        if items:
-            # items.sort(key=operator.itemgetter(1))
-            #items.insert(0, ("", ("Select Template")))
-            pass
-        else:
+        items = self._meta.model.templates()
+        choices = template_choices(items, suffix=True)
+        if not items:
             items.insert(0, ("", _("No Template available")))
 
-        self.base_fields['template_name'].choices = items
-
+        self.fields['template_name'].choices = choices
 
         fields = self._meta.model._meta.fields
 

@@ -4,6 +4,7 @@ import os
 import sys
 
 from django import forms
+from django.conf import settings
 from django.db import models
 from django.forms.models import fields_for_model
 from django.template import loader, RequestContext
@@ -14,9 +15,10 @@ from feincms.admin.item_editor import FeinCMSInline, ItemEditorForm
 from feincms.models import Base as FeinCMSBase
 from feincms.module.page.models import BasePage as FeinCMSPage
 from horizon.utils.memoized import memoized
+from leonardo.utils.templates import find_all_templates, template_choices
 
 from .const import *
-from .forms import WidgetForm
+from .forms import WidgetForm, WIDGETS
 
 
 class Page(FeinCMSPage):
@@ -52,7 +54,7 @@ class WidgetInline(FeinCMSInline):
                 'fields': [
                     [f for f in fields_for_model(
                         self.model, exclude=widget_fields +
-                        ['region', 'ordering', 'parent'])],
+                        [], widgets=WIDGETS)],
                 ],
             }),
             (_('Theme'), {
@@ -185,8 +187,7 @@ class Widget(FeinCMSBase):
     render_box_classes = property(_render_box_classes)
 
     def get_template_name(self, format='html'):
-        return 'widget/%s/%s.%s' % (
-            self.widget_name, self.template_name, format)
+        return self.template_name
 
     def _template_xml_name(self):
         template = 'default'
@@ -241,17 +242,14 @@ class Widget(FeinCMSBase):
 
     @classmethod
     @memoized
-    def templates(cls):
+    def templates(cls, choices=False, suffix=True):
         """returns widget templates located in ``templates/widget/widgetname``
         """
+        widget_name = cls.__name__.lower().replace('widget', '')
 
-        mod_root = sys.modules[cls.__module__].__file__.split('models.py')[0]
-        _templates = os.listdir(mod_root + 'templates')
-        if 'widget' in _templates:
-            try:
-                templates = os.listdir(
-                    mod_root + 'templates/widget/' +
-                    cls.__name__.lower().replace('widget', ''))
-            except OSError:
-                templates = []
-        return templates
+        pattern = 'widget/{0}/'.format(widget_name)
+        res = find_all_templates('{0}*'.format(pattern))
+
+        if choices:
+            return template_choices(res, suffix=suffix)
+        return res
