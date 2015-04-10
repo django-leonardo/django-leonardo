@@ -33,6 +33,7 @@ class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
         widgets = WIDGETS
 
     def __init__(self, *args, **kwargs):
+        super(WidgetForm, self).__init__(*args, **kwargs)
 
         items = []
         for item in self._meta.model.templates():
@@ -47,7 +48,6 @@ class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
 
         self.base_fields['template_name'].choices = items
 
-        super(WidgetForm, self).__init__(*args, **kwargs)
 
         fields = self._meta.model._meta.fields
 

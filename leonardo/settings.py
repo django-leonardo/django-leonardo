@@ -36,7 +36,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('admin', 'mail@hrcms.cz'),
+    ('admin', 'mail@leonardo.cz'),
 )
 
 DEFAULT_CHARSET = 'utf-8'
@@ -59,8 +59,8 @@ LANGUAGES = (
 USE_I18N = True
 
 # SOME DEFAULTS
-MEDIA_ROOT = '/srv/hrcms/media/'
-STATIC_ROOT = '/srv/hrcms/static/'
+MEDIA_ROOT = '/srv/leonardo/sites/demo/media/'
+STATIC_ROOT = '/srv/leonardo/sites/demo/static/'
 
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
@@ -200,7 +200,7 @@ except ImportError:
 
 try:
     # full settings
-    from hrcms_site.local.settings import *
+    from leonardo_site.local.settings import *
 except ImportError:
     pass
 
@@ -247,7 +247,10 @@ from leonardo.module.web.widget import ApplicationWidget
 from leonardo.module.eshop import default
 try:
     # override settings
-    from project.conf.feincms import *
+    try:
+        from leonardo_site.conf.feincms import *
+    except ImportError:
+        pass
 
     from django.utils.importlib import import_module  # noqa
 
@@ -259,8 +262,16 @@ try:
     # can be merged into one for cycle
     # collect application settings
     for app in APPS:
-        if module_has_submodule(import_module(package_string), app):
-            mod = import_module('.{0}'.format(app), package_string)
+        try:
+            # check if is not full app
+            _app = import_module(app)
+        except ImportError:
+            _app = False
+        if module_has_submodule(import_module(package_string), app) or _app:
+            if _app:
+                mod = _app
+            else:
+                mod = import_module('.{0}'.format(app), package_string)
 
             if hasattr(mod, 'default'):
 

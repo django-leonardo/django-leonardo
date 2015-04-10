@@ -56,8 +56,6 @@ class Default(object):
             'filer',
             'easy_thumbnails',
 
-            'project',
-
         ]
 
     @property
