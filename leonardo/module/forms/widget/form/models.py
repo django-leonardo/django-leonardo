@@ -5,7 +5,7 @@ from form_designer.models import FormContent
 from leonardo.module.web.models import Widget
 
 
-class FormWidget(FormContent, Widget):
+class FormWidget(Widget, FormContent):
 
     class Meta:
         abstract = True
