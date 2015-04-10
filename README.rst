@@ -25,53 +25,53 @@ Use Cases
 
 - server-side
 
-	- CMS - FeinCMS
-	- E-Commerce - Oscar
-	- Dashboards - Horizon(OpenStack)
-	- API - Django Rest Framework
+    - CMS - FeinCMS
+    - E-Commerce - Oscar
+    - Dashboards - Horizon(OpenStack)
+    - API - Django Rest Framework
 
 Features based on
 =================
 
 - Backend
 
-	- Django 1.4 +
-	- FeinCMS
-		- Page, Blog, Navigation, Form Designer, Remote Forms
-	- Horizon / horizon-contrib
-		- Dashboards, Panels, Modals, Tables, Tabs, Workflows
-	- Oscar
-		- Model, Processes, API
+    - Django 1.4 +
+    - FeinCMS
+        - Page, Blog, Navigation, Form Designer, Remote Forms
+    - Horizon / horizon-contrib
+        - Dashboards, Panels, Modals, Tables, Tabs, Workflows
+    - Oscar
+        - Model, Processes, API
 
 - Client
 
-	- AngularJS
-		- SortTable, Filters, ..
-	- React
-	- AdminLTE 2 +
-	- Bootstrap 3
+    - AngularJS
+        - SortTable, Filters, ..
+    - React
+    - AdminLTE 2 +
+    - Bootstrap 3
 
 Installation
 ============
 
 .. code-block:: bash
 
-	pip install django-leonardo
+    pip install django-leonardo
 
-	# or latest
+    # or latest
 
-	pip install git+https://github.com/django-leonardo/django-leonardo@develop#egg=leonardo
+    pip install git+https://github.com/django-leonardo/django-leonardo@develop#egg=leonardo
 
-	# start
+    # start
 
-	manage.py runserver 0.0.0.0:80
+    manage.py runserver 0.0.0.0:80
 
 Scaffold new app
 ================
 
 Directory structure::
 
-    my_site
+    leonardo_site
         |-- __init__.py
         |-- config
             |-- __init__.py
@@ -90,25 +90,51 @@ Configure files
 * ``local_settings`` in your ``PYTHONPATH`` for all stuff
 * or ``settings``/``menu`` .. in ``conf``
 
+.. note::
+
+    ``leonardo_site`` must be in the ``PYTHONPATH``
+
 Minimal config
 
 .. code-block:: python
 
-	SITE_ID = 1
-	SITE_NAME = 'leonardo'
-	# or full domain
-	SITE_DOMAIN = 'www.leonardo.cz'
+    SITE_ID = 1
+    SITE_NAME = 'leonardo'
+    # or full domain
+    SITE_DOMAIN = 'www.leonardo.cz'
 
-	LANGUAGE_CODE = 'en'
+    LANGUAGE_CODE = 'en'
 
-	RAVEN_CONFIG = {}
+    RAVEN_CONFIG = {}
 
-	APPS = [
-	    'web',
-	    'blog',
-	    'eshop',
-	    'fulltext'
-	]
+    APPS = [
+        'web',
+        'blog',
+        'eshop',
+        'fulltext',
+        'leonardo_site',  # our app
+    ]
+
+Override location of migrations
+
+.. code-block:: python
+
+    # migrations
+    MIGRATION_MODULES = {
+        'application': 'leonardo.migrations.application',
+        'filer': 'filer.migrations_django',
+        'web': 'leonardo_site.migrations',
+    }
+
+.. code-block:: python
+
+    python manage.py makemigrations --noinput
+
+    python manage.py migrate --noinput
+
+.. note::
+
+    If ``migrations`` directory is not present we must call makemigrations with ``app_label`` for inicialization.
 
 Read More
 =========
