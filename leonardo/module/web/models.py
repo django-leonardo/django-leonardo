@@ -52,9 +52,7 @@ class WidgetInline(FeinCMSInline):
         self.fieldsets = [
             (None, {
                 'fields': [
-                    [f for f in fields_for_model(
-                        self.model, exclude=widget_fields +
-                        [], widgets=WIDGETS)],
+                    list(self.model.fields())
                 ],
             }),
             (_('Theme'), {
