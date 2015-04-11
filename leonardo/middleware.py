@@ -29,7 +29,6 @@ from django.utils.translation import activate
 from feincms.content.application.models import reverse
 from horizon import exceptions, messages
 from horizon.utils import functions as utils
-from livesettings import config_value
 
 LOG = logging.getLogger(__name__)
 

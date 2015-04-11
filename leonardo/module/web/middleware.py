@@ -29,7 +29,6 @@ from django.utils.translation import activate
 from feincms.content.application.models import reverse
 from .models import Page
 from horizon import exceptions, messages
-from livesettings import config_value
 
 
 class WebMiddleware(object):
