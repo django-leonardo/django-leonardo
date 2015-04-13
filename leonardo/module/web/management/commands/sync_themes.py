@@ -67,7 +67,7 @@ class Command(NoArgsCommand):
                         unicode(w._meta.verbose_name), name.split("/")[-1])
                     widget_theme.content_template = widget_template
                     widget_theme.base_template = base_template
-                    widget_theme.widget_class = w.__class__.__name__
+                    widget_theme.widget_class = w.__name__
                     widget_theme.save()
                     created_themes += 1
 
