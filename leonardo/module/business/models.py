@@ -22,6 +22,7 @@ TYPE_CHOICES = (
     ('joint', _('Joint stock company')),
 )
 
+
 class Entity(models.Model):
     """
     Business entity model.
@@ -51,6 +52,7 @@ class Entity(models.Model):
         verbose_name = _('entity')
         verbose_name_plural = _('entities')
         ordering = ['name',]
+
 
 class CorporateIdentity(models.Model):
     """

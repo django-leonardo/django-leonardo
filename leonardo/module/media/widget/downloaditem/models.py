@@ -3,12 +3,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from webcms.models import Widget
+from leonardo.module.web.models import Widget
 
-from webcms.module.media.models import File 
 
 class DownloadItemWidget(Widget):
-    file = models.ForeignKey(File, verbose_name=_("file"))
+    file = models.ForeignKey("filer.File", verbose_name=_("file"))
 
     class Meta:
         abstract = True

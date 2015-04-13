@@ -22,9 +22,11 @@ class ContentNavigationWidget(Widget):
         region = 'col3'
         headers = []
         contents = page.content.col3
+        """
         for content in contents:
             if content.options.get('label', False):
                 headers.append(content)
+        """
 
         return render_to_string(self.get_template_name(), { 
             'widget': self,

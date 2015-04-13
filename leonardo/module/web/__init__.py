@@ -24,7 +24,7 @@ class Default(object):
             'feincms',
             'mptt',
             'crispy_forms',
-
+            'dbtemplates',
             'leonardo.module',
 
             'feincms.module.page',
@@ -49,6 +49,7 @@ class Default(object):
             MarkupTextWidget,
             FeedReaderWidget,
             HtmlTextWidget,
+            PageTitleWidget,
         ]
 
 

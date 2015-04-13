@@ -26,7 +26,7 @@ class ApplicationWidget(Widget, ApplicationContent):
             }
         context = RequestContext(options.get('request'), data)
 
-        return render_to_string(self.template_name, context)
+        return render_to_string(self.get_template, context)
 
     class Meta:
         abstract = True

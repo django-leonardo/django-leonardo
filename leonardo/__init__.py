@@ -43,10 +43,11 @@ class Default(object):
             'django.contrib.flatpages',
 
             'rest_framework',
+            'dbtemplates',
 
             'django_select2',
 
-            #'reversion',
+            'reversion',
 
             'horizon',
             'compressor',

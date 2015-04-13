@@ -3,10 +3,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from webcms.models import Widget
+from leonardo.module.web.models import Widget
 
-from webcms.module.media.models import File 
-#from webcms.module.media.fields import MediaFileForeignKey
 
 ON_CLICK_CHOICES = (
     ('open_modal', _('open in modal window')),
@@ -25,7 +23,7 @@ ALIGN_CHOICES = (
 )
 
 class SimpleImageWidget(Widget):
-    image = models.ForeignKey(File, verbose_name=_("image"), limit_choices_to={'type': 'image'})
+    image = models.ForeignKey("filer.Image", verbose_name=_("image"), limit_choices_to={'type': 'image'})
     size = models.CharField(max_length=255, verbose_name=_("size"), choices=SIZE_CHOICES, blank=True)
     on_click = models.CharField(max_length=255, verbose_name=_("on click action"), choices=ON_CLICK_CHOICES, blank=True)
     alignment = models.CharField(max_length=255, verbose_name=_("alignment"), choices=ALIGN_CHOICES, default='left')

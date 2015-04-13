@@ -16,11 +16,16 @@ FEINCMS_FRONTEND_EDITING = True
 PAGE_EXTENSIONS = [
     'feincms.module.extensions.datepublisher',
     'feincms.module.extensions.translations',
+    'feincms.module.page.extensions.excerpt',
     'feincms.module.page.extensions.relatedpages',
     'feincms.module.page.extensions.navigation',
-    'feincms.module.extensions.seo',
+    'feincms.module.page.extensions.sites',
     'feincms.module.page.extensions.symlinks',
+    'feincms.module.page.extensions.titles',
+    'feincms.module.extensions.seo',
     'feincms.module.extensions.changedate',
+    'feincms.module.extensions.ct_tracker',
+    'feincms.module.extensions.featured',
 ]
 """
 APPLICATION_CHOICES = (

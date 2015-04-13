@@ -1,12 +1,12 @@
 
 import operator
 
-from feincms.admin.item_editor import ItemEditorForm
 from crispy_forms.bootstrap import Tab, TabHolder
 from crispy_forms.layout import Field, Layout
 from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext_lazy as _
+from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from horizon_contrib.forms import SelfHandlingModelForm
@@ -22,9 +22,15 @@ WIDGETS = {
 
 class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
 
-    template_name = forms.ChoiceField(
+    """
+    theme = forms.ChoiceField(
         choices=[],
         widget=forms.RadioSelect,
+    )
+    """
+
+    parent = forms.CharField(
+        widget=forms.widgets.HiddenInput,
     )
 
     class Meta:
@@ -34,14 +40,14 @@ class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
     def __init__(self, *args, **kwargs):
         super(WidgetForm, self).__init__(*args, **kwargs)
 
+        """
         items = self._meta.model.templates()
         choices = template_choices(items, suffix=True)
         if not items:
             items.insert(0, ("", _("No Template available")))
 
-        self.fields['template_name'].choices = choices
-
-        fields = self._meta.model._meta.fields
+        self.fields['theme'].choices = choices
+        """
 
         self.helper.layout = Layout(
             TabHolder(
@@ -49,12 +55,9 @@ class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
                     *self._meta.model.fields()
                     ),
                 Tab('Theme',
-                    'template_name', 'style', 'theme',
+                    'theme', 'label',
                     ),
 
-                Tab('Layout',
-                    *[Field(f.name) for f in fields]
-                    ),
 
             )
         )

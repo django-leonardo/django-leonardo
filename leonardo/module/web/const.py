@@ -116,6 +116,13 @@ TEMPLATE_LAYOUTS = {
     'layout_void': (6, 6, 6, 6),
 }
 
+DISPLAY_SIZE_CHOICES = (
+    ('xs', _('Extra small')),
+    ('sm', _('Small')),
+    ('md', _('Medium')),
+    ('lg', _('Large')),
+)
+
 COLUMN_CHOICES = (
     (DEFAULT_CHOICE,  ' — '),
     (1, _('1 col')),
@@ -146,18 +153,6 @@ ROW_CHOICES = (
     (10, _('10 rows')),
     (11, _('11 rows')),
     (12, _('12 rows')),
-    (13, _('13 rows')),
-    (14, _('14 rows')),
-    (15, _('15 rows')),
-    (16, _('16 rows')),
-    (17, _('17 rows')),
-    (18, _('18 rows')),
-    (19, _('19 rows')),
-    (20, _('20 rows')),
-    (21, _('21 rows')),
-    (22, _('22 rows')),
-    (23, _('23 rows')),
-    (24, _('24 rows')),
 )
 
 CLEAR_CHOICES = (
@@ -184,16 +179,6 @@ VERTICAL_ALIGN_CHOICES = (
     (1, _('top')),
     (2, _('middle')),
     (3, _('bottom')),
-)
-
-STYLE_CHOICES = (
-    (DEFAULT_CHOICE, _('none')),
-    (1, _('nested_box')),
-    (2, _('padded')),
-    (3, _('single box')),
-    (4, _('box top')),
-    (5, _('box middle')),
-    (6, _('box bottom')),
 )
 
 # this wil be on the Page model

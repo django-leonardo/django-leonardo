@@ -1,13 +1,10 @@
 # -#- coding: utf-8 -#-
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
-
-from feincms.module.page.models import Page
-
-from leonardo.module.web.models import Widget
+from django.utils.translation import ugettext_lazy as _
 from leonardo.module.web.const import PAGE_REGIONS
+from leonardo.module.web.models import Page, Widget
 
 DEPTH_CHOICES = (
     (0, _("self")),

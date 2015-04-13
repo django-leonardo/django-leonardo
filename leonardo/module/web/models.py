@@ -1,14 +1,20 @@
 # -#- coding: utf-8 -#-
 
+from __future__ import unicode_literals
+
 import os
 import sys
 
+from dbtemplates.models import Template
 from django import forms
 from django.conf import settings
+from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.forms.models import fields_for_model
 from django.template import loader, RequestContext
 from django.template.loader import render_to_string
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields.json import JSONField
 from feincms.admin.item_editor import FeinCMSInline, ItemEditorForm
@@ -21,21 +27,43 @@ from .const import *
 from .forms import WidgetForm, WIDGETS
 
 
-class Page(FeinCMSPage):
+class PageDimension(models.Model):
 
+    page = models.ForeignKey('Page', verbose_name=_('Page'))
+    size = models.CharField(
+        verbose_name="Size", max_length=20, choices=DISPLAY_SIZE_CHOICES, default='md')
     col1_width = models.IntegerField(verbose_name=_("Column 1 width"),
                                      choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
     col2_width = models.IntegerField(verbose_name=_("Column 2 width"),
                                      choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
     col3_width = models.IntegerField(verbose_name=_("Column 3 width"),
                                      choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
-    col4_width = models.IntegerField(verbose_name=_("Column 4 width"),
-                                     choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
-    template_name = models.CharField(
-        verbose_name="Template", max_length=255,
-        help_text=_("Core HTML templates and CSS styles."), null=True, blank=True)
-    theme = models.CharField(verbose_name=_("Theme"), max_length=255, null=True, blank=True,
-                             help_text=_("Color and style extension to the template."))
+
+    class Meta:
+        verbose_name = _("Page Dimension")
+        verbose_name_plural = _("Page Dimensions")
+
+
+@python_2_unicode_compatible
+class PageTheme(models.Model):
+
+    label = models.CharField(
+        verbose_name=_("Title"), max_length=255, null=True, blank=True)
+    template = models.ForeignKey(
+        'dbtemplates.Template', verbose_name=_('Template'), related_name='templates')
+
+    style = models.TextField(verbose_name=_('Style'), blank=True)
+
+    def __str__(self):
+        return self.label or super(PageTheme, self).__str__()
+
+    class Meta:
+        verbose_name = _("Page theme")
+        verbose_name_plural = _("Page themes")
+
+class Page(FeinCMSPage):
+
+    theme = models.ForeignKey(PageTheme, verbose_name=_('Theme'))
 
     class Meta:
         verbose_name = _("Page")
@@ -48,7 +76,8 @@ class WidgetInline(FeinCMSInline):
 
     def __init__(self, *args, **kwargs):
         super(WidgetInline, self).__init__(*args, **kwargs)
-        widget_fields = [f.name for f in Widget._meta.fields if f.name not in ['options', 'prerendered_content'] ]
+        widget_fields = [f.name for f in Widget._meta.fields if f.name not in [
+            'options', 'prerendered_content']]
         self.fieldsets = [
             (None, {
                 'fields': [
@@ -57,79 +86,74 @@ class WidgetInline(FeinCMSInline):
             }),
             (_('Theme'), {
                 'fields': [
-                    ('template_name', 'style', 'border', 'clear'),
-                ],
-            }),
-            (_('Layout'), {
-                'fields': [
-                    ('pull', 'align', 'push', 'pull'),
-                ],
-            }),
-            (_('Position'), {
-                'fields': [
-                    ('prepend', 'append', 'vertical_span'),
-                ],
-            }),
-            (_('Visibility'), {
-                'fields': [
-                    ('visible', 'last'),
+                    ('label', 'theme', ),
                 ],
             }),
 
         ]
 
 
+class WidgetDimension(models.Model):
+
+    widget_type = models.ForeignKey(ContentType)
+    widget_id = models.PositiveIntegerField()
+    widget_object = generic.GenericForeignKey('widget_type', 'widget_id')
+
+    size = models.CharField(
+        verbose_name="Size", max_length=20, choices=DISPLAY_SIZE_CHOICES, default='md')
+    width = models.IntegerField(verbose_name=_("Width"),
+                                choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    height = models.IntegerField(verbose_name=_("Height"),
+                                 choices=ROW_CHOICES, default=DEFAULT_WIDTH)
+    offset = models.IntegerField(verbose_name=_("Offset"),
+                                 choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+
+    class Meta:
+        verbose_name = _("Widget Dimension")
+        verbose_name_plural = _("Widget Dimensions")
+
+
+@python_2_unicode_compatible
+class WidgetTheme(models.Model):
+
+    label = models.CharField(
+        verbose_name=_("Title"), max_length=255, null=True, blank=True)
+    content_template = models.ForeignKey(
+        'dbtemplates.Template', verbose_name=_('Content template'), related_name='content_templates')
+    base_template = models.ForeignKey(
+        'dbtemplates.Template', verbose_name=_('Base template'), related_name='base_templates')
+
+    widget_class = models.CharField(
+        verbose_name=_('Widget class'), max_length=255)
+
+    style = models.TextField(verbose_name=_('Style'), blank=True)
+
+    def __str__(self):
+        return self.label or super(WidgetTheme, self).__str__()
+
+    class Meta:
+        verbose_name = _("Widget theme")
+        verbose_name_plural = _("Widget themes")
+
+
 class Widget(FeinCMSBase):
 
     feincms_item_editor_inline = WidgetInline
 
-    options = JSONField(
-        verbose_name=_('widget options'), blank=True, editable=False)
     prerendered_content = models.TextField(
-        _('prerendered content'), blank=True, editable=False)
-
+        verbose_name=_('prerendered content'), blank=True, editable=False)
+    enabled = models.NullBooleanField(verbose_name=_('Is visible?'))
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
-    template_name = models.CharField(
-        verbose_name=_("Display"), max_length=255, default='default.html')
-
-    span = models.IntegerField(verbose_name=_("Span"),
-                               choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
-    vertical_span = models.IntegerField(verbose_name=_("V. Span"),
-                                        choices=ROW_CHOICES, default=DEFAULT_WIDTH)
-    align = models.IntegerField(
-        verbose_name=_("Alignment"), choices=ALIGN_CHOICES, default=DEFAULT_CHOICE)
-    vertical_align = models.IntegerField(
-        verbose_name=_("V. Alignment"), choices=VERTICAL_ALIGN_CHOICES, default=DEFAULT_CHOICE)
-    prepend = models.IntegerField(verbose_name=_("Prepend"),
-                                  choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
-    append = models.IntegerField(verbose_name=_("Append"),
-                                 choices=COLUMN_CHOICES, default=DEFAULT_CHOICE)
-    push = models.IntegerField(verbose_name=_("Push"),
-                               choices=COLUMN_CHOICES, default=DEFAULT_CHOICE)
-    pull = models.IntegerField(verbose_name=_("Pull"),
-                               choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
-    vertical_prepend = models.IntegerField(
-        verbose_name=_("V. Prepend"), choices=ROW_CHOICES, default=DEFAULT_CHOICE)
-    vertical_append = models.IntegerField(
-        verbose_name=_("V. Append"), choices=ROW_CHOICES, default=DEFAULT_CHOICE)
-    vertical_push = models.IntegerField(
-        verbose_name=_("V. Push"), choices=ROW_CHOICES, default=DEFAULT_CHOICE)
-    vertical_pull = models.IntegerField(verbose_name=_("V. Pull"),
-                                        choices=ROW_CHOICES, default=DEFAULT_CHOICE)
-    style = models.IntegerField(
-        verbose_name=_("Style"), choices=STYLE_CHOICES, default=DEFAULT_CHOICE)
-    border = models.IntegerField(
-        verbose_name=_("Border"), choices=BORDER_CHOICES, default=DEFAULT_CHOICE)
-    clear = models.IntegerField(
-        verbose_name=_("Clear"), choices=CLEAR_CHOICES, default=DEFAULT_CHOICE)
-    last = models.NullBooleanField(verbose_name=_('Is last?'))
-    visible = models.NullBooleanField(verbose_name=_('Is visible?'))
+    theme = models.ForeignKey(WidgetTheme, verbose_name=_('Theme'))
 
     class Meta:
         abstract = True
-        verbose_name = _("abstract widget")
-        verbose_name_plural = _("abstract widgets")
+        verbose_name = _("Abstract widget")
+        verbose_name_plural = _("Abstract widgets")
+
+    def __str__(self):
+        return self.label or super(Widget, self).__str__()
 
     def thumb_geom(self):
         return config_value('MEDIA', 'THUMB_MEDIUM_GEOM')
@@ -137,55 +161,12 @@ class Widget(FeinCMSBase):
     def thumb_options(self):
         return config_value('MEDIA', 'THUMB_MEDIUM_OPTIONS')
 
-    def _render_box_classes(self):
-        classes = []
-        options = self.options
-        try:
-            if options['align'][0] != 'a':
-                classes.append('align-%s' % options['align'][0])
-            if options['align'][1] != 'a':
-                classes.append('valign-%s' % options['align'][1])
-            if options['size'][0] > 0:
-                classes.append('span-%s' % options['size'][0])
-            if options['size'][1] > 0:
-                classes.append('vspan-%s' % options['size'][1])
-            if options['padding'][0] > 0:
-                classes.append('vprepend-%s' % options['padding'][0])
-            if options['padding'][1] > 0:
-                classes.append('append-%s' % options['padding'][1])
-            if options['padding'][2] > 0:
-                classes.append('vappend-%s' % options['padding'][2])
-            if options['padding'][3] > 0:
-                classes.append('prepend-%s' % options['padding'][3])
-            if options['margin'][0] > 0:
-                classes.append('vpull-%s' % options['margin'][0])
-            if options['margin'][1] > 0:
-                classes.append('push-%s' % options['margin'][1])
-            if options['margin'][2] > 0:
-                classes.append('vpush-%s' % options['margin'][2])
-            if options['margin'][3] > 0:
-                classes.append('pull-%s' % options['margin'][3])
-            if options['clear'] == 'l':
-                classes.append('clearfix')
-            if options['clear'] == 'f':
-                classes.append('clear')
-            if options['border'] == '1':
-                classes.append('border')
-            if options['border'] == '2':
-                classes.append('colborder')
-            if options['style'] == '' or options['style'] == None:
-                classes.append('normal-widget')
-            else:
-                classes.append('%s-widget' % options['style'])
-            if options['last']:
-                classes.append('last')
-        except:
-            classes.append('widget-error')
-        return u' '.join(classes)
-    render_box_classes = property(_render_box_classes)
-
     def get_template_name(self, format='html'):
-        return self.template_name
+        return self.theme.content_template
+
+    @property
+    def get_template(self):
+        return self.theme.content_template
 
     def _template_xml_name(self):
         template = 'default'
@@ -204,17 +185,9 @@ class Widget(FeinCMSBase):
         return self.render_content(kwargs)
 
     def render_content(self, options):
-        #        if options.has_key('use_xml') and options['use_xml']:
-        #            template = loader.get_template(self.template_xml_name)
-        if options.has_key('format'):
-            format = options.get('format')
-            base_template = 'widget/doc_base.%s' % format
 
-        else:
-            format = 'html'
-            base_template = 'widget/base.%s' % format
-
-        template = loader.get_template(self.get_template_name(format))
+        base_template = self.theme.base_template
+        template = loader.get_template(self.theme.content_template)
 
         context = RequestContext(options['request'], {
             'widget': self,
@@ -229,28 +202,8 @@ class Widget(FeinCMSBase):
             'request': kwargs['request'],
         })
 
-    def save(self, *args, **kwargs):
-        super(Widget, self).save(*args, **kwargs)
-        if self.options == {}:
-            self.options = DEFAULT_DISPLAY_OPTIONS
-            self.save()
-
     def model_cls(self):
         return self.__class__.__name__
-
-    @classmethod
-    @memoized
-    def templates(cls, choices=False, suffix=True):
-        """returns widget templates located in ``templates/widget/widgetname``
-        """
-        widget_name = cls.__name__.lower().replace('widget', '')
-
-        pattern = 'widget/{0}/'.format(widget_name)
-        res = find_all_templates('{0}*'.format(pattern))
-
-        if choices:
-            return template_choices(res, suffix=suffix)
-        return res
 
     @classmethod
     def fields(cls):
@@ -259,5 +212,5 @@ class Widget(FeinCMSBase):
             if f.name not in ['options', 'prerendered_content']]
 
         return fields_for_model(
-                cls, exclude=widget_fields +
-                [], widgets=WIDGETS)
+            cls, exclude=widget_fields,
+            widgets=WIDGETS)

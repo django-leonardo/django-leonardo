@@ -68,11 +68,23 @@ STATIC_URL = '/static/'
 TEMPLATE_CONTEXT_PROCESSORS = default.ctp
 
 TEMPLATE_LOADERS = (
+    'dbtemplates.loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
     'horizon.loaders.TemplateLoader',
 )
 
+DBTEMPLATES_USE_REVERSION = True
+
+DBTEMPLATES_MEDIA_PREFIX = '/static-/'
+
+DBTEMPLATES_USE_CODEMIRROR = False
+
+DBTEMPLATES_USE_TINYMCE = False
+
+DBTEMPLATES_AUTO_POPULATE_CONTENT = True
+
+DBTEMPLATES_ADD_DEFAULT_SITE = True
 
 MIDDLEWARE_CLASSES = default.middlewares
 

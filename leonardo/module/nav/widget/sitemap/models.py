@@ -5,9 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 from django.utils.translation import get_language_from_request
 
-from feincms.module.page.models import Page
-
-from leonardo.module.web.models import Widget
+from leonardo.module.web.models import Widget, Page
 
 class SiteMapWidget(Widget):
 
