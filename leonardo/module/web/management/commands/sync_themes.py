@@ -3,7 +3,7 @@ import os
 from optparse import make_option
 
 from django.core.management.base import CommandError, NoArgsCommand
-from leonardo.module.web.models import Widget, WidgetTheme
+from leonardo.module.web.models import Widget, WidgetTheme, PageTheme
 
 from .utils import get_or_create_template
 
@@ -72,3 +72,19 @@ class Command(NoArgsCommand):
                     created_themes += 1
 
         self.stdout.write('Successfully created %s widget themes' % created_themes)
+
+        # page theme
+        # TODO move to own directory and makes more confrotable
+        name = 'layout/page.html'
+        page_template = get_or_create_template(name)
+
+        try:
+            page_theme = PageTheme.objects.get(
+                template__name__exact=name)
+        except PageTheme.DoesNotExist:
+            page_theme = PageTheme()
+            page_theme.label = 'Page layout'
+            page_theme.template = page_template
+            page_theme.save()
+
+        self.stdout.write('Successfully synced page theme')

@@ -129,7 +129,7 @@ class WidgetTheme(models.Model):
     style = models.TextField(verbose_name=_('Style'), blank=True)
 
     def __str__(self):
-        return self.label or super(WidgetTheme, self).__str__()
+        return self.label or str(self._meta.verbose_name + ' %s' % self.pk)
 
     class Meta:
         verbose_name = _("Widget theme")
@@ -173,13 +173,13 @@ class Widget(FeinCMSBase):
         return u'widget/%s/%s.xml' % (self.widget_name, template)
     template_xml_name = property(_template_xml_name)
 
-    def _widget_name(self):
+    @property
+    def widget_name(self):
         return self.__class__.__name__.lower().replace('widget', '')
-    widget_name = property(_widget_name)
 
-    def _widget_label(self):
+    @property
+    def widget_label(self):
         return self._meta.verbose_name
-    widget_label = property(_widget_label)
 
     def render(self, **kwargs):
         return self.render_content(kwargs)
@@ -204,6 +204,20 @@ class Widget(FeinCMSBase):
 
     def model_cls(self):
         return self.__class__.__name__
+
+    @classmethod
+    @memoized
+    def templates(cls, choices=False, suffix=True):
+        """returns widget templates located in ``templates/widget/widgetname``
+        """
+        widget_name = cls.__name__.lower().replace('widget', '')
+
+        pattern = 'widget/{0}/'.format(widget_name)
+        res = find_all_templates('{0}*'.format(pattern))
+
+        if choices:
+            return template_choices(res, suffix=suffix)
+        return res
 
     @classmethod
     def fields(cls):
