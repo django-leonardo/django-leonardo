@@ -5,7 +5,7 @@ from optparse import make_option
 from django.core.management.base import CommandError, NoArgsCommand
 from leonardo.module.web.models import Widget, WidgetTheme, PageTheme
 
-from .utils import get_or_create_template
+from ._utils import get_or_create_template
 
 "widget.verbose_name - template.name"
 THEME_NAME_FORMAT = "{0} {1}"
