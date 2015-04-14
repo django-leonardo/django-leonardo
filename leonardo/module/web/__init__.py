@@ -20,7 +20,6 @@ class Default(object):
     @property
     def apps(self):
         return [
-            'markitup',
             'feincms',
             'mptt',
             'crispy_forms',
@@ -30,6 +29,8 @@ class Default(object):
             'feincms.module.page',
 
             'leonardo.module.web',
+
+            'markupfield',
 
         ]
 
