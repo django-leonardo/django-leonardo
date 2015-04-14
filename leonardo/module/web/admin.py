@@ -76,6 +76,11 @@ class WidgetThemeAdmin(ModelAdmin):
 
     form = WidgetThemeForm
 
+    list_display = ('__str__', 'widget_class')
+
+    list_filter = ('widget_class',)
+
+
 admin.site.register(WidgetTheme, WidgetThemeAdmin)
 
 
