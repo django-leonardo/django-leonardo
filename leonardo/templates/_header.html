@@ -1,12 +1,29 @@
+
+{% load compress %}
+
 <head>
 
 <meta charset="utf-8">
-<meta name="description" content="Robotice">
-<title>Robotice</title>
+<meta name="description" content="Leonardo">
+
+<title>{{ request.leonardo_options.meta_title }}</title>
+
+{% include "base/head_meta.html" %}
 
 {% block css %}
   {% include "_stylesheets.html" %}
 {% endblock %}
+
+{% compress css %}
+{% block widget_css %}
+<style type="text/css">
+{% for widget in request.leonardo_options.widgets %}
+	{{ widget.theme.style|safe }}
+{% endfor %}
+</style>
+{% endblock %}
+{% endcompress %}
+
 {% include "horizon/_conf.html" %}
 {% include "horizon/client_side/_script_loader.html" %}
 {% include "horizon/_custom_head_js.html" %}
