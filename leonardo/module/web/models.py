@@ -83,8 +83,6 @@ class WidgetInline(FeinCMSInline):
 
     def __init__(self, *args, **kwargs):
         super(WidgetInline, self).__init__(*args, **kwargs)
-        widget_fields = [f.name for f in Widget._meta.fields if f.name not in [
-            'options', 'prerendered_content']]
         self.fieldsets = [
             (None, {
                 'fields': [
@@ -93,10 +91,9 @@ class WidgetInline(FeinCMSInline):
             }),
             (_('Theme'), {
                 'fields': [
-                    ('label', 'theme', ),
+                    ('label', 'theme', 'enabled',),
                 ],
             }),
-
         ]
 
 
@@ -229,8 +226,7 @@ class Widget(FeinCMSBase):
     @classmethod
     def fields(cls):
         widget_fields = [
-            f.name for f in Widget._meta.fields
-            if f.name not in ['options', 'prerendered_content']]
+            f.name for f in Widget._meta.fields]
 
         return fields_for_model(
             cls, exclude=widget_fields,
