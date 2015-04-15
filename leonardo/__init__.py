@@ -53,10 +53,7 @@ class Default(object):
             'compressor',
             'leonardo',
             'horizon_contrib',
-            # filer
             'filer',
-            'easy_thumbnails',
-
         ]
 
     @property

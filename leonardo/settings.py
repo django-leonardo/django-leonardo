@@ -250,7 +250,11 @@ from leonardo.module.nav import default as nav_default
 from leonardo.module.lang import default as lang_default
 from leonardo.module.forms import default as forms_default
 """
+
 APPLICATION_CHOICES = [] # init
+
+if 'media' in APPS:
+    FILER_IMAGE_MODEL = 'leonardo.module.media.models.Image'
 
 from leonardo.module.web.settings import *
 from leonardo.module.web.models import Page

@@ -25,8 +25,9 @@ class Default(object):
             'crispy_forms',
             'dbtemplates',
             'leonardo.module',
+            'easy_thumbnails',
 
-            'feincms.module.page',
+            'feincms.module.page', # noqa
 
             'leonardo.module.web',
 

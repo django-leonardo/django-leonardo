@@ -41,5 +41,4 @@ class ContextNavigationWidget(Widget):
             'page': root,
             'request': options['request'],
             'region': self.page_region,
-            'options': options,
         })

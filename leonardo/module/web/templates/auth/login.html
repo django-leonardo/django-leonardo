@@ -1,52 +1,12 @@
-{% extends "horizon/common/_modal_form.html" %}
+{% extends "base.html" %}
 {% load i18n %}
-{% load url from future %}
 
-{% block form_id %}pozadavek_na_oceneni{% endblock %}
-{% block form_action %}{% url "horizon:module:auth:login" %}{% endblock %}
+{% block title %}{% trans "Login" %}{% endblock %}
 
-{% block modal-body %}
-<div class="left">
-  {% include "horizon/common/_form_fields.html" %}
-</div>
+{% block page_header %}
+{% include "horizon/common/_page_header.html" with title=_("Login") %}
 {% endblock %}
 
-{% block modal-footer %}
-<a href="#" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</a>
-<input class="btn btn-primary pull-right" type="submit" value="{% trans "Login" %}" />
-{% endblock %}
-
-{% block modal-js %}
-{% endblock %}{% extends "widget/base.html" %}
-
-{% load i18n %}
-{% load webcms_form_tags %}
-
-{% block breadcrumbs %}
-<li><strong>{% trans "User Login" %}</strong></li>
-{% endblock %}
-
-{% block content %}
-{% for error in form.non_field_errors %}
-<p class="error">{{ error }}</p>
-{% endfor %}
-<form class="form" method="post" action=".">
-	{% csrf_token %}
-	<div class="hidden">
-		<input type="hidden" name="next" value="{% if next %}{{ next }}{% endif %}" />
-	</div>
-	<div class="fieldset">
-		<div class="fieldrow">
-			{{ form.username|form_field }}
-			{{ form.password|form_field }}
-		</div>
-	</div>
-	<div class="buttonset">
-		<p class="f-left a-left">
-			{% trans "Forgot your password?" %} <a href="{% url webcms.module.web.apps.auth/webcms_web_password_reset %}">{% trans "Request a new one!" %}</a>
-		</p>
-		<p class="required">* {% trans "Required fields" %}</p>
-		{% form_button "submit" "Log In" %}
-	</div>
-</form>
+{% block main %}
+{% include "auth/_login.html" %}
 {% endblock %}

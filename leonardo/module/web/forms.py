@@ -20,7 +20,7 @@ WIDGETS = {
             }
 
 
-class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
+class WidgetForm(ItemEditorForm):
 
     """
     theme = forms.ChoiceField(
@@ -37,17 +37,16 @@ class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
 
         widgets = WIDGETS
 
+    """
     def __init__(self, *args, **kwargs):
         super(WidgetForm, self).__init__(*args, **kwargs)
 
-        """
         items = self._meta.model.templates()
         choices = template_choices(items, suffix=True)
         if not items:
             items.insert(0, ("", _("No Template available")))
 
         self.fields['theme'].choices = choices
-        """
 
         self.helper.layout = Layout(
             TabHolder(
@@ -61,6 +60,7 @@ class WidgetForm(SelfHandlingModelForm, ItemEditorForm):
 
             )
         )
+    """
 
 
 @memoized

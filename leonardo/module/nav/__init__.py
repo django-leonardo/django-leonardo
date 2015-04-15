@@ -14,7 +14,7 @@ class Default(object):
     @property
     def apps(self):
         return [
-            'leonardo.module.nav'
+            'leonardo.module.nav',
         ]
 
     @property
