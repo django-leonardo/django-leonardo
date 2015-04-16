@@ -44,7 +44,7 @@ class Command(NoArgsCommand):
 
         # TODO: base template as param
         base_template_name = 'widget/base.html'
-        base_template = get_or_create_template(base_template_name)
+        base_template = get_or_create_template(base_template_name, force=force)
 
         created_themes = 0
 
@@ -52,7 +52,7 @@ class Command(NoArgsCommand):
             templates = w.templates()
             for name in templates:
 
-                widget_template = get_or_create_template(name)
+                widget_template = get_or_create_template(name, force=force)
 
                 if not widget_template:
                     self.stdout.write('Template for "%s" not found' % name)
@@ -76,7 +76,7 @@ class Command(NoArgsCommand):
         # page theme
         # TODO move to own directory and makes more confrotable
         name = 'layout/page.html'
-        page_template = get_or_create_template(name)
+        page_template = get_or_create_template(name, force=force)
 
         try:
             page_theme = PageTheme.objects.get(

@@ -10,7 +10,7 @@ ALWAYS_ASK, FILES_TO_DATABASE, DATABASE_TO_FILES = ('0', '1', '2')
 
 
 def get_or_create_template(template_name, extension='.html', app_first=False,
-                           force=True, overwrite='1'):
+                           force=True, delete=False):
 
     site = Site.objects.get_current()
 
@@ -40,5 +40,10 @@ def get_or_create_template(template_name, extension='.html', app_first=False,
                         t.save()
                         t.sites.add(site)
 
+                    else:
+                        if force:
+                            t.content = codecs.open(path, 'r').read()
+                            t.save()
+                            t.sites.add(site)
                     return t
     return None
