@@ -3,33 +3,25 @@
 {% load i18n %}
 
 {% block content %}
-<ul class="{% if widget.inline %}horizontal{% else %}vertical{% endif %} ui-helper-clearfix">
-	{% if request.user.is_authenticated %}
-	{% if request.user.is_staff %}
-	{% if request.session.frontend_editing %}
-	<li><a class="last" href=".?frontend_editing=0">{% trans "Close admin" %}</a></li>
-	{% else %}
-	<li><a class="last" href=".?frontend_editing=1">{% trans "Open admin" %}</a></li>
-	{% endif %}
-	{% endif %}
-	{% url webcms.module.store.apps.auth/webcms_store_logout as webcms_store_logout %}
-	{% if webcms_store_logout %}
-	<li><a class="last" href="{{ webcms_store_logout }}">{% trans "Log Out" %}</a></li>
-	{% endif %}
-	{% url webcms.module.web.apps.auth/webcms_web_logout as webcms_web_logout %}
-	{% if webcms_web_logout %}
-	<li><a class="last" href="{{ webcms_web_logout }}">{% trans "Log Out" %}</a></li>
-	{% endif %}
-	{% else %}
-	{% url webcms.module.store.apps.auth/webcms_store_login as webcms_store_login %}
-	{% if webcms_store_login %}
-	<li><a class="last" href="{{ webcms_store_login }}">{% trans "Log In" %}</a></li>
-	{% endif %}
-	{% url webcms.module.web.apps.auth/webcms_web_login as webcms_web_login %}
-	{% if webcms_web_login %}
-	<li><a class="last" href="{{ webcms_web_login }}">{% trans "Log In" %}</a></li>
-	{% endif %}
+<div id="user_info" class="pull-right">
 
-	{% endif %}
-</ul>
+	<ul class="nav navbar-nav {% if widget.inline %}navbar-inline{% else %}navbar-collapse{% endif %}">
+		
+	  {% if request.user.is_authenticated %}
+	    <li><a class="fa fa-user ajax-modal" href="{% url 'horizon:contrib:forms:update' 'user' request.user.id %}">{{ request.user.username }}</a></li>
+	    {% if request.user.is_staff and request.frontend_editing %}
+	    <!-- Control Sidebar Toggle Button -->
+	    <li>
+	      <a href="#" data-toggle="control-sidebar"><i class="fa fa-outdent"></i>{% trans 'Settings' %}</a>
+	    </li>
+	    {% endif %}
+	    <li><a href="{% url 'horizon:module:auth:logout' %}">Sign Out</a></li>
+	  {% else %}
+	    <li><a class="ajax-modal" href="{% url 'horizon:module:auth:login' %}">Sign In</a></li>
+	    <li><a class="ajax-modal" href="{% url 'horizon:module:auth:signup' %}">Sign Up</a></li>
+	  {% endif %}
+
+
+	</ul>
+</div>
 {% endblock %}

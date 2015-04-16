@@ -52,6 +52,7 @@ class Default(object):
             FeedReaderWidget,
             HtmlTextWidget,
             PageTitleWidget,
+            UserLoginWidget,
         ]
 
 

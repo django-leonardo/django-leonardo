@@ -47,12 +47,7 @@ class TreeNavigationWidget(Widget):
             'widget': self,
             'current': request.webcms_page,
             'root': root,
-            'lvl': self.level(root.level),
-            'lvl2': self.level(root.level+1),
-            'lvl3': self.level(root.level+2),
-            'lvl4': self.level(root.level+3),
-            'lvl5': self.level(root.level+4),
-            'lvl6': self.level(root.level+5),
+            'lvl': root.level,
             'depth': self.depth,
             'request': request,
         })

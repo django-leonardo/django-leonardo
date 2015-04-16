@@ -4,19 +4,15 @@
 
 {% block content %}
 {% if widget.logo %}
-<h2>
-	<a href="/">
-		{% if widget.size %}
-		{% thumbnail widget.logo.file size as image %}
-		<img src='{{ image.url }}' alt="{{ widget.site_title }}" />
-		{% endthumbnail %}
-		{% else %}
-		<img src='/media/files/{{ widget.logo.file }}' alt="{{ widget.site_title }}" />
-		{% endif %}
-	</a>
-</h2>
+<a class="navbar-brand" href="/">
+	{% if widget.size %}
+	<img src="{% thumbnail widget.logo.file size crop %}" alt="{{ widget.site_title }}" />
+	{% else %}
+	<img src='/media/files/{{ widget.logo.file }}' alt="{{ widget.site_title }}" />
+	{% endif %}
+</a>
 {% else %}
-<h2><a href="/">{{ widget.site_title }}</a></h2>
+<a class="navbar-brand" href="/"><b>{{ widget.site_title }}</b></a>
 {% endif %}
 {% if widget.tagline %}
 <span>{{ widget.tagline }}</span>
