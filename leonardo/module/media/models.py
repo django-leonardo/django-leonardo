@@ -1,12 +1,13 @@
 
-from datetime import datetime
 import os
-from django.db import models
-from filer.models.filemodels import File
-from filer.models.abstract import BaseImage
-from django.utils.translation import ugettext_lazy as _
+from datetime import datetime
 
-from filer import settings as filer_settings  # noqa
+from django.db import models
+from django.utils.timezone import get_current_timezone, make_aware, now
+from django.utils.translation import ugettext_lazy as _
+from filer import settings as filer_settings
+from filer.models.abstract import BaseImage
+from filer.models.filemodels import File
 
 
 class Document(File):
