@@ -1,0 +1,1 @@
+-e git+git@repo1.robotice.cz:leonardo-modules/leonardo-web.git#egg=leonardo_web

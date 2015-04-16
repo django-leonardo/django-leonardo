@@ -1,0 +1,1 @@
+django-cities>=0.4.1
