@@ -5,10 +5,9 @@
 <!DOCTYPE html>
 <html>
   {% block header %}
-  {% include "_header.html" %}
+    {% include "_header.html" %}
   {% endblock header %}
   <body id="{% block body_id %}{% endblock %}" ng-app='hz' class="skin-blue {% if not request.user.is_authenticated %}sidebar-collapse sidebar-open{% endif %}">
-    <div id="modal_wrapper"></div>
     <div class="wrapper">
       <header class="main-header">
         {% block page_header %}
@@ -20,16 +19,9 @@
 
       {% include "horizon/_messages.html" %}
       {% block sidebar %}
-      <aside class="main-sidebar">
+        <aside class="main-sidebar">
 
-        {% block navbar %}
-
-          <!-- Fixed navbar -->
-          <div id="navigation" class="navbar navbar-default navbar-fixed-top" role='navigation'>
-          </div>
-        {% endblock %}
-
-      </aside>
+        </aside>
       {% endblock %}
 
       {% block content %}
@@ -64,8 +56,6 @@
     {% include "horizon/_scripts.html" %}
     {% endblock %}
 
-    {% block body_header %}{% feincms_render_region feincms_page "header" request %}{% endblock %}
-
     {% block body_footer %}{% feincms_render_region feincms_page "footer" request %}{% endblock %}
 
     {% block body_toolbar %}{% feincms_render_region feincms_page "toolbar" request %}{% endblock %}
@@ -74,5 +64,6 @@
 
     {% block body_preview %}{% feincms_render_region feincms_page "preview" request %}{% endblock %}
 
+    <div id="modal_wrapper"></div>
   </body>
 </html>
