@@ -18,11 +18,25 @@ VERSION = '0.0.1'
 sys.path.append(os.path.join(PROJECT_DIR, 'leonardo'))
 
 
-install_reqs = parse_requirements(
-    os.path.join(PROJECT_DIR, 'requirements.txt'))
+#install_reqs = parse_requirements(
+#    os.path.join(PROJECT_DIR, 'requirements.txt'))
 
-reqs = [str(ir.req) for ir in install_reqs]
+#reqs = [str(ir.req) for ir in install_reqs]
 
+def reqs(*f):
+    return [
+        r for r in (
+            strip_comments(l) for l in open(
+                os.path.join(os.getcwd(), 'requirements', *f)).readlines()
+        ) if r]
+extra = {}
+extras = lambda *p: reqs('extras', *p)
+# Celery specific
+features = {
+    'eshop',
+}
+extras_require = {x: extras(x + '.txt') for x in features}
+extra['extras_require'] = extras_require
 
 setup(name='django-leonardo',
       version=VERSION,
@@ -38,7 +52,7 @@ setup(name='django-leonardo',
       package_dir={'': 'leonardo'},
       packages=find_packages('leonardo', exclude=['tests', 'test']),
       include_package_data=True,
-      install_requires=reqs,
+      install_requires=reqs('default.txt'),
       classifiers=[
           'Development Status :: 5 - Production/Stable',
           'Environment :: Web Environment',
@@ -55,4 +69,5 @@ setup(name='django-leonardo',
           'Programming Language :: Python :: 3.4',
           'Topic :: Software Development :: Libraries :: Application Frameworks'],
       zip_safe=False,
+      **extra
       )
