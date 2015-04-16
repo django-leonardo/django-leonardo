@@ -29,7 +29,7 @@ class Default(object):
             #'admin_tools',
             #'admin_tools.theming',
             #'admin_tools.menu',
-            'flat',  # theme
+            'bootstrap_admin',  # theme
 
             'django_extensions',
             'django.contrib.contenttypes',

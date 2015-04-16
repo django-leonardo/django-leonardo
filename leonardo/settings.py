@@ -358,3 +358,6 @@ try:
     from project.local.settings import *
 except ImportError:
     pass
+
+if 'bootstrap_admin' in INSTALLED_APPS:
+    BOOTSTRAP_ADMIN_SIDEBAR_MENU = True

@@ -11,7 +11,7 @@ A collection of awesome Django libraries, resources and shiny things.
 Full featured framework for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
 Fresh modules
-=============
+-------------
 
 - web
 - blog
@@ -21,7 +21,7 @@ Fresh modules
 - eshop
 
 Use Cases
-=========
+---------
 
 - server-side
 
@@ -30,8 +30,8 @@ Use Cases
     - Dashboards - Horizon(OpenStack)
     - API - Django Rest Framework
 
-Features based on
-=================
+Features
+--------
 
 - Backend
 
@@ -52,7 +52,7 @@ Features based on
     - Bootstrap 3
 
 Installation
-============
+------------
 
 .. code-block:: bash
 
@@ -66,24 +66,22 @@ Installation
 
     manage.py runserver 0.0.0.0:80
 
-Scaffold new app
-================
+Minimal app
+-----------
 
 Directory structure::
 
     leonardo_site
         |-- __init__.py
-        |-- config
-            |-- __init__.py
-            |-- admin.py
-            |-- menu.py
-            |-- settings.py
         |-- local
             |-- __init__.py
             |-- local_settings.py
         |-- static
             |-- css
             |-- js
+
+Configuration
+-------------
 
 Configure files
 
@@ -93,8 +91,6 @@ Configure files
 .. note::
 
     ``leonardo_site`` must be in the ``PYTHONPATH``
-
-Minimal config
 
 .. code-block:: python
 
@@ -115,26 +111,55 @@ Minimal config
         'leonardo_site',  # our app
     ]
 
-Override location of migrations
+Migrations
+----------
+
+Leonardo itself does not come with any migrations. It does not have to: Its
+core models haven't changed for several versions now. This does not mean
+migrations aren't supported. You are free to use either Django's builtin
+migrations support, or also South if you're stuck with Django versions older
+than 1.6.
+
+Django's builtin migrations
+---------------------------
+
+* Create a new folder in your app with an empty ``__init__.py`` inside.
+* Add the following configuration to your ``settings.py``::
+
+    MIGRATION_MODULES = {
+        'page': 'leonardo.module.web.page',
+    }
+
+Override location for our migrations
 
 .. code-block:: python
 
-    # migrations
     MIGRATION_MODULES = {
-        'application': 'leonardo.migrations.application',
-        'filer': 'filer.migrations_django',
         'web': 'leonardo_site.migrations',
     }
 
-.. code-block:: python
+.. code-block:: bash
 
     python manage.py makemigrations --noinput
 
     python manage.py migrate --noinput
 
-.. note::
 
-    If ``migrations`` directory is not present we must call makemigrations with ``app_label`` for inicialization.
+Sync Themes
+-----------
+
+Sync widget themes
+
+.. code-block:: python
+
+    python manage.py sync_themes
+
+replace db from files (new version of core template etc..)
+
+.. code-block:: python
+
+    python manage.py sync_themes --force
+
 
 Read More
 =========
