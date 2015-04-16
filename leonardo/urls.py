@@ -34,15 +34,17 @@ if 'web' in getattr(settings, 'APPS', []):
                             url(r'', include('leonardo.module.web.urls')),
                                 )
 
-# All Auth
-urlpatterns += patterns('',
-                        url(r'^accounts/', include('allauth.urls')),
-                        )
+if 'oauth' in getattr(settings, 'APPS', []):
+    # All Auth
+    urlpatterns += patterns('',
+                            url(r'^accounts/', include('allauth.urls')),
+                            )
 
-# Elephantblog urls
-urlpatterns += patterns('',
-                        url(r'^blog/', include('elephantblog.urls')),
-                        )
+if 'blog' in getattr(settings, 'APPS', []):
+    # Elephantblog urls
+    urlpatterns += patterns('',
+                            url(r'^blog/', include('elephantblog.urls')),
+                            )
 
 # horizon and feinCMS
 urlpatterns += patterns('',
@@ -67,8 +69,7 @@ sitemaps = {
 
 urlpatterns += patterns('',
                         (r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}),
-                        (r'^favicon\.ico$', RedirectView.as_view(),
-                         {'url': '/media/theme/favicon.ico'}),
+                        (r'^favicon\.ico$', RedirectView.as_view(**{'url': '/static/img/favicon.ico'}),),
                         (r'^robots\.txt$',
                          TemplateView.as_view(template_name='robots.txt')),
                         (r'^crossdomain\.xml$',
