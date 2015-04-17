@@ -76,6 +76,7 @@ default = Default()
 
 def merge(a, b):
     """return merged tuples or lists without duplicates
+    note: ensure if admin theme is before admin
     """
     _a = list(a)
     for x in list(b):

@@ -1,0 +1,52 @@
+{% load i18n %}
+{% load feincms_tags %}
+<div id="main_wrapper">
+    {% for region in original.template.regions %}
+        <div class="navi_tab" id="{{ region.key }}_tab">{{ region.title }}</div>
+    {% endfor %}
+    <div id="main">
+        {% for region in original.template.regions %}
+        <div id="{{ region.key }}_body" class="panel">
+            <div class="empty-machine-msg">
+
+                {% if adding_translation and forloop.first %}
+                    <div>
+                        <p>
+                            <input type="checkbox" name="_copy_content_from_original" id="_copy_content_from_original" checked="checked" /> <label for="_copy_content_from_original">{% trans "Copy content from the original" %} ("{{ translation_of }}", {% trans translation_of.get_language_display %})</label>
+                        </p>
+                    </div>
+                {% else %}
+                    {% trans "Region empty" %}
+                {% endif %}
+
+            </div>
+            <div class="empty-machine-msg" style="margin-left:20px; margin-top:20px;">
+                {% if region.inherited %}
+                    {% trans "Content from the parent site is automatically inherited. To override this behaviour, add some content." %}
+                {% endif %}
+            </div>
+
+            <div class="order-machine"></div>
+
+            <div class="panel-footer">
+
+                <div class="row clearfix">
+                  <div class="col-lg-12">
+                        <span>{% trans "Add new item" %}:</span>
+                  </div><!-- /.col-lg-6 -->
+                </div>
+                <div class="row container">
+                    <div class="input-group">
+                      <div class="input-group-btn machine-control">
+                        {% show_content_type_selection_widget region %}
+                        <input type="button" class="btn btn-default order-machine-add-button" value="Go" />
+                      </div>
+                    </div>
+                </div><!-- /.row -->
+
+
+            </div>
+         </div>
+        {% endfor %}
+    </div>
+</div>

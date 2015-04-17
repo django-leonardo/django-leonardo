@@ -23,18 +23,19 @@
         var fieldset = $("<fieldset>").addClass("module aligned order-item item-wrapper-" + modvar);
         var original_id_id = '#id_' + form.attr('id') + '-id';
 
-        var wrp = ['<h2>'];
+        var wrp = ['<div class="handle panel-heading">'];
         // If original has delete checkbox or this is a freshly added CT? Add delete link!
         if($('.delete', form).length || !$(original_id_id, form).val()) {
             wrp.push('<img class="item-delete" src="'+IMG_DELETELINK_PATH+'" />');
         }
-        wrp.push('<span class="handle"></span> <span class="modname">'+modname+'</span> <span class="collapse pull-right">'+feincms_gettext('Hide')+'</span></h2>');
+        wrp.push('<span class="modname">'+modname+'</span> <span class="collapse pull-right">'+feincms_gettext('Hide')+'</span></div>');
         wrp.push('<div class="item-content"></div>');
         fieldset.append(wrp.join(""));
 
         fieldset.children(".item-content").append(form); //relocates, not clone
 
         $("<div>").addClass("item-controls").appendTo(fieldset);
+        $("#col3_body").addClass("panel-default");
 
         return fieldset;
     }

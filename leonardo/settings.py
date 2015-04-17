@@ -359,5 +359,8 @@ try:
 except ImportError:
     pass
 
+# ensure if bootstra_admin is on top of INSTALLED_APPS
 if 'bootstrap_admin' in INSTALLED_APPS:
     BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
+    #INSTALLED_APPS.remove('bootstrap_admin')
+    #INSTALLED_APPS = ['bootstrap_admin'] + INSTALLED_APPS
