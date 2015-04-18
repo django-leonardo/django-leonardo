@@ -14,9 +14,11 @@
         {% endblock %}
       </header>
       {% include "horizon/_messages.html" %}
+      <div id="toolbar">
+          {% feincms_render_region feincms_page "toolbar" request %}
+      </div>
       {% block content %}
-      <div class="content-wrapper">
-        <aside class="main-sidebar">
+      <div class="content-wrapper" id="main">
         <aside class="col1">
           {% feincms_render_region feincms_page "col1" request %}
         </aside>
