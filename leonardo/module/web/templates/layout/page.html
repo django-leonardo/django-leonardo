@@ -4,7 +4,7 @@
   {% block header %}
   {% include "_header.html" %}
   {% endblock header %}
-  <body id="{% block body_id %}{% endblock %}" ng-app='hz' class="skin-blue {% if not request.user.is_authenticated %}sidebar-collapse sidebar-open{% endif %}">
+  <body id="{% block body_id %}{% endblock %}" ng-app='hz' class="skin-blue">
     <div class="wrapper">
       <header>
         {% block page_header %}
@@ -25,7 +25,7 @@
           <aside class="col1">
             {% feincms_render_region feincms_page "col1" request %}
           </aside>
-          <section class="content col3">
+          <section class="col3">
             {% block main %}
             {% if request.frontend_editing %}
             <a href="{% url 'widget_create' 'web.htmltextwidget' %}">Přidat</a>
