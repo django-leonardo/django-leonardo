@@ -6,4 +6,8 @@ register = template.Library()
 
 @register.filter
 def get_col_classes(page, region):
-    return page.get_col_classes(region)
+    data = page.get_col_classes(region)
+    if str(data) == "":
+    	return 'col-md-12'
+    else:
+    	return data
