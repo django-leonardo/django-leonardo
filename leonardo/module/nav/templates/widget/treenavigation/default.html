@@ -1,16 +1,20 @@
 {% extends "widget/base.html" %}
 
-{% load feincms_page_tags %}
+{% load feincms_tags feincms_page_tags %}
 
 {% block content %}
+{{ root.level }}
+-{{ root.id }}
 <div class="{% if widget.orientation == 'horizontal' %}navbar-inline{% else %}navbar-collapse collapse{% endif %}">
 {% with root.level as level %}
-{% feincms_nav root level=lvl depth=depth as toplevel %}
+{% feincms_nav root level=level depth=2 as toplevel %}
+={{ toplevel }}=
 <ul class="nav navbar-nav">
 {% for p in toplevel %}
 <li><a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}{% if p|is_equal_or_parent_of:current %}active{% endif %}" href="{{ p.get_absolute_url }}">{{ p.title }}</a></li>
 {% endfor %}
 </ul>
 {% endwith %}
+xxx
 </div>
 {% endblock %}
