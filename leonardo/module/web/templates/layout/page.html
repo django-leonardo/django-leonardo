@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-{% load feincms_tags feincms_page_tags leonardo_tags branding i18n %}
+{% load leonardo_tags feincms_tags feincms_page_tags branding i18n %}
 <html>
   {% include "_header.html" %}
   <body id="{% block body_id %}{% endblock %}" ng-app='hz' class="skin-blue">
-    <div class="wrapper {% get_col_classes feincms_page 'col3' %}">
+    <div class="wrapper">
       <header>
         <div class="container">
           {% feincms_render_region feincms_page "header" request %}
@@ -17,16 +17,16 @@
       </div>
       <div id="main">
         <div class="container">
-          <aside class="col1 {{ page.get_col1_classes }}">
+          <aside class="col1 {% get_col_classes feincms_page 'col1' %}">
             {% feincms_render_region feincms_page "col1" request %}
           </aside>
-          <section class="col3 {{ page.get_col3_classes }}">
+          <section class="col3 {% get_col_classes feincms_page 'col3' %}">
             {% feincms_render_region feincms_page "col3" request %}
             {% if request.frontend_editing %}
             <a href="{% url 'widget_create' 'web.htmltextwidget' %}">Přidat</a>
             {% endif %}
           </section>
-          <aside class="col2 {{ page.get_col2_classes }}">
+          <aside class="col2 {% get_col_classes feincms_page 'col2' %}">
             {% feincms_render_region feincms_page "col2" request %}
           </aside>
         </div>
