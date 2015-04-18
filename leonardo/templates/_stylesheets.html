@@ -19,4 +19,133 @@
 
 <link rel="shortcut icon" href="{{ STATIC_URL }}dashboard/img/favicon.ico"/>
 
+<style type="text/css">
+body{ color:#909090;  }
 
+a { color:#000; }
+a:hover { color:#000; }
+
+h1,h2,h3,h4,h5,h6 { color: #000; }
+
+#header { }
+#header h2 { color:#000; }
+
+#toolbar h3 , #toolbar h2 { color:#000; }
+
+.fieldset h3 { background-color: transparent; color: #E76200; font-weight:bold; }
+label em {color:red;}
+
+.page_home #toolbar .container { padding-top: 0px; }
+#toolbar .container { padding-top: 0px; }
+.page_home #toolbar .container { padding-top: 0px; background-image:none;}
+.page_home #main .container {  }
+#footer h2 { color:#ccc; }
+.page_home #right_sidebar {  }
+.page_home #left_sidebar { }
+
+.sidebar, #content { min-height:450px; }
+
+.boxed-widget .webcms-content { border: 1px solid #1F1E21; }
+.boxed-widget h4.widget-title { margin:-6px -6px 5px -6px; background: url(../images/box_header.gif) repeat-x scroll 0 0 transparent; padding:0 10px; line-height:31px; color:#fff; font-size:1.05em; }
+
+.object-list { margin: 0;}
+.object-list  .object-text{ padding: 5px 0;}
+#content .object-list { padding:0 0 10px 0; }
+.sidebar .object-list { padding:0px; }
+.page_home .sidebar .object-list { padding:0px }
+.even .object-list { background-color:transparent!important; border:1px transparent solid; }
+.object-image { float:left; padding: 0 15px 10px 0; display:block; }
+#content .object-image { padding: 0 15px 10px 0;}
+.sidebar .object-image { padding: 0 5px 5px 0; }
+.page_home  #content .object-image {padding: 0 5px 5px 0;}
+.object-meta { float:right; padding:0px;  font: 11px/18px 'Tahoma'; text-align:right; color:#909090; text-transform:uppercase;}
+.object-meta a { color:#909090; }
+.quiet { text-align:right; font: 11px/18px 'Tahoma'; vertical-align:top;  }
+
+.page_home .object-meta { float:left; width:80px; text-align:right; padding:0px;}
+.page_home .object-text { margin-left:90px; }
+.object-grid { margin-right:-5px; }
+.object-cell { position:relative; }
+.object-cell h3 {font-size:14px; margin-bottom:10px; }
+.object-cell-content {height:250px; }
+.object-buttons { padding-top:5px; text-transform:uppercase; }
+.object-buttons a, .object-list-buttons button  { float:right; padding-right:8px; }
+
+.object-box { background-color:#0f0f0f; padding:5px 15px; margin-bottom:5px;
+ -webkit-border-radius: 8px!important; -moz-border-radius: 8px!important; border-radius: 8px!important}
+.object-box .buttonset{ margin:10px 0 0 0; padding:10px 0 0 0; }
+.object-box textarea{ width:80%; height:120px; }
+.object-box h2 { margin-bottom:5px; }
+.object-box ul {padding-left:0; margin:0 0 5px 0; }
+.object-list .product-price { float:right; padding:3px 15px 0 0; text-align:right; }
+.object-list .normal-widget { padding-bottom:0px!important; }
+
+.boxed-widget .webcms-content, .boxed-bottom-widget .webcms-content { margin-bottom:0px; }
+.normal-widget .webcms-content, .boxed-widget .webcms-content, .boxed-top-widget .webcms-content, .boxed-bottom-widget .webcms-content { 
+margin:2px; border:2px solid black!important; opacity:0.9;
+}
+
+#main .webcms-widget {  margin: 0 0 0 0px; }
+
+#header { background-color: #ffa040; }
+#header .container { background-color: #ffba73; }
+
+#toolbar { background-color: #ff1e00; }
+#toolbar .container { background-color: #ff5640; }
+
+#main { background-color: #057d9f; }
+#main .container { background-color: #39aecf; }
+
+#footer { background-color: #8ab32d; }
+#footer .container { background-color: #cdf76f; }
+
+.sidebar { background-color:#d660cc; }
+#right_sidebar { padding-left: 0px; }
+#left_sidebar { padding-right: 0px; }
+
+.normal-widget, .boxed-widget, .boxed-top-widget, .boxed-bottom-widget {
+	
+} 
+
+.sf-menu a, .sf-menu a:visited { font-weight:normal; margin-right:5px; border-top:3px transparent solid; color:#000; }
+.sf-menu li ul{ background:#fff; border-color:#333; }
+.sf-menu li li { background:#fff; border-color:#333; }
+.sf-menu li ul li ul{ border-color:#333; }
+.sf-menu li:hover a, .sf-menu li.sfHover a, .sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active { color:#FF8A00; border-top:3px #FF8A00 solid; }
+.sf-menu li li a{ color:#000!important; border-top:3px #fff solid!important; }
+.sf-menu li li:hover, .sf-menu li li.sfHover, .sf-menu li li a:focus, .sf-menu li li a:hover, .sf-menu li li a:active { color:#000; text-decoration:underline;}
+.sf-menu li.current-cat > a, .sf-menu li.current_page_item > a { color:#6A797D; font-weight:normal;  border-top:3px solid #6A797D }
+.sf-menu li a span { color:#333; }
+
+.horizontal a, .horizontal strong { color:#000; background:transparent url(../img/bullet.gif) no-repeat scroll 0px 5px; }
+.vertical a, .vertical strong { color:#000; background:transparent url(../img/bullet.gif) no-repeat scroll 0px 10px; }
+.vertical li.subactive > a, .horizontal li.subactive > a,.vertical li.active > a, .horizontal li.active > a { color:#000; }
+
+.siteheading-default span { color:#FFF; }
+
+.folio_item { border: 5px solid #EEEEEE;
+    float: left;
+    font-size: 0;
+    height: 190px;
+    margin: 0 0px 20px 0;
+    position: relative;
+    width: 290px; }
+.folio_item h3 { background: none repeat scroll 0 0 #303030; float:left; font: 10px/30px 'Tahoma';
+	letter-spacing:0; margin-bottom:0; padding:0 10px; text-transform:uppercase; }
+.folio_item p { color:#303030; background-color:#fff; float:left; clear:left; font: 10px/30px 'Tahoma';
+	letter-spacing:0; margin-bottom:0; padding:10px; text-transform:uppercase; }
+.folio_item h3 a { color:#fff; }
+.folio_item .object-text { bottom: 65px; left: 0; position: absolute; z-index: 1000; margin-left:0!important;}
+.page_home .folio_item { height: 90px; margin: 0 0px 10px 0; width:130px; }
+.page_home .folio_item .object-text { bottom: 5px;left: 5px; }
+
+#container {position:relative; }
+.page_home #header .container {position:absolute;z-index:300; background-color:#fff!important; }
+.page_home #header  { width:960px; margin:0 auto; }
+.page_home #toolbar .container{ width:100%; height: 450px; }
+.page_home #toolbar {  position: relative; z-index:250; }
+
+.linkmenu-cycle { overflow:hidden; }
+.linkmenu-cycle a  img{ display:block; }
+
+</style>
