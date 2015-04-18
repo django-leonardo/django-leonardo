@@ -86,6 +86,18 @@ class Page(FeinCMSPage):
                     d.size, getattr(d, '{}_width'.format(col))))
         return " ".join(classes)
 
+    def get_col1_classes(self):
+
+        return self.get_col_classes('col1')
+
+    def get_col2_classes(self):
+
+        return self.get_col_classes('col2')
+
+    def get_col3_classes(self):
+
+        return self.get_col_classes('col3')
+
     @property
     def render_box_classes(self):
         """agreggate all css classes
