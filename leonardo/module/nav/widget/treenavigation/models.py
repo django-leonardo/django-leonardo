@@ -29,8 +29,8 @@ class TreeNavigationWidget(Widget):
 
     class Meta:
         abstract = True
-        verbose_name = _("navigation menu")
-        verbose_name_plural = _('navigation menus')
+        verbose_name = _("Navigation menu")
+        verbose_name_plural = _('Navigation menus')
 
     def level(self, level):
         return level + 2

@@ -28,8 +28,8 @@ class BreadcrumbsWidget(Widget):
 
     class Meta:
         abstract = True
-        verbose_name = _("breadcrumbs")
-        verbose_name_plural = _('breadcrumbs')
+        verbose_name = _("Breadcrumbs")
+        verbose_name_plural = _('Breadcrumbs')
 
     def render_content(self, options):
         request = options['request']

@@ -17,5 +17,5 @@ class SiteSearchWidget(Widget):
 
     class Meta:
         abstract = True
-        verbose_name = _("site search")
-        verbose_name_plural = _("site searches")
+        verbose_name = _("Site search")
+        verbose_name_plural = _("Site searches")

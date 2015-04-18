@@ -11,8 +11,8 @@ class SiteMapWidget(Widget):
 
     class Meta:
         abstract = True
-        verbose_name = _("site map")
-        verbose_name_plural = _('site maps')
+        verbose_name = _("Site map")
+        verbose_name_plural = _('Site maps')
 
     def render_content(self, options):
         request = options['request']

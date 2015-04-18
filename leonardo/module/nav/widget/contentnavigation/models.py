@@ -8,12 +8,12 @@ from leonardo.module.web.models import Widget
 
 class ContentNavigationWidget(Widget):
     include_contextual_pages = models.BooleanField(verbose_name=_("include contextual pages"), default=False)
-    include_text_headers = models.BooleanField(verbose_name=_("include text headers"), default=False)
+    include_text_headers = models.BooleanField(verbose_name=_("include widget headers"), default=False)
 
     class Meta:
         abstract = True
-        verbose_name = _("content navigation")
-        verbose_name_plural = _('content navigations')
+        verbose_name = _("Content navigation")
+        verbose_name_plural = _('Content navigations')
 
     def render_content(self, options):
         request = options['request']
