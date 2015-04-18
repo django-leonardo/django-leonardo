@@ -98,4 +98,5 @@ class Command(NoArgsCommand):
                     page_theme.save()
                     page_themes += 1
 
-        self.stdout.write('Successfully synced {} themes'.format(page_themes))
+        self.stdout.write(
+            'Successfully synced {} page themes'.format(page_themes))

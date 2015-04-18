@@ -61,6 +61,7 @@ class PageTheme(models.Model):
         verbose_name = _("Page theme")
         verbose_name_plural = _("Page themes")
 
+
 class Page(FeinCMSPage):
 
     theme = models.ForeignKey(PageTheme, verbose_name=_('Theme'))
@@ -211,6 +212,17 @@ class Widget(FeinCMSBase):
 
     def model_cls(self):
         return self.__class__.__name__
+
+    @property
+    def render_box_classes(self):
+        """agreggate all css classes
+        """
+        classes = []
+        STR = "col-{0}-{1}"
+        for d in WidgetDimension.objects.filter(
+                widget_id=self.pk):
+            classes.append(STR.format(d.size, d.width))
+        return " ".join(classes)
 
     @classmethod
     @memoized
