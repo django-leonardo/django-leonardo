@@ -11,10 +11,10 @@
 	    <li><a class="fa fa-user" data-toggle="control-sidebar" href="#">{{ request.user.username }}</a></li>
 	    <li><a href="{% url 'horizon:module:auth:logout' %}">Sign Out</a></li>
 	  {% else %}
-	  	{% if widget.type == '1' %}
-	    	<li><a href="{% url 'admin:login' %}">Sign In</a></li>
-	  	{% elif widget.type == '2' %}
+	  	{% if widget.type == '2' %}
 	    	<li><a class="ajax-modal" href="{% url 'horizon:module:auth:login' %}">Sign In</a></li>
+	  	{% else %}
+	    	<li><a href="{% url 'admin:login' %}">Sign In</a></li>
 	  	{% endif %}
 	  {% endif %}
 
