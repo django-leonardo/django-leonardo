@@ -74,7 +74,17 @@ class Page(FeinCMSPage):
     @property
     def dimensions(self):
         return PageDimension.objects.filter(
-                        page=self)
+            page=self)
+
+    def get_col_classes(self, col='col1'):
+
+        STR = "col-{0}-{1}"
+        classes = []
+        for d in self.dimensions:
+            classes.append(
+                STR.format(
+                    d.size, getattr(d, '{}_width'.format(col))))
+        return " ".join(classes)
 
     @property
     def render_box_classes(self):
@@ -83,7 +93,7 @@ class Page(FeinCMSPage):
         classes = []
         STR = "col-{0}-{1}"
         for d in self.dimensions:
-            classes.append(STR.format(d.size, d.width))
+            classes.append(STR.format(d.size, d.col1_width))
         return " ".join(classes)
 
 
@@ -231,8 +241,8 @@ class Widget(FeinCMSBase):
     @property
     def dimensions(self):
         return WidgetDimension.objects.filter(
-                        widget_id=self.pk,
-                        widget_type=ContentType.objects.get_for_model(self))
+            widget_id=self.pk,
+            widget_type=ContentType.objects.get_for_model(self))
 
     @property
     def render_box_classes(self):
