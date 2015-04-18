@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 {% load feincms_tags feincms_page_tags branding i18n %}
 <html>
-  {% block header %}
   {% include "_header.html" %}
-  {% endblock header %}
   <body id="{% block body_id %}{% endblock %}" ng-app='hz' class="skin-blue">
     <div class="wrapper">
       <header>
-        {% block page_header %}
         <div class="container">
           {% feincms_render_region feincms_page "header" request %}
         </div>
-        {% endblock %}
       </header>
       {% include "horizon/_messages.html" %}
       <div id="toolbar">
@@ -19,41 +15,33 @@
           {% feincms_render_region feincms_page "toolbar" request %}
         </div>
       </div>
-      {% block content %}
       <div id="main">
         <div class="container">
           <aside class="col1 {{ page.get_col1_classes }}">
             {% feincms_render_region feincms_page "col1" request %}
           </aside>
           <section class="col3 {{ page.get_col3_classes }}">
-            {% block main %}
+            {% feincms_render_region feincms_page "col3" request %}
             {% if request.frontend_editing %}
             <a href="{% url 'widget_create' 'web.htmltextwidget' %}">Přidat</a>
             {% endif %}
-            {% feincms_render_region feincms_page "col3" request %}
-            {% endblock %}
           </section>
           <aside class="col2 {{ page.get_col2_classes }}">
             {% feincms_render_region feincms_page "col2" request %}
           </aside>
         </div>
       </div>
-      {% endblock %}
       <footer>
-        {% block footer %}
         <div class="container">
           {% feincms_render_region feincms_page "footer" request %}
         </div>
-        {% endblock %}
       </footer>
       {% if request.user.is_authenticated and request.user.is_staff and request.frontend_editing %}
       {% include "common/user_sidebar.html" %}
       {% endif %} 
     </div>
-    {% block js %}
     {% include "horizon/_scripts.html" %}
-    {% endblock %}
-    {% block body_helper %}{% feincms_render_region feincms_page "helper" request %}{% endblock %}
+    {% feincms_render_region feincms_page "helper" request %}
     <div id="modal_wrapper"></div>
   </body>
 </html>
