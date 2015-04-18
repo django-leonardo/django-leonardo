@@ -418,7 +418,7 @@
             update_item_controls(new_fieldset, ACTIVE_REGION);
         });
 
-        $(document.body).on('click', 'h2 img.item-delete', function() {
+        $(document.body).on('click', 'div img.item-delete', function() {
             var item = $(this).parents(".order-item");
             if (confirm(DELETE_MESSAGES[0])) {
                 var in_database = item.find(".delete-field").length;
@@ -452,7 +452,7 @@
             }
         });
 
-        $(document.body).on('click', 'h2 span.collapse', function() {
+        $(document.body).on('click', 'div span.collapse', function() {
             var node = this;
             $(this.parentNode.parentNode).children('.item-content').slideToggle(function(){
                 $(node).text(feincms_gettext($(this).is(':visible') ? 'Hide' : 'Show'));
@@ -558,7 +558,7 @@
         $(".order-machine").sortable({
             handle: '.handle',
             helper: function(event, ui){
-                var h2 = $("<h2>").html($(ui).find('span.modname').html());
+                var h2 = $(".panel-heading").html($(ui).find('span.modname').html());
                 return $("<fieldset>").addClass("helper module").append(h2);
             },
             placeholder: 'highlight',
