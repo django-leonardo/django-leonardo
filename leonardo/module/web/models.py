@@ -27,6 +27,7 @@ from .const import *
 from .forms import WidgetForm, WIDGETS
 
 
+@python_2_unicode_compatible
 class PageDimension(models.Model):
 
     page = models.ForeignKey('Page', verbose_name=_('Page'))
@@ -38,6 +39,9 @@ class PageDimension(models.Model):
                                      choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
     col3_width = models.IntegerField(verbose_name=_("Column 3 width"),
                                      choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+
+    def __str__(self):
+        return "{0} - {1}".format(self.page, self.size)
 
     class Meta:
         verbose_name = _("Page Dimension")
@@ -116,6 +120,7 @@ class WidgetInline(FeinCMSInline):
         ]
 
 
+@python_2_unicode_compatible
 class WidgetDimension(models.Model):
 
     widget_type = models.ForeignKey(ContentType)
@@ -130,6 +135,14 @@ class WidgetDimension(models.Model):
                                  choices=ROW_CHOICES, default=DEFAULT_WIDTH)
     offset = models.IntegerField(verbose_name=_("Offset"),
                                  choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+
+    @property
+    def width_class(self):
+        STR = "col-{0}-{1}"
+        return STR.format(self.size, self.width)
+
+    def __str__(self):
+        return "{0} - {1}".format(self.widget_type, self.width_class)
 
     class Meta:
         verbose_name = _("Widget Dimension")
@@ -241,9 +254,8 @@ class Widget(FeinCMSBase):
         """agreggate all css classes
         """
         classes = []
-        STR = "col-{0}-{1}"
         for d in self.dimensions:
-            classes.append(STR.format(d.size, d.width))
+            classes.append(d.width_class)
         return " ".join(classes)
 
     @classmethod
