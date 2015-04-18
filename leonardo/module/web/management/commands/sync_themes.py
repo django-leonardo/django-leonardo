@@ -1,5 +1,6 @@
 import codecs
 import os
+import sys
 from optparse import make_option
 
 from django.core.management.base import CommandError, NoArgsCommand
@@ -73,18 +74,28 @@ class Command(NoArgsCommand):
 
         self.stdout.write('Successfully created %s widget themes' % created_themes)
 
+        page_themes = 0
         # page theme
         # TODO move to own directory and makes more confrotable
         name = 'layout/page.html'
-        page_template = get_or_create_template(name, force=force)
+        path = os.path.dirname(os.path.abspath(__file__))
+        possible_topdir = os.path.normpath(os.path.join(path,
+                                                        os.pardir,
+                                                        os.pardir))
+        layout_dir = os.path.join(possible_topdir, "templates", "layout")
+        for dirpath, subdirs, filenames in os.walk(layout_dir):
+            for f in filenames:
+                name = f.split(".")[0]
+                page_template = get_or_create_template(name, force=force)
 
-        try:
-            page_theme = PageTheme.objects.get(
-                template__name__exact=name)
-        except PageTheme.DoesNotExist:
-            page_theme = PageTheme()
-            page_theme.label = 'Page layout'
-            page_theme.template = page_template
-            page_theme.save()
+                try:
+                    page_theme = PageTheme.objects.get(
+                        template__name__exact=page_template.name)
+                except PageTheme.DoesNotExist:
+                    page_theme = PageTheme()
+                    page_theme.label = '{} layout'.format(name.title())
+                    page_theme.template = page_template
+                    page_theme.save()
+                    page_themes += 1
 
-        self.stdout.write('Successfully synced page theme')
+        self.stdout.write('Successfully synced {} themes'.format(page_themes))
