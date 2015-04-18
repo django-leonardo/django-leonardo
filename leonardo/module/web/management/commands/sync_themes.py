@@ -52,7 +52,6 @@ class Command(NoArgsCommand):
         for w in Widget.__subclasses__():
             templates = w.templates()
             for name in templates:
-
                 widget_template = get_or_create_template(name, force=force)
 
                 if not widget_template:
@@ -77,7 +76,6 @@ class Command(NoArgsCommand):
         page_themes = 0
         # page theme
         # TODO move to own directory and makes more confrotable
-        name = 'layout/page.html'
         path = os.path.dirname(os.path.abspath(__file__))
         possible_topdir = os.path.normpath(os.path.join(path,
                                                         os.pardir,
@@ -85,15 +83,13 @@ class Command(NoArgsCommand):
         layout_dir = os.path.join(possible_topdir, "templates", "layout")
         for dirpath, subdirs, filenames in os.walk(layout_dir):
             for f in filenames:
-                name = f.split(".")[0]
-                page_template = get_or_create_template(name, force=force)
-
+                page_template = get_or_create_template(f, force=force)
                 try:
                     page_theme = PageTheme.objects.get(
                         template__name__exact=page_template.name)
                 except PageTheme.DoesNotExist:
                     page_theme = PageTheme()
-                    page_theme.label = '{} layout'.format(name.title())
+                    page_theme.label = '{} layout'.format(f.split(".")[0].title())
                     page_theme.template = page_template
                     page_theme.save()
                     page_themes += 1
