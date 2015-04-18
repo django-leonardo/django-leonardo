@@ -7,7 +7,7 @@
 -{{ root.id }}
 <div class="{% if widget.orientation == 'horizontal' %}navbar-inline{% else %}navbar-collapse collapse{% endif %}">
 {% with root.level as level %}
-{% feincms_nav root level=level depth=2 as toplevel %}
+{% feincms_nav root level=0 depth=5 as toplevel %}
 ={{ toplevel }}=
 <ul class="nav navbar-nav">
 {% for p in toplevel %}

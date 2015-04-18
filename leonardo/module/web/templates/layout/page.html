@@ -8,36 +8,42 @@
     <div class="wrapper">
       <header>
         {% block page_header %}
-        <div class="container">           
+        <div class="container">
           {% feincms_render_region feincms_page "header" request %}
         </div>
         {% endblock %}
       </header>
       {% include "horizon/_messages.html" %}
       <div id="toolbar">
+        <div class="container">
           {% feincms_render_region feincms_page "toolbar" request %}
+        </div>
       </div>
       {% block content %}
       <div id="main">
-        <aside class="col1">
-          {% feincms_render_region feincms_page "col1" request %}
-        </aside>
-        <section class="content col3">
-          {% block main %}
-          {% if request.frontend_editing %}
-          <a href="{% url 'widget_create' 'web.htmltextwidget' %}">Přidat</a>
-          {% endif %}
-          {% feincms_render_region feincms_page "col3" request %}
-          {% endblock %}
-        </section>
-        <aside class="col2">
-          {% feincms_render_region feincms_page "col2" request %}
-        </aside>
+        <div class="container">
+          <aside class="col1">
+            {% feincms_render_region feincms_page "col1" request %}
+          </aside>
+          <section class="content col3">
+            {% block main %}
+            {% if request.frontend_editing %}
+            <a href="{% url 'widget_create' 'web.htmltextwidget' %}">Přidat</a>
+            {% endif %}
+            {% feincms_render_region feincms_page "col3" request %}
+            {% endblock %}
+          </section>
+          <aside class="col2">
+            {% feincms_render_region feincms_page "col2" request %}
+          </aside>
+        </div>
       </div>
       {% endblock %}
       <footer>
         {% block footer %}
-        {% feincms_render_region feincms_page "footer" request %}
+        <div class="container">
+          {% feincms_render_region feincms_page "footer" request %}
+        </div>
         {% endblock %}
       </footer>
       {% if request.user.is_authenticated and request.user.is_staff and request.frontend_editing %}
