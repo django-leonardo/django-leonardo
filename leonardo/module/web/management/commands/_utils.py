@@ -45,6 +45,5 @@ def get_or_create_template(template_name, extension='.html', app_first=False,
                             t.content = codecs.open(path, 'r').read()
                             t.save()
                             t.sites.add(site)
-                            print("{} successfully synced".format(t.name))
                     return t
     return None
