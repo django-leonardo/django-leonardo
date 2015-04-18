@@ -71,6 +71,21 @@ class Page(FeinCMSPage):
         verbose_name_plural = _("Pages")
         ordering = ['tree_id', 'lft']
 
+    @property
+    def dimensions(self):
+        return PageDimension.objects.filter(
+                        page=self)
+
+    @property
+    def render_box_classes(self):
+        """agreggate all css classes
+        """
+        classes = []
+        STR = "col-{0}-{1}"
+        for d in self.dimensions:
+            classes.append(STR.format(d.size, d.width))
+        return " ".join(classes)
+
 
 class WidgetInline(FeinCMSInline):
     form = WidgetForm
@@ -214,14 +229,18 @@ class Widget(FeinCMSBase):
         return self.__class__.__name__
 
     @property
+    def dimensions(self):
+        return WidgetDimension.objects.filter(
+                        widget_id=self.pk,
+                        widget_type=ContentType.objects.get_for_model(self))
+
+    @property
     def render_box_classes(self):
         """agreggate all css classes
         """
         classes = []
         STR = "col-{0}-{1}"
-        for d in WidgetDimension.objects.filter(
-                widget_id=self.pk,
-                widget_type=ContentType.objects.get_for_model(self)):
+        for d in self.dimensions:
             classes.append(STR.format(d.size, d.width))
         return " ".join(classes)
 
