@@ -15,6 +15,12 @@
 {% endblock %}
 
 {% compress css %}
+{% block page_css %}
+<style type="text/css">
+{{ request.leonardo_page.theme.style|safe }}
+</style>
+{% endblock %}
+
 {% block widget_css %}
 <style type="text/css">
 {% for widget in request.leonardo_options.widgets %}
@@ -22,6 +28,7 @@
 {% endfor %}
 </style>
 {% endblock %}
+
 {% endcompress %}
 
 {% include "horizon/_conf.html" %}
