@@ -220,7 +220,8 @@ class Widget(FeinCMSBase):
         classes = []
         STR = "col-{0}-{1}"
         for d in WidgetDimension.objects.filter(
-                widget_id=self.pk):
+                widget_id=self.pk,
+                widget_type=ContentType.objects.get_for_model(self)):
             classes.append(STR.format(d.size, d.width))
         return " ".join(classes)
 
