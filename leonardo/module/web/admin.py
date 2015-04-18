@@ -67,7 +67,7 @@ class WidgetThemeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(WidgetThemeForm, self).__init__(*args, **kwargs)
 
-        choices = [(t.model_class().__name__, t)
+        choices = [(t.model_class().__name__ if t.model_class() else None, t)
                    for t in ContentType.objects.filter(app_label__in=['web'])]
         self.fields['widget_class'].choices = choices
 
