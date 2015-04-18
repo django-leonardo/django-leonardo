@@ -8,7 +8,7 @@
     <div class="wrapper">
       <header>
         {% block page_header %}
-        <div class="container">           
+        <div class="container">
           {% feincms_render_region feincms_page "header" request %}
         </div>
         {% endblock %}
@@ -18,7 +18,7 @@
           {% feincms_render_region feincms_page "toolbar" request %}
       </div>
       {% block content %}
-      <div id="main">
+      <div class="content-wrapper" id="main">
         <aside class="col1">
           {% feincms_render_region feincms_page "col1" request %}
         </aside>
@@ -35,7 +35,7 @@
         </aside>
       </div>
       {% endblock %}
-      <footer>
+      <footer class="main-footer">
         {% block footer %}
         {% feincms_render_region feincms_page "footer" request %}
         {% endblock %}
@@ -47,7 +47,10 @@
     {% block js %}
     {% include "horizon/_scripts.html" %}
     {% endblock %}
+    {% block body_footer %}{% feincms_render_region feincms_page "footer" request %}{% endblock %}
+    {% block body_toolbar %}{% feincms_render_region feincms_page "toolbar" request %}{% endblock %}
     {% block body_helper %}{% feincms_render_region feincms_page "helper" request %}{% endblock %}
+    {% block body_preview %}{% feincms_render_region feincms_page "preview" request %}{% endblock %}
     <div id="modal_wrapper"></div>
   </body>
 </html>
