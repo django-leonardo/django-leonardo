@@ -17,6 +17,13 @@ class PageDimensionAdmin(InlineModelAdmin):
     model = PageDimension
 
 
+class PageColorSchemeInlineAdmin(admin.TabularInline):
+
+    model = PageColorScheme
+
+    extra = 1
+
+
 class PageAdmin(FeinPageAdmin):
 
     fieldsets = [
@@ -53,6 +60,16 @@ class WidgetDimensionAdmin(ModelAdmin):
 admin.site.register(WidgetDimension, WidgetDimensionAdmin)
 
 
+class WidgetDimensionInlineAdmin(GenericTabularInline):
+
+    ct_field = "widget_type"
+    ct_fk_field = "widget_id"
+
+    model = WidgetDimension
+
+    extra = 1
+
+
 class PageColorSchemeAdmin(ModelAdmin):
 
     pass
@@ -87,12 +104,14 @@ class WidgetThemeAdmin(ModelAdmin):
 
     list_filter = ('widget_class',)
 
+    inlines = [WidgetDimensionInlineAdmin, ]
+
 
 admin.site.register(WidgetTheme, WidgetThemeAdmin)
 
 
 class PageThemeAdmin(ModelAdmin):
 
-    pass
+    inlines = [PageColorSchemeInlineAdmin, ]
 
 admin.site.register(PageTheme, PageThemeAdmin)
