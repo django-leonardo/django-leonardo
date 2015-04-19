@@ -1,0 +1,12 @@
+{% load applicationcontent_tags %}
+
+{% fragment request "_page_breadcrumbs" %}{% block breadcrumbs %}{% endblock %}{% endfragment %}
+{% fragment request "_head_title" %}{% block head_title %}{% endblock %}{% endfragment %}
+{% fragment request "_page_title" %}{% block page_title %}{% endblock %}{% endfragment %}
+{% fragment request "_page_subtitle" %}{% block page_subtitle %}{% endblock %}{% endfragment %}
+{% fragment request "extra_meta" %}{% block meta %}{% endblock %}{% endfragment %}
+
+{% fragment request "current_brand" %}{% block current_brand %}{% endblock %}{% endfragment %}
+{% fragment request "current_product" %}{% block current_product %}{% endblock %}{% endfragment %}
+{% fragment request "current_category" %}{% block current_category %}{% endblock %}{% endfragment %}
+{% fragment request "current_manufacturer" %}{% block current_manufacturer %}{% endblock %}{% endfragment %}
