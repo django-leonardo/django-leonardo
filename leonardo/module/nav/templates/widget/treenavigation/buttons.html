@@ -5,6 +5,6 @@
 {% block content %}
 {% feincms_nav root level=level depth=depth as toplevel %}
 {% for page in toplevel %}
-<a href="{{ page.get_absolute_url }}" class="btn btn-default {% if widget.orientation == 'vertical' %}btn-block{% endif %}" type="button">{{ page.title }}</a>
+<a href="{{ page.get_absolute_url }}" class="btn btn-default{% if widget.orientation == 'vertical' %} btn-block{% endif %}">{{ page.title }}</a>
 {% endfor %}
 {% endblock %}
