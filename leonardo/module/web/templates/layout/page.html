@@ -3,13 +3,13 @@
 <html>
   {% include "_header.html" %}
   <body id="{% block body_id %}{% endblock %}" ng-app='hz' class="skin-blue">
+    {% include "horizon/_messages.html" %}
     <div class="wrapper">
       <header>
         <div class="container">
           {% feincms_render_region feincms_page "header" request %}
         </div>
       </header>
-      {% include "horizon/_messages.html" %}
       <div id="toolbar">
         <div class="container">
           {% feincms_render_region feincms_page "toolbar" request %}

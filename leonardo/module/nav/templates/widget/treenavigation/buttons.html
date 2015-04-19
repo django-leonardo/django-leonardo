@@ -3,15 +3,12 @@
 {% load feincms_page_tags %}
 
 {% block content %}
-{% with root.level as level %}
-{% feincms_nav request.webcms_page level=lvl depth=depth as toplevel %}
-{% for p in toplevel %}
-<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}{% if p|is_equal_or_parent_of:current %}ui-state-highlight{% endif %} button" href="{{ p.get_absolute_url }}"><span><span>{{ p.title }}</span></span></a>
-{% endfor %}
+{% feincms_nav root level=level depth=depth as toplevel %}
+<div class="btn-group">
+  {% for page in toplevel %}
+  <li><a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}{% if p|is_equal_or_parent_of:current %}active{% endif %}" ></a></li>
+  <a href="{{ page.get_absolute_url }}" class="btn btn-default" type="button">{{ page.title }}</a>
+  {% endfor %}
+</div>
 {% endwith %}
-<script type="text/javascript">
-$(document).ready(function() {
-//	$("#{{ widget.fe_identifier }} a").button();
-});
-</script>
 {% endblock %}
