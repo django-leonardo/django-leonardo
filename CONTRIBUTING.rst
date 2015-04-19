@@ -12,7 +12,7 @@ How to contribute?
 * Make sure to add yourself to the :ref:`contributors`.
 * Send a pull request
 
-You can help further the development of **horizon-contrib** by reporting bugs, submitting documentation, patches, with monetary or hardware donations.
+You can help further the development of **django-leonardo** by reporting bugs, submitting documentation, patches, with monetary or hardware donations.
 
 Lead developers
 --------------
