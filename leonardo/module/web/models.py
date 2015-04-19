@@ -66,6 +66,25 @@ class PageTheme(models.Model):
         verbose_name_plural = _("Page themes")
 
 
+@python_2_unicode_compatible
+class PageColorScheme(models.Model):
+
+    name = models.CharField(
+        verbose_name=_("Name"), max_length=255, null=True, blank=True)
+    label = models.CharField(
+        verbose_name=_("Title"), max_length=255, null=True, blank=True)
+    style = models.TextField(verbose_name=_('Style'), blank=True)
+    theme = models.ForeignKey(
+        PageTheme, verbose_name=_('Template'), related_name='templates')
+
+    def __str__(self):
+        return self.label or super(PageColorScheme, self).__str__()
+
+    class Meta:
+        verbose_name = _("Page color scheme")
+        verbose_name_plural = _("Page color schemes")
+
+
 class Page(FeinCMSPage):
 
     theme = models.ForeignKey(PageTheme, verbose_name=_('Theme'))
