@@ -53,6 +53,13 @@ class WidgetDimensionAdmin(ModelAdmin):
 admin.site.register(WidgetDimension, WidgetDimensionAdmin)
 
 
+class PageColorSchemeAdmin(ModelAdmin):
+
+    pass
+
+admin.site.register(PageColorScheme, PageColorSchemeAdmin)
+
+
 class WidgetThemeForm(forms.ModelForm):
 
     widget_class = forms.ChoiceField(
