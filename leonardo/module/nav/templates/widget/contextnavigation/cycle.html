@@ -5,54 +5,27 @@
 {% load webcms_tags %}
 
 {% block content %}
-<div class="cycle-container">
-{% for child_page in page.get_children %}
-	<div class="cycle-{{ forloop.counter }} cycle-item">
-		{% feincms_render_region child_page region options.request %}
-		{% if widget.link_style != "" %}
-		<div class="link-more">
-			{% if widget.link_style == "link" %}
-			<span class="ui-icon ui-icon-triangle-1-e"></span>
-			<a href="{{ child_page|get_url }}">
-			{% else %}
-			<button type="button" onclick="document.location.href='{{ child_page|get_url }}';">
-			{% endif %}
-			{% if widget.link_text %}{{ widget.link_text }}{% else %}{{ child_page.short_title }}{% endif %}
-			{% if widget.link_style == "link" %}</a>{% else %}</button>{% endif %}
-		</div>
-		{% endif %}
-	</div>
-{% endfor %}
+<div data-ride="carousel" class="carousel slide" id="carousel_{{ widget.fe_identifier }}">
+  <ol class="carousel-indicators">
+    {% for child_page in page.get_children %}
+    <li data-slide-to="{{ forloop.counter0 }}" data-target="#carousel_{{ widget.fe_identifier }}"></li>
+    {% endfor %}
+  </ol>
+  <div class="carousel-inner">
+    {% for child_page in page.get_children %}
+    <div class="item">
+      {% feincms_render_region child_page region options.request %}
+      <div class="carousel-caption">
+        {{ child_page.title }}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <a data-slide="prev" href="#carousel_{{ widget.fe_identifier }}" class="left carousel-control">
+    <span class="fa fa-angle-left"></span>
+  </a>
+  <a data-slide="next" href="#carousel_{{ widget.fe_identifier }}" class="right carousel-control">
+    <span class="fa fa-angle-right"></span>
+  </a>
 </div>
-<div id="{{ widget.fe_identifier }}-controls" class="cycle-controls"></div>
-<script type="text/javascript">
-
-function stop_cycle() {
-	$("#{{ widget.fe_identifier }} .cycle-container").cycle('pause'); 
-//	alert('stop');
-}
-
-$(document).ready(function() {
-	$("#{{ widget.fe_identifier }} .cycle-container").cycle({
-		fx: 'scrollLeft',
-		speed: 'slow',
-//		pause: 1,
-		timeout: 3000,
-		pager: '#{{ widget.fe_identifier }}-controls'
-	});
-
-	$("#{{ widget.fe_identifier }} .cycle-item").bind('click', function() {
-		stop_cycle();
-	});
-
-	$("#{{ widget.fe_identifier }} .cycle-controls a").bind('click', function() {
-		$("#{{ widget.fe_identifier }} .cycle-container").cycle('resume');
-//		alert('resume');
-	});
-
-	{% if widget.link_style == "button" %}
-	$("#{{ widget.fe_identifier }} button").button();
-	{% endif %}
-});
-</script>
 {% endblock %}
