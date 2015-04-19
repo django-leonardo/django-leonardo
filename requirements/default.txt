@@ -25,6 +25,7 @@ requests>=1.2.3
 bulbs==0.3.11
 django-filer==0.9.9
 bootstrap_admin>=0.3.5
+bootstrap_admin_feincms>=0.0.3
 django-admin-tools>=0.5.2
 -e git+https://github.com/WiserTogether/django-remote-forms#egg=django_remote_forms  # forms
 -e git+https://github.com/michaelkuty/form_designer#egg=form_designer
@@ -32,5 +33,4 @@ django-admin-tools>=0.5.2
 horizon-contrib>=1.0.3
 xstatic-adminlte>=2.0.1.1
 xstatic-react>=0.12.2.1
-
 gunicorn>=18.0

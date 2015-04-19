@@ -160,6 +160,14 @@ replace db from files (new version of core template etc..)
 
     python manage.py sync_themes --force
 
+Change admin site name
+
+.. code-block:: python
+
+    SITE_HEADER = "Leonardo administration"
+
+    SITE_TITLE = "Leonardo site admin"
+
 
 Read More
 =========
