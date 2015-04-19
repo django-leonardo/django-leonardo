@@ -18,6 +18,9 @@
 {% block page_css %}
 <style type="text/css">
 {{ request.leonardo_page.theme.style|safe }}
+{% for color_scheme in request.leonardo_page.theme.templates.all %}
+{{ color_scheme.style }}
+{% endfor %}
 </style>
 {% endblock %}
 
