@@ -86,26 +86,20 @@ The following bundles are available:
 CMS
 ~~~
 
-:django-leonardo[web]:
-    for FeinCMS integration, is one of main parts
+* django-leonardo[web] - for FeinCMS integration, is one of main parts
 
-:django-leonardo[media]:
-    for using the Filer and related widgets like a Media Gallery, ..
+* django-leonardo[media] - for using the Filer and related widgets like a Media Gallery, ..
 
-:django-leonardo[nav]:
-    set of navigation widgets
+* django-leonardo[nav] - set of navigation widgets
 
-:django-leonardo[blog]:
-    ElephantBlog integration
+* django-leonardo[blog] - ElephantBlog integration
 
-:django-leonardo[forms]:
-    Form-Builder(FeinCMS) integration with Remote-Forms for API
+* django-leonardo[forms] - Form-Builder(FeinCMS) integration with Remote-Forms for API
 
 Ecommerce
 ~~~~~~~~~
 
-:django-leonardo[eshop]:
-    Django-Oscar integration (is not stable !)
+* django-leonardo[eshop] -Django-Oscar integration (is not stable !)
 
 
 Minimal app
