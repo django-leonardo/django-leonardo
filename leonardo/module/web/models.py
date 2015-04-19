@@ -51,6 +51,8 @@ class PageDimension(models.Model):
 @python_2_unicode_compatible
 class PageTheme(models.Model):
 
+    name = models.CharField(
+        verbose_name=_("Name"), max_length=255, null=True, blank=True)
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template = models.ForeignKey(
@@ -171,8 +173,8 @@ class WidgetDimension(models.Model):
 @python_2_unicode_compatible
 class WidgetTheme(models.Model):
 
-#    name = models.CharField(
-#        verbose_name=_("Name"), max_length=255, null=True, blank=True)
+    name = models.CharField(
+        verbose_name=_("Name"), max_length=255, null=True, blank=True)
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     content_template = models.ForeignKey(
