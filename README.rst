@@ -10,18 +10,8 @@ This is a stable for daily use in development.
 A collection of awesome Django libraries, resources and shiny things.
 Full featured framework for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
-Fresh modules
--------------
-
-- web
-- blog
-- forms
-- lang
-- nav
-- eshop
-
 Use Cases
----------
+=========
 
 - server-side
 
@@ -52,7 +42,7 @@ Features
     - Bootstrap 3
 
 Installation
-------------
+============
 
 .. code-block:: bash
 
@@ -75,7 +65,8 @@ to install Leonardo and the dependencies for a given feature.
 You can specify these in your requirements or on the ``pip`` comand-line
 by using brackets.  Multiple bundles can be specified by separating them by
 commas.
-::
+
+.. code-block:: bash
 
     $ pip install "django-leonardo[web]"
 
@@ -101,6 +92,9 @@ Ecommerce
 
 * django-leonardo[eshop] -Django-Oscar integration (is not stable !)
 
+
+Setup
+=====
 
 Minimal app
 -----------
