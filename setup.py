@@ -31,9 +31,9 @@ def reqs(*f):
         ) if r]
 extra = {}
 extras = lambda *p: reqs('extras', *p)
-# Celery specific
+# apps
 features = {
-    'eshop',
+    'eshop', 'blog', 'forms', 'media', 'web', 'nav'
 }
 extras_require = {x: extras(x + '.txt') for x in features}
 extra['extras_require'] = extras_require
