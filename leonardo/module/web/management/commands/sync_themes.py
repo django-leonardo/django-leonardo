@@ -43,12 +43,26 @@ class Command(NoArgsCommand):
         app_first = options.get('app_first')
         delete = options.get('delete')
 
-        # TODO: base template as param
-        base_template_name = 'widget/base.html'
-        base_template = get_or_create_template(base_template_name, force=force)
+        # base
+        path = os.path.dirname(os.path.abspath(__file__))
+        possible_topdir = os.path.normpath(os.path.join(path,
+                                                        os.pardir,
+                                                        os.pardir,
+                                                        "templates"))
+
+        # load widget base templates
+        widget_base_dir = os.path.join(possible_topdir, "base", "widget")
+        widget_base_template = None
+        for dirpath, subdirs, filenames in os.walk(widget_base_dir):
+            for f in filenames:
+                w_base_template = get_or_create_template(f, force=force)
+
+                if not widget_base_template:
+                    widget_base_template = w_base_template
 
         created_themes = 0
 
+        # load widget templates and create widget themes with default base
         for w in Widget.__subclasses__():
             templates = w.templates()
             for name in templates:
@@ -65,31 +79,34 @@ class Command(NoArgsCommand):
                     widget_theme = WidgetTheme()
                     widget_theme.label = THEME_NAME_FORMAT.format(
                         unicode(w._meta.verbose_name), name.split("/")[-1])
+                    widget_theme.name = THEME_NAME_FORMAT.format(
+                        unicode(w._meta.verbose_name), name.split("/")[-1].split(".")[0])
                     widget_theme.content_template = widget_template
-                    widget_theme.base_template = base_template
+                    widget_theme.base_template = widget_base_template
                     widget_theme.widget_class = w.__name__
                     widget_theme.save()
                     created_themes += 1
 
         self.stdout.write('Successfully created %s widget themes' % created_themes)
 
+        
         page_themes = 0
-        # page theme
-        # TODO move to own directory and makes more confrotable
-        path = os.path.dirname(os.path.abspath(__file__))
-        possible_topdir = os.path.normpath(os.path.join(path,
-                                                        os.pardir,
-                                                        os.pardir))
-        layout_dir = os.path.join(possible_topdir, "templates", "layout")
-        for dirpath, subdirs, filenames in os.walk(layout_dir):
+        
+        # load page base templates
+        page_base_dir = os.path.join(possible_topdir, "base", "page")
+        page_base_template = None
+        for dirpath, subdirs, filenames in os.walk(page_base_dir):
             for f in filenames:
                 page_template = get_or_create_template(f, force=force)
+
+                # create themes with bases
                 try:
                     page_theme = PageTheme.objects.get(
                         template__name__exact=page_template.name)
                 except PageTheme.DoesNotExist:
                     page_theme = PageTheme()
                     page_theme.label = '{} layout'.format(f.split(".")[0].title())
+                    page_theme.name = page_theme.label
                     page_theme.template = page_template
                     page_theme.save()
                     page_themes += 1
