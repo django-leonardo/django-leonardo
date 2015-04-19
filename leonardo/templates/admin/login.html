@@ -24,7 +24,7 @@
         </a>
         <fieldset>
           <legend>
-            {% trans 'Leonardo administration' %} - {{ title }}
+            {{ site_header|default:_('Leonardo administration') }} - {{ title }}
           </legend>
 
           {% if form.errors or form.non_field_errors %}
