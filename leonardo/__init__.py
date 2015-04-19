@@ -30,6 +30,7 @@ class Default(object):
             #'admin_tools.theming',
             #'admin_tools.menu',
             'bootstrap_admin',  # theme
+            'bootstrap_admin_feincms',  # theme
 
             'django_extensions',
             'django.contrib.contenttypes',
