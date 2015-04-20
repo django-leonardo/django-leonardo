@@ -89,6 +89,7 @@ class PageColorScheme(models.Model):
 class Page(FeinCMSPage):
 
     theme = models.ForeignKey(PageTheme, verbose_name=_('Theme'))
+    color_scheme = models.ForeignKey(PageColorScheme, verbose_name=_('Color scheme'))
 
     class Meta:
         verbose_name = _("Page")
