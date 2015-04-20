@@ -164,7 +164,7 @@ class WidgetInline(FeinCMSInline):
             }),
             (_('Theme'), {
                 'fields': [
-                    ('label', 'theme', 'enabled',),
+                    ('label', 'base_theme', 'content_theme', 'enabled',),
                 ],
             }),
         ]
