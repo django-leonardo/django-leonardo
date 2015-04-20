@@ -65,7 +65,7 @@ class Command(NoArgsCommand):
                 except WidgetBaseTheme.DoesNotExist:
                     widget_theme = WidgetBaseTheme()
                     widget_theme.label = f.split("/")[-1]
-                    widget_theme.name = f.split("/")[-1].title()
+                    widget_theme.name = f.split("/")[-1].split(".")[0].title()
                     widget_theme.template = w_base_template
                     widget_theme.save()
 
