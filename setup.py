@@ -23,6 +23,9 @@ sys.path.append(os.path.join(PROJECT_DIR, 'leonardo'))
 
 #reqs = [str(ir.req) for ir in install_reqs]
 
+def strip_comments(l):
+    return l.split('#', 1)[0].strip()
+
 def reqs(*f):
     return [
         r for r in (
