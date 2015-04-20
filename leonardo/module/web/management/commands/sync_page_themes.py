@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+
 import codecs
 import os
 from collections import OrderedDict
@@ -10,7 +11,14 @@ from django.core.management.base import BaseCommand, CommandError
 from django.core.management.color import no_style
 from django.utils.encoding import smart_text
 from django.utils.six.moves import input
-from leonardo.module.web.models import PageTheme, PageColorScheme
+from leonardo.module.web.models import PageColorScheme, PageTheme
+
+from django.contrib.staticfiles.management.commands.collectstatic \
+    import Command as CollectStatic
+
+from leonardo.module.web.models import PageTheme
+
+from ._utils import get_or_create_template
 
 
 class Command(BaseCommand):
@@ -73,6 +81,8 @@ class Command(BaseCommand):
         self.clear = False
         ignore_patterns = []
         self.ignore_patterns = list(set(ignore_patterns))
+        self.page_themes_updated = 0
+        self.skins_updated = 0
 
     def collect(self):
         """
@@ -114,15 +124,42 @@ class Command(BaseCommand):
                                 with codecs.open(os.path.join(skins_path, f)) as skin_file:
                                     skin.style = skin_file.read()
                                     skin.save()
-
-        return {
-            'modified': self.copied_files + self.symlinked_files,
-            'unmodified': self.unmodified_files,
-            'post_processed': self.post_processed_files,
-        }
+                                    self.skins_updated += 1
+        self.page_themes_updated += len(page_themes)
 
     def handle(self, **options):
         self.set_options(**options)
+        force = options.get('force', False)
+        # base
+        path = os.path.dirname(os.path.abspath(__file__))
+        possible_topdir = os.path.normpath(os.path.join(path,
+                                                        os.pardir,
+                                                        os.pardir,
+                                                        "templates"))
+        page_themes = 0
+        # load page base templates
+        page_base_dir = os.path.join(possible_topdir, "base", "page")
+        page_base_template = None
+        for dirpath, subdirs, filenames in os.walk(page_base_dir):
+            for f in filenames:
+                page_template = get_or_create_template(
+                    f, force=force, prefix="base/page")
+
+                # create themes with bases
+                try:
+                    page_theme = PageTheme.objects.get(
+                        template__name__exact=page_template.name)
+                except PageTheme.DoesNotExist:
+                    page_theme = PageTheme()
+                    page_theme.label = '{} layout'.format(f.split(".")[0].title())
+                    page_theme.name = page_theme.label
+                    page_theme.template = page_template
+                    page_theme.save()
+                    page_themes += 1
+
+        self.stdout.write(
+            'Successfully synced {} page themes'.format(page_themes))
+
 
         message = ['\n']
 
@@ -133,26 +170,21 @@ class Command(BaseCommand):
             destination_path = None
             message.append('.\n\n')
 
+        cmd = CollectStatic()
+        cmd.stdout = self.stdout
+        collect_static = cmd.handle(
+            **{ 'interactive': False,
+                'link': False,
+                'clear': False,
+                'dry_run': False,
+                'ignore_patterns': [],
+                'use_default_ignore_patterns': True,
+                'post_process': True})
+
         collected = self.collect()
-        modified_count = len(collected['modified'])
-        unmodified_count = len(collected['unmodified'])
-        post_processed_count = len(collected['post_processed'])
 
-
-        if self.verbosity >= 1:
-            template = ("\n%(modified_count)s %(identifier)s %(action)s"
-                        "%(destination)s%(unmodified)s%(post_processed)s.\n")
-            summary = template % {
-                'modified_count': modified_count,
-                'identifier': 'static file' + ('' if modified_count == 1 else 's'),
-                'action': 'symlinked' if self.symlink else 'copied',
-                'destination': (" to '%s'" % destination_path if destination_path else ''),
-                'unmodified': (', %s unmodified' % unmodified_count if collected['unmodified'] else ''),
-                'post_processed': (collected['post_processed'] and
-                                   ', %s post-processed'
-                                   % post_processed_count or ''),
-            }
-            self.stdout.write(summary)
+        self.stdout.write("Page themes synced {}".format(self.page_themes_updated))
+        self.stdout.write("Page Skins synced {}".format(self.skins_updated))
 
     def log(self, msg, level=2):
         """

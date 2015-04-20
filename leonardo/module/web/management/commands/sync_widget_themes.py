@@ -64,8 +64,8 @@ class Command(NoArgsCommand):
                         template__name__exact=f)
                 except WidgetBaseTheme.DoesNotExist:
                     widget_theme = WidgetBaseTheme()
-                    widget_theme.label = f.split("/")[-1]
-                    widget_theme.name = f.split("/")[-1].split(".")[0].title()
+                    widget_theme.name = f.split("/")[-1]
+                    widget_theme.label = f.split("/")[-1].split(".")[0].title()
                     widget_theme.template = w_base_template
                     widget_theme.save()
 
@@ -89,9 +89,9 @@ class Command(NoArgsCommand):
                         template__name__exact=name)
                 except WidgetContentTheme.DoesNotExist:
                     widget_theme = WidgetContentTheme()
-                    widget_theme.label = THEME_NAME_FORMAT.format(
-                        unicode(w._meta.verbose_name), name.split("/")[-1])
                     widget_theme.name = THEME_NAME_FORMAT.format(
+                        unicode(w._meta.verbose_name), name.split("/")[-1])
+                    widget_theme.label = THEME_NAME_FORMAT.format(
                         unicode(w._meta.verbose_name), name.split("/")[-1].split(".")[0])
                     widget_theme.template = widget_template
                     widget_theme.widget_class = w.__name__
@@ -99,27 +99,3 @@ class Command(NoArgsCommand):
                     created_themes += 1
 
         self.stdout.write('Successfully created %s widget themes' % created_themes)
-
-        page_themes = 0
-        # load page base templates
-        page_base_dir = os.path.join(possible_topdir, "base", "page")
-        page_base_template = None
-        for dirpath, subdirs, filenames in os.walk(page_base_dir):
-            for f in filenames:
-                page_template = get_or_create_template(
-                    f, force=force, prefix="base/page")
-
-                # create themes with bases
-                try:
-                    page_theme = PageTheme.objects.get(
-                        template__name__exact=page_template.name)
-                except PageTheme.DoesNotExist:
-                    page_theme = PageTheme()
-                    page_theme.label = '{} layout'.format(f.split(".")[0].title())
-                    page_theme.name = page_theme.label
-                    page_theme.template = page_template
-                    page_theme.save()
-                    page_themes += 1
-
-        self.stdout.write(
-            'Successfully synced {} page themes'.format(page_themes))
