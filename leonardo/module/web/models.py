@@ -112,6 +112,35 @@ class Page(FeinCMSPage):
         return " ".join(classes)
 
 
+@python_2_unicode_compatible
+class WidgetDimension(models.Model):
+
+    widget_type = models.ForeignKey(ContentType)
+    widget_id = models.PositiveIntegerField()
+    widget_object = generic.GenericForeignKey('widget_type', 'widget_id')
+
+    size = models.CharField(
+        verbose_name="Size", max_length=20, choices=DISPLAY_SIZE_CHOICES, default='md')
+    width = models.IntegerField(verbose_name=_("Width"),
+                                choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    height = models.IntegerField(verbose_name=_("Height"),
+                                 choices=ROW_CHOICES, default=DEFAULT_WIDTH)
+    offset = models.IntegerField(verbose_name=_("Offset"),
+                                 choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+
+    @property
+    def width_class(self):
+        STR = "col-{0}-{1}"
+        return STR.format(self.size, self.width)
+
+    def __str__(self):
+        return "{0} - {1}".format(self.widget_type, self.width_class)
+
+    class Meta:
+        verbose_name = _("Widget dimension")
+        verbose_name_plural = _("Widget dimensions")
+
+
 class WidgetInline(FeinCMSInline):
     form = WidgetForm
 
@@ -220,8 +249,8 @@ class Widget(FeinCMSBase):
     enabled = models.NullBooleanField(verbose_name=_('Is visible?'))
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
-    base_theme = models.ForeignKey(WidgetBaseTheme, verbose_name=_('Base theme'))
-    content_theme = models.ForeignKey(WidgetContentTheme, verbose_name=_('Content theme'))
+    base_theme = models.ForeignKey(WidgetBaseTheme, verbose_name=_('Base theme'), null=True, blank=True)
+    content_theme = models.ForeignKey(WidgetContentTheme, verbose_name=_('Content theme'), null=True, blank=True)
 
     class Meta:
         abstract = True
