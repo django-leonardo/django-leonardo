@@ -271,11 +271,11 @@ class Widget(FeinCMSBase):
         return config_value('MEDIA', 'THUMB_MEDIUM_OPTIONS')
 
     def get_template_name(self, format='html'):
-        return self.theme.content_theme.template
+        return self.content_theme.template
 
     @property
     def get_template(self):
-        return self.theme.content_theme.template
+        return self.content_theme.template
 
     def _template_xml_name(self):
         template = 'default'
@@ -285,6 +285,10 @@ class Widget(FeinCMSBase):
     @property
     def widget_name(self):
         return self.__class__.__name__.lower().replace('widget', '')
+
+    @property
+    def get_base_template(self):
+        return self.base_theme.template
 
     @property
     def widget_label(self):
@@ -300,7 +304,7 @@ class Widget(FeinCMSBase):
 
         context = RequestContext(options['request'], {
             'widget': self,
-            'base_template': base_template,
+            'base_template': self.get_base_template,
             'request': options['request'],
         })
         return template.render(context)

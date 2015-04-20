@@ -59,7 +59,7 @@ class Command(NoArgsCommand):
                 if not f.startswith("_"):
                     w_base_template = get_or_create_template(
                         f, force=force, prefix="base/widget")
-                    name = f.split("/")[-1]
+                    name = f.split("/")[-1].split(".")[0]
                     try:
                         widget_theme = WidgetBaseTheme.objects.get(
                             name__exact=name)
@@ -92,9 +92,9 @@ class Command(NoArgsCommand):
                             template__name__exact=name)
                     except WidgetContentTheme.DoesNotExist:
                         widget_theme = WidgetContentTheme()
-                        widget_theme.name = name.split("/")[-1]
+                        widget_theme.name = name.split("/")[-1].split(".")[0]
                         widget_theme.label = THEME_NAME_FORMAT.format(
-                            unicode(w._meta.verbose_name), name.split("/")[-1].split(".")[0])
+                            unicode(w._meta.verbose_name), name.split("/")[-1].split(".")[0]).capitalize()
                         widget_theme.template = widget_template
                         widget_theme.widget_class = w.__name__
                         widget_theme.save()
