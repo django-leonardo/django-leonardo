@@ -4,7 +4,7 @@ import sys
 from optparse import make_option
 
 from django.core.management.base import CommandError, NoArgsCommand
-from leonardo.module.web.models import Widget, WidgetTheme, PageTheme
+from leonardo.module.web.models import Widget, WidgetContentTheme, PageTheme, WidgetBaseTheme
 
 from ._utils import get_or_create_template
 
@@ -59,6 +59,16 @@ class Command(NoArgsCommand):
                 w_base_template = get_or_create_template(
                     f, force=force, prefix="base/widget")
 
+                try:
+                    widget_theme = WidgetBaseTheme.objects.get(
+                        template__name__exact=f)
+                except WidgetBaseTheme.DoesNotExist:
+                    widget_theme = WidgetBaseTheme()
+                    widget_theme.label = f.split("/")[-1]
+                    widget_theme.name = f.split("/")[-1].title()
+                    widget_theme.template = w_base_template
+                    widget_theme.save()
+
                 if "default" in f:
                     widget_base_template = w_base_template
 
@@ -75,16 +85,15 @@ class Command(NoArgsCommand):
                     continue
 
                 try:
-                    widget_theme = WidgetTheme.objects.get(
-                        content_template__name__exact=name)
-                except WidgetTheme.DoesNotExist:
-                    widget_theme = WidgetTheme()
+                    widget_theme = WidgetContentTheme.objects.get(
+                        template__name__exact=name)
+                except WidgetContentTheme.DoesNotExist:
+                    widget_theme = WidgetContentTheme()
                     widget_theme.label = THEME_NAME_FORMAT.format(
                         unicode(w._meta.verbose_name), name.split("/")[-1])
                     widget_theme.name = THEME_NAME_FORMAT.format(
                         unicode(w._meta.verbose_name), name.split("/")[-1].split(".")[0])
-                    widget_theme.content_template = widget_template
-                    widget_theme.base_template = widget_base_template
+                    widget_theme.template = widget_template
                     widget_theme.widget_class = w.__name__
                     widget_theme.save()
                     created_themes += 1
