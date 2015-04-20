@@ -44,8 +44,8 @@ class PageDimension(models.Model):
         return "{0} - {1}".format(self.page, self.size)
 
     class Meta:
-        verbose_name = _("Page Dimension")
-        verbose_name_plural = _("Page Dimensions")
+        verbose_name = _("Page dimension")
+        verbose_name_plural = _("Page dimensions")
 
 
 @python_2_unicode_compatible
@@ -166,8 +166,8 @@ class WidgetDimension(models.Model):
         return "{0} - {1}".format(self.widget_type, self.width_class)
 
     class Meta:
-        verbose_name = _("Widget Dimension")
-        verbose_name_plural = _("Widget Dimensions")
+        verbose_name = _("Widget dimension")
+        verbose_name_plural = _("Widget dimensions")
 
 
 @python_2_unicode_compatible

@@ -100,9 +100,9 @@ class WidgetThemeAdmin(ModelAdmin):
 
     form = WidgetThemeForm
 
-    list_display = ('__str__', 'widget_class')
+    list_display = ('name', 'widget_class', 'content_template', 'base_template')
 
-    list_filter = ('widget_class',)
+    list_filter = ('base_template', 'widget_class',)
 
     inlines = [WidgetDimensionInlineAdmin, ]
 
