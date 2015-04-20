@@ -145,8 +145,12 @@ class WidgetInline(FeinCMSInline):
     form = WidgetForm
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "theme":
-            queryset = WidgetTheme.objects.filter(
+        if db_field.name == "base_theme":
+            queryset = WidgetBaseTheme.objects.all()
+            kwargs["queryset"] = queryset
+            kwargs["initial"] = queryset.first()
+        if db_field.name == "content_theme":
+            queryset = WidgetContentTheme.objects.filter(
                 widget_class=self.model.__name__)
             kwargs["queryset"] = queryset
             kwargs["initial"] = queryset.first()
@@ -249,8 +253,8 @@ class Widget(FeinCMSBase):
     enabled = models.NullBooleanField(verbose_name=_('Is visible?'))
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
-    base_theme = models.ForeignKey(WidgetBaseTheme, verbose_name=_('Base theme'), null=True, blank=True)
-    content_theme = models.ForeignKey(WidgetContentTheme, verbose_name=_('Content theme'), null=True, blank=True)
+    base_theme = models.ForeignKey(WidgetBaseTheme, verbose_name=_('Base theme'))
+    content_theme = models.ForeignKey(WidgetContentTheme, verbose_name=_('Content theme'))
 
     class Meta:
         abstract = True
