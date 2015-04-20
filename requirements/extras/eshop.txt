@@ -1,2 +1,2 @@
--e git+https://github.com/django-oscar/django-oscar.git@1.0.2#egg=django-oscar  # oscar ecommerce
+-e git+https://github.com/django-oscar/django-oscar.git@1.0.2#egg=django-oscar
 -e git+https://github.com/django-oscar/django-oscar-api@0.0.18#egg=django-oscar-api
