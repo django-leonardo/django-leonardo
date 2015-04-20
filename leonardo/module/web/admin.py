@@ -77,7 +77,7 @@ class PageColorSchemeAdmin(ModelAdmin):
 admin.site.register(PageColorScheme, PageColorSchemeAdmin)
 
 
-class WidgetThemeForm(forms.ModelForm):
+class WidgetContentThemeForm(forms.ModelForm):
 
     widget_class = forms.ChoiceField(
         choices=[],
@@ -86,28 +86,26 @@ class WidgetThemeForm(forms.ModelForm):
 
     class Meta:
 
-        model = WidgetTheme
+        model = WidgetContentTheme
 
     def __init__(self, *args, **kwargs):
-        super(WidgetThemeForm, self).__init__(*args, **kwargs)
+        super(WidgetContentThemeForm, self).__init__(*args, **kwargs)
 
         choices = [(t.model_class().__name__ if t.model_class() else None, t)
                    for t in ContentType.objects.filter(app_label__in=['web'])]
         self.fields['widget_class'].choices = choices
 
 
-class WidgetThemeAdmin(ModelAdmin):
+class WidgetContentThemeAdmin(ModelAdmin):
 
-    form = WidgetThemeForm
+    form = WidgetContentThemeForm
 
-    list_display = ('name', 'widget_class', 'content_template', 'base_template')
+    list_display = ('name', 'widget_class', 'template')
 
-    list_filter = ('base_template', 'widget_class',)
-
-    inlines = [WidgetDimensionInlineAdmin, ]
+    list_filter = ('widget_class',)
 
 
-admin.site.register(WidgetTheme, WidgetThemeAdmin)
+admin.site.register(WidgetContentTheme, WidgetContentThemeAdmin)
 
 
 class PageThemeAdmin(ModelAdmin):

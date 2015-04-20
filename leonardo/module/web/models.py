@@ -171,28 +171,44 @@ class WidgetDimension(models.Model):
 
 
 @python_2_unicode_compatible
-class WidgetTheme(models.Model):
+class WidgetContentTheme(models.Model):
 
     name = models.CharField(
         verbose_name=_("Name"), max_length=255, null=True, blank=True)
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
-    content_template = models.ForeignKey(
+    template = models.ForeignKey(
         'dbtemplates.Template', verbose_name=_('Content template'), related_name='content_templates')
-    base_template = models.ForeignKey(
-        'dbtemplates.Template', verbose_name=_('Base template'), related_name='base_templates')
-
+    style = models.TextField(verbose_name=_('Content style'), blank=True)
     widget_class = models.CharField(
         verbose_name=_('Widget class'), max_length=255)
-
-    style = models.TextField(verbose_name=_('Style'), blank=True)
 
     def __str__(self):
         return self.label or str(self._meta.verbose_name + ' %s' % self.pk)
 
     class Meta:
-        verbose_name = _("Widget theme")
-        verbose_name_plural = _("Widget themes")
+        verbose_name = _("Widget content theme")
+        verbose_name_plural = _("Widget content themes")
+
+
+@python_2_unicode_compatible
+class WidgetBaseTheme(models.Model):
+
+    name = models.CharField(
+        verbose_name=_("Name"), max_length=255, null=True, blank=True)
+    label = models.CharField(
+        verbose_name=_("Title"), max_length=255, null=True, blank=True)
+    template = models.ForeignKey(
+        'dbtemplates.Template', verbose_name=_('Base template'), related_name='base_templates')
+
+    style = models.TextField(verbose_name=_('Base style'), blank=True)
+
+    def __str__(self):
+        return self.label or str(self._meta.verbose_name + ' %s' % self.pk)
+
+    class Meta:
+        verbose_name = _("Widget base theme")
+        verbose_name_plural = _("Widget base themes")
 
 
 class Widget(FeinCMSBase):
@@ -204,7 +220,8 @@ class Widget(FeinCMSBase):
     enabled = models.NullBooleanField(verbose_name=_('Is visible?'))
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
-    theme = models.ForeignKey(WidgetTheme, verbose_name=_('Theme'))
+    base_theme = models.ForeignKey(WidgetBaseTheme, verbose_name=_('Base theme'))
+    content_theme = models.ForeignKey(WidgetContentTheme, verbose_name=_('Content theme'))
 
     class Meta:
         abstract = True
