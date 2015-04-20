@@ -56,8 +56,7 @@ class PageTheme(models.Model):
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template = models.ForeignKey(
-        'dbtemplates.Template', verbose_name=_('Template'), related_name='templates')
-
+        'dbtemplates.Template', verbose_name=_('Template'), related_name='page_templates', limit_choices_to={'name__startswith': "base/page/"})
     style = models.TextField(verbose_name=_('Style'), blank=True)
 
     def __str__(self):
@@ -207,7 +206,7 @@ class WidgetContentTheme(models.Model):
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template = models.ForeignKey(
-        'dbtemplates.Template', verbose_name=_('Content template'), related_name='content_templates')
+        'dbtemplates.Template', verbose_name=_('Content template'), related_name='content_templates', limit_choices_to={'name__startswith': "widget/"})
     style = models.TextField(verbose_name=_('Content style'), blank=True)
     widget_class = models.CharField(
         verbose_name=_('Widget class'), max_length=255)
@@ -228,7 +227,7 @@ class WidgetBaseTheme(models.Model):
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template = models.ForeignKey(
-        'dbtemplates.Template', verbose_name=_('Base template'), related_name='base_templates')
+        'dbtemplates.Template', verbose_name=_('Base template'), related_name='base_templates', limit_choices_to={'name__startswith': "base/widget/"})
 
     style = models.TextField(verbose_name=_('Base style'), blank=True)
 
