@@ -13,12 +13,13 @@ from django.utils.encoding import smart_text
 from django.utils.six.moves import input
 from leonardo.module.web.models import PageColorScheme, PageTheme
 
+from ._utils import get_or_create_template
+
+from dbtemplates.conf import settings
+from django.template.loaders.app_directories import app_template_dirs
+
 from django.contrib.staticfiles.management.commands.collectstatic \
     import Command as CollectStatic
-
-from leonardo.module.web.models import PageTheme
-
-from ._utils import get_or_create_template
 
 
 class Command(BaseCommand):
@@ -130,36 +131,34 @@ class Command(BaseCommand):
     def handle(self, **options):
         self.set_options(**options)
         force = options.get('force', False)
-        # base
-        path = os.path.dirname(os.path.abspath(__file__))
-        possible_topdir = os.path.normpath(os.path.join(path,
-                                                        os.pardir,
-                                                        os.pardir,
-                                                        "templates"))
-        page_themes = 0
-        # load page base templates
-        page_base_dir = os.path.join(possible_topdir, "base", "page")
-        page_base_template = None
-        for dirpath, subdirs, filenames in os.walk(page_base_dir):
-            for f in filenames:
-                page_template = get_or_create_template(
-                    f, force=force, prefix="base/page")
 
-                # create themes with bases
-                try:
-                    page_theme = PageTheme.objects.get(
-                        template__name__exact=page_template.name)
-                except PageTheme.DoesNotExist:
-                    page_theme = PageTheme()
-                    page_theme.label = '{} layout'.format(f.split(".")[0].title())
-                    page_theme.name = page_theme.label
-                    page_theme.template = page_template
-                    page_theme.save()
-                    page_themes += 1
+        # base
+        page_themes = 0
+
+        tpl_dirs = settings.TEMPLATE_DIRS + app_template_dirs
+        templatedirs = [d for d in tpl_dirs if os.path.isdir(d)]
+
+        for templatedir in templatedirs:
+            for dirpath, subdirs, filenames in os.walk(templatedir):
+                if 'base/page' in dirpath:
+                    for f in filenames:
+                        page_template = get_or_create_template(
+                            f, force=force, prefix="base/page")
+
+                        # create themes with bases
+                        try:
+                            page_theme = PageTheme.objects.get(
+                                template__name__exact=page_template.name)
+                        except PageTheme.DoesNotExist:
+                            page_theme = PageTheme()
+                            page_theme.label = '{} layout'.format(f.split(".")[0].title())
+                            page_theme.name = page_theme.label
+                            page_theme.template = page_template
+                            page_theme.save()
+                            page_themes += 1
 
         self.stdout.write(
             'Successfully synced {} page themes'.format(page_themes))
-
 
         message = ['\n']
 
