@@ -55,9 +55,11 @@ class Command(NoArgsCommand):
         widget_base_template = None
         for dirpath, subdirs, filenames in os.walk(widget_base_dir):
             for f in filenames:
-                w_base_template = get_or_create_template(f, force=force)
 
-                if not widget_base_template:
+                w_base_template = get_or_create_template(
+                    f, force=force, prefix="base/widget")
+
+                if "default" in f:
                     widget_base_template = w_base_template
 
         created_themes = 0
@@ -89,15 +91,14 @@ class Command(NoArgsCommand):
 
         self.stdout.write('Successfully created %s widget themes' % created_themes)
 
-        
         page_themes = 0
-        
         # load page base templates
         page_base_dir = os.path.join(possible_topdir, "base", "page")
         page_base_template = None
         for dirpath, subdirs, filenames in os.walk(page_base_dir):
             for f in filenames:
-                page_template = get_or_create_template(f, force=force)
+                page_template = get_or_create_template(
+                    f, force=force, prefix="base/page")
 
                 # create themes with bases
                 try:
