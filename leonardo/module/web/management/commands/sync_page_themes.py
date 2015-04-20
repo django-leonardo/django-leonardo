@@ -142,20 +142,22 @@ class Command(BaseCommand):
             for dirpath, subdirs, filenames in os.walk(templatedir):
                 if 'base/page' in dirpath:
                     for f in filenames:
-                        page_template = get_or_create_template(
-                            f, force=force, prefix="base/page")
+                        # ignore private members
+                        if not f.startswith("_"):
+                            page_template = get_or_create_template(
+                                f, force=force, prefix="base/page")
 
-                        # create themes with bases
-                        try:
-                            page_theme = PageTheme.objects.get(
-                                template__name__exact=page_template.name)
-                        except PageTheme.DoesNotExist:
-                            page_theme = PageTheme()
-                            page_theme.label = '{} layout'.format(f.split(".")[0].title())
-                            page_theme.name = page_theme.label
-                            page_theme.template = page_template
-                            page_theme.save()
-                            page_themes += 1
+                            # create themes with bases
+                            try:
+                                page_theme = PageTheme.objects.get(
+                                    template__name__exact=page_template.name)
+                            except PageTheme.DoesNotExist:
+                                page_theme = PageTheme()
+                                page_theme.label = '{} layout'.format(f.split(".")[0].title())
+                                page_theme.name = page_theme.label
+                                page_theme.template = page_template
+                                page_theme.save()
+                                page_themes += 1
 
         self.stdout.write(
             'Successfully synced {} page themes'.format(page_themes))

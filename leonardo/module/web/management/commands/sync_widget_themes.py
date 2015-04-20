@@ -55,22 +55,23 @@ class Command(NoArgsCommand):
         widget_base_template = None
         for dirpath, subdirs, filenames in os.walk(widget_base_dir):
             for f in filenames:
+                # ignore private members
+                if not f.startswith("_"):
+                    w_base_template = get_or_create_template(
+                        f, force=force, prefix="base/widget")
 
-                w_base_template = get_or_create_template(
-                    f, force=force, prefix="base/widget")
+                    try:
+                        widget_theme = WidgetBaseTheme.objects.get(
+                            template__name__exact=f)
+                    except WidgetBaseTheme.DoesNotExist:
+                        widget_theme = WidgetBaseTheme()
+                        widget_theme.name = f.split("/")[-1]
+                        widget_theme.label = f.split("/")[-1].split(".")[0].title()
+                        widget_theme.template = w_base_template
+                        widget_theme.save()
 
-                try:
-                    widget_theme = WidgetBaseTheme.objects.get(
-                        template__name__exact=f)
-                except WidgetBaseTheme.DoesNotExist:
-                    widget_theme = WidgetBaseTheme()
-                    widget_theme.name = f.split("/")[-1]
-                    widget_theme.label = f.split("/")[-1].split(".")[0].title()
-                    widget_theme.template = w_base_template
-                    widget_theme.save()
-
-                if "default" in f:
-                    widget_base_template = w_base_template
+                    if "default" in f:
+                        widget_base_template = w_base_template
 
         created_themes = 0
 
@@ -78,24 +79,25 @@ class Command(NoArgsCommand):
         for w in Widget.__subclasses__():
             templates = w.templates()
             for name in templates:
-                widget_template = get_or_create_template(name, force=force)
+                # ignore private members
+                if not name.startswith("_"):
+                    widget_template = get_or_create_template(name, force=force)
 
-                if not widget_template:
-                    self.stdout.write('Template for "%s" not found' % name)
-                    continue
+                    if not widget_template:
+                        self.stdout.write('Template for "%s" not found' % name)
+                        continue
 
-                try:
-                    widget_theme = WidgetContentTheme.objects.get(
-                        template__name__exact=name)
-                except WidgetContentTheme.DoesNotExist:
-                    widget_theme = WidgetContentTheme()
-                    widget_theme.name = THEME_NAME_FORMAT.format(
-                        unicode(w._meta.verbose_name), name.split("/")[-1])
-                    widget_theme.label = THEME_NAME_FORMAT.format(
-                        unicode(w._meta.verbose_name), name.split("/")[-1].split(".")[0])
-                    widget_theme.template = widget_template
-                    widget_theme.widget_class = w.__name__
-                    widget_theme.save()
-                    created_themes += 1
+                    try:
+                        widget_theme = WidgetContentTheme.objects.get(
+                            template__name__exact=name)
+                    except WidgetContentTheme.DoesNotExist:
+                        widget_theme = WidgetContentTheme()
+                        widget_theme.name = name.split("/")[-1]
+                        widget_theme.label = THEME_NAME_FORMAT.format(
+                            unicode(w._meta.verbose_name), name.split("/")[-1].split(".")[0])
+                        widget_theme.template = widget_template
+                        widget_theme.widget_class = w.__name__
+                        widget_theme.save()
+                        created_themes += 1
 
         self.stdout.write('Successfully created %s widget themes' % created_themes)
