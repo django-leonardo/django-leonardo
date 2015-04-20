@@ -291,7 +291,7 @@ class Widget(FeinCMSBase):
 
     def render_content(self, options):
 
-        base_template = self.theme.base_theme.template
+        base_template = self.base_theme.template
         template = loader.get_template(self.content_theme.template)
 
         context = RequestContext(options['request'], {
