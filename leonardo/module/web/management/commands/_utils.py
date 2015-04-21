@@ -10,7 +10,7 @@ ALWAYS_ASK, FILES_TO_DATABASE, DATABASE_TO_FILES = ('0', '1', '2')
 
 
 def get_or_create_template(template_name, extension='.html', app_first=False,
-                           force=True, delete=False, prefix=''):
+                           force=True, delete=False, prefix='', notfix=None):
 
     site = Site.objects.get_current()
 
@@ -32,6 +32,8 @@ def get_or_create_template(template_name, extension='.html', app_first=False,
                 if name.startswith('/'):
                     name = name[1:]
                 if template_name in name and prefix in path:
+                    if notfix and notfix in path:
+                        continue
                     try:
                         t = Template.on_site.get(name__exact=name)
                     except Template.DoesNotExist:

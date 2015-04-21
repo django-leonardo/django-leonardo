@@ -256,7 +256,7 @@ APPLICATION_CHOICES = [] # init
 if 'media' in APPS:
     FILER_IMAGE_MODEL = 'leonardo.module.media.models.Image'
 
-from leonardo.module.web.settings import *
+#from leonardo.module.web.settings import *
 from leonardo.module.web.models import Page
 from leonardo.module.web.widget import ApplicationWidget
 
@@ -283,11 +283,23 @@ try:
             _app = import_module(app)
         except ImportError:
             _app = False
+
         if module_has_submodule(import_module(package_string), app) or _app:
             if _app:
                 mod = _app
             else:
                 mod = import_module('.{0}'.format(app), package_string)
+
+            # load all settings key
+            if module_has_submodule(mod, "settings"):
+                try:
+                    settings = import_module(
+                        '{0}.settings'.format(mod.__name__))
+                    for k in dir(settings):
+                        val = getattr(settings, k, None)
+                        globals()[k] = val
+                except ImportError:
+                    pass  # for now
 
             if hasattr(mod, 'default'):
 
@@ -306,6 +318,7 @@ try:
                 AUTHENTICATION_BACKENDS = merge(
                     AUTHENTICATION_BACKENDS, getattr(
                         mod.default, 'auth_backends', []))
+
     # register external apps
     Page.create_content_type(
         ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
