@@ -93,7 +93,7 @@ if settings.DEBUG:
                           document_root=settings.MEDIA_ROOT)
 
 # for sentry error handler
-if hasattr("ERROR_HANDLER_MODULE"):
+if hasattr(settings, "ERROR_HANDLER_MODULE"):
     try:
         mod = __import__(getattr(settings, "ERROR_HANDLER_MODULE", None))
         handler500 = getattr(getattr(mod, "urls"), "handler500")
