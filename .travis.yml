@@ -1,55 +1,24 @@
-# Use the newer container-based infrastructure
-# http://docs.travis-ci.com/user/workers/container-based-infrastructure/
-sudo: false
-
-# Cache pip downloads
-cache:
-    # Apparently if you override the install command that silently disables the
-    # cache: pip support. This is less than ideal and @dstufft opened up
-    # travis-ci/travis-ci#3239 to hopefully get that addressed. For now we
-    # manually add the pip cache directory to the build cache.
-    directories:
-      - ~/.cache/pip
-
 language: python
-
+sudo: false
 python:
-    - '2.7'
-    - '3.3'
-    - '3.4'
-
+  - "2.6"
+  - "2.7"
+  - "3.3"
+  - "3.4"
 env:
-    global:
-        - secure: FuIlzEsGJiAwhaIRBmRNsq9eXmuzs25fX6BChknW4lDyVAySWMp0+Zps9Bd0JgfFYUG3Ip+OTmksYIoTUsG25ZJS9cq1IFt3QKUAN70YCI/4ZBLeIdICPEyxq+Km179+NeEXmBUug17RLMLxh3MWfO+RKUHK9yHIPNNpq0dNyoo=
-
-        # These two environment variables could be set by Travis itself, or Travis
-        # could configure itself in /etc/, ~/, or inside of the virtual
-        # environments. In any case if these two values get configured then end
-        # users only need to enable the pip cache and manually run pip wheel before
-        # running pip install.
-        - PIP_WHEEL_DIR=$HOME/.cache/pip/wheels
-        - PIP_FIND_LINKS=file://$HOME/.cache/pip/wheels
-    matrix:
-        - DJANGO=Django==1.7.7
-
+  - DJANGO_REQUIREMENT="Django>=1.6,<1.7"
+  - DJANGO_REQUIREMENT="Django>=1.7,<1.8"
+  - DJANGO_REQUIREMENT="Django>=1.8,<1.9"
+matrix:
+  exclude:
+    - python: "2.6"
+      env: DJANGO_REQUIREMENT="Django>=1.7,<1.8"
+    - python: "2.6"
+      env: DJANGO_REQUIREMENT="Django>=1.8,<1.9"
 install:
-    # Before installation, we'll run ``pip wheel``, this will build wheels for
-    # anything that doesn't already have one on PyPI.
-    - pip wheel -r requirements.txt
-    # Actually install our dependencies now, this will pull from the directory
-    # that the first command placed the Wheels into.
-    - pip install -e . -r requirements.txt $DJANGO
-
-before_script:
-    # Create testing databases for running migrations against
-    - mysql -e 'CREATE DATABASE leonardo_travis;'
-    - psql -c 'CREATE DATABASE leonardo_travis;' -U postgres
-    # Create database for building demo site
-    - psql -c 'CREATE DATABASE leonardo_demo;' -U postgres
-    - psql -c 'CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;' -U postgres -d leonardo_demo
-
-script:
-    - make travis
-
-after_success:
-    - coveralls
+  - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8 --use-mirrors
+  - pip install -r requirements.txt --use-mirrors
+  - pip install -r requirements/extras/web.txt
+  - python setup.py -q install
+# command to run tests, e.g. python setup.py test
+script: "cd tests && python manage.py test testapp && flake8 ."

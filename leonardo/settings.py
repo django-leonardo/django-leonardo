@@ -137,7 +137,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'root': {
         'level': 'WARNING',
-        'handlers': ['file'],
+        'handlers': ['console'],
     },
     'filters': {
         'require_debug_false': {
@@ -159,22 +159,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '/srv/hrcms/logs/hrcms_server.log',
-            'formatter': 'verbose'
-        },
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler',
-            'formatter': 'simple',
-        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins', 'file'],
+            'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True,
         },
