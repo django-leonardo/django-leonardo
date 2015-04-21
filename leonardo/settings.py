@@ -222,20 +222,9 @@ except Exception, e:
     pass
 
 
-# import defaults
-"""
-#from leonardo.module.web import default as web_default
-from leonardo.module.nav import default as nav_default
-from leonardo.module.lang import default as lang_default
-from leonardo.module.forms import default as forms_default
-"""
+APPLICATION_CHOICES = []
 
-APPLICATION_CHOICES = [] # init
 
-if 'media' in APPS:
-    FILER_IMAGE_MODEL = 'leonardo.module.media.models.Image'
-
-#from leonardo.module.web.settings import *
 from leonardo.module.web.models import Page
 from leonardo.module.web.widget import ApplicationWidget
 
