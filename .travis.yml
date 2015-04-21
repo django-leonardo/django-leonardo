@@ -26,7 +26,7 @@ after_success:
 branches:
   only:
     - master
-    - development
+    - develop
 notifications:
   email:
     recipients:
