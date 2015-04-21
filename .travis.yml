@@ -1,5 +1,5 @@
 language: python
-sudo: false
+sudo: true
 python:
   - "2.6"
   - "2.7"
@@ -15,6 +15,8 @@ matrix:
       env: DJANGO_REQUIREMENT="Django>=1.7,<1.8"
     - python: "2.6"
       env: DJANGO_REQUIREMENT="Django>=1.8,<1.9"
+before_install:
+  - sudo apt-get install build-essential libssl-dev libffi-dev python-dev -y
 install:
   - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8
   - pip install -r requirements.txt --use-mirrors
