@@ -16,10 +16,10 @@ matrix:
     - python: "2.6"
       env: DJANGO_REQUIREMENT="Django>=1.8,<1.9"
 install:
-  - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8 --use-mirrors
+  - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8
   - pip install -r requirements.txt --use-mirrors
-  - pip install -r requirements/extras/horizon.txt --use-mirrors
-  - pip install -r requirements/extras/web.txt --use-mirrors
+  - pip install -r requirements/extras/horizon.txt
+  - pip install -r requirements/extras/web.txt
   - python setup.py -q install
 script: "cd tests && python manage.py test testapp && flake8 ."
 after_success:
