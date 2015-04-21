@@ -10,7 +10,7 @@ This is a stable for daily use in development.
 A collection of awesome Django libraries, resources and shiny things.
 Full featured framework for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
-**Don't waste your time in searching stable solution for daily problems.**
+**Don't waste your time searching stable solution for daily problems.**
 
 .. contents::
    :local:
