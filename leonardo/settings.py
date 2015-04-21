@@ -8,6 +8,7 @@ from oscar import OSCAR_MAIN_TEMPLATE_DIR
 
 from leonardo import default, merge
 
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
@@ -283,6 +284,12 @@ try:
             _app = import_module(app)
         except ImportError:
             _app = False
+        if not _app:
+            try:
+                # check if is not leonardo_module
+                _app = import_module('leonardo_module_{}'.format(app))
+            except ImportError:
+                _app = False
 
         if module_has_submodule(import_module(package_string), app) or _app:
             if _app:
