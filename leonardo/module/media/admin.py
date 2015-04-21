@@ -26,12 +26,12 @@ class VideoAdmin(ModelAdmin):
 try:
     from oscar.apps.promotions.models import Image as OscarImage
     admin.site.unregister(OscarImage)
-except Exception as e:
+except Exception:
     pass
 
 try:
     admin.site.unregister(FilerImage)
-except Exception, e:
+except Exception:
     pass
 
 admin.site.register(Image, ImageAdmin)

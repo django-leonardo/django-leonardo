@@ -79,11 +79,7 @@ class WebConfig(AppConfig, Default):
     verbose_name = "CMS"
 
     def ready(self):
-        """
-        from feincms.module.page.models import Page
 
-        pre_save.connect(page_check_options, sender=Page)
-        post_save.connect(test, sender=Page)
-        """
+        pass
 
 default = Default()
