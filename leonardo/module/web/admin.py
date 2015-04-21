@@ -36,7 +36,7 @@ class PageAdmin(FeinPageAdmin):
         (_('Other options'), {
             'classes': ['collapse'],
             'fields': [
-                'template_key', 'parent', 'override_url', 'redirect_to', 'theme'],
+                'template_key', 'parent', 'override_url', 'redirect_to', 'theme', 'color_scheme'],
         }),
         # <-- insertion point, extensions appear here, see insertion_index
         # above
@@ -77,7 +77,7 @@ class PageColorSchemeAdmin(ModelAdmin):
 admin.site.register(PageColorScheme, PageColorSchemeAdmin)
 
 
-class WidgetThemeForm(forms.ModelForm):
+class WidgetContentThemeForm(forms.ModelForm):
 
     widget_class = forms.ChoiceField(
         choices=[],
@@ -86,28 +86,54 @@ class WidgetThemeForm(forms.ModelForm):
 
     class Meta:
 
-        model = WidgetTheme
+        model = WidgetContentTheme
 
     def __init__(self, *args, **kwargs):
-        super(WidgetThemeForm, self).__init__(*args, **kwargs)
+        super(WidgetContentThemeForm, self).__init__(*args, **kwargs)
 
         choices = [(t.model_class().__name__ if t.model_class() else None, t)
                    for t in ContentType.objects.filter(app_label__in=['web'])]
         self.fields['widget_class'].choices = choices
 
 
-class WidgetThemeAdmin(ModelAdmin):
+class WidgetContentThemeAdmin(ModelAdmin):
 
-    form = WidgetThemeForm
+    form = WidgetContentThemeForm
 
-    list_display = ('__str__', 'widget_class')
+    list_display = ('name', 'label', 'template', 'widget_class')
 
     list_filter = ('widget_class',)
 
-    inlines = [WidgetDimensionInlineAdmin, ]
+
+admin.site.register(WidgetContentTheme, WidgetContentThemeAdmin)
 
 
-admin.site.register(WidgetTheme, WidgetThemeAdmin)
+class WidgetBaseThemeForm(forms.ModelForm):
+
+    widget_class = forms.ChoiceField(
+        choices=[],
+        required=False,
+    )
+
+    class Meta:
+
+        model = WidgetBaseTheme
+
+    def __init__(self, *args, **kwargs):
+        super(WidgetBaseThemeForm, self).__init__(*args, **kwargs)
+
+#        choices = [(t.model_class().__name__ if t.model_class() else None, t)
+#                   for t in ContentType.objects.filter(app_label__in=['web'])]
+#        self.fields['widget_class'].choices = choices
+
+
+class WidgetBaseThemeAdmin(ModelAdmin):
+
+    form = WidgetContentThemeForm
+
+    list_display = ('name', 'label', 'template')
+
+admin.site.register(WidgetBaseTheme, WidgetBaseThemeAdmin)
 
 
 class PageThemeAdmin(ModelAdmin):

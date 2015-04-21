@@ -4,18 +4,7 @@ from __future__ import absolute_import
 import os
 from os.path import abspath, dirname, join, normpath
 
-from oscar import OSCAR_MAIN_TEMPLATE_DIR
-
 from leonardo import default, merge
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-        'TIMEOUT': 120,
-        'KEY_PREFIX': 'CACHE_HRCMS'
-    }
-}
 
 EMAIL = {
     'HOST': 'mail.domain.com',
@@ -148,7 +137,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'root': {
         'level': 'WARNING',
-        'handlers': ['file'],
+        'handlers': ['console'],
     },
     'filters': {
         'require_debug_false': {
@@ -170,22 +159,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '/srv/hrcms/logs/hrcms_server.log',
-            'formatter': 'verbose'
-        },
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler',
-            'formatter': 'simple',
-        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins', 'file'],
+            'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True,
         },
@@ -217,14 +194,16 @@ except ImportError:
     pass
 
 if not SECRET_KEY:
-    LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                              'local')
+    try:
+        LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                  'local')
 
-    from horizon.utils import secret_key
+        from horizon.utils import secret_key
 
-    SECRET_KEY = secret_key.generate_or_read_from_file(os.path.join(LOCAL_PATH,
-                                                                    '.secret_key_store'))
-from oscar.defaults import *
+        SECRET_KEY = secret_key.generate_or_read_from_file(os.path.join(LOCAL_PATH,
+                                                                        '.secret_key_store'))
+    except Exception:
+        pass
 
 REVERSION_MIDDLEWARE=[
     'reversion.middleware.RevisionMiddleware']
@@ -240,27 +219,15 @@ try:
     from leonardo.conf.horizon import *
     from leonardo.conf.static import *
 except Exception, e:
-    raise e
+    pass
 
 
-# import defaults
-"""
-#from leonardo.module.web import default as web_default
-from leonardo.module.nav import default as nav_default
-from leonardo.module.lang import default as lang_default
-from leonardo.module.forms import default as forms_default
-"""
+APPLICATION_CHOICES = []
 
-APPLICATION_CHOICES = [] # init
 
-if 'media' in APPS:
-    FILER_IMAGE_MODEL = 'leonardo.module.media.models.Image'
-
-from leonardo.module.web.settings import *
 from leonardo.module.web.models import Page
 from leonardo.module.web.widget import ApplicationWidget
 
-from leonardo.module.eshop import default
 try:
     # override settings
     try:
@@ -283,11 +250,29 @@ try:
             _app = import_module(app)
         except ImportError:
             _app = False
+        if not _app:
+            try:
+                # check if is not leonardo_module
+                _app = import_module('leonardo_module_{}'.format(app))
+            except ImportError:
+                _app = False
+
         if module_has_submodule(import_module(package_string), app) or _app:
             if _app:
                 mod = _app
             else:
                 mod = import_module('.{0}'.format(app), package_string)
+
+            # load all settings key
+            if module_has_submodule(mod, "settings"):
+                try:
+                    settings = import_module(
+                        '{0}.settings'.format(mod.__name__))
+                    for k in dir(settings):
+                        val = getattr(settings, k, None)
+                        globals()[k] = val
+                except ImportError:
+                    pass  # for now
 
             if hasattr(mod, 'default'):
 
@@ -306,6 +291,7 @@ try:
                 AUTHENTICATION_BACKENDS = merge(
                     AUTHENTICATION_BACKENDS, getattr(
                         mod.default, 'auth_backends', []))
+
     # register external apps
     Page.create_content_type(
         ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)

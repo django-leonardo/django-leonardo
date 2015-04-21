@@ -2,12 +2,6 @@
 
 from __future__ import unicode_literals
 
-import os
-import sys
-
-from dbtemplates.models import Template
-from django import forms
-from django.conf import settings
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -16,8 +10,7 @@ from django.template import loader, RequestContext
 from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from django_extensions.db.fields.json import JSONField
-from feincms.admin.item_editor import FeinCMSInline, ItemEditorForm
+from feincms.admin.item_editor import FeinCMSInline
 from feincms.models import Base as FeinCMSBase
 from feincms.module.page.models import BasePage as FeinCMSPage
 from horizon.utils.memoized import memoized
@@ -44,8 +37,8 @@ class PageDimension(models.Model):
         return "{0} - {1}".format(self.page, self.size)
 
     class Meta:
-        verbose_name = _("Page Dimension")
-        verbose_name_plural = _("Page Dimensions")
+        verbose_name = _("Page dimension")
+        verbose_name_plural = _("Page dimensions")
 
 
 @python_2_unicode_compatible
@@ -56,8 +49,7 @@ class PageTheme(models.Model):
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template = models.ForeignKey(
-        'dbtemplates.Template', verbose_name=_('Template'), related_name='templates')
-
+        'dbtemplates.Template', verbose_name=_('Template'), related_name='page_templates', limit_choices_to={'name__startswith': "base/page/"})
     style = models.TextField(verbose_name=_('Style'), blank=True)
 
     def __str__(self):
@@ -90,6 +82,8 @@ class PageColorScheme(models.Model):
 class Page(FeinCMSPage):
 
     theme = models.ForeignKey(PageTheme, verbose_name=_('Theme'))
+    color_scheme = models.ForeignKey(
+        PageColorScheme, verbose_name=_('Color scheme'))
 
     class Meta:
         verbose_name = _("Page")
@@ -112,12 +106,45 @@ class Page(FeinCMSPage):
         return " ".join(classes)
 
 
+@python_2_unicode_compatible
+class WidgetDimension(models.Model):
+
+    widget_type = models.ForeignKey(ContentType)
+    widget_id = models.PositiveIntegerField()
+    widget_object = generic.GenericForeignKey('widget_type', 'widget_id')
+
+    size = models.CharField(
+        verbose_name="Size", max_length=20, choices=DISPLAY_SIZE_CHOICES, default='md')
+    width = models.IntegerField(verbose_name=_("Width"),
+                                choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    height = models.IntegerField(verbose_name=_("Height"),
+                                 choices=ROW_CHOICES, default=DEFAULT_WIDTH)
+    offset = models.IntegerField(verbose_name=_("Offset"),
+                                 choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+
+    @property
+    def width_class(self):
+        STR = "col-{0}-{1}"
+        return STR.format(self.size, self.width)
+
+    def __str__(self):
+        return "{0} - {1}".format(self.widget_type, self.width_class)
+
+    class Meta:
+        verbose_name = _("Widget dimension")
+        verbose_name_plural = _("Widget dimensions")
+
+
 class WidgetInline(FeinCMSInline):
     form = WidgetForm
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "theme":
-            queryset = WidgetTheme.objects.filter(
+        if db_field.name == "base_theme":
+            queryset = WidgetBaseTheme.objects.all()
+            kwargs["queryset"] = queryset
+            kwargs["initial"] = queryset.first()
+        if db_field.name == "content_theme":
+            queryset = WidgetContentTheme.objects.filter(
                 widget_class=self.model.__name__)
             kwargs["queryset"] = queryset
             kwargs["initial"] = queryset.first()
@@ -135,7 +162,7 @@ class WidgetInline(FeinCMSInline):
             }),
             (_('Theme'), {
                 'fields': [
-                    ('label', 'theme', 'enabled',),
+                    ('label', 'base_theme', 'content_theme', 'enabled',),
                 ],
             }),
         ]
@@ -166,33 +193,51 @@ class WidgetDimension(models.Model):
         return "{0} - {1}".format(self.widget_type, self.width_class)
 
     class Meta:
-        verbose_name = _("Widget Dimension")
-        verbose_name_plural = _("Widget Dimensions")
+        verbose_name = _("Widget dimension")
+        verbose_name_plural = _("Widget dimensions")
 
 
 @python_2_unicode_compatible
-class WidgetTheme(models.Model):
+class WidgetContentTheme(models.Model):
 
     name = models.CharField(
         verbose_name=_("Name"), max_length=255, null=True, blank=True)
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
-    content_template = models.ForeignKey(
-        'dbtemplates.Template', verbose_name=_('Content template'), related_name='content_templates')
-    base_template = models.ForeignKey(
-        'dbtemplates.Template', verbose_name=_('Base template'), related_name='base_templates')
-
+    template = models.ForeignKey(
+        'dbtemplates.Template', verbose_name=_('Content template'),
+        related_name='content_templates', limit_choices_to={'name__startswith': "widget/"})
+    style = models.TextField(verbose_name=_('Content style'), blank=True)
     widget_class = models.CharField(
         verbose_name=_('Widget class'), max_length=255)
-
-    style = models.TextField(verbose_name=_('Style'), blank=True)
 
     def __str__(self):
         return self.label or str(self._meta.verbose_name + ' %s' % self.pk)
 
     class Meta:
-        verbose_name = _("Widget theme")
-        verbose_name_plural = _("Widget themes")
+        verbose_name = _("Widget content theme")
+        verbose_name_plural = _("Widget content themes")
+
+
+@python_2_unicode_compatible
+class WidgetBaseTheme(models.Model):
+
+    name = models.CharField(
+        verbose_name=_("Name"), max_length=255, null=True, blank=True)
+    label = models.CharField(
+        verbose_name=_("Title"), max_length=255, null=True, blank=True)
+    template = models.ForeignKey(
+        'dbtemplates.Template', verbose_name=_('Base template'),
+        related_name='base_templates', limit_choices_to={'name__startswith': "base/widget/"})
+
+    style = models.TextField(verbose_name=_('Base style'), blank=True)
+
+    def __str__(self):
+        return self.label or str(self._meta.verbose_name + ' %s' % self.pk)
+
+    class Meta:
+        verbose_name = _("Widget base theme")
+        verbose_name_plural = _("Widget base themes")
 
 
 class Widget(FeinCMSBase):
@@ -204,7 +249,10 @@ class Widget(FeinCMSBase):
     enabled = models.NullBooleanField(verbose_name=_('Is visible?'))
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
-    theme = models.ForeignKey(WidgetTheme, verbose_name=_('Theme'))
+    base_theme = models.ForeignKey(
+        WidgetBaseTheme, verbose_name=_('Base theme'))
+    content_theme = models.ForeignKey(
+        WidgetContentTheme, verbose_name=_('Content theme'))
 
     class Meta:
         abstract = True
@@ -221,11 +269,11 @@ class Widget(FeinCMSBase):
         return config_value('MEDIA', 'THUMB_MEDIUM_OPTIONS')
 
     def get_template_name(self, format='html'):
-        return self.theme.content_template
+        return self.content_theme.template
 
     @property
     def get_template(self):
-        return self.theme.content_template
+        return self.content_theme.template
 
     def _template_xml_name(self):
         template = 'default'
@@ -237,6 +285,10 @@ class Widget(FeinCMSBase):
         return self.__class__.__name__.lower().replace('widget', '')
 
     @property
+    def get_base_template(self):
+        return self.base_theme.template
+
+    @property
     def widget_label(self):
         return self._meta.verbose_name
 
@@ -245,12 +297,12 @@ class Widget(FeinCMSBase):
 
     def render_content(self, options):
 
-        base_template = self.theme.base_template
-        template = loader.get_template(self.theme.content_template)
+        base_template = self.base_theme.template
+        template = loader.get_template(self.content_theme.template)
 
         context = RequestContext(options['request'], {
             'widget': self,
-            'base_template': base_template,
+            'base_template': self.get_base_template,
             'request': options['request'],
         })
         return template.render(context)

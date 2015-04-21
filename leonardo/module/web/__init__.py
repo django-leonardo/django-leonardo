@@ -1,10 +1,13 @@
 
+import logging
 from django.apps import AppConfig
 
 from .widget import *
 
 
 default_app_config = 'leonardo.module.web.WebConfig'
+
+LOG = logging.getLogger(__name__)
 
 
 class Default(object):
@@ -18,8 +21,23 @@ class Default(object):
         ]
 
     @property
+    def themes(self):
+        """supported themes
+        """
+        return ["leonardo_theme_adminlte", ]
+
+    @property
     def apps(self):
-        return [
+
+        INSTALLED_APPS = []
+        for theme in self.themes:
+            try:
+                __import__(theme)
+                INSTALLED_APPS += [theme]
+            except ImportError:
+                LOG.warning("you are missing available theme {}".format(theme))
+
+        return INSTALLED_APPS + [
             'feincms',
             'mptt',
             'crispy_forms',
@@ -61,11 +79,7 @@ class WebConfig(AppConfig, Default):
     verbose_name = "CMS"
 
     def ready(self):
-        """
-        from feincms.module.page.models import Page
 
-        pre_save.connect(page_check_options, sender=Page)
-        post_save.connect(test, sender=Page)
-        """
+        pass
 
 default = Default()

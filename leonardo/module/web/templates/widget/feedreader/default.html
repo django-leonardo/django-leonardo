@@ -1,4 +1,4 @@
-{% extends "widget/base.html" %}
+{% extends widget.get_base_template %}
 
 {% block content %}
 {{ widget.cached_content|safe }}

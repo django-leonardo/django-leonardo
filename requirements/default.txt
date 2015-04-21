@@ -1,6 +1,5 @@
 django<1.8
 FeinCMS==1.10.1  # fein and related plugins
--e git+https://github.com/feincms/feincms-elephantblog@v1.0.1#egg=elephantblog
 South==1.0.2 # for some apps (oscar,django_extensions,filer)
 django-extensions==1.5.2
 djangorestframework==2.3.5
@@ -8,7 +7,7 @@ django-floppyforms==1.1
 django-crispy-forms==1.4.0
 django-assets==0.8
 django-yamlfield==0.4
--e git+https://github.com/michaelkuty/django-markupfield@master#egg=markupfield
+django-markupfield>=1.3.2
 Django-Select2==4.2.2
 django-reversion==1.8.5
 django-dbtemplates==1.3
@@ -27,10 +26,8 @@ django-filer==0.9.9
 bootstrap_admin>=0.3.5
 bootstrap_admin_feincms>=0.0.3
 django-admin-tools>=0.5.2
--e git+https://github.com/WiserTogether/django-remote-forms#egg=django_remote_forms  # forms
--e git+https://github.com/michaelkuty/form_designer#egg=form_designer
--e git+https://github.com/openstack/horizon@2014.1.4#egg=horizon  # horizon
 horizon-contrib>=1.0.3
+xstatic>=1.0.0 # MIT License
 xstatic-adminlte>=2.0.1.1
 xstatic-react>=0.12.2.1
 gunicorn>=18.0

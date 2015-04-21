@@ -23,6 +23,11 @@ sys.path.append(os.path.join(PROJECT_DIR, 'leonardo'))
 
 #reqs = [str(ir.req) for ir in install_reqs]
 
+def strip_comments(l):
+    if not "egg" in l:
+      return l.split('#', 1)[0].strip()
+    return l.strip()
+
 def reqs(*f):
     return [
         r for r in (
@@ -33,7 +38,7 @@ extra = {}
 extras = lambda *p: reqs('extras', *p)
 # apps
 features = {
-    'eshop', 'blog', 'forms', 'media', 'web', 'nav'
+  'eshop', 'blog', 'forms', 'media', 'web', 'nav'
 }
 extras_require = {x: extras(x + '.txt') for x in features}
 extra['extras_require'] = extras_require
@@ -69,5 +74,5 @@ setup(name='django-leonardo',
           'Programming Language :: Python :: 3.4',
           'Topic :: Software Development :: Libraries :: Application Frameworks'],
       zip_safe=False,
-      **extra
+      extras_require={"blog": []}
       )

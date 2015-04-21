@@ -1,4 +1,4 @@
-{% extends "horizon/common/_modal_form.html" %}
+{% extends "leonardo/common/_modal_form.html" %}
 
 {% load i18n %}
 {% load url from future %}
@@ -13,10 +13,12 @@
 {% load crispy_forms_tags %}
 {% crispy form %}
 
+{% comment %}
 <div class="right">
   <h4>{{ heading }}:</h4>
   <p>{{ help_text }}</p>
 </div>
+{% endcomment %}
 {% endblock %}
 
 {% block modal-footer %}

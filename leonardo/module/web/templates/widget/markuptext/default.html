@@ -1,7 +1,5 @@
-{% extends "widget/base.html" %}
+{% extends widget.get_base_template %}
 
 {% block content %}
-<div class="widget-text ui-helper-clearfix">
-	{{ widget.text|safe }}
-</div>
+{{ widget.text|safe }}
 {% endblock %}
