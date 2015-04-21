@@ -20,7 +20,6 @@ install:
   - pip install -r requirements.txt --use-mirrors
   - pip install -r requirements/extras/web.txt
   - python setup.py -q install
-# command to run tests, e.g. python setup.py test
 script: "cd tests && python manage.py test testapp && flake8 ."
 after_success:
   - coveralls
