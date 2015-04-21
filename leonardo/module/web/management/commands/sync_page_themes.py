@@ -109,7 +109,7 @@ class Command(BaseCommand):
 
                         with storage.open(path) as theme_file:
                             try:
-                                page_theme = PageTheme.objects.get(template = t[0])
+                                page_theme = PageTheme.objects.get(name = t[1])
                             except PageTheme.DoesNotExist:
                                 raise Exception("Run sync_themes before this command")
                             page_theme.style = theme_file.read()
@@ -150,11 +150,11 @@ class Command(BaseCommand):
                             # create themes with bases
                             try:
                                 page_theme = PageTheme.objects.get(
-                                    template__name__exact=page_template.name)
+                                    name=f.split(".")[0])
                             except PageTheme.DoesNotExist:
                                 page_theme = PageTheme()
                                 page_theme.label = '{} layout'.format(f.split(".")[0].title())
-                                page_theme.name = page_theme.label
+                                page_theme.name = f.split(".")[0]
                                 page_theme.template = page_template
                                 page_theme.save()
                                 page_themes += 1
