@@ -20,48 +20,28 @@ WIDGETS = {
             }
 
 
-class WidgetForm(ItemEditorForm):
+class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
 
-    """
-    theme = forms.ChoiceField(
-        choices=[],
-        widget=forms.RadioSelect,
-    )
-    """
-
-    parent = forms.CharField(
+    id = forms.CharField(
         widget=forms.widgets.HiddenInput,
     )
 
-    class Meta:
-
-        widgets = WIDGETS
-
-    """
     def __init__(self, *args, **kwargs):
         super(WidgetForm, self).__init__(*args, **kwargs)
 
-        items = self._meta.model.templates()
-        choices = template_choices(items, suffix=True)
-        if not items:
-            items.insert(0, ("", _("No Template available")))
-
-        self.fields['theme'].choices = choices
-
         self.helper.layout = Layout(
             TabHolder(
-                Tab('Main',
+                Tab(self._meta.model._meta.verbose_name.capitalize(),
                     *self._meta.model.fields()
                     ),
                 Tab('Theme',
-                    'theme', 'label',
+                    'base_theme', 'content_theme', 'label', 'id',
                     ),
-
-
+                Tab('Dimensions',
+                    ('region', 'ordering', 'parent'),
+                    ),
             )
         )
-    """
-
 
 @memoized
 def get_widget_update_form(**kwargs):
@@ -75,8 +55,7 @@ def get_widget_update_form(**kwargs):
         model_cls, 'feincms_item_editor_form', WidgetForm)
 
     WidgetModelForm = modelform_factory(model_cls,
-                                        exclude=(
-                                            'parent', 'region', 'ordering'),
+                                        exclude=[],
                                         form=form_class_base,
                                         widgets=WIDGETS)
 
