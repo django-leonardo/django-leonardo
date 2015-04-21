@@ -251,7 +251,6 @@ if 'media' in APPS:
 from leonardo.module.web.models import Page
 from leonardo.module.web.widget import ApplicationWidget
 
-from leonardo.module.eshop import default
 try:
     # override settings
     try:
