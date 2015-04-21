@@ -39,7 +39,6 @@ urlpatterns += patterns('',
 if 'web' in getattr(settings, 'APPS', []):
     urlpatterns += patterns('',
                             url(r'', include('leonardo.module.web.urls')),
-                            url(r'^redactor/', include('redactor.urls')),
                             )
 
 if 'oauth' in getattr(settings, 'APPS', []):
