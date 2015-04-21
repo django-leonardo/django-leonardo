@@ -2,12 +2,6 @@
 
 from __future__ import unicode_literals
 
-import os
-import sys
-
-from dbtemplates.models import Template
-from django import forms
-from django.conf import settings
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -16,8 +10,7 @@ from django.template import loader, RequestContext
 from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from django_extensions.db.fields.json import JSONField
-from feincms.admin.item_editor import FeinCMSInline, ItemEditorForm
+from feincms.admin.item_editor import FeinCMSInline
 from feincms.models import Base as FeinCMSBase
 from feincms.module.page.models import BasePage as FeinCMSPage
 from horizon.utils.memoized import memoized
@@ -89,7 +82,8 @@ class PageColorScheme(models.Model):
 class Page(FeinCMSPage):
 
     theme = models.ForeignKey(PageTheme, verbose_name=_('Theme'))
-    color_scheme = models.ForeignKey(PageColorScheme, verbose_name=_('Color scheme'))
+    color_scheme = models.ForeignKey(
+        PageColorScheme, verbose_name=_('Color scheme'))
 
     class Meta:
         verbose_name = _("Page")
@@ -211,7 +205,8 @@ class WidgetContentTheme(models.Model):
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template = models.ForeignKey(
-        'dbtemplates.Template', verbose_name=_('Content template'), related_name='content_templates', limit_choices_to={'name__startswith': "widget/"})
+        'dbtemplates.Template', verbose_name=_('Content template'),
+        related_name='content_templates', limit_choices_to={'name__startswith': "widget/"})
     style = models.TextField(verbose_name=_('Content style'), blank=True)
     widget_class = models.CharField(
         verbose_name=_('Widget class'), max_length=255)
@@ -232,7 +227,8 @@ class WidgetBaseTheme(models.Model):
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template = models.ForeignKey(
-        'dbtemplates.Template', verbose_name=_('Base template'), related_name='base_templates', limit_choices_to={'name__startswith': "base/widget/"})
+        'dbtemplates.Template', verbose_name=_('Base template'),
+        related_name='base_templates', limit_choices_to={'name__startswith': "base/widget/"})
 
     style = models.TextField(verbose_name=_('Base style'), blank=True)
 
@@ -253,8 +249,10 @@ class Widget(FeinCMSBase):
     enabled = models.NullBooleanField(verbose_name=_('Is visible?'))
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
-    base_theme = models.ForeignKey(WidgetBaseTheme, verbose_name=_('Base theme'))
-    content_theme = models.ForeignKey(WidgetContentTheme, verbose_name=_('Content theme'))
+    base_theme = models.ForeignKey(
+        WidgetBaseTheme, verbose_name=_('Base theme'))
+    content_theme = models.ForeignKey(
+        WidgetContentTheme, verbose_name=_('Content theme'))
 
     class Meta:
         abstract = True
