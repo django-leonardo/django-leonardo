@@ -3,7 +3,6 @@ from __future__ import absolute_import
 
 import os
 from os.path import abspath, dirname, join, normpath
-
 from leonardo import default, merge
 
 EMAIL = {
@@ -269,13 +268,16 @@ try:
             # load all settings key
             if module_has_submodule(mod, "settings"):
                 try:
-                    settings = import_module(
+                    settings_mod = import_module(
                         '{0}.settings'.format(mod.__name__))
-                    for k in dir(settings):
-                        val = getattr(settings, k, None)
-                        globals()[k] = val
-                except ImportError:
-                    pass  # for now
+                    for k in dir(settings_mod):
+                        if not k.startswith("_"):
+                            val = getattr(settings_mod, k, None)
+                            globals()[k] = val
+                            locals()[k] = val
+                except Exception as e:
+                    pass
+
 
             if hasattr(mod, 'default'):
 

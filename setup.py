@@ -8,7 +8,6 @@ To release a new version to PyPi:
 import os
 import sys
 
-from pip.req import parse_requirements
 from setuptools import find_packages, setup
 
 PROJECT_DIR = os.path.dirname(__file__)
@@ -16,12 +15,6 @@ PROJECT_DIR = os.path.dirname(__file__)
 VERSION = '0.0.1'
 
 sys.path.append(os.path.join(PROJECT_DIR, 'leonardo'))
-
-
-#install_reqs = parse_requirements(
-#    os.path.join(PROJECT_DIR, 'requirements.txt'))
-
-#reqs = [str(ir.req) for ir in install_reqs]
 
 def strip_comments(l):
     if not "egg" in l:
@@ -38,7 +31,7 @@ extra = {}
 extras = lambda *p: reqs('extras', *p)
 # apps
 features = {
-  'eshop', 'blog', 'forms', 'media', 'web', 'nav'
+  'eshop', 'blog', 'forms', 'media', 'web', 'nav',
 }
 extras_require = {x: extras(x + '.txt') for x in features}
 extra['extras_require'] = extras_require
