@@ -193,6 +193,9 @@ try:
 except ImportError:
     pass
 
+if 'media' in APPS:
+    FILER_IMAGE_MODEL = 'leonardo.module.media.models.Image'
+
 if not SECRET_KEY:
     try:
         LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
