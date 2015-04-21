@@ -4,19 +4,7 @@ from __future__ import absolute_import
 import os
 from os.path import abspath, dirname, join, normpath
 
-from oscar import OSCAR_MAIN_TEMPLATE_DIR
-
 from leonardo import default, merge
-
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-        'TIMEOUT': 120,
-        'KEY_PREFIX': 'CACHE_HRCMS'
-    }
-}
 
 EMAIL = {
     'HOST': 'mail.domain.com',
@@ -218,14 +206,16 @@ except ImportError:
     pass
 
 if not SECRET_KEY:
-    LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                              'local')
+    try:
+        LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                  'local')
 
-    from horizon.utils import secret_key
+        from horizon.utils import secret_key
 
-    SECRET_KEY = secret_key.generate_or_read_from_file(os.path.join(LOCAL_PATH,
-                                                                    '.secret_key_store'))
-from oscar.defaults import *
+        SECRET_KEY = secret_key.generate_or_read_from_file(os.path.join(LOCAL_PATH,
+                                                                        '.secret_key_store'))
+    except Exception:
+        pass
 
 REVERSION_MIDDLEWARE=[
     'reversion.middleware.RevisionMiddleware']
@@ -241,7 +231,7 @@ try:
     from leonardo.conf.horizon import *
     from leonardo.conf.static import *
 except Exception, e:
-    raise e
+    pass
 
 
 # import defaults
