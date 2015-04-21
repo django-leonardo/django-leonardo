@@ -18,7 +18,8 @@ matrix:
 install:
   - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8 --use-mirrors
   - pip install -r requirements.txt --use-mirrors
-  - pip install -r requirements/extras/web.txt
+  - pip install -r requirements/extras/horizon.txt --use-mirrors
+  - pip install -r requirements/extras/web.txt --use-mirrors
   - python setup.py -q install
 script: "cd tests && python manage.py test testapp && flake8 ."
 after_success:
