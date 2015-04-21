@@ -1,9 +1,8 @@
-import codecs
+
 import os
-import sys
 from optparse import make_option
 
-from django.core.management.base import CommandError, NoArgsCommand
+from django.core.management.base import NoArgsCommand
 from leonardo.module.web.models import Widget, WidgetContentTheme, PageTheme, WidgetBaseTheme
 
 from ._utils import get_or_create_template
@@ -37,11 +36,8 @@ class Command(NoArgsCommand):
                     help="Delete templates after syncing"))
 
     def handle_noargs(self, **options):
-        extension = options.get('ext')
         force = options.get('force')
         overwrite = options.get('overwrite')
-        app_first = options.get('app_first')
-        delete = options.get('delete')
 
         # base
         path = os.path.dirname(os.path.abspath(__file__))
@@ -52,7 +48,7 @@ class Command(NoArgsCommand):
 
         # load widget base templates
         widget_base_dir = os.path.join(possible_topdir, "base", "widget")
-        widget_base_template = None
+
         for dirpath, subdirs, filenames in os.walk(widget_base_dir):
             for f in filenames:
                 # ignore private members
@@ -69,9 +65,6 @@ class Command(NoArgsCommand):
                         widget_theme.label = name.split(".")[0].title()
                         widget_theme.template = w_base_template
                         widget_theme.save()
-
-                    if "default" in f:
-                        widget_base_template = widget_theme
 
         created_themes = 0
 
@@ -94,7 +87,8 @@ class Command(NoArgsCommand):
                         widget_theme = WidgetContentTheme()
                         widget_theme.name = name.split("/")[-1].split(".")[0]
                         widget_theme.label = THEME_NAME_FORMAT.format(
-                            unicode(w._meta.verbose_name), name.split("/")[-1].split(".")[0]).capitalize()
+                            unicode(w._meta.verbose_name),
+                            name.split("/")[-1].split(".")[0]).capitalize()
                         widget_theme.template = widget_template
                         widget_theme.widget_class = w.__name__
                         widget_theme.save()
