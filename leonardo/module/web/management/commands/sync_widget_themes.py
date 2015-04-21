@@ -3,7 +3,7 @@ import os
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
-from leonardo.module.web.models import Widget, WidgetContentTheme, PageTheme, WidgetBaseTheme
+from leonardo.module.web.models import Widget, WidgetContentTheme, WidgetBaseTheme
 
 from ._utils import get_or_create_template
 
@@ -15,29 +15,16 @@ class Command(NoArgsCommand):
     help = "Syncs file system templates and themes with the database bidirectionally.\
     based on dbtemplates.sync_templates"
     option_list = NoArgsCommand.option_list + (
-        make_option("-e", "--ext",
-                    dest="ext", action="store", default="html",
-                    help="extension of the files you want to "
-                         "sync with the database [default: %default]"),
         make_option("-f", "--force",
                     action="store_true", dest="force", default=False,
                     help="overwrite existing database templates"),
-        make_option("-o", "--overwrite",
-                    action="store", dest="overwrite", default='0',
-                    help="'0' - ask always, '1' - overwrite database "
-                         "templates from template files, '2' - overwrite "
-                         "template files from database templates"),
-        make_option("-a", "--app-first",
-                    action="store_true", dest="app_first", default=False,
-                    help="look for templates in applications "
-                         "directories before project templates"),
-        make_option("-d", "--delete",
-                    action="store_true", dest="delete", default=False,
-                    help="Delete templates after syncing"))
+        )
 
     def handle_noargs(self, **options):
         force = options.get('force')
-        overwrite = options.get('overwrite')
+
+        created_themes = 0
+        synced_themes = 0
 
         # base
         path = os.path.dirname(os.path.abspath(__file__))
@@ -55,6 +42,7 @@ class Command(NoArgsCommand):
                 if not f.startswith("_"):
                     w_base_template = get_or_create_template(
                         f, force=force, prefix="base/widget")
+                    synced_themes += 1
                     name = f.split("/")[-1].split(".")[0]
                     try:
                         widget_theme = WidgetBaseTheme.objects.get(
@@ -65,8 +53,7 @@ class Command(NoArgsCommand):
                         widget_theme.label = name.split(".")[0].title()
                         widget_theme.template = w_base_template
                         widget_theme.save()
-
-        created_themes = 0
+                        created_themes += 1
 
         # load widget templates and create widget themes with default base
         for w in Widget.__subclasses__():
@@ -75,6 +62,7 @@ class Command(NoArgsCommand):
                 # ignore private members
                 if not name.startswith("_"):
                     widget_template = get_or_create_template(name, force=force)
+                    synced_themes += 1
 
                     if not widget_template:
                         self.stdout.write('Template for "%s" not found' % name)
@@ -95,3 +83,4 @@ class Command(NoArgsCommand):
                         created_themes += 1
 
         self.stdout.write('Successfully created %s widget themes' % created_themes)
+        self.stdout.write('Successfully synced %s widget themes' % synced_themes)
