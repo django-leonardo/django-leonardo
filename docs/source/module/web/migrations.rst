@@ -1,6 +1,7 @@
 
+==========
 Migrations
-----------
+==========
 
 Leonardo itself does not come with any migrations. It does not have to: Its
 core models haven't changed for several versions now. This does not mean
