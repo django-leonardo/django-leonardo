@@ -22,3 +22,15 @@ install:
   - python setup.py -q install
 # command to run tests, e.g. python setup.py test
 script: "cd tests && python manage.py test testapp && flake8 ."
+after_success:
+  - coveralls
+branches:
+  only:
+    - master
+    - development
+notifications:
+  email:
+    recipients:
+    - mail@majklk.cz
+    on_success: never
+    on_failure: always
