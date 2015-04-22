@@ -23,7 +23,7 @@ install:
   - pip install -r requirements/extras/horizon.txt
   - pip install -r requirements/extras/web.txt
   - python setup.py -q install
-script: "cd tests && python manage.py test testapp && flake8 ."
+script: "cd tests && python manage.py test testapp"
 after_success:
   - coveralls
 branches:
