@@ -4,47 +4,31 @@
 {% load webcms_tags %}
 
 {% block content %}
-
+{% if widget.link == 'text' %}
 <ul class="pager">
-  <li class="previous{% if not prev %} disabled{% endif %}"><a href="{{ prev|get_url }}">← {% trans "prev" %}</a></li>
-  <li class="next{% if not next %} disabled{% endif %}"><a href="{{ next|get_url }}">{% trans "next" %} →</a></li>
+  {% if prev %}
+  <li class="previous"><a href="{{ prev|get_url }}">← {% trans "prev" %}</a></li>
+  {% else %}
+  <li class="previous disabled"><a href="#">← {% trans "prev" %}</a></li>
+  {% endif %}
+  {% if next %}
+  <li class="next"><a href="{{ next|get_url }}">{% trans "next" %} →</a></li>
+  {% else %}
+  <li class="next disabled"><a href="#">{% trans "next" %} →</a></li>
+  {% endif %}
 </ul>
-
-
-
-<ul class="vertical">
-	{% if widget.link == 'text' %}
-	<li>
-		{% if prev %}
-		<a href="{{ prev|get_url }}">{% trans "prev" %}</a>
-		{% else %}
-		<span>{% trans "prev" %}</span>
-		{% endif %}
-	</li>
-	<li>
-		{% if next %}
-		<a href="{{ next.get_absolute_url }}">{% trans "next" %}</a>
-		{% else %}
-		<span>{% trans "next" %}</span>
-		{% endif %}
-	</li>
-	{% else %}
-	{% if prev %}
-	<li><span>{% trans "prev" %}:</span> <a href="{{ prev|get_url }}">{{ prev.title }}</a></li>
-	{% endif %}
-	{% if next %}
-	<li><span>{% trans "next" %}:</span> <a href="{{ next.get_absolute_url }}">{{ next.title }}</a></li>	
-	{% endif %}
-	{% endif %}
+{% else %}
+<ul class="pager">
+  {% if prev %}
+  <li class="previous"><a href="{{ prev|get_url }}">{{ prev.title }}</a></li>
+  {% else %}
+  <li class="previous disabled"><a href="#">{{ prev.title }}</a></li>
+  {% endif %}
+  {% if next %}
+  <li class="next"><a href="{{ next|get_url }}">{{ next.title }}</a></li>
+  {% else %}
+  <li class="next disabled"><a href="#">{{ next.title }}</a></li>
+  {% endif %}
 </ul>
+{% endif %}
 {% endblock %}
-
-
-
-<div class="bs-component">
-  <ul class="pager">
-    <li><a href="#">Previous</a></li>
-    <li><a href="#">Next</a></li>
-  </ul>
-
-</div>

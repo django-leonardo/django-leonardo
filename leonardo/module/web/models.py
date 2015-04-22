@@ -95,6 +95,10 @@ class Page(FeinCMSPage):
         return PageDimension.objects.filter(
             page=self)
 
+    @property
+    def get_base_template(self):
+        return self.theme.template
+
     def get_col_classes(self, col='col1'):
 
         STR = "col-{0}-{1}"
