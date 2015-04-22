@@ -111,6 +111,8 @@ FILER_ENABLE_PERMISSIONS = True
 
 FEINCMS_USE_PAGE_ADMIN = False
 
+LEONARDO_USE_PAGE_ADMIN = True
+
 FEINCMS_DEFAULT_PAGE_MODEL = 'web.Page'
 
 ##########################
