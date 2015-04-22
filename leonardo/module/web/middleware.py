@@ -77,10 +77,10 @@ class WebMiddleware(object):
             leonardo_options['widgets'] = widgets
         except Exception:
             page = None
-            leonardo_options['template'] = 'default'
+            leonardo_options['template'] = 'base.html'
             leonardo_options['theme'] = 'light'
-            leonardo_options['assets'] = False
-            leonardo_options['widgets'] = False
+            leonardo_options['assets'] = []
+            leonardo_options['widgets'] = []
 
         leonardo_options['is_private'] = is_private
         request.leonardo_options = leonardo_options

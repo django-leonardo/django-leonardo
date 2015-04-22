@@ -25,6 +25,10 @@ from leonardo.module.web.forms import get_widget_update_form
 from leonardo.module.web.models import Page
 
 
+from horizon_contrib.generic.views import GenericIndexView
+
+GenericIndexView.template_name = "leonardo/common/_index.html"
+
 class CreateView(CreateView):
 
     template_name = 'widget/create.html'
