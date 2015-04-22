@@ -11,7 +11,7 @@
 <li>
 	<a href="{{ child_page|get_url }}">
 		{% if widget.link_text %}{{ widget.link_text }}{% else %}{{ child_page.short_title }}{% endif %}
-		<span>{% feincms_render_region child_page region options.request %}</span>
+		<span>{% feincms_render_region child_page region request %}</span>
 	</a>
 </li>
 {% endif %}

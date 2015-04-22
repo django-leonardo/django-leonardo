@@ -5,10 +5,9 @@
 {% load webcms_tags %}
 
 {% block content %}
-<div class="edit-padder"></div>
 {% for child_page in page.get_children %}
-<div class='span-4{% if forloop.counter|divisibleby:"6" %} last{% endif %}'>
-	{% feincms_render_region child_page region options.request %}
+<div class='col-md-2{% if forloop.counter|divisibleby:"6" %} last{% endif %}'>
+	{% feincms_render_region child_page region request %}
 	{% if widget.link_style != "" %}
 	<div class="link-more ui-helper-clearfix">
 		{% if widget.link_style == "link" %}
