@@ -6,7 +6,11 @@
 <ul class="nav {% if not widget.inline %}navbar-inline{% else %}navbar-stacked{% endif %}">
   {% if request.user.is_authenticated %}
   <li><a data-toggle="control-sidebar" href="#">{{ request.user.username }}</a></li>
-  <li><a href="{% url 'horizon:module:auth:logout' %}">Edit mode</a></li>
+  {% if request.frontend_editing %}
+  <li><a href=".?frontend_edit=0">Stop Editing</a></li>
+  {% else %}
+  <li><a href=".?frontend_edit=1">Start Editing</a></li>
+  {% endif %}
   <li><a href="{% url 'horizon:module:auth:logout' %}">Sign Out</a></li>
   {% else %}
   {% if widget.type == '2' %}
