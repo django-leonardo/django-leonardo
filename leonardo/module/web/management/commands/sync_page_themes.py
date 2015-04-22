@@ -95,29 +95,22 @@ class Command(BaseCommand):
         self.ignore_patterns = [
             '*.png', '*.jpg', '*.js', '*.gif', '*.ttf', '*.md', '*.rst',
             '*.svg']
-        prefix = ""#"base/page"
-        page_themes = [
-            (t.template.pk, t.template.name.split("/")[-1].split(".")[0]) for t in PageTheme.objects.all()]
+        page_themes = PageTheme.objects.all()
 
-        found_files = OrderedDict()
         for finder in get_finders():
             for path, storage in finder.list(self.ignore_patterns):
-
                 for t in page_themes:
-                    prefixed = os.path.join(prefix, t[1])
-                    if prefixed in path:
-
-                        with storage.open(path) as theme_file:
-                            try:
-                                page_theme = PageTheme.objects.get(name = t[1])
-                            except PageTheme.DoesNotExist:
-                                raise Exception("Run sync_themes before this command")
-                            page_theme.style = theme_file.read()
-                            page_theme.save()
+                    if t.name in path and "skins" not in path:
+                        try:
+                            page_theme = PageTheme.objects.get(id = t.id)
+                        except PageTheme.DoesNotExist:
+                            raise Exception("Run sync_themes before this command")
+                        page_theme.style = storage.open(path).read()
+                        page_theme.save()
 
                         # find and load skins
                         skins_path = os.path.join(
-                            storage.path(path).split("{}.".format(t[1]))[0], "skins")
+                            storage.path(path).split("{}.".format(t.name))[0], "skins")
                         for dirpath, subdirs, filenames in os.walk(skins_path):
                             for f in filenames:
                                 skin, created = PageColorScheme.objects.get_or_create(
@@ -126,6 +119,7 @@ class Command(BaseCommand):
                                     skin.style = skin_file.read()
                                     skin.save()
                                     self.skins_updated += 1
+
         self.page_themes_updated += len(page_themes)
 
     def handle(self, **options):
