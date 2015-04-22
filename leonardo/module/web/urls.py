@@ -33,7 +33,7 @@ GenericIndexView.template_name = "leonardo/common/_index.html"
 from .forms import WidgetCreatForm, WidgetDeleteForm
 
 
-class UpdateView(UpdateView):
+class UpdateView(ModalFormView, UpdateView):
 
     template_name = 'widget/create.html'
 
