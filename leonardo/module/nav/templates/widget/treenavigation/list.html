@@ -1,11 +1,11 @@
-{% extends "widget/base.html" %}
+{% extends widget.get_base_template %}
 
 {% load feincms_page_tags %}
 {% load webcms_tags %}
 
 {% block content %}
 
-{% feincms_navigation_extended of root as toplevel level=lvl,depth=1 %}
+{% feincms_nav root level=level depth=1 as toplevel %}
 
 {% for p in toplevel %}
 {% if forloop.first %}<ul class="{{ widget.orientation }} ui-helper-clearfix">{% endif %}
@@ -19,7 +19,7 @@
 {% if depth > 1  and widget.orientation == 'vertical' %}
 {% if p|is_equal_or_parent_of:current %}
 
-{% feincms_navigation_extended of p as level level=lvl2,depth=1 %}
+{% feincms_nav p level=level2 depth=1 as leve %}
 
 {% for p2 in level %}
 	{% if forloop.first %}<ul>{% endif %}
@@ -29,8 +29,6 @@
 	{% else %}
 		<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last{% endif %}" href="{{ p2|get_url }}">{{ p2.title }}</a>
 	{% endif %}
-
-	{% feincms_navigation_extended of p2 as level2 level=lvl3,depth=1 %}
 
 	{% for p3 in level2 %}
 		{% if forloop.first %}<ul>{% endif %}
@@ -43,8 +41,6 @@
 
 		{% if p3|is_equal_or_parent_of:current %}
 
-		{% feincms_navigation_extended of p3 as level3 level=lvl4,depth=1 %}
-
 		{% for p4 in level3 %}
 			{% if forloop.first %}<ul>{% endif %}
 			<li>
@@ -56,8 +52,6 @@
 			{% endif %}
 
 			{% if p4|is_equal_or_parent_of:current %}
-
-			{% feincms_navigation_extended of p4 as level4 level=lvl5,depth=1 %}
 
 			{% for p5 in level4 %}
 				{% if forloop.first %}<ul>{% endif %}
@@ -93,12 +87,14 @@
 
 {% if depth > 1  and widget.orientation == 'horizontal' %}
 
-{% feincms_navigation_extended of root as toplevel level=lvl,depth=1 %}
+
+{% feincms_nav root level=level depth=1 as toplevel %}
 
 {% for p in toplevel %}
 {% if p|is_equal_or_parent_of:current %}
 
-{% feincms_navigation_extended of p as level level=lvl2,depth=1 %}
+{% feincms_nav p level=level2 depth=1 as level %}
+
 
 {% for p2 in level %}
 {% if forloop.first %}<ul class="horizontal ui-helper-clearfix">{% endif %}

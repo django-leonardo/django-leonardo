@@ -1,4 +1,4 @@
-{% extends base_template %}
+{% extends widget.get_base_template %}
 
 {% load i18n %}
 
@@ -6,26 +6,26 @@
 {% if widget.orientation == "vertical" %}
 {% for url, more, title in trail %}
 <ul{% if forloop.first %} class="vertical ui-helper-clearfix"{% endif %}>
-	<li>
-		{% if url %}
-		<a href="{{ url }}">{% if forloop.first and widget.root_label %}{{ widget.root_label }}{% else %}{{ title }}{% endif %}</a>
-		{% else %}
-		<strong>{{ title }}</strong>
-		{% endif %}
+  <li>
+    {% if url %}
+    <a href="{{ url }}">{% if forloop.first and widget.root_label %}{{ widget.root_label }}{% else %}{{ title }}{% endif %}</a>
+    {% else %}
+    <strong>{{ title }}</strong>
+    {% endif %}
 {% endfor %}
 {% for url, more, title in trail %}
-	</li>
+  </li>
 </ul>
 {% endfor %}
 {% else %}
 <ul>
 {% for url, more, title in trail %}
 <li>
-	{% if url %}
-	<a href="{{ url }}">{% if forloop.first and widget.root_label %}{{ widget.root_label }}{% else %}{{ title }}{% endif %}</a>
-	{% else %}
-	<strong>{{ title }}</strong>
-	{% endif %}
+  {% if url %}
+  <a href="{{ url }}">{% if forloop.first and widget.root_label %}{{ widget.root_label }}{% else %}{{ title }}{% endif %}</a>
+  {% else %}
+  <strong>{{ title }}</strong>
+  {% endif %}
 </li>
 {% endfor %}
 </ul>

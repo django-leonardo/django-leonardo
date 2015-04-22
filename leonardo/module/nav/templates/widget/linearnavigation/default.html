@@ -1,9 +1,17 @@
-{% extends base_template %}
+{% extends widget.get_base_template %}
 
 {% load i18n %}
 {% load webcms_tags %}
 
 {% block content %}
+
+<ul class="pager">
+  <li class="previous{% if not prev %} disabled{% endif %}"><a href="{{ prev|get_url }}">← {% trans "prev" %}</a></li>
+  <li class="next{% if not next %} disabled{% endif %}"><a href="{{ next|get_url }}">{% trans "next" %} →</a></li>
+</ul>
+
+
+
 <ul class="vertical">
 	{% if widget.link == 'text' %}
 	<li>
@@ -30,3 +38,13 @@
 	{% endif %}
 </ul>
 {% endblock %}
+
+
+
+<div class="bs-component">
+  <ul class="pager">
+    <li><a href="#">Previous</a></li>
+    <li><a href="#">Next</a></li>
+  </ul>
+
+</div>
