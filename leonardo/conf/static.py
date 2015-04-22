@@ -37,6 +37,8 @@ import xstatic.pkg.termjs
 import xstatic.pkg.adminlte
 import xstatic.pkg.react
 
+webroot='/'
+
 STATICFILES_DIRS = [
     ('horizon/lib/angular',
         xstatic.main.XStatic(xstatic.pkg.angular,

@@ -31,3 +31,4 @@ xstatic>=1.0.0 # MIT License
 xstatic-adminlte>=2.0.1.1
 xstatic-react>=0.12.2.1
 gunicorn>=18.0
+django-allauth==0.19.1
