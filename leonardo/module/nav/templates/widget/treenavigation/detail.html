@@ -6,7 +6,7 @@
 {% block content %}
 <ul class="sf-menu">
 {% with root.level as level %}
-{% feincms_navigation of root as toplevel level=lvl,depth=1 %}
+{% feincms_navigation of root as toplevel level=level,depth=1 %}
 {% for p in toplevel %}
 {% if p.active and p.in_navigation %}
 {% if p|is_equal_or_parent_of:current %}
@@ -14,12 +14,12 @@
 	<a class="" href="{{ p|get_url }}">
 	{{ p.title }}{% if p.title != p.page_title and p.page_title != p.content_title %}<span>{{ p.page_title }}</span>{% endif %}</a>
 	{% if depth > 1 %}
-	{% feincms_navigation_extended of p as level level=lvl2,depth=1 %}
+	{% feincms_navigation_extended of p as level level=level2,depth=1 %}
 	{% for p2 in level %}
 	{% if forloop.first %}<ul>{% endif %}
 	<li class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}">
 		<a href="{{ p2|get_url }}">{{ p2.title }}</a>
-		{% feincms_navigation_extended of p2 as level2 level=lvl3,depth=1 %}
+		{% feincms_navigation_extended of p2 as level2 level=level3,depth=1 %}
 		{% for p3 in level2 %}
 		{% if forloop.first %}<ul>{% endif %}
 		<li class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}">

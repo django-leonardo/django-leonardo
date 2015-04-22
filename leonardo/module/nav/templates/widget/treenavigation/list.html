@@ -8,79 +8,9 @@
 {% feincms_nav root level=level depth=1 as toplevel %}
 
 {% for p in toplevel %}
-{% if forloop.first %}<ul class="{{ widget.orientation }} ui-helper-clearfix">{% endif %}
-<li class="{% if forloop.last %}last {% endif %}{% if forloop.first %}first {% endif %}{% if p|is_equal_or_parent_of:current %}{% if p == current %}active{% else %}subactive{% endif %}{% endif %}">
-{% if p == current %}
-	<strong>{{ p.title }}</strong>
-{% else %}
-	<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}" href="{{ p|get_url }}">{{ p.title }}</a>
-{% endif %}
-
-{% if depth > 1  and widget.orientation == 'vertical' %}
-{% if p|is_equal_or_parent_of:current %}
-
-{% feincms_nav p level=level2 depth=1 as leve %}
-
-{% for p2 in level %}
-	{% if forloop.first %}<ul>{% endif %}
-	<li>
-	{% if p2.id == current.id %}
-		<strong>{{ p2.title }}</strong>
-	{% else %}
-		<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last{% endif %}" href="{{ p2|get_url }}">{{ p2.title }}</a>
-	{% endif %}
-
-	{% for p3 in level2 %}
-		{% if forloop.first %}<ul>{% endif %}
-		<li>
-		{% if p3.id == current.id %}
-		<strong>{{ p3.title }}</strong>
-		{% else %}
-		<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last{% endif %}" href="{{ p3|get_url }}">{{ p3.title }}</a>
-		{% endif %}
-
-		{% if p3|is_equal_or_parent_of:current %}
-
-		{% for p4 in level3 %}
-			{% if forloop.first %}<ul>{% endif %}
-			<li>
-			{% if p4.id == current.id %}
-			<strong>{{ p4.title }}</strong>
-			{% else %}
-			<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last{% endif %}" href="{{ p4|get_url }}">{{ p4.title }}</a>
-
-			{% endif %}
-
-			{% if p4|is_equal_or_parent_of:current %}
-
-			{% for p5 in level4 %}
-				{% if forloop.first %}<ul>{% endif %}
-				<li>
-				{% if p5.id == current.id %}
-				<strong>{{ p5.title }}</strong>
-				{% else %}
-				<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last{% endif %}" href="{{ p5|get_url }}">{{ p5.title }}</a>
-				{% endif %}
-				</li>
-				{% if forloop.last %}</ul>{% endif %}
-			{% endfor %}
-
-			{% endif %}
-
-			</li>
-			{% if forloop.last %}</ul>{% endif %}
-		{% endfor %}
-
-		{% endif %}
-		</li>
-		{% if forloop.last %}</ul>{% endif %}
-	{% endfor %}
-	</li>
-	{% if forloop.last %}</ul>{% endif %}
-{% endfor %}
-{% endif %}
-{% endif %}
-
+{% if forloop.first %}<ul class="list-unstyled">{% endif %}
+<li{% if p|is_equal_or_parent_of:current %} class="active"{% endif %}>
+	<a href="{{ p|get_url }}">{{ p.title }}</a>
 </li>
 {% if forloop.last %}</ul>{% endif %}
 {% endfor %}
