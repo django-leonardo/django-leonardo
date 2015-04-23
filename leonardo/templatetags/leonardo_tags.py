@@ -2,7 +2,7 @@
 from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from feincms.templatetags.feincms_tags import _render_content
 
 register = template.Library()
