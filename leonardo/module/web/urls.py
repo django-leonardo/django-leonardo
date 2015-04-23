@@ -129,8 +129,7 @@ class DeleteWidgetView(ModalFormView, ContextMixin):
             # invalide page cache
             page = Page.objects.get(id = parent.id)
             page.invalidate_cache()
-
-            success_url = self.get_success_url()
+            success_url = parent.get_absolute_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
         except Exception, e:
