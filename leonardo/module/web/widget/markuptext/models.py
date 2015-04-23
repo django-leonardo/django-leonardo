@@ -7,7 +7,7 @@ from markupfield.fields import MarkupField
 
 class MarkupTextWidget(Widget):
     text = MarkupField(_('text'), blank=True, default=_(
-        'Empty text'))
+        'Empty text'), default_markup_type='restructuredtext')
 
     class Meta:
         abstract = True
