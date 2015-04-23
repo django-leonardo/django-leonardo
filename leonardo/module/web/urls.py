@@ -1,36 +1,21 @@
 
 from __future__ import absolute_import
 
-import logging
-import sys
-import traceback
-
-from django import template
-from django.conf import settings
-from django.conf.urls import include, patterns, url
+from django.conf.urls import patterns, url
 from django.core.urlresolvers import reverse
-from django.db.models.loading import get_model
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _, ugettext
-from feincms import settings as feincms_settings
-from feincms.module.page.extensions.navigation import PagePretender
-from feincms.utils.templatetags import (do_simple_assignment_node_with_var_and_args_helper,
-                                        do_simple_node_with_var_and_args_helper,
-                                        SimpleAssignmentNodeWithVarAndArgs,
-                                        SimpleNodeWithVarAndArgs)
-from horizon_contrib.forms.models import create_or_update_and_get
-from horizon_contrib.forms.views import CreateView, UpdateView, ModalFormView, ContextMixin, ModelFormMixin
-from leonardo.module.web.forms import get_widget_update_form, get_widget_create_form
+from django.http import HttpResponseRedirect
+from django.utils.translation import ugettext
+from horizon_contrib.forms.views import (ContextMixin, CreateView,
+                                         ModalFormView, ModelFormMixin,
+                                         UpdateView)
+from horizon_contrib.generic.views import GenericIndexView
+from leonardo.module.web.forms import (get_widget_create_form,
+                                       get_widget_update_form)
 from leonardo.module.web.models import Page
 
-
-from horizon_contrib.generic.views import GenericIndexView
-from horizon_contrib.common import get_class
+from .forms import WidgetCreatForm, WidgetDeleteForm
 
 GenericIndexView.template_name = "leonardo/common/_index.html"
-
-from .forms import WidgetCreatForm, WidgetDeleteForm
 
 
 class UpdateView(ModalFormView, UpdateView):
@@ -48,7 +33,8 @@ class UpdateView(ModalFormView, UpdateView):
             # turn off frontend edit for this redner
             request = self.request
             request.frontend_editing = False
-            obj.prerendered_content = obj.render_content(options={'request': request})
+            obj.prerendered_content = obj.render_content(
+                options={'request': request})
             obj.save()
         return response
 
@@ -75,14 +61,15 @@ class CreateWidgetView(ModalFormView, CreateView):
         try:
             obj = form.save()
             # invalide page cache
-            page = Page.objects.get(id = self.kwargs['page_id'])
+            page = Page.objects.get(id=self.kwargs['page_id'])
             page.invalidate_cache()
 
             if not obj.prerendered_content:
                 # turn off frontend edit for this redner
                 request = self.request
                 request.frontend_editing = False
-                obj.prerendered_content = obj.render_content(options={'request': request})
+                obj.prerendered_content = obj.render_content(
+                    options={'request': request})
                 obj.save()
 
             success_url = self.get_success_url()
@@ -113,7 +100,7 @@ class CreateView(ModalFormView, CreateView):
         kwargs.update({
             'request': self.request,
             'next_view': CreateWidgetView
-            })
+        })
         return form_class(**kwargs)
 
 
@@ -124,7 +111,7 @@ class DeleteWidgetView(ModalFormView, ContextMixin, ModelFormMixin):
     template_name = 'widget/create.html'
 
     def get_label(self):
-        return ugettext("Delete {}".format(self.kwargs['cls_name']))
+        return ugettext("Delete")  # .format(self.object.label))
 
     def get_context_data(self, **kwargs):
         context = super(DeleteWidgetView, self).get_context_data(**kwargs)
@@ -145,7 +132,7 @@ class DeleteWidgetView(ModalFormView, ContextMixin, ModelFormMixin):
             parent = obj.parent
             obj.delete()
             # invalide page cache
-            page = Page.objects.get(id = parent.id)
+            page = Page.objects.get(id=parent.id)
             page.invalidate_cache()
             success_url = parent.get_absolute_url()
             response = HttpResponseRedirect(success_url)
@@ -159,8 +146,6 @@ class DeleteWidgetView(ModalFormView, ContextMixin, ModelFormMixin):
         return self.kwargs
 
 urlpatterns = patterns('',
-                       #url(r'^models/(?P<cls_name>[\w\.\-]+)/create/$',
-                       #    CreateView.as_view(), name='widget_create'),
                        url(r'^models/(?P<page_id>[\w\.\-]+)/(?P<region>[\w\.\-]+)/create/$',
                            CreateView.as_view(), name='widget_create'),
                        url(r'^models/(?P<page_id>[\w\.\-]+)/(?P<region>[\w\.\-]+)/(?P<cls_name>[\w\.\-]+)/(?P<ordering>[\w\.\-]+)/(?P<parent>[\w\.\-]+)/create/$',
