@@ -3,7 +3,7 @@ import operator
 
 import six
 from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Field, HTML, Layout
+from crispy_forms.layout import Field, HTML, Layout, Fieldset
 from django import forms
 from django.db.models.loading import get_model
 from django.contrib.auth import get_permission_codename
@@ -149,13 +149,14 @@ class WidgetCreatForm(SelfHandlingForm):
 
         self.fields['cls_name'].choices = choices
 
-        """
-        render ok, but save not work
         self.helper.layout = Layout(
-                HTML(render_to_string("widget/content_type_selection_widget.html", {'grouped': grouped, 'ungrouped': ungrouped})
+                    Field('region'),
+                    Field('parent'),
+                    Field('page_id'),
+                    Field('ordering'),
+                HTML(render_to_string("widget/content_type_selection_widget.html", {'grouped': grouped, 'ungrouped': ungrouped}),
                 ),
             )
-        """
 
     def handle(self, request, data):
         # NOTE (majklk): This is a bit of a hack, essentially rewriting this

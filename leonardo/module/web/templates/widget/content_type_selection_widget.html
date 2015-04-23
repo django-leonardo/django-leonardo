@@ -1,4 +1,4 @@
-<select class="form-control" id='id_cls_name' name="cls_name">
+<select class="select form-control" id='id_cls_name' name="cls_name">
     {% for v,n in ungrouped %}<option value="{{ v }}">{{ n|capfirst }}</option> {% endfor %}
     {% for label,cts in grouped.items %}
         <optgroup label="{{ label }}">
