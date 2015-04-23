@@ -20,7 +20,7 @@ from feincms.utils.templatetags import (do_simple_assignment_node_with_var_and_a
                                         SimpleAssignmentNodeWithVarAndArgs,
                                         SimpleNodeWithVarAndArgs)
 from horizon_contrib.forms.models import create_or_update_and_get
-from horizon_contrib.forms.views import CreateView, UpdateView, ModalFormView, ContextMixin
+from horizon_contrib.forms.views import CreateView, UpdateView, ModalFormView, ContextMixin, ModelFormMixin
 from leonardo.module.web.forms import get_widget_update_form, get_widget_create_form
 from leonardo.module.web.models import Page
 
@@ -40,6 +40,17 @@ class UpdateView(ModalFormView, UpdateView):
     def get_form(self, form_class):
         """Returns an instance of the form to be used in this view."""
         return get_widget_update_form(**self.kwargs)(**self.get_form_kwargs())
+
+    def form_valid(self, form):
+        response = super(UpdateView, self).form_valid(form)
+        obj = self.object
+        if not obj.prerendered_content:
+            # turn off frontend edit for this redner
+            request = self.request
+            request.frontend_editing = False
+            obj.prerendered_content = obj.render_content(options={'request': request})
+            obj.save()
+        return response
 
 
 class CreateWidgetView(ModalFormView, CreateView):
@@ -62,10 +73,17 @@ class CreateWidgetView(ModalFormView, CreateView):
 
     def form_valid(self, form):
         try:
-            form.save()
+            obj = form.save()
             # invalide page cache
             page = Page.objects.get(id = self.kwargs['page_id'])
             page.invalidate_cache()
+
+            if not obj.prerendered_content:
+                # turn off frontend edit for this redner
+                request = self.request
+                request.frontend_editing = False
+                obj.prerendered_content = obj.render_content(options={'request': request})
+                obj.save()
 
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
@@ -99,7 +117,7 @@ class CreateView(ModalFormView, CreateView):
         return form_class(**kwargs)
 
 
-class DeleteWidgetView(ModalFormView, ContextMixin):
+class DeleteWidgetView(ModalFormView, ContextMixin, ModelFormMixin):
 
     form_class = WidgetDeleteForm
 
@@ -118,12 +136,12 @@ class DeleteWidgetView(ModalFormView, ContextMixin):
         context['view_name'] = self.get_label()
         context['heading'] = self.get_header()
         context['help_text'] = self.get_help_text()
+        context['body'] = self.object.prerendered_content
         return context
 
     def form_valid(self, form):
+        obj = self.object
         try:
-            cls = get_class(self.kwargs['cls_name'])
-            obj = cls.objects.get(**{cls._meta.pk.name: self.kwargs['id']})
             parent = obj.parent
             obj.delete()
             # invalide page cache

@@ -1,7 +1,7 @@
 {% extends "leonardo/common/_modal_form.html" %}
 
-{% load i18n %}
 {% load url from future %}
+{% load crispy_forms_tags i18n %}
 
 {% block form_id %}{{ form_id }}{% endblock %}
 {% block form_action %}{{ url }}{% endblock %}
@@ -10,7 +10,7 @@
 
 {% block modal-body %}
 
-{% load crispy_forms_tags %}
+{{ body|safe }}
 {% crispy form %}
 
 {% comment %}

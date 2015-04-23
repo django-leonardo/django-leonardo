@@ -249,7 +249,7 @@ class Widget(FeinCMSBase):
     feincms_item_editor_inline = WidgetInline
 
     prerendered_content = models.TextField(
-        verbose_name=_('prerendered content'), blank=True, editable=False)
+        verbose_name=_('prerendered content'), blank=True)
     enabled = models.NullBooleanField(verbose_name=_('Is visible?'))
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
