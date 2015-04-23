@@ -17,7 +17,7 @@ from horizon.utils.memoized import memoized
 from leonardo.utils.templates import find_all_templates, template_choices
 
 from .const import *
-from .forms import WidgetForm, WIDGETS
+from .forms import WidgetUpdateForm, WIDGETS
 
 
 @python_2_unicode_compatible
@@ -140,7 +140,7 @@ class WidgetDimension(models.Model):
 
 
 class WidgetInline(FeinCMSInline):
-    form = WidgetForm
+    form = WidgetUpdateForm
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "base_theme":

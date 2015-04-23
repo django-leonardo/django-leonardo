@@ -5,30 +5,66 @@ from django.conf.urls import patterns, url
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext
+from django.contrib.contenttypes.models import ContentType
+
 from horizon_contrib.forms.views import (ContextMixin, CreateView,
                                          ModalFormView, ModelFormMixin,
                                          UpdateView)
 from horizon_contrib.generic.views import GenericIndexView
 from leonardo.module.web.forms import (get_widget_create_form,
                                        get_widget_update_form)
-from leonardo.module.web.models import Page
 
-from .forms import WidgetCreatForm, WidgetDeleteForm
+from .forms import WidgetSelectForm, WidgetDeleteForm, WidgetUpdateForm
+from .tables import WidgetDimensionTable
 
 GenericIndexView.template_name = "leonardo/common/_index.html"
 
+class HandleDimensionsMixin(object):
 
-class UpdateView(ModalFormView, UpdateView):
+    def handle_dimensions(self, obj):
+        """save dimensions
+        """
+        from .tables import WidgetDimensionFormset
+        from .models import WidgetDimension
+        formset = WidgetDimensionFormset(
+            self.request.POST, prefix='dimensions')
+        for form in formset.forms:
+            if form.is_valid():
+                form.save()
+            else:
+                # little ugly
+                data = form.cleaned_data
+                data['widget_type'] = \
+                    ContentType.objects.get_for_model(obj)
+                data['widget_id'] = obj.id
+                data.pop('DELETE')
+                wd = WidgetDimension(**data)
+                wd.save()
+        return True
+
+class UpdateView(ModalFormView, UpdateView, HandleDimensionsMixin):
 
     template_name = 'widget/create.html'
 
+    form_class = WidgetUpdateForm
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdateView, self).get_context_data(**kwargs)
+        return context
+
     def get_form(self, form_class):
         """Returns an instance of the form to be used in this view."""
-        return get_widget_update_form(**self.kwargs)(**self.get_form_kwargs())
+
+        kwargs = self.get_form_kwargs()
+        kwargs.update({
+            'request': self.request,
+        })
+        return get_widget_update_form(**self.kwargs)(**kwargs)
 
     def form_valid(self, form):
         response = super(UpdateView, self).form_valid(form)
         obj = self.object
+        self.handle_dimensions(obj)
         if not obj.prerendered_content:
             # turn off frontend edit for this redner
             request = self.request
@@ -39,7 +75,7 @@ class UpdateView(ModalFormView, UpdateView):
         return response
 
 
-class CreateWidgetView(ModalFormView, CreateView):
+class CreateWidgetView(ModalFormView, CreateView, HandleDimensionsMixin):
 
     template_name = 'widget/create.html'
 
@@ -47,22 +83,25 @@ class CreateWidgetView(ModalFormView, CreateView):
         return ugettext("Create")
 
     def get_form(self, form_class):
-        """Returns an instance of the form to be used in this view."""
-        return get_widget_create_form(**self.kwargs)(**self.get_form_kwargs())
+        kwargs = self.get_form_kwargs()
+        kwargs.update({
+            'request': self.request,
+        })
+        return get_widget_create_form(**self.kwargs)(**kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(CreateWidgetView, self).get_context_data(**kwargs)
-
+        context['table'] = WidgetDimensionTable(self.request, data=[])
         # add extra context for template
         context['url'] = reverse("widget_create_full", kwargs=self.kwargs)
         return context
 
     def form_valid(self, form):
+        obj = form.save()
+        # invalide page cache
+        obj.parent.invalidate_cache()
+        self.handle_dimensions(obj)
         try:
-            obj = form.save()
-            # invalide page cache
-            page = Page.objects.get(id=self.kwargs['page_id'])
-            page.invalidate_cache()
 
             if not obj.prerendered_content:
                 # turn off frontend edit for this redner
@@ -86,7 +125,7 @@ class CreateWidgetView(ModalFormView, CreateView):
 
 class CreateView(ModalFormView, CreateView):
 
-    form_class = WidgetCreatForm
+    form_class = WidgetSelectForm
 
     template_name = 'widget/create.html'
 
@@ -132,8 +171,7 @@ class DeleteWidgetView(ModalFormView, ContextMixin, ModelFormMixin):
             parent = obj.parent
             obj.delete()
             # invalide page cache
-            page = Page.objects.get(id=parent.id)
-            page.invalidate_cache()
+            parent.invalidate_cache()
             success_url = parent.get_absolute_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url

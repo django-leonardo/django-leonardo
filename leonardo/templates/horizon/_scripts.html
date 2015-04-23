@@ -1,0 +1,120 @@
+{% load compress %}
+{% load url from future %}
+{% load datepicker_locale from horizon %}
+
+{% datepicker_locale as DATEPICKER_LOCALE %}
+
+{% comment %} Django's JavaScript i18n Implementation {% endcomment %}
+<script type="text/javascript" src="{% url 'horizon:jsi18n' 'horizon' %}"></script>
+
+{% comment %} Compress jQuery, Angular, Plugins, Bootstrap, Hogan.js and Horizon-specific JS. {% endcomment %}
+{% compress js %}
+<script type="text/javascript" src="{{ STATIC_URL }}redactor/redactor.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}redactor/langs/en.js"></script>
+
+<script type="text/javascript">var STATIC_URL = "{{ STATIC_URL }}";</script>
+<script src='{{ STATIC_URL }}horizon/lib/angular/angular-cookies.js'></script>
+<script src='{{ STATIC_URL }}horizon/lib/angular/angular-sanitize.js'></script>
+<script src="{{ STATIC_URL }}horizon/lib/angular/lrdragndrop.js"></script>
+<script src="{{ STATIC_URL }}horizon/lib/angular/smart-table.js"></script>
+
+<script src='{{ STATIC_URL }}horizon/js/angular/controllers/namespace-controller.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/angular/controllers/dummy.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/angular/controllers/modal-form-update-metadata-ctrl.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/angular/directives/forms.js'></script>
+
+<script src='{{ STATIC_URL }}horizon/js/angular/horizon.conf.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/angular/services/horizon.utils.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/angular/hz.api.module.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/angular/services/hz.api.service.js'></script>
+
+<script src='{{ STATIC_URL }}horizon/js/angular/filters/filters.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/angular/services/hz.api.security-group.js'></script>
+
+<script src="{{ STATIC_URL }}horizon/lib/d3.js"></script>
+
+<script src='{{ STATIC_URL }}angular/widget.module.js'></script>
+<script src='{{ STATIC_URL }}angular/form/form.js'></script>
+<script src='{{ STATIC_URL }}angular/help-panel/help-panel.js'></script>
+<script src='{{ STATIC_URL }}angular/wizard/wizard.js'></script>
+<script src='{{ STATIC_URL }}angular/action-list/action-list.js'></script>
+<script src='{{ STATIC_URL }}angular/action-list/button-tooltip.js'></script>
+<script src='{{ STATIC_URL }}angular/table/table.js'></script>
+<script src='{{ STATIC_URL }}angular/table/basic-table.js'></script>
+<script src="{{ STATIC_URL }}angular/login/login.js"></script>
+<script src='{{ STATIC_URL }}angular/modal/modal.js'></script>
+<script src='{{ STATIC_URL }}angular/modal/modal-wait-spinner.js'></script>
+<script src='{{ STATIC_URL }}angular/bind-scope/bind-scope.js'></script>
+<script src='{{ STATIC_URL }}angular/transfer-table/transfer-table.js'></script>
+<script src='{{ STATIC_URL }}angular/charts/charts.js'></script>
+<script src='{{ STATIC_URL }}angular/charts/chart-tooltip.js'></script>
+<script src='{{ STATIC_URL }}angular/charts/pie-chart.js'></script>
+<script src='{{ STATIC_URL }}angular/metadata-tree/metadata-tree.js'></script>
+<script src='{{ STATIC_URL }}angular/metadata-tree/metadata-tree-service.js'></script>
+<script src='{{ STATIC_URL }}angular/metadata-display/metadata-display.js'></script>
+<script src='{{ STATIC_URL }}angular/magic-search/magic-search.js'></script>
+<script src='{{ STATIC_URL }}angular/validators/validators.js'></script>
+<script src='{{ STATIC_URL }}angular/workflow/workflow.js'></script>
+
+<script src='{{ STATIC_URL }}horizon/lib/jquery/jquery.quicksearch.js'></script>
+<script src="{{ STATIC_URL }}horizon/lib/jquery/jquery.tablesorter.js"></script>
+<script src="{{ STATIC_URL }}horizon/lib/spin.js"></script>
+<script src="{{ STATIC_URL }}horizon/lib/spin.jquery.js"></script>
+<script src="{{ STATIC_URL }}horizon/lib/jquery-ui/ui/jquery-ui.js"></script>
+<script src="{{ STATIC_URL }}horizon/lib/jquery/jquery.bootstrap.wizard.js"></script>
+
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
+<script src='{{ STATIC_URL }}horizon/lib/bootstrap_datepicker/bootstrap-datepicker.js'></script>
+
+<script src="{{ STATIC_URL }}horizon/lib/magic_search/magic_search.js"></script>
+
+<script src="{{ STATIC_URL }}horizon/lib/hogan.js"></script>
+
+<script src='{{ STATIC_URL }}horizon/js/horizon.accordion_nav.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.communication.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.forms.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon_formset_table.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.instances.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.messages.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.modals.js'></script>
+
+<script type="text/javascript">
+  horizon.modals.MODAL_BACKDROP = "{% firstof HORIZON_CONFIG.modal_backdrop 'static' %}";
+</script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.tables.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.tables_inline_edit.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.tabs.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.templates.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.users.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.d3piechart.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.heattop.js'></script>
+<script src='{{ STATIC_URL }}horizon/lib/rickshaw.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.d3linechart.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.d3barchart.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.firewalls.js'></script>
+<script src='{{ STATIC_URL }}horizon/lib/jsencrypt/jsencrypt.js'></script>
+
+<script src='{{ STATIC_URL }}horizon/js/horizon.images.js'></script>
+
+{% for file in HORIZON_CONFIG.js_files %}
+    <script src='{{ STATIC_URL }}{{ file }}'></script>
+{% endfor %}
+
+{% block custom_js_files %}{% endblock %}
+{% endcompress %}
+
+{% comment %} Client-side Templates (These should *not* be inside the "compress" tag.) {% endcomment %}
+{% include "horizon/client_side/templates.html" %}
+
+{% comment %}Locale sensitive js needs to be included outisde the "compress" tag{% endcomment %}
+{% if DATEPICKER_LOCALE and DATEPICKER_LOCALE != 'en' %}
+<script src='{{ STATIC_URL }}horizon/lib/bootstrap_datepicker/locales/bootstrap-datepicker.{{ DATEPICKER_LOCALE }}.js'></script>
+{% endif %}
+
+{% comment %}Go!{% endcomment %}
+<script>
+  // Call init on DOM ready.
+  $(document).ready(horizon.init);
+  // TODO: propagate from settings
+  var redactor_default_options = {};
+</script>

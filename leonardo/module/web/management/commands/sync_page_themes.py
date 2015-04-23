@@ -136,11 +136,13 @@ class Command(BaseCommand):
             for dirpath, subdirs, filenames in os.walk(templatedir):
                 if 'base/page' in dirpath:
                     for f in filenames:
-                        # ignore private members
-                        if not f.startswith("_"):
+                        # ignore private and hidden members
+                        if not f.startswith("_") and not f.startswith("."):
                             page_template = get_or_create_template(
                                 f, force=force, prefix="base/page")
-
+                            if not page_template:
+                                self.stdout.write("Missing template %s" % f)
+                                continue
                             # create themes with bases
                             try:
                                 page_theme = PageTheme.objects.get(

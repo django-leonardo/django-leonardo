@@ -1,12 +1,9 @@
 
-import operator
-
-import six
+import copy
 from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Field, Fieldset, HTML, Layout
+from crispy_forms.layout import Field, HTML, Layout
 from django import forms
 from django.contrib.auth import get_permission_codename
-from django.contrib.contenttypes.models import ContentType
 from django.db.models.loading import get_model
 from django.forms.models import modelform_factory
 from django.template.defaultfilters import slugify
@@ -16,12 +13,14 @@ from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from horizon_contrib.forms import SelfHandlingForm, SelfHandlingModelForm
+from redactor.widgets import RedactorEditor
 
 WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
     'region': forms.widgets.HiddenInput,
     'parent': forms.widgets.HiddenInput,
     'ordering': forms.widgets.HiddenInput,
+    'text': RedactorEditor(),
 }
 
 
@@ -33,13 +32,14 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
     )
 
     def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request', None)
         super(WidgetUpdateForm, self).__init__(*args, **kwargs)
 
         queryset = self.fields['content_theme'].queryset
 
         self.fields['content_theme'].queryset = \
             queryset.filter(widget_class=self._meta.model.__name__)
-
+        from .tables import WidgetDimensionTable
         self.helper.layout = Layout(
             TabHolder(
                 Tab(self._meta.model._meta.verbose_name.capitalize(),
@@ -48,9 +48,7 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                     ),
                 Tab(_('Theme'),
                     'base_theme', 'content_theme', 'label', 'id',
-                    ),
-                Tab(_('Dimensions'),
-                    ('region', 'ordering', 'parent'),
+                    'region', 'ordering', 'parent',
                     ),
             )
         )
@@ -64,9 +62,30 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
             self.helper.layout[0].append(preview)
 
+        self.fields['label'].widget = \
+            forms.TextInput(
+                attrs={'placeholder': self._meta.model._meta.verbose_name})
 
-# support for old stuff
-WidgetForm = WidgetUpdateForm
+        if request:
+            _request = copy.copy(request)
+            _request.POST = {}
+            initial = kwargs.get('initial', None)
+            if initial and initial.get('id', None):
+                widget = self._meta.model.objects.get(
+                    id=initial['id'])
+                data = widget.dimensions
+            else:
+                data = []
+                widget = None
+            dimensions = Tab(_('Dimensions'),
+                             HTML(
+                                 WidgetDimensionTable(_request, widget=widget, data=data).render()),
+                             )
+            self.helper.layout[0].append(dimensions)
+
+        # hide label
+        if 'text' in self.fields:
+            self.fields['text'].label=''
 
 
 class WidgetCreateForm(WidgetUpdateForm):
@@ -88,10 +107,6 @@ class WidgetCreateForm(WidgetUpdateForm):
         self.fields['base_theme'].initial = \
             self.fields['base_theme'].queryset.first()
 
-        self.fields['label'].widget = \
-            forms.TextInput(
-                attrs={'placeholder': self._meta.model._meta.verbose_name})
-
 
 class WidgetDeleteForm(SelfHandlingForm):
 
@@ -99,7 +114,7 @@ class WidgetDeleteForm(SelfHandlingForm):
         pass
 
 
-class WidgetCreatForm(SelfHandlingForm):
+class WidgetSelectForm(SelfHandlingForm):
 
     cls_name = forms.ChoiceField(
         label="Widget Type",
@@ -131,7 +146,7 @@ class WidgetCreatForm(SelfHandlingForm):
         Page = get_model('web', 'Page')
         page = Page.objects.get(id=page_id)
 
-        super(WidgetCreatForm, self).__init__(*args, **kwargs)
+        super(WidgetSelectForm, self).__init__(*args, **kwargs)
 
         self.fields['page_id'].initial = page.id
         self.fields['region'].initial = region_name

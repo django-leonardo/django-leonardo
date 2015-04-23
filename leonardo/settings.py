@@ -127,6 +127,9 @@ LOGIN_URL = '/admin/login/'
 LOGIN_REDIRECT_URL = '/admin/'
 LOGOUT_URL = "/"
 
+REDACTOR_OPTIONS = {'lang': 'en'}
+REDACTOR_UPLOAD = 'uploads/'
+
 LOGOUT_ON_GET = True
 
 AUTHENTICATION_BACKENDS = (
