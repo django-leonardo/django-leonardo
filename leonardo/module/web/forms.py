@@ -3,19 +3,19 @@ import operator
 
 import six
 from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Field, HTML, Layout, Fieldset
+from crispy_forms.layout import Field, Fieldset, HTML, Layout
 from django import forms
-from django.db.models.loading import get_model
 from django.contrib.auth import get_permission_codename
 from django.contrib.contenttypes.models import ContentType
+from django.db.models.loading import get_model
 from django.forms.models import modelform_factory
+from django.template.defaultfilters import slugify
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from horizon_contrib.forms import SelfHandlingForm, SelfHandlingModelForm
-from leonardo.utils.templates import template_choices
 
 WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
@@ -43,16 +43,27 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         self.helper.layout = Layout(
             TabHolder(
                 Tab(self._meta.model._meta.verbose_name.capitalize(),
-                    *self._meta.model.fields()
+                    *self._meta.model.fields(),
+                    css_id='field-{}'.format(slugify(self._meta.model))
                     ),
-                Tab('Theme',
+                Tab(_('Theme'),
                     'base_theme', 'content_theme', 'label', 'id',
                     ),
-                Tab('Dimensions',
+                Tab(_('Dimensions'),
                     ('region', 'ordering', 'parent'),
                     ),
             )
         )
+        # append preview tab if is ready
+        if 'initial' in kwargs \
+                and kwargs['initial'].get('prerendered_content', None):
+
+            preview = Tab(_('Preview'),
+                          HTML(kwargs['initial'].get('prerendered_content')),
+                          )
+
+            self.helper.layout[0].append(preview)
+
 
 # support for old stuff
 WidgetForm = WidgetUpdateForm
@@ -77,7 +88,9 @@ class WidgetCreateForm(WidgetUpdateForm):
         self.fields['base_theme'].initial = \
             self.fields['base_theme'].queryset.first()
 
-        self.fields['label'].initial = self._meta.model._meta.verbose_name
+        self.fields['label'].widget = \
+            forms.TextInput(
+                attrs={'placeholder': self._meta.model._meta.verbose_name})
 
 
 class WidgetDeleteForm(SelfHandlingForm):
@@ -150,13 +163,13 @@ class WidgetCreatForm(SelfHandlingForm):
         self.fields['cls_name'].choices = choices
 
         self.helper.layout = Layout(
-                    Field('region'),
-                    Field('parent'),
-                    Field('page_id'),
-                    Field('ordering'),
-                HTML(render_to_string("widget/content_type_selection_widget.html", {'grouped': grouped, 'ungrouped': ungrouped}),
-                ),
-            )
+            Field('region'),
+            Field('parent'),
+            Field('page_id'),
+            Field('ordering'),
+            HTML(render_to_string("widget/content_type_selection_widget.html", {'grouped': grouped, 'ungrouped': ungrouped}),
+                 ),
+        )
 
     def handle(self, request, data):
         # NOTE (majklk): This is a bit of a hack, essentially rewriting this
