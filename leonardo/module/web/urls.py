@@ -21,7 +21,7 @@ from feincms.utils.templatetags import (do_simple_assignment_node_with_var_and_a
                                         SimpleNodeWithVarAndArgs)
 from horizon_contrib.forms.models import create_or_update_and_get
 from horizon_contrib.forms.views import CreateView, UpdateView, ModalFormView, ContextMixin
-from leonardo.module.web.forms import get_widget_update_form
+from leonardo.module.web.forms import get_widget_update_form, get_widget_create_form
 from leonardo.module.web.models import Page
 
 
@@ -51,7 +51,7 @@ class CreateWidgetView(ModalFormView, CreateView):
 
     def get_form(self, form_class):
         """Returns an instance of the form to be used in this view."""
-        return get_widget_update_form(**self.kwargs)(**self.get_form_kwargs())
+        return get_widget_create_form(**self.kwargs)(**self.get_form_kwargs())
 
     def get_context_data(self, **kwargs):
         context = super(CreateWidgetView, self).get_context_data(**kwargs)

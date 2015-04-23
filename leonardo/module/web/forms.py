@@ -5,6 +5,7 @@ import six
 from crispy_forms.bootstrap import Tab, TabHolder
 from crispy_forms.layout import Field, HTML, Layout
 from django import forms
+from django.db.models.loading import get_model
 from django.contrib.auth import get_permission_codename
 from django.contrib.contenttypes.models import ContentType
 from django.forms.models import modelform_factory
@@ -17,15 +18,14 @@ from horizon_contrib.forms import SelfHandlingForm, SelfHandlingModelForm
 from leonardo.utils.templates import template_choices
 
 WIDGETS = {
-            'template_name': forms.RadioSelect(choices=[]),
-            'region': forms.widgets.HiddenInput,
-            'parent': forms.widgets.HiddenInput,
-            'ordering': forms.widgets.HiddenInput,
-            }
+    'template_name': forms.RadioSelect(choices=[]),
+    'region': forms.widgets.HiddenInput,
+    'parent': forms.widgets.HiddenInput,
+    'ordering': forms.widgets.HiddenInput,
+}
 
 
-
-class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
+class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
     id = forms.CharField(
         widget=forms.widgets.HiddenInput,
@@ -33,7 +33,7 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
     )
 
     def __init__(self, *args, **kwargs):
-        super(WidgetForm, self).__init__(*args, **kwargs)
+        super(WidgetUpdateForm, self).__init__(*args, **kwargs)
 
         queryset = self.fields['content_theme'].queryset
 
@@ -53,6 +53,31 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
                     ),
             )
         )
+
+# support for old stuff
+WidgetForm = WidgetUpdateForm
+
+
+class WidgetCreateForm(WidgetUpdateForm):
+
+    class Meta:
+        exclude = ['id']
+
+    def __init__(self, *args, **kwargs):
+        super(WidgetCreateForm, self).__init__(*args, **kwargs)
+
+        queryset = self.fields['content_theme'].queryset
+
+        self.fields['content_theme'].queryset = \
+            queryset.filter(widget_class=self._meta.model.__name__)
+
+        self.fields['content_theme'].initial = \
+            self.fields['content_theme'].queryset.first()
+
+        self.fields['base_theme'].initial = \
+            self.fields['base_theme'].queryset.first()
+
+        self.fields['label'].initial = self._meta.model._meta.verbose_name
 
 
 class WidgetDeleteForm(SelfHandlingForm):
@@ -90,8 +115,8 @@ class WidgetCreatForm(SelfHandlingForm):
         region_name = kwargs.pop('region', None)
         self.next_view = kwargs.pop('next_view', None)
 
-        from .models import Page
-        page = Page.objects.get(id = page_id)
+        Page = get_model('web', 'Page')
+        page = Page.objects.get(id=page_id)
 
         super(WidgetCreatForm, self).__init__(*args, **kwargs)
 
@@ -132,7 +157,6 @@ class WidgetCreatForm(SelfHandlingForm):
             )
         """
 
-
     def handle(self, request, data):
         # NOTE (majklk): This is a bit of a hack, essentially rewriting this
         # request so that we can chain it as an input to the next view...
@@ -140,6 +164,7 @@ class WidgetCreatForm(SelfHandlingForm):
         request.method = 'GET'
 
         return self.next_view.as_view()(request, **data)
+
 
 @memoized
 def get_widget_update_form(**kwargs):
@@ -150,7 +175,26 @@ def get_widget_update_form(**kwargs):
     model_cls = get_class(kwargs['cls_name'])
 
     form_class_base = getattr(
-        model_cls, 'feincms_item_editor_form', WidgetForm)
+        model_cls, 'feincms_item_editor_form', WidgetUpdateForm)
+
+    WidgetModelForm = modelform_factory(model_cls,
+                                        exclude=[],
+                                        form=form_class_base,
+                                        widgets=WIDGETS)
+
+    return WidgetModelForm
+
+
+@memoized
+def get_widget_create_form(**kwargs):
+    """
+    widget = get_widget_from_id(widget_id)
+
+    """
+    model_cls = get_class(kwargs['cls_name'])
+
+    form_class_base = getattr(
+        model_cls, 'feincms_item_editor_form', WidgetCreateForm)
 
     WidgetModelForm = modelform_factory(model_cls,
                                         exclude=[],
