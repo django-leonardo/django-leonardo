@@ -1,1 +1,1 @@
--e git+https://github.com/django-leonardo/leonardo-module-blog.git#egg=leonardo_blog_module
+leonardo-module-blog>=0.0.1

@@ -1,1 +1,1 @@
--e git+https://github.com/django-leonardo/leonardo-theme-adminlte.git#egg=leonardo_theme_adminlte
+leonardo-theme-adminlte>=0.0.1

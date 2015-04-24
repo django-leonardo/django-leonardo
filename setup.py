@@ -1,10 +1,4 @@
 #!/usr/bin/env python
-"""
-Installation script:
-
-To release a new version to PyPi:
-- Run: python setup.py sdist upload
-"""
 import os
 import sys
 
@@ -12,14 +6,16 @@ from setuptools import find_packages, setup
 
 PROJECT_DIR = os.path.dirname(__file__)
 
-VERSION = '0.0.1'
+VERSION = '0.0.1.rc1'
 
 sys.path.append(os.path.join(PROJECT_DIR, 'leonardo'))
 
+
 def strip_comments(l):
     if not "egg" in l:
-      return l.split('#', 1)[0].strip()
+        return l.split('#', 1)[0].strip()
     return l.strip()
+
 
 def reqs(*f):
     return [
@@ -31,7 +27,7 @@ extra = {}
 extras = lambda *p: reqs('extras', *p)
 # apps
 features = {
-  'eshop', 'blog', 'forms', 'media', 'web', 'nav',
+    'web', 'sentry', 'themes', 'adminlte', 'oauth', 'blog',
 }
 extras_require = {x: extras(x + '.txt') for x in features}
 extra['extras_require'] = extras_require
@@ -67,5 +63,5 @@ setup(name='django-leonardo',
           'Programming Language :: Python :: 3.4',
           'Topic :: Software Development :: Libraries :: Application Frameworks'],
       zip_safe=False,
-      extras_require={"blog": []}
+      **extra
       )
