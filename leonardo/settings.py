@@ -127,7 +127,7 @@ LOGIN_URL = '/admin/login/'
 LOGIN_REDIRECT_URL = '/admin/'
 LOGOUT_URL = "/"
 
-REDACTOR_OPTIONS = {'lang': 'en', 'plugins': ['table', 'video', 'fullscreen', 'fontcolor']}
+REDACTOR_OPTIONS = {'lang': 'en', 'plugins': ['table', 'video', 'fullscreen', 'fontcolor', 'textdirection']}
 REDACTOR_UPLOAD = 'uploads/'
 
 LOGOUT_ON_GET = True
