@@ -27,7 +27,8 @@ SECRET_KEY = "asd"
 
 APPS = [
     'web',
-    'testapp'
+    'testapp',
+    'media',
 ]
 
 MIGRATION_MODULES = {

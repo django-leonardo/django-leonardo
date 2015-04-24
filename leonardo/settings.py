@@ -197,21 +197,6 @@ try:
 except ImportError:
     pass
 
-if 'media' in APPS:
-    FILER_IMAGE_MODEL = 'leonardo.module.media.models.Image'
-
-if not SECRET_KEY:
-    try:
-        LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                  'local')
-
-        from horizon.utils import secret_key
-
-        SECRET_KEY = secret_key.generate_or_read_from_file(os.path.join(LOCAL_PATH,
-                                                                        '.secret_key_store'))
-    except Exception:
-        pass
-
 REVERSION_MIDDLEWARE=[
     'reversion.middleware.RevisionMiddleware']
 
@@ -221,6 +206,9 @@ OAUTH_CTP = [
 ]
 
 # first load some defaults
+
+if 'media' in APPS:
+    FILER_IMAGE_MODEL = 'leonardo.module.media.models.Image'
 
 try:
     from leonardo.conf.horizon import *
@@ -324,6 +312,18 @@ try:
         frontend_editing=True)
 except Exception, e:
     raise e
+
+if not SECRET_KEY:
+    try:
+        LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                  'local')
+
+        from horizon.utils import secret_key
+
+        SECRET_KEY = secret_key.generate_or_read_from_file(os.path.join(LOCAL_PATH,
+                                                                        '.secret_key_store'))
+    except Exception:
+        pass
 
 if 'fulltext' or 'eshop' in APPS:
 

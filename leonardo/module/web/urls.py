@@ -17,7 +17,11 @@ from leonardo.module.web.forms import (get_widget_create_form,
 from .forms import WidgetSelectForm, WidgetDeleteForm, WidgetUpdateForm
 from .tables import WidgetDimensionTable
 
+# fix native views
 GenericIndexView.template_name = "leonardo/common/_index.html"
+CreateView.template_name = "widget/create.html"
+UpdateView.template_name = "widget/create.html"
+
 
 class HandleDimensionsMixin(object):
 

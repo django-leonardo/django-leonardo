@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from filer import settings as filer_settings
 from filer.models.abstract import BaseImage
 from filer.models.filemodels import File
+from filer.models.foldermodels import Folder
 
 
 class Document(File):
