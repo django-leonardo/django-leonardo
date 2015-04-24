@@ -1,6 +1,7 @@
 
 from __future__ import absolute_import
 
+import six
 import os
 from os.path import abspath, dirname, join, normpath
 from leonardo import default, merge
@@ -186,14 +187,14 @@ SECRET_KEY = None
 APPS = []
 
 try:
-    # local settings
-    from local_settings import *
+    # full settings
+    from leonardo_site.local.settings import *
 except ImportError:
     pass
 
 try:
-    # full settings
-    from leonardo_site.local.settings import *
+    # local settings
+    from local_settings import *
 except ImportError:
     pass
 
@@ -239,6 +240,9 @@ try:
 
     # can be merged into one for cycle
     # collect application settings
+
+    widgets = {}
+
     for app in APPS:
         try:
             # check if is not full app
@@ -271,7 +275,6 @@ try:
                 except Exception as e:
                     pass
 
-
             if hasattr(mod, 'default'):
 
                 APPLICATION_CHOICES = merge(APPLICATION_CHOICES, getattr(
@@ -290,22 +293,18 @@ try:
                     AUTHENTICATION_BACKENDS, getattr(
                         mod.default, 'auth_backends', []))
 
+                # collect grouped widgets
+                widgets[getattr(mod.default, 'optgroup', app.capitalize())] = \
+                    getattr(mod.default, 'widgets', [])
+
     # register external apps
     Page.create_content_type(
         ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
 
     # register widgets
-    for app in APPS:
-        if module_has_submodule(import_module(package_string), app):
-            mod = import_module('.{0}'.format(app), package_string)
-
-            if hasattr(mod, 'default'):
-
-                for ct in getattr(mod.default, 'widgets', []):
-
-                    Page.create_content_type(
-                        ct, optgroup=getattr(
-                            mod.default, 'optgroup', app.capitalize()))
+    for optgroup, _widgets in six.iteritems(widgets):
+        for widget in _widgets:
+            Page.create_content_type(widget, optgroup=optgroup)
 
     Page.register_extensions(*PAGE_EXTENSIONS)
     Page.register_default_processors(
