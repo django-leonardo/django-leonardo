@@ -10,6 +10,11 @@
 {% comment %} Compress jQuery, Angular, Plugins, Bootstrap, Hogan.js and Horizon-specific JS. {% endcomment %}
 {% compress js %}
 <script type="text/javascript" src="{{ STATIC_URL }}redactor/redactor.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}redactor/table.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}redactor/video.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}redactor/fullscreen.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}redactor/filemanager.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}redactor/fontcolor.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}redactor/langs/en.js"></script>
 
 <script type="text/javascript">var STATIC_URL = "{{ STATIC_URL }}";</script>
