@@ -33,3 +33,4 @@ xstatic-react>=0.12.2.1
 gunicorn>=18.0
 django-allauth==0.19.1
 django-wysiwyg-redactor>=0.4.5.1
+-e git+https://github.com/openstack/horizon@stable/kilo#egg=horizon
