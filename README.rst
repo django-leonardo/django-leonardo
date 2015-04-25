@@ -22,7 +22,6 @@ Further reading:
 * `Continuous integration homepage`_
 
 .. _`Demo site`: http://demo.cms.robotice.cz
-.. _`Documentation`: http://django-leonardo.readthedocs.org
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 
 Installation
