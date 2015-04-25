@@ -88,21 +88,6 @@ INSTALLED_APPS = default.apps
 
 # For easy_thumbnails to support retina displays (recent MacBooks, iOS)
 
-THUMBNAIL_HIGH_RESOLUTION = True
-
-THUMBNAIL_PROCESSORS = (
-    'easy_thumbnails.processors.colorspace',
-    'easy_thumbnails.processors.autocrop',
-    #'easy_thumbnails.processors.scale_and_crop',
-    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
-    'easy_thumbnails.processors.filters',
-)
-
-# File download permissions are an experimental
-# feature. The api may change at any time.
-
-FILER_ENABLE_PERMISSIONS = True
-
 FEINCMS_USE_PAGE_ADMIN = False
 
 LEONARDO_USE_PAGE_ADMIN = True
