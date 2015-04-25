@@ -1,5 +1,5 @@
 
-|PypiVersion| |Doc badge| |Pypi|
+|PypiVersion| |Doc badge| |Travis| |Pypi|
 
 ===============
 Django-Leonardo
@@ -24,38 +24,6 @@ Further reading:
 .. _`Demo site`: http://demo.cms.robotice.cz
 .. _`Documentation`: http://django-leonardo.readthedocs.org
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
-
-
-Use Cases
-=========
-
-- server-side
-
-    - CMS - FeinCMS
-    - E-Commerce - Oscar
-    - Dashboards - Horizon(OpenStack)
-    - API - Django Rest Framework
-
-Features
---------
-
-- Backend
-
-    - Django 1.7 +
-    - FeinCMS
-        - Page, Blog, Navigation, Form Designer, Remote Forms
-    - Horizon / horizon-contrib
-        - Dashboards, Panels, Modals, Tables, Tabs, Workflows
-    - Oscar
-        - Model, Processes, API
-
-- Client
-
-    - AngularJS
-        - SortTable, Filters, ..
-    - React
-    - AdminLTE 2 +
-    - Bootstrap 3
 
 Installation
 ============
@@ -154,6 +122,8 @@ Read More
 .. |Doc badge| image:: https://readthedocs.org/projects/django-leonardo/badge/?version=stable
 .. |Pypi| image:: https://pypip.in/d/django-leonardo/badge.svg?style=flat
 .. |PypiVersion| image:: https://pypip.in/version/django-leonardo/badge.svg?style=flat
+.. |Travis| image:: https://travis-ci.org/django-leonardo/django-leonardo.svg?branch=develop
+
 .. [Documentation] http://django-leonardo.readthedocs.org
 
 .. _`mail@majklk`: mailto:mail@majklk.cz
