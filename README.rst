@@ -24,6 +24,36 @@ Further reading:
 .. _`Demo site`: http://demo.cms.robotice.cz
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 
+Core
+====
+
+Leonardo contains some modules which provide scaffold for all other stuff.
+
+* Web - precise FeinCMS integration
+* Navigation - common navigation components
+* Media - Filer integration with basic widgets
+* Forms - Stable Form builder integration
+* Language - basic translation widgets
+
+Extensions
+==========
+
+Also Leonardo provide bundled extensions, which provides pluggable advantages.
+
+Modules
+-------
+
+* Blog - Elephant Blog integration
+* Eshop - Oscar Ecommerce - FeinCMS integration
+* Sentry - end-user friendly error page
+* Static - client-side libraries like as AngularJS, React, D3.js, ..
+
+Themes
+------
+
+* Bootstrap - Bootwatch themes
+* AdminLTE
+
 Installation
 ============
 
@@ -77,37 +107,6 @@ Common
 ~~~~~~
 
 * django-leonardo[sentry] - Raven integration with end-user friendly error page
-
-Core
-====
-
-Leonardo contains some modules which provide scaffold for all other stuff.
-
-* Web - precise FeinCMS integration
-* Navigation - common navigation components
-* Media - Filer integration with basic widgets
-* Forms - Stable Form builder integration
-* Language - basic translation widgets
-
-Extensions
-==========
-
-Also Leonardo provide bundled extensions, which provides pluggable advantages.
-
-Modules
--------
-
-* Blog - Elephant Blog integration
-* Eshop - Oscar Ecommerce - FeinCMS integration
-* Sentry - end-user friendly error page
-* Static - client-side libraries like as AngularJS, React, D3.js, ..
-
-Themes
-------
-
-* Bootstrap - Bootwatch themes
-* AdminLTE
-
 
 Looking for commercial support?
 ===============================
