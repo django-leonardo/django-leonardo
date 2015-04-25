@@ -18,8 +18,8 @@ Full featured platform for building everything based on Django, FeinCMS, Horizon
 Further reading:
 
 * `Demo site`_ (a reference build of an Leonardo project)
-* `Documentation`_ on the excellent `readthedocs.org`_
-* `Continuous integration homepage`_ on `travis-ci.org`_
+* `Documentation`_
+* `Continuous integration homepage`_
 
 .. _`Demo site`: http://demo.cms.robotice.cz
 .. _`Documentation`: http://django-leonardo.readthedocs.org
@@ -52,9 +52,9 @@ commas.
 
 .. code-block:: bash
 
-    $ pip install "django-leonardo[web]"
+    $ pip install "django-leonardo[static]"
 
-    $ pip install "django-leonardo[web,nav,media,eshop]"
+    $ pip install "django-leonardo[blog,eshop,static,themes]"
 
 The following bundles are available:
 
@@ -62,6 +62,8 @@ CMS
 ~~~
 
 * django-leonardo[blog] - ElephantBlog integration
+
+* django-leonardo[static] - AngularJS, React, BootStrap, D3.js, ..
 
 * django-leonardo[themes] - Leonardo themes [Bootstrap, AdminLTE]
 
@@ -99,6 +101,7 @@ Modules
 * Blog - Elephant Blog integration
 * Eshop - Oscar Ecommerce - FeinCMS integration
 * Sentry - end-user friendly error page
+* Static - client-side libraries like as AngularJS, React, D3.js, ..
 
 Themes
 ------
