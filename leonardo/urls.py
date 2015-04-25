@@ -9,18 +9,8 @@ from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
 from .base import leonardo
-from horizon.decorators import require_perms  # noqa
 from django.utils.module_loading import module_has_submodule  # noqa
 from django.utils.importlib import import_module  # noqa
-
-
-def _decorate_urlconf(urlpatterns, decorator, *args, **kwargs):
-    for pattern in urlpatterns:
-        if getattr(pattern, 'callback', None):
-            pattern._callback = decorator(pattern.callback, *args, **kwargs)
-        if getattr(pattern, 'url_patterns', []):
-            _decorate_urlconf(pattern.url_patterns, decorator, *args, **kwargs)
-
 
 urlpatterns = patterns('',
 
@@ -41,25 +31,22 @@ urlpatterns += patterns('',
 
 # load all urls
 # support .urls file and urls_conf = 'elephantblog.urls' on default module
+# TODO: decorate loaded modules for sure
 for app, mod in six.iteritems(leonardo.get_app_modules(settings.APPS)):
     if hasattr(mod, 'default'):
         if module_has_submodule(mod, 'urls'):
             urls_mod = import_module('.urls', mod.__name__)
             _urlpatterns = []
             if hasattr(urls_mod, 'urlpatterns'):
-                _urlpatterns += urls_mod.urlpatterns
+                urlpatterns += urls_mod.urlpatterns
         else:
-            urlpatterns_name = getattr(mod.default, ' urls_conf', None)
+            urlpatterns_name = getattr(mod.default, 'urls_conf', None)
             if urlpatterns_name:
-                _urlpatterns += patterns('',
-                                         url(r'', include(urlpatterns_name)),
-                                         )
-        urlpatterns += _urlpatterns
-        """
-        # Require login if not public.
-        if not getattr(mod.default, 'public', False):
-            _decorate_urlconf(urlpatterns, require_auth)
-        """
+                urlpatterns += \
+                    patterns('',
+                             url(r'', include(urlpatterns_name)),
+                             )
+
 
 if 'oauth' in getattr(settings, 'APPS', []):
     # All Auth
