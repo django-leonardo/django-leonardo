@@ -6,6 +6,8 @@ from dbtemplates.models import Template
 from django.contrib.sites.models import Site
 from django.template.loaders.app_directories import app_template_dirs
 
+from leonardo import merge
+
 ALWAYS_ASK, FILES_TO_DATABASE, DATABASE_TO_FILES = ('0', '1', '2')
 
 
@@ -18,9 +20,9 @@ def get_or_create_template(template_name, extension='.html', app_first=False,
         extension = ".%s" % extension
 
     if app_first:
-        tpl_dirs = app_template_dirs + settings.TEMPLATE_DIRS
+        tpl_dirs = merge(app_template_dirs, settings.TEMPLATE_DIRS)
     else:
-        tpl_dirs = settings.TEMPLATE_DIRS + app_template_dirs
+        tpl_dirs = merge(settings.TEMPLATE_DIRS, app_template_dirs)
     templatedirs = [d for d in tpl_dirs if os.path.isdir(d)]
 
     for templatedir in templatedirs:

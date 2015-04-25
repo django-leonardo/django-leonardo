@@ -4,19 +4,19 @@ import codecs
 import os
 from collections import OrderedDict
 
+from dbtemplates.conf import settings
 from django.contrib.staticfiles.finders import get_finders
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.core.files.storage import FileSystemStorage
 from django.core.management.base import BaseCommand, CommandError
 from django.core.management.color import no_style
+from django.template.loaders.app_directories import app_template_dirs
 from django.utils.encoding import smart_text
 from django.utils.six.moves import input
+from leonardo import merge
 from leonardo.module.web.models import PageColorScheme, PageTheme
 
 from ._utils import get_or_create_template
-
-from dbtemplates.conf import settings
-from django.template.loaders.app_directories import app_template_dirs
 
 from django.contrib.staticfiles.management.commands.collectstatic \
     import Command as CollectStatic
@@ -129,7 +129,7 @@ class Command(BaseCommand):
         # base
         page_themes = 0
 
-        tpl_dirs = settings.TEMPLATE_DIRS + app_template_dirs
+        tpl_dirs = merge(settings.TEMPLATE_DIRS, app_template_dirs)
         templatedirs = [d for d in tpl_dirs if os.path.isdir(d)]
 
         for templatedir in templatedirs:

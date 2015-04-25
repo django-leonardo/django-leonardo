@@ -45,7 +45,7 @@ for app, mod in six.iteritems(leonardo.get_app_modules(settings.APPS)):
     if hasattr(mod, 'default'):
         if module_has_submodule(mod, 'urls'):
             urls_mod = import_module('.urls', mod.__name__)
-            _urlpatterns = ('')
+            _urlpatterns = []
             if hasattr(urls_mod, 'urlpatterns'):
                 _urlpatterns += urls_mod.urlpatterns
         else:
@@ -54,6 +54,7 @@ for app, mod in six.iteritems(leonardo.get_app_modules(settings.APPS)):
                 _urlpatterns += patterns('',
                                          url(r'', include(urlpatterns_name)),
                                          )
+        urlpatterns += _urlpatterns
         """
         # Require login if not public.
         if not getattr(mod.default, 'public', False):
