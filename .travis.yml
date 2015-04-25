@@ -10,8 +10,10 @@ before_install:
 install:
   - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8
   - pip install -r requirements.txt --use-mirrors
-  - pip install -r requirements/extras/horizon.txt
-  - pip install -r requirements/extras/web.txt
+  - pip install -r requirements/extras/static.txt
+  - pip install -r requirements/extras/blog.txt
+  - pip install -r requirements/extras/themes.txt
+  - pip install -r requirements/extras/sentry.txt
   - python setup.py -q install
 script: "cd tests && python manage.py test testapp"
 after_success:
