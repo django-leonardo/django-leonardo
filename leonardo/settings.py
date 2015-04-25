@@ -79,13 +79,6 @@ MIDDLEWARE_CLASSES = default.middlewares
 
 ROOT_URLCONF = 'leonardo.urls'
 
-location = lambda x: os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), x)
-
-TEMPLATE_DIRS = (
-    location('templates'),
-)
-
 MARKITUP_FILTER = ('markitup.renderers.render_rest', {'safe_mode': True})
 
 INSTALLED_APPS = default.apps
@@ -118,7 +111,12 @@ FEINCMS_DEFAULT_PAGE_MODEL = 'web.Page'
 
 ##########################
 
-STATICFILES_FINDERS =(
+TEMPLATE_DIRS = [
+    os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), 'templates')
+]
+
+STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     'compressor.finders.CompressorFinder',
@@ -128,7 +126,8 @@ LOGIN_URL = '/admin/login/'
 LOGIN_REDIRECT_URL = '/admin/'
 LOGOUT_URL = "/"
 
-REDACTOR_OPTIONS = {'lang': 'en', 'plugins': ['table', 'video', 'fullscreen', 'fontcolor', 'textdirection']}
+REDACTOR_OPTIONS = {'lang': 'en', 'plugins': [
+    'table', 'video', 'fullscreen', 'fontcolor', 'textdirection']}
 REDACTOR_UPLOAD = 'uploads/'
 
 LOGOUT_ON_GET = True
@@ -151,8 +150,8 @@ LOGGING = {
     },
     'formatters': {
         'verbose': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S"
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
         },
         'simple': {
             'format': '%(levelname)s %(message)s'
@@ -198,7 +197,7 @@ try:
 except ImportError:
     pass
 
-REVERSION_MIDDLEWARE=[
+REVERSION_MIDDLEWARE = [
     'reversion.middleware.RevisionMiddleware']
 
 
@@ -224,6 +223,8 @@ APPLICATION_CHOICES = []
 from leonardo.module.web.models import Page
 from leonardo.module.web.widget import ApplicationWidget
 
+from .base import leonardo
+
 try:
     # override settings
     try:
@@ -235,67 +236,49 @@ try:
 
     from django.utils.module_loading import module_has_submodule  # noqa
 
-    # Try importing a modules from the module package
-    package_string = '.'.join(['leonardo', 'module'])
-
-    # can be merged into one for cycle
-    # collect application settings
-
     widgets = {}
 
-    for app in APPS:
-        try:
-            # check if is not full app
-            _app = import_module(app)
-        except ImportError:
-            _app = False
-        if not _app:
+    for app, mod in six.iteritems(leonardo.get_app_modules(APPS)):
+
+        # load all settings key
+        if module_has_submodule(mod, "settings"):
             try:
-                # check if is not leonardo_module
-                _app = import_module('leonardo_module_{}'.format(app))
-            except ImportError:
-                _app = False
+                settings_mod = import_module(
+                    '{0}.settings'.format(mod.__name__))
+                for k in dir(settings_mod):
+                    if not k.startswith("_"):
+                        val = getattr(settings_mod, k, None)
+                        globals()[k] = val
+                        locals()[k] = val
+            except Exception as e:
+                pass
 
-        if module_has_submodule(import_module(package_string), app) or _app:
-            if _app:
-                mod = _app
-            else:
-                mod = import_module('.{0}'.format(app), package_string)
+        if hasattr(mod, 'default'):
 
-            # load all settings key
-            if module_has_submodule(mod, "settings"):
-                try:
-                    settings_mod = import_module(
-                        '{0}.settings'.format(mod.__name__))
-                    for k in dir(settings_mod):
-                        if not k.startswith("_"):
-                            val = getattr(settings_mod, k, None)
-                            globals()[k] = val
-                            locals()[k] = val
-                except Exception as e:
-                    pass
+            APPLICATION_CHOICES = merge(APPLICATION_CHOICES, getattr(
+                mod.default, 'plugins', []))
 
-            if hasattr(mod, 'default'):
+            INSTALLED_APPS = merge(
+                INSTALLED_APPS, getattr(mod.default, 'apps', []))
 
-                APPLICATION_CHOICES = merge(APPLICATION_CHOICES, getattr(
-                        mod.default, 'plugins', []))
+            TEMPLATE_CONTEXT_PROCESSORS = merge(
+                TEMPLATE_CONTEXT_PROCESSORS, getattr(
+                    mod.default, 'ctp', []))
+            MIDDLEWARE_CLASSES = merge(
+                MIDDLEWARE_CLASSES, getattr(
+                    mod.default, 'middlewares', []))
+            AUTHENTICATION_BACKENDS = merge(
+                AUTHENTICATION_BACKENDS, getattr(
+                    mod.default, 'auth_backends', []))
+            TEMPLATE_DIRS = merge(
+                TEMPLATE_DIRS, getattr(
+                    mod.default, 'dirs', []))
+            # support for Django 1.8+
+            DIRS = TEMPLATE_DIRS
 
-                INSTALLED_APPS = merge(
-                    INSTALLED_APPS, getattr(mod.default, 'apps', []))
-
-                TEMPLATE_CONTEXT_PROCESSORS = merge(
-                    TEMPLATE_CONTEXT_PROCESSORS, getattr(
-                        mod.default, 'ctp', []))
-                MIDDLEWARE_CLASSES = merge(
-                                            MIDDLEWARE_CLASSES, getattr(
-                                            mod.default, 'middlewares', []))
-                AUTHENTICATION_BACKENDS = merge(
-                    AUTHENTICATION_BACKENDS, getattr(
-                        mod.default, 'auth_backends', []))
-
-                # collect grouped widgets
-                widgets[getattr(mod.default, 'optgroup', app.capitalize())] = \
-                    getattr(mod.default, 'widgets', [])
+            # collect grouped widgets
+            widgets[getattr(mod.default, 'optgroup', app.capitalize())] = \
+                getattr(mod.default, 'widgets', [])
 
     # register external apps
     Page.create_content_type(
@@ -324,17 +307,6 @@ if not SECRET_KEY:
     except Exception:
         pass
 
-if 'fulltext' or 'eshop' in APPS:
-
-    # search
-    HAYSTACK_CONNECTIONS = {
-        'default': {
-            'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-            'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
-        },
-    }
-
-    INSTALLED_APPS = merge(['whoosh'], INSTALLED_APPS)
 
 # enable reversion for every req
 if 'reversion' in INSTALLED_APPS:
@@ -357,5 +329,5 @@ except ImportError:
 # ensure if bootstra_admin is on top of INSTALLED_APPS
 if 'bootstrap_admin' in INSTALLED_APPS:
     BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
-    #INSTALLED_APPS.remove('bootstrap_admin')
+    # INSTALLED_APPS.remove('bootstrap_admin')
     #INSTALLED_APPS = ['bootstrap_admin'] + INSTALLED_APPS

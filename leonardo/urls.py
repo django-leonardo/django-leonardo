@@ -1,4 +1,5 @@
 
+import six
 import horizon
 from django.conf import settings
 from django.conf.urls import include, patterns, url
@@ -7,8 +8,11 @@ from leonardo.site import leonardo_admin
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
-
+from .base import leonardo
 from horizon.decorators import require_perms  # noqa
+from django.utils.module_loading import module_has_submodule  # noqa
+from django.utils.importlib import import_module  # noqa
+
 
 def _decorate_urlconf(urlpatterns, decorator, *args, **kwargs):
     for pattern in urlpatterns:
@@ -35,23 +39,31 @@ urlpatterns += patterns('',
                         url(r'^select2/', include('django_select2.urls')),
                         )
 
-# modules
-if 'web' in getattr(settings, 'APPS', []):
-    urlpatterns += patterns('',
-                            url(r'', include('leonardo.module.web.urls')),
-                            url(r'^redactor/', include('redactor.urls'))
-                            )
+# load all urls
+# support .urls file and urls_conf = 'elephantblog.urls' on default module
+for app, mod in six.iteritems(leonardo.get_app_modules(settings.APPS)):
+    if hasattr(mod, 'default'):
+        if module_has_submodule(mod, 'urls'):
+            urls_mod = import_module('.urls', mod.__name__)
+            _urlpatterns = ('')
+            if hasattr(urls_mod, 'urlpatterns'):
+                _urlpatterns += urls_mod.urlpatterns
+        else:
+            urlpatterns_name = getattr(mod.default, ' urls_conf', None)
+            if urlpatterns_name:
+                _urlpatterns += patterns('',
+                                         url(r'', include(urlpatterns_name)),
+                                         )
+        """
+        # Require login if not public.
+        if not getattr(mod.default, 'public', False):
+            _decorate_urlconf(urlpatterns, require_auth)
+        """
 
 if 'oauth' in getattr(settings, 'APPS', []):
     # All Auth
     urlpatterns += patterns('',
                             url(r'^accounts/', include('allauth.urls')),
-                            )
-
-if 'blog' in getattr(settings, 'APPS', []):
-    # Elephantblog urls
-    urlpatterns += patterns('',
-                            url(r'^blog/', include('elephantblog.urls')),
                             )
 
 # horizon and feinCMS

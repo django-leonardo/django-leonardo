@@ -1,19 +1,17 @@
 
 from __future__ import absolute_import
 
-from django.conf.urls import patterns, url
+from django.conf.urls import include, patterns, url
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext
 from django.contrib.contenttypes.models import ContentType
-
 from horizon_contrib.forms.views import (ContextMixin, CreateView,
                                          ModalFormView, ModelFormMixin,
                                          UpdateView)
 from horizon_contrib.generic.views import GenericIndexView
 from leonardo.module.web.forms import (get_widget_create_form,
                                        get_widget_update_form)
-
 from .forms import WidgetSelectForm, WidgetDeleteForm, WidgetUpdateForm
 from .tables import WidgetDimensionTable
 
@@ -45,6 +43,7 @@ class HandleDimensionsMixin(object):
                 wd = WidgetDimension(**data)
                 wd.save()
         return True
+
 
 class UpdateView(ModalFormView, UpdateView, HandleDimensionsMixin):
 
@@ -196,5 +195,5 @@ urlpatterns = patterns('',
                            UpdateView.as_view(), name='widget_update'),
                        url(r'^models/(?P<cls_name>[\w\.\-]+)/(?P<id>[\w\.\-]+)/delete/$',
                            DeleteWidgetView.as_view(), name='widget_delete'),
-
+                        url(r'^redactor/', include('redactor.urls')),
                        )

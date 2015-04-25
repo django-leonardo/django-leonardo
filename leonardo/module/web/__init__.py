@@ -14,6 +14,8 @@ class Default(object):
 
     optgroup = 'Web'
 
+    urls_conf = 'leonardo.module.web.urls'
+
     @property
     def middlewares(self):
         return [
