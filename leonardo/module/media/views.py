@@ -119,6 +119,8 @@ def scan_folder(request, folder_id=None):
                 'path': os.path.join(settings.MEDIA_ROOT,
                                      scan_folder_form.cleaned_data['path']),
             }
+            if folder:
+                kwargs['base_folder'] = folder.name
             try:
                 importer = FileImporter(**kwargs)
                 importer.walker(**kwargs)
@@ -128,7 +130,7 @@ def scan_folder(request, folder_id=None):
                                       context_instance=RequestContext(request))
     else:
         new_folder_form = ScanFolderForm()
-    return render_to_response('admin/filer/folder/new_folder_form.html', {
+    return render_to_response('admin/filer/folder/scan_form.html', {
         'new_folder_form': new_folder_form,
         'is_popup': popup_status(request),
         'select_folder': selectfolder_status(request),

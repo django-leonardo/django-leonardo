@@ -313,6 +313,9 @@ try:
 except ImportError:
     pass
 
+# and again merge core with others
+APPS = merge(APPS, default.core)
+
 # ensure if bootstra_admin is on top of INSTALLED_APPS
 if 'bootstrap_admin' in INSTALLED_APPS:
     BOOTSTRAP_ADMIN_SIDEBAR_MENU = True

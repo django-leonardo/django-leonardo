@@ -6,7 +6,6 @@
     {# upload stuff #}
     {{ media.js }}
     <script type="text/javascript" src="{% admin_js_base %}jquery.min.js"></script>
-    <script type="text/javascript" src="{% filer_staticmedia_prefix %}js/jquery-ui-1.7.2.custom.min.js"></script>
     <script type="text/javascript" src="{% filer_staticmedia_prefix %}js/jquery.cookie.js"></script>
     <script type="text/javascript" src="{% filer_staticmedia_prefix %}js/fileuploader.js"></script>
     <script type="text/javascript" src="{% admin_js_base %}admin/RelatedObjectLookups.js"></script>
@@ -75,7 +74,7 @@
             </li>
             {% include 'admin/filer/tools/upload_button_js.html' %}
             <li>
-                <a class="btn btn-default" href="{% url 'admin:media-scan-folder' %}" onclick="return showAddAnotherPopup(this);" class="addlink" title="{% trans 'sync folders' %}">{% trans 'Scan' %} <i class="icon-upload icon-white"></i></a>
+                <a class="btn btn-default" href="{% if folder.id %}{% url 'admin:media-scan-to-folder' folder.id %}{% else %}{% url 'admin:media-scan-folder' %}{% endif %}" onclick="return showAddAnotherPopup(this);" class="addlink" title="{% trans 'sync folders' %}">{% trans 'Scan' %} <i class="icon-upload icon-white"></i></a>
             </li>
         </ul>
     </div>

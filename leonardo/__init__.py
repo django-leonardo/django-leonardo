@@ -7,7 +7,7 @@ __version__ = '.'.join(map(str, VERSION))
 
 class Default(object):
 
-    core = ['web', 'nav', 'media', 'lang']
+    core = ['web', 'nav', 'media']
 
     @property
     def middlewares(self):

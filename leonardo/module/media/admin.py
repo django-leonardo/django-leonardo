@@ -111,7 +111,7 @@ class AddFolderPopupForm(forms.ModelForm):
     folder = forms.HiddenInput()
 
     class Meta:
-        model = Folder
+        model = LeonardoFolder
         fields = ('name',)
 
 
@@ -127,7 +127,7 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
                'delete_files_or_folders', 'move_files_and_folders',
                'copy_files_and_folders', 'resize_images', 'rename_files']
 
-    change_form_template = 'admin/filer/folder/change_form.html'
+    change_form_template = 'admin/filer/change_form.html'
     change_list_template = 'admin/filer/folder/directory_listing.html'
     directory_listing_template = 'admin/filer/folder/directory_listing.html'
     order_by_file_fields = ('_file_size', 'original_filename', 'name', 'owner',
@@ -139,6 +139,9 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
         opts = self.model._meta
         self.change_list_template = [
             'admin/filer/folder/directory_listing.html',
+        ]
+        self.change_form_template = [
+            'admin/filer/folder/change_form.html',
         ]
 
     def get_form(self, request, obj=None, **kwargs):
@@ -255,7 +258,7 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
         from django.conf.urls import patterns, url
         urls = super(MyFolderAdmin, self).get_urls()
         from . import views
-        url_patterns = patterns('',
+        url_patterns = patterns('leonardo.module.media.views',
             # we override the default list view with our own directory listing
             # of the root directories
             
@@ -271,9 +274,14 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
             url(r'^(?P<folder_id>\d+)/list/$',
                 self.admin_site.admin_view(self.directory_listing),
                 name='filer-directory_listing'),
+
             url(r'^scan_folder/$',
                 self.admin_site.admin_view(views.scan_folder),
                 name='media-scan-folder'),
+            url(r'^(?P<folder_id>\d+)/scan_folder/$',
+                self.admin_site.admin_view(views.scan_folder),
+                name='media-scan-to-folder'),
+
 
             url(r'^(?P<folder_id>\d+)/make_folder/$',
                 self.admin_site.admin_view(views.make_folder),
@@ -1296,17 +1304,12 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
     actions_column.short_description = _('actions')
 
 #admin.site.unregister(Folder)
+#admin.site.unregister(Folder)
+#admin.site.register(Folder, MyFolderAdmin)
 admin.site.register(LeonardoFolder, MyFolderAdmin)
 admin.site.unregister(File)
-#admin.site.register(File, FileFullAdmin)
 admin.site.register(File, FileFullAdmin)
-
-class FolderPermissionAdmin(ModelAdmin):
-
-    pass
-
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Document, DocumentAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(Vector, VectorAdmin)
-admin.site.unregister(FolderPermission)
