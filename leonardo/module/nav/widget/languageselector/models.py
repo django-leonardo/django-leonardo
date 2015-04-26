@@ -3,8 +3,7 @@
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-from feincms.module.page.models import Page
-from leonardo.module.web.models import Widget
+from leonardo.module.web.models import Widget, Page
 
 
 class LanguageSelectorWidget(Widget):

@@ -27,6 +27,8 @@ class Default(object):
             InternetVideoWidget,
             MediaGalleryWidget,
             SimpleImageWidget,
+            VectorGraphicsWidget,
+            PdfDocumentWidget,
         ]
 
 

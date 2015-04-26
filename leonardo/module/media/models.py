@@ -11,6 +11,14 @@ from filer.models.filemodels import File
 from filer.models.foldermodels import Folder
 
 
+class LeonardoFolder(Folder):
+
+    class Meta:
+        verbose_name = ("folder")
+        verbose_name_plural = ('folders')
+        app_label = 'media'
+
+
 class Document(File):
 
     @classmethod
@@ -24,6 +32,21 @@ class Document(File):
     class Meta:
         verbose_name = ("document")
         verbose_name_plural = ('documents')
+
+
+class Vector(File):
+
+    @classmethod
+    def matches_file_type(cls, iname, ifile, request):
+        # the extensions we'll recognise for this file type
+        # (majklk): TODO move to settings or live config
+        filename_extensions = ['.svg', '.eps', ]
+        ext = os.path.splitext(iname)[1].lower()
+        return ext in filename_extensions
+
+    class Meta:
+        verbose_name = ("vector")
+        verbose_name_plural = ('vetors')
 
 
 class Video(File):

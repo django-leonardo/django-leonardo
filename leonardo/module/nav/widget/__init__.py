@@ -6,3 +6,4 @@ from linearnavigation.models import LinearNavigationWidget
 from sitemap.models import SiteMapWidget
 from sitesearch.models import SiteSearchWidget
 from treenavigation.models import TreeNavigationWidget
+from languageselector.models import LanguageSelectorWidget
