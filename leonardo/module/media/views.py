@@ -1,7 +1,10 @@
 #-*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
 import os
+
 from django import forms
+from django.conf import settings
 from django.contrib.admin import widgets
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -10,10 +13,11 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import six
 from django.utils.translation import ugettext_lazy as _
-from filer.models import Clipboard, tools, FolderRoot, Image
-from .models import LeonardoFolder as Folder
 from filer import settings as filer_settings
-from django.conf import settings
+from filer.models import Clipboard, FolderRoot, Image, tools
+
+from .management.commands.import_files import FileImporter
+from .models import LeonardoFolder as Folder
 
 
 class NewFolderForm(forms.ModelForm):
@@ -32,7 +36,7 @@ class ScanFolderForm(forms.Form):
         label='Path to scan', help_text='relative path to MEDIA_ROOT')
 
     class Meta:
-        fields = ()
+        exclude = ()
 
 
 def popup_status(request):
@@ -89,9 +93,6 @@ def edit_image(request, folder_id):
         'is_popup': popup_status(request),
         'select_folder': selectfolder_status(request),
     }, context_instance=RequestContext(request))
-
-
-from filer.management.commands.import_files import FileImporter
 
 
 @login_required
