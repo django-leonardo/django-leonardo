@@ -41,7 +41,7 @@ Media:
 .. toctree::
    :maxdepth: 2
 
-   module/media/files_and_folders
+   module/media/files_folders
    module/media/thumbnails
 
 Navigation:
