@@ -26,7 +26,7 @@ class Default(object):
     def themes(self):
         """supported themes
         """
-        return ["leonardo_theme_adminlte", ]
+        return ['leonardo_theme_adminlte', 'leonardo_theme_bootswatch']
 
     @property
     def apps(self):
