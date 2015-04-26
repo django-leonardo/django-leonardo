@@ -8,7 +8,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('filer', '__first__'),
-        ('web', '0004_auto_20150426_1515'),
         ('media', '0002_leonardofile_leonardofolder'),
     ]
 
@@ -23,12 +22,5 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'vetors',
             },
             bases=('filer.file',),
-        ),
-        migrations.RemoveField(
-            model_name='leonardofile',
-            name='file_ptr',
-        ),
-        migrations.DeleteModel(
-            name='LeonardoFile',
         ),
     ]
