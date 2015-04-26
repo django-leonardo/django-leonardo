@@ -11,13 +11,12 @@ Basics
 Extending Leonardo is easy as possible, has two main stones, which support many various scenarios and also can be combined.
 
 * Theme - Templates, CSS, etc - client-side character
-* Module - anything else like and core features or simple wrapper for 3rd party apps
-
+* Module - core features, simple wrapper around of another app or anything else
 
 Theme
 -----
 
-So best example is live code, we have two base themes for you and lives under main github repos
+So best example is live code, we have two base themes for you and lives under main github group
 
 * AdminLTE - https://github.com/django-leonardo/leonardo-theme-adminlte
 * Bootswatch - https://github.com/django-leonardo/leonardo-theme-bootswatch
