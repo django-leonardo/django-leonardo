@@ -4,7 +4,10 @@ default_app_config = 'leonardo.apps.LeonardoConfig'
 VERSION = (0, 1, 1,)
 __version__ = '.'.join(map(str, VERSION))
 
+
 class Default(object):
+
+    core = ['web', 'nav', 'media', 'lang']
 
     @property
     def middlewares(self):
@@ -25,10 +28,6 @@ class Default(object):
         return [
             'django',
 
-            # admin tools
-            #'admin_tools',
-            #'admin_tools.theming',
-            #'admin_tools.menu',
             'bootstrap_admin',  # theme
             'bootstrap_admin_feincms',  # theme
 
@@ -49,12 +48,13 @@ class Default(object):
             'django_select2',
 
             'reversion',
+            'compressor',
 
             'horizon',
-            'compressor',
-            'leonardo',
             'horizon_contrib',
-            'filer',
+
+            'leonardo',
+
         ]
 
     @property
@@ -68,7 +68,6 @@ class Default(object):
             'django.core.context_processors.media',
             'django.core.context_processors.request',
             'django.core.context_processors.static',
-            # horizon
             'horizon.context_processors.horizon',
         ]
 

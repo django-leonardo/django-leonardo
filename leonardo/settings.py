@@ -192,7 +192,7 @@ OAUTH_CTP = [
     "allauth.socialaccount.context_processors.socialaccount"
 ]
 
-# first load some defaults
+APPS = merge(APPS, default.core)
 
 if 'media' in APPS:
     FILER_IMAGE_MODEL = 'leonardo.module.media.models.Image'
