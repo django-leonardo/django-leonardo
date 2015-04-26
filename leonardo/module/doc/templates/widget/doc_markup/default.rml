@@ -1,5 +1,0 @@
-{% extends base_template %}
-
-{% block content %}
-{{ widget.text|safe }}
-{% endblock %}
