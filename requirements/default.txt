@@ -18,7 +18,6 @@ Markdown>=2.2.1
 Django-Select2==4.2.2
 docutils==0.10
 python-creole==1.0.6
-psycopg2==2.5
 django-pyscss>=1.0.3  # BSD License (2 clause)
 requests>=1.2.3
 bulbs==0.3.11

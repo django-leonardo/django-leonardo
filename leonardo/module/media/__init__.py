@@ -2,6 +2,7 @@
 from django.apps import AppConfig
 
 from .widget import *
+from django.utils.translation import ugettext_lazy as _
 
 
 default_app_config = 'leonardo.module.media.MediaConfig'
@@ -9,7 +10,9 @@ default_app_config = 'leonardo.module.media.MediaConfig'
 
 class Default(object):
 
-    optgroup = 'Media'
+    @property
+    def optgroup(self):
+        return ('Media')
 
     @property
     def apps(self):

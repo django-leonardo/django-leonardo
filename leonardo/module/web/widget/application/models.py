@@ -1,12 +1,16 @@
 # -#- coding: utf-8 -#-
 
+from django.conf import settings
 from django.db import models
 from django.template import RequestContext
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
-from feincms.content.application.models import (ApplicationContent)
+from django.utils.translation import ugettext_lazy as _, get_language
+from feincms.content.application.models import ApplicationContent
 from leonardo.module.web.models import Widget
 from feincms.admin.item_editor import ItemEditorForm
+from django.core.cache import cache
+
+APP_REVERSE_CACHE_GENERATION_KEY = 'FEINCMS:APPREVERSECACHE'
 
 
 class ApplicationWidget(Widget, ApplicationContent):
@@ -102,3 +106,16 @@ class ApplicationWidget(Widget, ApplicationContent):
         abstract = True
         verbose_name = _("external application")
         verbose_name_plural = _('external applications')
+
+    @classmethod
+    def app_reverse_cache_key(self, urlconf_path, **kwargs):
+        cache_generation = cache.get(APP_REVERSE_CACHE_GENERATION_KEY)
+        if cache_generation is None:
+            # This might never happen. Still, better be safe than sorry.
+            pass
+
+        return 'FEINCMS:%s:APPCONTENT:L%s:U%s:G%s' % (
+            getattr(settings, 'SITE_ID', 0),
+            get_language(),
+            urlconf_path,
+            cache_generation)
