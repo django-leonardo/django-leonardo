@@ -14,6 +14,8 @@ class Default(object):
 
     optgroup = 'Web'
 
+    urls_conf = 'leonardo.module.web.urls'
+
     @property
     def middlewares(self):
         return [
@@ -37,19 +39,31 @@ class Default(object):
             except ImportError:
                 LOG.warning("you are missing available theme {}".format(theme))
 
+        try:
+            import sorl  # noqa
+            INSTALLED_APPS += ['sorl.thumbnail']
+        except Exception:
+            pass
+
+        try:
+            import easy_thumbnails  # noqa
+            INSTALLED_APPS += ['easy_thumbnails']
+        except Exception:
+            pass
+
         return INSTALLED_APPS + [
             'feincms',
             'mptt',
             'crispy_forms',
             'dbtemplates',
             'leonardo.module',
-            'easy_thumbnails',
 
-            'feincms.module.page', # noqa
+            'feincms.module.page',  # noqa
 
             'leonardo.module.web',
 
             'markupfield',
+            'redactor',
 
         ]
 

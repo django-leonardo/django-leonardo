@@ -17,7 +17,7 @@ from horizon.utils.memoized import memoized
 from leonardo.utils.templates import find_all_templates, template_choices
 
 from .const import *
-from .forms import WidgetForm, WIDGETS
+from .forms import WidgetUpdateForm, WIDGETS
 
 
 @python_2_unicode_compatible
@@ -95,6 +95,10 @@ class Page(FeinCMSPage):
         return PageDimension.objects.filter(
             page=self)
 
+    @property
+    def get_base_template(self):
+        return self.theme.template
+
     def get_col_classes(self, col='col1'):
 
         STR = "col-{0}-{1}"
@@ -136,7 +140,7 @@ class WidgetDimension(models.Model):
 
 
 class WidgetInline(FeinCMSInline):
-    form = WidgetForm
+    form = WidgetUpdateForm
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "base_theme":
@@ -245,7 +249,7 @@ class Widget(FeinCMSBase):
     feincms_item_editor_inline = WidgetInline
 
     prerendered_content = models.TextField(
-        verbose_name=_('prerendered content'), blank=True, editable=False)
+        verbose_name=_('prerendered content'), blank=True)
     enabled = models.NullBooleanField(verbose_name=_('Is visible?'))
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)

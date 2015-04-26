@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load leonardo_tags feincms_tags feincms_page_tags branding i18n %}
+{% load leonardo_tags feincms_page_tags branding i18n %}
 <html>
   {% include "_header.html" %}
   <body id="{% block body_id %}{% endblock %}" ng-app='hz' class="skin-blue">
@@ -22,9 +22,6 @@
           </aside>
           <section class="col3 {% get_col_classes feincms_page 'col3' %}">
             {% feincms_render_region feincms_page "col3" request %}
-            {% if request.frontend_editing %}
-            <a href="{% url 'widget_create' 'web.htmltextwidget' %}">Přidat</a>
-            {% endif %}
           </section>
           <aside class="col2 {% get_col_classes feincms_page 'col2' %}">
             {% feincms_render_region feincms_page "col2" request %}
@@ -36,9 +33,6 @@
           {% feincms_render_region feincms_page "footer" request %}
         </div>
       </footer>
-      {% if request.user.is_authenticated and request.user.is_staff and request.frontend_editing %}
-      {% include "common/user_sidebar.html" %}
-      {% endif %} 
     </div>
     {% include "horizon/_scripts.html" %}
     {% feincms_render_region feincms_page "helper" request %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block page_header %}
+{% include "horizon/common/_page_header.html" with title=title %}
+{% endblock page_header %}
+
+{% block body_main %}
+{{ table.render }}
+{% endblock %}

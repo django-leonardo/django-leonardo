@@ -6,12 +6,14 @@
         {% if hide %}<a href="#" class="close" data-dismiss="modal">&times;</a>{% endif %}
         <h3>{% block modal-header %}{% endblock %}</h3>
       </div>
+      {% comment %}
       {% if table %}
       <div class="modal-body">
       {{ table.render }}
       </div>
       <hr>
       {% endif %}
+      {% endcomment %}
 
       <form id="{% block form_id %}{% endblock %}"
             ng-controller="{% block ng_controller %}DummyCtrl{% endblock %}"

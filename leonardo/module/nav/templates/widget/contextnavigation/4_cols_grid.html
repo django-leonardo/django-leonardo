@@ -1,14 +1,13 @@
-{% extends base_template %}
+{% extends widget.get_base_template %}
 
 {% load i18n %}
 {% load feincms_tags %}
 {% load webcms_tags %}
 
 {% block content %}
-<div class="edit-padder"></div>
 {% for child_page in page.get_children %}
-<div class='span-6{% if forloop.counter|divisibleby:"4" %} last{% endif %}'>
-	{% feincms_render_region child_page region options.request %}
+<div class='col-md-3{% if forloop.counter|divisibleby:"4" %} last{% endif %}'>
+	{% feincms_render_region child_page region request %}
 	{% if widget.link_style != "" %}
 	<div class="link-more ui-helper-clearfix">
 		{% if widget.link_style == "link" %}

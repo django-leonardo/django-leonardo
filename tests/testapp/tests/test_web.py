@@ -10,4 +10,4 @@ from leonardo.module.web import default
 class WebBaseTest(TestCase):
     def test_01_simple_content_type_creation(self):
         for widget in default.widgets:
-            self.assertEqual(Page.content_type_for(widget), None)
+            self.assertIsNotNone(Page.content_type_for(widget))

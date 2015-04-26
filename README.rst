@@ -1,5 +1,5 @@
 
-|PypiVersion| |Doc badge| |Pypi|
+|PypiVersion| |Doc badge| |Travis| |Pypi|
 
 ===============
 Django-Leonardo
@@ -8,43 +8,51 @@ Django-Leonardo
 This is a stable for daily use in development.
 
 A collection of awesome Django libraries, resources and shiny things.
-Full featured framework for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
+Full featured platform for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
-**Don't waste your time in searching stable solution for daily problems.**
+**Don't waste your time searching stable solution for daily problems.**
 
 .. contents::
    :local:
 
-Use Cases
-=========
+Further reading:
 
-- server-side
+* `Demo site`_ (a reference build of an Leonardo project)
+* `Documentation`_
+* `Continuous integration homepage`_
 
-    - CMS - FeinCMS
-    - E-Commerce - Oscar
-    - Dashboards - Horizon(OpenStack)
-    - API - Django Rest Framework
+.. _`Demo site`: http://demo.cms.robotice.cz
+.. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 
-Features
---------
+Core
+====
 
-- Backend
+Leonardo contains some modules which provide scaffold for all other stuff.
 
-    - Django 1.4 +
-    - FeinCMS
-        - Page, Blog, Navigation, Form Designer, Remote Forms
-    - Horizon / horizon-contrib
-        - Dashboards, Panels, Modals, Tables, Tabs, Workflows
-    - Oscar
-        - Model, Processes, API
+* Web - precise FeinCMS integration
+* Navigation - common navigation components
+* Media - Filer integration with basic widgets
+* Forms - Stable Form builder integration
+* Language - basic translation widgets
 
-- Client
+Extensions
+==========
 
-    - AngularJS
-        - SortTable, Filters, ..
-    - React
-    - AdminLTE 2 +
-    - Bootstrap 3
+Also Leonardo provide bundled extensions, which provides pluggable advantages.
+
+Modules
+-------
+
+* Blog - Elephant Blog integration
+* Eshop - Oscar Ecommerce - FeinCMS integration
+* Sentry - end-user friendly error page
+* Static - client-side libraries like as AngularJS, React, D3.js, ..
+
+Themes
+------
+
+* Bootstrap - Bootwatch themes
+* AdminLTE
 
 Installation
 ============
@@ -73,136 +81,37 @@ commas.
 
 .. code-block:: bash
 
-    $ pip install "django-leonardo[web]"
+    $ pip install "django-leonardo[static]"
 
-    $ pip install "django-leonardo[web,nav,media,eshop]"
+    $ pip install "django-leonardo[blog,eshop,static,themes]"
 
 The following bundles are available:
 
 CMS
 ~~~
 
-* django-leonardo[web] - for FeinCMS integration, is one of main parts
-
-* django-leonardo[media] - for using the Filer and related widgets like a Media Gallery, ..
-
-* django-leonardo[nav] - set of navigation widgets
-
 * django-leonardo[blog] - ElephantBlog integration
 
-* django-leonardo[forms] - Form-Builder(FeinCMS) integration with Remote-Forms for API
+* django-leonardo[static] - AngularJS, React, BootStrap, D3.js, ..
+
+* django-leonardo[themes] - Leonardo themes [Bootstrap, AdminLTE]
+
+* django-leonardo[adminlte] - AdminLTE theme
 
 Ecommerce
 ~~~~~~~~~
 
 * django-leonardo[eshop] -Django-Oscar integration (is not stable !)
 
+Common
+~~~~~~
 
-Setup
-=====
+* django-leonardo[sentry] - Raven integration with end-user friendly error page
 
-Minimal app
------------
+Looking for commercial support?
+===============================
 
-Directory structure::
-
-    leonardo_site
-        |-- __init__.py
-        |-- local
-            |-- __init__.py
-            |-- local_settings.py
-        |-- static
-            |-- css
-            |-- js
-
-Configuration
--------------
-
-Configure files
-
-* ``local_settings`` in your ``PYTHONPATH`` for all stuff
-* or ``settings``/``menu`` .. in ``conf``
-
-.. note::
-
-    ``leonardo_site`` must be in the ``PYTHONPATH``
-
-.. code-block:: python
-
-    SITE_ID = 1
-    SITE_NAME = 'leonardo'
-    # or full domain
-    SITE_DOMAIN = 'www.leonardo.cz'
-
-    LANGUAGE_CODE = 'en'
-
-    RAVEN_CONFIG = {}
-
-    APPS = [
-        'web',
-        'blog',
-        'eshop',
-        'fulltext',
-        'leonardo_site',  # our app
-    ]
-
-Migrations
-----------
-
-Leonardo itself does not come with any migrations. It does not have to: Its
-core models haven't changed for several versions now. This does not mean
-migrations aren't supported. You are free to use either Django's builtin
-migrations support, or also South if you're stuck with Django versions older
-than 1.6.
-
-Django's builtin migrations
----------------------------
-
-* Create a new folder in your app with an empty ``__init__.py`` inside.
-* Add the following configuration to your ``settings.py``::
-
-    MIGRATION_MODULES = {
-        'page': 'leonardo.module.web.page',
-    }
-
-Override location for our migrations
-
-.. code-block:: python
-
-    MIGRATION_MODULES = {
-        'web': 'leonardo_site.migrations',
-    }
-
-.. code-block:: bash
-
-    python manage.py makemigrations --noinput
-
-    python manage.py migrate --noinput
-
-
-Sync Themes
------------
-
-Sync widget themes
-
-.. code-block:: python
-
-    python manage.py sync_themes
-
-replace db from files (new version of core template etc..)
-
-.. code-block:: python
-
-    python manage.py sync_themes --force
-
-Change admin site name
-
-.. code-block:: python
-
-    SITE_HEADER = "Leonardo administration"
-
-    SITE_TITLE = "Leonardo site admin"
-
+If you are interested in having an Leonardo project built for you, or for development of an existing Leonardo site. Please get in touch via `mail@majklk.cz`_.
 
 Read More
 =========
@@ -214,4 +123,8 @@ Read More
 .. |Doc badge| image:: https://readthedocs.org/projects/django-leonardo/badge/?version=stable
 .. |Pypi| image:: https://pypip.in/d/django-leonardo/badge.svg?style=flat
 .. |PypiVersion| image:: https://pypip.in/version/django-leonardo/badge.svg?style=flat
+.. |Travis| image:: https://travis-ci.org/django-leonardo/django-leonardo.svg?branch=develop
+
 .. [Documentation] http://django-leonardo.readthedocs.org
+
+.. _`mail@majklk`: mailto:mail@majklk.cz

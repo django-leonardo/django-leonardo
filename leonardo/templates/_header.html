@@ -14,13 +14,18 @@
   {% include "_stylesheets.html" %}
 {% endblock %}
 
-{% compress css %}
 {% block page_css %}
-<style type="text/css">
+<style name="themeeee" type="text/css">
 {{ request.leonardo_page.theme.style|safe }}
-{{ request.leonardo_page.color_scheme.style }}
 </style>
+
+<style type="text/css">
+{{ request.leonardo_page.color_scheme.style|safe }}
+</style>
+
 {% endblock %}
+
+{% compress css %}
 
 {% block widget_css %}
 <style type="text/css">

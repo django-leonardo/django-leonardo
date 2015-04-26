@@ -11,10 +11,10 @@ from feincms import settings
 #from feincms.admin.item_editor import ItemEditorForm, FeinCMSInline
 from feincms.utils import get_object
 from leonardo.module.web.models import Widget
-from leonardo.module.web.forms import WidgetForm
+from leonardo.module.web.forms import WidgetUpdateForm
 
 
-class HtmlTextWidgetAdminForm(WidgetForm):
+class HtmlTextWidgetAdminForm(WidgetUpdateForm):
     text = forms.CharField(
         widget=forms.Textarea, required=False, label=_('text'))
 

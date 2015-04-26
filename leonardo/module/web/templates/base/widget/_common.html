@@ -1,4 +1,4 @@
-{% load applicationcontent_tags %}
+{% load applicationcontent_tags i18n %}
 
 {% fragment request "_page_breadcrumbs" %}{% block breadcrumbs %}{% endblock %}{% endfragment %}
 {% fragment request "_head_title" %}{% block head_title %}{% endblock %}{% endfragment %}
@@ -10,3 +10,8 @@
 {% fragment request "current_product" %}{% block current_product %}{% endblock %}{% endfragment %}
 {% fragment request "current_category" %}{% block current_category %}{% endblock %}{% endfragment %}
 {% fragment request "current_manufacturer" %}{% block current_manufacturer %}{% endblock %}{% endfragment %}
+
+{% if request.frontend_editing %}
+<a class="ajax-modal" href="{% url 'widget_update' widget.model_cls widget.id %}">{% trans 'Edit' %}</a>
+<a class="ajax-modal" href="{% url 'widget_delete' widget.model_cls widget.id %}">{% trans 'Delete' %}</a>
+{% endif %}

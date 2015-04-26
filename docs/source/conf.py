@@ -53,7 +53,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'hrCMS'
+project = u'Leonardo'
 copyright = u'2015, Michael Kuty & Ales Komarek'
 author = u'Michael Kuty & Ales Komarek'
 

@@ -48,3 +48,5 @@ CONTENT_TYPES = [
 
 
 Page.register_templates(*PAGE_TEMPLATES)
+
+THUMBNAIL_DEBUG = True
