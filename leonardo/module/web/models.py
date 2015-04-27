@@ -92,7 +92,12 @@ class Page(FeinCMSPage):
 
     @property
     def dimensions(self):
-        return PageDimension.objects.filter(
+        # collect all parent dimensions
+        parent_dimensions = None
+        if self.parent:
+            parent_dimensions = self.parent.dimensions
+        parent_dimensions = parent_dimensions or PageDimension.objects.none()
+        return parent_dimensions | PageDimension.objects.filter(
             page=self)
 
     @property
