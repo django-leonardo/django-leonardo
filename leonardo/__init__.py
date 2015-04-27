@@ -46,7 +46,7 @@ class Default(object):
             'rest_framework',
             'dbtemplates',
 
-            #'django_select2',
+            'django_select2',
 
             'reversion',
             'compressor',
