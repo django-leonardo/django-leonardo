@@ -15,9 +15,9 @@ class Slider(forms.RangeInput):
 
 class WidgetDimensionForm(forms.ModelForm):
 
-    width = forms.CharField(widget=Slider())
-    height = forms.CharField(widget=Slider())
-    offset = forms.CharField(widget=Slider())
+    width = forms.CharField(widget=Slider(), initial=12)
+    height = forms.CharField(widget=Slider(), initial=0)
+    offset = forms.CharField(widget=Slider(), initial=0)
 
     class Meta:
         model = WidgetDimension
