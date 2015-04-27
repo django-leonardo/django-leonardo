@@ -24,10 +24,12 @@ urlpatterns += patterns('',
                         )
 
 # search
+"""
 urlpatterns += patterns('',
                         #url(r'', include('haystack.urls')),
                         url(r'^select2/', include('django_select2.urls')),
                         )
+"""
 
 # load all urls
 # support .urls file and urls_conf = 'elephantblog.urls' on default module

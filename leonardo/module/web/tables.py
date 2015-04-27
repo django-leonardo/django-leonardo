@@ -21,6 +21,7 @@ class WidgetDimensionForm(forms.ModelForm):
 
     class Meta:
         model = WidgetDimension
+        exclude = tuple()
 
 WidgetDimensionFormset = modelformset_factory(
     WidgetDimension, form=WidgetDimensionForm, can_delete=True, extra=1)

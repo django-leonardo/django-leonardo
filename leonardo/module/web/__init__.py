@@ -68,7 +68,7 @@ class Default(object):
         ]
 
     @property
-    def ctp(self):
+    def context_processors(self):
         """return WEB Conent Type Processors
         """
         return [

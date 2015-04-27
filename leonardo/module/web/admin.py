@@ -89,7 +89,7 @@ class WidgetContentThemeForm(forms.ModelForm):
         widgets = {
            'style': RedactorEditor(),
         }
-
+        exclude = tuple()
         model = WidgetContentTheme
 
     def __init__(self, *args, **kwargs):
@@ -120,15 +120,8 @@ class WidgetBaseThemeForm(forms.ModelForm):
     )
 
     class Meta:
-
+        exclude = tuple()
         model = WidgetBaseTheme
-
-    def __init__(self, *args, **kwargs):
-        super(WidgetBaseThemeForm, self).__init__(*args, **kwargs)
-
-#        choices = [(t.model_class().__name__ if t.model_class() else None, t)
-#                   for t in ContentType.objects.filter(app_label__in=['web'])]
-#        self.fields['widget_class'].choices = choices
 
 
 class WidgetBaseThemeAdmin(ModelAdmin):
