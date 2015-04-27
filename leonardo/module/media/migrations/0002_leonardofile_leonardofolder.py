@@ -13,17 +13,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='LeonardoFile',
-            fields=[
-                ('file_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='filer.File')),
-            ],
-            options={
-                'verbose_name': 'file',
-                'verbose_name_plural': 'files',
-            },
-            bases=('filer.file',),
-        ),
-        migrations.CreateModel(
             name='LeonardoFolder',
             fields=[
                 ('folder_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='filer.Folder')),
