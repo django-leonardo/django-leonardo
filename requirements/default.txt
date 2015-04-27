@@ -15,7 +15,6 @@ Django-Select2==4.3.0
 lesscpy>=0.10.1
 Whoosh==2.6.0
 Markdown>=2.2.1
-Django-Select2==4.2.2
 docutils==0.10
 python-creole==1.0.6
 django-pyscss>=1.0.3
