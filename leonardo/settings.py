@@ -83,6 +83,7 @@ if StrictVersion(django.get_version()) > StrictVersion('1.7.7'):
             'OPTIONS': {
                 'context_processors': default.context_processors,
                 'loaders': [
+                    'dbtemplates.loader.Loader',
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
                     'horizon.loaders.TemplateLoader',
