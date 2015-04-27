@@ -98,7 +98,7 @@ else:
             os.path.dirname(os.path.realpath(__file__)), 'templates')
     ]
 
-    TEMPLATE_CONTEXT_PROCESSORS = default.ctp
+    TEMPLATE_CONTEXT_PROCESSORS = default.context_processors
 
 
 DBTEMPLATES_USE_REVERSION = True
@@ -122,9 +122,6 @@ ROOT_URLCONF = 'leonardo.urls'
 MARKITUP_FILTER = ('markitup.renderers.render_rest', {'safe_mode': True})
 
 INSTALLED_APPS = default.apps
-
-#ADMIN_TOOLS_MENU = 'hrcms.conf.menu.AdminDashboard'
-#ADMIN_TOOLS_INDEX_DASHBOARD = 'hrcms.conf.menu.AdminDashboard'
 
 # For easy_thumbnails to support retina displays (recent MacBooks, iOS)
 
