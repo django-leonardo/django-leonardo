@@ -23,6 +23,7 @@ Further reading:
 
 .. _`Demo site`: http://demo.cms.robotice.cz
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
+.. _`Documentation`: http://django-leonardo.readthedocs.org
 
 Core
 ====
@@ -125,4 +126,3 @@ Read More
 .. |PypiVersion| image:: https://pypip.in/version/django-leonardo/badge.svg?style=flat
 .. |Travis| image:: https://travis-ci.org/django-leonardo/django-leonardo.svg?branch=develop
 
-.. [Documentation] http://django-leonardo.readthedocs.org
