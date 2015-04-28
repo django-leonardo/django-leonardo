@@ -18,7 +18,6 @@ docutils==0.10
 python-creole==1.0.6
 django-pyscss>=1.0.3
 requests>=1.2.3
-dbtemplates
 bulbs==0.3.11
 django-filer==0.9.9
 bootstrap_admin>=0.3.5
@@ -31,3 +30,4 @@ xstatic-react>=0.12.2.1
 gunicorn>=18.0
 django-wysiwyg-redactor>=0.4.5.1
 -e git+https://github.com/openstack/horizon@stable/kilo#egg=horizon
+django-dbtemplates
