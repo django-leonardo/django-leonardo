@@ -13,6 +13,4 @@ setuptools.setup(
     setup_requires=['pbr'],
     pbr=True,
     dependency_links=[
-    	'https://github.com/michaelkuty/pbr/tarball/master#egg=pbr',
-		'https://github.com/michaelkuty/django-dbtemplates/tarball/develop#egg=dbtemplates'
-    ])
+        'https://github.com/michaelkuty/pbr/tarball/master#egg=pbr'])

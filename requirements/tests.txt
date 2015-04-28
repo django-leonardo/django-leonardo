@@ -31,4 +31,4 @@ xstatic-react>=0.12.2.1
 gunicorn>=18.0
 django-wysiwyg-redactor>=0.4.5.1
 -e git+https://github.com/openstack/horizon@stable/kilo#egg=horizon
-django-dbtemplates
+-e git+https://github.com/michaelkuty/django-dbtemplates.git@develop#egg=django_dbtemplates
