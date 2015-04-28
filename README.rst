@@ -111,7 +111,7 @@ Common
 Looking for commercial support?
 ===============================
 
-If you are interested in having an Leonardo project built for you, or for development of an existing Leonardo site. Please get in touch via `mail@majklk.cz`_.
+If you are interested in having an Leonardo project built for you, or for development of an existing Leonardo site. Please get in touch via mail@majklk.cz.
 
 Read More
 =========
@@ -120,11 +120,9 @@ Read More
 * http://feincms-django-cms.readthedocs.org/en/latest/index.html
 * https://django-oscar.readthedocs.org/en/releases-1.0/
 
-.. |Doc badge| image:: https://readthedocs.org/projects/django-leonardo/badge/?version=stable
+.. |Doc badge| image:: https://readthedocs.org/projects/django-leonardo/badge/?version=develop
 .. |Pypi| image:: https://pypip.in/d/django-leonardo/badge.svg?style=flat
 .. |PypiVersion| image:: https://pypip.in/version/django-leonardo/badge.svg?style=flat
 .. |Travis| image:: https://travis-ci.org/django-leonardo/django-leonardo.svg?branch=develop
 
 .. [Documentation] http://django-leonardo.readthedocs.org
-
-.. _`mail@majklk`: mailto:mail@majklk.cz
