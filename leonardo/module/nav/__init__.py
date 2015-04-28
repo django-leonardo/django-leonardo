@@ -26,7 +26,8 @@ class Default(object):
             LinearNavigationWidget,
             BreadcrumbsWidget,
             SiteMapWidget,
-            SiteSearchWidget
+            SiteSearchWidget,
+            LanguageSelectorWidget
         ]
 
 

@@ -12,23 +12,23 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
 
-from allauth.utils import (email_address_exists, get_user_model,
-                     set_form_field_order,
-                     build_absolute_uri)
+#from allauth.utils import (email_address_exists, get_user_model,
+#                     set_form_field_order,
+#                     build_absolute_uri)
 
-from allauth.account.models import EmailAddress
-from allauth.account.utils import (perform_login, setup_user_email, user_username,
-                    user_pk_to_url_str)
-from allauth.account.app_settings import AuthenticationMethod
-from allauth.account import app_settings
-from allauth.account.adapter import get_adapter
+#from allauth.account.models import EmailAddress
+#from allauth.account.utils import (perform_login, setup_user_email, user_username,
+#                    user_pk_to_url_str)
+#from allauth.account.app_settings import AuthenticationMethod
+#from allauth.account import app_settings
+#from allauth.account.adapter import get_adapter
 
 from horizon import forms as horizon_forms
 
-from allauth.account.utils import (get_next_redirect_url, complete_signup,
-                    get_login_redirect_url, perform_login,
-                    passthrough_next_redirect_url,
-                    url_str_to_user_pk)
+#from allauth.account.utils import (get_next_redirect_url, complete_signup,
+#                    get_login_redirect_url, perform_login,
+#                    passthrough_next_redirect_url,
+#                    url_str_to_user_pk)
 
 from horizon import messages
 
@@ -40,8 +40,7 @@ except ImportError:
 class PasswordField(forms.CharField):
 
     def __init__(self, *args, **kwargs):
-        render_value = kwargs.pop('render_value',
-                                  app_settings.PASSWORD_INPUT_RENDER_VALUE)
+        render_value = kwargs.pop('render_value', True)
         kwargs['widget'] = forms.PasswordInput(render_value=render_value,
                                                attrs={'placeholder':
                                                       _('Password')})
@@ -62,6 +61,7 @@ class LoginForm(horizon_forms.SelfHandlingForm):
     remember = horizon_forms.BooleanField(label=_("Remember Me"),
                                   required=False)
 
+    """
     user = None
     error_messages = {
         'account_inactive':
@@ -109,10 +109,6 @@ class LoginForm(horizon_forms.SelfHandlingForm):
             del self.fields['remember']
 
     def user_credentials(self):
-        """
-        Provides the credentials required to authenticate the user for
-        login.
-        """
         credentials = {}
         login = self.cleaned_data["login"]
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
@@ -156,6 +152,7 @@ class LoginForm(horizon_forms.SelfHandlingForm):
         else:
             request.session.set_expiry(0)
         return ret
+    """
 
 
     def handle(self, request, data):
@@ -168,6 +165,7 @@ class LoginForm(horizon_forms.SelfHandlingForm):
         messages.error(request, "Login failed.")
         return False
 
+"""
 class SignupForm(horizon_forms.SelfHandlingForm):
 
     username = forms.CharField(label=_("Username"),
@@ -374,3 +372,4 @@ class ResetPasswordKeyForm(forms.Form):
 
     def save(self):
         get_adapter().set_password(self.user, self.cleaned_data["password1"])
+"""

@@ -1,9 +1,0 @@
-{% extends "admin/base.html" %}
-
-{% load i18n %}
-
-{% block title %}{{ title }}{% endblock %}
-
-{% block branding %}
-<h1 id="site-name"><a href="/" onclick="window.open(this.href);return false;">{{ request.webcms_options.meta_title }} &ndash; {% trans 'HTFS Admin' %}</a></h1>
-{% endblock %}

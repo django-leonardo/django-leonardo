@@ -1,0 +1,13 @@
+{% extends request.leonardo_page.theme.template %}
+
+{% load i18n %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block page_header %}
+{% include "horizon/common/_page_header.html" with title=title %}
+{% endblock %}
+
+{% block body_main %}
+{% include "leonardo/common/_modal.html" %}
+{% endblock %}

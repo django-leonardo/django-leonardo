@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>{% load webcms_tags %}
-<body>
-	<title>{{ object.title }}</title>
-	<content><![CDATA[ {% webcms_render_xml_region object "content" request %} ]]></content>
-</body>

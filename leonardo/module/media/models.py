@@ -11,35 +11,55 @@ from filer.models.filemodels import File
 from filer.models.foldermodels import Folder
 
 
-class Document(File):
+class MediaMixin(object):
 
     @classmethod
-    def matches_file_type(cls, iname, ifile, request):
+    def matches_file_type(cls, iname, ifile=None, request=None):
         # the extensions we'll recognise for this file type
         # (majklk): TODO move to settings or live config
-        filename_extensions = ['.pdf', '.xls', ]
+        filename_extensions = getattr(cls, 'filename_extensions', '*')
         ext = os.path.splitext(iname)[1].lower()
         return ext in filename_extensions
+
+
+class LeonardoFolder(Folder):
+
+    class Meta:
+        verbose_name = ("folder")
+        verbose_name_plural = ('folders')
+        app_label = 'media'
+
+
+class Document(MediaMixin, File):
+
+    filename_extensions = ['.pdf', '.xls', ]
 
     class Meta:
         verbose_name = ("document")
         verbose_name_plural = ('documents')
 
 
-class Video(File):
+class Vector(MediaMixin, File):
 
-    @classmethod
-    def matches_file_type(cls, iname, ifile, request):
-        filename_extensions = ['.dv', '.mov', '.mp4', '.avi', '.wmv', ]
-        ext = os.path.splitext(iname)[1].lower()
-        return ext in filename_extensions
+    filename_extensions = ['.svg', '.eps', ]
+
+    class Meta:
+        verbose_name = ("vector")
+        verbose_name_plural = ('vetors')
+
+
+class Video(MediaMixin, File):
+
+    filename_extensions = ['.dv', '.mov', '.mp4', '.avi', '.wmv', ]
 
     class Meta:
         verbose_name = ("video")
         verbose_name_plural = ('videos')
 
 
-class Image(BaseImage):
+class Image(MediaMixin, BaseImage):
+
+    filename_extensions = ['.jpg', '.jpeg', '.png', '.gif', ]
 
     date_taken = models.DateTimeField(_('date taken'), null=True, blank=True,
                                       editable=False)
@@ -51,12 +71,6 @@ class Image(BaseImage):
         _('must always publish author credit'), default=False)
     must_always_publish_copyright = models.BooleanField(
         _('must always publish copyright'), default=False)
-
-    @classmethod
-    def matches_file_type(cls, iname, ifile, request):
-        filename_extensions = ['.jpg', '.png', '.jpeg', ]
-        ext = os.path.splitext(iname)[1].lower()
-        return ext in filename_extensions
 
     def save(self, *args, **kwargs):
         if self.date_taken is None:

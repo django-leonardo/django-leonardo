@@ -1,0 +1,29 @@
+{% extends "leonardo/common/_modal_form.html" %}
+
+{% load url from future %}
+{% load crispy_forms_tags i18n %}
+
+{% block form_id %}{{ form_id }}{% endblock %}
+{% block form_action %}{{ url }}{% endblock %}
+
+{% block modal-header %}{{ modal_header }}{% endblock %}
+
+{% block modal-body %}
+
+{{ body|safe }}
+{% crispy form %}
+
+{% comment %}
+<div class="right">
+  <h4>{{ heading }}:</h4>
+  <p>{{ help_text }}</p>
+</div>
+{% endcomment %}
+
+{% endblock %}
+
+{% block modal-footer %}
+  <input class="btn btn-primary pull-right" type="submit" value="{{ view_name }}" />
+  <a href="#" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</a>
+
+{% endblock %}

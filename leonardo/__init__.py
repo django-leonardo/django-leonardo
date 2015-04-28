@@ -1,10 +1,14 @@
 
+import django
 default_app_config = 'leonardo.apps.LeonardoConfig'
 
 VERSION = (0, 1, 1,)
 __version__ = '.'.join(map(str, VERSION))
 
+
 class Default(object):
+
+    core = ['web', 'nav', 'media']
 
     @property
     def middlewares(self):
@@ -25,10 +29,6 @@ class Default(object):
         return [
             'django',
 
-            # admin tools
-            #'admin_tools',
-            #'admin_tools.theming',
-            #'admin_tools.menu',
             'bootstrap_admin',  # theme
             'bootstrap_admin_feincms',  # theme
 
@@ -49,28 +49,44 @@ class Default(object):
             'django_select2',
 
             'reversion',
+            'compressor',
 
             'horizon',
-            'compressor',
-            'leonardo',
             'horizon_contrib',
-            'filer',
+
+            'leonardo',
+
         ]
 
     @property
-    def ctp(self):
+    def context_processors(self):
         """return CORE Conent Type Processors
         """
-        return [
+        cp = [
             'django.contrib.auth.context_processors.auth',
-            'django.core.context_processors.debug',
-            'django.core.context_processors.i18n',
-            'django.core.context_processors.media',
-            'django.core.context_processors.request',
-            'django.core.context_processors.static',
-            # horizon
             'horizon.context_processors.horizon',
         ]
+
+        if django.VERSION[:2] < (1, 8):
+
+            cp += [
+                'django.core.context_processors.debug',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.media',
+                'django.core.context_processors.request',
+                'django.core.context_processors.static',
+            ]
+
+        else:
+            cp += [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.request',
+                'django.template.context_processors.static',
+            ]
+
+        return cp
 
 default = Default()
 

@@ -78,7 +78,7 @@ sitemaps = {
 urlpatterns += patterns('',
                         (r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}),
                         (r'^favicon\.ico$', RedirectView.as_view(
-                            **{'url': '/static/img/favicon.ico'}),),
+                            **{'permanent': True, 'url': '/static/img/favicon.ico'}),),
                         (r'^robots\.txt$',
                          TemplateView.as_view(template_name='robots.txt')),
                         (r'^crossdomain\.xml$',

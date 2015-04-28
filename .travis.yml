@@ -9,7 +9,7 @@ before_install:
   - sudo apt-get install build-essential libssl-dev libffi-dev python-dev -y
 install:
   - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8
-  - pip install -r requirements.txt --use-mirrors
+  - pip install -r requirements.txt
   - pip install -r requirements/extras/static.txt
   - pip install -r requirements/extras/blog.txt
   - pip install -r requirements/extras/themes.txt

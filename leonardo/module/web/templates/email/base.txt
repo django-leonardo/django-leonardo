@@ -1,4 +1,0 @@
-{% load i18n %}{% block content %}{% endblock %}
-
-{% trans "Regards" %}
-{% trans "Team" %} {{ domain }}

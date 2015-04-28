@@ -7,9 +7,12 @@ from leonardo.module.web.models import Widget
 
 
 class PdfDocumentWidget(Widget):
-    file = models.ForeignKey("media.Document", verbose_name=_("pdf document"), limit_choices_to={'extensions': 'pdf'})
-    height = models.CharField(max_length=255, verbose_name=_("height"), blank=True)
-    width = models.CharField(max_length=255, verbose_name=_("width"), blank=True)
+    file = models.ForeignKey("media.Document", verbose_name=_(
+        "pdf document"))
+    height = models.CharField(
+        max_length=255, verbose_name=_("height"), blank=True)
+    width = models.CharField(
+        max_length=255, verbose_name=_("width"), blank=True)
 
     class Meta:
         abstract = True

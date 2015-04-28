@@ -1,10 +1,15 @@
 
 from __future__ import absolute_import
 
-import six
 import os
 from os.path import abspath, dirname, join, normpath
+
+import django
+import six
+from distutils.version import StrictVersion
 from leonardo import default, merge
+
+from .base import leonardo
 
 EMAIL = {
     'HOST': 'mail.domain.com',
@@ -54,7 +59,10 @@ STATIC_ROOT = '/srv/leonardo/sites/demo/static/'
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
-TEMPLATE_CONTEXT_PROCESSORS = default.ctp
+
+"""
+try to support old Django
+"""
 
 TEMPLATE_LOADERS = (
     'dbtemplates.loader.Loader',
@@ -62,6 +70,37 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
     'horizon.loaders.TemplateLoader',
 )
+
+if StrictVersion(django.get_version()) > StrictVersion('1.7.7'):
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [
+                os.path.join(
+                    os.path.dirname(os.path.realpath(__file__)), 'templates')
+            ],
+            'OPTIONS': {
+                'context_processors': default.context_processors,
+                'loaders': [
+                    'dbtemplates.loader.Loader',
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'horizon.loaders.TemplateLoader',
+                    ]
+            },
+        },
+    ]
+
+else:
+
+    TEMPLATE_DIRS = [
+        os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), 'templates')
+    ]
+
+    TEMPLATE_CONTEXT_PROCESSORS = default.context_processors
+
 
 DBTEMPLATES_USE_REVERSION = True
 
@@ -75,7 +114,7 @@ DBTEMPLATES_AUTO_POPULATE_CONTENT = True
 
 DBTEMPLATES_ADD_DEFAULT_SITE = True
 
-FILER_ENABLE_PERMISSIONS = True # noqa
+FILER_ENABLE_PERMISSIONS = True  # noqa
 
 MIDDLEWARE_CLASSES = default.middlewares
 
@@ -84,9 +123,6 @@ ROOT_URLCONF = 'leonardo.urls'
 MARKITUP_FILTER = ('markitup.renderers.render_rest', {'safe_mode': True})
 
 INSTALLED_APPS = default.apps
-
-#ADMIN_TOOLS_MENU = 'hrcms.conf.menu.AdminDashboard'
-#ADMIN_TOOLS_INDEX_DASHBOARD = 'hrcms.conf.menu.AdminDashboard'
 
 # For easy_thumbnails to support retina displays (recent MacBooks, iOS)
 
@@ -98,10 +134,6 @@ FEINCMS_DEFAULT_PAGE_MODEL = 'web.Page'
 
 ##########################
 
-TEMPLATE_DIRS = [
-    os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), 'templates')
-]
 
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -192,7 +224,7 @@ OAUTH_CTP = [
     "allauth.socialaccount.context_processors.socialaccount"
 ]
 
-# first load some defaults
+APPS = merge(APPS, default.core)
 
 if 'media' in APPS:
     FILER_IMAGE_MODEL = 'leonardo.module.media.models.Image'
@@ -206,11 +238,6 @@ except Exception, e:
 
 APPLICATION_CHOICES = []
 
-
-from leonardo.module.web.models import Page
-from leonardo.module.web.widget import ApplicationWidget
-
-from .base import leonardo
 
 try:
     # override settings
@@ -248,24 +275,35 @@ try:
             INSTALLED_APPS = merge(
                 INSTALLED_APPS, getattr(mod.default, 'apps', []))
 
-            TEMPLATE_CONTEXT_PROCESSORS = merge(
-                TEMPLATE_CONTEXT_PROCESSORS, getattr(
-                    mod.default, 'ctp', []))
             MIDDLEWARE_CLASSES = merge(
                 MIDDLEWARE_CLASSES, getattr(
                     mod.default, 'middlewares', []))
             AUTHENTICATION_BACKENDS = merge(
                 AUTHENTICATION_BACKENDS, getattr(
                     mod.default, 'auth_backends', []))
-            TEMPLATE_DIRS = merge(
-                TEMPLATE_DIRS, getattr(
+
+            if StrictVersion(django.get_version()) > StrictVersion('1.7.7'):
+                TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], getattr(
                     mod.default, 'dirs', []))
-            # support for Django 1.8+
-            DIRS = TEMPLATE_DIRS
+                cp = TEMPLATES[0]['OPTIONS']['context_processors']
+                TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
+                    cp, getattr(mod.default, 'context_processors', []))
+
+            else:
+
+                TEMPLATE_CONTEXT_PROCESSORS = merge(
+                    TEMPLATE_CONTEXT_PROCESSORS, getattr(
+                        mod.default, 'context_processors', []))
+                TEMPLATE_DIRS = merge(
+                    TEMPLATE_DIRS, getattr(
+                        mod.default, 'dirs', []))
 
             # collect grouped widgets
             widgets[getattr(mod.default, 'optgroup', app.capitalize())] = \
                 getattr(mod.default, 'widgets', [])
+
+    from leonardo.module.web.models import Page
+    from leonardo.module.web.widget import ApplicationWidget
 
     # register external apps
     Page.create_content_type(
@@ -277,9 +315,7 @@ try:
             Page.create_content_type(widget, optgroup=optgroup)
 
     Page.register_extensions(*PAGE_EXTENSIONS)
-    Page.register_default_processors(
-        frontend_editing=True)
-except Exception, e:
+except Exception as e:
     raise e
 
 if not SECRET_KEY:
@@ -313,8 +349,13 @@ try:
 except ImportError:
     pass
 
+# and again merge core with others
+APPS = merge(APPS, default.core)
+
 # ensure if bootstra_admin is on top of INSTALLED_APPS
 if 'bootstrap_admin' in INSTALLED_APPS:
     BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
     # INSTALLED_APPS.remove('bootstrap_admin')
     #INSTALLED_APPS = ['bootstrap_admin'] + INSTALLED_APPS
+
+#raise Exception(TEMPLATES)

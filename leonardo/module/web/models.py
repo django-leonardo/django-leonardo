@@ -92,7 +92,12 @@ class Page(FeinCMSPage):
 
     @property
     def dimensions(self):
-        return PageDimension.objects.filter(
+        # collect all dimensions
+        parent_dimensions = None
+        if self.parent:
+            parent_dimensions = self.parent.dimensions
+        parent_dimensions = parent_dimensions or PageDimension.objects.none()
+        return parent_dimensions | PageDimension.objects.filter(
             page=self)
 
     @property
@@ -122,9 +127,9 @@ class WidgetDimension(models.Model):
     width = models.IntegerField(verbose_name=_("Width"),
                                 choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
     height = models.IntegerField(verbose_name=_("Height"),
-                                 choices=ROW_CHOICES, default=DEFAULT_WIDTH)
+                                 choices=ROW_CHOICES, default=DEFAULT_CHOICE)
     offset = models.IntegerField(verbose_name=_("Offset"),
-                                 choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+                                 choices=COLUMN_CHOICES, default=DEFAULT_CHOICE)
 
     @property
     def width_class(self):
