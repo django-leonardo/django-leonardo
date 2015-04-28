@@ -2,6 +2,7 @@
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 
+from django.conf import settings
 from horizon import tables
 from horizon import exceptions
 from horizon import forms
@@ -9,19 +10,13 @@ from horizon import tabs
 from horizon import workflows
 from horizon import messages
 
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm
 
 from django.contrib.sites.models import Site
 
-from allauth.account.utils import (get_next_redirect_url, complete_signup,
-                    get_login_redirect_url, perform_login,
-                    passthrough_next_redirect_url,
-                    url_str_to_user_pk)
-
-#from allauth.account import app_settings
-#from allauth.account.adapter import get_adapter
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect
+
 
 class LoginView(forms.ModalFormView):
     form_class = LoginForm
@@ -32,12 +27,9 @@ class LoginView(forms.ModalFormView):
 
     def get_context_data(self, **kwargs):
         ret = super(LoginView, self).get_context_data(**kwargs)
-        signup_url = passthrough_next_redirect_url(self.request,
-                                                   reverse("account_signup"),
-                                                   self.redirect_field_name)
         redirect_field_value = self.request.REQUEST \
             .get(self.redirect_field_name)
-        ret.update({"signup_url": signup_url,
+        ret.update({
                     "site": Site.objects.get_current(),
                     "redirect_field_name": self.redirect_field_name,
                     "redirect_field_value": redirect_field_value})
@@ -46,6 +38,7 @@ class LoginView(forms.ModalFormView):
     def get_initial(self):
         return {}
 
+"""
 class SignupView(forms.ModalFormView):
     template_name = "module/auth/signup.html"
     form_class = SignupForm
@@ -79,6 +72,8 @@ class SignupView(forms.ModalFormView):
                     "redirect_field_name": redirect_field_name,
                     "redirect_field_value": redirect_field_value})
         return ret
+"""
+
 
 class LogoutView(forms.ModalFormView):
 
@@ -108,6 +103,4 @@ class LogoutView(forms.ModalFormView):
         return ctx
 
     def get_redirect_url(self):
-        return (get_next_redirect_url(self.request,
-                                      self.redirect_field_name)
-                or get_adapter().get_logout_redirect_url(self.request))
+        return settings.LOGOUT_URL
