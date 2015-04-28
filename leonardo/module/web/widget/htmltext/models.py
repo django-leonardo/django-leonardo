@@ -81,13 +81,14 @@ class HtmlTextWidget(Widget):
     form = HtmlTextWidgetAdminForm
 
     #feincms_item_editor_inline = MyInline
-
+    """
     feincms_item_editor_context_processors = (
         lambda x: settings.FEINCMS_RICHTEXT_INIT_CONTEXT,
     )
     feincms_item_editor_includes = {
         'head': ['admin/widget/htmltext/init_tinymce.html'],
     }
+    """
 
     text = models.TextField(
         _('text'), blank=True, default="<p>%s</p>" % ('Empty element'))
