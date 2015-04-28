@@ -92,7 +92,7 @@ class Page(FeinCMSPage):
 
     @property
     def dimensions(self):
-        # collect all parent dimensions
+        # collect all dimensions
         parent_dimensions = None
         if self.parent:
             parent_dimensions = self.parent.dimensions

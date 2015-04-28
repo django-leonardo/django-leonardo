@@ -18,8 +18,8 @@ from allauth.account.utils import (get_next_redirect_url, complete_signup,
                     passthrough_next_redirect_url,
                     url_str_to_user_pk)
 
-from allauth.account import app_settings
-from allauth.account.adapter import get_adapter
+#from allauth.account import app_settings
+#from allauth.account.adapter import get_adapter
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect
 
