@@ -51,3 +51,17 @@ Ecommerce
 
 * django-leonardo[eshop] -Django-Oscar integration (is not stable !)
 
+
+Django
+------
+
+Leonardo supports Django 1.8, but for this time requires additional steps with data migrations, because not all 3rd party apps support Dj 1.8, and if someone use South is there problem with migration dependecies.
+
+Some basic steps which allows to you experiment with new Django compatibility
+
+* first you need Django 1.7 installation, created database
+* run migrate command
+* install django 1.8 (pip install -r Django==1.8)
+
+run your Leonardo on Django 1.8
+

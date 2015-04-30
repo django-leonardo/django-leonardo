@@ -259,9 +259,9 @@ class Widget(FeinCMSBase):
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     base_theme = models.ForeignKey(
-        WidgetBaseTheme, verbose_name=_('Base theme'))
+        WidgetBaseTheme, verbose_name=_('Base theme'), related_name="%(app_label)s_%(class)s_related")
     content_theme = models.ForeignKey(
-        WidgetContentTheme, verbose_name=_('Content theme'))
+        WidgetContentTheme, verbose_name=_('Content theme'), related_name="%(app_label)s_%(class)s_related")
 
     class Meta:
         abstract = True
