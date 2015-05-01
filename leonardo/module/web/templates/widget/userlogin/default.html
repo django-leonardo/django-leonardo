@@ -3,20 +3,22 @@
 {% load i18n %}
 
 {% block content %}
-<ul class="nav {% if not widget.inline %}navbar-inline{% else %}navbar-stacked{% endif %}">
+<ul class="nav {% if widget.inline %}navbar-nav navbar-right{% else %}navbar-stacked{% endif %}">
   {% if request.user.is_authenticated %}
+  {% comment %}
   <li><a data-toggle="control-sidebar" href="#">{{ request.user.username }}</a></li>
+  {% endcomment %}
   {% if request.frontend_editing %}
-  <li><a href=".?frontend_edit=0">Stop Editing</a></li>
+  <li><a href=".?frontend_editing=0">{% trans "Stop Editation" %}</a></li>
   {% else %}
-  <li><a href=".?frontend_edit=1">Start Editing</a></li>
+  <li><a href=".?frontend_editing=1">{% trans "Start Editation" %}</a></li>
   {% endif %}
-  <li><a href="{% url 'horizon:module:auth:logout' %}">Sign Out</a></li>
+  <li><a href="{% url 'horizon:module:auth:logout' %}">{% trans "Sign Out" %}</a></li>
   {% else %}
   {% if widget.type == 2 %}
-  <li><a class="ajax-modal" href="{% url 'horizon:module:auth:login' %}">Sign In</a></li>
+  <li><a class="ajax-modal" href="{% url 'horizon:module:auth:login' %}">{% trans "Sign In" %}</a></li>
   {% else %}
-  <li><a href="{% url 'admin:login' %}">Sign In</a></li>
+  <li><a href="{% url 'admin:login' %}">{% trans "Sign In" %}</a></li>
   {% endif %}
   {% endif %}
 </ul>
