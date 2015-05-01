@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="btn-group">
-  <button data-toggle="dropdown" class="btn btn-box-tool btn-xs dropdown-toggle"><i class="fa fa-wrench"></i></button>
+  <button data-toggle="dropdown" class="btn btn-box-tool btn-info btn-xs dropdown-toggle"><i class="fa fa-wrench"></i></button>
   <ul role="menu" class="dropdown-menu">
     <li><a class="ajax-modal" href="{% url 'widget_update' widget.model_cls widget.id %}">{% trans 'Edit' %}</a></li>
     <li class="divider"></li>
