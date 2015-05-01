@@ -1,6 +1,6 @@
 
 import copy
-from crispy_forms.bootstrap import Tab, TabHolder
+from crispy_forms.bootstrap import Tab, TabHolder, Accordion, AccordionGroup
 from crispy_forms.layout import Field, HTML, Layout
 from django import forms
 from django.contrib.auth import get_permission_codename
@@ -214,13 +214,23 @@ class PageUpdateForm(SelfHandlingModelForm):
         self.helper.layout = Layout(
             TabHolder(
                 Tab(_('Page'),
-                    'title', 'slug', 'active', 'in_navigation'
-                    ),
+                    Accordion(
+                        AccordionGroup('',
+                                       'title', 'slug', 'in_navigation', 'active'
+                                       ),
+                        AccordionGroup(_('Translation'),
+                                       'language'
+                                       ),
+                        AccordionGroup(_('Publication'),
+                                       'publication_date', 'publication_end_date',
+                                       )
+                ),
+                ),
                 Tab(_('Theme'),
                     'template_key', 'theme', 'color_scheme',
                     ),
                 Tab(_('Other'),
-                    'publication_date', 'language', 'id',
+                    '',
                     ),
             )
         )

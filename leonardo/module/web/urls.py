@@ -217,7 +217,6 @@ class PageUpdateView(ModalFormView):
     def form_valid(self, form):
         try:
             page = form.save()
-            page.save()
         except Exception as e:
             raise e
             # TODO push message
