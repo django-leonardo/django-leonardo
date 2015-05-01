@@ -396,3 +396,19 @@ class Widget(FeinCMSBase):
             return len(getattr(self.parent.content, self.region, [])) + 1
         else:
             return 0
+
+    def fe_identifier(self):
+        """
+        Returns an identifier which is understood by the frontend
+        editing javascript code. (It is used to find the URL which
+        should be used to load the form for every given block of
+        content.)
+        """
+
+        return '%s-%s-%s-%s-%s' % (
+            cls._meta.app_label,
+            cls._meta.model_name,
+            self.__class__.__name__.lower(),
+            self.parent_id,
+            self.id,
+        )
