@@ -19,6 +19,7 @@ Main:
 
    overview/index
    overview/installation
+   overview/configuration
    overview/modules
 
 Core:

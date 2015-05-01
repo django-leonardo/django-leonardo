@@ -18,6 +18,8 @@ from leonardo.utils.templates import find_all_templates, template_choices
 
 from .const import *
 from .forms import WidgetUpdateForm, WIDGETS
+from . import edit_processors
+from django.conf import settings
 
 
 @python_2_unicode_compatible
@@ -113,6 +115,25 @@ class Page(FeinCMSPage):
                 STR.format(
                     d.size, getattr(d, '{}_width'.format(col))))
         return " ".join(classes)
+
+    @classmethod
+    def register_default_processors(cls, frontend_editing=None):
+        """
+        Register our default request processors for the out-of-the-box
+        Page experience.
+
+        Since FeinCMS 1.11 was removed from core.
+
+        """
+        super(Page, cls).register_default_processors()
+
+        if frontend_editing:
+            cls.register_request_processor(
+                edit_processors.frontendediting_request_processor,
+                key='frontend_editing')
+            cls.register_response_processor(
+                edit_processors.frontendediting_response_processor,
+                key='frontend_editing')
 
 
 @python_2_unicode_compatible

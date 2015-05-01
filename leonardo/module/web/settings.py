@@ -11,7 +11,7 @@ from .models import Page
 
 FEINCMS_REVERSE_MONKEY_PATCH = False
 
-FEINCMS_FRONTEND_EDITING = True
+LEONARDO_FRONTEND_EDITING = True
 
 PAGE_EXTENSIONS = [
     'feincms.module.extensions.datepublisher',

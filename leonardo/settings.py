@@ -315,6 +315,7 @@ try:
             Page.create_content_type(widget, optgroup=optgroup)
 
     Page.register_extensions(*PAGE_EXTENSIONS)
+    Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
 except Exception as e:
     raise e
 
