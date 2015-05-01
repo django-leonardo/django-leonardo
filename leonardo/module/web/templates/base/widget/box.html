@@ -13,14 +13,7 @@
       {% endif %}
       {% if request.frontend_editing %}
       <div class="box-tools pull-right">
-        <div class="btn-group">
-          <button data-toggle="dropdown" class="btn btn-box-tool dropdown-toggle"><i class="fa fa-wrench"></i></button>
-          <ul role="menu" class="dropdown-menu">
-            <li><a class="ajax-modal" href="{% url 'widget_update' widget.model_cls widget.id %}">{% trans 'Edit' %}</a></li>
-            <li class="divider"></li>
-            <li><a class="ajax-modal" href="{% url 'widget_delete' widget.model_cls widget.id %}">{% trans 'Delete' %}</a></li>
-          </ul>
-        </div>
+        {% include "base/widget/_edit.html" %}      
       </div>    
       {% endif %}
     </div>
