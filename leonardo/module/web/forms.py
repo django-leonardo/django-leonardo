@@ -48,6 +48,7 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                 Tab(_('Theme'),
                     'base_theme', 'content_theme', 'label', 'id',
                     'region', 'ordering', 'parent',
+                    css_id='theme-widget-settings'
                     ),
             )
         )
