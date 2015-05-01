@@ -362,3 +362,12 @@ class Widget(FeinCMSBase):
         return fields_for_model(
             cls, exclude=widget_fields,
             widgets=WIDGETS)
+
+    @property
+    def next_ordering(self):
+        """return order for creating in content region
+        """
+        if self.parent:
+            return len(getattr(self.parent.content, self.region, [])) + 1
+        else:
+            return 0

@@ -104,6 +104,7 @@ class CreateWidgetView(ModalFormView, CreateView, HandleDimensionsMixin):
         # invalide page cache
         obj.parent.invalidate_cache()
         self.handle_dimensions(obj)
+        obj.ordering = obj.next_ordering
         try:
 
             if not obj.prerendered_content:
