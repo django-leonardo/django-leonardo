@@ -4,11 +4,12 @@
 
 <div id="{{ widget.fe_identifier }}" class="fe_box leonardo-widget leonardo-{{ widget.widget_name }}-widget {{ widget.render_box_classes }}">
   <div class="jumbotron leonardo-content template-{{ widget.theme.label }} {{ widget.widget_name }}-{{ widget.theme.name }}">
-    {% block title %}
     {% if request.frontend_editing %}
-    <a class="ajax-modal" href="{% url 'widget_update' widget.model_cls widget.id %}">{% trans 'Edit' %}</a>
-    <a class="ajax-modal" href="{% url 'widget_delete' widget.model_cls widget.id %}">{% trans 'Delete' %}</a>
+    <div class="widget-tools">
+      {% include "base/widget/_edit.html" %}
+    </div>
     {% endif %}
+    {% block title %}
     {% if widget.label %}
     <a id="{{ widget.label|slugify }}"></a>
     <h2 class="widget-title"><span>{{ widget.label }}</span></h2>
