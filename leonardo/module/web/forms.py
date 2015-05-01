@@ -19,7 +19,7 @@ WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
     'parent': forms.widgets.HiddenInput,
     'ordering': forms.widgets.HiddenInput,
-    'text': RedactorEditor(),
+#    'text': RedactorEditor(),
 }
 
 
