@@ -19,7 +19,7 @@ WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
     'parent': forms.widgets.HiddenInput,
     'ordering': forms.widgets.HiddenInput,
-#    'text': RedactorEditor(),
+    #    'text': RedactorEditor(),
 }
 
 
@@ -205,6 +205,7 @@ class PageUpdateForm(SelfHandlingModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request', None)
         super(PageUpdateForm, self).__init__(*args, **kwargs)
 
         HIDDEN_FIELDS = (
@@ -215,28 +216,35 @@ class PageUpdateForm(SelfHandlingModelForm):
         self.helper.layout = Layout(
             TabHolder(
                 Tab(_('Page'),
-                    Accordion(
-                        AccordionGroup('',
-                                       'title', 'slug', 'in_navigation', 'active'
-                                       ),
-                        AccordionGroup(_('Translation'),
-                                       'language'
-                                       ),
-                        AccordionGroup(_('Publication'),
-                                       'publication_date', 'publication_end_date',
-                                       )
-                ),
-                ),
+                    'title', 'slug', 'in_navigation', 'active',
+                    'language',
+                    ),
                 Tab(_('Theme'),
                     'template_key', 'theme', 'color_scheme',
                     ),
                 Tab(_('Other'),
-                    '',
+                    'publication_date', 'publication_end_date',
                     ),
             )
         )
         # append hidden fields
         [self.helper.layout.append(Field(f)) for f in HIDDEN_FIELDS]
+
+        if request:
+            _request = copy.copy(request)
+            _request.POST = {}
+
+            if kwargs.get('instance', None):
+                page = kwargs['instance']
+
+            from .tables import PageDimensionTable
+            table = PageDimensionTable(
+                _request, page=page, data=page.dimensions)
+            dimensions = Tab(_('Dimensions'),
+                             HTML(
+                table.render()),
+            )
+            self.helper.layout[0].append(dimensions)
 
 
 @memoized

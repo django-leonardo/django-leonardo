@@ -5,20 +5,21 @@ from django.conf.urls import include, patterns, url
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
+from horizon import messages
 from horizon_contrib.forms.views import (ContextMixin, CreateView,
                                          ModalFormView, ModelFormMixin,
                                          UpdateView)
 from horizon_contrib.generic.views import GenericIndexView
-from leonardo.module.web.forms import (get_widget_create_form,
-                                       get_widget_update_form,
-                                       get_page_update_form)
+from leonardo.module.web.forms import (get_page_update_form,
+                                       get_widget_create_form,
+                                       get_widget_update_form)
 
 from .forms import (PageUpdateForm, WidgetDeleteForm, WidgetSelectForm,
                     WidgetUpdateForm)
-from .tables import WidgetDimensionTable
-from horizon import messages
 from .models import Page
+from .tables import WidgetDimensionTable
 
 # fix native views
 GenericIndexView.template_name = "leonardo/common/_index.html"
@@ -208,15 +209,52 @@ class PageUpdateView(ModalFormView):
             raise e
         return obj
 
+    def get_context_data(self, **kwargs):
+        context = super(PageUpdateView, self).get_context_data(**kwargs)
+        from .tables import PageDimensionTable
+        context['table'] = PageDimensionTable(
+            self.request, page=self.object, data=self.object.own_dimensions)
+        # add extra context for template
+        context['url'] = self.request.build_absolute_uri()
+        context['modal_header'] = _("Update Page")
+        context['title'] = "self.get_header()"
+        context['view_name'] = _("Update")
+        context['heading'] = "self.get_header()"
+        return context
+
+    def handle_dimensions(self, obj):
+        from .tables import PageDimensionFormset
+        from .models import PageDimension
+        formset = PageDimensionFormset(
+            self.request.POST, prefix='dimensions')
+        for form in formset.forms:
+            if form.is_valid():
+                form.save()
+            else:
+                # little ugly
+                raise Exception(form.cleaned_data)
+                data = form.cleaned_data
+                data['widget_type'] = \
+                    ContentType.objects.get_for_model(obj)
+                data['widget_id'] = obj.id
+                data.pop('DELETE')
+                wd = WidgetDimension(**data)
+                wd.save()
+        return True
+
     def get_form(self, form_class):
         kwargs = self.get_form_kwargs()
-        kwargs['instance'] = self.object
-        return get_page_update_form()(
-            self.request.POST, **kwargs)
+        kwargs.update({
+            'request': self.request,
+            'instance': self.object,
+            'initial': {'page': self.object}
+        })
+        return get_page_update_form()(**kwargs)
 
     def form_valid(self, form):
         try:
             page = form.save()
+            #self.handle_dimensions(page)
         except Exception as e:
             raise e
             # TODO push message
@@ -226,6 +264,7 @@ class PageUpdateView(ModalFormView):
 
     def form_invalid(self, form):
         raise Exception(form.errors)
+
 
 urlpatterns = patterns('',
                        url(r'^models/(?P<page_id>[\w\.\-]+)/(?P<region>[\w\.\-]+)/create/$',

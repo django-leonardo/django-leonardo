@@ -97,10 +97,15 @@ class Page(FeinCMSPage):
         return get_page_update_form()(instance=self)
 
     @property
-    def dimensions(self):
-        # collect all dimensions
+    def own_dimensions(self):
         self_dimensions = PageDimension.objects.filter(
             page=self)
+        return self_dimensions
+
+    @property
+    def dimensions(self):
+        # collect all dimensions
+        self_dimensions = self.own_dimensions
         if self_dimensions.count() > 0:
             return self_dimensions
         parent_dimensions = None

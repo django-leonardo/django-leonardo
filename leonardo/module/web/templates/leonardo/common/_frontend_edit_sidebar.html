@@ -36,10 +36,9 @@
 
 <div class="no-print" id="settings_menu">
   <div>
-    <form action="{% url 'page_update' feincms_page.id %}" method="POST">
-      {% crispy feincms_page.get_model_form %}
-      <input class="btn btn-primary pull-right" type="submit" value="{% trans 'Save' %}" />
-    </form>
+
+    <a class="btn btn-primary btn-xs ajax-modal" href="{% url 'page_update' feincms_page.id %}"><i class="fa fa-sliders"></i>{% trans 'Edit Page' %}</a>
+
   </div>
   <div class="panel panel-default" style="margin-top: 60px;">
     <div class="panel-body">
