@@ -9,7 +9,7 @@
 {% for p in toplevel %}
 {% if forloop.first %}<ul class="list-unstyled">{% endif %}
 <li{% if p|is_equal_or_parent_of:current %} class="active"{% endif %}>
-	<a href="{{ p|get_url }}">{{ p.title }}</a>
+	<a href="{{ p.get_absolute_url }}">{{ p.title }}</a>
 </li>
 {% if forloop.last %}</ul>{% endif %}
 {% endfor %}
@@ -31,7 +31,7 @@
 {% if p2.id == current.id %}
 	<strong>{{ p2.title }}</strong>
 {% else %}
-	<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}" href="{{ p2|get_url }}">{{ p2.title }}</a>
+	<a class="{% if forloop.first %}first {% endif %}{% if forloop.last %}last {% endif %}" href="{{ p2.get_absolute_url }}">{{ p2.title }}</a>
 {% endif %}
 </li>
 {% if forloop.last %}</ul>{% endif %}

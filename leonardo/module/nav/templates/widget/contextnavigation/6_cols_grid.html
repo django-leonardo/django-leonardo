@@ -10,9 +10,9 @@
 	{% if widget.link_style != "" %}
 	<div class="link-more ui-helper-clearfix">
 		{% if widget.link_style == "link" %}
-		<a href="{{ child_page|get_url }}">
+		<a href="{{ child_page.get_absolute_url }}">
 		{% else %}
-		<a class="button" href="{{ child_page|get_url }}"><span><span>
+		<a class="button" href="{{ child_page.get_absolute_url }}"><span><span>
 		{% endif %}
 		{% if widget.link_text %}{{ widget.link_text }}{% else %}{{ child_page.short_title }}{% endif %}
 		{% if widget.link_style == "link" %}
