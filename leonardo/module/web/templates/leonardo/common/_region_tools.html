@@ -1,0 +1,11 @@
+
+{% load i18n %}
+{% load url from future %}
+
+{% if edit %}
+
+<div class="clearfix col-md-12 region-tools">
+    <a href="{% url 'widget_create' feincms_object.id region %}" class='btn btn-block btn-success ajax-modal'>{% trans 'Add' %}</a>
+</div>
+
+{% endif %}
