@@ -65,6 +65,7 @@ class Default(object):
         cp = [
             'django.contrib.auth.context_processors.auth',
             'horizon.context_processors.horizon',
+            'django.contrib.messages.context_processors.messages',
         ]
 
         if django.VERSION[:2] < (1, 8):
