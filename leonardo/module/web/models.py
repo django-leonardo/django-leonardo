@@ -99,12 +99,15 @@ class Page(FeinCMSPage):
     @property
     def dimensions(self):
         # collect all dimensions
+        self_dimensions = PageDimension.objects.filter(
+            page=self)
+        if self_dimensions.count() > 0:
+            return self_dimensions
         parent_dimensions = None
         if self.parent:
             parent_dimensions = self.parent.dimensions
         parent_dimensions = parent_dimensions or PageDimension.objects.none()
-        return parent_dimensions | PageDimension.objects.filter(
-            page=self)
+        return parent_dimensions
 
     @property
     def get_base_template(self):
