@@ -30,7 +30,7 @@ def feincms_render_region(context, feincms_object, region, request=None):
         if request and request.COOKIES.get(
                 'frontend_editing', False):
             url = reverse("widget_create", args=[feincms_object.id, region])
-            edit = """<a href="{0}" class='btn btn-block btn-primary ajax-modal'>{1}</a>""".format(
+            edit = """<div class="clearfix col-md-12"><a href="{0}" class='btn btn-block btn-primary ajax-modal'>{1}</a></div>""".format(
                 url, _('Add'))
     return ''.join(
         _render_content(content, request=request, context=context)
