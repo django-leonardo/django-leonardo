@@ -15,6 +15,10 @@
   {% include "_stylesheets.html" %}
 {% endblock %}
 
+{% block css_extra %}
+{% endblock %}
+
+
 {% block page_css %}
 <style name="themeeee" type="text/css">
 {{ request.leonardo_page.theme.style|safe }}
@@ -43,17 +47,18 @@
 {% include "horizon/_custom_head_js.html" %}
 {% include "_custom_head_js.html" %}
 
-{% if request.user.is_authenticated %}
-<script src="{{ STATIC_URL }}dashboard/js/app.js"></script>
-{% endif %} 
 
 {% if request.user.is_staff and request.frontend_editing %}
-<script src="{{ STATIC_URL }}dashboard/js/inline_edit.js"></script>
-{% endif %} 
+  {% include "leonardo/common/_frontend_edit_sidebar.html" %}
+{% endif %}
 
 <link rel="shortcut icon" href="/favicon.ico" />
 
 {% comment %}
+
+{% if request.user.is_authenticated %}
+<script src="{{ STATIC_URL }}dashboard/js/app.js"></script>
+{% endif %} 
 
 <script src="{{ STATIC_URL }}assets/js/jquery.min.js"></script>
 <script src="{{ STATIC_URL }}assets/js/smoothscroll.js"></script>

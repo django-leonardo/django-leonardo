@@ -2,18 +2,23 @@
 from __future__ import absolute_import
 
 from django.conf.urls import include, patterns, url
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext
-from django.contrib.contenttypes.models import ContentType
 from horizon_contrib.forms.views import (ContextMixin, CreateView,
                                          ModalFormView, ModelFormMixin,
                                          UpdateView)
 from horizon_contrib.generic.views import GenericIndexView
 from leonardo.module.web.forms import (get_widget_create_form,
-                                       get_widget_update_form)
-from .forms import WidgetSelectForm, WidgetDeleteForm, WidgetUpdateForm
+                                       get_widget_update_form,
+                                       get_page_update_form)
+
+from .forms import (PageUpdateForm, WidgetDeleteForm, WidgetSelectForm,
+                    WidgetUpdateForm)
 from .tables import WidgetDimensionTable
+from horizon import messages
+from .models import Page
 
 # fix native views
 GenericIndexView.template_name = "leonardo/common/_index.html"
@@ -187,6 +192,42 @@ class DeleteWidgetView(ModalFormView, ContextMixin, ModelFormMixin):
     def get_initial(self):
         return self.kwargs
 
+
+class PageUpdateView(ModalFormView):
+
+    template_name = 'widget/create.html'
+
+    form_class = PageUpdateForm
+
+    @property
+    def object(self):
+
+        try:
+            obj = Page.objects.get(id=self.kwargs["page_id"])
+        except Exception, e:
+            raise e
+        return obj
+
+    def get_form(self, form_class):
+        kwargs = self.get_form_kwargs()
+        kwargs['instance'] = self.object
+        return get_page_update_form()(
+            self.request.POST, **kwargs)
+
+    def form_valid(self, form):
+        try:
+            page = form.save()
+            page.save()
+        except Exception as e:
+            raise e
+            # TODO push message
+            # message.error(self.request, str(e))
+
+        return HttpResponseRedirect(page.get_absolute_url())
+
+    def form_invalid(self, form):
+        raise Exception(form.errors)
+
 urlpatterns = patterns('',
                        url(r'^models/(?P<page_id>[\w\.\-]+)/(?P<region>[\w\.\-]+)/create/$',
                            CreateView.as_view(), name='widget_create'),
@@ -196,5 +237,7 @@ urlpatterns = patterns('',
                            UpdateView.as_view(), name='widget_update'),
                        url(r'^models/(?P<cls_name>[\w\.\-]+)/(?P<id>[\w\.\-]+)/delete/$',
                            DeleteWidgetView.as_view(), name='widget_delete'),
-                        url(r'^redactor/', include('redactor.urls')),
+                       url(r'^redactor/', include('redactor.urls')),
+                       url(r'^models/(?P<page_id>[\w\.\-]+)/update/$',
+                           PageUpdateView.as_view(), name='page_update'),
                        )

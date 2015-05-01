@@ -17,7 +17,6 @@ from redactor.widgets import RedactorEditor
 
 WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
-    'region': forms.widgets.HiddenInput,
     'parent': forms.widgets.HiddenInput,
     'ordering': forms.widgets.HiddenInput,
     'text': RedactorEditor(),
@@ -85,7 +84,7 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
         # hide label
         if 'text' in self.fields:
-            self.fields['text'].label=''
+            self.fields['text'].label = ''
 
 
 class WidgetCreateForm(WidgetUpdateForm):
@@ -195,6 +194,40 @@ class WidgetSelectForm(SelfHandlingForm):
         return self.next_view.as_view()(request, **data)
 
 
+class PageUpdateForm(SelfHandlingModelForm):
+
+    class Meta:
+        widgets = {
+            'site': forms.widgets.HiddenInput,
+            'parent': forms.widgets.HiddenInput,
+            'override_url': forms.widgets.HiddenInput,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(PageUpdateForm, self).__init__(*args, **kwargs)
+
+        HIDDEN_FIELDS = (
+            'site', 'id', 'tree_id',
+            'parent', 'override_url',
+        )
+
+        self.helper.layout = Layout(
+            TabHolder(
+                Tab(_('Page'),
+                    'title', 'slug', 'active', 'in_navigation'
+                    ),
+                Tab(_('Theme'),
+                    'template_key', 'theme', 'color_scheme',
+                    ),
+                Tab(_('Other'),
+                    'publication_date', 'language', 'id',
+                    ),
+            )
+        )
+        # append hidden fields
+        [self.helper.layout.append(Field(f)) for f in HIDDEN_FIELDS]
+
+
 @memoized
 def get_widget_update_form(**kwargs):
     """
@@ -231,3 +264,15 @@ def get_widget_create_form(**kwargs):
                                         widgets=WIDGETS)
 
     return WidgetModelForm
+
+
+@memoized
+def get_page_update_form(**kwargs):
+
+    model_cls = get_class('web.page')
+
+    PageModelForm = modelform_factory(model_cls,
+                                      exclude=[],
+                                      form=PageUpdateForm)
+
+    return PageModelForm

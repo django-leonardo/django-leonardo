@@ -1,0 +1,118 @@
+
+{% load crispy_forms_tags i18n %}
+{% load url from future %}
+
+{% block css_extra %}
+<style type="text/css">
+#settings_button {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    background: #fff;
+    border-radius: 5px 0px 0px 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    z-index: 99990;
+    cursor: pointer;
+    color: #3c8dbc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#settings_menu {
+    padding: 10px;
+    position: fixed;
+    top: 70px;
+    right: -250px;
+    background: #fff;
+    border: 0px solid #ddd;
+    width: 250px;
+    z-index: 99990;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+</style>
+{% endblock %}
+
+<div class="no-print" id="settings_button"><i class="fa fa-gear"></i></div>
+
+<div class="no-print" id="settings_menu">
+  <form action="{% url 'page_update' feincms_page.id %}" method="POST">
+    {% crispy feincms_page.get_model_form %}
+    <input class="btn btn-primary pull-right" type="submit" value="{% trans 'Save' %}" />
+  </form>
+</div>
+
+
+<script type="text/javascript">
+$(function () {
+
+  $('#settings_button').click(function () {
+    demo_settings = $('#settings_menu');
+    if (!$(this).hasClass("open")) {
+      $(this).animate({"right": "250px"});
+      demo_settings.animate({"right": "0"});
+      $(this).addClass("open");
+    } else {
+      $(this).animate({"right": "0"});
+      demo_settings.animate({"right": "-250px"});
+      $(this).removeClass("open");
+    }
+  });
+
+  setup();
+
+  /**
+   * Toggles layout classes
+   * 
+   * @param String cls the layout class to toggle
+   * @returns void
+   */
+  function change_layout(cls) {
+    $("body").toggleClass(cls);
+    $.AdminLTE.layout.fixSidebar();
+  }
+
+  /**
+   * Replaces the old skin with the new skin
+   * @param String cls the new skin class
+   * @returns Boolean false to prevent link's default action
+   */
+  function change_skin(cls) {
+    $.each(my_skins, function (i) {
+      $("body").removeClass(my_skins[i]);
+    });
+
+    $("body").addClass(cls);
+    store('skin', cls);
+    return false;
+  }
+
+  /**
+   * Retrieve default settings and apply them to the template
+   * 
+   * @returns void
+   */
+  function setup() {
+
+    //Add the change skin listener
+    $("[data-skin]").on('click', function (e) {
+      e.preventDefault();
+      change_skin($(this).data('skin'));
+    });
+
+    //Add the layout manager
+    $("[data-layout]").on('click', function () {
+      change_layout($(this).data('layout'));
+    });
+    
+    $("[data-controlsidebar]").on('click', function () {
+      change_layout($(this).data('controlsidebar'));
+      var slide = !$.AdminLTE.options.controlSidebarOptions.slide;
+      $.AdminLTE.options.controlSidebarOptions.slide = slide;
+      if(!slide)
+        $('.control-sidebar').removeClass('control-sidebar-open');
+    });
+  }
+
+});
+
+</script>

@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -16,10 +17,9 @@ from feincms.module.page.models import BasePage as FeinCMSPage
 from horizon.utils.memoized import memoized
 from leonardo.utils.templates import find_all_templates, template_choices
 
-from .const import *
-from .forms import WidgetUpdateForm, WIDGETS
 from . import edit_processors
-from django.conf import settings
+from .const import *
+from .forms import get_page_update_form, WIDGETS, WidgetUpdateForm
 
 
 @python_2_unicode_compatible
@@ -91,6 +91,10 @@ class Page(FeinCMSPage):
         verbose_name = _("Page")
         verbose_name_plural = _("Pages")
         ordering = ['tree_id', 'lft']
+
+    @property
+    def get_model_form(self):
+        return get_page_update_form()(instance=self)
 
     @property
     def dimensions(self):
