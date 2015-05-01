@@ -41,7 +41,7 @@ class LinearNavigationWidget(Widget):
             next = page.get_next_sibling()
         else:
             prev = page.get_previous_sibling()
-            next = paget.get_next_sibling()
+            next = page.get_next_sibling()
         return render_to_string(self.get_template_name(), { 
             'widget': self,
             'request': request,
