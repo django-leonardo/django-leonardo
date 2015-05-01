@@ -102,7 +102,6 @@ class CreateWidgetView(ModalFormView, CreateView, HandleDimensionsMixin):
     def form_valid(self, form):
         obj = form.save()
         # invalide page cache
-        obj.parent.invalidate_cache()
         self.handle_dimensions(obj)
         obj.ordering = obj.next_ordering
         try:
@@ -114,6 +113,7 @@ class CreateWidgetView(ModalFormView, CreateView, HandleDimensionsMixin):
                 obj.prerendered_content = obj.render_content(
                     options={'request': request})
                 obj.save()
+            obj.parent.save()
 
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
