@@ -4,37 +4,33 @@
 
 {% block content %}
 {% feincms_nav root level=level depth=1 as toplevel %}
-<nav class="navbar navbar-static-top" role="navigation">
-  <div class="navbar-custom-menu">
-    <ul class="nav navbar-nav">
-    {% if depth == 1 %}
-    {% for page in toplevel %}
-      <li class="{% if page|is_equal_or_parent_of:current %}active{% endif %}">
-        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+<ul class="nav navbar-nav">
+{% if depth == 1 %}
+{% for page in toplevel %}
+  <li class="{% if page|is_equal_or_parent_of:current %}active{% endif %}">
+    <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+  </li>
+{% endfor %}
+{% else %}
+{% for page in toplevel %}
+  {% feincms_nav page level=level2 depth=1 as sublevel %}
+  {% if sublevel|length == 0 %}
+  <li {% if page|is_equal_or_parent_of:current %}class="active"{% endif %}>
+    <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+  </li>
+  {% else %}
+  <li class="dropdown {% if page|is_equal_or_parent_of:current %}active{% endif %}">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="{{ page.get_absolute_url }}">{{ page.title }} <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+    {% for subpage in sublevel %}
+      <li class="{% if subpage|is_equal_or_parent_of:current %}active{% endif %}">
+        <a href="{{ subpage.get_absolute_url }}">{{ subpage.title }}</a>
       </li>
     {% endfor %}
-    {% else %}
-    {% for page in toplevel %}
-      {% feincms_nav page level=level2 depth=1 as sublevel %}
-      {% if sublevel|length == 0 %}
-      <li {% if page|is_equal_or_parent_of:current %}class="active"{% endif %}>
-        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
-      </li>
-      {% else %}
-      <li class="dropdown {% if page|is_equal_or_parent_of:current %}active{% endif %}">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="{{ page.get_absolute_url }}">{{ page.title }} <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-        {% for subpage in sublevel %}
-          <li class="{% if subpage|is_equal_or_parent_of:current %}active{% endif %}">
-            <a href="{{ subpage.get_absolute_url }}">{{ subpage.title }}</a>
-          </li>
-        {% endfor %}
-        </ul>
-      </li>
-      {% endif %}
-    {% endfor %}
-    {% endif %}
     </ul>
-  </div>
-</nav>
+  </li>
+  {% endif %}
+{% endfor %}
+{% endif %}
+</ul>
 {% endblock %}
