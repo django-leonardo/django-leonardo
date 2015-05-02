@@ -1,8 +1,8 @@
 {% load i18n thumbnail %}
 {% thumbnail file.file widget.image_geom as image %}
-<a href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
-{% thumbnail file.file widget.thumb_geom as thumbnail %}
-  <img src="{{ thumbnail.url }}" alt="" />
-{% endthumbnail %}
+<a class="thumbnail" href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
+  {% thumbnail file.file widget.thumb_geom as thumbnail %}
+  <img class="img-responsive" src="{{ thumbnail.url }}" alt="" />
+  {% endthumbnail %}
 </a>
 {% endthumbnail %}
