@@ -3,11 +3,11 @@
 {% load i18n %}
 
 {% block content %}
-{% if widget.form %}
+{% if form %}
 <form method="post" action="#form{{ content.id }}" class="{{ content.formclass }}">
   {% csrf_token %}
   <input type="hidden" name="_formcontent" value="{{ content.id }}">
-  {{ widget.form }}
+  {{ form }}
   <input type="submit" value="{{ content.submit_caption }}"></td>
 </form>
 {% else %}
