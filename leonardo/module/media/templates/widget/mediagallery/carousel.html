@@ -1,33 +1,21 @@
 {% extends widget.get_base_template %}
-
 {% load thumbnail %}
 
-
 {% block content %}
-
-<script type="text/javascript" src="{{ STATIC_URL }}jquery/carousel.min.js"></script>
-
 <div class="carousel-gallery jcarousel" id="{{ widget.fe_identifier }}-gallery" data-jcarousel="true">
-	<ul>
-	{% for category_file in widget.category.all_files.all %}
-	{% with category_file.file as file %}
-		<li>
-			{% thumbnail file.file widget.image_geom as image %}
-			<a href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
-			{% thumbnail file.file widget.thumb_geom as thumbnail %}
-			<img src="{{ thumbnail.url }}" alt="" />
-			{% endthumbnail %}
-			</a>
-			{% endthumbnail %}
-		</li>
-	{% endwith %}
-	{% endfor %}
-	</ul>
+  <ul>
+    {% for category_file in widget.category.all_files.all %}
+    {% with category_file.file as file %}
+    <li>{% include "widget/mediagallery/_image.html" %}</li>
+    {% endwith %}
+    {% endfor %}
+  </ul>
 </div>
+<script type="text/javascript" src="{{ STATIC_URL }}jquery/carousel.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#{{ widget.fe_identifier }}-gallery").jcarousel();
-	$("#{{ widget.fe_identifier }}-gallery a[rel='{{ widget.fe_identifier }}']").colorbox();
+  $("#{{ widget.fe_identifier }}-gallery").jcarousel();
+  $("#{{ widget.fe_identifier }}-gallery a[rel='{{ widget.fe_identifier }}']").colorbox();
 });
 </script>
 {% endblock %}

@@ -1,0 +1,19 @@
+{% extends widget.get_base_template %}
+{% load i18n thumbnail %}
+
+{% block content %}
+<div class="row">
+  {% for category_file in widget.category.all_files.all %}
+  {% with category_file.file as file %}
+  <div class="col-md-4">
+    {% include "widget/mediagallery/_image.html" %}
+  </div>
+  {% endwith %}
+  {% endfor %}
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#{{ widget.fe_identifier }}-gallery a[rel='{{ widget.fe_identifier }}']").colorbox();
+});
+</script>
+{% endblock %}
