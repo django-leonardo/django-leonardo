@@ -2,25 +2,28 @@
 
 {% load thumbnail %}
 
+
 {% block content %}
-<ul class="carousel-gallery" id="{{ widget.fe_identifier }}-gallery">
-{% for category_file in widget.category.media.all %}
-{% with category_file.file as file %}
-	<li>
-		{% if file.type == 'image' %}
-		{% thumbnail file.file widget.image_geom as image %}
-		<a href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
-		{% thumbnail file.file widget.thumb_geom as thumbnail %}
-		<img src="{{ thumbnail.url }}" alt="" />
-		{% endthumbnail %}
-		</a>
-		{% endthumbnail %}
-		{% else %}
-		{% endif %}
-	</li>
-{% endwith %}
-{% endfor %}
-</ul>
+
+<script type="text/javascript" src="{{ STATIC_URL }}jquery/carousel.min.js"></script>
+
+<div class="carousel-gallery jcarousel" id="{{ widget.fe_identifier }}-gallery" data-jcarousel="true">
+	<ul>
+	{% for category_file in widget.category.all_files.all %}
+	{% with category_file.file as file %}
+		<li>
+			{% thumbnail file.file widget.image_geom as image %}
+			<a href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
+			{% thumbnail file.file widget.thumb_geom as thumbnail %}
+			<img src="{{ thumbnail.url }}" alt="" />
+			{% endthumbnail %}
+			</a>
+			{% endthumbnail %}
+		</li>
+	{% endwith %}
+	{% endfor %}
+	</ul>
+</div>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#{{ widget.fe_identifier }}-gallery").jcarousel();
