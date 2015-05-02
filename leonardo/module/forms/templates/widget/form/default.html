@@ -4,11 +4,11 @@
 
 {% block content %}
 {% if form %}
-<form method="post" action="#form{{ content.id }}" class="{{ content.formclass }}">
+<form method="post" action="#form{{ widget.id }}" class="{{ widget.formclass }}">
   {% csrf_token %}
-  <input type="hidden" name="_formcontent" value="{{ content.id }}">
+  <input type="hidden" name="_formcontent" value="{{ widget.id }}">
   {{ form }}
-  <input type="submit" value="{{ content.submit_caption }}"></td>
+  <input type="submit" value="{{ widget.submit_caption }}"></td>
 </form>
 {% else %}
 {{ message|safe }}
