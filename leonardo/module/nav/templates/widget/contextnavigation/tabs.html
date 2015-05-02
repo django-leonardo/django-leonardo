@@ -5,12 +5,12 @@
 {% block content %}
 <ul class="nav nav-tabs">
   {% for child_page in page.get_children %}
-  <li{% if forloop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ widget.fe_identifier }}_{{ forloop.counter0 }}">{{ child_page.title }}</a></li>
+  <li{% if forloop.first %} class="active"{% endif %}><a data-toggle="tab" href="#tab_{{ widget.fe_identifier }}_{{ forloop.counter0 }}">{{ child_page.title }}</a></li>
   {% endfor %}
 </ul>
 <div class="tab-content">
   {% for child_page in page.get_children %}
-  <div id="{{ widget.fe_identifier }}_{{ forloop.counter0 }}" class="tab-pane">
+  <div id="tab_{{ widget.fe_identifier }}_{{ forloop.counter0 }}" class="tab-pane{% if forloop.first %} active{% endif %}">
     {% feincms_render_region child_page region request %}
   </div>
   {% endfor %}

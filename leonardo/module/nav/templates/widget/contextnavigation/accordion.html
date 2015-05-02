@@ -11,7 +11,7 @@
         <a data-toggle="collapse" data-parent="#accordion_{{ widget.fe_identifier }}" href="#accordion_{{ widget.fe_identifier }}_{{ forloop.counter0 }}">{{ child_page.title }}</a>
       </h4>
     </div>
-    <div id="accordion_{{ widget.fe_identifier }}_{{ forloop.counter0 }}" class="panel-collapse collapse in">
+    <div id="accordion_{{ widget.fe_identifier }}_{{ forloop.counter0 }}" class="panel-collapse collapse{% if forloop.first %} in{% endif %}">
       <div class="panel-body">
         {% feincms_render_region child_page region request %}
       </div>
