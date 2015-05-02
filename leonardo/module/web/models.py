@@ -207,7 +207,7 @@ class WidgetDimension(models.Model):
         return ' '.join(classes)
 
     def __str__(self):
-        return "{0} - {1}".format(self.widget_type, self.width_class)
+        return "{0} - {1}".format(self.widget_type, self.classes)
 
     class Meta:
         verbose_name = _("Widget dimension")
