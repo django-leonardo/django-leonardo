@@ -27,7 +27,7 @@ CreateView.template_name = "widget/create.html"
 UpdateView.template_name = "widget/create.html"
 
 
-class HandleDimensionsMixin(object):
+class WidgetViewMixin(object):
 
     def handle_dimensions(self, obj):
         """save dimensions
@@ -50,8 +50,27 @@ class HandleDimensionsMixin(object):
                 wd.save()
         return True
 
+    def populate_widget_content(self, obj):
+        """render and wrap widget content
+        """
+        wrap = "<div style='pointer-events:none;'>{}</div>"
+        try:
 
-class UpdateView(ModalFormView, UpdateView, HandleDimensionsMixin):
+            if not obj.prerendered_content:
+                # turn off frontend edit for this redner
+                request = self.request
+                request.frontend_editing = False
+                content = obj.render_content(
+                    options={'request': request})
+                obj.prerendered_content = wrap.format(content)
+                obj.save()
+            obj.parent.save()
+        except Exception as e:
+            raise e
+        return True
+
+
+class UpdateView(ModalFormView, UpdateView, WidgetViewMixin):
 
     template_name = 'widget/create.html'
 
@@ -74,17 +93,11 @@ class UpdateView(ModalFormView, UpdateView, HandleDimensionsMixin):
         response = super(UpdateView, self).form_valid(form)
         obj = self.object
         self.handle_dimensions(obj)
-        if not obj.prerendered_content:
-            # turn off frontend edit for this redner
-            request = self.request
-            request.frontend_editing = False
-            obj.prerendered_content = obj.render_content(
-                options={'request': request})
-            obj.save()
+        self.populate_widget_content(obj)
         return response
 
 
-class CreateWidgetView(ModalFormView, CreateView, HandleDimensionsMixin):
+class CreateWidgetView(ModalFormView, CreateView, WidgetViewMixin):
 
     template_name = 'widget/create.html'
 
@@ -106,21 +119,12 @@ class CreateWidgetView(ModalFormView, CreateView, HandleDimensionsMixin):
         return context
 
     def form_valid(self, form):
-        obj = form.save()
-        # invalide page cache
-        self.handle_dimensions(obj)
-        obj.ordering = obj.next_ordering
         try:
-
-            if not obj.prerendered_content:
-                # turn off frontend edit for this redner
-                request = self.request
-                request.frontend_editing = False
-                obj.prerendered_content = obj.render_content(
-                    options={'request': request})
-                obj.save()
+            obj = form.save()
+            self.handle_dimensions(obj)
+            obj.ordering = obj.next_ordering
+            self.populate_widget_content(obj)
             obj.parent.save()
-
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
@@ -141,6 +145,11 @@ class CreateView(ModalFormView, CreateView):
 
     def get_label(self):
         return ugettext("Create")
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateView, self).get_context_data(**kwargs)
+        context['modal_size'] = 'modal-sm'
+        return context
 
     def get_form(self, form_class):
         """Returns an instance of the form to be used in this view."""
@@ -220,6 +229,7 @@ class PageUpdateView(ModalFormView):
         context['title'] = "self.get_header()"
         context['view_name'] = _("Update")
         context['heading'] = "self.get_header()"
+        context['modal_size'] = "modal-lg"
         return context
 
     def handle_dimensions(self, obj):
