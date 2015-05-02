@@ -7,8 +7,10 @@
 <form method="post" action="#form{{ widget.id }}" class="{{ widget.formclass }}">
   {% csrf_token %}
   <input type="hidden" name="_formcontent" value="{{ widget.id }}">
-  {{ form }}
-  <input type="submit" value="{{ widget.submit_caption }}"></td>
+
+  {% include 'horizon/common/_form_fields.html' with form=form %}
+
+  <input class="btn btn-primary" type="submit" value="{{ widget.submit_caption }}"></td>
 </form>
 {% else %}
 {{ message|safe }}
