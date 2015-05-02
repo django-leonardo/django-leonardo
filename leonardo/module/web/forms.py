@@ -210,20 +210,28 @@ class PageUpdateForm(SelfHandlingModelForm):
 
         HIDDEN_FIELDS = (
             'site', 'id', 'tree_id',
-            'parent', 'override_url',
         )
 
         self.helper.layout = Layout(
             TabHolder(
-                Tab(_('Page'),
-                    'title', 'slug', 'in_navigation', 'active',
+                Tab(_('Main'),
+                    'title',
                     'language',
+                    css_id='page-main'
+                    ),
+                Tab(_('Heading'),
+                    '_content_title', '_page_title',
+                    css_id='page-heading'
+                    ),
+                Tab(_('Publication'),
+                    'active', 'featured', 'publication_date', 'publication_end_date',
+                    ),
+                Tab(_('Navigation'),
+                    'in_navigation', 'parent', 'slug', 'override_url', 'redirect_to',
                     ),
                 Tab(_('Theme'),
                     'template_key', 'theme', 'color_scheme',
-                    ),
-                Tab(_('Other'),
-                    'publication_date', 'publication_end_date',
+                    css_id='page-theme-settings'
                     ),
             )
         )
@@ -243,6 +251,8 @@ class PageUpdateForm(SelfHandlingModelForm):
             dimensions = Tab(_('Dimensions'),
                              HTML(
                 table.render()),
+                css_id='page-dimensions'
+
             )
             self.helper.layout[0].append(dimensions)
 
