@@ -8,14 +8,8 @@
     position: fixed;
     top: 70px;
     right: 0;
-    background: #fff;
-    border-radius: 5px 0px 0px 5px;
-    padding: 10px 15px;
-    font-size: 16px;
     z-index: 1000;
     cursor: pointer;
-    color: #3c8dbc;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 #settings_menu {
@@ -23,33 +17,20 @@
     position: fixed;
     top: 70px;
     right: -250px;
-    background: #fff;
-    border: 0px solid #ddd;
     width: 250px;
     z-index: 1000;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 </style>
 {% endblock %}
 
-<div class="no-print" id="settings_button"><i class="fa fa-gear"></i></div>
-
-<div class="no-print" id="settings_menu">
-  <div>
-
-    <a class="btn btn-primary btn-xs ajax-modal" href="{% url 'page_update' feincms_page.id %}"><i class="fa fa-sliders"></i>{% trans 'Edit Page' %}</a>
-
+<div class="no-print btn btn-primary" id="settings_button"><i class="fa fa-gear"></i></div>
+<div class="no-print panel panel-default" id="settings_menu">
+  <div class="panel-body">
+    <a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'page_update' feincms_page.id %}"><i class="fa fa-sliders"></i> {% trans 'Edit Page' %}</a>
+    <a class="btn btn-primary btn-sm btn-block" target="_blank" href="{% url 'admin:web_page_change' feincms_page.id %}"><i class="fa fa-sliders"></i> {% trans 'Open Admin' %}</a>
+    <a class="btn btn-primary btn-sm btn-block" href="?frontend_editing=0"><i class="fa fa-power-off"></i> {% trans 'Stop Editing' %}</a>
   </div>
-  <div class="panel panel-default" style="margin-top: 60px;">
-    <div class="panel-body">
-        <a class="btn btn-primary btn-xs" href="{% url 'admin:web_page_change' feincms_page.id %}"><i class="fa fa-sliders"></i>{% trans 'Open Page Admin' %}</a>
-        <a class="btn btn-primary btn-xs" href="?frontend_editing=0"><i class="fa fa-power-off"></i>{% trans 'Quit edit' %}</a>
-        <a class="btn btn-primary btn-xs" href="/admin"><i class="fa fa-cogs"></i>{% trans 'Admin Site' %}</a>
-    </div>
-  </div>
-
 </div>
-
 
 <script type="text/javascript">
 $(function () {
