@@ -193,9 +193,9 @@ class WidgetDimension(models.Model):
     width = models.IntegerField(verbose_name=_("Width"),
                                 choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
     height = models.IntegerField(verbose_name=_("Height"),
-                                 choices=ROW_CHOICES, default=DEFAULT_WIDTH)
+                                 choices=ROW_CHOICES, default=0)
     offset = models.IntegerField(verbose_name=_("Offset"),
-                                 choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+                                 choices=COLUMN_CHOICES, default=0)
 
     @property
     def classes(self):
