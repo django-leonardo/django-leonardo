@@ -217,6 +217,7 @@ class PageUpdateForm(SelfHandlingModelForm):
                 Tab(_('Main'),
                     'title',
                     'language',
+                    'translation_of',
                     css_id='page-main'
                     ),
                 Tab(_('Heading'),
@@ -228,6 +229,7 @@ class PageUpdateForm(SelfHandlingModelForm):
                     ),
                 Tab(_('Navigation'),
                     'in_navigation', 'parent', 'slug', 'override_url', 'redirect_to',
+                    'symlinked_page'
                     ),
                 Tab(_('Theme'),
                     'template_key', 'theme', 'color_scheme',
