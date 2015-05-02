@@ -15,7 +15,7 @@ $(document).ready(function() {
 {% endthumbnail %}
 {% endif %} 
 {% if widget.on_click == "go_to_page" %}
-<a href="{{ widget.parent|get_url }}">
+<a href="{{ widget.parent.get_absolute_url }}">
 {% endif %}
 {% if widget.size %}
 {% thumbnail widget.image.file size format="PNG" as thumb %}
