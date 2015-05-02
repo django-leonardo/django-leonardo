@@ -30,6 +30,12 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         required=False
     )
 
+    def _wrap_all(self):
+        # stylung
+        self.helper.filter(
+            basestring, max_level=4).wrap(
+            Field, css_class="form-control")
+
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)
         super(WidgetUpdateForm, self).__init__(*args, **kwargs)
@@ -87,6 +93,8 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         if 'text' in self.fields:
             self.fields['text'].label = ''
 
+        self._wrap_all()
+
 
 class WidgetCreateForm(WidgetUpdateForm):
 
@@ -106,6 +114,8 @@ class WidgetCreateForm(WidgetUpdateForm):
 
         self.fields['base_theme'].initial = \
             self.fields['base_theme'].queryset.first()
+
+        self._wrap_all()
 
 
 class WidgetDeleteForm(SelfHandlingForm):
@@ -204,6 +214,12 @@ class PageUpdateForm(SelfHandlingModelForm):
             'override_url': forms.widgets.HiddenInput,
         }
 
+    def _wrap_all(self):
+        # stylung
+        self.helper.filter(
+            basestring, max_level=4).wrap(
+            Field, css_class="form-control")
+
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)
         super(PageUpdateForm, self).__init__(*args, **kwargs)
@@ -257,6 +273,8 @@ class PageUpdateForm(SelfHandlingModelForm):
 
             )
             self.helper.layout[0].append(dimensions)
+
+        self._wrap_all()
 
 
 @memoized
