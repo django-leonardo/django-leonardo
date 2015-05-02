@@ -148,35 +148,6 @@ class Page(FeinCMSPage):
                 key='frontend_editing')
 
 
-@python_2_unicode_compatible
-class WidgetDimension(models.Model):
-
-    widget_type = models.ForeignKey(ContentType)
-    widget_id = models.PositiveIntegerField()
-    widget_object = generic.GenericForeignKey('widget_type', 'widget_id')
-
-    size = models.CharField(
-        verbose_name="Size", max_length=20, choices=DISPLAY_SIZE_CHOICES, default='md')
-    width = models.IntegerField(verbose_name=_("Width"),
-                                choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
-    height = models.IntegerField(verbose_name=_("Height"),
-                                 choices=ROW_CHOICES, default=DEFAULT_CHOICE)
-    offset = models.IntegerField(verbose_name=_("Offset"),
-                                 choices=COLUMN_CHOICES, default=DEFAULT_CHOICE)
-
-    @property
-    def width_class(self):
-        STR = "col-{0}-{1}"
-        return STR.format(self.size, self.width)
-
-    def __str__(self):
-        return "{0} - {1}".format(self.widget_type, self.width_class)
-
-    class Meta:
-        verbose_name = _("Widget dimension")
-        verbose_name_plural = _("Widget dimensions")
-
-
 class WidgetInline(FeinCMSInline):
     form = WidgetUpdateForm
 
@@ -227,9 +198,13 @@ class WidgetDimension(models.Model):
                                  choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
 
     @property
-    def width_class(self):
-        STR = "col-{0}-{1}"
-        return STR.format(self.size, self.width)
+    def classes(self):
+        classes = []
+        classes.append('col-{}-{}'.format(self.size, self.width))
+        if self.height != 0:
+            classes.append('row-{}-{}'.format(self.size, self.height))
+        classes.append('col-{}-offset-{}'.format(self.size, self.offset))
+        return ' '.join(classes)
 
     def __str__(self):
         return "{0} - {1}".format(self.widget_type, self.width_class)
@@ -370,7 +345,7 @@ class Widget(FeinCMSBase):
         """
         classes = []
         for d in self.dimensions:
-            classes.append(d.width_class)
+            classes.append(d.classes)
         return " ".join(classes)
 
     @classmethod
