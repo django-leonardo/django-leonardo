@@ -65,8 +65,8 @@ class WidgetViewMixin(object):
                 obj.prerendered_content = wrap.format(content)
                 obj.save()
             obj.parent.save()
-        except Exception as e:
-            raise e
+        except Exception:
+            pass
         return True
 
 
