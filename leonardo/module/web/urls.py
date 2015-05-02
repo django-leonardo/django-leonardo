@@ -102,7 +102,7 @@ class CreateWidgetView(ModalFormView, CreateView, WidgetViewMixin):
     template_name = 'widget/create.html'
 
     def get_label(self):
-        return ugettext("Create")
+        return ugettext("Create new Widget")
 
     def get_form(self, form_class):
         kwargs = self.get_form_kwargs()
@@ -144,7 +144,7 @@ class CreateView(ModalFormView, CreateView):
     template_name = 'widget/create.html'
 
     def get_label(self):
-        return ugettext("Create")
+        return ugettext("Create new Widget")
 
     def get_context_data(self, **kwargs):
         context = super(CreateView, self).get_context_data(**kwargs)
