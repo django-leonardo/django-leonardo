@@ -8,7 +8,7 @@ from leonardo.module.web.models import WidgetDimension, PageDimension
 
 
 class Slider(forms.RangeInput):
-    min = 0
+    min = 1
     max = 12
     step = 1
 
