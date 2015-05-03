@@ -15,6 +15,7 @@
 
 <link rel="shortcut icon" href="{{ STATIC_URL }}leonardo/img/favicon.ico"/>
 <style type="text/css">
+
 @media screen and (min-width: 768px) {
   .modal-dialog {
     left: 0%!important;
@@ -25,6 +26,11 @@
 
 .col-md-0 { 
   display: none;
+}
+
+.no-gutter > [class*="col-"] {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .row-sm-1 > div, .row-md-1 > div { height: 60px; }
@@ -44,7 +50,17 @@
   position: absolute;
   top: 5px;
   right: 5px;
-  z-index:900;
+  z-index:400;
+}
+
+.leonardo-widget .leonardo-widget .widget-tools {
+  right: 15px;
+  z-index:401;
+}
+
+.leonardo-widget .leonardo-widget .leonardo-widget .widget-tools {
+  right: 25px;
+  z-index:402;
 }
 
 .col1, .col2, .col3 {
@@ -61,4 +77,7 @@
     flex:1 1 auto;
 }
 
+.nav-tabs {
+  margin-bottom: 15px!important;
+}
 </style>

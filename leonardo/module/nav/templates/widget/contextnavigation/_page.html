@@ -1,7 +1,8 @@
-{% load i18n feincms_tags feincms_page_tags %}
+{% load i18n feincms_tags feincms_page_tags leonardo_tags %}
 {% feincms_render_region child_page region request %}
+{% render_region_tools child_page region request %}
 {% if widget.link_style != "" %}
-<div class="col-md-12 text-center"> 
+<div class="col-md-12 text-center">
   {% if widget.link_style == "link" %}
   <a href="{{ child_page.get_absolute_url }}">
   {% else %}

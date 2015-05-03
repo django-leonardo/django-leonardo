@@ -1,11 +1,8 @@
-
 {% load i18n %}
 {% load url from future %}
 
 {% if edit %}
-
 <div class="clearfix col-md-12 region-tools">
-    <a href="{% url 'widget_create' feincms_object.id region %}" class='btn btn-block btn-success ajax-modal'>{% trans 'Add' %}</a>
+  <a href="{% url 'widget_create' feincms_object.id region %}" class='btn btn-block btn-success ajax-modal' data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Add new widget to region {{ region }} of page {{ feincms_object.title }}.">{% trans 'Add Widget' %}</a>
 </div>
-
 {% endif %}

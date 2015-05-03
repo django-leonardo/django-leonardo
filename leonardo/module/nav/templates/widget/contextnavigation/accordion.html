@@ -13,10 +13,10 @@
     </div>
     <div id="accordion_{{ widget.fe_identifier }}_{{ forloop.counter0 }}" class="panel-collapse collapse{% if forloop.first %} in{% endif %}">
       <div class="panel-body">
-        {% feincms_render_region child_page region request %}
+        {% include "widget/contextnavigation/_page.html" %}
       </div>
     </div>
-    {% endfor %}
   </div>
+  {% endfor %}
 </div>
 {% endblock %}

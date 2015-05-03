@@ -1,18 +1,9 @@
 {% extends widget.get_base_template %}
 
-{% load i18n feincms_tags feincms_page_tags %}
-
 {% block content %}
-<div class="edit-padder"></div>
-{% if widget.depth == 0 %}
-<div class='span-24'>
-
-</div>
-{% else %}
 {% for child_page in page.children.all %}
-<div class='span-24'>
-	{% feincms_render_region child_page region request %}
+<div class='row no-gutter'>
+  {% include "widget/contextnavigation/_page.html" %}
 </div>
 {% endfor %}
-{% endif %}
 {% endblock %}
