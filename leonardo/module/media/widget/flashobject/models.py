@@ -3,9 +3,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from webcms.models import Widget
-
-from webcms.module.media.models import File
+from leonardo.module.web.models import Widget
 
 VERSION_CHOICES = (
     ('10.0.0', _('version 10 and newer')),
@@ -24,14 +22,21 @@ ATTRS_DEFAULT = """var attrs = {
 }
 """
 
+
 class FlashObjectWidget(Widget):
-    file = models.ForeignKey(File, verbose_name=_("flash file"), limit_choices_to={'type': 'swf'} )
-    version = models.CharField(max_length=255, verbose_name=_("flash version"), choices=VERSION_CHOICES)
-    width = models.CharField(max_length=255, verbose_name=_("width"), default='640')
-    height = models.CharField(max_length=255, verbose_name=_("height"), default='480')
+    file = models.ForeignKey("media.Flash", verbose_name=_(
+        "flash file"), related_name="%(app_label)s_%(class)s_categories")
+    version = models.CharField(
+        max_length=255, verbose_name=_("flash version"), choices=VERSION_CHOICES)
+    width = models.CharField(
+        max_length=255, verbose_name=_("width"), default='640')
+    height = models.CharField(
+        max_length=255, verbose_name=_("height"), default='480')
     vars = models.TextField(verbose_name=_("variables"), default=VARS_DEFAULT)
-    params = models.TextField(verbose_name=_("parameters"), default=PARAMS_DEFAULT)
-    attrs = models.TextField(verbose_name=_("attributes"), default=ATTRS_DEFAULT)
+    params = models.TextField(
+        verbose_name=_("parameters"), default=PARAMS_DEFAULT)
+    attrs = models.TextField(
+        verbose_name=_("attributes"), default=ATTRS_DEFAULT)
 
     class Meta:
         abstract = True

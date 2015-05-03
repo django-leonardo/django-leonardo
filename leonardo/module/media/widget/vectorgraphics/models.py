@@ -8,7 +8,7 @@ from leonardo.module.web.models import Widget
 
 
 class VectorGraphicsWidget(Widget):
-    source = models.ForeignKey(Vector)
+    source = models.ForeignKey(Vector, related_name="%(app_label)s_%(class)s_related")
 
     class Meta:
         abstract = True

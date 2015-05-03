@@ -29,6 +29,7 @@ class Default(object):
             SimpleImageWidget,
             VectorGraphicsWidget,
             PdfDocumentWidget,
+            FlashObjectWidget,
         ]
 
 

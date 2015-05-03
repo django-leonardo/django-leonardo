@@ -25,7 +25,7 @@ ALIGN_CHOICES = (
 
 class SimpleImageWidget(Widget):
 
-    image = models.ForeignKey("media.Image", verbose_name=_("image"))
+    image = models.ForeignKey("media.Image", verbose_name=_("image"), related_name="%(app_label)s_%(class)s_images")
     size = models.CharField(max_length=255, verbose_name=_("size"), choices=SIZE_CHOICES, blank=True)
     on_click = models.CharField(max_length=255, verbose_name=_("on click action"), choices=ON_CLICK_CHOICES, blank=True)
     alignment = models.CharField(max_length=255, verbose_name=_("alignment"), choices=ALIGN_CHOICES, default='left')

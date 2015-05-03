@@ -8,7 +8,7 @@ from leonardo.module.web.models import Widget
 
 class PdfDocumentWidget(Widget):
     file = models.ForeignKey("media.Document", verbose_name=_(
-        "pdf document"))
+        "pdf document"), related_name="%(app_label)s_%(class)s_related")
     height = models.CharField(
         max_length=255, verbose_name=_("height"), blank=True)
     width = models.CharField(
