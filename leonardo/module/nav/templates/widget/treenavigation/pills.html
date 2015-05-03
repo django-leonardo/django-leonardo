@@ -4,7 +4,7 @@
 
 {% block content %}
 {% feincms_nav root level=level depth=1 as toplevel %}
-<ul class="nav nav-pills">
+<ul class="nav nav-pills{% if widget.orientation == 'vertical' %} nav-stacked{% endif %}">
 {% if depth == 1 %}
 {% for page in toplevel %}
   {% include "widget/treenavigation/_page.html" %}
