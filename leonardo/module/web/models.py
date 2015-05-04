@@ -279,6 +279,11 @@ class Widget(FeinCMSBase):
     def __str__(self):
         return self.label or super(Widget, self).__str__()
 
+    def get_ct_name(self):
+        """returns content type name with app label
+        """
+        return ".".join([self._meta.app_label, self._meta.model_name])
+
     def thumb_geom(self):
         return config_value('MEDIA', 'THUMB_MEDIUM_GEOM')
 
