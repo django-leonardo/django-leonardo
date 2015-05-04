@@ -4,28 +4,18 @@ Third-party application inclusion support.
 
 from __future__ import absolute_import, unicode_literals
 
-from email.utils import parsedate
-from time import mktime
-from random import SystemRandom
+import functools
 import re
+import warnings
+from random import SystemRandom
+from threading import local
+from time import mktime
 
+import six
 from django.conf import settings
 from django.core.cache import cache
-from django.core.urlresolvers import (
-    Resolver404, resolve, reverse, NoReverseMatch)
-from django.db import models
-from django.db.models import signals
-from django.http import HttpResponse
+from django.core.urlresolvers import *
 from django.template.response import TemplateResponse
-from django.utils.functional import curry as partial, lazy, wraps
-from django.utils.http import http_date
-from django.utils.safestring import mark_safe
-from django.utils.translation import get_language, ugettext_lazy as _
-
-from feincms.admin.item_editor import ItemEditorForm
-from feincms.contrib.fields import JSONField
-from feincms.translations import short_language_code
-from feincms.utils import get_object
 
 from .models import ApplicationWidget
 
@@ -34,6 +24,7 @@ APP_REVERSE_CACHE_TIMEOUT = 300
 
 
 class UnpackTemplateResponse(TemplateResponse):
+
     """
     Completely the same as marking applicationcontent-contained views with
     the ``feincms.views.decorators.unpack`` decorator.
@@ -126,3 +117,82 @@ def permalink(func):
     def inner(*args, **kwargs):
         return app_reverse(*func(*args, **kwargs))
     return wraps(func)(inner)
+
+
+def reverse(viewname, urlconf=None, args=None, kwargs=None, prefix=None, current_app=None):
+
+    """monkey patched reverse
+
+    if not urlconf tries find in app contents url
+
+    """
+
+    if not urlconf:
+        for urlconf, config in six.iteritems(
+                ApplicationWidget._feincms_content_models[0].ALL_APPS_CONFIG):
+            partials = viewname.split(':')[1:]
+            try:
+                url = app_reverse(
+                    ':'.join(partials), urlconf, args=args, kwargs=kwargs,
+                    current_app=current_app, prefix=prefix)
+            except NoReverseMatch:
+                pass
+            else:
+                return url
+
+        urlconf = get_urlconf()
+    resolver = get_resolver(urlconf)
+    args = args or []
+    kwargs = kwargs or {}
+
+    if prefix is None:
+        prefix = get_script_prefix()
+
+    if not isinstance(viewname, six.string_types):
+        view = viewname
+    else:
+        parts = viewname.split(':')
+        parts.reverse()
+        view = parts[0]
+        path = parts[1:]
+
+        resolved_path = []
+        ns_pattern = ''
+        while path:
+            ns = path.pop()
+
+            # Lookup the name to see if it could be an app identifier
+            try:
+                app_list = resolver.app_dict[ns]
+                # Yes! Path part matches an app in the current Resolver
+                if current_app and current_app in app_list:
+                    # If we are reversing for a particular app,
+                    # use that namespace
+                    ns = current_app
+                elif ns not in app_list:
+                    # The name isn't shared by one of the instances
+                    # (i.e., the default) so just pick the first instance
+                    # as the default.
+                    ns = app_list[0]
+            except KeyError:
+                pass
+
+            try:
+                extra, resolver = resolver.namespace_dict[ns]
+                resolved_path.append(ns)
+                ns_pattern = ns_pattern + extra
+            except KeyError as key:
+                if resolved_path:
+                    raise NoReverseMatch(
+                        "%s is not a registered namespace inside '%s'" %
+                        (key, ':'.join(resolved_path)))
+                else:
+                    raise NoReverseMatch("%s is not a registered namespace" %
+                                         key)
+        if ns_pattern:
+            resolver = get_ns_resolver(ns_pattern, resolver)
+
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+
+
+reverse_lazy = lazy(reverse, six.text_type)
