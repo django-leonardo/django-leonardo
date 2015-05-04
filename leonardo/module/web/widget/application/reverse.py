@@ -128,18 +128,6 @@ def reverse(viewname, urlconf=None, args=None, kwargs=None, prefix=None, current
     """
 
     if not urlconf:
-        for urlconf, config in six.iteritems(
-                ApplicationWidget._feincms_content_models[0].ALL_APPS_CONFIG):
-            partials = viewname.split(':')[1:]
-            try:
-                url = app_reverse(
-                    ':'.join(partials), urlconf, args=args, kwargs=kwargs,
-                    current_app=current_app, prefix=prefix)
-            except NoReverseMatch:
-                pass
-            else:
-                return url
-
         urlconf = get_urlconf()
     resolver = get_resolver(urlconf)
     args = args or []
@@ -182,6 +170,18 @@ def reverse(viewname, urlconf=None, args=None, kwargs=None, prefix=None, current
                 resolved_path.append(ns)
                 ns_pattern = ns_pattern + extra
             except KeyError as key:
+
+                for urlconf, config in six.iteritems(
+                        ApplicationWidget._feincms_content_models[0].ALL_APPS_CONFIG):
+                    partials = viewname.split(':')[1:]
+                    try:
+                        url = app_reverse(
+                            ':'.join(partials), urlconf, args=args, kwargs=kwargs,
+                            current_app=current_app, prefix=prefix)
+                    except NoReverseMatch:
+                        pass
+                    else:
+                        return url
                 if resolved_path:
                     raise NoReverseMatch(
                         "%s is not a registered namespace inside '%s'" %
