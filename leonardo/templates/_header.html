@@ -5,6 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="description" content="Leonardo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>{{ request.leonardo_options.meta_title }}</title>
 
@@ -13,6 +14,10 @@
 {% block css %}
   {% include "_stylesheets.html" %}
 {% endblock %}
+
+{% block css_extra %}
+{% endblock %}
+
 
 {% block page_css %}
 <style name="themeeee" type="text/css">
@@ -42,23 +47,21 @@
 {% include "horizon/_custom_head_js.html" %}
 {% include "_custom_head_js.html" %}
 
-{% if request.user.is_authenticated %}
-<script src="{{ STATIC_URL }}dashboard/js/app.js"></script>
-{% endif %} 
-
-{% if request.user.is_staff and request.frontend_editing %}
-<script src="{{ STATIC_URL }}dashboard/js/inline_edit.js"></script>
-{% endif %} 
-
 <link rel="shortcut icon" href="/favicon.ico" />
 
 {% comment %}
+
+{% if request.user.is_authenticated %}
+<script src="{{ STATIC_URL }}dashboard/js/app.js"></script>
+{% endif %} 
 
 <script src="{{ STATIC_URL }}assets/js/jquery.min.js"></script>
 <script src="{{ STATIC_URL }}assets/js/smoothscroll.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 {% endcomment %}
-
-
 </head>
+
+{% if request.user.is_staff and request.frontend_editing %}
+  {% include "leonardo/common/_frontend_edit_sidebar.html" %}
+{% endif %}

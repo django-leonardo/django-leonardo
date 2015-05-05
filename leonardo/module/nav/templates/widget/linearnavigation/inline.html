@@ -1,13 +1,12 @@
 {% extends widget.get_base_template %}
 
-{% load i18n %}
-{% load webcms_tags %}
+{% load i18n feincms_page_tags %}
 
 {% block content %}
 <p>
 	{% if widget.link == 'text' %}
 	{% if prev %}
-	<a href="{{ prev|get_url }}">« {% trans "previous" %}</a>
+	<a href="{{ prev.get_absolute_url }}">« {% trans "previous" %}</a>
 	{% else %}
 	<span>« {% trans "previous" %}</span>
 	{% endif %}
@@ -19,7 +18,7 @@
 	{% endif %}
 	{% else %}
 	{% if prev %}
-	<a href="{{ prev|get_url }}">« {{ prev.title }}</a>
+	<a href="{{ prev.get_absolute_url }}">« {{ prev.title }}</a>
 	{% endif %}
 	{% if prev %}
 	{% if next %}

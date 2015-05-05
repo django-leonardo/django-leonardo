@@ -2,17 +2,23 @@
 from __future__ import absolute_import
 
 from django.conf.urls import include, patterns, url
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
-from django.contrib.contenttypes.models import ContentType
+from horizon import messages
 from horizon_contrib.forms.views import (ContextMixin, CreateView,
                                          ModalFormView, ModelFormMixin,
                                          UpdateView)
 from horizon_contrib.generic.views import GenericIndexView
-from leonardo.module.web.forms import (get_widget_create_form,
+from leonardo.module.web.forms import (get_page_update_form,
+                                       get_widget_create_form,
                                        get_widget_update_form)
-from .forms import WidgetSelectForm, WidgetDeleteForm, WidgetUpdateForm
+
+from .forms import (PageUpdateForm, WidgetDeleteForm, WidgetSelectForm,
+                    WidgetUpdateForm)
+from .models import Page
 from .tables import WidgetDimensionTable
 
 # fix native views
@@ -21,7 +27,7 @@ CreateView.template_name = "widget/create.html"
 UpdateView.template_name = "widget/create.html"
 
 
-class HandleDimensionsMixin(object):
+class WidgetViewMixin(object):
 
     def handle_dimensions(self, obj):
         """save dimensions
@@ -44,8 +50,27 @@ class HandleDimensionsMixin(object):
                 wd.save()
         return True
 
+    def populate_widget_content(self, obj):
+        """render and wrap widget content
+        """
+        wrap = "<div style='pointer-events:none;'>{}</div>"
+        try:
 
-class UpdateView(ModalFormView, UpdateView, HandleDimensionsMixin):
+            if not obj.prerendered_content:
+                # turn off frontend edit for this redner
+                request = self.request
+                request.frontend_editing = False
+                content = obj.render_content(
+                    options={'request': request})
+                obj.prerendered_content = wrap.format(content)
+                obj.save()
+            obj.parent.save()
+        except Exception:
+            pass
+        return True
+
+
+class UpdateView(ModalFormView, UpdateView, WidgetViewMixin):
 
     template_name = 'widget/create.html'
 
@@ -68,22 +93,16 @@ class UpdateView(ModalFormView, UpdateView, HandleDimensionsMixin):
         response = super(UpdateView, self).form_valid(form)
         obj = self.object
         self.handle_dimensions(obj)
-        if not obj.prerendered_content:
-            # turn off frontend edit for this redner
-            request = self.request
-            request.frontend_editing = False
-            obj.prerendered_content = obj.render_content(
-                options={'request': request})
-            obj.save()
+        self.populate_widget_content(obj)
         return response
 
 
-class CreateWidgetView(ModalFormView, CreateView, HandleDimensionsMixin):
+class CreateWidgetView(ModalFormView, CreateView, WidgetViewMixin):
 
     template_name = 'widget/create.html'
 
     def get_label(self):
-        return ugettext("Create")
+        return ugettext("Create new Widget")
 
     def get_form(self, form_class):
         kwargs = self.get_form_kwargs()
@@ -100,20 +119,12 @@ class CreateWidgetView(ModalFormView, CreateView, HandleDimensionsMixin):
         return context
 
     def form_valid(self, form):
-        obj = form.save()
-        # invalide page cache
-        obj.parent.invalidate_cache()
-        self.handle_dimensions(obj)
         try:
-
-            if not obj.prerendered_content:
-                # turn off frontend edit for this redner
-                request = self.request
-                request.frontend_editing = False
-                obj.prerendered_content = obj.render_content(
-                    options={'request': request})
-                obj.save()
-
+            obj = form.save()
+            self.handle_dimensions(obj)
+            obj.ordering = obj.next_ordering
+            self.populate_widget_content(obj)
+            obj.parent.save()
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
@@ -133,7 +144,12 @@ class CreateView(ModalFormView, CreateView):
     template_name = 'widget/create.html'
 
     def get_label(self):
-        return ugettext("Create")
+        return ugettext("Create new Widget")
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateView, self).get_context_data(**kwargs)
+        context['modal_size'] = 'modal-sm'
+        return context
 
     def get_form(self, form_class):
         """Returns an instance of the form to be used in this view."""
@@ -186,6 +202,80 @@ class DeleteWidgetView(ModalFormView, ContextMixin, ModelFormMixin):
     def get_initial(self):
         return self.kwargs
 
+
+class PageUpdateView(ModalFormView):
+
+    template_name = 'widget/create.html'
+
+    form_class = PageUpdateForm
+
+    @property
+    def object(self):
+
+        try:
+            obj = Page.objects.get(id=self.kwargs["page_id"])
+        except Exception, e:
+            raise e
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(PageUpdateView, self).get_context_data(**kwargs)
+        from .tables import PageDimensionTable
+        context['table'] = PageDimensionTable(
+            self.request, page=self.object, data=self.object.own_dimensions)
+        # add extra context for template
+        context['url'] = self.request.build_absolute_uri()
+        context['modal_header'] = _("Update Page")
+        context['title'] = "self.get_header()"
+        context['view_name'] = _("Update")
+        context['heading'] = "self.get_header()"
+        context['modal_size'] = "modal-lg"
+        return context
+
+    def handle_dimensions(self, obj):
+        from .tables import PageDimensionFormset
+        from .models import PageDimension
+        formset = PageDimensionFormset(
+            self.request.POST, prefix='dimensions')
+        for form in formset.forms:
+            if form.is_valid():
+                form.save()
+            else:
+                # little ugly
+                raise Exception(form.cleaned_data)
+                data = form.cleaned_data
+                data['widget_type'] = \
+                    ContentType.objects.get_for_model(obj)
+                data['widget_id'] = obj.id
+                data.pop('DELETE')
+                wd = WidgetDimension(**data)
+                wd.save()
+        return True
+
+    def get_form(self, form_class):
+        kwargs = self.get_form_kwargs()
+        kwargs.update({
+            'request': self.request,
+            'instance': self.object,
+            'initial': {'page': self.object}
+        })
+        return get_page_update_form()(**kwargs)
+
+    def form_valid(self, form):
+        try:
+            page = form.save()
+            #self.handle_dimensions(page)
+        except Exception as e:
+            raise e
+            # TODO push message
+            # message.error(self.request, str(e))
+
+        return HttpResponseRedirect(page.get_absolute_url())
+
+    def form_invalid(self, form):
+        raise Exception(form.errors)
+
+
 urlpatterns = patterns('',
                        url(r'^models/(?P<page_id>[\w\.\-]+)/(?P<region>[\w\.\-]+)/create/$',
                            CreateView.as_view(), name='widget_create'),
@@ -195,5 +285,7 @@ urlpatterns = patterns('',
                            UpdateView.as_view(), name='widget_update'),
                        url(r'^models/(?P<cls_name>[\w\.\-]+)/(?P<id>[\w\.\-]+)/delete/$',
                            DeleteWidgetView.as_view(), name='widget_delete'),
-                        url(r'^redactor/', include('redactor.urls')),
+                       url(r'^redactor/', include('redactor.urls')),
+                       url(r'^models/(?P<page_id>[\w\.\-]+)/update/$',
+                           PageUpdateView.as_view(), name='page_update'),
                        )

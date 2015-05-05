@@ -1,31 +1,36 @@
-{% extends "widget/base.html" %}
-
-{% load webcms_tags %}
+{% extends widget.get_base_template %}
 {% load thumbnail %}
 
 {% block content %}
-<ul class="carousel-gallery" id="{{ widget.fe_identifier }}-gallery">
-{% for category_file in widget.category.media.all %}
-{% with category_file.file as file %}
-	<li>
-		{% if file.type == 'image' %}
-		{% thumbnail file.file widget.image_geom as image %}
-		<a href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
-		{% thumbnail file.file widget.thumb_geom as thumbnail %}
-		<img src="{{ thumbnail.url }}" alt="" />
-		{% endthumbnail %}
-		</a>
-		{% endthumbnail %}
-		{% else %}
-		{% endif %}
-	</li>
-{% endwith %}
-{% endfor %}
-</ul>
+<div class="carousel slide" id="carousel_{{ widget.fe_identifier }}" data-ride="carousel">
+  <ol class="carousel-indicators">
+    {% for category_file in widget.category.all_files.all %}
+    {% with category_file.file as file %}
+    <li data-target="#carousel_{{ widget.fe_identifier }}" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+    {% endwith %}
+    {% endfor %}
+  </ol>
+  <div class="carousel-inner" role="listbox">
+    {% for category_file in widget.category.all_files.all %}
+    {% with category_file.file as file %}
+    <div class="item">
+      {% include "widget/mediagallery/_image.html" %}
+    </div>
+    {% endwith %}
+    {% endfor %}
+  </div>
+  <a class="left carousel-control" href="#carousel_{{ widget.fe_identifier }}" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel_{{ widget.fe_identifier }}" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#{{ widget.fe_identifier }}-gallery").jcarousel();
-	$("#{{ widget.fe_identifier }}-gallery a[rel='{{ widget.fe_identifier }}']").colorbox();
+  $("#carousel_{{ widget.fe_identifier }} a[rel='{{ widget.fe_identifier }}']").colorbox();
 });
 </script>
 {% endblock %}

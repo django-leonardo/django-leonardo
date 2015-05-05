@@ -19,19 +19,32 @@ def get_col_classes(page, region):
         return data
 
 
+@register.inclusion_tag('leonardo/common/_region_tools.html',
+                        takes_context=True)
+def render_region_tools(context, feincms_object, region, request=None):
+    """
+    {% render_region_tools feincms_page "main" request %}
+    """
+    edit = False
+    if getattr(settings, 'LEONARDO_USE_PAGE_ADMIN', False):
+        request = context.get('request', None)
+        frontend_edit = request.COOKIES.get(
+            'frontend_editing', False)
+        if frontend_edit:
+            edit = True
+
+    return {
+        'edit': edit,
+        'feincms_object': feincms_object,
+        'region': region
+    }
+
+
 @register.simple_tag(takes_context=True)
 def feincms_render_region(context, feincms_object, region, request=None):
     """
     {% feincms_render_region feincms_page "main" request %}
     """
-    edit = ''
-    if getattr(settings, 'LEONARDO_USE_PAGE_ADMIN', False):
-        request = context.get('request', None)
-        if request and request.COOKIES.get(
-                'frontend_editing', False):
-            url = reverse("widget_create", args=[feincms_object.id, region])
-            edit = """<a href="{0}" class='ajax-modal'>{1}</a>""".format(
-                url, _('Add'))
-    return edit + ''.join(
+    return ''.join(
         _render_content(content, request=request, context=context)
         for content in getattr(feincms_object.content, region))

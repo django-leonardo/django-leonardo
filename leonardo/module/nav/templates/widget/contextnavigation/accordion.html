@@ -1,20 +1,22 @@
 {% extends widget.get_base_template %}
 
-{% load i18n feincms_tags feincms_page_tags %}
-
 {% block content %}
-<div class="box-group">
-  <div class="panel box">
-    {% for child_page in page.get_children %}
-    <div id="{{ widget.fe_identifier }}_{{ forloop.counter0 }}" class="tab-pane">
-      <div class="box-header with-border">
-        <h4 class="box-title">
-          <a class="" aria-expanded="true" data-toggle="collapse" data-parent="#accordion" href="#{{ widget.fe_identifier }}_{{ forloop.counter0 }}">{{ child_page.title }}</a>
-        </h4>
-      </div>
-      {% feincms_render_region child_page region request %}
+<div class="panel-group" id="accordion_{{ widget.fe_identifier }}">
+  {% for child_page in page.get_children %}
+  {% if child_page.in_navigation %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion_{{ widget.fe_identifier }}" href="#accordion_{{ widget.fe_identifier }}_{{ forloop.counter0 }}">{{ child_page.title }}</a>
+      </h4>
     </div>
-    {% endfor %}
+    <div id="accordion_{{ widget.fe_identifier }}_{{ forloop.counter0 }}" class="panel-collapse collapse{% if forloop.first %} in{% endif %}">
+      <div class="panel-body">
+        {% include "widget/contextnavigation/_page.html" %}
+      </div>
+    </div>
   </div>
+  {% endif %}
+  {% endfor %}
 </div>
 {% endblock %}

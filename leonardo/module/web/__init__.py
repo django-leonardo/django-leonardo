@@ -55,6 +55,8 @@ class Default(object):
             'feincms',
             'mptt',
             'crispy_forms',
+            'floppyforms',
+
             'dbtemplates',
             'leonardo.module',
 

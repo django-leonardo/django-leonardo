@@ -1,0 +1,30 @@
+{% extends widget.get_base_template %}
+
+{% load feincms_page_tags %}
+
+{% block content %}
+{% feincms_nav root level=level depth=1 as toplevel %}
+<ul class="nav nav-tabs{% if widget.orientation == 'vertical' %} nav-stacked{% endif %}">
+{% if depth == 1 %}
+{% for page in toplevel %}
+  {% include "widget/treenavigation/_page.html" %}
+{% endfor %}
+{% else %}
+{% for page in toplevel %}
+  {% feincms_nav page level=level2 depth=1 as sublevel %}
+  {% if sublevel|length == 0 %}
+  {% include "widget/treenavigation/_page.html" %}
+  {% else %}
+  <li class="dropdown {% if page|is_equal_or_parent_of:current %}active{% endif %}">
+    <a class="dropdown-toggle" href="{{ page.get_absolute_url }}">{{ page.title }} <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+    {% for subpage in sublevel %}
+      {% include "widget/treenavigation/_sub_page.html" %}
+    {% endfor %}
+    </ul>
+  </li>
+  {% endif %}
+{% endfor %}
+{% endif %}
+</ul>
+{% endblock %}

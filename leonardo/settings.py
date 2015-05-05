@@ -87,7 +87,7 @@ if StrictVersion(django.get_version()) > StrictVersion('1.7.7'):
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
                     'horizon.loaders.TemplateLoader',
-                    ]
+                ]
             },
         },
     ]
@@ -239,7 +239,45 @@ except Exception, e:
 APPLICATION_CHOICES = []
 
 
+def elephantblog_entry_url_app(self):
+    from leonardo.module.web.widget.application.reverse import app_reverse
+    return app_reverse(
+        'elephantblog_entry_detail',
+        'elephantblog.urls',
+        kwargs={
+            'year': self.published_on.strftime('%Y'),
+            'month': self.published_on.strftime('%m'),
+            'day': self.published_on.strftime('%d'),
+            'slug': self.slug,
+        })
+
+
+def elephantblog_categorytranslation_url_app(self):
+    from leonardo.module.web.widget.application.reverse import app_reverse
+    return app_reverse(
+        'elephantblog_category_detail',
+        'elephantblog.urls',
+        kwargs={
+            'slug': self.slug,
+        })
+
+
+def oscar_product_url_app(self):
+    from leonardo.module.web.widget.application.reverse import app_reverse
+    return app_reverse(
+        'detail',
+        'leonardo_module_eshop.apps.catalog',
+        kwargs={'product_slug': self.slug, 'pk': self.id})
+
+ABSOLUTE_URL_OVERRIDES = {
+    'catalogue.product': oscar_product_url_app,
+    'elephantblog.entry': elephantblog_entry_url_app,
+    'elephantblog.categorytranslation':
+    elephantblog_categorytranslation_url_app,
+}
+
 try:
+
     # override settings
     try:
         from leonardo_site.conf.feincms import *
@@ -315,6 +353,7 @@ try:
             Page.create_content_type(widget, optgroup=optgroup)
 
     Page.register_extensions(*PAGE_EXTENSIONS)
+    Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
 except Exception as e:
     raise e
 
@@ -357,5 +396,3 @@ if 'bootstrap_admin' in INSTALLED_APPS:
     BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
     # INSTALLED_APPS.remove('bootstrap_admin')
     #INSTALLED_APPS = ['bootstrap_admin'] + INSTALLED_APPS
-
-#raise Exception(TEMPLATES)

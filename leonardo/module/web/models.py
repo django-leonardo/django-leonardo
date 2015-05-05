@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -16,8 +17,9 @@ from feincms.module.page.models import BasePage as FeinCMSPage
 from horizon.utils.memoized import memoized
 from leonardo.utils.templates import find_all_templates, template_choices
 
+from . import edit_processors
 from .const import *
-from .forms import WidgetUpdateForm, WIDGETS
+from .forms import get_page_update_form, WIDGETS, WidgetUpdateForm
 
 
 @python_2_unicode_compatible
@@ -91,14 +93,26 @@ class Page(FeinCMSPage):
         ordering = ['tree_id', 'lft']
 
     @property
+    def get_model_form(self):
+        return get_page_update_form()(instance=self)
+
+    @property
+    def own_dimensions(self):
+        self_dimensions = PageDimension.objects.filter(
+            page=self)
+        return self_dimensions
+
+    @property
     def dimensions(self):
         # collect all dimensions
+        self_dimensions = self.own_dimensions
+        if self_dimensions.count() > 0:
+            return self_dimensions
         parent_dimensions = None
         if self.parent:
             parent_dimensions = self.parent.dimensions
         parent_dimensions = parent_dimensions or PageDimension.objects.none()
-        return parent_dimensions | PageDimension.objects.filter(
-            page=self)
+        return parent_dimensions
 
     @property
     def get_base_template(self):
@@ -114,34 +128,24 @@ class Page(FeinCMSPage):
                     d.size, getattr(d, '{}_width'.format(col))))
         return " ".join(classes)
 
+    @classmethod
+    def register_default_processors(cls, frontend_editing=None):
+        """
+        Register our default request processors for the out-of-the-box
+        Page experience.
 
-@python_2_unicode_compatible
-class WidgetDimension(models.Model):
+        Since FeinCMS 1.11 was removed from core.
 
-    widget_type = models.ForeignKey(ContentType)
-    widget_id = models.PositiveIntegerField()
-    widget_object = generic.GenericForeignKey('widget_type', 'widget_id')
+        """
+        super(Page, cls).register_default_processors()
 
-    size = models.CharField(
-        verbose_name="Size", max_length=20, choices=DISPLAY_SIZE_CHOICES, default='md')
-    width = models.IntegerField(verbose_name=_("Width"),
-                                choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
-    height = models.IntegerField(verbose_name=_("Height"),
-                                 choices=ROW_CHOICES, default=DEFAULT_CHOICE)
-    offset = models.IntegerField(verbose_name=_("Offset"),
-                                 choices=COLUMN_CHOICES, default=DEFAULT_CHOICE)
-
-    @property
-    def width_class(self):
-        STR = "col-{0}-{1}"
-        return STR.format(self.size, self.width)
-
-    def __str__(self):
-        return "{0} - {1}".format(self.widget_type, self.width_class)
-
-    class Meta:
-        verbose_name = _("Widget dimension")
-        verbose_name_plural = _("Widget dimensions")
+        if frontend_editing:
+            cls.register_request_processor(
+                edit_processors.frontendediting_request_processor,
+                key='frontend_editing')
+            cls.register_response_processor(
+                edit_processors.frontendediting_response_processor,
+                key='frontend_editing')
 
 
 class WidgetInline(FeinCMSInline):
@@ -189,17 +193,21 @@ class WidgetDimension(models.Model):
     width = models.IntegerField(verbose_name=_("Width"),
                                 choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
     height = models.IntegerField(verbose_name=_("Height"),
-                                 choices=ROW_CHOICES, default=DEFAULT_WIDTH)
+                                 choices=ROW_CHOICES, default=0)
     offset = models.IntegerField(verbose_name=_("Offset"),
-                                 choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+                                 choices=COLUMN_CHOICES, default=0)
 
     @property
-    def width_class(self):
-        STR = "col-{0}-{1}"
-        return STR.format(self.size, self.width)
+    def classes(self):
+        classes = []
+        classes.append('col-{}-{}'.format(self.size, self.width))
+        if self.height != 0:
+            classes.append('row-{}-{}'.format(self.size, self.height))
+        classes.append('col-{}-offset-{}'.format(self.size, self.offset))
+        return ' '.join(classes)
 
     def __str__(self):
-        return "{0} - {1}".format(self.widget_type, self.width_class)
+        return "{0} - {1}".format(self.widget_type, self.classes)
 
     class Meta:
         verbose_name = _("Widget dimension")
@@ -259,9 +267,9 @@ class Widget(FeinCMSBase):
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     base_theme = models.ForeignKey(
-        WidgetBaseTheme, verbose_name=_('Base theme'))
+        WidgetBaseTheme, verbose_name=_('Base theme'), related_name="%(app_label)s_%(class)s_related")
     content_theme = models.ForeignKey(
-        WidgetContentTheme, verbose_name=_('Content theme'))
+        WidgetContentTheme, verbose_name=_('Content theme'), related_name="%(app_label)s_%(class)s_related")
 
     class Meta:
         abstract = True
@@ -270,6 +278,11 @@ class Widget(FeinCMSBase):
 
     def __str__(self):
         return self.label or super(Widget, self).__str__()
+
+    def get_ct_name(self):
+        """returns content type name with app label
+        """
+        return ".".join([self._meta.app_label, self._meta.model_name])
 
     def thumb_geom(self):
         return config_value('MEDIA', 'THUMB_MEDIUM_GEOM')
@@ -337,7 +350,7 @@ class Widget(FeinCMSBase):
         """
         classes = []
         for d in self.dimensions:
-            classes.append(d.width_class)
+            classes.append(d.classes)
         return " ".join(classes)
 
     @classmethod
@@ -362,3 +375,28 @@ class Widget(FeinCMSBase):
         return fields_for_model(
             cls, exclude=widget_fields,
             widgets=WIDGETS)
+
+    @property
+    def next_ordering(self):
+        """return order for creating in content region
+        """
+        if self.parent:
+            return len(getattr(self.parent.content, self.region, [])) + 1
+        else:
+            return 0
+
+    def fe_identifier(self):
+        """
+        Returns an identifier which is understood by the frontend
+        editing javascript code. (It is used to find the URL which
+        should be used to load the form for every given block of
+        content.)
+        """
+        cls = self.__class__
+        return '%s-%s-%s-%s-%s' % (
+            cls._meta.app_label,
+            cls._meta.model_name,
+            self.__class__.__name__.lower(),
+            self.parent_id,
+            self.id,
+        )

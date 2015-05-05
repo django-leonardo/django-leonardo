@@ -1,5 +1,32 @@
 # -#- coding: utf-8 -#-
 
+from __future__ import absolute_import, unicode_literals
+
+from email.utils import parsedate
+from time import mktime
+from random import SystemRandom
+import re
+
+from django.conf import settings
+from django.core.cache import cache
+from django.core.urlresolvers import (
+    Resolver404, resolve, reverse, NoReverseMatch)
+from django.db import models
+from django.db.models import signals
+from django.http import HttpResponse
+from django.template.response import TemplateResponse
+from django.utils.functional import curry as partial, lazy, wraps
+from django.utils.http import http_date
+from django.utils.safestring import mark_safe
+from django.utils.translation import get_language, ugettext_lazy as _
+
+from feincms.admin.item_editor import ItemEditorForm
+from feincms.contrib.fields import JSONField
+from feincms.translations import short_language_code
+from feincms.utils import get_object
+
+
+
 from django.db import models
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -83,20 +110,101 @@ class ApplicationWidget(Widget, ApplicationContent):
                             self.fields[k].initial = params[k]
 
     def render_content(self, options):
+        self.process(**options)
+        data = {
+            'widget': self,
+            'request': options.get('request'),
+        }
+        context = RequestContext(options.get('request'), data)
+        if hasattr(self, 'raw_context'):
+            return render_to_string(self.get_template, context)
+        context['content'] = getattr(self, 'rendered_result', _('No result'))
+        return render_to_string(self.get_template, context)
+
+    def process(self, request, **kw):
+        page_url = self.parent.get_absolute_url()
+
+        # Provide a way for appcontent items to customize URL processing by
+        # altering the perceived path of the page:
+        if "path_mapper" in self.app_config:
+            path_mapper = get_object(self.app_config["path_mapper"])
+            path, page_url = path_mapper(
+                request.path,
+                page_url,
+                appcontent_parameters=self.parameters
+            )
+        else:
+            path = request._feincms_extra_context['extra_path']
+
+        # Resolve the module holding the application urls.
+        urlconf_path = self.app_config.get('urls', self.urlconf_path)
 
         try:
-            data = {
-                'widget': self,
-                'content': self.rendered_result
-            }
-        except:
-            data = {
-                'widget': self,
-                'content': '<div class="alert">no rendered result</div>'
-            }
-        context = RequestContext(options.get('request'), data)
+            fn, args, kwargs = resolve(path, urlconf_path)
+        except (ValueError, Resolver404):
+            raise Resolver404(str('Not found (resolving %r in %r failed)') % (
+                path, urlconf_path))
 
-        return render_to_string(self.get_template, context)
+        # Variables from the ApplicationContent parameters are added to request
+        # so we can expose them to our templates via the appcontent_parameters
+        # context_processor
+        request._feincms_extra_context.update(self.parameters)
+        request._feincms_extra_context.update({'widget': self})
+        # Save the application configuration for reuse elsewhere
+        request._feincms_extra_context.update({
+            'app_config': dict(
+                self.app_config,
+                urlconf_path=self.urlconf_path,
+            ),
+        })
+
+        view_wrapper = self.app_config.get("view_wrapper", None)
+        if view_wrapper:
+            fn = partial(
+                get_object(view_wrapper),
+                view=fn,
+                appcontent_parameters=self.parameters
+            )
+
+        output = fn(request, *args, **kwargs)
+
+        if isinstance(output, HttpResponse):
+            if self.send_directly(request, output):
+                return output
+            elif output.status_code == 200:
+
+                if self.unpack(request, output) and 'view' in kw:
+                    # Handling of @unpack and UnpackTemplateResponse
+                    kw['view'].template_name = output.template_name
+                    kw['view'].request._feincms_extra_context.update(
+                        output.context_data)
+
+                else:
+                    # If the response supports deferred rendering, render the
+                    # response right now. We do not handle template response
+                    # middleware.
+                    if hasattr(output, 'render') and callable(output.render):
+                        output.render()
+
+                    self.rendered_result = mark_safe(
+                        output.content.decode('utf-8'))
+                self.rendered_headers = {}
+
+                # Copy relevant headers for later perusal
+                for h in ('Cache-Control', 'Last-Modified', 'Expires'):
+                    if h in output:
+                        self.rendered_headers.setdefault(
+                            h, []).append(output[h])
+
+        elif isinstance(output, tuple) and 'view' in kw:
+            kw['view'].template_name = output[0]
+            kw['view'].request._feincms_extra_context.update(output[1])
+
+        else:
+            self.raw_context = output
+            self.rendered_result = mark_safe(output)
+
+        return True  # successful
 
     class Meta:
         abstract = True

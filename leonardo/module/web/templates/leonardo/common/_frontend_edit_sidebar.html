@@ -1,0 +1,108 @@
+
+{% load crispy_forms_tags i18n %}
+{% load url from future %}
+
+{% block css_extra %}
+<style type="text/css">
+#settings_button {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+#settings_menu {
+    padding: 10px;
+    position: fixed;
+    top: 70px;
+    right: -250px;
+    width: 250px;
+    z-index: 1000;
+}
+</style>
+{% endblock %}
+
+<div class="no-print btn btn-primary" id="settings_button"><i class="fa fa-gear"></i></div>
+<div class="no-print panel panel-default" id="settings_menu">
+  <div class="panel-body">
+    <a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'page_update' feincms_page.id %}"><i class="fa fa-sliders"></i> {% trans 'Edit Page' %}</a>
+    <a class="btn btn-primary btn-sm btn-block" target="_blank" href="{% url 'admin:web_page_change' feincms_page.id %}"><i class="fa fa-sliders"></i> {% trans 'Open Admin' %}</a>
+    <a class="btn btn-primary btn-sm btn-block" href="?frontend_editing=0"><i class="fa fa-power-off"></i> {% trans 'Stop Editing' %}</a>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+
+  $('#settings_button').click(function () {
+    demo_settings = $('#settings_menu');
+    if (!$(this).hasClass("open")) {
+      $(this).animate({"right": "250px"});
+      demo_settings.animate({"right": "0"});
+      $(this).addClass("open");
+    } else {
+      $(this).animate({"right": "0"});
+      demo_settings.animate({"right": "-250px"});
+      $(this).removeClass("open");
+    }
+  });
+
+  setup();
+
+  /**
+   * Toggles layout classes
+   * 
+   * @param String cls the layout class to toggle
+   * @returns void
+   */
+  function change_layout(cls) {
+    $("body").toggleClass(cls);
+    $.AdminLTE.layout.fixSidebar();
+  }
+
+  /**
+   * Replaces the old skin with the new skin
+   * @param String cls the new skin class
+   * @returns Boolean false to prevent link's default action
+   */
+  function change_skin(cls) {
+    $.each(my_skins, function (i) {
+      $("body").removeClass(my_skins[i]);
+    });
+
+    $("body").addClass(cls);
+    store('skin', cls);
+    return false;
+  }
+
+  /**
+   * Retrieve default settings and apply them to the template
+   * 
+   * @returns void
+   */
+  function setup() {
+
+    //Add the change skin listener
+    $("[data-skin]").on('click', function (e) {
+      e.preventDefault();
+      change_skin($(this).data('skin'));
+    });
+
+    //Add the layout manager
+    $("[data-layout]").on('click', function () {
+      change_layout($(this).data('layout'));
+    });
+    
+    $("[data-controlsidebar]").on('click', function () {
+      change_layout($(this).data('controlsidebar'));
+      var slide = !$.AdminLTE.options.controlSidebarOptions.slide;
+      $.AdminLTE.options.controlSidebarOptions.slide = slide;
+      if(!slide)
+        $('.control-sidebar').removeClass('control-sidebar-open');
+    });
+  }
+
+});
+
+</script>

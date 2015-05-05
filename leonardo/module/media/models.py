@@ -57,6 +57,15 @@ class Video(MediaMixin, File):
         verbose_name_plural = ('videos')
 
 
+class Flash(MediaMixin, File):
+
+    filename_extensions = ['.swf']
+
+    class Meta:
+        verbose_name = ("flash video")
+        verbose_name_plural = ('flash videos')
+
+
 class Image(MediaMixin, BaseImage):
 
     filename_extensions = ['.jpg', '.jpeg', '.png', '.gif', ]

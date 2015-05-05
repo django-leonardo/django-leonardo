@@ -1,28 +1,19 @@
-{% extends "widget/base.html" %}
-
-{% load thumbnail %}
+{% extends widget.get_base_template %}
+{% load i18n thumbnail %}
 
 {% block content %}
-<ul class="horizontal">
-{% for category_file in widget.category.media.all %}
-{% with category_file.file as file %}
-	<li>
-		{% if file.type == 'image' %}
-		{% thumbnail file.file widget.image_geom as image %}
-		<a href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
-		{% thumbnail file.file widget.thumb_geom crop="center" as thumb %}
-		<img src="{{ thumb.url }}" alt="" />
-		{% endthumbnail %}
-		</a>
-		{% endthumbnail %}
-		{% endif %}
-	</li>
-{% endwith %}
-{% endfor %}
-</ul>
+<div class="row">
+  {% for category_file in widget.category.all_files.all %}
+  {% with category_file.file as file %}
+  <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+    {% include "widget/mediagallery/_image.html" %}
+  </div>
+  {% endwith %}
+  {% endfor %}
+</div>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("a[rel='{{ widget.fe_identifier }}']").colorbox();
+  $("#{{ widget.fe_identifier }}-gallery a[rel='{{ widget.fe_identifier }}']").colorbox();
 });
 </script>
 {% endblock %}

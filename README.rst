@@ -122,7 +122,7 @@ Read More
 * https://django-oscar.readthedocs.org/en/releases-1.0/
 
 .. |Doc badge| image:: https://readthedocs.org/projects/django-leonardo/badge/?version=develop
-.. |Pypi| image:: https://pypip.in/d/django-leonardo/badge.svg?style=flat
-.. |PypiVersion| image:: https://pypip.in/version/django-leonardo/badge.svg?style=flat
+.. |Pypi| image:: https://img.shields.io/pypi/dm/django-leonardo.svg?style=flat
+.. |PypiVersion| image:: https://badge.fury.io/py/django-leonardo.svg?style=flat
 .. |Travis| image:: https://travis-ci.org/django-leonardo/django-leonardo.svg?branch=develop
 

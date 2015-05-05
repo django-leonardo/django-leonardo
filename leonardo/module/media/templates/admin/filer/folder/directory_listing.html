@@ -56,11 +56,11 @@
 
 {% block content_title %}{% endblock %}
 {% block content %}
-<div class="wrapper-search-and-tools row-fluid">
-    <div class="span8 container-changelist-search">
+<div class="wrapper-search-and-tools row-fluid container">
+    <div class="col-md-6 container-changelist-search">
         {% include "admin/filer/tools/search_form.html" %}
     </div>
-    <div class="span4 container-object-tools">
+    <div class="col-md-4 container-object-tools">
         <ul class="object-tools pull-right">
             {% if folder.can_have_subfolders %}
                 <li>
