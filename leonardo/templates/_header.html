@@ -19,8 +19,9 @@
 {% endblock %}
 
 
+{% compress css %}
 {% block page_css %}
-<style name="themeeee" type="text/css">
+<style type="text/css">
 {{ request.leonardo_page.theme.style|safe }}
 </style>
 
@@ -29,6 +30,7 @@
 </style>
 
 {% endblock %}
+{% endcompress %}
 
 {% compress css %}
 
