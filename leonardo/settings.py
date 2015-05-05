@@ -194,7 +194,6 @@ LOGGING = {
 
 # migrations support
 MIGRATION_MODULES = {
-    'application': 'leonardo.migrations.application',
     'filer': 'filer.migrations_django',
 }
 
