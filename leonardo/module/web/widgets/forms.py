@@ -75,6 +75,7 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
             from .tables import WidgetDimensionTable
             _request = copy.copy(request)
             _request.POST = {}
+            _request.method = 'GET'
             initial = kwargs.get('initial', None)
             if initial and initial.get('id', None):
                 widget = self._meta.model.objects.get(
@@ -175,7 +176,9 @@ class WidgetSelectForm(SelfHandlingForm):
                 if not request.user.has_perm(perm):
                     continue
 
-                ct_info = (ct.__name__.lower(), ct._meta.verbose_name)
+                ct_info = ('.'.join([ct._meta.app_label,
+                                     ct.__name__.lower()]),
+                           ct._meta.verbose_name)
                 if hasattr(ct, 'optgroup'):
                     if ct.optgroup in grouped:
                         grouped[ct.optgroup].append(ct_info)
@@ -192,7 +195,8 @@ class WidgetSelectForm(SelfHandlingForm):
             Field('parent'),
             Field('page_id'),
             Field('ordering'),
-            HTML(render_to_string("widget/content_type_selection_widget.html", {'grouped': grouped, 'ungrouped': ungrouped}),
+            HTML(render_to_string("widget/content_type_selection_widget.html",
+                                  {'grouped': grouped, 'ungrouped': ungrouped}),
                  ),
         )
 
