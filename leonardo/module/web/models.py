@@ -17,7 +17,7 @@ from feincms.module.page.models import BasePage as FeinCMSPage
 from horizon.utils.memoized import memoized
 from leonardo.utils.templates import find_all_templates, template_choices
 
-from . import edit_processors
+from .processors import edit as edit_processors
 from .const import *
 from .forms import get_page_update_form, WIDGETS, WidgetUpdateForm
 
@@ -257,6 +257,7 @@ class WidgetBaseTheme(models.Model):
         verbose_name_plural = _("Widget base themes")
 
 
+@python_2_unicode_compatible
 class Widget(FeinCMSBase):
 
     feincms_item_editor_inline = WidgetInline
@@ -277,7 +278,16 @@ class Widget(FeinCMSBase):
         verbose_name_plural = _("Abstract widgets")
 
     def __str__(self):
-        return self.label or super(Widget, self).__str__()
+        return self.label or (
+            '%s<pk=%s, parent=%s<pk=%s, %s>, region=%s,'
+            ' ordering=%d>') % (
+            self.__class__.__name__,
+            self.pk,
+            self.parent.__class__.__name__,
+            self.parent.pk,
+            self.parent,
+            self.region,
+            self.ordering)
 
     def get_ct_name(self):
         """returns content type name with app label

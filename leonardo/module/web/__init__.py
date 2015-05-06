@@ -74,7 +74,7 @@ class Default(object):
         """return WEB Conent Type Processors
         """
         return [
-            'leonardo.module.web.processors.add_page_if_missing',
+            'leonardo.module.web.processors.page.add_page_if_missing',
         ]
 
     @property
