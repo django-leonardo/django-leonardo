@@ -8,13 +8,14 @@ from django.utils.translation import ugettext_lazy as _
 from horizon_contrib.forms.views import ModalFormView
 from leonardo.module.web.forms import get_page_update_form
 
-from ..forms import PageUpdateForm
+from .forms import PageUpdateForm
+from .dimension.forms import PageDimensionForm
 from ..models import Page
 
 
 class PageUpdateView(ModalFormView):
 
-    template_name = 'widget/create.html'
+    template_name = 'leonardo/common/modal.html'
 
     form_class = PageUpdateForm
 
@@ -29,9 +30,6 @@ class PageUpdateView(ModalFormView):
 
     def get_context_data(self, **kwargs):
         context = super(PageUpdateView, self).get_context_data(**kwargs)
-        from ..tables import PageDimensionTable
-        context['table'] = PageDimensionTable(
-            self.request, page=self.object, data=self.object.own_dimensions)
         # add extra context for template
         context['url'] = self.request.build_absolute_uri()
         context['modal_header'] = _("Update Page")
@@ -41,26 +39,6 @@ class PageUpdateView(ModalFormView):
         context['modal_size'] = "modal-lg"
         return context
 
-    def handle_dimensions(self, obj):
-        from ..tables import PageDimensionFormset
-        from ..models import PageDimension
-        formset = PageDimensionFormset(
-            self.request.POST, prefix='dimensions')
-        for form in formset.forms:
-            if form.is_valid():
-                form.save()
-            else:
-                # little ugly
-                raise Exception(form.cleaned_data)
-                data = form.cleaned_data
-                data['widget_type'] = \
-                    ContentType.objects.get_for_model(obj)
-                data['widget_id'] = obj.id
-                data.pop('DELETE')
-                wd = PageDimension(**data)
-                wd.save()
-        return True
-
     def get_form(self, form_class):
         kwargs = self.get_form_kwargs()
         kwargs.update({
@@ -68,18 +46,59 @@ class PageUpdateView(ModalFormView):
             'instance': self.object,
             'initial': {'page': self.object}
         })
-        return get_page_update_form()(**kwargs)
+        return self.form_class(**kwargs)
 
     def form_valid(self, form):
         try:
             page = form.save()
-            #self.handle_dimensions(page)
         except Exception as e:
             raise e
             # TODO push message
             # message.error(self.request, str(e))
 
         return HttpResponseRedirect(page.get_absolute_url())
+
+    def form_invalid(self, form):
+        raise Exception(form.errors)
+
+
+class PageDimensionUpdateView(ModalFormView):
+
+    template_name = 'leonardo/common/modal.html'
+
+    form_class = PageDimensionForm
+
+    @property
+    def page(self):
+
+        try:
+            obj = Page.objects.get(id=self.kwargs["page_id"])
+        except Exception, e:
+            raise e
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(PageDimensionUpdateView, self).get_context_data(**kwargs)
+        # add extra context for template
+        context['url'] = self.request.build_absolute_uri()
+        context['modal_header'] = _("Add Page Dimesion")
+        context['title'] = "self.get_header()"
+        context['view_name'] = _("Create")
+        context['heading'] = "self.get_header()"
+        return context
+
+    def get_initial(self):
+        return {'page': self.page}
+
+    def form_valid(self, form):
+        try:
+            dimension = form.save()
+        except Exception as e:
+            raise e
+            # TODO push message
+            # message.error(self.request, str(e))
+
+        return HttpResponseRedirect(dimension.page.get_absolute_url())
 
     def form_invalid(self, form):
         raise Exception(form.errors)

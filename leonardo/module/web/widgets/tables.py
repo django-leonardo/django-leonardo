@@ -1,5 +1,6 @@
 
 import floppyforms as forms
+from django.core import urlresolvers
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 from horizon import tables
@@ -110,7 +111,22 @@ class PageFormsetRow(FormsetRow):
             self.form.fields['page'].initial = self.page_object
 
 
-class PageDimensionTable(FormsetDataTable):
+class PageDimensionAddAction(tables.LinkAction):
+
+    name = "dimension_add"
+    verbose_name = _("Override page dimension")
+    classes = ("ajax-modal", "btn-edit")
+    url = "page_dimension_add"
+
+    def get_link_url(self):
+        return urlresolvers.reverse(
+            self.url, args=[self.table.page_object.id])
+
+    def allowed(self, request, instance):
+        return True
+
+
+class PageDimensionTable(tables.DataTable):
 
     formset_class = PageDimensionFormset
 
@@ -127,10 +143,12 @@ class PageDimensionTable(FormsetDataTable):
                 queryset=queryset)
         return self._formset
 
-    def __init__(self, *args, **kwargs):
-        self._meta.row_class = PageFormsetRow
+    def __init__(self, request, data=None, needs_form_wrapper=None, **kwargs):
+
+        #self._meta.row_class = PageFormsetRow
         self.page_object = kwargs.pop('page', None)
-        super(PageDimensionTable, self).__init__(*args, **kwargs)
+        super(PageDimensionTable, self).__init__(
+            request, data, needs_form_wrapper, **kwargs)
 
     page = tables.Column('page')
     size = tables.Column('size', verbose_name=_('Size'))
@@ -138,8 +156,9 @@ class PageDimensionTable(FormsetDataTable):
     col2_width = tables.Column('col2_width', verbose_name=_('Column 2 Width'))
     col3_width = tables.Column('col3_width', verbose_name=_('Column 3 Width'))
 
-    name = 'dimensions'
+    name = 'page-dimensions'
 
     class Meta:
         name = 'dimensions'
         table_name = 'Dimensions'
+        table_actions = (PageDimensionAddAction,)

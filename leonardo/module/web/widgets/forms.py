@@ -1,6 +1,6 @@
 
 import copy
-from crispy_forms.bootstrap import Tab, TabHolder, Accordion, AccordionGroup
+from crispy_forms.bootstrap import Tab, TabHolder
 from crispy_forms.layout import Field, HTML, Layout
 from django import forms
 from django.contrib.auth import get_permission_codename
@@ -13,7 +13,7 @@ from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from horizon_contrib.forms import SelfHandlingForm, SelfHandlingModelForm
-from redactor.widgets import RedactorEditor
+#from redactor.widgets import RedactorEditor
 
 WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
@@ -44,7 +44,6 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
         self.fields['content_theme'].queryset = \
             queryset.filter(widget_class=self._meta.model.__name__)
-        from .tables import WidgetDimensionTable
         self.helper.layout = Layout(
             TabHolder(
                 Tab(self._meta.model._meta.verbose_name.capitalize(),
@@ -73,6 +72,7 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                 attrs={'placeholder': self._meta.model._meta.verbose_name})
 
         if request:
+            from .tables import WidgetDimensionTable
             _request = copy.copy(request)
             _request.POST = {}
             initial = kwargs.get('initial', None)
@@ -205,78 +205,6 @@ class WidgetSelectForm(SelfHandlingForm):
         return self.next_view.as_view()(request, **data)
 
 
-class PageUpdateForm(ItemEditorForm, SelfHandlingModelForm):
-
-    class Meta:
-        widgets = {
-            'site': forms.widgets.HiddenInput,
-            'parent': forms.widgets.HiddenInput,
-            'override_url': forms.widgets.HiddenInput,
-        }
-
-    def _wrap_all(self):
-        # stylung
-        self.helper.filter(
-            basestring, max_level=4).wrap(
-            Field, css_class="form-control")
-
-    def __init__(self, *args, **kwargs):
-        request = kwargs.pop('request', None)
-        super(PageUpdateForm, self).__init__(*args, **kwargs)
-
-        HIDDEN_FIELDS = (
-            'site', 'id', 'tree_id',
-        )
-
-        self.helper.layout = Layout(
-            TabHolder(
-                Tab(_('Main'),
-                    'title',
-                    'language',
-                    'translation_of',
-                    css_id='page-main'
-                    ),
-                Tab(_('Heading'),
-                    '_content_title', '_page_title',
-                    css_id='page-heading'
-                    ),
-                Tab(_('Publication'),
-                    'active', 'featured', 'publication_date', 'publication_end_date',
-                    ),
-                Tab(_('Navigation'),
-                    'in_navigation', 'parent', 'slug', 'override_url', 'redirect_to',
-                    'symlinked_page'
-                    ),
-                Tab(_('Theme'),
-                    'template_key', 'theme', 'color_scheme',
-                    css_id='page-theme-settings'
-                    ),
-            )
-        )
-        # append hidden fields
-        [self.helper.layout.append(Field(f)) for f in HIDDEN_FIELDS]
-
-        if request:
-            _request = copy.copy(request)
-            _request.POST = {}
-
-            if kwargs.get('instance', None):
-                page = kwargs['instance']
-
-            from .tables import PageDimensionTable
-            table = PageDimensionTable(
-                _request, page=page, data=page.own_dimensions)
-            dimensions = Tab(_('Dimensions'),
-                             HTML(
-                table.render()),
-                css_id='page-dimensions'
-
-            )
-            self.helper.layout[0].append(dimensions)
-
-        self._wrap_all()
-
-
 @memoized
 def get_widget_update_form(**kwargs):
     """
@@ -313,15 +241,3 @@ def get_widget_create_form(**kwargs):
                                         widgets=WIDGETS)
 
     return WidgetModelForm
-
-
-@memoized
-def get_page_update_form(**kwargs):
-
-    model_cls = get_class('web.page')
-
-    PageModelForm = modelform_factory(model_cls,
-                                      exclude=[],
-                                      form=PageUpdateForm)
-
-    return PageModelForm

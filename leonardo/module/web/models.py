@@ -19,7 +19,7 @@ from leonardo.utils.templates import find_all_templates, template_choices
 
 from .processors import edit as edit_processors
 from .const import *
-from .forms import get_page_update_form, WIDGETS, WidgetUpdateForm
+from .widgets.forms import WIDGETS, WidgetUpdateForm
 
 
 @python_2_unicode_compatible
@@ -93,10 +93,6 @@ class Page(FeinCMSPage):
         ordering = ['tree_id', 'lft']
 
     @property
-    def get_model_form(self):
-        return get_page_update_form()(instance=self)
-
-    @property
     def own_dimensions(self):
         self_dimensions = PageDimension.objects.filter(
             page=self)
@@ -106,7 +102,7 @@ class Page(FeinCMSPage):
     def dimensions(self):
         # collect all dimensions
         self_dimensions = self.own_dimensions
-        if self_dimensions.count() > 0:
+        if self_dimensions.exists():
             return self_dimensions
         parent_dimensions = None
         if self.parent:

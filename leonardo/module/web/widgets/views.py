@@ -12,8 +12,8 @@ from horizon_contrib.forms.views import (ContextMixin, CreateView,
 from leonardo.module.web.forms import (get_widget_create_form,
                                        get_widget_update_form)
 
-from ..forms import WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm
-from ..tables import WidgetDimensionTable
+from .forms import WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm
+from .tables import WidgetDimensionTable
 
 
 class WidgetViewMixin(object):
