@@ -20,7 +20,7 @@
     <div class="login-container">
       <form action="{{ app_path }}" method="post" id="login-form" class="form form-horizontal" role="form">{% csrf_token %}
         <a href="{% url 'admin:index' %}">
-          <img alt="{{ site_header|default:_('Leonardo administration') }}" src="{{ STATIC_URL }}/img/leonardo.png" class="logo-admin">
+          <img alt="{{ site_header|default:_('Leonardo administration') }}" src="{{ STATIC_URL }}leonardo/img/leonardo.png" class="logo-admin">
         </a>
         <fieldset>
           <legend>

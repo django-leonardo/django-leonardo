@@ -4,9 +4,8 @@ from __future__ import absolute_import
 import os
 from os.path import abspath, dirname, join, normpath
 
-import django
+from django import VERSION
 import six
-from distutils.version import StrictVersion
 from leonardo import default, merge
 
 from .base import leonardo
@@ -39,7 +38,7 @@ MANAGERS = ADMINS
 
 SITE_ID = 1
 
-SITE_NAME = 'hrcms'
+SITE_NAME = 'Leonardo'
 
 TIME_ZONE = 'Europe/Prague'
 
@@ -60,18 +59,7 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 
-"""
-try to support old Django
-"""
-
-TEMPLATE_LOADERS = (
-    'dbtemplates.loader.Loader',
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'horizon.loaders.TemplateLoader',
-)
-
-if StrictVersion(django.get_version()) > StrictVersion('1.7.7'):
+if VERSION[:2] >= (1, 8):
 
     TEMPLATES = [
         {
@@ -101,6 +89,12 @@ else:
 
     TEMPLATE_CONTEXT_PROCESSORS = default.context_processors
 
+    TEMPLATE_LOADERS = (
+        'dbtemplates.loader.Loader',
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'horizon.loaders.TemplateLoader',
+    )
 
 DBTEMPLATES_USE_REVERSION = True
 
@@ -319,7 +313,7 @@ try:
                 AUTHENTICATION_BACKENDS, getattr(
                     mod.default, 'auth_backends', []))
 
-            if StrictVersion(django.get_version()) > StrictVersion('1.7.7'):
+            if VERSION[:2] >= (1, 8):
                 TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], getattr(
                     mod.default, 'dirs', []))
                 cp = TEMPLATES[0]['OPTIONS']['context_processors']
@@ -395,3 +389,9 @@ if 'bootstrap_admin' in INSTALLED_APPS:
     BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
     # INSTALLED_APPS.remove('bootstrap_admin')
     #INSTALLED_APPS = ['bootstrap_admin'] + INSTALLED_APPS
+
+# Add HORIZON_CONFIG to the context information for offline compression
+COMPRESS_OFFLINE_CONTEXT = {
+    'STATIC_URL': STATIC_URL,
+    'HORIZON_CONFIG': HORIZON_CONFIG,
+}

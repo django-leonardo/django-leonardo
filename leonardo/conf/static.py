@@ -114,18 +114,3 @@ else:
     # Newer versions dropped the directory, add it to keep the path the same.
     STATICFILES_DIRS.append(('horizon/lib/jquery-ui/ui',
         xstatic.main.XStatic(xstatic.pkg.jquery_ui).base_dir))
-
-COMPRESS_PRECOMPILERS = (
-    ('text/scss', 'django_pyscss.compressor.DjangoScssFilter'),
-)
-
-COMPRESS_CSS_FILTERS = (
-    'compressor.filters.css_default.CssAbsoluteFilter',
-)
-
-COMPRESS_ENABLED = True
-COMPRESS_OUTPUT_DIR = 'dashboard'
-COMPRESS_CSS_HASHING_METHOD = 'hash'
-COMPRESS_PARSER = 'compressor.parser.HtmlParser'
-
-#COMPRESS_ROOT = "/srv/hrcms/static/"

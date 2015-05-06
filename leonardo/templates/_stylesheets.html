@@ -3,7 +3,6 @@
 
 {% compress css %}
 <link href='{{ STATIC_URL }}leonardo/scss/leonardo.scss' type='text/scss' media='screen' rel='stylesheet' />
-<link href='{{ STATIC_URL }}horizon/lib/bootstrap_datepicker/datepicker3.css' type='text/css' media='screen' rel='stylesheet' />
 <link href='{{ STATIC_URL }}dashboard/scss/horizon_charts.scss' type='text/scss' media='screen' rel='stylesheet' />
 <link href='{{ STATIC_URL }}dashboard/scss/horizon_workflow.scss' type='text/scss' media='screen' rel='stylesheet' />
 <link href="{{ STATIC_URL }}horizon/lib/font-awesome/scss/font-awesome.scss" type="text/scss" media="screen" rel="stylesheet" />
@@ -13,6 +12,7 @@
 {% endcompress %}
 
 <link rel="shortcut icon" href="{{ STATIC_URL }}leonardo/img/favicon.ico"/>
+{% compress css %}
 <style type="text/css">
 
 @media screen and (min-width: 768px) {
@@ -92,3 +92,4 @@
   margin-bottom: 15px!important;
 }
 </style>
+{% endcompress %}
