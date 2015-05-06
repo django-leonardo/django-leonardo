@@ -268,6 +268,16 @@ class Widget(FeinCMSBase):
     content_theme = models.ForeignKey(
         WidgetContentTheme, verbose_name=_('Content theme'), related_name="%(app_label)s_%(class)s_related")
 
+    def save(self, *args, **kwargs):
+
+        super(Widget, self).save(*args, **kwargs)
+
+        if not self.dimensions.exists():
+            WidgetDimension(**{
+                'widget_id': self.pk,
+                'widget_type': self.content_type,
+            }).save()
+
     class Meta:
         abstract = True
         verbose_name = _("Abstract widget")
@@ -289,6 +299,10 @@ class Widget(FeinCMSBase):
         """returns content type name with app label
         """
         return ".".join([self._meta.app_label, self._meta.model_name])
+
+    @property
+    def content_type(self):
+        return ContentType.objects.get_for_model(self)
 
     def thumb_geom(self):
         return config_value('MEDIA', 'THUMB_MEDIUM_GEOM')

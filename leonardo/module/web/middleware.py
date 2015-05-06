@@ -42,6 +42,13 @@ class WebMiddleware(object):
 
     """
 
+    def process_response(self, request, response):
+
+        if hasattr(request, 'user') and not request.user.is_authenticated():
+            response.delete_cookie('frontend_editing')
+            request.frontend_editing = False
+        return response
+
     def process_request(self, request):
         try:
             leonardo_options = {
@@ -85,6 +92,7 @@ class WebMiddleware(object):
         leonardo_options['is_private'] = is_private
         request.leonardo_options = leonardo_options
         request.leonardo_page = page
+
         request.frontend_editing = request.COOKIES.get(
             'frontend_editing', False)
         # old

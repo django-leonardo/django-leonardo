@@ -136,7 +136,7 @@ STATICFILES_FINDERS = (
 )
 
 LOGIN_URL = '/admin/login/'
-LOGIN_REDIRECT_URL = '/admin/'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = "/"
 
 REDACTOR_OPTIONS = {'lang': 'en', 'plugins': [
@@ -196,6 +196,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap'
 SECRET_KEY = None
 
 APPS = []
+
+# use default leonardo auth urls
+LEONARDO_AUTH = True
 
 try:
     # full settings

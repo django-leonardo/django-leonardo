@@ -87,6 +87,7 @@ class Default(object):
             HtmlTextWidget,
             PageTitleWidget,
             UserLoginWidget,
+            UserRegistrationWidget,
         ]
 
 

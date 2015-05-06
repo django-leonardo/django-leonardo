@@ -1,6 +1,7 @@
 
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 
 from django.conf import settings
 from horizon import tables
@@ -10,18 +11,20 @@ from horizon import tabs
 from horizon import workflows
 from horizon import messages
 
-from .forms import LoginForm
+from .forms import LoginForm, SignupForm
 
 from django.contrib.sites.models import Site
 
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect
 
+from django.views.decorators.debug import sensitive_post_parameters  # noqa
+
 
 class LoginView(forms.ModalFormView):
     form_class = LoginForm
-    template_name = 'auth/login.html'
-    success_url = reverse_lazy('horizon:user_home')
+    template_name = 'leonardo/common/modal.html'
+    success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
     redirect_field_name = "next"
 
@@ -30,54 +33,43 @@ class LoginView(forms.ModalFormView):
         redirect_field_value = self.request.REQUEST \
             .get(self.redirect_field_name)
         ret.update({
-                    "site": Site.objects.get_current(),
-                    "redirect_field_name": self.redirect_field_name,
-                    "redirect_field_value": redirect_field_value})
+            "url": self.request.build_absolute_uri(),
+            "view_name": _("Login"),
+            "site": Site.objects.get_current(),
+            "redirect_field_name": self.redirect_field_name,
+            "redirect_field_value": redirect_field_value})
         return ret
 
     def get_initial(self):
         return {}
 
-"""
+
 class SignupView(forms.ModalFormView):
-    template_name = "module/auth/signup.html"
+    template_name = "leonardo/common/modal.html"
     form_class = SignupForm
     redirect_field_name = "next"
-    success_url = None
+    success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence
-        ret = (get_next_redirect_url(self.request,
-                                     self.redirect_field_name)
-               or self.success_url)
+        ret = getattr(self.kwargs, self.redirect_field_name, self.success_url)
         return ret
-
-    def form_valid(self, form):
-        user = form.save(self.request)
-        return complete_signup(self.request, user,
-                               app_settings.EMAIL_VERIFICATION,
-                               self.get_success_url())
 
     def get_context_data(self, **kwargs):
-        form = kwargs['form']
-        form.fields["email"].initial = self.request.session \
-            .get('account_verified_email', None)
         ret = super(SignupView, self).get_context_data(**kwargs)
-        login_url = passthrough_next_redirect_url(self.request,
-                                                  reverse("account_login"),
-                                                  self.redirect_field_name)
         redirect_field_name = self.redirect_field_name
         redirect_field_value = self.request.REQUEST.get(redirect_field_name)
-        ret.update({"login_url": login_url,
-                    "redirect_field_name": redirect_field_name,
-                    "redirect_field_value": redirect_field_value})
+        ret.update({
+            "url": self.request.build_absolute_uri(),
+            "view_name": _("Register"),
+            "redirect_field_name": redirect_field_name,
+            "redirect_field_value": redirect_field_value})
         return ret
-"""
 
 
 class LogoutView(forms.ModalFormView):
 
-    template_name = "account/logout.html"
+    template_name = "leonrdo/common/modal.html"
     redirect_field_name = "next"
 
     def get(self, *args, **kwargs):
@@ -90,8 +82,13 @@ class LogoutView(forms.ModalFormView):
         return redirect(url)
 
     def logout(self):
-        messages.success(self.request, 'account/messages/logged_out.txt')
+        messages.success(self.request, _('Logout complete'))
         auth_logout(self.request)
+
+        self.request.session.flush()
+        if hasattr(self.request, 'user'):
+            from django.contrib.auth.models import AnonymousUser
+            self.request.user = AnonymousUser()
 
     def get_context_data(self, **kwargs):
         ctx = kwargs

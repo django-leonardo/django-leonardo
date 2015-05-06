@@ -3,14 +3,10 @@
 {% load i18n %}
 
 {% block content %}
-<div id="user_info" class="pull-right">
-
+{% if not request.user.is_authenticated %}
 	<ul class="nav navbar-nav {% if widget.inline %}navbar-inline{% else %}navbar-collapse{% endif %}">
-		
-	  {% if not request.user.is_authenticated %}
-	    <li><a class="ajax-modal" href="{% url 'horizon:module:auth:signup' %}">Sign Up</a></li>
-	  {% endif %}
-
+	    <li><a class="ajax-modal" href="{% url 'signup' %}">{% trans 'Sign Up' %}</a></li>
 	</ul>
+{% endif %}
 </div>
 {% endblock %}

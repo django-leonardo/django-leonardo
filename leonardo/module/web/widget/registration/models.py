@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from leonardo.module.web.models import Widget
 
 
-class RegistrationWidget(Widget):
+class UserRegistrationWidget(Widget):
 
     inline = models.BooleanField(verbose_name=_("inline"), default=False)
 

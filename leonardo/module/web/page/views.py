@@ -6,11 +6,10 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from horizon_contrib.forms.views import ModalFormView
-from leonardo.module.web.forms import get_page_update_form
 
-from .forms import PageUpdateForm
-from .dimension.forms import PageDimensionForm
 from ..models import Page
+from .dimension.forms import PageDimensionForm
+from .forms import PageUpdateForm
 
 
 class PageUpdateView(ModalFormView):
