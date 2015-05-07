@@ -1,6 +1,5 @@
 
 import six
-import horizon
 from django.conf import settings
 from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
@@ -52,15 +51,20 @@ if getattr(settings, 'LEONARDO_AUTH', True):
                             url(r'^auth/', include('leonardo.module.auth.urls')),
                             )
 
+if getattr(settings, 'HORIZON_ENABLED', True):
+    import horizon
+    urlpatterns += patterns('',
+                            url(r'', include(horizon.urls)),
+                            )
+
 if 'oauth' in getattr(settings, 'APPS', []):
     # All Auth
     urlpatterns += patterns('',
                             url(r'^accounts/', include('allauth.urls')),
                             )
 
-# horizon and feinCMS
+# feinCMS
 urlpatterns += patterns('',
-                        url(r'', include(horizon.urls)),
                         url(r'', include('feincms.urls')),
                         )
 

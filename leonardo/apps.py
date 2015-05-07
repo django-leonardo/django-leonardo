@@ -1,7 +1,8 @@
 
 from django.apps import AppConfig
 
-from django.db.models.signals import pre_save, post_save
+from django.utils.functional import lazy
+from django.utils import six
 
 
 class LeonardoConfig(AppConfig):
@@ -21,3 +22,4 @@ class LeonardoConfig(AppConfig):
         from leonardo.module.web.widget.application.reverse import reverse
 
         urlresolvers.reverse = reverse
+        urlresolvers.reverse_lazy = lazy(reverse, six.text_type)
