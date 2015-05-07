@@ -197,6 +197,8 @@ SECRET_KEY = None
 
 APPS = []
 
+PAGE_EXTENSIONS = []
+
 # use default leonardo auth urls
 LEONARDO_AUTH = True
 
