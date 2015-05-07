@@ -26,7 +26,7 @@ Further reading:
 .. _`Demo site`: http://demo.cms.robotice.cz
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 .. _`Developer Documentation`: http://django-leonardo.readthedocs.org
-.. _`User Documentation`: leonardo-documentation.rtfd.org
+.. _`User Documentation`: http://leonardo-documentation.rtfd.org
 
 Core
 ====
