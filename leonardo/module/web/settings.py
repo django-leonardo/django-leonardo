@@ -30,9 +30,10 @@ PAGE_EXTENSIONS = [
 
 try:
     import leonardo_module_pagepermissions # noqa
+except Exception:
+    pass
+else:
     PAGE_EXTENSIONS += ['pagepermissions.extension']
-except Exception, e:
-    raise e
 
 """
 APPLICATION_CHOICES = (
