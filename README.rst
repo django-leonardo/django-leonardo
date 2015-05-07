@@ -50,12 +50,15 @@ Modules
 * `Blog`_ - Elephant Blog integration
 * `Eshop`_ - Oscar Ecommerce - FeinCMS integration
 * `Sentry`_ - end-user friendly error page
+* `Page Permissions`_ - extend Page and provide new Navigation templates with permissions
 * Static - client-side libraries like an AngularJS, React, D3.js, ..
+
 
 .. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
 .. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
 .. _`Eshop`: https://github.com/leonardo-modules/leonardo-module-eshop
 .. _`Sentry`: https://github.com/leonardo-modules/leonardo-module-sentry
+.. _`Page Permissions`: https://github.com/leonardo-modules/leonardo-module-pagepermissions
 
 Themes
 ------
@@ -109,6 +112,8 @@ CMS
 * django-leonardo[themes] - Leonardo themes [Bootstrap, AdminLTE]
 
 * django-leonardo[adminlte] - AdminLTE theme
+
+* django-leonardo[pagepermissions] - Page Permissions
 
 Ecommerce
 ~~~~~~~~~

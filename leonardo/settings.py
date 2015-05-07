@@ -316,6 +316,10 @@ try:
                 AUTHENTICATION_BACKENDS, getattr(
                     mod.default, 'auth_backends', []))
 
+            PAGE_EXTENSIONS = merge(
+                PAGE_EXTENSIONS, getattr(
+                    mod.default, 'page_extensions', []))
+
             if VERSION[:2] >= (1, 8):
                 TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], getattr(
                     mod.default, 'dirs', []))
