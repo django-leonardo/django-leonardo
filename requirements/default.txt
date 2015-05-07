@@ -19,6 +19,7 @@ django-filer==0.9.9
 django-admin-tools>=0.5.2
 horizon-contrib>=1.0.6
 django-markupfield>=1.3.4
+django-haystack==2.3.1
 
 sorl-thumbnail==12.2
 easy-thumbnails==2.2
