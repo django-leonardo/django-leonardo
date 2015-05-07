@@ -6,76 +6,44 @@ Django-Leonardo
 A collection of awesome Django libraries, resources and shiny things.
 Full featured framework for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
-Uses
+Why
+===
+
+Python and Django communities are dynamic. Django is best framework for building web applications with tons apps, which provide additional futures. If you want make new web site really quick you must spend a lot of time for searching right libraries, integrating and configuring. Leonardo provide new module system which makes this much more easier than before. Leonardo solves cms, graph domains and provide stable core for easy extending and building whatever.
+
+Core
 ====
 
-- Backend
+Leonardo in default state has enabled three modules and other can be installed.
 
-	- Django 1.4 +
-	- FeinCMS
-	- Horizon
-	- Oscar - ecommerce
-	- Oscar API
-	- Form Designer
-	- Remote Forms
-	- Django Rest Framework
+* Web - precise FeinCMS integration
+* Navigation - common navigation components
+* Media - Filer integration with basic widgets
 
-- Client
+Extensions
+==========
 
-	- AngularJS
-	- React
-	- Bootstrap 3
-	- ...
+Leonardo provide bundled extensions, which provides pluggable advantages.
 
-Installation
-============
+Modules
+-------
 
-.. code-block:: bash
+* `Forms`_ - Stable Form Designer integration with Remote Forms
+* `Blog`_ - Elephant Blog integration
+* `Eshop`_ - Oscar Ecommerce - FeinCMS integration
+* `Sentry`_ - end-user friendly error page
+* Static - client-side libraries like an AngularJS, React, D3.js, ..
 
-	pip install django-leonardo
+.. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
+.. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
+.. _`Eshop`: https://github.com/leonardo-modules/leonardo-module-eshop
+.. _`Sentry`: https://github.com/leonardo-modules/leonardo-module-sentry
 
-	manage.py runserver 0.0.0.0:80
+Themes
+------
 
-Scaffold new app
-================
+* `Bootwatch`_
+* `AdminLTE`_
 
-Directory structure::
-
-    my_site
-        |-- __init__.py
-        |-- config
-            |-- __init__.py
-            |-- admin.py
-            |-- menu.py
-            |-- settings.py
-        |-- local
-            |-- __init__.py
-            |-- local_settings.py
-        |-- static
-            |-- css
-            |-- js
-
-Configure files
-
-* ``local_settings`` in your ``PYTHONPATH`` for all stuff
-* or ``settings``/``menu`` .. in ``conf``
-
-Minimal config
-
-.. code-block:: python
-
-	SITE_ID = 1
-	SITE_NAME = 'leonardo'
-	# or full domain
-	SITE_DOMAIN = 'www.leonardo.cz'
-
-	LANGUAGE_CODE = 'en'
-
-	RAVEN_CONFIG = {}
-
-	APPS = [
-	    'web',
-	    'blog',
-	    'eshop',
-	    'fulltext'
-	]
+.. _`Bootstrap`: https://github.com/leonardo-modules/leonardo-theme-bootswatch
+.. _`AdminLTE`: https://github.com/leonardo-modules/leonardo-theme-adminlte

@@ -1,1 +1,1 @@
-leonardo-module-blog>=0.0.2
+leonardo-module-blog>=0.0.1
