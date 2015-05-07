@@ -35,6 +35,7 @@ Web
    module/web/migrations
    module/web/configuration
    module/web/themes
+   module/web/search
    
 Media:
 ------
