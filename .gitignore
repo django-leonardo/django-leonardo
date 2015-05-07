@@ -9,6 +9,9 @@ docs/build/*
 # C extensions
 *.so
 
+#indexes
+leonardo/module/search/whoosh_index/*
+
 ChangeLog
 
 # Distribution / packaging

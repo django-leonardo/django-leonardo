@@ -8,7 +8,7 @@ __version__ = '.'.join(map(str, VERSION))
 
 class Default(object):
 
-    core = ['web', 'nav', 'media']
+    core = ['web', 'nav', 'media', 'search']
 
     @property
     def middlewares(self):
@@ -18,6 +18,7 @@ class Default(object):
             'django.contrib.sessions.middleware.SessionMiddleware',
             'django.contrib.messages.middleware.MessageMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.middleware.clickjacking.XFrameOptionsMiddleware',
             'django.middleware.locale.LocaleMiddleware',
 
             # horizon

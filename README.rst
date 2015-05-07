@@ -36,6 +36,7 @@ Leonardo in default state has enabled three modules and other can be installed.
 * Web - precise FeinCMS integration
 * Navigation - common navigation components
 * Media - Filer integration with basic widgets
+* Search - Haystack integration with Whoosh backend
 
 Extensions
 ==========
