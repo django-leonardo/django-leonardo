@@ -57,12 +57,6 @@ if getattr(settings, 'HORIZON_ENABLED', True):
                             url(r'', include(horizon.urls)),
                             )
 
-if 'oauth' in getattr(settings, 'APPS', []):
-    # All Auth
-    urlpatterns += patterns('',
-                            url(r'^accounts/', include('allauth.urls')),
-                            )
-
 # feinCMS
 urlpatterns += patterns('',
                         url(r'', include('feincms.urls')),
