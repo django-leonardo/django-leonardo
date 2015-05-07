@@ -1,0 +1,26 @@
+#!/bin/bash
+
+NAME="leonardo_demo"
+DJANGODIR=/srv/leonardo/sites/demo
+USER=leonardo
+GROUP=leonardo
+NUM_WORKERS=3
+DJANGO_SETTINGS_MODULE=leonardo.settings
+DJANGO_WSGI_MODULE=wsgi
+
+echo "Starting $NAME as `whoami`"
+
+# Activate the virtual environment
+cd $DJANGODIR
+source /srv/leonardo/sites/demo/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+exec gunicorn ${DJANGO_WSGI_MODULE}:application \
+  --name $NAME \
+  --workers $NUM_WORKERS \
+  --user=$USER --group=$GROUP \
+  --log-level=debug \
+  --bind=0.0.0.0:9754
