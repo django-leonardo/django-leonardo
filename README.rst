@@ -46,9 +46,11 @@ Leonardo provide bundled extensions, which provides pluggable advantages.
 Modules
 -------
 
-* `Forms`_ - Stable Form Designer integration with Remote Forms
 * `Blog`_ - Elephant Blog integration
+* `Folio`_ - Portfolio app
+* `Forms`_ - Stable Form Designer integration with Remote Forms
 * `Eshop`_ - Oscar Ecommerce - FeinCMS integration
+* `News`_ - News
 * `Sentry`_ - end-user friendly error page
 * `Page Permissions`_ - extend Page and provide new Navigation templates with permissions
 * Static - client-side libraries like an AngularJS, React, D3.js, ..
@@ -56,7 +58,9 @@ Modules
 
 .. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
 .. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
+.. _`Folio`: https://github.com/leonardo-modules/leonardo-module-folio
 .. _`Eshop`: https://github.com/leonardo-modules/leonardo-module-eshop
+.. _`News`: https://github.com/leonardo-modules/leonardo-module-news
 .. _`Sentry`: https://github.com/leonardo-modules/leonardo-module-sentry
 .. _`Page Permissions`: https://github.com/leonardo-modules/leonardo-module-pagepermissions
 
@@ -96,7 +100,7 @@ commas.
 
 .. code-block:: bash
 
-    $ pip install "django-leonardo[static]"
+    $ pip install "django-leonardo[folio]"
 
     $ pip install "django-leonardo[blog,eshop,static,themes]"
 
@@ -107,13 +111,20 @@ CMS
 
 * django-leonardo[blog] - ElephantBlog integration
 
-* django-leonardo[static] - AngularJS, React, BootStrap, D3.js, ..
+* django-leonardo[folio] - Portfolio with translations
+
+* django-leonardo[forms] - Form Designer and Remote Forms
+
+* django-leonardo[links] - Links
+
+* django-leonardo[pagepermissions] - Page Permissions
+
+Themes
+~~~~~~
 
 * django-leonardo[themes] - Leonardo themes [Bootstrap, AdminLTE]
 
 * django-leonardo[adminlte] - AdminLTE theme
-
-* django-leonardo[pagepermissions] - Page Permissions
 
 Ecommerce
 ~~~~~~~~~
@@ -124,6 +135,8 @@ Common
 ~~~~~~
 
 * django-leonardo[sentry] - Raven integration with end-user friendly error page
+
+* django-leonardo[static] - AngularJS, React, BootStrap, D3.js, ..
 
 Looking for commercial support?
 ===============================

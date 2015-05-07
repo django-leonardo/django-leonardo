@@ -1,0 +1,1 @@
+leonardo_module_folio>=2015.0.1

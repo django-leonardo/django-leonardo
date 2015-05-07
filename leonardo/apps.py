@@ -14,7 +14,7 @@ class LeonardoConfig(AppConfig):
         from django.template import defaulttags
 
         # monkey path url tag
-        from leonardo.templatetags.url import render
+        from leonardo.utils.urlresolvers import render
         defaulttags.URLNode.render = render
 
         # monkey path django reverse

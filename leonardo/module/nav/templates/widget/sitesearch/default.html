@@ -1,11 +1,11 @@
 {% extends widget.get_base_template %}
 
 {% load i18n %}
-{% load leonardo_app_url %}
+{% load leonardo_tags %}
 
 {% block content %}
 
-<form action="{% app_reverse 'haystack_search' 'leonardo.module.search.apps.search' %}" method="get" class="navbar-form navbar-left" role="search">
+<form action="{% url 'haystack_search' 'leonardo.module.search.apps.search' %}" method="get" class="navbar-form navbar-left" role="search">
 	{% if widget.inline %}
 	<div>
 		  <div class="form-group">
