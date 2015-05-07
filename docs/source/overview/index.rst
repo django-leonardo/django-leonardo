@@ -45,5 +45,5 @@ Themes
 * `Bootwatch`_
 * `AdminLTE`_
 
-.. _`Bootstrap`: https://github.com/leonardo-modules/leonardo-theme-bootswatch
+.. _`Bootwatch`: https://github.com/leonardo-modules/leonardo-theme-bootswatch
 .. _`AdminLTE`: https://github.com/leonardo-modules/leonardo-theme-adminlte

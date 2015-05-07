@@ -19,12 +19,14 @@ Deploy your Bootstrap site in ten minutes !
 Further reading:
 
 * `Demo site`_ (a reference build of an Leonardo project)
-* `Documentation`_
+* `Developer Documentation`_
+* `User Documentation`_
 * `Continuous integration homepage`_
 
 .. _`Demo site`: http://demo.cms.robotice.cz
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
-.. _`Documentation`: http://django-leonardo.readthedocs.org
+.. _`Developer Documentation`: http://django-leonardo.readthedocs.org
+.. _`User Documentation`: leonardo-documentation.rtfd.org
 
 Core
 ====
@@ -60,7 +62,7 @@ Themes
 * `Bootwatch`_
 * `AdminLTE`_
 
-.. _`Bootstrap`: https://github.com/leonardo-modules/leonardo-theme-bootswatch
+.. _`Bootwatch`: https://github.com/leonardo-modules/leonardo-theme-bootswatch
 .. _`AdminLTE`: https://github.com/leonardo-modules/leonardo-theme-adminlte
 
 Installation
