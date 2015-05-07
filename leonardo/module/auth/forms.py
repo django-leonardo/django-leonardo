@@ -1,176 +1,50 @@
 from __future__ import absolute_import
 
-import warnings
-
-from django import forms
-from django.core.urlresolvers import reverse
-from django.core import exceptions
-from django.db.models import Q
-from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
-
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
-
-#from allauth.utils import (email_address_exists, get_user_model,
-#                     set_form_field_order,
-#                     build_absolute_uri)
-
-#from allauth.account.models import EmailAddress
-#from allauth.account.utils import (perform_login, setup_user_email, user_username,
-#                    user_pk_to_url_str)
-#from allauth.account.app_settings import AuthenticationMethod
-#from allauth.account import app_settings
-#from allauth.account.adapter import get_adapter
-
-from horizon import forms as horizon_forms
-
-#from allauth.account.utils import (get_next_redirect_url, complete_signup,
-#                    get_login_redirect_url, perform_login,
-#                    passthrough_next_redirect_url,
-#                    url_str_to_user_pk)
-
-from horizon import messages
-
-try:
-    from importlib import import_module
-except ImportError:
-    from django.utils.importlib import import_module
-
-class PasswordField(forms.CharField):
-
-    def __init__(self, *args, **kwargs):
-        render_value = kwargs.pop('render_value', True)
-        kwargs['widget'] = forms.PasswordInput(render_value=render_value,
-                                               attrs={'placeholder':
-                                                      _('Password')})
-        super(PasswordField, self).__init__(*args, **kwargs)
+from django.core import exceptions
+from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import pgettext, ugettext
+from horizon import forms, messages
+from horizon_contrib.forms import SelfHandlingForm
+from horizon.utils import validators
 
 
-class SetPasswordField(PasswordField):
+class LoginForm(SelfHandlingForm):
 
-    def clean(self, value):
-        value = super(SetPasswordField, self).clean(value)
-        value = get_adapter().clean_password(value)
-        return value
+    username = forms.CharField(label=_("Username"),
+                               max_length=255,
+                               widget=forms.TextInput(
+                                   attrs={'placeholder':
+                                          _('Username'),
+                                          'autofocus': 'autofocus'}))
 
-
-class LoginForm(horizon_forms.SelfHandlingForm):
-
-    password = PasswordField(label=_("Password"))
-    remember = horizon_forms.BooleanField(label=_("Remember Me"),
+    password = forms.CharField(label=_("Password"),
+                               widget=forms.PasswordInput(render_value=False))
+    remember = forms.BooleanField(label=_("Remember Me"),
                                   required=False)
-
-    """
-    user = None
-    error_messages = {
-        'account_inactive':
-        _("This account is currently inactive."),
-
-        'email_password_mismatch':
-        _("The e-mail address and/or password you specified are not correct."),
-
-        'username_password_mismatch':
-        _("The username and/or password you specified are not correct."),
-
-        'username_email_password_mismatch':
-        _("The login and/or password you specified are not correct.")
-    }
-
-    def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
-        if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
-            login_widget = forms.TextInput(attrs={'type': 'email',
-                                                  'placeholder':
-                                                  _('E-mail address'),
-                                                  'autofocus': 'autofocus'})
-            login_field = forms.EmailField(label=_("E-mail"),
-                                           widget=login_widget)
-        elif app_settings.AUTHENTICATION_METHOD \
-                == AuthenticationMethod.USERNAME:
-            login_widget = forms.TextInput(attrs={'placeholder':
-                                                  _('Username'),
-                                                  'autofocus': 'autofocus'})
-            login_field = forms.CharField(label=_("Username"),
-                                          widget=login_widget,
-                                          max_length=30)
-        else:
-            assert app_settings.AUTHENTICATION_METHOD \
-                == AuthenticationMethod.USERNAME_EMAIL
-            login_widget = forms.TextInput(attrs={'placeholder':
-                                                  _('Username or e-mail'),
-                                                  'autofocus': 'autofocus'})
-            login_field = forms.CharField(label=pgettext("field label",
-                                                         "Login"),
-                                          widget=login_widget)
-        self.fields["login"] = login_field
-        set_form_field_order(self,  ["login", "password", "remember"])
-        if app_settings.SESSION_REMEMBER is not None:
-            del self.fields['remember']
-
-    def user_credentials(self):
-        credentials = {}
-        login = self.cleaned_data["login"]
-        if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
-            credentials["email"] = login
-        elif (app_settings.AUTHENTICATION_METHOD
-              == AuthenticationMethod.USERNAME):
-            credentials["username"] = login
-        else:
-            if "@" in login and "." in login:
-                credentials["email"] = login
-            credentials["username"] = login
-        credentials["password"] = self.cleaned_data["password"]
-        return credentials
-
-    def clean_login(self):
-        login = self.cleaned_data['login']
-        return login.strip()
-
-    def clean(self):
-        if self._errors:
-            return
-        user = authenticate(**self.user_credentials())
-        if user:
-            self.user = user
-        else:
-            raise forms.ValidationError(
-                self.error_messages[
-                    '%s_password_mismatch'
-                    % app_settings.AUTHENTICATION_METHOD])
-        return self.cleaned_data
-
-    def login(self, request, redirect_url=None):
-        ret = perform_login(request, self.user,
-                            email_verification=app_settings.EMAIL_VERIFICATION,
-                            redirect_url=redirect_url)
-        remember = app_settings.SESSION_REMEMBER
-        if remember is None:
-            remember = self.cleaned_data['remember']
-        if remember:
-            request.session.set_expiry(app_settings.SESSION_COOKIE_AGE)
-        else:
-            request.session.set_expiry(0)
-        return ret
-    """
-
 
     def handle(self, request, data):
 
-        result = self.login(request)
+        user = authenticate(**data)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
 
-        if request.user.is_authenticated():
-            messages.success(request, "Login success.")
-            return True
+                messages.success(request, "Login success.")
+                return True
         messages.error(request, "Login failed.")
         return False
 
-"""
-class SignupForm(horizon_forms.SelfHandlingForm):
+
+class SignupForm(SelfHandlingForm):
 
     username = forms.CharField(label=_("Username"),
-                               max_length=30,
-                               min_length=app_settings.USERNAME_MIN_LENGTH,
+                               max_length=255,
                                widget=forms.TextInput(
                                    attrs={'placeholder':
                                           _('Username'),
@@ -179,82 +53,54 @@ class SignupForm(horizon_forms.SelfHandlingForm):
         attrs={'type': 'email',
                'placeholder': _('E-mail address')}))
 
-    password1 = SetPasswordField(label=_("Password"))
-    password2 = PasswordField(label=_("Password (again)"))
-    confirmation_key = forms.CharField(max_length=40,
-                                       required=False,
-                                       widget=forms.HiddenInput())
-
-    def __init__(self, *args, **kwargs):
-        super(SignupForm, self).__init__(*args, **kwargs)
-        if not app_settings.SIGNUP_PASSWORD_VERIFICATION:
-            del self.fields["password2"]
+    password = forms.RegexField(
+        label=_("Password"),
+        widget=forms.PasswordInput(render_value=False),
+        regex=validators.password_validator(),
+        error_messages={'invalid': validators.password_validator_msg()})
+    confirm_password = forms.CharField(
+        label=_("Confirm Password"),
+        widget=forms.PasswordInput(render_value=False))
+    no_autocomplete = True
 
     def clean(self):
-        super(SignupForm, self).clean()
-        if app_settings.SIGNUP_PASSWORD_VERIFICATION \
-                and "password1" in self.cleaned_data \
-                and "password2" in self.cleaned_data:
-            if self.cleaned_data["password1"] \
-                    != self.cleaned_data["password2"]:
-                raise forms.ValidationError(_("You must type the same password"
-                                              " each time."))
-        return self.cleaned_data
+        '''Check to make sure password fields match.'''
+        data = super(forms.Form, self).clean()
 
-    def save(self, request):
-        adapter = get_adapter()
-        user = adapter.new_user(request)
-        adapter.save_user(request, user, self)
-        #self.custom_signup(request, user)
-        # TODO: Move into adapter `save_user` ?
-        setup_user_email(request, user, [])
-        return user
-    
+        # basic check for now
+        if 'username' in data:
+            if User.objects.filter(
+                    username=data['username'],
+                    email=data['email']).exists():
+                raise validators.ValidationError(
+                    _('Username or email exists in database.'))
+
+        if 'password' in data:
+            if data['password'] != data.get('confirm_password', None):
+                raise validators.ValidationError(_('Passwords do not match.'))
+            else:
+                data.pop('confirm_password')
+        return data
+
     def handle(self, request, data):
 
-        user = self.save(self.request)
-        return complete_signup(self.request, user,
-                               app_settings.EMAIL_VERIFICATION,
-                               self.get_success_url())
+        try:
+            user = User.objects.create_user(**data)
+            messages.success(
+                request,
+                _("User account {} was successfuly created.".format(user)))
 
-class UserForm(forms.Form):
+        except Exception as e:
+            raise e
+        else:
+            data.pop('email')
+            return LoginForm().handle(request, data)
 
-    def __init__(self, user=None, *args, **kwargs):
-        self.user = user
-        super(UserForm, self).__init__(*args, **kwargs)
-
-
-class AddEmailForm(UserForm):
-
-    email = forms.EmailField(label=_("E-mail"),
-                             required=True,
-                             widget=forms.TextInput(attrs={"type": "email",
-                                                           "size": "30"}))
-
-    def clean_email(self):
-        value = self.cleaned_data["email"]
-        value = get_adapter().clean_email(value)
-        errors = {
-            "this_account": _("This e-mail address is already associated"
-                              " with this account."),
-            "different_account": _("This e-mail address is already associated"
-                                   " with another account."),
-        }
-        emails = EmailAddress.objects.filter(email__iexact=value)
-        if emails.filter(user=self.user).exists():
-            raise forms.ValidationError(errors["this_account"])
-        if app_settings.UNIQUE_EMAIL:
-            if emails.exclude(user=self.user).exists():
-                raise forms.ValidationError(errors["different_account"])
-        return value
-
-    def save(self, request):
-        return EmailAddress.objects.add_email(request,
-                                              self.user,
-                                              self.cleaned_data["email"],
-                                              confirm=True)
+        messages.error(request, _("Create Account failed."))
+        return False
 
 
+"""
 class ChangePasswordForm(UserForm):
 
     oldpassword = PasswordField(label=_("Current Password"))

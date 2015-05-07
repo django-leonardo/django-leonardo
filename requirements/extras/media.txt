@@ -1,1 +1,0 @@
-django-filer==0.9.9  # filer

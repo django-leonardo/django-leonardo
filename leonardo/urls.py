@@ -47,6 +47,10 @@ for app, mod in six.iteritems(leonardo.get_app_modules(settings.APPS)):
                              url(r'', include(urlpatterns_name)),
                              )
 
+if getattr(settings, 'LEONARDO_AUTH', True):
+    urlpatterns += patterns('',
+                            url(r'^auth/', include('leonardo.module.auth.urls')),
+                            )
 
 if 'oauth' in getattr(settings, 'APPS', []):
     # All Auth

@@ -18,4 +18,4 @@ class ModuleDashboard(horizon.Dashboard):
     public = True
     default_panel = 'auth'
 
-horizon.register(ModuleDashboard)
+#horizon.register(ModuleDashboard)

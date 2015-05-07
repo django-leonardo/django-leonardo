@@ -7,10 +7,11 @@ Django-Leonardo
 
 This is a stable for daily use in development.
 
-A collection of awesome Django libraries, resources and shiny things.
 Full featured platform for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
 
 **Don't waste your time searching stable solution for daily problems.**
+
+Deploy your Bootstrap site in ten minutes !
 
 .. contents::
    :local:
@@ -18,42 +19,51 @@ Full featured platform for building everything based on Django, FeinCMS, Horizon
 Further reading:
 
 * `Demo site`_ (a reference build of an Leonardo project)
-* `Documentation`_
+* `Developer Documentation`_
+* `User Documentation`_
 * `Continuous integration homepage`_
 
 .. _`Demo site`: http://demo.cms.robotice.cz
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
-.. _`Documentation`: http://django-leonardo.readthedocs.org
+.. _`Developer Documentation`: http://django-leonardo.readthedocs.org
+.. _`User Documentation`: leonardo-documentation.rtfd.org
 
 Core
 ====
 
-Leonardo contains some modules which provide scaffold for all other stuff.
+Leonardo in default state has enabled three modules and other can be installed.
 
 * Web - precise FeinCMS integration
 * Navigation - common navigation components
 * Media - Filer integration with basic widgets
-* Forms - Stable Form builder integration
-* Language - basic translation widgets
 
 Extensions
 ==========
 
-Also Leonardo provide bundled extensions, which provides pluggable advantages.
+Leonardo provide bundled extensions, which provides pluggable advantages.
 
 Modules
 -------
 
-* Blog - Elephant Blog integration
-* Eshop - Oscar Ecommerce - FeinCMS integration
-* Sentry - end-user friendly error page
-* Static - client-side libraries like as AngularJS, React, D3.js, ..
+* `Forms`_ - Stable Form Designer integration with Remote Forms
+* `Blog`_ - Elephant Blog integration
+* `Eshop`_ - Oscar Ecommerce - FeinCMS integration
+* `Sentry`_ - end-user friendly error page
+* Static - client-side libraries like an AngularJS, React, D3.js, ..
+
+.. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
+.. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
+.. _`Eshop`: https://github.com/leonardo-modules/leonardo-module-eshop
+.. _`Sentry`: https://github.com/leonardo-modules/leonardo-module-sentry
 
 Themes
 ------
 
-* Bootstrap - Bootwatch themes
-* AdminLTE
+* `Bootwatch`_
+* `AdminLTE`_
+
+.. _`Bootwatch`: https://github.com/leonardo-modules/leonardo-theme-bootswatch
+.. _`AdminLTE`: https://github.com/leonardo-modules/leonardo-theme-adminlte
 
 Installation
 ============

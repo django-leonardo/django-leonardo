@@ -107,82 +107,83 @@ That's it. Run ``sync_all``.
 Modules
 -------
 
-More complex
+Full example
 
-from django.apps import AppConfig
-from oscar import get_core_apps as get_eshop_apps
-from django.utils.translation import ugettext_lazy as _
+.. code-block:: python
+
+    from django.apps import AppConfig
+    from oscar import get_core_apps as get_eshop_apps
+    from django.utils.translation import ugettext_lazy as _
 
 
-default_app_config = 'leonardo_module_eshop.EshopConfig'
+    default_app_config = 'leonardo_module_eshop.EshopConfig'
 
+    class Default(object):
 
-class Default(object):
+        optgroup = ('Eshop')
 
-    optgroup = ('Eshop')
+        #urls_conf = 'oscar.urls'
 
-    #urls_conf = 'oscar.urls'
+        @property
+        def middlewares(self):
+            return [
+                'oscar.apps.basket.middleware.BasketMiddleware',
+            ]
 
-    @property
-    def middlewares(self):
-        return [
-            'oscar.apps.basket.middleware.BasketMiddleware',
-        ]
+        @property
+        def apps(self):
+            return [
+                'leonardo_module_eshop',
+                'leonardo_module_eshop.api',
+                'oscarapi',
+                'whoosh',
+                'oscar.apps.customer',
+            ] + get_eshop_apps()
 
-    @property
-    def apps(self):
-        return [
-            'leonardo_module_eshop',
-            'leonardo_module_eshop.api',
-            'oscarapi',
-            'whoosh',
-            'oscar.apps.customer',
-        ] + get_eshop_apps()
+        @property
+        def auth_backends(self):
+            return ['oscar.apps.customer.auth_backends.EmailBackend']
 
-    @property
-    def auth_backends(self):
-        return ['oscar.apps.customer.auth_backends.EmailBackend']
+        @property
+        def ctp(self):
+            """return WEB Conent Type Processors
+            """
+            return [
+                #'oscar.apps.search.context_processors.search_form',
+                'oscar.apps.promotions.context_processors.promotions',
+                'oscar.apps.checkout.context_processors.checkout',
+                'oscar.apps.customer.notifications.context_processors.notifications',
+                'oscar.core.context_processors.metadata',
+            ]
 
-    @property
-    def ctp(self):
-        """return WEB Conent Type Processors
+        @property
+        def plugins(self):
+            return [
+                ('leonardo_module_eshop.apps.eshop', 'Eshop', ),
+                ('leonardo_module_eshop.apps.cart', 'Shopping Cart', ),
+                ('leonardo_module_eshop.apps.customer', 'Customers', ),
+                ('leonardo_module_eshop.apps.catalog', _('Eshop Catalog'), {'namespace': 'catalogue'}),
+                ('leonardo_module_eshop.apps.api', 'Eshop API', ),
+            ]
+
         """
-        return [
-            #'oscar.apps.search.context_processors.search_form',
-            'oscar.apps.promotions.context_processors.promotions',
-            'oscar.apps.checkout.context_processors.checkout',
-            'oscar.apps.customer.notifications.context_processors.notifications',
-            'oscar.core.context_processors.metadata',
-        ]
-
-    @property
-    def plugins(self):
-        return [
-            ('leonardo_module_eshop.apps.eshop', 'Eshop', ),
-            ('leonardo_module_eshop.apps.cart', 'Shopping Cart', ),
-            ('leonardo_module_eshop.apps.customer', 'Customers', ),
-            ('leonardo_module_eshop.apps.catalog', _('Eshop Catalog'), {'namespace': 'catalogue'}),
-            ('leonardo_module_eshop.apps.api', 'Eshop API', ),
-        ]
-
-    """
-    @property
-    def dirs(self):
-        from oscar import OSCAR_MAIN_TEMPLATE_DIR
-        return [OSCAR_MAIN_TEMPLATE_DIR]
-    """
-
-
-class EshopConfig(AppConfig, Default):
-    name = 'leonardo_module_eshop'
-    verbose_name = "Eshop"
-
-    def ready(self):
-        """
-        from feincms.module.page.models import Page
-
-        pre_save.connect(page_check_options, sender=Page)
-        post_save.connect(test, sender=Page)
+        @property
+        def dirs(self):
+            from oscar import OSCAR_MAIN_TEMPLATE_DIR
+            return [OSCAR_MAIN_TEMPLATE_DIR]
         """
 
-default = Default()
+
+    class EshopConfig(AppConfig, Default):
+        name = 'leonardo_module_eshop'
+        verbose_name = "Eshop"
+
+        def ready(self):
+            """
+            from feincms.module.page.models import Page
+
+            pre_save.connect(page_check_options, sender=Page)
+            post_save.connect(test, sender=Page)
+            """
+
+    default = Default()

@@ -17,9 +17,9 @@ from feincms.module.page.models import BasePage as FeinCMSPage
 from horizon.utils.memoized import memoized
 from leonardo.utils.templates import find_all_templates, template_choices
 
-from . import edit_processors
+from .processors import edit as edit_processors
 from .const import *
-from .forms import get_page_update_form, WIDGETS, WidgetUpdateForm
+from .widgets.forms import WIDGETS, WidgetUpdateForm
 
 
 @python_2_unicode_compatible
@@ -93,10 +93,6 @@ class Page(FeinCMSPage):
         ordering = ['tree_id', 'lft']
 
     @property
-    def get_model_form(self):
-        return get_page_update_form()(instance=self)
-
-    @property
     def own_dimensions(self):
         self_dimensions = PageDimension.objects.filter(
             page=self)
@@ -106,7 +102,7 @@ class Page(FeinCMSPage):
     def dimensions(self):
         # collect all dimensions
         self_dimensions = self.own_dimensions
-        if self_dimensions.count() > 0:
+        if self_dimensions.exists():
             return self_dimensions
         parent_dimensions = None
         if self.parent:
@@ -257,6 +253,7 @@ class WidgetBaseTheme(models.Model):
         verbose_name_plural = _("Widget base themes")
 
 
+@python_2_unicode_compatible
 class Widget(FeinCMSBase):
 
     feincms_item_editor_inline = WidgetInline
@@ -271,18 +268,41 @@ class Widget(FeinCMSBase):
     content_theme = models.ForeignKey(
         WidgetContentTheme, verbose_name=_('Content theme'), related_name="%(app_label)s_%(class)s_related")
 
+    def save(self, *args, **kwargs):
+
+        super(Widget, self).save(*args, **kwargs)
+
+        if not self.dimensions.exists():
+            WidgetDimension(**{
+                'widget_id': self.pk,
+                'widget_type': self.content_type,
+            }).save()
+
     class Meta:
         abstract = True
         verbose_name = _("Abstract widget")
         verbose_name_plural = _("Abstract widgets")
 
     def __str__(self):
-        return self.label or super(Widget, self).__str__()
+        return self.label or (
+            '%s<pk=%s, parent=%s<pk=%s, %s>, region=%s,'
+            ' ordering=%d>') % (
+            self.__class__.__name__,
+            self.pk,
+            self.parent.__class__.__name__,
+            self.parent.pk,
+            self.parent,
+            self.region,
+            self.ordering)
 
     def get_ct_name(self):
         """returns content type name with app label
         """
         return ".".join([self._meta.app_label, self._meta.model_name])
+
+    @property
+    def content_type(self):
+        return ContentType.objects.get_for_model(self)
 
     def thumb_geom(self):
         return config_value('MEDIA', 'THUMB_MEDIUM_GEOM')

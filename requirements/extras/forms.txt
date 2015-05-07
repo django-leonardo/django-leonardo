@@ -1,4 +1,1 @@
-django-floppyforms==1.1
-django-crispy-forms==1.4.0
--e git+https://github.com/WiserTogether/django-remote-forms#egg=django_remote_forms
--e git+https://github.com/michaelkuty/form_designer#egg=form_designer
+leonardo_module_forms>=2015.0.1

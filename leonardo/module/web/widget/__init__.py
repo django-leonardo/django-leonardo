@@ -6,5 +6,6 @@ from .feedreader.models import FeedReaderWidget
 from .pagetitle.models import PageTitleWidget
 from .table.models import TableWidget
 from .userlogin.models import UserLoginWidget
+from .registration.models import UserRegistrationWidget
 from .siteheading.models import SiteHeadingWidget
 from .htmltext.models import HtmlTextWidget

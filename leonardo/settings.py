@@ -4,9 +4,8 @@ from __future__ import absolute_import
 import os
 from os.path import abspath, dirname, join, normpath
 
-import django
+from django import VERSION
 import six
-from distutils.version import StrictVersion
 from leonardo import default, merge
 
 from .base import leonardo
@@ -39,7 +38,7 @@ MANAGERS = ADMINS
 
 SITE_ID = 1
 
-SITE_NAME = 'hrcms'
+SITE_NAME = 'Leonardo'
 
 TIME_ZONE = 'Europe/Prague'
 
@@ -60,18 +59,7 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 
-"""
-try to support old Django
-"""
-
-TEMPLATE_LOADERS = (
-    'dbtemplates.loader.Loader',
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'horizon.loaders.TemplateLoader',
-)
-
-if StrictVersion(django.get_version()) > StrictVersion('1.7.7'):
+if VERSION[:2] >= (1, 8):
 
     TEMPLATES = [
         {
@@ -101,6 +89,12 @@ else:
 
     TEMPLATE_CONTEXT_PROCESSORS = default.context_processors
 
+    TEMPLATE_LOADERS = (
+        'dbtemplates.loader.Loader',
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'horizon.loaders.TemplateLoader',
+    )
 
 DBTEMPLATES_USE_REVERSION = True
 
@@ -142,7 +136,7 @@ STATICFILES_FINDERS = (
 )
 
 LOGIN_URL = '/admin/login/'
-LOGIN_REDIRECT_URL = '/admin/'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = "/"
 
 REDACTOR_OPTIONS = {'lang': 'en', 'plugins': [
@@ -194,7 +188,6 @@ LOGGING = {
 
 # migrations support
 MIGRATION_MODULES = {
-    'application': 'leonardo.migrations.application',
     'filer': 'filer.migrations_django',
 }
 
@@ -203,6 +196,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap'
 SECRET_KEY = None
 
 APPS = []
+
+# use default leonardo auth urls
+LEONARDO_AUTH = True
 
 try:
     # full settings
@@ -320,7 +316,7 @@ try:
                 AUTHENTICATION_BACKENDS, getattr(
                     mod.default, 'auth_backends', []))
 
-            if StrictVersion(django.get_version()) > StrictVersion('1.7.7'):
+            if VERSION[:2] >= (1, 8):
                 TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], getattr(
                     mod.default, 'dirs', []))
                 cp = TEMPLATES[0]['OPTIONS']['context_processors']
@@ -357,19 +353,6 @@ try:
 except Exception as e:
     raise e
 
-if not SECRET_KEY:
-    try:
-        LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                  'local')
-
-        from horizon.utils import secret_key
-
-        SECRET_KEY = secret_key.generate_or_read_from_file(os.path.join(LOCAL_PATH,
-                                                                        '.secret_key_store'))
-    except Exception:
-        pass
-
-
 # enable reversion for every req
 if 'reversion' in INSTALLED_APPS:
     MIDDLEWARE_CLASSES = merge(REVERSION_MIDDLEWARE, MIDDLEWARE_CLASSES)
@@ -396,3 +379,9 @@ if 'bootstrap_admin' in INSTALLED_APPS:
     BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
     # INSTALLED_APPS.remove('bootstrap_admin')
     #INSTALLED_APPS = ['bootstrap_admin'] + INSTALLED_APPS
+
+# Add HORIZON_CONFIG to the context information for offline compression
+COMPRESS_OFFLINE_CONTEXT = {
+    'STATIC_URL': STATIC_URL,
+    'HORIZON_CONFIG': HORIZON_CONFIG,
+}

@@ -1,0 +1,12 @@
+{% extends widget.get_base_template %}
+
+{% load i18n %}
+
+{% block content %}
+{% if not request.user.is_authenticated %}
+	<ul class="nav navbar-nav {% if widget.inline %}navbar-inline{% else %}navbar-collapse{% endif %}">
+	    <li><a class="ajax-modal" href="{% url 'signup' %}">{% trans 'Sign Up' %}</a></li>
+	</ul>
+{% endif %}
+</div>
+{% endblock %}
