@@ -110,6 +110,11 @@ class Page(FeinCMSPage):
         parent_dimensions = parent_dimensions or PageDimension.objects.none()
         return parent_dimensions
 
+
+    def delete(self, *args, **kwargs):
+        super(Page, self).delete(*args, **kwargs)
+        [d.delete() for d in self.own_dimensions]
+
     @property
     def get_base_template(self):
         return self.theme.template
@@ -277,6 +282,10 @@ class Widget(FeinCMSBase):
                 'widget_id': self.pk,
                 'widget_type': self.content_type,
             }).save()
+
+    def delete(self, *args, **kwargs):
+        super(Widget, self).delete(*args, **kwargs)
+        [d.delete() for d in self.dimensions]
 
     class Meta:
         abstract = True
