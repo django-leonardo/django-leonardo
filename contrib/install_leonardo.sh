@@ -9,7 +9,6 @@ pip install django-leonardo==2015.0.4.dev17
 django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
 
 export PYTHONPATH=$PWD/myproject
-echo $PYTHONPATH
 cd myproject
 
 python manage.py makemigrations --noinput

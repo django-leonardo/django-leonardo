@@ -111,7 +111,6 @@ Command by command
     django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
 
     export PYTHONPATH=$PWD/myproject
-    echo $PYTHONPATH
     cd ./myproject
 
     python manage.py makemigrations --noinput
