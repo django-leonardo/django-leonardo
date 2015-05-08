@@ -78,13 +78,18 @@ Installation
 
 .. code-block:: bash
 
+    virtualenv -p /usr/bin/python2.7 leonardo_venv
+    cd leonardo_venv
+    source bin/activate
+
     pip install django-leonardo
 
-    # or latest
+    django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
 
-    pip install git+https://github.com/django-leonardo/django-leonardo@develop#egg=leonardo
+    cd myproject
 
-    # start
+    manage.py makemigrations --noinput
+    manage.py migrate --noinput
 
     manage.py runserver 0.0.0.0:80
 
