@@ -1,4 +1,6 @@
 
+__import__('pkg_resources').declare_namespace(__name__)
+
 import django
 default_app_config = 'leonardo.apps.LeonardoConfig'
 
