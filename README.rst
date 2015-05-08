@@ -76,22 +76,53 @@ Themes
 Installation
 ============
 
+one liner
+
+Wget
+
+.. code-block:: bash
+
+    wget -O install_leonardo.sh https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh && sh install_leonardo.sh
+
+CURL
+
+.. code-block:: bash
+
+    curl -L https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh -o install_leonardo.sh
+    sh install_leonardo.sh
+
+Python
+
+.. code-block:: bash
+
+    python -c 'import urllib; print urllib.urlopen("https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh").read()' > install_leonardo.sh
+    sudo sh install_leonardo.sh
+
+Command by command
+
 .. code-block:: bash
 
     virtualenv -p /usr/bin/python2.7 leonardo_venv
     cd leonardo_venv
-    source bin/activate
+    . $PWD/bin/activate
 
-    pip install django-leonardo
+    pip install django-leonardo>=2015.0.4
 
     django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
 
-    cd myproject
+    export PYTHONPATH=$PWD/myproject
+    echo $PYTHONPATH
+    cd ./myproject
 
-    manage.py makemigrations --noinput
-    manage.py migrate --noinput
+    python manage.py makemigrations --noinput
+    python manage.py migrate --noinput
+    python manage.py sync_all
 
-    manage.py runserver 0.0.0.0:80
+    echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'mail@leonardo.cz', 'admin')" | python manage.py shell
+
+    python manage.py runserver 0.0.0.0:80
+
+Navigate your browser to your_ip/admin and login with ``root:admin``
 
 Bundles
 -------
