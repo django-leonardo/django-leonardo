@@ -1,3 +1,4 @@
+pbr>=0.11,<2.0
 FeinCMS==1.11.0
 django-extensions==1.5.2
 djangorestframework==2.3.5
