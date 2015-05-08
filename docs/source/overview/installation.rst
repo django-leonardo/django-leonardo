@@ -3,6 +3,10 @@
 Installation
 ============
 
+Installation Leonardo depend's on your case. See some examples
+
+Via PIP
+
 .. code-block:: bash
 
     pip install django-leonardo
@@ -11,9 +15,57 @@ Installation
 
     pip install git+https://github.com/django-leonardo/django-leonardo@develop#egg=leonardo
 
-    # start
+one liner
 
-    manage.py runserver 0.0.0.0:80
+Wget
+
+.. code-block:: bash
+
+    wget -O install_leonardo.sh https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh && sh install_leonardo.sh
+
+CURL
+
+.. code-block:: bash
+
+    curl -L https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh -o install_leonardo.sh
+    sh install_leonardo.sh
+
+Python
+
+.. code-block:: bash
+
+    python -c 'import urllib; print urllib.urlopen("https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh").read()' > install_leonardo.sh
+    sudo sh install_leonardo.sh
+
+Command by command
+
+.. code-block:: bash
+
+    virtualenv -p /usr/bin/python2.7 leonardo_venv
+    cd leonardo_venv
+    . $PWD/bin/activate
+
+    pip install django-leonardo==2015.0.4
+
+    django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
+
+    export PYTHONPATH=$PWD/myproject
+    cd ./myproject
+
+    python manage.py makemigrations --noinput
+    python manage.py migrate --noinput
+    python manage.py sync_all
+
+    echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'mail@leonardo.cz', 'admin')" | python manage.py shell
+
+    python manage.py runserver 0.0.0.0:80
+
+Using salt
+
+.. code-block:: bash
+
+	salt-call state.sls leonardo
+
 
 Bundles
 -------
