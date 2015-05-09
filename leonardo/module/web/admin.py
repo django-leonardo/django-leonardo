@@ -76,7 +76,6 @@ class PageColorSchemeAdmin(ModelAdmin):
 
 admin.site.register(PageColorScheme, PageColorSchemeAdmin)
 
-from redactor.widgets import RedactorEditor
 
 class WidgetContentThemeForm(forms.ModelForm):
 
@@ -86,9 +85,6 @@ class WidgetContentThemeForm(forms.ModelForm):
     )
 
     class Meta:
-        widgets = {
-           'style': RedactorEditor(),
-        }
         exclude = tuple()
         model = WidgetContentTheme
 
