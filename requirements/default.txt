@@ -30,5 +30,5 @@ bootstrap_admin>=0.3.5
 bootstrap_admin_feincms>=0.0.3
 django-wysiwyg-redactor>=0.4.5.1
 
-leonardo_horizon>=2015.1.1.dev5
+leonardo_horizon==2015.1.1.dev5
 -e git+http://github.com/michaelkuty/django-dbtemplates.git@develop#egg=django_dbtemplates
