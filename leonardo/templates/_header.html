@@ -18,6 +18,11 @@
 {% block css_extra %}
 {% endblock %}
 
+{% compress css inline %}
+{% for file in HORIZON_CONFIG.css_files %}
+    <link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
+{% endfor %}
+{% endcompress %}
 
 {% block page_css %}
 {% compress css %}

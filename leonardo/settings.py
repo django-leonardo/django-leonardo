@@ -139,10 +139,6 @@ LOGIN_URL = '/admin/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = "/"
 
-REDACTOR_OPTIONS = {'lang': 'en', 'plugins': [
-    'table', 'video', 'fullscreen', 'fontcolor', 'textdirection']}
-REDACTOR_UPLOAD = 'uploads/'
-
 LOGOUT_ON_GET = True
 
 AUTHENTICATION_BACKENDS = (
@@ -274,6 +270,12 @@ ABSOLUTE_URL_OVERRIDES = {
     elephantblog_categorytranslation_url_app,
 }
 
+ADD_JS_FILES = []
+
+ADD_CSS_FILES = []
+
+ADD_JS_SPEC_FILES = []
+
 try:
 
     # override settings
@@ -322,6 +324,18 @@ try:
                 PAGE_EXTENSIONS, getattr(
                     mod.default, 'page_extensions', []))
 
+            ADD_JS_FILES = merge(
+                ADD_JS_FILES,
+                getattr(mod.default, 'js_files', []))
+
+            ADD_JS_SPEC_FILES = merge(
+                ADD_JS_SPEC_FILES,
+                getattr(mod.default, 'js_spec_files', []))
+
+            ADD_CSS_FILES = merge(
+                ADD_CSS_FILES,
+                getattr(mod.default, 'css_files', []))
+
             if VERSION[:2] >= (1, 8):
                 TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], getattr(
                     mod.default, 'dirs', []))
@@ -342,6 +356,9 @@ try:
             widgets[getattr(mod.default, 'optgroup', app.capitalize())] = \
                 getattr(mod.default, 'widgets', [])
 
+    setattr(leonardo, 'js_files', ADD_JS_FILES)
+    setattr(leonardo, 'css_files', ADD_CSS_FILES)
+    setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
     setattr(leonardo, 'widgets', widgets)
 
     from leonardo.module.web.models import Page
@@ -404,3 +421,11 @@ try:
     INTERNAL_IPS = ['10.10.10.1', '127.0.0.1']
 except ImportError:
     pass
+
+# use js files instead of horizon
+HORIZON_CONFIG['js_files'] = leonardo.js_files
+HORIZON_CONFIG['js_spec_files'] = leonardo.js_spec_files
+HORIZON_CONFIG['css_files'] = leonardo.css_files
+# path horizon config
+from horizon import conf
+conf.HORIZON_CONFIG = HORIZON_CONFIG

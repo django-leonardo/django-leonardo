@@ -187,3 +187,27 @@ Full example
             """
 
     default = Default()
+
+
+Full API
+--------
+
+    **apps** - leonardo modules or whatever
+
+    **widgets** - FeinCMS widgets
+
+    **optgroup** - menu group name for widgets
+
+    **plugins** - FeinCMS 3rd party apps support
+    
+    **middlewares** - Django Middlewares
+
+    **context_processors** - Django Context Processors
+    
+    **page_extensions** - FeinCMS page extensions
+
+    **js_files** - merged and added to main page header 
+
+    **css_files** linked in head as style
+
+    **js_spec_files** - Angular specific see https://github.com/openstack/horizon/blob/master/openstack_dashboard/enabled/_10_project.py#L44
