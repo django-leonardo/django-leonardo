@@ -342,6 +342,8 @@ try:
             widgets[getattr(mod.default, 'optgroup', app.capitalize())] = \
                 getattr(mod.default, 'widgets', [])
 
+    setattr(leonardo, 'widgets', widgets)
+
     from leonardo.module.web.models import Page
     from leonardo.module.web.widget import ApplicationWidget
 
@@ -379,6 +381,10 @@ except ImportError:
 
 # and again merge core with others
 APPS = merge(APPS, default.core)
+
+setattr(leonardo, 'apps', APPS)
+setattr(leonardo, 'page_extensions', PAGE_EXTENSIONS)
+setattr(leonardo, 'plugins', APPLICATION_CHOICES)
 
 # ensure if bootstra_admin is on top of INSTALLED_APPS
 if 'bootstrap_admin' in INSTALLED_APPS:

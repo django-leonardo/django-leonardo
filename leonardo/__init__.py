@@ -2,6 +2,10 @@
 __import__('pkg_resources').declare_namespace(__name__)
 
 import django
+
+from .base import leonardo
+
+
 default_app_config = 'leonardo.apps.LeonardoConfig'
 
 VERSION = (0, 1, 1,)
