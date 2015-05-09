@@ -12,8 +12,6 @@ docs/build/*
 #indexes
 leonardo/module/search/whoosh_index/*
 
-ChangeLog
-
 # Distribution / packaging
 .Python
 env/
