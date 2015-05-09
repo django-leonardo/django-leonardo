@@ -5,6 +5,7 @@ import django
 
 from .base import leonardo
 
+from leonardo.utils.settings import merge, get_conf_from_module  # noqa
 
 default_app_config = 'leonardo.apps.LeonardoConfig'
 
@@ -111,14 +112,3 @@ class Default(object):
         return cp
 
 default = Default()
-
-
-def merge(a, b):
-    """return merged tuples or lists without duplicates
-    note: ensure if admin theme is before admin
-    """
-    _a = list(a)
-    for x in list(b):
-        if x not in _a:
-            _a.append(x)
-    return _a

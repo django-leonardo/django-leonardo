@@ -290,6 +290,8 @@ try:
 
     widgets = {}
 
+    from leonardo import get_conf_from_module, merge
+
     for app, mod in six.iteritems(leonardo.get_app_modules(APPS)):
 
         # load all settings key
@@ -305,61 +307,46 @@ try:
             except Exception as e:
                 pass
 
-        if hasattr(mod, 'default'):
+        mod_cfg = get_conf_from_module(mod)
 
-            APPLICATION_CHOICES = merge(APPLICATION_CHOICES, getattr(
-                mod.default, 'plugins', []))
+        APPLICATION_CHOICES = merge(APPLICATION_CHOICES, mod_cfg.plugins)
 
-            INSTALLED_APPS = merge(
-                INSTALLED_APPS, getattr(mod.default, 'apps', []))
+        INSTALLED_APPS = merge(INSTALLED_APPS, mod_cfg.apps)
 
-            MIDDLEWARE_CLASSES = merge(
-                MIDDLEWARE_CLASSES, getattr(
-                    mod.default, 'middlewares', []))
-            AUTHENTICATION_BACKENDS = merge(
-                AUTHENTICATION_BACKENDS, getattr(
-                    mod.default, 'auth_backends', []))
+        MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES, mod_cfg.middlewares)
+        AUTHENTICATION_BACKENDS = merge(
+            AUTHENTICATION_BACKENDS, mod_cfg.auth_backends)
 
-            PAGE_EXTENSIONS = merge(
-                PAGE_EXTENSIONS, getattr(
-                    mod.default, 'page_extensions', []))
+        PAGE_EXTENSIONS = merge(PAGE_EXTENSIONS, mod_cfg.page_extensions)
 
-            ADD_JS_FILES = merge(
-                ADD_JS_FILES,
-                getattr(mod.default, 'js_files', []))
+        ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
 
-            ADD_JS_SPEC_FILES = merge(
-                ADD_JS_SPEC_FILES,
-                getattr(mod.default, 'js_spec_files', []))
+        ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
 
-            ADD_CSS_FILES = merge(
-                ADD_CSS_FILES,
-                getattr(mod.default, 'css_files', []))
+        ADD_CSS_FILES = merge(ADD_CSS_FILES, mod_cfg.css_files)
 
-            if VERSION[:2] >= (1, 8):
-                TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], getattr(
-                    mod.default, 'dirs', []))
-                cp = TEMPLATES[0]['OPTIONS']['context_processors']
-                TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
-                    cp, getattr(mod.default, 'context_processors', []))
+        if VERSION[:2] >= (1, 8):
+            TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
+            cp = TEMPLATES[0]['OPTIONS']['context_processors']
+            TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
+                cp, mod_cfg.context_processors)
 
-            else:
+        else:
 
-                TEMPLATE_CONTEXT_PROCESSORS = merge(
-                    TEMPLATE_CONTEXT_PROCESSORS, getattr(
-                        mod.default, 'context_processors', []))
-                TEMPLATE_DIRS = merge(
-                    TEMPLATE_DIRS, getattr(
-                        mod.default, 'dirs', []))
+            TEMPLATE_CONTEXT_PROCESSORS = merge(
+                TEMPLATE_CONTEXT_PROCESSORS, mod_cfg.context_processors)
+            TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
 
-            # collect grouped widgets
-            widgets[getattr(mod.default, 'optgroup', app.capitalize())] = \
-                getattr(mod.default, 'widgets', [])
+        # collect grouped widgets
+        opt_group = mod_cfg.optgroup or app.capitalize()
+        widgets[opt_group] = merge(
+            getattr(widgets, opt_group, []), mod_cfg.widgets)
 
     setattr(leonardo, 'js_files', ADD_JS_FILES)
     setattr(leonardo, 'css_files', ADD_CSS_FILES)
     setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
     setattr(leonardo, 'widgets', widgets)
+
 
     from leonardo.module.web.models import Page
     from leonardo.module.web.widget import ApplicationWidget
@@ -377,6 +364,7 @@ try:
     Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
 except Exception as e:
     raise e
+
 
 # enable reversion for every req
 if 'reversion' in INSTALLED_APPS:

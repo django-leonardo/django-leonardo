@@ -11,7 +11,7 @@ Full featured platform for building everything based on Django, FeinCMS, Horizon
 
 **Don't waste your time searching stable solution for daily problems.**
 
-Deploy your Bootstrap site in ten minutes !
+Django application for Humans.
 
 .. contents::
    :local:
