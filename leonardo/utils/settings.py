@@ -1,7 +1,8 @@
 
-from __future__ import absolute_import
 import six
+from django.utils.importlib import import_module
 
+BLACKLIST = ['haystack']
 
 class dotdict(dict):
 
@@ -64,10 +65,9 @@ def get_conf_from_module(mod):
         conf['context_processors'] = getattr(
             mod.default, 'context_processors', [])
 
-        """
-        from django.utils.importlib import import_module
         # support for recursive dependecies
-        for app in conf['apps']:
+        filtered_apps = [app for app in conf['apps'] if app not in BLACKLIST]
+        for app in filtered_apps:
             try:
                 app_module = import_module(app)
                 if app_module != mod:
@@ -78,6 +78,5 @@ def get_conf_from_module(mod):
                 pass  # swallow, but maybe log for info what happens
             except Exception:
                 pass
-        """
 
     return conf
