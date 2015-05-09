@@ -20,6 +20,8 @@ from leonardo.utils.templates import find_all_templates, template_choices
 from .processors import edit as edit_processors
 from .const import *
 from .widgets.forms import WIDGETS, WidgetUpdateForm
+from leonardo.utils.memonized import memoyield
+from django.utils.functional import cached_property
 
 
 @python_2_unicode_compatible
@@ -92,13 +94,13 @@ class Page(FeinCMSPage):
         verbose_name_plural = _("Pages")
         ordering = ['tree_id', 'lft']
 
-    @property
+    @cached_property
     def own_dimensions(self):
         self_dimensions = PageDimension.objects.filter(
             page=self)
         return self_dimensions
 
-    @property
+    @cached_property
     def dimensions(self):
         # collect all dimensions
         self_dimensions = self.own_dimensions
@@ -119,6 +121,7 @@ class Page(FeinCMSPage):
     def get_base_template(self):
         return self.theme.template
 
+    @memoyield
     def get_col_classes(self, col='col1'):
 
         STR = "col-{0}-{1}"
@@ -198,7 +201,7 @@ class WidgetDimension(models.Model):
     offset = models.IntegerField(verbose_name=_("Offset"),
                                  choices=COLUMN_CHOICES, default=0)
 
-    @property
+    @cached_property
     def classes(self):
         classes = []
         classes.append('col-{}-{}'.format(self.size, self.width))
@@ -304,12 +307,13 @@ class Widget(FeinCMSBase):
             self.region,
             self.ordering)
 
+    @cached_property
     def get_ct_name(self):
         """returns content type name with app label
         """
         return ".".join([self._meta.app_label, self._meta.model_name])
 
-    @property
+    @cached_property
     def content_type(self):
         return ContentType.objects.get_for_model(self)
 
@@ -319,10 +323,10 @@ class Widget(FeinCMSBase):
     def thumb_options(self):
         return config_value('MEDIA', 'THUMB_MEDIUM_OPTIONS')
 
-    def get_template_name(self, format='html'):
+    def get_template_name(self):
         return self.content_theme.template
 
-    @property
+    @cached_property
     def get_template(self):
         return self.content_theme.template
 
@@ -335,28 +339,32 @@ class Widget(FeinCMSBase):
     def widget_name(self):
         return self.__class__.__name__.lower().replace('widget', '')
 
-    @property
+    @cached_property
     def get_base_template(self):
         return self.base_theme.template
 
-    @property
+    @cached_property
     def widget_label(self):
         return self._meta.verbose_name
 
     def render(self, **kwargs):
         return self.render_content(kwargs)
 
+    @cached_property
+    def template_source(self):
+        template = loader.get_template(self.content_theme.template)
+        return template
+
     def render_content(self, options):
 
         base_template = self.base_theme.template
-        template = loader.get_template(self.content_theme.template)
 
         context = RequestContext(options['request'], {
             'widget': self,
             'base_template': self.get_base_template,
             'request': options['request'],
         })
-        return template.render(context)
+        return self.template_source.render(context)
 
     def render_error(self, error_code):
         return render_to_string("widget/error.html", {
@@ -364,16 +372,17 @@ class Widget(FeinCMSBase):
             'request': kwargs['request'],
         })
 
+    @cached_property
     def model_cls(self):
         return self.__class__.__name__
 
-    @property
+    @cached_property
     def dimensions(self):
         return WidgetDimension.objects.filter(
             widget_id=self.pk,
             widget_type=ContentType.objects.get_for_model(self))
 
-    @property
+    @cached_property
     def render_box_classes(self):
         """agreggate all css classes
         """
@@ -383,7 +392,6 @@ class Widget(FeinCMSBase):
         return " ".join(classes)
 
     @classmethod
-    @memoized
     def templates(cls, choices=False, suffix=True):
         """returns widget templates located in ``templates/widget/widgetname``
         """
@@ -414,6 +422,7 @@ class Widget(FeinCMSBase):
         else:
             return 0
 
+    @cached_property
     def fe_identifier(self):
         """
         Returns an identifier which is understood by the frontend
