@@ -67,8 +67,6 @@ class Default(object):
             'leonardo.module.web',
 
             'markupfield',
-            'redactor',
-
         ]
 
     @property
