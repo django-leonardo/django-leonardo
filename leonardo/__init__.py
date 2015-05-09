@@ -14,7 +14,15 @@ class Default(object):
 
     @property
     def middlewares(self):
-        return [
+        MIDDLEWARE_CLASSES = []
+
+        if django.VERSION >= (1, 8, 0):
+            MIDDLEWARE_CLASSES += [
+                'django.contrib.auth.middleware.SessionAuthenticationMiddleware']
+        else:
+            MIDDLEWARE_CLASSES += ['django.middleware.doc.XViewMiddleware']
+
+        return MIDDLEWARE_CLASSES + [
             'django.middleware.common.CommonMiddleware',
             'django.middleware.csrf.CsrfViewMiddleware',
             'django.contrib.sessions.middleware.SessionMiddleware',
