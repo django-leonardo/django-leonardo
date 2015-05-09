@@ -391,3 +391,10 @@ COMPRESS_OFFLINE_CONTEXT = {
     'STATIC_URL': STATIC_URL,
     'HORIZON_CONFIG': HORIZON_CONFIG,
 }
+
+try:
+    import debug_toolbar
+    INSTALLED_APPS += ['debug_toolbar']
+    INTERNAL_IPS = ['10.10.10.1', '127.0.0.1']
+except ImportError:
+    pass

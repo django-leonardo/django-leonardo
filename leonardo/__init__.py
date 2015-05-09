@@ -22,6 +22,12 @@ class Default(object):
         else:
             MIDDLEWARE_CLASSES += ['django.middleware.doc.XViewMiddleware']
 
+        try:
+            import debug_toolbar
+            MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+        except ImportError:
+            pass
+
         return MIDDLEWARE_CLASSES + [
             'django.middleware.common.CommonMiddleware',
             'django.middleware.csrf.CsrfViewMiddleware',

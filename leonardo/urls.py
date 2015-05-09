@@ -57,11 +57,6 @@ if getattr(settings, 'HORIZON_ENABLED', True):
                             url(r'', include(horizon.urls)),
                             )
 
-# feinCMS
-urlpatterns += patterns('',
-                        url(r'', include('feincms.urls')),
-                        )
-
 # translation
 urlpatterns += patterns('',
                         url(r'^i18n/js/(?P<packages>\S+?)/$',
@@ -71,6 +66,26 @@ urlpatterns += patterns('',
                             'django.views.i18n.set_language',
                             name="set_language"),
                         url(r'^i18n/', include('django.conf.urls.i18n'))
+                        )
+
+if settings.DEBUG:
+
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+
+    try:
+        import debug_toolbar
+        urlpatterns += patterns('',
+            url(r'^__debug__/', include(debug_toolbar.urls)),
+        )
+    except ImportError:
+        pass
+
+# feinCMS
+urlpatterns += patterns('',
+                        url(r'', include('feincms.urls')),
                         )
 
 sitemaps = {
@@ -86,13 +101,6 @@ urlpatterns += patterns('',
                         (r'^crossdomain\.xml$',
                          TemplateView.as_view(template_name='crossdomain.xml')),
                         )
-
-if settings.DEBUG:
-
-    urlpatterns += static(settings.STATIC_URL,
-                          document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
 
 # for sentry error handler
 if hasattr(settings, "ERROR_HANDLER_MODULE"):
