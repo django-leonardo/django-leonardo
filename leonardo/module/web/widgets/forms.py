@@ -13,13 +13,11 @@ from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from horizon_contrib.forms import SelfHandlingForm, SelfHandlingModelForm
-#from redactor.widgets import RedactorEditor
 
 WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
     'parent': forms.widgets.HiddenInput,
     'ordering': forms.widgets.HiddenInput,
-    #    'text': RedactorEditor(),
 }
 
 
