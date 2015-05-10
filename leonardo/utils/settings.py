@@ -1,6 +1,6 @@
 
-import six
 from django.utils.importlib import import_module
+from django.utils import six
 
 BLACKLIST = ['haystack']
 

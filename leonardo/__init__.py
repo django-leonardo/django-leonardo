@@ -20,7 +20,6 @@ class Default(object):
     @property
     def middlewares(self):
         MIDDLEWARE_CLASSES = []
-
         import django
         if django.VERSION >= (1, 8, 0):
             MIDDLEWARE_CLASSES += [
@@ -90,6 +89,7 @@ class Default(object):
             'horizon.context_processors.horizon',
             'django.contrib.messages.context_processors.messages',
         ]
+        import django
 
         if django.VERSION[:2] < (1, 8):
 
