@@ -27,6 +27,7 @@ class Default(object):
             'django.contrib.auth.middleware.AuthenticationMiddleware',
             'django.middleware.clickjacking.XFrameOptionsMiddleware',
             'django.middleware.locale.LocaleMiddleware',
+            'django.contrib.sites.middleware.CurrentSiteMiddleware',
 
             # horizon
             'leonardo.middleware.HorizonMiddleware',
