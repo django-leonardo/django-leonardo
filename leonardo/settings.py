@@ -6,8 +6,7 @@ from os.path import abspath, dirname, join, normpath
 
 from django import VERSION
 import six
-from leonardo import default
-from leonardo.base import leonardo
+from leonardo.base import leonardo, default
 from leonardo.utils.settings import get_conf_from_module, merge
 
 EMAIL = {
