@@ -14,7 +14,6 @@ Markdown>=2.2.1
 docutils==0.10
 django-pyscss>=1.0.3
 requests>=1.2.3
-bulbs==0.3.11
 django-filer==0.9.9
 django-admin-tools>=0.5.2
 horizon-contrib>=1.0.6

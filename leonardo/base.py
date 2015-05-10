@@ -1,6 +1,4 @@
 
-from django.utils.importlib import import_module
-from django.utils.module_loading import module_has_submodule
 
 class Leonardo(object):
 
@@ -8,6 +6,8 @@ class Leonardo(object):
         """return imported leonardo modules
         return {'web': web.module}
         """
+        from django.utils.importlib import import_module
+        from django.utils.module_loading import module_has_submodule
         modules = {}
 
         # Try importing a modules from the module package

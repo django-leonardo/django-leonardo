@@ -6,9 +6,9 @@ from os.path import abspath, dirname, join, normpath
 
 from django import VERSION
 import six
-from leonardo import default, merge
-
-from .base import leonardo
+from leonardo import default
+from leonardo.base import leonardo
+from leonardo.utils.settings import get_conf_from_module, merge
 
 EMAIL = {
     'HOST': 'mail.domain.com',
@@ -289,8 +289,6 @@ try:
     from django.utils.module_loading import module_has_submodule  # noqa
 
     widgets = {}
-
-    from leonardo import get_conf_from_module, merge
 
     for app, mod in six.iteritems(leonardo.get_app_modules(APPS)):
 

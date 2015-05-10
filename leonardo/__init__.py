@@ -1,16 +1,8 @@
 
 __import__('pkg_resources').declare_namespace(__name__)
 
-import django
-
-from .base import leonardo
-
-from leonardo.utils.settings import merge, get_conf_from_module  # noqa
 
 default_app_config = 'leonardo.apps.LeonardoConfig'
-
-VERSION = (0, 1, 1,)
-__version__ = '.'.join(map(str, VERSION))
 
 
 class Default(object):
@@ -20,7 +12,7 @@ class Default(object):
     @property
     def middlewares(self):
         MIDDLEWARE_CLASSES = []
-
+        import django
         if django.VERSION >= (1, 8, 0):
             MIDDLEWARE_CLASSES += [
                 'django.contrib.auth.middleware.SessionAuthenticationMiddleware']
@@ -89,6 +81,7 @@ class Default(object):
             'horizon.context_processors.horizon',
             'django.contrib.messages.context_processors.messages',
         ]
+        import django
 
         if django.VERSION[:2] < (1, 8):
 

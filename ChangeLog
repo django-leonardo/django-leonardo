@@ -1,0 +1,448 @@
+CHANGES
+=======
+
+* support for recursive module configs #27
+* working on #6 refactoring loading configuration from modules
+* small update
+* fuj
+* support for JS files CSS files and Angular modules and completly removed redactor from leonardo
+* removed redactor
+* cleanup requirements
+* remove redactor
+* free on Kilo
+* extend leonardo object
+* use Horizon Kilo stable
+* use Changelog
+* debug toolbar for devel environment
+* removed unless db queries, some caches
+* bump required blog version and more security middleware
+* some about leonardo packaging
+* declare namespace packages for proper extends #23
+* installation and migrations
+* removed unless echo
+* script fixes
+* installation fixes and examples
+* bootstrap script
+* #19 use our horizon, leonardo site template example
+* without pbr
+* fix pbr dependency
+* pbr requirement
+* cleanup
+* cleanup main templatetags and update readme, added folio extra
+* python 3 fix and more clean code
+* fix page extensions
+* page permissions
+* delete model dimensions after is deleted
+* fix button name
+* cleanups
+* search configuration and usage
+* patch reverse_lazy, horizon as 3rd party app, but in default state included, allow disable include horizon
+* cleanup, fix requirements
+* search rebuild and get to ready state #14
+* ref fix
+
+2015.0.3
+--------
+
+* update extras
+* cleanup
+* some contrib stuff
+* update
+* use forms and links as leonardo module, removed from core
+* cleanups
+* #8 base auth with registration plugin, delete frontent edit session, cleanup
+* separatation to page and widgets, override page dimensions
+* refactoring web module, use widget label as primary representation
+* fix django 1.7.8, fix leonardo logos, webhooks
+* cleanup unless migration stuff
+* fix compress
+* use bootstrap via page theme
+* compress page theme
+* improve reverse speed
+* django reverse hacking
+* 3rd party app
+* context navigation cleanups
+* vertical tabs/pills
+* navigation menu cleanups
+* fixes to navigation tags
+* flash object widget and fixed related names
+* start editing
+* navbar toggle
+* stylung
+* accordion
+* accordion
+* heights
+* image
+* fix
+* bootstrap 3 layout form
+* fix model string
+* default gallery
+* dims
+* fix
+* image
+* context fixes
+* gallery
+* cleanups
+* form widget fixes
+* rows
+* cleanups
+* fix offset slider default zero
+* fieldset changed
+* static cleanup
+* fix modal buttons
+* fix widget dimensions defaults
+* all widget attributes to css classes
+* page layout update changed
+* frontend edit cleanups
+* context columns
+* thumbnails dependencies
+* jcarousel initial
+* jquery colorbox as lightweight js dep for simple image modals
+* swallow exception in prerendered content
+* slider from first
+* fix
+* cleanups
+* fix
+* widget fixes
+* fix directory listing
+* support for modal sizing from view, prevent user clicking in prerendered content
+* messages
+* page edit in modal dialog
+* floppyforms to installed apps
+* fix page query dimensions
+* fix page
+* linear navigation
+* fix fe identifier
+* editor not now
+* added fe-identifier
+* login
+* fix css id
+* more stuff for frontend page edit
+* page frontend edit initial implementation
+* frontend edit processors, related settings and docs
+* get url instead module absolute url
+* widths
+* prevent menu double click
+* change flow saving new widget
+* view port meta
+* new region tools
+* info
+* xs
+* navbar
+* translate on end of pipeline
+* add correct widget orderind depends on parent page content
+* tag success
+* jumbo edit
+* z-index
+* fix
+* edit fixes
+* add button
+* nav cleanups
+* i18n tags
+* boxes
+* fixes
+* markupfield was fixed with our issue, now can be installed from pypi
+* related name on widget with app and update doc, requirements
+* use our markupfield fixed for Dj 1.8
+
+0.0.2
+-----
+
+* cleanup
+* fixed dbtemplates from git
+* doc ref changed
+* cleanup and dbtemplates
+* fixed setup
+* cleanup
+* removed old requirements
+* redactor static to correct location
+* enable
+* super simple user-auth for now
+* fix admin for html
+* all auth not now
+* dbtemplates for dj 1.8
+* discard old select2 version
+* fix old descriptor api
+* ok select2 is back thanks for new release before 6 hours :D, removed allauth from default deps
+* django 1.8 compatibility fixes and features :D, use newest FeinCMS in the default state, flake exclude, use our dbtemplates
+* added layout/page
+* removed old templates under web module
+* change default values for widget dimensions
+* collect parent page dimensions
+* fix media fixture
+* fixtures moved into demo site
+* spell fixes
+* fix media migrations
+* doc ref fix
+* use our import loader
+* fix page edit
+* fix core apps after override, removed lang from core, fixed media admin
+* added bootswatch to default supported themes
+* fix media
+* merge language selector into nav module, media-filer integration
+* cleanup modules inside leonardo
+* use some core modules as default
+* web
+* fix eshop deps
+* demo site complete
+* removed psycopg2 as main dep (reverted from commit 4b0c799bc0393e2af86765afbbad614b23a443f6)
+* removed psycopg2 as main dep
+* moved core before installation part
+* ref duplicity fixed
+* cleanup
+* travis badge and cleanup
+* travis update
+* fix pbr version
+* switch setup to pbr
+* cleanup main urls
+* support for easy_thumbnail with sorl thumbnail tag style
+* removed unless menu
+* collect filer settings to media/settings
+* fixes with merge tuples and others etc
+* eshop moved to own module, auto load urls from modules
+* fixed application create/edit form
+* complete demo site
+* properly load all widgets
+* fixed extras
+* fixed bootstrap layout
+* textdirection
+* redactor plugins
+* fix load app settings, media-filer improvements
+* widget dimension sliders redactor for text fields fixed sync page theme error
+* placeholder and show preview if is ready
+* universal fix unicodes
+* use non lazy translation
+* fix grouped select content type
+* cleanup
+* render preprended content in delete dialog
+* added select2
+* changed required horizon-contrib version
+* default markup type to RST
+* fix delete redirect
+* separate create/update forms and initial values for create
+* fix edit view
+* leonardo redner region, WIDGET create, update, delete
+* moved object tools links into common
+* fix base
+* user login
+* demo site
+* widget cleans
+* less envs
+* flake not now
+* make native contrib views works
+* contextual content
+* reafactored page themes loading
+* widgets, page layout, demo site data
+* fix xstatic
+* models cleanups
+* xstatic fixes
+* cleanup
+* blog via module
+* fix
+* change version of horizon
+* cleanup
+* fix req extension
+* project name fix
+* docs
+* fixes
+* fixes
+* fix media
+* fix
+* branch name fix
+* cleanup
+* more jobs
+* cleanup
+* cleanup
+* tests
+* frontend edit fixes
+* remove unless
+* requirements fixes
+* horizon as web dep
+* cleanup
+* change getting page themes
+* cleanup
+* template cleanups
+* load leonardo modules by name
+* fix
+* load common templates, and load settings from all apps
+* fix widget templates
+* portal removed
+* cleanup
+* render only selected color scheme
+* panel
+* widgeting
+* fixes
+* more widget
+* template fixes
+* initial value for theme fields
+* fix duplicity
+* ignore private members and fix widget theme name
+* fix html theme
+* fix install
+* fix
+* fix loading template themes
+* sync commands split
+* fields fixes
+* color scheme for page
+* main requirements use default
+* fx name
+* images
+* fix setup for doc
+* use adminlte layout template instead of his package
+* fix render content
+* extend correct page template
+* first fixes
+* fix, limit choices
+* model fix
+* themes as packages initial implementation
+* split base and content widget themes
+* more info to admin
+* ensure is it right template
+* fox wrong packange name
+* unless
+* bold
+* contents
+* cleanup
+* syntax fix
+* bundles
+* more extras
+* not now
+* use page color variations
+* more admin
+* sync bases
+* page color scheme admin
+* admin site headings customization
+* use feincms-bootstrap customization via module - cleanup
+* fixes
+* fixes
+* fixes
+* more navigations
+* menu navigations
+* headings and item_editor css from emma
+* button navigation
+* navigation
+* model cleanup
+* fix for now
+* page
+* cleanup
+* good
+* fix
+* working for now
+* leonardo tags
+* page cleans
+* col as templatetag
+* fix sync pages
+* col classes
+* clean widget labels
+* cleanups
+* column classes
+* navigation
+* page dimensions
+* styles
+* fix filter on generic fk
+* box classes
+* page themes sync
+* cleanup wireframes
+* wirefeame view
+* cleanups templates
+* fix None
+* fix page
+* sync output (reverted from commit 5b005fc82a8fcc4551f4ba3ad2b80c986deb0943)
+* sync output
+* stylung
+* page styles
+* xstatic requirements into web reqs
+* page editor fixes
+* item editor fixes
+* overwrite editor_js - design fixes
+* default value for widget theme
+* forms extras
+* requirements separation
+* static files changed
+* separate requirements
+* favicon
+* fix default
+* template fixes
+* template changes, registration initial login by type and much more
+* overwrite login page
+* fix version of admin bootstrap and fix template blocks
+* migration documentation, bootstrap admin
+* fix tree navigation, and site heading, user login
+* propagate force argument into create template
+* fix filer-media migrations
+* media migrations
+* media app
+* collect widget styles
+* change widgets from classes to objects
+* cleanup fields
+* markup widget fixes
+* admin tune
+* make utils module hidden for management command
+* filter widget themes, fix widget class name in the sync
+* sync page theme + fix calling unicode on proxy object
+* load widget themes as management command
+* dbtemplates, model fixes
+* livesettings removed
+* use one method for get fields
+* form fields for frontend edit
+* fix model inheritence
+* template find reimplementation with cache
+* move project-site app into APPS, removed migrations, change super order
+* migrations configuration
+* auto load rewrite registering application choices, remove livesettings
+* doc and time series recovery initial
+* module text deleted
+* news recovery initial
+* update
+* admin inline fieldsets
+* apps with defaults, templates as radiobuttons, fix get_template, auto load modules, cleanups
+* forms content with widget remove poll for now
+* fix bind
+* styles + FA from external source for now
+* side bar settings
+* template fixes
+* new sidebar adminlte frontend edit progress
+* add example
+* compress options
+* frontend edit initial
+* widget edit with crispy layouts
+* middleware cleanup
+* navigation groups, proper web widgets
+* one user as initial fixture root:admin
+* template changes
+* fix
+* small model fixes
+* install latest
+* update
+* badges
+* added meta, doc - setup, license, contrib etc.
+* contrib deps
+* reversion not now
+* fix adminLTE version
+* cleanup and fixes
+* site heading widget + web and all class diagrams in graphs
+* complete overhaul - renamed to leonardo - web, nav, lang
+* move cms/web related stuff to a sane location
+* migrate to our Page model, template cleanup and many more changes
+* some cleanup
+* fix blog requirements
+* site domain as not required option
+* admin and settings refactoring overrided default admin and settings support bundle of apps
+* big progress
+* local dir
+* local noginore
+* final requirements for pre alpha
+* update requirements, split base to layout
+* horizon 2015 is Dj 1.8 compatible
+* req fixes
+* cleanup
+* complete overhaul, integration of webcms modules and many more
+* files
+* boardie, filer, and horizon as external applicatio
+* template fixes
+* template fix
+* feincms migrations
+* unless bootstrap dep
+* catalog done
+* catalog detail
+* Initial commit
