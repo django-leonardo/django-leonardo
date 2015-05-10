@@ -167,7 +167,7 @@ Auth
 
 * django-leonardo[auth] - All auth
 
-* django-leonardo[saml] - SAML auth standard
+* django-leonardo[saml] - SAML auth backend
 
 Themes
 ~~~~~~
