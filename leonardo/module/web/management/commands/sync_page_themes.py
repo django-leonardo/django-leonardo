@@ -100,9 +100,12 @@ class Command(BaseCommand):
                 for t in page_themes:
                     if t.name in path and "skins" not in path:
                         try:
-                            page_theme = PageTheme.objects.get(id = t.id)
+                            page_theme = PageTheme.objects.get(id=t.id)
                         except PageTheme.DoesNotExist:
                             raise Exception("Run sync_themes before this command")
+                        except Exception as e:
+                            self.stdout.write(
+                                "Cannot load {} into database original error: {}".format(t, e))
                         page_theme.style = storage.open(path).read()
                         page_theme.save()
 
@@ -112,7 +115,7 @@ class Command(BaseCommand):
                         for dirpath, subdirs, filenames in os.walk(skins_path):
                             for f in filenames:
                                 skin, created = PageColorScheme.objects.get_or_create(
-                                    theme = page_theme, label = f, name = f.split(".")[0].title())
+                                    theme=page_theme, label=f, name=f.split(".")[0].title())
                                 with codecs.open(os.path.join(skins_path, f)) as skin_file:
                                     skin.style = skin_file.read()
                                     skin.save()
@@ -147,7 +150,8 @@ class Command(BaseCommand):
                                     name=f.split(".")[0])
                             except PageTheme.DoesNotExist:
                                 page_theme = PageTheme()
-                                page_theme.label = '{} layout'.format(f.split(".")[0].title())
+                                page_theme.label = '{} layout'.format(
+                                    f.split(".")[0].title())
                                 page_theme.name = f.split(".")[0]
                                 page_theme.template = page_template
                                 page_theme.save()
@@ -168,7 +172,7 @@ class Command(BaseCommand):
         cmd = CollectStatic()
         cmd.stdout = self.stdout
         collect_static = cmd.handle(
-            **{ 'interactive': False,
+            **{'interactive': False,
                 'link': False,
                 'clear': False,
                 'dry_run': False,
