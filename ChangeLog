@@ -1,6 +1,14 @@
 CHANGES
 =======
 
+* fix fatal non existent redactor
+* namespace package not now see Django doc
+* fix namespaced packages is pase for Django now.
+
+2015.1.1
+--------
+
+* 2015.1.1
 * gitter link
 * pickled field
 * fix constance dep
