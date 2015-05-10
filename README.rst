@@ -28,6 +28,15 @@ Further reading:
 .. _`Developer Documentation`: http://django-leonardo.readthedocs.org
 .. _`User Documentation`: http://leonardo-documentation.rtfd.org
 
+Solved domains
+==============
+
+* CMS, Page, Plugins, Responsive, Layouts, Themes, Color Variations, Frontend Edit, ..
+* Eshop, Form Designer, Blog, News, Folio, Links, Navigations, ..
+* Media, Folders, Files, Images, Documents, Import - Export, ..
+* Authentification, 3rd party backends, SAML standard, ..
+* Configuration, loading modules, LIVE configuration, editable templates, ..
+
 Core
 ====
 
