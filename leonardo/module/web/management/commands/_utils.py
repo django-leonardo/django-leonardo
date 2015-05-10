@@ -6,7 +6,7 @@ from dbtemplates.conf import settings
 from dbtemplates.models import Template
 from django import VERSION
 from django.contrib.sites.models import Site
-from leonardo import merge
+from leonardo.utils.settings import merge
 
 ALWAYS_ASK, FILES_TO_DATABASE, DATABASE_TO_FILES = ('0', '1', '2')
 
