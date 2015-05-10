@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+* gitter link
+* pickled field
+* fix constance dep
+* live configuration for test #31 redis as optional extra
+* changelog update
+
 2015.1.0
 --------
 
