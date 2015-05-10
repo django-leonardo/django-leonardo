@@ -21,34 +21,6 @@ So best example is live code, we have two base themes for you and lives under ma
 * AdminLTE - https://github.com/django-leonardo/leonardo-theme-adminlte
 * Bootswatch - https://github.com/django-leonardo/leonardo-theme-bootswatch
 
-As you can see theme must contains one template for page layout and optionaly base css for this layout and some color variations lives in ``skins`` directory.
-
-Directory structure::
-
-    leonardo_theme_adminlte
-        |-- __init__.py
-        |-- templates
-            |-- base
-                |-- page
-                |-- adminlte.html
-        |-- static
-            |-- base
-                |-- page
-                    |-- adminlte
-                        |-- adminlte.css
-                        |-- skins
-                            |-- blue.css
-                            |-- blue-light.css
-
-If we run
-
-.. code-block:: python
-
-    python manage.py sync_all
-
-or any his variations Leonardo load base page templates into database and after this step tries find css in theme location.
-After that we have ready theme for our pages and also for editing via admin interface.
-
 Leonardo automatically load these tested themes if is present. For their installation write this in your environment
 
 For all supported themes simple do
@@ -104,41 +76,6 @@ and add it to APPS in ``local_settings.py``
     ]
 
 That's it. Run ``sync_all``.
-
-
-Full API
-========
-
-Django
-------
-
-    **auth_backends** - AUTHENTICATION_BACKENDS
-
-    **context_processors** - Django Context Processors
-
-    **middlewares** - Django Middlewares
-
-FeinCMS
--------
-
-    **apps** - leonardo modules or whatever
-
-    **widgets** - FeinCMS widgets
-
-    **optgroup** - menu group name for widgets
-
-    **plugins** - FeinCMS 3rd party apps support   
-    
-    **page_extensions** - FeinCMS page extensions
-
-Horizon
--------
-
-    **js_files** - merged and added to main page header 
-
-    **css_files** linked in head as style
-
-    **js_spec_files** - Angular specific see https://github.com/openstack/horizon/blob/master/openstack_dashboard/enabled/_10_project.py#L44
 
 
 Full example

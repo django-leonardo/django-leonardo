@@ -5,6 +5,14 @@ Leonardo Configuration
 
 Leonardo is Django powered. All important settings is related with standard Django settings, but is there some leonardo specific configuration. 
 
+Change admin site name
+======================
+
+.. code-block:: python
+
+    SITE_HEADER = "Leonardo administration"
+
+    SITE_TITLE = "Leonardo site admin"
 
 Apps, modules, themes ..
 ========================

@@ -1,24 +1,19 @@
 
-=============
-Configuration
-=============
+========
+New Site
+========
 
-Minimal app
------------
+Easiest way how you can create new Leonardo Site is our Django Site Template which lives here
 
-Directory structure::
+https://github.com/django-leonardo/site-template
 
-    leonardo_site
-        |-- __init__.py
-        |-- local
-            |-- __init__.py
-            |-- local_settings.py
-        |-- static
-            |-- css
-            |-- js
+If you have installed Leonardo simply type
 
-Configure files
----------------
+.. code-block:: bash
+
+    django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
+
+    cd myproject
 
 * ``local_settings`` in your ``PYTHONPATH`` for all stuff
 * or ``settings``/``menu`` .. in ``conf``
@@ -39,14 +34,13 @@ Configure files
     RAVEN_CONFIG = {}
 
     APPS = [
-        'web',
         'blog',
-        'eshop',
-        'fulltext',
         'leonardo_site',  # our app
     ]
 
 Leonardo  template https://github.com/django-leonardo/site-template
+
+If you have configured your database and other common stuff run
 
 .. code-block:: bash
     

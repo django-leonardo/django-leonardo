@@ -20,7 +20,7 @@ Main:
    overview/index
    overview/installation
    overview/configuration
-   overview/modules
+   module/extends/new_site
 
 Core:
 =====
@@ -58,6 +58,16 @@ Common:
 -------
 
 * sentry
+
+Extending
+=========
+
+.. toctree::
+   :maxdepth: 2
+
+   module/extends/new_site
+   module/extends/new_theme
+   module/extends/conf_reference
 
 Indices and tables
 ==================
