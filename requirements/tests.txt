@@ -28,3 +28,4 @@ django-haystack==2.3.1
 leonardo_horizon>=2015.2.0.dev195
 django-leonardo[themes]
 -e git+http://github.com/michaelkuty/django-dbtemplates.git@develop#egg=django_dbtemplates
+-e git+http://github.com/michaelkuty/django-constance.git@master#egg=django_constance
