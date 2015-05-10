@@ -23,6 +23,10 @@ Further reading:
 * `User Documentation`_
 * `Continuous integration homepage`_
 
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+   :alt: Join the chat at https://gitter.im/django-leonardo/django-leonardo
+   :target: https://gitter.im/django-leonardo/django-leonardo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+
 .. _`Demo site`: http://demo.cms.robotice.cz
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 .. _`Developer Documentation`: http://django-leonardo.readthedocs.org
@@ -219,4 +223,3 @@ Read More
 .. |Pypi| image:: https://img.shields.io/pypi/dm/django-leonardo.svg?style=flat
 .. |PypiVersion| image:: https://badge.fury.io/py/django-leonardo.svg?style=flat
 .. |Travis| image:: https://travis-ci.org/django-leonardo/django-leonardo.svg?branch=develop
-
