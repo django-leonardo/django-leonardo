@@ -5,6 +5,43 @@ Leonardo Configuration
 
 Leonardo is Django powered. All important settings is related with standard Django settings, but is there some leonardo specific configuration. 
 
+Configure files
+===============
+
+* ``local_settings`` in your ``PYTHONPATH`` for all stuff
+* or ``your_site``/``local``/``settings.py``
+
+.. note::
+
+    ``leonardo_site`` must be in the ``PYTHONPATH``
+
+.. code-block:: python
+
+    SITE_ID = 1
+    SITE_NAME = 'leonardo'
+    # or full domain
+    SITE_DOMAIN = 'www.leonardo.cz'
+
+    LANGUAGE_CODE = 'en'
+
+    RAVEN_CONFIG = {}
+
+    APPS = [
+        'web',
+        'blog',
+        'eshop',
+        'fulltext',
+        'leonardo_site',  # our app
+    ]
+
+Leonardo  template https://github.com/django-leonardo/site-template
+
+.. code-block:: bash
+    
+    manage.py makemigrations --noinput
+    manage.py migrate --noinput
+    manage.py sync_all
+
 Change admin site name
 ======================
 

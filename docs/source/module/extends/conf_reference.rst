@@ -104,3 +104,7 @@ Horizon
 
     **js_spec_files** - Angular specific see https://github.com/openstack/horizon/blob/master/openstack_dashboard/enabled/_10_project.py#L44
 
+Constance
+---------
+
+    **config** - dictionary of keys for ``django-constance``

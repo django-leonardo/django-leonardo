@@ -70,6 +70,9 @@ class Default(object):
 
             'leonardo',
 
+            'constance',
+            'constance.backends.database',
+
         ]
 
     @property
@@ -80,6 +83,8 @@ class Default(object):
             'django.contrib.auth.context_processors.auth',
             'horizon.context_processors.horizon',
             'django.contrib.messages.context_processors.messages',
+
+            'constance.context_processors.config',
         ]
         import django
 

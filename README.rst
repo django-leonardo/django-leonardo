@@ -192,6 +192,8 @@ Common
 
 * django-leonardo[tests] - Tools for testing
 
+* django-leonardo[redis] - Redis dep
+
 Looking for commercial support?
 ===============================
 
