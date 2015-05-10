@@ -4,6 +4,7 @@ from django.utils.importlib import import_module
 
 BLACKLIST = ['haystack']
 
+
 class dotdict(dict):
 
     """ Dictionary with dot access """
@@ -14,6 +15,7 @@ class dotdict(dict):
     __delattr__ = dict.__delitem__
 
 CONFIG_VALID = (list, tuple)
+
 
 def merge(a, b):
     """return merged tuples or lists without duplicates
@@ -74,9 +76,7 @@ def get_conf_from_module(mod):
                     mod_conf = get_conf_from_module(app_module)
                     for k, v in six.iteritems(mod_conf):
                         conf[k] = merge(conf[k], v)
-            except ImportError:
-                pass  # swallow, but maybe log for info what happens
             except Exception:
-                pass
+                pass  # swallow, but maybe log for info what happens
 
     return conf
