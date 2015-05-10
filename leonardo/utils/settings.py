@@ -48,6 +48,7 @@ def get_conf_from_module(mod):
         'js_files': [],
         'js_spec_files': [],
         'css_files': [],
+        'config': {},
     })
 
     if hasattr(mod, 'default'):
@@ -62,6 +63,7 @@ def get_conf_from_module(mod):
         conf['css_files'] = getattr(mod.default, 'css_files', [])
         conf['widgets'] = getattr(mod.default, 'widgets', [])
         conf['optgroup'] = getattr(mod.default, 'optgroup', None)
+        conf['config'] = getattr(mod.default, 'config', {})
 
         conf['dirs'] = getattr(mod.default, 'dirs', [])
         conf['context_processors'] = getattr(
@@ -75,7 +77,10 @@ def get_conf_from_module(mod):
                 if app_module != mod:
                     mod_conf = get_conf_from_module(app_module)
                     for k, v in six.iteritems(mod_conf):
-                        conf[k] = merge(conf[k], v)
+                        if isinstance(v, dict):
+                            conf[k].update(v)
+                        else:
+                            conf[k] = merge(conf[k], v)
             except Exception:
                 pass  # swallow, but maybe log for info what happens
 

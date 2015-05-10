@@ -30,3 +30,5 @@ bootstrap_admin_feincms>=0.0.3
 
 leonardo_horizon==2015.1.1.dev5
 -e git+http://github.com/michaelkuty/django-dbtemplates.git@develop#egg=django_dbtemplates
+-e git+http://github.com/michaelkuty/django-constance.git@master#egg=django_constance
+django-picklefield==0.3.1

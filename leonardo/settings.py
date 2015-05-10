@@ -126,6 +126,10 @@ LEONARDO_USE_PAGE_ADMIN = True
 
 FEINCMS_DEFAULT_PAGE_MODEL = 'web.Page'
 
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {}
+
 ##########################
 
 
@@ -318,6 +322,8 @@ try:
         PAGE_EXTENSIONS = merge(PAGE_EXTENSIONS, mod_cfg.page_extensions)
 
         ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
+
+        CONSTANCE_CONFIG.update(mod_cfg.config)
 
         ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
 

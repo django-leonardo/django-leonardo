@@ -23,3 +23,15 @@ class LeonardoConfig(AppConfig):
 
         urlresolvers.reverse = reverse
         urlresolvers.reverse_lazy = lazy(reverse, six.text_type)
+
+        try:
+            # optionaly copy all live configuration to main settings
+            from constance import config
+            from django.conf import settings
+
+            for k in dir(config):
+                setattr(settings, k, getattr(config, k))
+        except Exception:
+            # in some environment may failed
+            # use optionaly strategy
+            pass

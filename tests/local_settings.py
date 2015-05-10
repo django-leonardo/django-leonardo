@@ -7,7 +7,7 @@ SITE_ID = 1
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'test_db:',
+        'NAME': 'memory:',
         'TEST_NAME': 'test_db:',
     }
 }
@@ -22,8 +22,6 @@ USE_TZ = True
 
 ROOT_URLCONF = 'testapp.urls'
 LANGUAGES = (('en', 'English'), ('cs', 'Czech'))
-
-SECRET_KEY = "asd"
 
 APPS = [
     'web',

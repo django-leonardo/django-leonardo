@@ -18,9 +18,10 @@ Main:
    :maxdepth: 2
 
    overview/index
-   overview/installation
-   overview/configuration
+   install/intro
    module/extends/new_site
+   config/configuration
+   config/live
 
 Core:
 =====
@@ -67,6 +68,7 @@ Extending
 
    module/extends/new_site
    module/extends/new_theme
+   module/extends/new_module
    module/extends/conf_reference
 
 Indices and tables
