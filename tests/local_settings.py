@@ -32,6 +32,6 @@ APPS = [
 ]
 
 MIGRATION_MODULES = {
-	'web': 'notmigrations',
-	'filer': 'notmigrations',
+    'web': 'notmigrations',
+    'filer': 'notmigrations',
 }
