@@ -2,15 +2,7 @@
 __import__('pkg_resources').declare_namespace(__name__)
 
 
-from leonardo.utils.settings import get_conf_from_module, merge
-
-from .base import leonardo
-
-
 default_app_config = 'leonardo.apps.LeonardoConfig'
-
-VERSION = (0, 1, 1,)
-__version__ = '.'.join(map(str, VERSION))
 
 
 class Default(object):
