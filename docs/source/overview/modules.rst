@@ -90,6 +90,7 @@ For first option you must write simple leonardo module descriptor in ``my_new_th
 
     class Default(object):
 
+        # define your specific apps
         apps = ['my_new_theme_name']
 
     default = Default()
@@ -104,8 +105,41 @@ and add it to APPS in ``local_settings.py``
 
 That's it. Run ``sync_all``.
 
-Modules
+
+Full API
+========
+
+Django
+------
+
+    **auth_backends** - AUTHENTICATION_BACKENDS
+
+    **context_processors** - Django Context Processors
+
+    **middlewares** - Django Middlewares
+
+FeinCMS
 -------
+
+    **apps** - leonardo modules or whatever
+
+    **widgets** - FeinCMS widgets
+
+    **optgroup** - menu group name for widgets
+
+    **plugins** - FeinCMS 3rd party apps support   
+    
+    **page_extensions** - FeinCMS page extensions
+
+Horizon
+-------
+
+    **js_files** - merged and added to main page header 
+
+    **css_files** linked in head as style
+
+    **js_spec_files** - Angular specific see https://github.com/openstack/horizon/blob/master/openstack_dashboard/enabled/_10_project.py#L44
+
 
 Full example
 
@@ -187,3 +221,4 @@ Full example
             """
 
     default = Default()
+

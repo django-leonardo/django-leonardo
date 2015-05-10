@@ -75,13 +75,6 @@ class WebMiddleware(object):
         try:
             page = Page.objects.best_match_for_path(
                 request.path)
-
-            # TODO: find better solution
-            widgets = []
-            for k, val in six.iteritems(page._ct_inventory):
-                if k != '_version_':
-                    widgets += getattr(page.content, k, [])
-            leonardo_options['widgets'] = widgets
         except Exception:
             page = None
             leonardo_options['template'] = 'base.html'

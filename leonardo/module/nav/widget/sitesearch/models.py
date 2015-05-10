@@ -11,6 +11,7 @@ ENGINE_CHOICES = (
     ('haystack', _("Django Haystack")),
 )
 
+
 class SiteSearchWidget(Widget):
     engine = models.CharField(max_length=255, verbose_name=_("engine"), choices=ENGINE_CHOICES, default="google")
     inline = models.BooleanField(verbose_name=_("inline"), default=False)

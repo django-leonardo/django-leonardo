@@ -1,5 +1,12 @@
 
+__import__('pkg_resources').declare_namespace(__name__)
+
 import django
+
+from .base import leonardo
+
+from leonardo.utils.settings import merge, get_conf_from_module  # noqa
+
 default_app_config = 'leonardo.apps.LeonardoConfig'
 
 VERSION = (0, 1, 1,)
@@ -8,16 +15,31 @@ __version__ = '.'.join(map(str, VERSION))
 
 class Default(object):
 
-    core = ['web', 'nav', 'media']
+    core = ['web', 'nav', 'media', 'search']
 
     @property
     def middlewares(self):
-        return [
+        MIDDLEWARE_CLASSES = []
+
+        if django.VERSION >= (1, 8, 0):
+            MIDDLEWARE_CLASSES += [
+                'django.contrib.auth.middleware.SessionAuthenticationMiddleware']
+        else:
+            MIDDLEWARE_CLASSES += ['django.middleware.doc.XViewMiddleware']
+
+        try:
+            import debug_toolbar
+            MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+        except ImportError:
+            pass
+
+        return MIDDLEWARE_CLASSES + [
             'django.middleware.common.CommonMiddleware',
             'django.middleware.csrf.CsrfViewMiddleware',
             'django.contrib.sessions.middleware.SessionMiddleware',
             'django.contrib.messages.middleware.MessageMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.middleware.clickjacking.XFrameOptionsMiddleware',
             'django.middleware.locale.LocaleMiddleware',
 
             # horizon
@@ -90,14 +112,3 @@ class Default(object):
         return cp
 
 default = Default()
-
-
-def merge(a, b):
-    """return merged tuples or lists without duplicates
-    note: ensure if admin theme is before admin
-    """
-    _a = list(a)
-    for x in list(b):
-        if x not in _a:
-            _a.append(x)
-    return _a

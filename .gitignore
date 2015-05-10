@@ -9,7 +9,8 @@ docs/build/*
 # C extensions
 *.so
 
-ChangeLog
+#indexes
+leonardo/module/search/whoosh_index/*
 
 # Distribution / packaging
 .Python

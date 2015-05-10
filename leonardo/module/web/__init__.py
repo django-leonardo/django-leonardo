@@ -2,6 +2,8 @@
 import logging
 from django.apps import AppConfig
 
+from django.utils.translation import ugettext_lazy as _
+
 from .widget import *
 
 
@@ -65,8 +67,6 @@ class Default(object):
             'leonardo.module.web',
 
             'markupfield',
-            'redactor',
-
         ]
 
     @property
@@ -89,6 +89,10 @@ class Default(object):
             UserLoginWidget,
             UserRegistrationWidget,
         ]
+
+    plugins = [
+        ('leonardo.module.web.apps.horizon', _('Horizon'))
+    ]
 
 
 class WebConfig(AppConfig, Default):

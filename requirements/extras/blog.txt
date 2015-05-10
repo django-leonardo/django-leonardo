@@ -1,1 +1,1 @@
-leonardo-module-blog>=0.0.1
+leonardo-module-blog>=2015.0.2

@@ -1,19 +1,21 @@
 {% extends widget.get_base_template %}
 
 {% load i18n %}
+{% load leonardo_tags %}
 
 {% block content %}
-<form action="{% url webcms.module.store.apps.core/webcms_store_search %}" method="get" class="form">
+
+<form action="{% url 'haystack_search' 'leonardo.module.search.apps.search' %}" method="get" class="navbar-form navbar-left" role="search">
 	{% if widget.inline %}
 	<div>
-		<div class="f-left">
-			<input value="{{ query }}" type="text" class="input-text"  name="keywords" id="search_keywords" />
-		</div>
-		<button type="submit" class="button"><span><span>{% trans "Search" %}</span></span></button>
+		  <div class="form-group">
+		    <input type="text" class="form-control" name="q" placeholder="Search">
+		  </div>
+		  <button type="submit" class="btn btn-default">{% trans 'Search' %}</button>
 	</div>
 	{% else %}
 	<div class="fieldset">
-		<input value="{{ query }}" type="text" class="input-text"  name="keywords" id="search_keywords" />
+		<input value="{{ query }}" type="text" class="form-control"  name="q" id="search_keywords" />
 	</div>
 	<div class="buttonset">
 		<button type="submit" class="button"><span><span>{% trans "Search" %}</span></span></button>

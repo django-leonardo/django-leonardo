@@ -139,10 +139,6 @@ LOGIN_URL = '/admin/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = "/"
 
-REDACTOR_OPTIONS = {'lang': 'en', 'plugins': [
-    'table', 'video', 'fullscreen', 'fontcolor', 'textdirection']}
-REDACTOR_UPLOAD = 'uploads/'
-
 LOGOUT_ON_GET = True
 
 AUTHENTICATION_BACKENDS = (
@@ -196,6 +192,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap'
 SECRET_KEY = None
 
 APPS = []
+
+PAGE_EXTENSIONS = []
 
 # use default leonardo auth urls
 LEONARDO_AUTH = True
@@ -272,6 +270,12 @@ ABSOLUTE_URL_OVERRIDES = {
     elephantblog_categorytranslation_url_app,
 }
 
+ADD_JS_FILES = []
+
+ADD_CSS_FILES = []
+
+ADD_JS_SPEC_FILES = []
+
 try:
 
     # override settings
@@ -285,6 +289,8 @@ try:
     from django.utils.module_loading import module_has_submodule  # noqa
 
     widgets = {}
+
+    from leonardo import get_conf_from_module, merge
 
     for app, mod in six.iteritems(leonardo.get_app_modules(APPS)):
 
@@ -301,40 +307,46 @@ try:
             except Exception as e:
                 pass
 
-        if hasattr(mod, 'default'):
+        mod_cfg = get_conf_from_module(mod)
 
-            APPLICATION_CHOICES = merge(APPLICATION_CHOICES, getattr(
-                mod.default, 'plugins', []))
+        APPLICATION_CHOICES = merge(APPLICATION_CHOICES, mod_cfg.plugins)
 
-            INSTALLED_APPS = merge(
-                INSTALLED_APPS, getattr(mod.default, 'apps', []))
+        INSTALLED_APPS = merge(INSTALLED_APPS, mod_cfg.apps)
 
-            MIDDLEWARE_CLASSES = merge(
-                MIDDLEWARE_CLASSES, getattr(
-                    mod.default, 'middlewares', []))
-            AUTHENTICATION_BACKENDS = merge(
-                AUTHENTICATION_BACKENDS, getattr(
-                    mod.default, 'auth_backends', []))
+        MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES, mod_cfg.middlewares)
+        AUTHENTICATION_BACKENDS = merge(
+            AUTHENTICATION_BACKENDS, mod_cfg.auth_backends)
 
-            if VERSION[:2] >= (1, 8):
-                TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], getattr(
-                    mod.default, 'dirs', []))
-                cp = TEMPLATES[0]['OPTIONS']['context_processors']
-                TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
-                    cp, getattr(mod.default, 'context_processors', []))
+        PAGE_EXTENSIONS = merge(PAGE_EXTENSIONS, mod_cfg.page_extensions)
 
-            else:
+        ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
 
-                TEMPLATE_CONTEXT_PROCESSORS = merge(
-                    TEMPLATE_CONTEXT_PROCESSORS, getattr(
-                        mod.default, 'context_processors', []))
-                TEMPLATE_DIRS = merge(
-                    TEMPLATE_DIRS, getattr(
-                        mod.default, 'dirs', []))
+        ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
 
-            # collect grouped widgets
-            widgets[getattr(mod.default, 'optgroup', app.capitalize())] = \
-                getattr(mod.default, 'widgets', [])
+        ADD_CSS_FILES = merge(ADD_CSS_FILES, mod_cfg.css_files)
+
+        if VERSION[:2] >= (1, 8):
+            TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
+            cp = TEMPLATES[0]['OPTIONS']['context_processors']
+            TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
+                cp, mod_cfg.context_processors)
+
+        else:
+
+            TEMPLATE_CONTEXT_PROCESSORS = merge(
+                TEMPLATE_CONTEXT_PROCESSORS, mod_cfg.context_processors)
+            TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
+
+        # collect grouped widgets
+        opt_group = mod_cfg.optgroup or app.capitalize()
+        widgets[opt_group] = merge(
+            getattr(widgets, opt_group, []), mod_cfg.widgets)
+
+    setattr(leonardo, 'js_files', ADD_JS_FILES)
+    setattr(leonardo, 'css_files', ADD_CSS_FILES)
+    setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
+    setattr(leonardo, 'widgets', widgets)
+
 
     from leonardo.module.web.models import Page
     from leonardo.module.web.widget import ApplicationWidget
@@ -352,6 +364,7 @@ try:
     Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
 except Exception as e:
     raise e
+
 
 # enable reversion for every req
 if 'reversion' in INSTALLED_APPS:
@@ -374,6 +387,10 @@ except ImportError:
 # and again merge core with others
 APPS = merge(APPS, default.core)
 
+setattr(leonardo, 'apps', APPS)
+setattr(leonardo, 'page_extensions', PAGE_EXTENSIONS)
+setattr(leonardo, 'plugins', APPLICATION_CHOICES)
+
 # ensure if bootstra_admin is on top of INSTALLED_APPS
 if 'bootstrap_admin' in INSTALLED_APPS:
     BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
@@ -385,3 +402,18 @@ COMPRESS_OFFLINE_CONTEXT = {
     'STATIC_URL': STATIC_URL,
     'HORIZON_CONFIG': HORIZON_CONFIG,
 }
+
+try:
+    import debug_toolbar
+    INSTALLED_APPS += ['debug_toolbar']
+    INTERNAL_IPS = ['10.10.10.1', '127.0.0.1']
+except ImportError:
+    pass
+
+# use js files instead of horizon
+HORIZON_CONFIG['js_files'] = leonardo.js_files
+HORIZON_CONFIG['js_spec_files'] = leonardo.js_spec_files
+HORIZON_CONFIG['css_files'] = leonardo.css_files
+# path horizon config
+from horizon import conf
+conf.HORIZON_CONFIG = HORIZON_CONFIG

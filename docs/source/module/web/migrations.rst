@@ -24,3 +24,19 @@ Django's builtin migrations
     python manage.py makemigrations --noinput
 
     python manage.py migrate --noinput
+
+If you have database already created, redirect your migration and create empty migrations
+
+add this to your ``settings.py``
+
+.. code-block:: python
+
+    MIGRATION_MODULES = {
+        'web': 'leonardo_site.migrations',
+    }
+
+create empty migrations to new path
+
+.. code-block:: bash
+
+    python manage.py makemigrations --empty web

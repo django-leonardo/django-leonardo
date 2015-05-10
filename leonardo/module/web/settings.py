@@ -27,6 +27,14 @@ PAGE_EXTENSIONS = [
     'feincms.module.extensions.ct_tracker',
     'feincms.module.extensions.featured',
 ]
+
+try:
+    import leonardo_module_pagepermissions # noqa
+except Exception:
+    pass
+else:
+    PAGE_EXTENSIONS += ['pagepermissions.extension']
+
 """
 APPLICATION_CHOICES = (
     ('hrcms.portal.device_catalog.urls', 'Robotice Device Catalog'),

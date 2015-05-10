@@ -11,7 +11,7 @@ Full featured platform for building everything based on Django, FeinCMS, Horizon
 
 **Don't waste your time searching stable solution for daily problems.**
 
-Deploy your Bootstrap site in ten minutes !
+Django application for Humans.
 
 .. contents::
    :local:
@@ -26,7 +26,7 @@ Further reading:
 .. _`Demo site`: http://demo.cms.robotice.cz
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 .. _`Developer Documentation`: http://django-leonardo.readthedocs.org
-.. _`User Documentation`: leonardo-documentation.rtfd.org
+.. _`User Documentation`: http://leonardo-documentation.rtfd.org
 
 Core
 ====
@@ -36,6 +36,7 @@ Leonardo in default state has enabled three modules and other can be installed.
 * Web - precise FeinCMS integration
 * Navigation - common navigation components
 * Media - Filer integration with basic widgets
+* Search - Haystack integration with Whoosh backend
 
 Extensions
 ==========
@@ -45,16 +46,23 @@ Leonardo provide bundled extensions, which provides pluggable advantages.
 Modules
 -------
 
-* `Forms`_ - Stable Form Designer integration with Remote Forms
 * `Blog`_ - Elephant Blog integration
+* `Folio`_ - Portfolio app
+* `Forms`_ - Stable Form Designer integration with Remote Forms
 * `Eshop`_ - Oscar Ecommerce - FeinCMS integration
+* `News`_ - News
 * `Sentry`_ - end-user friendly error page
+* `Page Permissions`_ - extend Page and provide new Navigation templates with permissions
 * Static - client-side libraries like an AngularJS, React, D3.js, ..
+
 
 .. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
 .. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
+.. _`Folio`: https://github.com/leonardo-modules/leonardo-module-folio
 .. _`Eshop`: https://github.com/leonardo-modules/leonardo-module-eshop
+.. _`News`: https://github.com/leonardo-modules/leonardo-module-news
 .. _`Sentry`: https://github.com/leonardo-modules/leonardo-module-sentry
+.. _`Page Permissions`: https://github.com/leonardo-modules/leonardo-module-pagepermissions
 
 Themes
 ------
@@ -68,17 +76,52 @@ Themes
 Installation
 ============
 
+one liner
+
+Wget
+
 .. code-block:: bash
 
-    pip install django-leonardo
+    wget -O install_leonardo.sh https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh && sh install_leonardo.sh
 
-    # or latest
+CURL
 
-    pip install git+https://github.com/django-leonardo/django-leonardo@develop#egg=leonardo
+.. code-block:: bash
 
-    # start
+    curl -L https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh -o install_leonardo.sh
+    sh install_leonardo.sh
 
-    manage.py runserver 0.0.0.0:80
+Python
+
+.. code-block:: bash
+
+    python -c 'import urllib; print urllib.urlopen("https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh").read()' > install_leonardo.sh
+    sudo sh install_leonardo.sh
+
+Command by command
+
+.. code-block:: bash
+
+    virtualenv -p /usr/bin/python2.7 leonardo_venv
+    cd leonardo_venv
+    . $PWD/bin/activate
+
+    pip install django-leonardo==2015.0.4
+
+    django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
+
+    export PYTHONPATH=$PWD/myproject
+    cd ./myproject
+
+    python manage.py makemigrations --noinput
+    python manage.py migrate --noinput
+    python manage.py sync_all
+
+    echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'mail@leonardo.cz', 'admin')" | python manage.py shell
+
+    python manage.py runserver 0.0.0.0:80
+
+Navigate your browser to your_ip/admin and login with ``root:admin``
 
 Bundles
 -------
@@ -92,7 +135,7 @@ commas.
 
 .. code-block:: bash
 
-    $ pip install "django-leonardo[static]"
+    $ pip install "django-leonardo[folio]"
 
     $ pip install "django-leonardo[blog,eshop,static,themes]"
 
@@ -103,7 +146,16 @@ CMS
 
 * django-leonardo[blog] - ElephantBlog integration
 
-* django-leonardo[static] - AngularJS, React, BootStrap, D3.js, ..
+* django-leonardo[folio] - Portfolio with translations
+
+* django-leonardo[forms] - Form Designer and Remote Forms
+
+* django-leonardo[links] - Links
+
+* django-leonardo[pagepermissions] - Page Permissions
+
+Themes
+~~~~~~
 
 * django-leonardo[themes] - Leonardo themes [Bootstrap, AdminLTE]
 
@@ -118,6 +170,8 @@ Common
 ~~~~~~
 
 * django-leonardo[sentry] - Raven integration with end-user friendly error page
+
+* django-leonardo[static] - AngularJS, React, BootStrap, D3.js, ..
 
 Looking for commercial support?
 ===============================

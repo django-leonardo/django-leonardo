@@ -120,7 +120,6 @@ def permalink(func):
 
 
 def reverse(viewname, urlconf=None, args=None, kwargs=None, prefix=None, current_app=None):
-
     """monkey patched reverse
 
     if not urlconf tries find in app contents url
@@ -170,7 +169,6 @@ def reverse(viewname, urlconf=None, args=None, kwargs=None, prefix=None, current
                 resolved_path.append(ns)
                 ns_pattern = ns_pattern + extra
             except KeyError as key:
-
                 for urlconf, config in six.iteritems(
                         ApplicationWidget._feincms_content_models[0].ALL_APPS_CONFIG):
                     partials = viewname.split(':')[1:]
