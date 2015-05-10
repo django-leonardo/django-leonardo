@@ -1,6 +1,21 @@
 CHANGES
 =======
 
+2015.0.4
+--------
+
+* remove bulbs from requirements
+
+2015.0.4b1
+----------
+
+* install instead http
+* cleanup
+* more lazy imports
+* django lazy import
+* cleanup unless stuff
+* doc update
+* fixed version and added Changelog from build
 * support for recursive module configs #27
 * working on #6 refactoring loading configuration from modules
 * small update
