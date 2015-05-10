@@ -1,11 +1,11 @@
 
 __import__('pkg_resources').declare_namespace(__name__)
 
-import django
+
+from leonardo.utils.settings import get_conf_from_module, merge
 
 from .base import leonardo
 
-from leonardo.utils.settings import merge, get_conf_from_module  # noqa
 
 default_app_config = 'leonardo.apps.LeonardoConfig'
 
@@ -21,6 +21,7 @@ class Default(object):
     def middlewares(self):
         MIDDLEWARE_CLASSES = []
 
+        import django
         if django.VERSION >= (1, 8, 0):
             MIDDLEWARE_CLASSES += [
                 'django.contrib.auth.middleware.SessionAuthenticationMiddleware']
