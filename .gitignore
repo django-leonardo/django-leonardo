@@ -5,6 +5,8 @@ __pycache__/
 leonardo/local/.secret_key_store
 
 docs/build/*
+tests/static/*
+tests/media/*
 
 # C extensions
 *.so

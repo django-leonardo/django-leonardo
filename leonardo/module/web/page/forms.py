@@ -21,6 +21,7 @@ class PageUpdateForm(SelfHandlingModelForm):
             'parent': forms.widgets.HiddenInput,
             'override_url': forms.widgets.HiddenInput,
         }
+        exclude = tuple()
 
     def _wrap_all(self):
         # stylung
