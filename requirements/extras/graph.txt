@@ -1,2 +1,3 @@
 neomodel>=0.3.6 # graph DB support
+bulbs==0.3.11
 #-e git+https://github.com/robinedwards/neomodel.git@feature_neo4j_2_0#egg=neomodel
