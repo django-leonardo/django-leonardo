@@ -26,13 +26,18 @@ Configure files
 
     RAVEN_CONFIG = {}
 
+.. note::
+
+    Leonardo finds and includes all modules which has descriptor(leonardo modules).
+
+if you want you can specify your custom APPS::
+
     APPS = [
-        'web',
         'blog',
         'eshop',
-        'fulltext',
         'leonardo_site',  # our app
     ]
+
 
 Leonardo  template https://github.com/django-leonardo/site-template
 
@@ -67,6 +72,15 @@ Leonardo has own specific app/module system. This system is same as Django, but 
 But if configured via ``APPS``, Leonardo tryies find ``default`` configuration in main descriptor of module.
 Descriptor may contains many various properties, which is safely merge into main settings. For full description see ``modules``.
 
+Leonardo
+========
+
+.. code-block:: python
+
+    LEONARDO_MODULE_AUTO_INCLUDE = True
+
+This option says please do not auto include leonardo modules.
+
 Frontend Edit
 =============
 
@@ -95,4 +109,4 @@ Horizon has own ``urls`` finder, which provide capabilities for defining ``dashb
 
 .. note::
 
-	Before this, please add external app ``Horizon`` to any ``Page``, because may broke admin.
+    Before this, please add external app ``Horizon`` to any ``Page``, because may broke admin.

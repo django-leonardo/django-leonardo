@@ -1,5 +1,4 @@
 
-import six
 from django.conf import settings
 from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
@@ -31,7 +30,7 @@ urlpatterns += patterns('',
 # load all urls
 # support .urls file and urls_conf = 'elephantblog.urls' on default module
 # TODO: decorate loaded modules for sure
-for app, mod in six.iteritems(leonardo.get_app_modules(settings.APPS)):
+for mod in leonardo.get_app_modules(settings.APPS):
     if hasattr(mod, 'default'):
         if module_has_submodule(mod, 'urls'):
             urls_mod = import_module('.urls', mod.__name__)

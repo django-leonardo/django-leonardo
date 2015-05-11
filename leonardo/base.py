@@ -112,12 +112,11 @@ class Leonardo(object):
     default = default
 
     def get_app_modules(self, apps):
-        """return imported leonardo modules
-        return {'web': web.module}
+        """return array of imported leonardo modules for apps
         """
         from django.utils.importlib import import_module
         from django.utils.module_loading import module_has_submodule
-        modules = {}
+        modules = []
 
         # Try importing a modules from the module package
         package_string = '.'.join(['leonardo', 'module'])
@@ -140,7 +139,7 @@ class Leonardo(object):
                     mod = _app
                 else:
                     mod = import_module('.{0}'.format(app), package_string)
-                modules[app] = mod
+                modules.append(mod)
         return modules
 
 leonardo = Leonardo()
