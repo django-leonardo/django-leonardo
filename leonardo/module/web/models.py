@@ -20,6 +20,7 @@ from .processors import edit as edit_processors
 from .const import *
 from .widgets.forms import WIDGETS, WidgetUpdateForm
 from django.utils.functional import cached_property
+from leonardo.utils.memoized import memoized
 
 
 @python_2_unicode_compatible
@@ -351,6 +352,7 @@ class Widget(FeinCMSBase):
         template = loader.get_template(self.content_theme.template)
         return template
 
+    @memoized
     def render_content(self, options):
 
         base_template = self.base_theme.template
