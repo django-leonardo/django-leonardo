@@ -4,8 +4,8 @@ python:
   - "2.7"
 env:
   matrix:
-   - DJANGO_REQUIREMENT="Django>=1.7,<1.8"
    - DJANGO_REQUIREMENT="Django>=1.8,<1.9"
+   - DJANGO_REQUIREMENT="Django>=1.7,<1.8"
    - DB=mysql
    - DB=postgres
    - DB=sqlite
