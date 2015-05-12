@@ -81,6 +81,12 @@ Leonardo
 
 This option says please do not auto include leonardo modules.
 
+.. code-block:: python
+
+    LEONARDO_MEMOIZED = True
+
+If set False is disabled any content cache.
+
 Frontend Edit
 =============
 

@@ -11,10 +11,13 @@ class ManagementCommandsTest(TestCase):
 
     def test_01_sync_all(self):
 
-        # fix sqlite
-        from django.db import connection
-        connection.cursor()
-        connection.connection.text_factory = lambda x: unicode(x, "utf-8", "ignore")
+        try:
+            # fix sqlite
+            from django.db import connection
+            connection.cursor()
+            connection.connection.text_factory = lambda x: unicode(x, "utf-8", "ignore")
+        except Exception:
+            pass
 
         management.call_command('sync_all', force=True)
 

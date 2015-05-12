@@ -20,6 +20,7 @@ from .processors import edit as edit_processors
 from .const import *
 from .widgets.forms import WIDGETS, WidgetUpdateForm
 from django.utils.functional import cached_property
+from leonardo.utils.memoized import page_memoized, widget_memoized
 
 
 @python_2_unicode_compatible
@@ -110,15 +111,15 @@ class Page(FeinCMSPage):
         parent_dimensions = parent_dimensions or PageDimension.objects.none()
         return parent_dimensions
 
-
     def delete(self, *args, **kwargs):
         super(Page, self).delete(*args, **kwargs)
         [d.delete() for d in self.own_dimensions]
 
-    @property
+    @cached_property
     def get_base_template(self):
         return self.theme.template
 
+    @page_memoized
     def get_col_classes(self, col='col1'):
         STR = "col-{0}-{1}"
         classes = []
@@ -274,6 +275,8 @@ class Widget(FeinCMSBase):
 
     def save(self, *args, **kwargs):
 
+        self.saved = True
+
         super(Widget, self).save(*args, **kwargs)
 
         if not self.dimensions.exists():
@@ -343,17 +346,16 @@ class Widget(FeinCMSBase):
     def widget_label(self):
         return self._meta.verbose_name
 
-    def render(self, **kwargs):
-        return self.render_content(kwargs)
-
     @cached_property
     def template_source(self):
         template = loader.get_template(self.content_theme.template)
         return template
 
-    def render_content(self, options):
+    def render(self, **kwargs):
+        return self.render_content(kwargs)
 
-        base_template = self.base_theme.template
+    @widget_memoized
+    def render_content(self, options):
 
         context = RequestContext(options['request'], {
             'widget': self,

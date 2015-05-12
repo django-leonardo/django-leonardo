@@ -1,6 +1,43 @@
 CHANGES
 =======
 
+2015.1.4
+--------
+
+* revalide in-memory cache after widget update
+* update readme coverage
+* suppor for disabling MEMOIZED
+* fix psql, mysql tests
+* django version to test matrix
+* use test requirements
+* db metrix - test mysql, postgresl and sqlite in separate environments
+* model personalized memoized for specific purposes
+* native memoized all render_content calls #29
+* user to id
+* memoized for test decrese server response time from 1s to 150ms
+
+2015.1.3
+--------
+
+* fix page dimenssions and remove unless memonized
+* use primary _APPS from main config
+* no autodiscover for tests
+* file log
+* leonardo logging
+* logging back
+* grr swallow exception now
+* log with file
+* changed logging
+* setup before execute
+* new logger
+* fix new return type
+* FEATURE: auto include leonardo modules
+* use current site middleware
+
+2015.1.2
+--------
+
+* update
 * fix fatal non existent redactor
 * namespace package not now see Django doc
 * fix namespaced packages is pase for Django now.
