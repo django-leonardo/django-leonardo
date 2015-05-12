@@ -77,7 +77,7 @@ class page_memoized(memoized):
             return content
 
 
-class widget_memoized(memoized):
+class widget_memoized(object):
 
     """Designed only for widget render function.
     """
@@ -99,7 +99,9 @@ class widget_memoized(memoized):
                 instance.__class__.__name__,
                 instance.id,
                 request.user)
-            if self.is_actual():
+            expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
+            if id in self.cache \
+                    and self.cache[id][0] >= expirated:
                 return self.cache[id][1]
             else:
                 content = self.func(*args)
