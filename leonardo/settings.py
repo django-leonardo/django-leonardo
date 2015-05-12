@@ -6,9 +6,8 @@ from os.path import abspath, dirname, join, normpath
 
 from django import VERSION
 import six
-from leonardo import default
-from leonardo.base import leonardo
-from leonardo.utils.settings import get_conf_from_module, merge
+from leonardo.base import leonardo, default
+from leonardo.utils.settings import get_conf_from_module, merge, get_leonardo_modules
 
 EMAIL = {
     'HOST': 'mail.domain.com',
@@ -130,6 +129,8 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {}
 
+LEONARDO_MODULE_AUTO_INCLUDE = True
+
 ##########################
 
 
@@ -172,14 +173,25 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'leonardo_app.log',
             'formatter': 'verbose'
         },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['console'],
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'leonardo': {
+            'handlers': ['console', 'file'],
             'level': 'DEBUG',
             'propagate': True,
         },
@@ -294,7 +306,14 @@ try:
 
     widgets = {}
 
-    for app, mod in six.iteritems(leonardo.get_app_modules(APPS)):
+    # critical time to import modules
+    _APPS = leonardo.get_app_modules(APPS)
+
+    if LEONARDO_MODULE_AUTO_INCLUDE:
+        # fined and merge with defined app modules
+        _APPS = merge(get_leonardo_modules(), _APPS)
+
+    for mod in _APPS:
 
         # load all settings key
         if module_has_submodule(mod, "settings"):
@@ -342,7 +361,7 @@ try:
             TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
 
         # collect grouped widgets
-        opt_group = mod_cfg.optgroup or app.capitalize()
+        opt_group = mod_cfg.optgroup or mod.__name__.capitalize()
         widgets[opt_group] = merge(
             getattr(widgets, opt_group, []), mod_cfg.widgets)
 

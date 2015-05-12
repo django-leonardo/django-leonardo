@@ -13,7 +13,6 @@ UpdateView.template_name = "leonardo/common/modal2.html"
 
 
 urlpatterns = patterns('',
-                       url(r'^redactor/', include('redactor.urls')),
                        url(r'^page/', include('leonardo.module.web.page.urls')),
                        url(r'^widget/', include('leonardo.module.web.widgets.urls')),
                        )

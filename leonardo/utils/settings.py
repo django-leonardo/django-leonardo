@@ -1,4 +1,5 @@
 
+
 from django.utils.importlib import import_module
 from django.utils import six
 
@@ -6,7 +7,6 @@ BLACKLIST = ['haystack']
 
 
 class dotdict(dict):
-
     """ Dictionary with dot access """
 
     def __getattr__(self, attr):
@@ -33,7 +33,40 @@ def merge(a, b):
     return None
 
 
+def get_leonardo_modules():
+    """return all leonardo modules
+
+    check every installed module for leonardo descriptor
+
+    """
+
+    modules = []
+
+    try:
+        import pip
+        installed_packages = pip.get_installed_distributions()
+    except Exception:
+        installed_packages = []
+
+    for package in installed_packages:
+        # check for default descriptor
+        pkg_name = [k for k in package._get_metadata("top_level.txt")][0]
+        if pkg_name not in BLACKLIST:
+            try:
+                mod = import_module(pkg_name)
+                if hasattr(mod, 'default'):
+                    modules.append(mod)
+            except Exception:
+                pass
+
+    return modules
+
+
 def get_conf_from_module(mod):
+    """return configuration from module with defaults no worry about None type
+
+    """
+
     # define options
     conf = dotdict({
         'optgroup': None,
