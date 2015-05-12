@@ -19,15 +19,25 @@ class memoized(object):
         self.cache = {}
 
     def __call__(self, *args):
-        id = "{}-{}-{}".format(args[0]._meta.app_label, args[0].__class__.__name__ , args[0].id)
-        expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
-        if id in self.cache \
-                and self.cache[id][0] >= expirated:
-            return self.cache[id][1]
-        else:
-            content = self.func(*args)
-            self.cache[id] = datetime.now(), content
-            return content
+        try:
+            instance = args[0]
+            request = args[1]['request']
+            id = "{}-{}-{}-{}".format(
+                instance._meta.app_label,
+                instance.__class__.__name__,
+                instance.id,
+                request.user)
+            expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
+            if id in self.cache \
+                    and self.cache[id][0] >= expirated:
+                return self.cache[id][1]
+            else:
+                content = self.func(*args)
+                self.cache[id] = datetime.now(), content
+                return content
+        except Exception:
+            # all process is optional if failed nothing to do
+            return self.func(*args)
 
     def __repr__(self):
         '''Return the function's docstring.'''
