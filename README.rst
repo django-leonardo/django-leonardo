@@ -13,6 +13,26 @@ Full featured platform for building everything based on Django, FeinCMS, Horizon
 
 Django application for Humans.
 
+For Users
+=========
+
+* CMS, Page, Responsive, Layouts, Themes, Color Variations 
+* Frontend Edit, Widgets, Plugins, 3rd party app integration support, ..
+* Eshop, Form Designer, Blog, News, Folio, Links, Navigations, ..
+* Media, Folders, Files, Images, Documents, Import - Export, ..
+* Authentification, 3rd party backends, SAML standard, ..
+* Auto loading modules, LIVE configuration, editable templates, ..
+
+For Developers
+==============
+
+* Python, Django, FeinCMS, OpenStack Horizon
+* AngularJS, React, Bootstrap, Compress, Bootswatch
+* Crispy forms, Floppy forms, Select2
+* Filer, DbTemplates, Reversion, Constance
+* Haystack, Oscar, Django Admin Bootstrap
+* and tons of other apps bundled as modules
+
 .. contents::
    :local:
 
@@ -27,19 +47,14 @@ Further reading:
    :alt: Join the chat at https://gitter.im/django-leonardo/django-leonardo
    :target: https://gitter.im/django-leonardo/django-leonardo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 
+.. image:: https://coveralls.io/repos/django-leonardo/django-leonardo/badge.svg?branch=develop
+   :alt: Coverage
+   :target: https://coveralls.io/r/django-leonardo/django-leonardo?branch=develop
+
 .. _`Demo site`: http://demo.cms.robotice.cz
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 .. _`Developer Documentation`: http://django-leonardo.readthedocs.org
 .. _`User Documentation`: http://leonardo-documentation.rtfd.org
-
-Solved domains
-==============
-
-* CMS, Page, Plugins, Responsive, Layouts, Themes, Color Variations, Frontend Edit, ..
-* Eshop, Form Designer, Blog, News, Folio, Links, Navigations, ..
-* Media, Folders, Files, Images, Documents, Import - Export, ..
-* Authentification, 3rd party backends, SAML standard, ..
-* Configuration, loading modules, LIVE configuration, editable templates, ..
 
 Core
 ====
@@ -222,4 +237,4 @@ Read More
 .. |Doc badge| image:: https://readthedocs.org/projects/django-leonardo/badge/?version=develop
 .. |Pypi| image:: https://img.shields.io/pypi/dm/django-leonardo.svg?style=flat
 .. |PypiVersion| image:: https://badge.fury.io/py/django-leonardo.svg?style=flat
-.. |Travis| image:: https://travis-ci.org/django-leonardo/django-leonardo.svg?branch=develop
+.. |Travis| image:: https://travis-ci.org/django-leonardo/django-leonardo.svg?branch=master
