@@ -1,12 +1,9 @@
 
-import logging
 
 from django.utils.importlib import import_module
 from django.utils import six
 
 BLACKLIST = ['haystack']
-
-LOG = logging.getLogger(__name__)
 
 
 class dotdict(dict):
@@ -48,8 +45,7 @@ def get_leonardo_modules():
     try:
         import pip
         installed_packages = pip.get_installed_distributions()
-    except Exception as e:
-        LOG.exception(e)
+    except Exception:
         installed_packages = []
 
     for package in installed_packages:
@@ -60,8 +56,8 @@ def get_leonardo_modules():
                 mod = import_module(pkg_name)
                 if hasattr(mod, 'default'):
                     modules.append(mod)
-            except Exception as e:
-                LOG.exception(e)
+            except Exception:
+                pass
 
     return modules
 
