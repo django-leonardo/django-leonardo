@@ -9,5 +9,6 @@ if __name__ == "__main__":
         0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
     from django.core.management import execute_from_command_line
-
+    import django
+    django.setup()
     execute_from_command_line(sys.argv)
