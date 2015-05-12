@@ -1,4 +1,6 @@
 
+from __future__ import absolute_import
+
 import functools
 from django.conf import settings
 from datetime import datetime, timedelta
@@ -10,8 +12,66 @@ class memoized(object):
 
     """Decorator. Caches a function's return value each time it is called.
     If called later with the same arguments, the cached value is returned
-    (not reevaluated), unless more than expiration passed. Designed only for
-    widget functions.
+    (not reevaluated), unless more than expiration passed.
+    """
+
+    def __init__(self, func):
+        self.func = func
+        self.cache = {}
+
+    def __call__(self, *args):
+        instance = args[0]
+        id = "{}-{}-{}".format(
+            instance._meta.app_label,
+            instance.__class__.__name__,
+            instance.id)
+        expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
+        if id in self.cache \
+                and self.cache[id][0] >= expirated:
+            return self.cache[id][1]
+        else:
+            content = self.func(*args)
+            self.cache[id] = datetime.now(), content
+            return content
+
+    def __repr__(self):
+        '''Return the function's docstring.'''
+        return self.func.__doc__
+
+    def __get__(self, obj, objtype):
+        '''Support instance methods.'''
+        return functools.partial(self.__call__, obj)
+
+
+class page_memoized(memoized):
+
+    """Page specific
+    """
+
+    def __init__(self, func):
+        self.func = func
+        self.cache = {}
+
+    def __call__(self, *args):
+        instance = args[0]
+        id = "{}-{}-{}-{}".format(
+            instance._meta.app_label,
+            instance.__class__.__name__,
+            instance.id,
+            args[1])
+        expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
+        if id in self.cache \
+                and self.cache[id][0] >= expirated:
+            return self.cache[id][1]
+        else:
+            content = self.func(*args)
+            self.cache[id] = datetime.now(), content
+            return content
+
+
+class widget_memoized(memoized):
+
+    """Designed only for widget render function.
     """
 
     def __init__(self, func):
@@ -38,11 +98,3 @@ class memoized(object):
         except Exception:
             # all process is optional if failed nothing to do
             return self.func(*args)
-
-    def __repr__(self):
-        '''Return the function's docstring.'''
-        return self.func.__doc__
-
-    def __get__(self, obj, objtype):
-        '''Support instance methods.'''
-        return functools.partial(self.__call__, obj)
