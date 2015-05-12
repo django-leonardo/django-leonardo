@@ -173,16 +173,15 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'WARNING',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
     },
     'loggers': {
-        'django.request': {
+        'django': {
             'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
         },
         'leonardo.utils.settings': {
             'handlers': ['console'],
