@@ -51,7 +51,7 @@ class memoized(object):
         return functools.partial(self.__call__, obj)
 
 
-class page_memoized(memoized):
+class page_memoized(object):
 
     """Page specific
     """
@@ -59,6 +59,13 @@ class page_memoized(memoized):
     def __init__(self, func):
         self.func = func
         self.cache = {}
+
+    def is_actual(self, id):
+        expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
+        if id in self.cache \
+                and self.cache[id][0] >= expirated:
+            return True
+        return False
 
     def __call__(self, *args):
         if not LEONARDO_MEMOIZED:
@@ -76,6 +83,14 @@ class page_memoized(memoized):
             self.cache[id] = datetime.now(), content
             return content
 
+    def __repr__(self):
+        '''Return the function's docstring.'''
+        return self.func.__doc__
+
+    def __get__(self, obj, objtype):
+        '''Support instance methods.'''
+        return functools.partial(self.__call__, obj)
+
 
 class widget_memoized(object):
 
@@ -85,6 +100,13 @@ class widget_memoized(object):
     def __init__(self, func):
         self.func = func
         self.cache = {}
+
+    def is_actual(self, id):
+        expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
+        if id in self.cache \
+                and self.cache[id][0] >= expirated:
+            return True
+        return False
 
     def __call__(self, *args):
 
@@ -99,9 +121,8 @@ class widget_memoized(object):
                 instance.__class__.__name__,
                 instance.id,
                 request.user)
-            expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
-            if id in self.cache \
-                    and self.cache[id][0] >= expirated:
+
+            if self.is_actual(id) and not getattr(instance, 'saved', False):
                 return self.cache[id][1]
             else:
                 content = self.func(*args)
