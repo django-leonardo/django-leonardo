@@ -6,6 +6,7 @@ from django.conf import settings
 from datetime import datetime, timedelta
 
 CACHE_EXPIRATION = getattr(settings, 'CACHE_EXPIRATION', 3600)
+LEONARDO_MEMOIZED = getattr(settings, 'LEONARDO_MEMOIZED', True)
 
 
 class memoized(object):
@@ -20,6 +21,8 @@ class memoized(object):
         self.cache = {}
 
     def __call__(self, *args):
+        if not LEONARDO_MEMOIZED:
+            return self.func(*args)
         instance = args[0]
         id = "{}-{}-{}".format(
             instance._meta.app_label,
@@ -53,6 +56,8 @@ class page_memoized(memoized):
         self.cache = {}
 
     def __call__(self, *args):
+        if not LEONARDO_MEMOIZED:
+            return self.func(*args)
         instance = args[0]
         id = "{}-{}-{}-{}".format(
             instance._meta.app_label,
@@ -79,6 +84,8 @@ class widget_memoized(memoized):
         self.cache = {}
 
     def __call__(self, *args):
+        if not LEONARDO_MEMOIZED:
+            return self.func(*args)
         try:
             instance = args[0]
             request = args[1]['request']
