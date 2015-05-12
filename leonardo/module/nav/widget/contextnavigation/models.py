@@ -5,8 +5,6 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.web.const import PAGE_REGIONS
 from leonardo.module.web.models import Page, Widget
-from leonardo.utils.memoized import widget_memoized
-
 
 DEPTH_CHOICES = (
     (0, _("self")),
@@ -33,7 +31,6 @@ class ContextNavigationWidget(Widget):
         verbose_name = _("Contextual content")
         verbose_name_plural = _('Contextual contents')
 
-    @widget_memoized
     def render_content(self, options):
 
         if self.root:

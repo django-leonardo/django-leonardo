@@ -352,9 +352,17 @@ class Widget(FeinCMSBase):
         return template
 
     def render(self, **kwargs):
-        return self.render_content(kwargs)
+        return self.render_with_cache(kwargs)
 
     @widget_memoized
+    def render_with_cache(self, options):
+        """proxy for render_content with memoized
+
+        this method provide best performence for complicated
+        widget contentc like a context navigation
+        """
+        return self.render_content(options)
+
     def render_content(self, options):
 
         context = RequestContext(options['request'], {
