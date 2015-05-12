@@ -87,19 +87,19 @@ class widget_memoized(memoized):
         self.cache = {}
 
     def __call__(self, *args):
+
         if not LEONARDO_MEMOIZED:
             return self.func(*args)
 
-        instance = args[0]
-        request = args[1]['request']
-        id = "{}-{}-{}-{}".format(
-            instance._meta.app_label,
-            instance.__class__.__name__,
-            instance.id,
-            request.user)
-
         try:
-            if self.is_actual() and not getattr(instance, 'saved', False):
+            instance = args[0]
+            request = args[1]['request']
+            id = "{}-{}-{}-{}".format(
+                instance._meta.app_label,
+                instance.__class__.__name__,
+                instance.id,
+                request.user)
+            if self.is_actual():
                 return self.cache[id][1]
             else:
                 content = self.func(*args)
