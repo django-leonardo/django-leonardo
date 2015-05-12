@@ -111,6 +111,10 @@ class Leonardo(object):
 
     default = default
 
+    def get_all_modules(self):
+        from leonardo.utils.settings import get_leonardo_modules
+        return get_leonardo_modules
+
     def get_app_modules(self, apps):
         """return array of imported leonardo modules for apps
         """

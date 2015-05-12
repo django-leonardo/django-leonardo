@@ -30,7 +30,7 @@ urlpatterns += patterns('',
 # load all urls
 # support .urls file and urls_conf = 'elephantblog.urls' on default module
 # TODO: decorate loaded modules for sure
-for mod in leonardo.get_app_modules(settings.APPS):
+for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
     if hasattr(mod, 'default'):
         if module_has_submodule(mod, 'urls'):
             urls_mod = import_module('.urls', mod.__name__)
