@@ -173,19 +173,24 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'WARNING',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'leonardo.log',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],
+            'handlers': ['console', 'file'],
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
         },
         'leonardo.utils.settings': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
+            'handlers': ['console', 'file'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
             'propagate': True,
         },
     }
