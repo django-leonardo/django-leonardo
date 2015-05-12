@@ -14,13 +14,11 @@ from django.utils.translation import ugettext_lazy as _
 from feincms.admin.item_editor import FeinCMSInline
 from feincms.models import Base as FeinCMSBase
 from feincms.module.page.models import BasePage as FeinCMSPage
-from horizon.utils.memoized import memoized
 from leonardo.utils.templates import find_all_templates, template_choices
 
 from .processors import edit as edit_processors
 from .const import *
 from .widgets.forms import WIDGETS, WidgetUpdateForm
-from leonardo.utils.memonized import memoyield
 from django.utils.functional import cached_property
 
 
@@ -121,9 +119,7 @@ class Page(FeinCMSPage):
     def get_base_template(self):
         return self.theme.template
 
-    @memoyield
     def get_col_classes(self, col='col1'):
-
         STR = "col-{0}-{1}"
         classes = []
         for d in self.dimensions:
