@@ -184,6 +184,11 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
+        'leonardo.utils.settings': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
     }
 }
 
