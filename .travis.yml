@@ -5,6 +5,10 @@ python:
 env:
   - DJANGO_REQUIREMENT="Django>=1.7,<1.8"
   - DJANGO_REQUIREMENT="Django>=1.8,<1.9"
+  matrix:
+   - DB=mysql
+   - DB=postgres
+   - DB=sqlite
 before_install:
   - sudo apt-get install build-essential libssl-dev libffi-dev python-dev -y
 install:
@@ -15,7 +19,11 @@ install:
   - pip install -r requirements/extras/themes.txt
   - pip install -r requirements/extras/sentry.txt
   - python setup.py -q install
-script: "cd tests && python manage.py test testapp"
+  - if [[ $DB == mysql ]]; then pip install -q mysql-python; fi
+  - if [[ $DB == postgres ]]; then pip install -q psycopg2; fi
+script:
+  - cd tests 
+  - coverage run manage.py test testapp
 after_success:
   - coveralls
 branches:

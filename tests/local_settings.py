@@ -12,6 +12,32 @@ DATABASES = {
     }
 }
 
+try:
+    import mysql  # noqa
+except Exception:
+    pass
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'django_leonardo',
+            'USER': 'travis',
+        }
+    }
+
+try:
+    import psycopg2  # noqa
+except Exception:
+    pass
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'django_leonardo',
+            'USER': 'postgres',
+        }
+    }
+
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 BASEDIR = os.path.dirname(__file__)
