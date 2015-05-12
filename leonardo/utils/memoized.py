@@ -110,3 +110,11 @@ class widget_memoized(object):
         except Exception:
             # all process is optional if failed nothing to do
             return self.func(*args)
+
+    def __repr__(self):
+        '''Return the function's docstring.'''
+        return self.func.__doc__
+
+    def __get__(self, obj, objtype):
+        '''Support instance methods.'''
+        return functools.partial(self.__call__, obj)
