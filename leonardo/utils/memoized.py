@@ -20,6 +20,13 @@ class memoized(object):
         self.func = func
         self.cache = {}
 
+    def is_actual(self, id):
+        expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
+        if id in self.cache \
+                and self.cache[id][0] >= expirated:
+            return True
+        return False
+
     def __call__(self, *args):
         if not LEONARDO_MEMOIZED:
             return self.func(*args)
@@ -28,9 +35,7 @@ class memoized(object):
             instance._meta.app_label,
             instance.__class__.__name__,
             instance.id)
-        expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
-        if id in self.cache \
-                and self.cache[id][0] >= expirated:
+        if self.is_actual(id):
             return self.cache[id][1]
         else:
             content = self.func(*args)
@@ -64,9 +69,7 @@ class page_memoized(memoized):
             instance.__class__.__name__,
             instance.id,
             args[1])
-        expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
-        if id in self.cache \
-                and self.cache[id][0] >= expirated:
+        if self.is_actual(id):
             return self.cache[id][1]
         else:
             content = self.func(*args)
@@ -86,17 +89,17 @@ class widget_memoized(memoized):
     def __call__(self, *args):
         if not LEONARDO_MEMOIZED:
             return self.func(*args)
+
+        instance = args[0]
+        request = args[1]['request']
+        id = "{}-{}-{}-{}".format(
+            instance._meta.app_label,
+            instance.__class__.__name__,
+            instance.id,
+            request.user)
+
         try:
-            instance = args[0]
-            request = args[1]['request']
-            id = "{}-{}-{}-{}".format(
-                instance._meta.app_label,
-                instance.__class__.__name__,
-                instance.id,
-                request.user)
-            expirated = datetime.now() - timedelta(seconds=CACHE_EXPIRATION)
-            if id in self.cache \
-                    and self.cache[id][0] >= expirated:
+            if self.is_actual() and not getattr(instance, 'saved', False):
                 return self.cache[id][1]
             else:
                 content = self.func(*args)

@@ -275,6 +275,8 @@ class Widget(FeinCMSBase):
 
     def save(self, *args, **kwargs):
 
+        self.saved = True
+
         super(Widget, self).save(*args, **kwargs)
 
         if not self.dimensions.exists():
