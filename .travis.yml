@@ -3,10 +3,9 @@ sudo: true
 python:
   - "2.7"
 env:
-  global:
+  matrix:
    - DJANGO_REQUIREMENT="Django>=1.7,<1.8"
    - DJANGO_REQUIREMENT="Django>=1.8,<1.9"
-  matrix:
    - DB=mysql
    - DB=postgres
    - DB=sqlite
