@@ -95,6 +95,8 @@ class page_memoized(object):
 class widget_memoized(object):
 
     """Designed only for widget render function.
+
+        note: requires Leonardo Web Middleware
     """
 
     def __init__(self, func):
@@ -113,14 +115,17 @@ class widget_memoized(object):
         if not LEONARDO_MEMOIZED:
             return self.func(*args)
 
+        instance = args[0]
+
         try:
-            instance = args[0]
             request = args[1]['request']
-            id = "{}-{}-{}-{}".format(
+
+            id = "{}-{}-{}-{}-{}".format(
                 instance._meta.app_label,
                 instance.__class__.__name__,
                 instance.id,
-                request.user)
+                request.user,
+                request.leonardo_page.slug)
 
             if self.is_actual(id) and not getattr(instance, 'saved', False):
                 return self.cache[id][1]
