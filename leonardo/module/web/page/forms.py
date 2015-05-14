@@ -57,7 +57,7 @@ class PageUpdateForm(SelfHandlingModelForm):
                     'symlinked_page'
                     ),
                 Tab(_('Theme'),
-                    'template_key', 'theme', 'color_scheme',
+                    'template_key', 'layout', 'theme', 'color_scheme',
                     css_id='page-theme-settings'
                     ),
             )
