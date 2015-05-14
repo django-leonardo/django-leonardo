@@ -361,7 +361,7 @@ try:
             TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
 
         # collect grouped widgets
-        if isinstance(mod_cfg.optgroup, six.str_type):
+        if isinstance(mod_cfg.optgroup, six.string_types):
             widgets[mod_cfg.optgroup] = merge(
                 getattr(widgets, mod_cfg.optgroup, []), mod_cfg.widgets)
 
