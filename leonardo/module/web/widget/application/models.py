@@ -208,5 +208,5 @@ class ApplicationWidget(Widget, ApplicationContent):
 
     class Meta:
         abstract = True
-        verbose_name = _("external application")
-        verbose_name_plural = _('external applications')
+        verbose_name = _("External application")
+        verbose_name_plural = _('External applications')

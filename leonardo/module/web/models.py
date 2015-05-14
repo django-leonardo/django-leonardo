@@ -267,13 +267,15 @@ class Widget(FeinCMSBase):
 
     prerendered_content = models.TextField(
         verbose_name=_('prerendered content'), blank=True)
-    enabled = models.NullBooleanField(verbose_name=_('Is visible?'))
+    enabled = models.NullBooleanField(verbose_name=_('Is visible?'), default=True)
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     base_theme = models.ForeignKey(
         WidgetBaseTheme, verbose_name=_('Base theme'), related_name="%(app_label)s_%(class)s_related")
     content_theme = models.ForeignKey(
         WidgetContentTheme, verbose_name=_('Content theme'), related_name="%(app_label)s_%(class)s_related")
+    layout = models.CharField(
+        verbose_name=_("Layout"), max_length=25, default='inline', choices=WIDGET_LAYOUT_CHOICES)
 
     def save(self, *args, **kwargs):
 
