@@ -80,7 +80,6 @@ class Default(object):
     @property
     def widgets(self):
         return [
-            ApplicationWidget,
             SiteHeadingWidget,
             MarkupTextWidget,
             FeedReaderWidget,
