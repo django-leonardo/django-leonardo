@@ -402,16 +402,34 @@ class Widget(FeinCMSBase):
             widget_type=ContentType.objects.get_for_model(self))
 
     @cached_property
-    def render_align_class(self):
-        return "text-%s" % self.align
-
-    @cached_property
-    def render_box_classes(self):
+    def get_dimension_classes(self):
         """agreggate all css classes
         """
         classes = []
         for d in self.dimensions:
             classes.append(d.classes)
+        return classes
+
+    @cached_property
+    def render_content_classes(self):
+        """agreggate all css classes
+        """
+        classes = [
+            "text-%s" % self.align,
+            'leonardo-content',
+            'template-%s' % self.content_theme.name,
+            '%s-content-%s' % (self.widget_name, self.content_theme.name )
+        ]
+        return " ".join(classes)
+
+    @cached_property
+    def render_base_classes(self):
+        """agreggate all css classes
+        """
+        classes = self.get_dimension_classes
+        classes.append('%s-base-%s' % (self.widget_name, self.base_theme.name ))
+        classes.append('leonardo-widget')
+        classes.append('leonardo-%s-widget' % self.widget_name) 
         return " ".join(classes)
 
     @classmethod
