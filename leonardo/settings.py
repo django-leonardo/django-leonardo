@@ -361,14 +361,14 @@ try:
             TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
 
         # collect grouped widgets
-        widgets[mod_cfg.optgroup] = merge(
-            getattr(widgets, mod_cfg.optgroup, []), mod_cfg.widgets)
+        if isinstance(mod_cfg.optgroup, six.str_type):
+            widgets[mod_cfg.optgroup] = merge(
+                getattr(widgets, mod_cfg.optgroup, []), mod_cfg.widgets)
 
     setattr(leonardo, 'js_files', ADD_JS_FILES)
     setattr(leonardo, 'css_files', ADD_CSS_FILES)
     setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
     setattr(leonardo, 'widgets', widgets)
-
 
     from leonardo.module.web.models import Page
     from leonardo.module.web.widget import ApplicationWidget
