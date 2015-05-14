@@ -9,8 +9,8 @@ from leonardo.module.web.models import Widget
 
 class SiteHeadingWidget(Widget):
     site_title = models.CharField(max_length=255, verbose_name=_("Site Title"))
-    logo = FilerImageField(
-        blank=True, null=True, verbose_name=_("Logo"), related_name="site_logos")
+    logo = models.ForeignKey('media.Image',
+        blank=True, null=True, verbose_name=_("Logo"), related_name="%(app_label)s_%(class)s_images")
 
     tagline = models.TextField(blank=True, verbose_name=_("Tagline"))
 
