@@ -36,7 +36,7 @@ class PageAdmin(FeinPageAdmin):
         (_('Other options'), {
             'classes': ['collapse'],
             'fields': [
-                'template_key', 'parent', 'override_url', 'redirect_to', 'theme', 'color_scheme'],
+                'template_key', 'parent', 'override_url', 'redirect_to', 'theme', 'color_scheme', 'layout'],
         }),
         # <-- insertion point, extensions appear here, see insertion_index
         # above
