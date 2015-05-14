@@ -361,9 +361,8 @@ try:
             TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
 
         # collect grouped widgets
-        opt_group = mod_cfg.optgroup or mod.__name__.capitalize()
-        widgets[opt_group] = merge(
-            getattr(widgets, opt_group, []), mod_cfg.widgets)
+        widgets[mod_cfg.optgroup] = merge(
+            getattr(widgets, mod_cfg.optgroup, []), mod_cfg.widgets)
 
     setattr(leonardo, 'js_files', ADD_JS_FILES)
     setattr(leonardo, 'css_files', ADD_CSS_FILES)

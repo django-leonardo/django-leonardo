@@ -7,6 +7,7 @@ BLACKLIST = ['haystack']
 
 
 class dotdict(dict):
+
     """ Dictionary with dot access """
 
     def __getattr__(self, attr):
@@ -96,7 +97,8 @@ def get_conf_from_module(mod):
         conf['js_spec_files'] = getattr(mod.default, 'js_spec_files', [])
         conf['css_files'] = getattr(mod.default, 'css_files', [])
         conf['widgets'] = getattr(mod.default, 'widgets', [])
-        conf['optgroup'] = getattr(mod.default, 'optgroup', None)
+        conf['optgroup'] = getattr(mod.default, 'optgroup',
+                                   mod.__name__.capitalize())
         conf['config'] = getattr(mod.default, 'config', {})
 
         conf['dirs'] = getattr(mod.default, 'dirs', [])
@@ -109,12 +111,13 @@ def get_conf_from_module(mod):
             try:
                 app_module = import_module(app)
                 if app_module != mod:
-                    mod_conf = get_conf_from_module(app_module)
-                    for k, v in six.iteritems(mod_conf):
-                        if isinstance(v, dict):
-                            conf[k].update(v)
-                        else:
-                            conf[k] = merge(conf[k], v)
+                    if hasattr(app_module, 'default'):
+                        mod_conf = get_conf_from_module(app_module)
+                        for k, v in six.iteritems(mod_conf):
+                            if isinstance(v, dict):
+                                conf[k].update(v)
+                            elif isinstance(v, (list, tuple)):
+                                conf[k] = merge(conf[k], v)
             except Exception:
                 pass  # swallow, but maybe log for info what happens
 
