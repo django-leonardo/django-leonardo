@@ -84,6 +84,8 @@ class PageColorScheme(models.Model):
 
 class Page(FeinCMSPage):
 
+    layout = models.CharField(
+        verbose_name=_("Layout"), max_length=25, default='fixed', choices=PAGE_LAYOUT_CHOICES)
     theme = models.ForeignKey(PageTheme, verbose_name=_('Theme'))
     color_scheme = models.ForeignKey(
         PageColorScheme, verbose_name=_('Color scheme'))
