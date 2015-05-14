@@ -50,14 +50,15 @@ def get_leonardo_modules():
 
     for package in installed_packages:
         # check for default descriptor
-        pkg_name = [k for k in package._get_metadata("top_level.txt")][0]
-        if pkg_name not in BLACKLIST:
-            try:
-                mod = import_module(pkg_name)
-                if hasattr(mod, 'default'):
-                    modules.append(mod)
-            except Exception:
-                pass
+        pkg_names = [k for k in package._get_metadata("top_level.txt")]
+        for pkg_name in pkg_names:
+            if pkg_name not in BLACKLIST:
+                try:
+                    mod = import_module(pkg_name)
+                    if hasattr(mod, 'default'):
+                        modules.append(mod)
+                except Exception:
+                    pass
 
     return modules
 
