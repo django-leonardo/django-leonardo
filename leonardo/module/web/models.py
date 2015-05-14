@@ -121,6 +121,13 @@ class Page(FeinCMSPage):
     def get_base_template(self):
         return self.theme.template
 
+    @cached_property
+    def get_layout_class(self):
+        if self.layout == 'fluid':
+            return 'container-fluid'
+        else:
+            return 'container'
+
     @page_memoized
     def get_col_classes(self, col='col1'):
         STR = "col-{0}-{1}"
@@ -276,6 +283,8 @@ class Widget(FeinCMSBase):
         WidgetContentTheme, verbose_name=_('Content theme'), related_name="%(app_label)s_%(class)s_related")
     layout = models.CharField(
         verbose_name=_("Layout"), max_length=25, default='inline', choices=WIDGET_LAYOUT_CHOICES)
+    align = models.CharField(
+        verbose_name=_("Alignment"), max_length=25, default='left', choices=WIDGET_ALIGN_CHOICES)
 
     def save(self, *args, **kwargs):
 
@@ -391,6 +400,10 @@ class Widget(FeinCMSBase):
         return WidgetDimension.objects.filter(
             widget_id=self.pk,
             widget_type=ContentType.objects.get_for_model(self))
+
+    @cached_property
+    def render_align_class(self):
+        return "text-%s" % self.align
 
     @cached_property
     def render_box_classes(self):

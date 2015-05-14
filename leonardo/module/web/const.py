@@ -118,6 +118,12 @@ WIDGET_LAYOUT_CHOICES = (
     ('fluid', _('Fluid')), 
 )
 
+WIDGET_ALIGN_CHOICES = (
+    ('left', _('Left')), 
+    ('center', _('Center')), 
+    ('right', _('Right')), 
+)
+
 TEMPLATE_LAYOUTS = {
     'layout_flex': (0, 0, 24, 0),
     'layout_flex_flex': (0, 12, 12, 0),

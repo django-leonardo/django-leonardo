@@ -6,17 +6,17 @@
     {% include "horizon/_messages.html" %}
     <div class="wrapper">
       <header>
-        <div class="container">
+        <div class="{{ page.get_layout_class }}">
           {% feincms_render_region feincms_page "header" request %}
         </div>
       </header>
       <div id="toolbar">
-        <div class="container">
+        <div class="{{ page.get_layout_class }}">
           {% feincms_render_region feincms_page "toolbar" request %}
         </div>
       </div>
       <div id="main">
-        <div class="container">
+        <div class="{{ page.get_layout_class }}">
           <aside class="col1 {% get_col_classes feincms_page 'col1' %}">
             {% feincms_render_region feincms_page "col1" request %}
           </aside>
@@ -29,7 +29,7 @@
         </div>
       </div>
       <footer>
-        <div class="container">
+        <div class="{{ page.get_layout_class }}">
           {% feincms_render_region feincms_page "footer" request %}
         </div>
       </footer>
