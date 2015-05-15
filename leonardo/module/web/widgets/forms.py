@@ -59,9 +59,11 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         if 'initial' in kwargs \
                 and kwargs['initial'].get('prerendered_content', None):
 
+            """
             preview = Tab(_('Preview'),
                           HTML(kwargs['initial'].get('prerendered_content')),
                           )
+            """
 
             self.helper.layout[0].append(preview)
 
@@ -188,13 +190,16 @@ class WidgetSelectForm(SelfHandlingForm):
 
         self.fields['cls_name'].choices = choices
 
+        # for now ungrouped to grouped
+        grouped['Web'] = ungrouped + grouped['Web']
+
         self.helper.layout = Layout(
             Field('region'),
             Field('parent'),
             Field('page_id'),
             Field('ordering'),
             HTML(render_to_string("widget/content_type_selection_widget.html",
-                                  {'grouped': grouped, 'ungrouped': ungrouped}),
+                                  {'grouped': grouped, 'ungrouped': {}}),
                  ),
         )
 
