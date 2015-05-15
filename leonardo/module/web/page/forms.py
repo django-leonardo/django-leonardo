@@ -74,14 +74,13 @@ class PageUpdateForm(SelfHandlingModelForm):
 
             from .tables import PageDimensionTable
             table = PageDimensionTable(
-                _request, page=page, data=page.dimensions)
+                _request, page=page, data=page.dimensions, needs_form_wrapper=False)
             dimensions = Tab(_('Dimensions'),
                              HTML(
                 table.render()),
                 css_id='page-dimensions'
 
             )
-            #self.helper.layout[0].append(dimensions)
+            self.helper.layout[0].append(dimensions)
 
-        self.helper.form_tag = False
         self._wrap_all()
