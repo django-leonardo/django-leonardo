@@ -31,6 +31,9 @@ class ContextNavigationWidget(Widget):
         verbose_name = _("Contextual content")
         verbose_name_plural = _('Contextual contents')
 
+    def render(self, **kwargs):
+        return self.render_with_cache(kwargs)
+
     def render_content(self, options):
 
         if self.root:

@@ -365,7 +365,7 @@ class Widget(FeinCMSBase):
         return template
 
     def render(self, **kwargs):
-        return self.render_with_cache(kwargs)
+        return self.render_content(kwargs)
 
     @widget_memoized
     def render_with_cache(self, options):
