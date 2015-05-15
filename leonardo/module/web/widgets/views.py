@@ -3,9 +3,11 @@ from __future__ import absolute_import
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
+from horizon import messages
 from horizon_contrib.forms.views import (ContextMixin, CreateView,
                                          ModalFormView, ModelFormMixin,
                                          UpdateView)
@@ -146,6 +148,23 @@ class WidgetPreCreateView(ModalFormView, CreateView):
             'next_view': WidgetCreateView
         })
         return form_class(**kwargs)
+
+
+class WidgetInfoView(ModalFormView, UpdateView, WidgetViewMixin):
+
+    template_name = 'leonardo/common/modal.html'
+
+    form_class = WidgetUpdateForm
+
+    def get(self, request, cls_name, id):
+
+        widget_info = """<span>{name}</span>""".format(**{
+            'name': self.object
+            })
+
+        messages.info(request, mark_safe(widget_info))
+
+        return HttpResponse(mark_safe(widget_info))
 
 
 class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
