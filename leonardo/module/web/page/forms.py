@@ -34,7 +34,7 @@ class PageUpdateForm(SelfHandlingModelForm):
         super(PageUpdateForm, self).__init__(*args, **kwargs)
 
         HIDDEN_FIELDS = (
-            'site', 'id', 'tree_id',
+            'site',
         )
 
         self.helper.layout = Layout(
@@ -81,6 +81,7 @@ class PageUpdateForm(SelfHandlingModelForm):
                 css_id='page-dimensions'
 
             )
-            self.helper.layout[0].append(dimensions)
+            #self.helper.layout[0].append(dimensions)
 
+        self.helper.form_tag = False
         self._wrap_all()
