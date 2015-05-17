@@ -55,17 +55,6 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                     ),
             )
         )
-        # append preview tab if is ready
-        if 'initial' in kwargs \
-                and kwargs['initial'].get('prerendered_content', None):
-
-            """
-            preview = Tab(_('Preview'),
-                          HTML(kwargs['initial'].get('prerendered_content')),
-                          )
-            """
-
-            self.helper.layout[0].append(preview)
 
         self.fields['label'].widget = \
             forms.TextInput(

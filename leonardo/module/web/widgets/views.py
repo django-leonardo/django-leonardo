@@ -41,25 +41,6 @@ class WidgetViewMixin(object):
                 wd.save()
         return True
 
-    def populate_widget_content(self, obj):
-        """render and wrap widget content
-        """
-        wrap = "<div style='pointer-events:none;'>{}</div>"
-        try:
-
-            if not obj.prerendered_content:
-                # turn off frontend edit for this redner
-                request = self.request
-                request.frontend_editing = False
-                content = obj.render_content(
-                    options={'request': request})
-                obj.prerendered_content = wrap.format(content)
-                obj.save()
-            obj.parent.save()
-        except Exception:
-            pass
-        return True
-
 
 class WidgetUpdateView(ModalFormView, UpdateView, WidgetViewMixin):
 
@@ -84,7 +65,6 @@ class WidgetUpdateView(ModalFormView, UpdateView, WidgetViewMixin):
         response = super(WidgetUpdateView, self).form_valid(form)
         obj = self.object
         self.handle_dimensions(obj)
-        self.populate_widget_content(obj)
         return response
 
 
@@ -110,7 +90,6 @@ class WidgetCreateView(ModalFormView, CreateView, WidgetViewMixin):
         try:
             obj = form.save(commit=False)
             obj.ordering = obj.next_ordering
-            #self.populate_widget_content(obj)
             obj.save()
             obj.parent.save()
             success_url = self.get_success_url()
@@ -186,7 +165,6 @@ class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
         context['view_name'] = self.get_label()
         context['heading'] = self.get_header()
         context['help_text'] = self.get_help_text()
-        context['body'] = self.object.prerendered_content
         return context
 
     def form_valid(self, form):
