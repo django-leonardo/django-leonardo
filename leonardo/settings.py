@@ -294,6 +294,8 @@ ADD_JS_SPEC_FILES = []
 
 ADD_MIGRATION_MODULES = {}
 
+CONSTANCE_CONFIG_GROUPS = {}
+
 try:
 
     # override settings
@@ -343,6 +345,23 @@ try:
         PAGE_EXTENSIONS = merge(PAGE_EXTENSIONS, mod_cfg.page_extensions)
 
         ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
+
+        # TODO move to utils.settings
+        # support for one level nested in config dictionary
+        for config_key, config_value in six.iteritems(mod_cfg.config):
+            if isinstance(config_value, dict):
+                CONSTANCE_CONFIG_GROUPS.update({config_key: config_value})
+                for c_key, c_value in six.iteritems(config_value):
+                    mod_cfg.config[c_key] = c_value
+                # remove from main dict
+                mod_cfg.config.pop(config_key)
+            else:
+                if isinstance(mod_cfg.optgroup, six.string_types):
+                    CONSTANCE_CONFIG_GROUPS.update({
+                        mod_cfg.optgroup: mod_cfg.config})
+                else:
+                    CONSTANCE_CONFIG_GROUPS.update({
+                        'ungrouped': mod_cfg.config})
 
         CONSTANCE_CONFIG.update(mod_cfg.config)
         ADD_MIGRATION_MODULES.update(mod_cfg.migration_modules)
@@ -430,13 +449,30 @@ COMPRESS_OFFLINE_CONTEXT = {
     'HORIZON_CONFIG': HORIZON_CONFIG,
 }
 
-# debug
-try:
-    import debug_toolbar
-    INSTALLED_APPS = merge(INSTALLED_APPS, ['debug_toolbar'])
-    INTERNAL_IPS = ['10.10.10.1', '127.0.0.1']
-except ImportError:
-    pass
+if DEBUG:
+    # debug
+    try:
+        import debug_toolbar
+        INSTALLED_APPS = merge(INSTALLED_APPS, ['debug_toolbar'])
+        INTERNAL_IPS = ['10.10.10.1', '127.0.0.1']
+        DEBUG_TOOLBAR_PANELS = [
+            'debug_toolbar.panels.versions.VersionsPanel',
+            'debug_toolbar.panels.timer.TimerPanel',
+            'debug_toolbar.panels.settings.SettingsPanel',
+            'debug_toolbar.panels.headers.HeadersPanel',
+            'debug_toolbar.panels.request.RequestPanel',
+            'debug_toolbar.panels.sql.SQLPanel',
+            'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+            'debug_toolbar.panels.templates.TemplatesPanel',
+            'debug_toolbar.panels.cache.CachePanel',
+            'debug_toolbar.panels.signals.SignalsPanel',
+            'debug_toolbar.panels.logging.LoggingPanel',
+            'debug_toolbar.panels.redirects.RedirectsPanel',
+            'debug_toolbar.panels.profiling.ProfilingPanel'
+        ]
+
+    except ImportError:
+        pass
 
 # async messages
 try:
