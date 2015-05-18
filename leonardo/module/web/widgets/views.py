@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
-from horizon import messages
+from leonardo import messages
 from horizon_contrib.forms.views import (ContextMixin, CreateView,
                                          ModalFormView, ModelFormMixin,
                                          UpdateView)
@@ -115,7 +115,7 @@ class WidgetPreCreateView(ModalFormView, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(WidgetPreCreateView, self).get_context_data(**kwargs)
-        context['modal_size'] = 'modal-sm'
+        context['modal_size'] = 'sm'
         return context
 
     def get_form(self, form_class):
@@ -137,11 +137,16 @@ class WidgetInfoView(ModalFormView, UpdateView, WidgetViewMixin):
 
     def get(self, request, cls_name, id):
 
-        widget_info = """<span>{name}</span>""".format(**{
-            'name': self.object
+        widget_info = """
+            <ul>
+                <li><span><b>widget:</b>&nbsp;{name}</span></li>
+                <li><span><b>parent:</b>&nbsp;{parent}</span></li>
+            </ul>""".format(**{
+            'name': self.object,
+            'parent': self.object.parent,
             })
 
-        messages.info(request, mark_safe(widget_info))
+        messages.info(request, mark_safe(widget_info), async=False)
 
         return HttpResponse(mark_safe(widget_info))
 
@@ -162,7 +167,7 @@ class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
         context['url'] = self.request.build_absolute_uri()
         context['modal_header'] = self.get_header()
         context['title'] = self.get_header()
-        context['view_name'] = self.get_label()
+        context['form_submit'] = self.get_label()
         context['heading'] = self.get_header()
         context['help_text'] = self.get_help_text()
         return context

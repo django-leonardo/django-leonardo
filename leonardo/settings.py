@@ -425,12 +425,23 @@ COMPRESS_OFFLINE_CONTEXT = {
     'HORIZON_CONFIG': HORIZON_CONFIG,
 }
 
+# debug
 try:
     import debug_toolbar
-    INSTALLED_APPS += ['debug_toolbar']
+    INSTALLED_APPS = merge(INSTALLED_APPS, ['debug_toolbar'])
     INTERNAL_IPS = ['10.10.10.1', '127.0.0.1']
 except ImportError:
     pass
+
+# async messages
+try:
+    import async_messages
+    INSTALLED_APPS = merge(INSTALLED_APPS, ['async_messages'])
+    MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES,
+                               ['async_messages.middleware.AsyncMiddleware'])
+except ImportError:
+    pass
+
 
 # use js files instead of horizon
 HORIZON_CONFIG['js_files'] = leonardo.js_files

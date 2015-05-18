@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "leonardo/common/modal.html" %}
 {% load i18n %}
 
 {% block title %}{% trans "Login" %}{% endblock %}
@@ -7,6 +7,6 @@
 {% include "horizon/common/_page_header.html" with title=_("Login") %}
 {% endblock %}
 
-{% block main %}
+{% block body_main %}
 {% include "auth/_login.html" %}
 {% endblock %}

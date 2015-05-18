@@ -4,12 +4,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 from django.conf import settings
-from horizon import tables
-from horizon import exceptions
-from horizon import forms
-from horizon import tabs
-from horizon import workflows
-from horizon import messages
+from leonardo import forms
+from leonardo import messages
 
 from .forms import LoginForm, SignupForm
 
@@ -23,10 +19,15 @@ from django.views.decorators.debug import sensitive_post_parameters  # noqa
 
 class LoginView(forms.ModalFormView):
     form_class = LoginForm
-    template_name = 'leonardo/common/modal.html'
+    template_name = 'auth/login.html'
     success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
     redirect_field_name = "next"
+
+    def get_success_url(self):
+        # Explicitly passed ?next= URL takes precedence
+        ret = self.request.GET.get(self.redirect_field_name, self.success_url)
+        return ret
 
     def get_context_data(self, **kwargs):
         ret = super(LoginView, self).get_context_data(**kwargs)
@@ -35,6 +36,7 @@ class LoginView(forms.ModalFormView):
         ret.update({
             "url": self.request.build_absolute_uri(),
             "view_name": _("Login"),
+            "modal_size": 'sm',
             "site": Site.objects.get_current(),
             "redirect_field_name": self.redirect_field_name,
             "redirect_field_value": redirect_field_value})
@@ -100,4 +102,6 @@ class LogoutView(forms.ModalFormView):
         return ctx
 
     def get_redirect_url(self):
-        return settings.LOGOUT_URL
+        ret = self.request.GET.get(
+            self.redirect_field_name, settings.LOGOUT_URL)
+        return ret

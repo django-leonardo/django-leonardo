@@ -1,6 +1,9 @@
 {% load i18n %}
 
 <div class="btn-group">
+  <button class="leonardo-widget-dnd-handle btn btn-box-tool btn-success btn-xs dropdown-toggle"><i class="fa fa-arrows"></i></button>
+</div>
+<div class="btn-group">
   <button data-toggle="dropdown" class="btn btn-box-tool btn-info btn-xs dropdown-toggle"><i class="fa fa-wrench"></i></button>
   <ul role="menu" class="dropdown-menu">
     <li><a class="ajax-modal" href="{% url 'widget_update' widget.get_ct_name widget.id %}">{% trans 'Edit' %}</a></li>
@@ -11,6 +14,7 @@
 </div>
 
 <script type="text/javascript">
+
 $(function() {
     ajaxOpts = {
       type: "GET",
@@ -26,33 +30,11 @@ $(function() {
         horizon.modals.spinner.modal('hide');
       	$('.ajax-modal, .dropdown-toggle').removeAttr("disabled");
       },
-      success: function (data, textStatus, jqXHR) {
-		    horizon.clearErrorMessages();
-
-        var template = horizon.templates.compiled_templates["#alert_message_template"],
-          params = {
-            "type": 'info',
-            "type_display": gettext("Notice: "),
-            "message": data,
-            "safe": true
-          };
-        $(template.render(params)).hide().prependTo(".messages").fadeIn(100);
-      },
-      error: function (jqXHR) {
-
-        var template = horizon.templates.compiled_templates["#alert_message_template"],
-          params = {
-            "type": 'error',
-            "type_display": gettext("error: "),
-            "message": gettext("Unable to get widget info."),
-            "safe": true
-          };
-        $(template.render(params)).hide().prependTo(".messages").fadeIn(100);
-      }
     };
 
     $('#ajax-info-' + '{{ widget.id }}').on('click', function (evt, modal) {
-		$.ajax(ajaxOpts);
+	    horizon.clearAllMessages();
+  		$.ajax(ajaxOpts);
     });
 });	
 </script>

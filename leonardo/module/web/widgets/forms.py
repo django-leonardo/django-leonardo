@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
-from horizon_contrib.forms import SelfHandlingForm, SelfHandlingModelForm
+from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
 
 WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
@@ -27,12 +27,6 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         widget=forms.widgets.HiddenInput,
         required=False
     )
-
-    def _wrap_all(self):
-        # stylung
-        self.helper.filter(
-            basestring, max_level=4).wrap(
-            Field, css_class="form-control")
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)
