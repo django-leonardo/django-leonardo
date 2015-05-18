@@ -1,45 +1,20 @@
-{% load branding i18n %}
+
 <!DOCTYPE html>
+{% load leonardo_tags feincms_page_tags applicationcontent_tags branding i18n %}
+{% load analytical %}
+
 <html>
   <head>
-    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
-    {% include "horizon/_custom_meta.html" %}
-    <title>{% block title %}{% endblock %} - {% site_branding %}</title>
-    {% comment %} Load CSS sheets before Javascript  {% endcomment %}
-    {% block css %}
-      {% include "_stylesheets.html" %}
-    {% endblock %}
-    {% include "horizon/_conf.html" %}
-    {% include "horizon/client_side/_script_loader.html" %}
-    {% include "horizon/_custom_head_js.html" %}
+    {% analytical_head_top %}
+    {% include "_header.html" %}
+    {% analytical_head_bottom %}
   </head>
-  <body id="{% block body_id %}{% endblock %}" ng-app='hz'>
-    {% block content %}
-      <div id="container">
-        <div class='topbar'>
-          {% include "_header.html" %}
-        </div>
-        <div id='main_content'>
-          {% include "horizon/_messages.html" %}
-          {% block sidebar %}
-          {% endblock %}
-          <div id='content_body'>
-            {% block page_header %}{% endblock %}
-            {% block body_toolbar %}{% endblock %}
-            {% block body_main %}{% endblock %}
-            {% block body_helper %}{% endblock %}
-            {% block body_footer %}{% endblock %}
-            {% block body_preview %}{% endblock %}
-          </div>
-        </div>
-      </div>
-    {% endblock %}
-    <div id="footer">
-      {% block footer %}{% endblock %}
-    </div>
-    {% block js %}
-      {% include "horizon/_scripts.html" %}
-    {% endblock %}
-    <div id="modal_wrapper" />
+  <body id="{% block body_id %}main_content{% endblock %}" ng-app='hz' class="skin-blue">
+    {% analytical_body_top %}
+    {% include "horizon/_messages.html" %}
+    {% block body %}{% endblock %}
+    {% block body_main %}{% endblock %}
+    {% include "leonardo/_footer.html" %}
+    {% analytical_body_bottom %}
   </body>
 </html>
