@@ -55,8 +55,9 @@ class PageCreateView(ModalFormView):
 
     def get_initial(self):
         parent = self.parent
-        return {
+        initial = {
             'parent': parent,
+            'slug': self.kwargs.get('slug', None),
             'color_scheme': parent.color_scheme,
             'theme': parent.theme,
             'layout': parent.layout,
@@ -64,6 +65,9 @@ class PageCreateView(ModalFormView):
             'template_key': parent.template_key,
             'in_navigation': parent.in_navigation,
         }
+        if 'slug' in self.kwargs:
+            initial['slug'] = self.kwargs['slug']
+        return initial
 
 
 class PageUpdateView(ModalFormView):

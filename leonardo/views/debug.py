@@ -71,6 +71,13 @@ def technical_404_response(request, exception):
         feincms_page = Page.objects.for_request(request, best_match=True)
     except:
         feincms_page = None
+        slug = None
+    else:
+        # nested path is not allowed for this time
+        try:
+            slug = request.path_info.split("/")[-2:-1][0]
+        except KeyError:
+            raise Exception("Nested path is not allowed !")
 
     c = Context({
         'urlconf': urlconf,
@@ -82,6 +89,7 @@ def technical_404_response(request, exception):
         'settings': get_safe_settings(),
         'raising_view_name': caller,
         'feincms_page': feincms_page,
+        'slug': slug,
     })
     t = render_to_string(TECHNICAL_404_TEMPLATE, c)
     return HttpResponseNotFound(t, content_type='text/html')

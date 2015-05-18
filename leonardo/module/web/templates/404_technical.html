@@ -29,7 +29,7 @@
     <h1>Page not found <span>(404)</span>
     {% if request.frontend_editing and feincms_page %}
     <div class="box-tools pull-right">
-      <a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'page_create' feincms_page.id %}"><i class="fa fa-plus"></i> {% trans 'Create Page with this slug' %}</a>
+      <a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'page_create' feincms_page.id slug %}"><i class="fa fa-plus"></i> {% trans 'Create Page with the ' %}{{ slug }} {% trans 'slug' %}</a>
     </div>
     </h1>
     {% endif %}
