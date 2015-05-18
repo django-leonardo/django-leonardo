@@ -67,6 +67,7 @@ class PageCreateView(ModalFormView):
         }
         if 'slug' in self.kwargs:
             initial['slug'] = self.kwargs['slug']
+            initial['title'] = self.kwargs['slug'].capitalize()
         return initial
 
 
