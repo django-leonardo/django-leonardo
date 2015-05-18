@@ -9,3 +9,5 @@ from .userlogin.models import UserLoginWidget
 from .registration.models import UserRegistrationWidget
 from .siteheading.models import SiteHeadingWidget
 from .htmltext.models import HtmlTextWidget
+from .visualtest.models import VisualTestWidget
+from .clientinfo.models import ClientInfoWidget

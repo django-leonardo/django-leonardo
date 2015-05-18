@@ -87,6 +87,8 @@ class Default(object):
             PageTitleWidget,
             UserLoginWidget,
             UserRegistrationWidget,
+            VisualTestWidget,
+            ClientInfoWidget,
         ]
 
     plugins = [

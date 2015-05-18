@@ -118,6 +118,7 @@ class WidgetPreCreateView(ModalFormView, CreateView):
     def get_context_data(self, **kwargs):
         context = super(WidgetPreCreateView, self).get_context_data(**kwargs)
         context['modal_size'] = 'sm'
+        context['form_submit'] = _('Continue')
         return context
 
     def get_form(self, form_class):
