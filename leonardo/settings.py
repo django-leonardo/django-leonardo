@@ -292,6 +292,8 @@ ADD_CSS_FILES = []
 
 ADD_JS_SPEC_FILES = []
 
+ADD_MIGRATION_MODULES = {}
+
 try:
 
     # override settings
@@ -343,6 +345,7 @@ try:
         ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
 
         CONSTANCE_CONFIG.update(mod_cfg.config)
+        ADD_MIGRATION_MODULES.update(mod_cfg.migration_modules)
 
         ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
 
@@ -412,6 +415,8 @@ APPS = merge(APPS, default.core)
 setattr(leonardo, 'apps', APPS)
 setattr(leonardo, 'page_extensions', PAGE_EXTENSIONS)
 setattr(leonardo, 'plugins', APPLICATION_CHOICES)
+
+MIGRATION_MODULES.update(ADD_MIGRATION_MODULES)
 
 # ensure if bootstra_admin is on top of INSTALLED_APPS
 if 'bootstrap_admin' in INSTALLED_APPS:

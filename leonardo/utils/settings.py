@@ -84,22 +84,26 @@ def get_conf_from_module(mod):
         'js_spec_files': [],
         'css_files': [],
         'config': {},
+        'migration_modules': {},
     })
 
     if hasattr(mod, 'default'):
 
-        conf['plugins'] = getattr(mod.default, 'plugins', [])
-        conf['apps'] = getattr(mod.default, 'apps', [])
-        conf['middlewares'] = getattr(mod.default, 'middlewares', [])
-        conf['page_extensions'] = getattr(mod.default, 'page_extensions', [])
-        conf['auth_backends'] = getattr(mod.default, 'auth_backends', [])
-        conf['js_files'] = getattr(mod.default, 'js_files', [])
-        conf['js_spec_files'] = getattr(mod.default, 'js_spec_files', [])
-        conf['css_files'] = getattr(mod.default, 'css_files', [])
-        conf['widgets'] = getattr(mod.default, 'widgets', [])
-        conf['optgroup'] = getattr(mod.default, 'optgroup',
+        default = mod.default
+
+        conf['plugins'] = getattr(default, 'plugins', [])
+        conf['apps'] = getattr(default, 'apps', [])
+        conf['middlewares'] = getattr(default, 'middlewares', [])
+        conf['page_extensions'] = getattr(default, 'page_extensions', [])
+        conf['auth_backends'] = getattr(default, 'auth_backends', [])
+        conf['js_files'] = getattr(default, 'js_files', [])
+        conf['js_spec_files'] = getattr(default, 'js_spec_files', [])
+        conf['css_files'] = getattr(default, 'css_files', [])
+        conf['widgets'] = getattr(default, 'widgets', [])
+        conf['optgroup'] = getattr(default, 'optgroup',
                                    mod.__name__.capitalize())
-        conf['config'] = getattr(mod.default, 'config', {})
+        conf['config'] = getattr(default, 'config', {})
+        conf['migration_modules'] = getattr(default, 'migration_modules', {})
 
         conf['dirs'] = getattr(mod.default, 'dirs', [])
         conf['context_processors'] = getattr(
