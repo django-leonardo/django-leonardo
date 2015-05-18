@@ -471,11 +471,10 @@ class Widget(FeinCMSBase):
         should be used to load the form for every given block of
         content.)
         """
-        cls = self.__class__
-        return '%s-%s-%s-%s-%s' % (
-            cls._meta.app_label,
-            cls._meta.model_name,
-            self.__class__.__name__.lower(),
+        meta = self.__class__._meta
+        return '%s-%s-%s-%s' % (
+            meta.app_label,
+            meta.model_name,
             self.parent_id,
             self.id,
         )

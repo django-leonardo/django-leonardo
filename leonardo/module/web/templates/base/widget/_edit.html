@@ -1,13 +1,13 @@
 {% load i18n %}
 
 <div class="btn-group">
-  <button class="leonardo-widget-dnd-handle btn btn-box-tool btn-success btn-xs dropdown-toggle"><i class="fa fa-arrows"></i></button>
+  <a class="leonardo-widget-dnd-handle btn btn-box-tool btn-success btn-xs"><i class="fa fa-arrows"></i></a>
 </div>
 <div class="btn-group">
   <button data-toggle="dropdown" class="btn btn-box-tool btn-info btn-xs dropdown-toggle"><i class="fa fa-wrench"></i></button>
   <ul role="menu" class="dropdown-menu">
     <li><a class="ajax-modal" href="{% url 'widget_update' widget.get_ct_name widget.id %}">{% trans 'Edit' %}</a></li>
-    <li><a id="ajax-info-{{ widget.id }}" href='#'>{% trans 'Info' %}</a></li>
+    <li><a id="ajax-info-{{ widget.fe_identifier }}" href='#'>{% trans 'Info' %}</a></li>
     <li class="divider"></li>
     <li><a class="ajax-modal" href="{% url 'widget_delete' widget.get_ct_name widget.id %}">{% trans 'Delete' %}</a></li>
   </ul>
@@ -16,25 +16,17 @@
 <script type="text/javascript">
 
 $(function() {
-    ajaxOpts = {
-      type: "GET",
-      url: '{% url 'widget_info' widget.get_ct_name widget.id %}',
-      headers: {},
-      data: {},
-      beforeSend: function () {
-        $("#modal_wrapper .modal").last().modal("hide");
-        $('.ajax-modal, .dropdown-toggle').attr('disabled', true);
-        horizon.modals.modal_spinner(gettext("Working"));
-      },
-      complete: function () {
-        horizon.modals.spinner.modal('hide');
-      	$('.ajax-modal, .dropdown-toggle').removeAttr("disabled");
-      },
-    };
 
-    $('#ajax-info-' + '{{ widget.id }}').on('click', function (evt, modal) {
-	    horizon.clearAllMessages();
-  		$.ajax(ajaxOpts);
+    $('#ajax-info-' + '{{ widget.fe_identifier }}').on('click', function (evt, modal) {
+  	    horizon.clearAllMessages();
+    		$.ajax({
+        type: "GET",
+        url: '{% url 'widget_info' widget.get_ct_name widget.id %}',
+        headers: {},
+        data: {},
+        beforeSend: function () { },
+        complete: function () {},
+      });
     });
 });	
 </script>

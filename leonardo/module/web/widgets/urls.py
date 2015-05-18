@@ -17,4 +17,6 @@ urlpatterns = patterns('',
                            WidgetDeleteView.as_view(), name='widget_delete'),
                        url(r'^(?P<cls_name>[\w\.\-]+)/(?P<id>[\w\.\-]+)/info/$',
                            WidgetInfoView.as_view(), name='widget_info'),
+                       url(r'^widget-sort/$',
+                           WidgetSortView.as_view(), name='widget_sort'),
                        )

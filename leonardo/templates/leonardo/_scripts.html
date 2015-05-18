@@ -118,3 +118,101 @@
   // TODO: propagate from settings
   var redactor_default_options = {};
 </script>
+
+{% if request.frontend_editing %}
+{% compress js %}
+
+<script type="text/javascript">
+
+/* Setup django csrf-token for ajax calls, necessary since Django 1.2.5 */
+/* See http://docs.djangoproject.com/en/1.2/releases/1.2.5/#csrf-exception-for-ajax-requests */
+  
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+            // Only send the token to relative URLs i.e. locally.
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
+
+  $(function() {
+      // Widgets sort
+      $(".col3").sortable({
+        revert: true,
+        receive: function(event, ui) {
+          console.log("receive");
+          new_box = $('#content .fe_box_new');
+          new_box.attr('id', new_box.attr('class').replace(/\s/g, "__"));
+          drag_options = {
+            'page_id': webcms_session.page_id,
+            'region': 'col3',
+            'options': {
+              'id': new_box.attr('id'),
+              'index': new_box.parent().children().index(new_box)
+            },
+          }
+          ui.item.removeMe = false;
+          Dajaxice.webcms.module.web.widget_create(Dajax.process, drag_options);
+        },
+        start: function (e,ui) {
+          $(ui.helper).addClass('fe_dragging');
+        },
+        update: function() {
+          $(this).sortable('refresh');
+          $(this).sortable('refreshPositions');
+          widgets = $(this).sortable('toArray');
+          sort = true;
+          for(var i = 0, len = widgets.length; i < len; i++) {
+            if(widgets[i].search("fe_box_new") > -1) {
+              sort = false;
+            }
+            if(widgets[i].length === 0) {
+            	widgets.pop(i);
+            }
+          }
+
+          if(sort) {
+            sort_options = {
+		      url: '{% url 'widget_sort' %}',
+		      type: "POST",
+		      data: {
+	              'page_id': {{ feincms_page.id }},
+	              'region': 'col3',
+	              'widgets': widgets,
+		      }
+            }
+
+		    horizon.clearAllMessages();
+	  		$.ajax(sort_options);
+
+          }
+        },
+        stop: function (e,ui) {
+          $(ui.item).css({
+            width:''
+          }).removeClass('fe_dragging');
+        },
+        handle: ".leonardo-widget-dnd-handle",
+      });
+
+});
+
+</script>
+{% endcompress %}
+{% endif %}

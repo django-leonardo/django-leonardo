@@ -7,14 +7,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
-from leonardo import messages
 from horizon_contrib.forms.views import (ContextMixin, CreateView,
                                          ModalFormView, ModelFormMixin,
                                          UpdateView)
+from leonardo import messages
+from leonardo.module.web.models import Page
 
 from .forms import (get_widget_create_form, get_widget_update_form,
                     WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm)
 from .tables import WidgetDimensionTable
+from .utils import get_widget_from_id
 
 
 class WidgetViewMixin(object):
@@ -137,16 +139,24 @@ class WidgetInfoView(ModalFormView, UpdateView, WidgetViewMixin):
 
     def get(self, request, cls_name, id):
 
+        widget = self.object
+
         widget_info = """
             <ul>
-                <li><span><b>widget:</b>&nbsp;{name}</span></li>
-                <li><span><b>parent:</b>&nbsp;{parent}</span></li>
+                <li><span><b>widget:</b>&nbsp;{name}&nbsp({id})</span></li>
+                <li><span><b>parent:</b>&nbsp;{parent}&nbsp({parent_id})</span></li>
+                <li><span><b>region:</b>&nbsp;{region}</span></li>
+                <li><span><b>ordering:</b>&nbsp;{ordering}</span></li>
             </ul>""".format(**{
-            'name': self.object,
-            'parent': self.object.parent,
-            })
+            'name': widget.__class__.__name__,
+            'id': widget.id,
+            'region': widget.region,
+            'parent': widget.parent,
+            'parent_id': widget.parent.pk,
+            'ordering': widget.ordering,
+        })
 
-        messages.info(request, mark_safe(widget_info), async=False)
+        messages.info(request, mark_safe(widget_info))
 
         return HttpResponse(mark_safe(widget_info))
 
@@ -189,3 +199,41 @@ class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
 
     def get_initial(self):
         return self.kwargs
+
+
+class WidgetSortView(ModalFormView):
+
+    template_name = 'leonardo/common/modal.html'
+
+    form_class = WidgetUpdateForm
+
+    def get(self, *args, **kwargs):
+        return self.post(*args, **kwargs)
+
+    def post(self, *args, **kwargs):
+
+        widgets = self.request.POST.getlist('widgets[]', [])
+        page_id = self.request.POST.get('page_id', None)
+
+        widget_list = []
+        widget_list_id = []
+
+        try:
+            for widget_id in widgets:
+                widget = get_widget_from_id(widget_id)
+                if widget:
+                    widget_list.append(widget)
+        except:
+            messages.error(
+                self.request, _('Error occured while sorting widgets.'))
+
+        i = 0
+
+        for widget in widget_list:
+            widget.ordering = i
+            widget.save()
+            i += 1
+
+        messages.success(self.request, _('Widget sorting success.'))
+
+        return HttpResponse('ok')
