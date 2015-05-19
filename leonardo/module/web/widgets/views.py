@@ -7,11 +7,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
-from horizon_contrib.forms.views import (ContextMixin, CreateView,
-                                         ModalFormView, ModelFormMixin,
-                                         UpdateView)
+from leonardo.views import *
 from leonardo import messages
-from leonardo.module.web.models import Page
 
 from .forms import (get_widget_create_form, get_widget_update_form,
                     WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm)

@@ -133,7 +133,7 @@ CONSTANCE_CONFIG = {}
 LEONARDO_MODULE_AUTO_INCLUDE = True
 
 # enable system module
-LEONARDO_SYSTEM_MODULE = False
+LEONARDO_SYSTEM_MODULE = True
 
 ##########################
 

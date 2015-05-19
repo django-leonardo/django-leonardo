@@ -87,6 +87,12 @@ This option says please do not auto include leonardo modules.
 
 If set False is disabled any content cache.
 
+For disable System Module which provide untested and unsecure features.
+
+.. code-block:: python
+
+    LEONARDO_SYSTEM_MODULE = True
+
 Frontend Edit
 =============
 
