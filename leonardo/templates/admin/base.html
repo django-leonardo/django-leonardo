@@ -133,7 +133,7 @@
                     </li>
                   </ul>
                 </div>
-                {% if HORIZON_CONFIG.system_module %}
+                {% if HORIZON_CONFIG.system_module and request.user.is_superuser %}
                 <a href="{% url 'server_reload' %}" title="{% trans 'Reload server' %}" class="ajax-modal btn btn-default hidden-xs">
                   <span class="glyphicon glyphicon-refresh"></span>
                 </a>
