@@ -1,9 +1,9 @@
 {% load applicationcontent_tags i18n %}
 
-{% include "base/widget/_common.html" %}
+{% include "base/widget/_base_begin.html" %}
 
-<div id="{{ widget.fe_identifier }}" class="fe_box leonardo-widget leonardo-{{ widget.widget_name }}-widget {{ widget.render_box_classes }}">
-  <div class="panel box box-solid leonardo-content template-{{ widget.theme.label }} {{ widget.widget_name }}-{{ widget.theme.name }}">
+<div id="{{ widget.fe_identifier }}" class="{{ widget.render_base_classes }}">
+  <div class="panel box box-solid {{ widget.render_content_classes }}">
     {% block title %}
     {% if widget.label or request.frontend_editing %}
     <div class="panel-heading box-header with-border">
@@ -25,4 +25,4 @@
   </div>
 </div>
 
-
+{% include "base/widget/_base_end.html" %}

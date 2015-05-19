@@ -82,6 +82,13 @@ Django
 
     **middlewares** - Django Middlewares
 
+    **migration_modules** - allow override migration's location::
+
+        migration_modules = {
+            'elephantblog': 'leonardo_module_blog.migrations',
+        }
+
+
 FeinCMS
 -------
 

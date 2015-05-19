@@ -84,6 +84,8 @@ class PageColorScheme(models.Model):
 
 class Page(FeinCMSPage):
 
+    layout = models.CharField(
+        verbose_name=_("Layout"), max_length=25, default='fixed', choices=PAGE_LAYOUT_CHOICES)
     theme = models.ForeignKey(PageTheme, verbose_name=_('Theme'))
     color_scheme = models.ForeignKey(
         PageColorScheme, verbose_name=_('Color scheme'))
@@ -118,6 +120,13 @@ class Page(FeinCMSPage):
     @cached_property
     def get_base_template(self):
         return self.theme.template
+
+    @cached_property
+    def get_layout_class(self):
+        if self.layout == 'fluid':
+            return 'container-fluid'
+        else:
+            return 'container'
 
     @page_memoized
     def get_col_classes(self, col='col1'):
@@ -265,13 +274,17 @@ class Widget(FeinCMSBase):
 
     prerendered_content = models.TextField(
         verbose_name=_('prerendered content'), blank=True)
-    enabled = models.NullBooleanField(verbose_name=_('Is visible?'))
+    enabled = models.NullBooleanField(verbose_name=_('Is visible?'), default=True)
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     base_theme = models.ForeignKey(
         WidgetBaseTheme, verbose_name=_('Base theme'), related_name="%(app_label)s_%(class)s_related")
     content_theme = models.ForeignKey(
         WidgetContentTheme, verbose_name=_('Content theme'), related_name="%(app_label)s_%(class)s_related")
+    layout = models.CharField(
+        verbose_name=_("Layout"), max_length=25, default='inline', choices=WIDGET_LAYOUT_CHOICES)
+    align = models.CharField(
+        verbose_name=_("Alignment"), max_length=25, default='left', choices=WIDGET_ALIGN_CHOICES)
 
     def save(self, *args, **kwargs):
 
@@ -355,6 +368,14 @@ class Widget(FeinCMSBase):
         return self.render_content(kwargs)
 
     @widget_memoized
+    def render_with_cache(self, options):
+        """proxy for render_content with memoized
+
+        this method provide best performence for complicated
+        widget contentc like a context navigation
+        """
+        return self.render_content(options)
+
     def render_content(self, options):
 
         context = RequestContext(options['request'], {
@@ -381,12 +402,34 @@ class Widget(FeinCMSBase):
             widget_type=ContentType.objects.get_for_model(self))
 
     @cached_property
-    def render_box_classes(self):
+    def get_dimension_classes(self):
         """agreggate all css classes
         """
         classes = []
         for d in self.dimensions:
             classes.append(d.classes)
+        return classes
+
+    @cached_property
+    def render_content_classes(self):
+        """agreggate all css classes
+        """
+        classes = [
+            "text-%s" % self.align,
+            'leonardo-content',
+            'template-%s' % self.content_theme.name,
+            '%s-content-%s' % (self.widget_name, self.content_theme.name )
+        ]
+        return " ".join(classes)
+
+    @cached_property
+    def render_base_classes(self):
+        """agreggate all css classes
+        """
+        classes = self.get_dimension_classes
+        classes.append('%s-base-%s' % (self.widget_name, self.base_theme.name ))
+        classes.append('leonardo-widget')
+        classes.append('leonardo-%s-widget' % self.widget_name) 
         return " ".join(classes)
 
     @classmethod
@@ -428,11 +471,10 @@ class Widget(FeinCMSBase):
         should be used to load the form for every given block of
         content.)
         """
-        cls = self.__class__
-        return '%s-%s-%s-%s-%s' % (
-            cls._meta.app_label,
-            cls._meta.model_name,
-            self.__class__.__name__.lower(),
+        meta = self.__class__._meta
+        return '%s-%s-%s-%s' % (
+            meta.app_label,
+            meta.model_name,
             self.parent_id,
             self.id,
         )

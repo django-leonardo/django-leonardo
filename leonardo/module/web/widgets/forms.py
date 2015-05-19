@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
-from horizon_contrib.forms import SelfHandlingForm, SelfHandlingModelForm
+from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
 
 WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
@@ -27,12 +27,6 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         widget=forms.widgets.HiddenInput,
         required=False
     )
-
-    def _wrap_all(self):
-        # stylung
-        self.helper.filter(
-            basestring, max_level=4).wrap(
-            Field, css_class="form-control")
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)
@@ -49,21 +43,12 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                     css_id='field-{}'.format(slugify(self._meta.model))
                     ),
                 Tab(_('Theme'),
-                    'base_theme', 'content_theme', 'label', 'id',
+                    'base_theme', 'content_theme', 'layout', 'align', 'label', 'id',
                     'region', 'ordering', 'parent',
                     css_id='theme-widget-settings'
                     ),
             )
         )
-        # append preview tab if is ready
-        if 'initial' in kwargs \
-                and kwargs['initial'].get('prerendered_content', None):
-
-            preview = Tab(_('Preview'),
-                          HTML(kwargs['initial'].get('prerendered_content')),
-                          )
-
-            self.helper.layout[0].append(preview)
 
         self.fields['label'].widget = \
             forms.TextInput(
@@ -188,13 +173,16 @@ class WidgetSelectForm(SelfHandlingForm):
 
         self.fields['cls_name'].choices = choices
 
+        # for now ungrouped to grouped
+        grouped['Web'] = ungrouped + grouped['Web']
+
         self.helper.layout = Layout(
             Field('region'),
             Field('parent'),
             Field('page_id'),
             Field('ordering'),
             HTML(render_to_string("widget/content_type_selection_widget.html",
-                                  {'grouped': grouped, 'ungrouped': ungrouped}),
+                                  {'grouped': grouped, 'ungrouped': {}}),
                  ),
         )
 

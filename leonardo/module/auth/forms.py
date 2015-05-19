@@ -10,7 +10,7 @@ from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext, ugettext
 from horizon import forms, messages
-from horizon_contrib.forms import SelfHandlingForm
+from leonardo.forms import SelfHandlingForm, Layout, InlineCheckboxes
 from horizon.utils import validators
 
 
@@ -27,6 +27,13 @@ class LoginForm(SelfHandlingForm):
                                widget=forms.PasswordInput(render_value=False))
     remember = forms.BooleanField(label=_("Remember Me"),
                                   required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.helper.layout = Layout(
+            'username', 'password', InlineCheckboxes('remember'),
+        )
+        self._wrap_all()
 
     def handle(self, request, data):
 

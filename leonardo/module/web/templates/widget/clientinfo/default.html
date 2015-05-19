@@ -1,0 +1,21 @@
+{% extends widget.get_base_template %}
+
+{% block content %}
+<ul class="vertical">
+{% for info in widget.show_info %}
+	{% if info == "browser" %}
+	<li><span>Device type: {% if request.is_simple_device %}Simple{% endif %}{% if request.is_touch_device %}Touch Device{% endif %}{% if request.is_wide_device %}Widescreen Device{% endif %}</span></li>
+	<li><span>Browser: {{ user_agent.browser.name }}  {{ user_agent.browser.version }}</span></li>
+	{% endif %}
+	{% if info == "os" %}
+	<li><span>Operating System: {{ user_agent.os.name }}  {{ user_agent.os.version }}</span></li>
+	{% endif %}
+	{% if info == "ip" %}
+	<li><span>IPv4 address: {{ ip }}</span></li>
+	{% endif %}
+	{% if info == "hostname" %}
+	<li><span>Hostname: {{ host|default:"N/A" }}</span></li>
+	{% endif %}
+{% endfor %}
+</ul>
+{% endblock %}

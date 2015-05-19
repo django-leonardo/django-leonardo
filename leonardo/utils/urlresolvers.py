@@ -35,22 +35,23 @@ def render(self, context):
     # {% url ... as var %} construct in which case return nothing.
     url = ''
 
-    for urlconf, config in six.iteritems(
-            ApplicationWidget._feincms_content_models[0].ALL_APPS_CONFIG):
-        partials = view_name.split(':')[1:]
-        try:
-            url = do_app_reverse(
-                ':'.join(partials), urlconf, args=args, kwargs=kwargs,
-                current_app=context.current_app)
-        except NoReverseMatch:
-            pass
-        else:
-            return url
-
     try:
         url = reverse(
             view_name, args=args, kwargs=kwargs, current_app=current_app)
     except NoReverseMatch:
+        # try external apps
+        for urlconf, config in six.iteritems(
+                ApplicationWidget._feincms_content_models[0].ALL_APPS_CONFIG):
+            partials = view_name.split(':')[1:]
+            try:
+                url = do_app_reverse(
+                    ':'.join(partials), urlconf, args=args, kwargs=kwargs,
+                    current_app=context.current_app)
+            except NoReverseMatch:
+                pass
+            else:
+                return url
+
         exc_info = sys.exc_info()
         if settings.SETTINGS_MODULE:
             project_name = settings.SETTINGS_MODULE.split('.')[0]

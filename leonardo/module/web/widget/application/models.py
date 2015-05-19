@@ -36,6 +36,9 @@ from leonardo.module.web.models import Widget
 from feincms.admin.item_editor import ItemEditorForm
 
 
+from leonardo.module.web.widgets.forms import WidgetUpdateForm
+
+
 class ApplicationWidget(Widget, ApplicationContent):
 
     @classmethod
@@ -71,12 +74,11 @@ class ApplicationWidget(Widget, ApplicationContent):
                 (c['urls'], c['name']) for c in cls.ALL_APPS_CONFIG.values()])
         )
 
-        class ApplicationContentItemEditorForm(ItemEditorForm):
+        class ApplicationContentItemEditorForm(WidgetUpdateForm):
             app_config = {}
             custom_fields = {}
 
             def __init__(self, *args, **kwargs):
-                request = kwargs.pop('request', None)
                 super(ApplicationContentItemEditorForm, self).__init__(
                     *args, **kwargs)
 
@@ -110,15 +112,17 @@ class ApplicationWidget(Widget, ApplicationContent):
                             self.fields[k].initial = params[k]
 
     def render_content(self, options):
-        self.process(**options)
         data = {
             'widget': self,
             'request': options.get('request'),
         }
         context = RequestContext(options.get('request'), data)
-        if hasattr(self, 'raw_context'):
-            return render_to_string(self.get_template, context)
-        context['content'] = getattr(self, 'rendered_result', _('No result'))
+
+        if not hasattr(self, 'rendered_result'):
+            self.process(options.get('request'))
+        context['content'] = getattr(
+            self, 'rendered_result', _('No app content'))
+
         return render_to_string(self.get_template, context)
 
     def process(self, request, **kw):
@@ -197,16 +201,18 @@ class ApplicationWidget(Widget, ApplicationContent):
                             h, []).append(output[h])
 
         elif isinstance(output, tuple) and 'view' in kw:
-            kw['view'].template_name = output[0]
-            kw['view'].request._feincms_extra_context.update(output[1])
-
+            # our hack
+            # no template and view change and save content for our widget
+            # kw['view'].template_name = output[0]
+            # kw['view'].request._feincms_extra_context.update(output[1])
+            self.rendered_result = render_to_string(
+                output[0], output[1])
         else:
             self.raw_context = output
-            self.rendered_result = mark_safe(output)
 
-        return True  # successful
+        return True
 
     class Meta:
         abstract = True
-        verbose_name = _("external application")
-        verbose_name_plural = _('external applications')
+        verbose_name = _("External application")
+        verbose_name_plural = _('External applications')

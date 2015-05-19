@@ -106,6 +106,24 @@ PAGE_TEMPLATES = (
     },
 )
 
+PAGE_LAYOUT_CHOICES = (
+    ('fixed', _('Fixed')), 
+    ('fluid', _('Fluid')), 
+    ('boxed', _('Boxed')), 
+)
+
+WIDGET_LAYOUT_CHOICES = (
+    ('inline', _('Inline')), 
+    ('fixed', _('Fixed')), 
+    ('fluid', _('Fluid')), 
+)
+
+WIDGET_ALIGN_CHOICES = (
+    ('left', _('Left')), 
+    ('center', _('Center')), 
+    ('right', _('Right')), 
+)
+
 TEMPLATE_LAYOUTS = {
     'layout_flex': (0, 0, 24, 0),
     'layout_flex_flex': (0, 12, 12, 0),

@@ -129,7 +129,11 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {}
 
+# enable auto loading packages
 LEONARDO_MODULE_AUTO_INCLUDE = True
+
+# enable system module
+LEONARDO_SYSTEM_MODULE = False
 
 ##########################
 
@@ -248,7 +252,6 @@ except Exception, e:
 
 APPLICATION_CHOICES = []
 
-
 def elephantblog_entry_url_app(self):
     from leonardo.module.web.widget.application.reverse import app_reverse
     return app_reverse(
@@ -291,6 +294,16 @@ ADD_JS_FILES = []
 ADD_CSS_FILES = []
 
 ADD_JS_SPEC_FILES = []
+
+ADD_MIGRATION_MODULES = {}
+
+CONSTANCE_CONFIG_GROUPS = {}
+
+if LEONARDO_SYSTEM_MODULE:
+    APPS = merge(APPS, ['system'])
+    HORIZON_CONFIG['system_module'] = True
+else:
+    HORIZON_CONFIG['system_module'] = False
 
 try:
 
@@ -342,7 +355,25 @@ try:
 
         ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
 
+        # TODO move to utils.settings
+        # support for one level nested in config dictionary
+        for config_key, config_value in six.iteritems(mod_cfg.config):
+            if isinstance(config_value, dict):
+                CONSTANCE_CONFIG_GROUPS.update({config_key: config_value})
+                for c_key, c_value in six.iteritems(config_value):
+                    mod_cfg.config[c_key] = c_value
+                # remove from main dict
+                mod_cfg.config.pop(config_key)
+            else:
+                if isinstance(mod_cfg.optgroup, six.string_types):
+                    CONSTANCE_CONFIG_GROUPS.update({
+                        mod_cfg.optgroup: mod_cfg.config})
+                else:
+                    CONSTANCE_CONFIG_GROUPS.update({
+                        'ungrouped': mod_cfg.config})
+
         CONSTANCE_CONFIG.update(mod_cfg.config)
+        ADD_MIGRATION_MODULES.update(mod_cfg.migration_modules)
 
         ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
 
@@ -361,15 +392,14 @@ try:
             TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
 
         # collect grouped widgets
-        opt_group = mod_cfg.optgroup or mod.__name__.capitalize()
-        widgets[opt_group] = merge(
-            getattr(widgets, opt_group, []), mod_cfg.widgets)
+        if isinstance(mod_cfg.optgroup, six.string_types):
+            widgets[mod_cfg.optgroup] = merge(
+                getattr(widgets, mod_cfg.optgroup, []), mod_cfg.widgets)
 
     setattr(leonardo, 'js_files', ADD_JS_FILES)
     setattr(leonardo, 'css_files', ADD_CSS_FILES)
     setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
     setattr(leonardo, 'widgets', widgets)
-
 
     from leonardo.module.web.models import Page
     from leonardo.module.web.widget import ApplicationWidget
@@ -414,6 +444,8 @@ setattr(leonardo, 'apps', APPS)
 setattr(leonardo, 'page_extensions', PAGE_EXTENSIONS)
 setattr(leonardo, 'plugins', APPLICATION_CHOICES)
 
+MIGRATION_MODULES.update(ADD_MIGRATION_MODULES)
+
 # ensure if bootstra_admin is on top of INSTALLED_APPS
 if 'bootstrap_admin' in INSTALLED_APPS:
     BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
@@ -426,12 +458,40 @@ COMPRESS_OFFLINE_CONTEXT = {
     'HORIZON_CONFIG': HORIZON_CONFIG,
 }
 
+if DEBUG:
+    # debug
+    try:
+        import debug_toolbar
+        INSTALLED_APPS = merge(INSTALLED_APPS, ['debug_toolbar'])
+        INTERNAL_IPS = ['10.10.10.1', '127.0.0.1']
+        DEBUG_TOOLBAR_PANELS = [
+            'debug_toolbar.panels.versions.VersionsPanel',
+            'debug_toolbar.panels.timer.TimerPanel',
+            'debug_toolbar.panels.settings.SettingsPanel',
+            'debug_toolbar.panels.headers.HeadersPanel',
+            'debug_toolbar.panels.request.RequestPanel',
+            'debug_toolbar.panels.sql.SQLPanel',
+            'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+            'debug_toolbar.panels.templates.TemplatesPanel',
+            'debug_toolbar.panels.cache.CachePanel',
+            'debug_toolbar.panels.signals.SignalsPanel',
+            'debug_toolbar.panels.logging.LoggingPanel',
+            'debug_toolbar.panels.redirects.RedirectsPanel',
+            'debug_toolbar.panels.profiling.ProfilingPanel'
+        ]
+
+    except ImportError:
+        pass
+
+# async messages
 try:
-    import debug_toolbar
-    INSTALLED_APPS += ['debug_toolbar']
-    INTERNAL_IPS = ['10.10.10.1', '127.0.0.1']
+    import async_messages
+    INSTALLED_APPS = merge(INSTALLED_APPS, ['async_messages'])
+    MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES,
+                               ['async_messages.middleware.AsyncMiddleware'])
 except ImportError:
     pass
+
 
 # use js files instead of horizon
 HORIZON_CONFIG['js_files'] = leonardo.js_files

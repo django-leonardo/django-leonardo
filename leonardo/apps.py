@@ -35,3 +35,11 @@ class LeonardoConfig(AppConfig):
             # in some environment may failed
             # use optionaly strategy
             pass
+
+        # use our debug 404 for quick build scaffold of site
+        try:
+            from django.views import debug
+            from leonardo.views.debug import technical_404_response
+            debug.technical_404_response = technical_404_response
+        except:
+            pass

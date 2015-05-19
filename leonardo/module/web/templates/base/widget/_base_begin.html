@@ -10,3 +10,9 @@
 {% fragment request "current_product" %}{% block current_product %}{% endblock %}{% endfragment %}
 {% fragment request "current_category" %}{% block current_category %}{% endblock %}{% endfragment %}
 {% fragment request "current_manufacturer" %}{% block current_manufacturer %}{% endblock %}{% endfragment %}
+
+{% if widget.layout == "fixed" %}
+<div class="container">
+{% elif widget.layout == "fluid" %}
+<div class="container-fluid">
+{% endif %}

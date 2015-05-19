@@ -13,16 +13,9 @@
 {{ body|safe }}
 {% crispy form %}
 
-{% comment %}
-<div class="right">
-  <h4>{{ heading }}:</h4>
-  <p>{{ help_text }}</p>
-</div>
-{% endcomment %}
-
 {% endblock %}
 
 {% block modal-footer %}
-  <input class="btn btn-primary pull-right" type="submit" value="{{ view_name|default:'Save' }}" />
   <a href="#" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</a>
+  <input class="btn btn-primary" type="submit" value="{{ form_submit|default:'Save' }}" />
 {% endblock %}
