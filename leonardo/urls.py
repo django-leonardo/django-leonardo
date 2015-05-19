@@ -56,13 +56,6 @@ if getattr(settings, 'HORIZON_ENABLED', True):
                             url(r'', include(horizon.urls)),
                             )
 
-if getattr(settings, 'SERVER_RELOAD_ENABLED', True):
-    from leonardo.views.server import ServerReloadView
-    urlpatterns += patterns('',
-                           url(r'^server-reload/$',
-                               ServerReloadView.as_view(), name='server_reload'),
-                            )
-
 # translation
 urlpatterns += patterns('',
                         url(r'^i18n/js/(?P<packages>\S+?)/$',

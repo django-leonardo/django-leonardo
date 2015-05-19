@@ -129,7 +129,11 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {}
 
+# enable auto loading packages
 LEONARDO_MODULE_AUTO_INCLUDE = True
+
+# enable system module
+LEONARDO_SYSTEM_MODULE = False
 
 ##########################
 
@@ -248,7 +252,6 @@ except Exception, e:
 
 APPLICATION_CHOICES = []
 
-
 def elephantblog_entry_url_app(self):
     from leonardo.module.web.widget.application.reverse import app_reverse
     return app_reverse(
@@ -295,6 +298,12 @@ ADD_JS_SPEC_FILES = []
 ADD_MIGRATION_MODULES = {}
 
 CONSTANCE_CONFIG_GROUPS = {}
+
+if LEONARDO_SYSTEM_MODULE:
+    APPS = merge(APPS, ['system'])
+    HORIZON_CONFIG['system_module'] = True
+else:
+    HORIZON_CONFIG['system_module'] = False
 
 try:
 

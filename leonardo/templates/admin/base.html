@@ -1,4 +1,4 @@
-{% load admin_static bootstrap_admin_template_tags %}{% load firstof from future %}{% display_sidebar_menu cl.has_filters as is_displaying_menu %}<!DOCTYPE html>
+{% load admin_static bootstrap_admin_template_tags django_select2_tags %}{% load firstof from future %}{% display_sidebar_menu cl.has_filters as is_displaying_menu %}<!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +9,8 @@
   {% include "horizon/client_side/_script_loader.html" %}
   {% include "horizon/_custom_head_js.html" %}
   {% include "_custom_head_js.html" %}
+
+  {% import_django_select2_js_css %}
 
   {% block bootstrap_admin_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap_admin/css/bootstrap.min.css' %}" />
@@ -131,12 +133,17 @@
                     </li>
                   </ul>
                 </div>
+                {% if HORIZON_CONFIG.system_module %}
                 <a href="{% url 'server_reload' %}" title="{% trans 'Reload server' %}" class="ajax-modal btn btn-default hidden-xs">
                   <span class="glyphicon glyphicon-refresh"></span>
                 </a>
                 <a href="{% url 'server_reload' %}" title="{% trans 'System Info' %}" class="ajax-modal btn btn-default hidden-xs">
                   <span class="glyphicon glyphicon-info-sign"></span>
                 </a>
+                <a href="{% url 'plugin_install' %}" title="{% trans 'Install Plugins' %}" class="ajax-modal btn btn-default hidden-xs">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </a>
+                {% endif %}
                 {% if docsroot %}
                   <a href="{{ docsroot }}" title="{% trans 'Documentation' %}" class="btn btn-default hidden-sm"><span class="glyphicon glyphicon-book"></span></a>
                 {% endif %}
