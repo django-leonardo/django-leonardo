@@ -189,17 +189,20 @@ $.ajaxSetup({
 
           if(sort) {
             sort_options = {
-		      url: '{% url 'widget_sort' %}',
-		      type: "POST",
-		      data: {
-	              'page_id': {{ feincms_page.id }},
-	              'region': 'col3',
-	              'widgets': widgets,
-		      }
+  		      url: '{% url 'widget_sort' %}',
+  		      type: "POST",
+  		      data: {
+  	              'page_id': {{ feincms_page.id }},
+  	              'region': 'col3',
+  	              'widgets': widgets,
+  		      },
+            success: function(){
+              horizon.autoDismissAlerts();
+            }
             }
 
-		    horizon.clearAllMessages();
-	  		$.ajax(sort_options);
+            horizon.clearAllMessages();
+            $.ajax(sort_options);
 
           }
         },

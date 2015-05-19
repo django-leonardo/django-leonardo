@@ -11,9 +11,6 @@ HORIZON_CONFIG = {
     # Default redirect url for users' home
     'user_home': "",
 
-    # AJAX settings for JavaScript
-    'ajax_queue_limit': 10,
-    'ajax_poll_interval': 2500,
 
     # URL for additional help with this site.
     'help_url': None,
@@ -29,6 +26,19 @@ HORIZON_CONFIG = {
 
     'password_autocomplete': 'on',
 
-    # Enable or disable simplified floating IP address management.
-    'simple_ip_management': True
+    # AJAX settings for JavaScript
+    'ajax_queue_limit': 10,
+
+    'ajax_poll_interval': 2500,
+
+    'auto_fade_alerts': {
+        'delay': 3000,
+        'fade_duration': 1500,
+        'types': ['alert-success', 'alert-info']
+    },
+
+    'angular_modules': [],
+    'js_files': [],
+    'js_spec_files': [],
+
 }

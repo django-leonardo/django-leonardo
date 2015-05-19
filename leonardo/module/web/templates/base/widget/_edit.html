@@ -19,16 +19,15 @@
 
 $(function() {
 
-    $('#ajax-info-' + '{{ widget.fe_identifier }}').on('click', function (evt, modal) {
-  	    horizon.clearAllMessages();
-    		$.ajax({
+  $('#ajax-info-' + '{{ widget.fe_identifier }}').on('click', function (evt, modal) {
+  		$.ajax({
         type: "GET",
         url: '{% url 'widget_info' widget.get_ct_name widget.id %}',
-        headers: {},
-        data: {},
-        beforeSend: function () { },
-        complete: function () {},
+        async: true,
+        success: function(data){
+          horizon.autoDismissAlerts();
+        }      
       });
-    });
+  });
 });	
 </script>
