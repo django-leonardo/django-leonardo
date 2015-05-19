@@ -1,10 +1,7 @@
-{% extends "widget/base.html" %}
 
 {% load i18n %}
 {% load thumbnail %}
-
-{% block page_title %}{% if object %}{{ object }}{% endif %}{% endblock %}
-
+{% load leonardo_tags %}
 {% block content %}
 {% if object != None %}
 {% if object.translation.description %}
@@ -49,7 +46,7 @@ jQuery(document).ready(function() {
 					<h3>{{ child }} ({{ child.media.count }} {% trans "items" %})</h3>
 				</a>
 				{% else %}
-				<a class="object-image" target="_blank" href="{% url webcms_media_category_detail_standalone child.id %}" title="{{ child }}">
+				<a class="object-image" target="_blank" href="{% app_reverse leonardo_media_category_detail_standalone leonardo.module.media.apps.category_nested child.id %}" title="{{ child }}">
 					{% thumbnail child.get_featured_image.file "200x140" format="PNG" as thumb %}
 					<img src="{{ thumb.url }}" /><br />
 					{% endthumbnail %}

@@ -32,6 +32,11 @@ class Default(object):
             FlashObjectWidget,
         ]
 
+    plugins = [
+        ('leonardo.module.media.apps.category_nested', 'List of directories'),
+        ('leonardo.module.media.apps.category_simple', 'Simple list of directories'),
+    ]
+
 
 class MediaConfig(AppConfig, Default):
     name = 'leonardo.module.media'
