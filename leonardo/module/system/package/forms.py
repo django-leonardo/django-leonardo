@@ -3,13 +3,14 @@ from django_select2.fields import AutoSelect2TagField
 from django_select2.views import NO_ERR_RESP
 from leonardo import forms, messages
 
-from .utils import update_all, get_widgets
+from .utils import pip_install, update_all
 
 
 class PluginSelectField(AutoSelect2TagField):
+
     """returns list of plugins from github group or pypi
 
-    it's simple PoC
+    it's simple PoC !
     """
 
     search_fields = ['tag__icontains', ]
@@ -20,7 +21,7 @@ class PluginSelectField(AutoSelect2TagField):
 
     def get_results(self, request, term, page, context):
 
-        pkgs = get_widgets()
+        pkgs = update_all()
 
         res = [
             (
@@ -35,33 +36,39 @@ class PluginSelectField(AutoSelect2TagField):
 
 
 class PluginInstallForm(forms.SelfHandlingForm):
+    """simple form for installing packages
 
-    plugins = PluginSelectField(label=_('Search plugin'))
+    this support new abilities like an dynamic plugin install etc..
+    """
+
+    packages = PluginSelectField(label=_('Search packages'))
+
+    reload_server = forms.BooleanField(
+        label=_('Reload Server'), initial=False,
+        required=False,
+        help_text=_('Warning: this kill this Leonardo instance !!!\
+                    For successfull reload must be run under Supervisor !\
+                    You may lost your data !'),)
+
+    def __init__(self, *args, **kwargs):
+        super(PluginInstallForm, self).__init__(*args, **kwargs)
+
+        self.helper.layout = forms.Layout(
+            forms.Accordion('', 'packages',
+                            forms.AccordionGroup(
+                                _('Advanced options'),
+                                'reload_server',
+                                )
+                            ),
+        )
+        self._wrap_all()
 
     def handle(self, request, data):
-        """PoC for installing plugins
 
-        this support new abilities like an dynamic plugin install etc..
-        """
-        raise Exception(data)
-
-        global ORG
-
-        if ORG:
-            for repo_id in data['plugins']:
-                repo = ORG.get_repo(repo_id)
-                raise Exception(repo)
+        kwargs = data
+        kwargs['request'] = request
         try:
-            import github  # noqa
-        except ImportError:
-            messages.error(request, _(
-                'For this functionality please run pip install PyGithub'))
-        g = github.Github()
-
-        raise Exception(data)
-        try:
-            messages.warning(
-                request, _('Server going to down !'))
+            pip_install(**kwargs)
         except Exception as e:
             messages.error(request, str(e))
         else:

@@ -17,7 +17,7 @@ from horizon_contrib.forms.models import create_or_update_and_get
 from crispy_forms.bootstrap import (Accordion, AccordionGroup, InlineCheckboxes,
                                     Tab, TabHolder, FieldWithButtons, StrictButton)
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import (Field, Fieldset, HTML,
+from crispy_forms.layout import (Field, Fieldset, HTML, Div,
                                  Layout, Reset, Row, Submit)
 
 

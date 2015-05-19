@@ -22,8 +22,11 @@ class PluginInstallView(ModalFormView, ContextMixin, ModelFormMixin):
         context = super(PluginInstallView, self).get_context_data(**kwargs)
 
         context['url'] = self.request.build_absolute_uri()
-        context['modal_header'] = _('Install Plugins')
+        context['modal_header'] = _('Install Packages')
         context['title'] = _('Install')
         context['form_submit'] = _('Install')
-        context['heading'] = _('Install Plugins')
+        context['heading'] = _('Install Packages')
         return context
+
+    def form_invalid(self, form):
+        raise Exception(form.errors)

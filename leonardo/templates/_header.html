@@ -1,12 +1,11 @@
 
-{% load compress %}
+{% load compress django_select2_tags %}
 
 <head>
 
-<meta charset="utf-8">
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
 <meta name="description" content="Leonardo">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>{{ request.leonardo_options.meta_title }}</title>
 
 {% include "base/head_meta.html" %}
@@ -15,10 +14,12 @@
   {% include "_stylesheets.html" %}
 {% endblock %}
 
+{% import_django_select2_js_css %}
+
 {% block css_extra %}
 {% endblock %}
 
-{% compress css inline %}
+{% compress css %}
 {% for file in HORIZON_CONFIG.css_files %}
     <link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
 {% endfor %}

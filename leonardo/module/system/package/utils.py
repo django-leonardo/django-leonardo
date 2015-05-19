@@ -3,6 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 from leonardo import messages
 from leonardo.utils import dotdict
 
+from django.core import management
+
 try:
     import github
     GITHUB = True
@@ -30,6 +32,46 @@ _BLACKLIST = [
     'django-leonardo',
     'raspiface',
 ]
+
+
+def pip_install(packages, request=None, reload_server=False):
+    """install packages from pip
+
+    if request is provided, user messages is pushed out
+    """
+
+    if PIP:
+
+        # install
+        try:
+            pip.main(['install'] + list(packages))
+            if request:
+                messages.success(request, _(
+                    'Packages %s was successfully installed,\
+                     please restart your server.' % list(packages)))
+        except Exception as e:
+            if request:
+                messages.error(request, _(
+                    'Installing packages raised exception %s' % e))
+            else:
+                raise e
+        else:
+            if reload_server:
+                # try self kill
+                try:
+                    import os
+                    os.kill(os.getpid(), 9)
+                except Exception as e:
+                    if request:
+                        messages.error(request, _(
+                            'Run post install task fails with %s' % e))
+                    else:
+                        raise e
+
+    else:
+        if request:
+            messages.error(request, _(
+                'For this functionality please install pip package'))
 
 
 def filter_repos():
@@ -81,13 +123,14 @@ def get_widgets(query='leonardo', request=None):
             mod_name = repo.name
             raise Exception(mod_name)
             try:
-                descriptor = repo.get_file_contents('%s/__init__.py' % mod_name).decoded_content
+                descriptor = repo.get_file_contents(
+                    '%s/__init__.py' % mod_name).decoded_content
             except Exception:
                 pass
             else:
                 widgets.update({
                     mod_name: descriptor.widgets
-                    })
+                })
 
         raise Exception(widgets)
 
