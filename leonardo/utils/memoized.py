@@ -120,12 +120,14 @@ class widget_memoized(object):
         try:
             request = args[1]['request']
 
-            id = "{}-{}-{}-{}-{}".format(
+            id = "{}-{}-{}-{}-{}-{}".format(
                 instance._meta.app_label,
                 instance.__class__.__name__,
                 instance.id,
                 request.user,
-                request.leonardo_page.slug)
+                request.leonardo_page.slug,
+                request.frontend_editing,
+                )
 
             if self.is_actual(id) and not getattr(instance, 'saved', False):
                 return self.cache[id][1]
