@@ -5,19 +5,18 @@
 Django-Leonardo
 ===============
 
-This is a stable for daily use in development.
+Full featured platform for fast and easy building extensible web applications.
 
-Full featured platform for building everything based on Django, FeinCMS, Horizon, Oscar and tons of another apps.
+*Don't waste your time searching stable solution for daily problems.*
 
-**Don't waste your time searching stable solution for daily problems.**
-
-Django application for Humans.
+**Deploy and Enjoy ! No skills required !**
 
 For Users
 =========
 
 * CMS, Page, Responsive, Layouts, Themes, Color Variations 
-* Frontend Edit, Widgets, Plugins, 3rd party app integration support, ..
+* Widgets, Plugins, 3rd party app integrations
+* Frontend Edit, Install modules in one click !
 * Eshop, Form Designer, Blog, News, Folio, Links, Navigations, ..
 * Media, Folders, Files, Images, Documents, Import - Export, ..
 * Authentification, 3rd party backends, SAML standard, ..
@@ -32,9 +31,6 @@ For Developers
 * Filer, DbTemplates, Reversion, Constance
 * Haystack, Oscar, Django Admin Bootstrap
 * and tons of other apps bundled as modules
-
-.. contents::
-   :local:
 
 Further reading:
 
