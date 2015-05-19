@@ -1,16 +1,16 @@
 
 from __future__ import absolute_import
 
-from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
-from horizon_contrib.forms.views import ModalFormView
-
+from horizon_contrib.forms.views import (ContextMixin, CreateView,
+                                         ModalFormView, ModelFormMixin,
+                                         UpdateView)
 from leonardo import messages
+
 from ..models import Page
 from .dimension.forms import PageDimensionForm
-from .forms import PageUpdateForm, PageCreateForm
+from .forms import PageCreateForm, PageDeleteForm, PageUpdateForm
 
 
 class PageCreateView(ModalFormView):
@@ -129,7 +129,7 @@ class PageDimensionUpdateView(ModalFormView):
 
         try:
             obj = Page.objects.get(id=self.kwargs["page_id"])
-        except Exception, e:
+        except Exception as e:
             raise e
         return obj
 
@@ -156,3 +156,49 @@ class PageDimensionUpdateView(ModalFormView):
 
     def form_invalid(self, form):
         raise Exception(form.errors)
+
+
+class PageDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
+
+    form_class = PageDeleteForm
+
+    template_name = 'leonardo/common/modal.html'
+
+    @property
+    def object(self):
+
+        try:
+            obj = Page.objects.get(id=self.kwargs["page_id"])
+        except Exception as e:
+            raise e
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(PageDeleteView, self).get_context_data(**kwargs)
+
+        page = self.object
+
+        # add extra context for template
+        context['url'] = self.request.build_absolute_uri()
+        context['modal_header'] = 'Delete {} ?'.format(page)
+        context['title'] = 'Delete {}'.format(page)
+        context['form_submit'] = _('Delete')
+        context['heading'] = 'Delete {} ?'.format(page)
+        context['help_text'] = self.get_help_text()
+        return context
+
+    def form_valid(self, form):
+        obj = self.object
+        try:
+            parent = obj.parent
+            obj.delete()
+            success_url = parent.get_absolute_url()
+            response = HttpResponseRedirect(success_url)
+            response['X-Horizon-Location'] = success_url
+        except Exception as e:
+            raise e
+
+        return response
+
+    def get_initial(self):
+        return self.kwargs

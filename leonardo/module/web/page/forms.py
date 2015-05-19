@@ -8,7 +8,7 @@ from django.forms.models import modelform_factory
 from django.utils.translation import ugettext_lazy as _
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
-from leonardo.forms import SelfHandlingModelForm
+from leonardo.forms import SelfHandlingModelForm, SelfHandlingForm
 from django.utils.text import slugify
 from ..models import Page
 
@@ -144,3 +144,9 @@ class PageUpdateForm(SelfHandlingModelForm):
             self.helper.layout[0].append(dimensions)
 
         self._wrap_all()
+
+
+class PageDeleteForm(SelfHandlingForm):
+
+    def handle(self, request, data):
+        pass
