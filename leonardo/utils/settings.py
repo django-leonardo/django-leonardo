@@ -118,6 +118,10 @@ def get_conf_from_module(mod):
                     if hasattr(app_module, 'default'):
                         mod_conf = get_conf_from_module(app_module)
                         for k, v in six.iteritems(mod_conf):
+                            # prevent config duplicity
+                            # skip config merge
+                            if k == 'config':
+                                continue
                             if isinstance(v, dict):
                                 conf[k].update(v)
                             elif isinstance(v, (list, tuple)):
