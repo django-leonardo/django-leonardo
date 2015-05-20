@@ -85,6 +85,7 @@ def get_conf_from_module(mod):
         'css_files': [],
         'config': {},
         'migration_modules': {},
+        'navigation_extensions': [],
     })
 
     if hasattr(mod, 'default'):
@@ -104,6 +105,8 @@ def get_conf_from_module(mod):
                                    mod.__name__.capitalize())
         conf['config'] = getattr(default, 'config', {})
         conf['migration_modules'] = getattr(default, 'migration_modules', {})
+        conf['navigation_extensions'] = getattr(
+            default, 'navigation_extensions', [])
 
         conf['dirs'] = getattr(mod.default, 'dirs', [])
         conf['context_processors'] = getattr(
