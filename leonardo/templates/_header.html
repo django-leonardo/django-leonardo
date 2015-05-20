@@ -5,7 +5,7 @@
 
 <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
 {% if feincms_page %}
-<title>{{ feincms_page.title }}</title>
+<title>{{ feincms_page.page_title|default:feincms_page.title }}</title>
 <meta name="description" content="{{ feincms_page.meta_description|default:request.leonardo_options.meta_description }}">
 <meta name="keywords" content="{{ feincms_page.meta_keywords|default:request.leonardo_options.meta_keywords }}">
 {% else %}
