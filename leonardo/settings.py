@@ -246,7 +246,7 @@ if 'media' in APPS:
 try:
     from leonardo.conf.horizon import *
     from leonardo.conf.static import *
-except Exception, e:
+except Exception as e:
     pass
 
 
