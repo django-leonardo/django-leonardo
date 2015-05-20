@@ -52,18 +52,16 @@ class WebMiddleware(object):
     def process_request(self, request):
         try:
             leonardo_options = {
-                'meta_description': config_value('WEB', 'META_KEYWORDS'),
-                'meta_keywords': config_value('WEB', 'META_DESCRIPTION'),
-                'meta_title': config_value('WEB', 'META_TITLE'),
+                'meta_description': settings.META_DESCRIPTION,
+                'meta_keywords': settings.META_KEYWORDS,
+                'meta_title': settings.META_TITLE,
             }
-            is_private = config_value('WEB', 'IS_PRIVATE')
         except:
             leonardo_options = {
                 'meta_description': '',
                 'meta_keywords': '',
                 'meta_title': '',
             }
-            is_private = False
 
         leonardo_options['site'] = {
             'name': settings.SITE_NAME,
@@ -82,7 +80,6 @@ class WebMiddleware(object):
             leonardo_options['assets'] = []
             leonardo_options['widgets'] = []
 
-        leonardo_options['is_private'] = is_private
         request.leonardo_options = leonardo_options
         request.leonardo_page = page
 

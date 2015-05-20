@@ -95,6 +95,12 @@ class Default(object):
         ('leonardo.module.web.apps.horizon', _('Horizon'))
     ]
 
+    config = {
+        'META_KEYWORDS': ('', _('Site specific meta keywords')),
+        'META_DESCRIPTION': ('', _('Site specific meta description')),
+        'META_TITLE': ('', _('Site specific meta title')),
+    }
+
 
 class WebConfig(AppConfig, Default):
     name = 'leonardo.module.web'
