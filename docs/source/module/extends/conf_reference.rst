@@ -8,45 +8,8 @@ Descriptor is Leonardo specific and is inspired from Openstack Horizon where is 
 Descriptor reference
 ====================
 
-Django
-------
-
-    **auth_backends** - AUTHENTICATION_BACKENDS::
-
-        auth_backends = [
-            'oscar.apps.customer.auth_backends.EmailBackend'
-        ]
-
-    **context_processors** - Django Context Processors::
-
-        context_processors = [
-            ...
-            'oscar.apps.checkout.context_processors.checkout',
-            'oscar.apps.customer.notifications.context_processors.notifications',
-            ...
-        ]
-
-    **middlewares** - Django Middlewares::
-
-        middlewares = [
-            'oscar.apps.basket.middleware.BasketMiddleware',
-        ]
-
-    **migration_modules** - allow override migration's location::
-
-        migration_modules = {
-            'elephantblog': 'leonardo_module_blog.migrations',
-        }
-
-    **absolute_url_overrides** - model name and method wich would be imported for easy integrating 3rd party app::
-
-        absolute_url_overrides = {
-            'elephantblog.entry': 'leonardo_store.overrides.elephantblog_entry_url_app',
-        }
-
-
-FeinCMS
--------
+Leonardo
+--------
 
     **apps** - leonardo modules or whatever::
 
@@ -55,6 +18,9 @@ FeinCMS
             'elephantblog',
             'leonardo_module_analytics',
         ]
+
+FeinCMS
+-------
 
     **widgets** - FeinCMS widgets::
 
@@ -108,6 +74,42 @@ Constance
             'DISQUS_COMMENTS': (False, _('Enable Disqus comments')),
             'DISQUS_SHORTNAME': ('michaelkuty', _('Disqus shortname identificator.')),
 
+        }
+
+Django
+------
+
+    **auth_backends** - AUTHENTICATION_BACKENDS::
+
+        auth_backends = [
+            'oscar.apps.customer.auth_backends.EmailBackend'
+        ]
+
+    **context_processors** - Django Context Processors::
+
+        context_processors = [
+            ...
+            'oscar.apps.checkout.context_processors.checkout',
+            'oscar.apps.customer.notifications.context_processors.notifications',
+            ...
+        ]
+
+    **middlewares** - Django Middlewares::
+
+        middlewares = [
+            'oscar.apps.basket.middleware.BasketMiddleware',
+        ]
+
+    **migration_modules** - allow override migration's location::
+
+        migration_modules = {
+            'elephantblog': 'leonardo_module_blog.migrations',
+        }
+
+    **absolute_url_overrides** - model name and method wich would be imported for easy integrating 3rd party app::
+
+        absolute_url_overrides = {
+            'elephantblog.entry': 'leonardo_store.overrides.elephantblog_entry_url_app',
         }
 
 
