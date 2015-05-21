@@ -8,6 +8,9 @@ from leonardo.module.web.models import Widget, Page
 
 class LanguageSelectorWidget(Widget):
 
+    """blueprint on new field ``excludecurrent`` boolean
+    """
+
     class Meta:
         abstract = True
         verbose_name = _("language selector")

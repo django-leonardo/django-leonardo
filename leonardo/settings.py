@@ -44,8 +44,8 @@ TIME_ZONE = 'Europe/Prague'
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
-    ('cs', 'CS'),
     ('en', 'EN'),
+    ('cs', 'CS'),
 )
 
 USE_I18N = True
