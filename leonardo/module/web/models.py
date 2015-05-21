@@ -164,12 +164,12 @@ class WidgetInline(FeinCMSInline):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "base_theme":
             queryset = WidgetBaseTheme.objects.all()
-            kwargs["queryset"] = queryset
+            kwargs["queryset"] = queryset.exclude(name__startswith="_")
             kwargs["initial"] = queryset.first()
         if db_field.name == "content_theme":
             queryset = WidgetContentTheme.objects.filter(
                 widget_class=self.model.__name__)
-            kwargs["queryset"] = queryset
+            kwargs["queryset"] = queryset.exclude(name__startswith="_")
             kwargs["initial"] = queryset.first()
         return super(WidgetInline, self).formfield_for_foreignkey(
             db_field, request, **kwargs)
