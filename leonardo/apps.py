@@ -36,8 +36,8 @@ class LeonardoConfig(AppConfig):
             for k in dir(config):
                 if k not in HORIZON_CONFIG:
                     HORIZON_CONFIG[k] = getattr(config, k)
-        except Exception as e:
-            raise e
+        except:
+            pass
         else:
             horizon_conf.HORIZON_CONFIG = HORIZON_CONFIG
 
