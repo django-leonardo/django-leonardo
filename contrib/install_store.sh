@@ -6,6 +6,7 @@ cd leonardo_venv
 
 pip install django-leonardo
 pip install django-leonardo[themes]
+pip install django-leonardo[store]
 
 django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
 

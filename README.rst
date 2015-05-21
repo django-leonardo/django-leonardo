@@ -114,7 +114,20 @@ Wget
 
 .. code-block:: bash
 
-    wget -O install_leonardo.sh https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh && sh install_leonardo.sh
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh | sh
+
+
+Install Blog
+
+.. code-block:: bash
+
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_blog.sh | sh
+
+Install Store
+
+.. code-block:: bash
+
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_store.sh | sh
 
 CURL
 
@@ -203,7 +216,7 @@ Themes
 Ecommerce
 ~~~~~~~~~
 
-* django-leonardo[eshop] -Django-Oscar integration (is not stable !)
+* django-leonardo[store] -Django-Oscar integration (is not stable !)
 
 Common
 ~~~~~~
