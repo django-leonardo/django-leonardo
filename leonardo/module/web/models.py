@@ -171,8 +171,11 @@ class WidgetInline(FeinCMSInline):
                 widget_class=self.model.__name__)
             kwargs["queryset"] = queryset.exclude(name__startswith="_")
             kwargs["initial"] = queryset.first()
-        return super(WidgetInline, self).formfield_for_foreignkey(
-            db_field, request, **kwargs)
+        form_field = super(WidgetInline, self).formfield_for_foreignkey(
+                        db_field, request, **kwargs)
+        # bootstrap field
+        form_field.widget.attrs['class'] = 'form-control'
+        return form_field
 
     def __init__(self, *args, **kwargs):
         super(WidgetInline, self).__init__(*args, **kwargs)
@@ -185,7 +188,8 @@ class WidgetInline(FeinCMSInline):
             }),
             (_('Theme'), {
                 'fields': [
-                    ('label', 'base_theme', 'content_theme', 'enabled',),
+                    ('label', 'base_theme', 'content_theme',
+                     'layout', 'align', 'enabled',),
                 ],
             }),
         ]
