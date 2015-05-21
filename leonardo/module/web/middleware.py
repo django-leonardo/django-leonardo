@@ -29,6 +29,7 @@ from django.utils.translation import activate
 from feincms.content.application.models import reverse
 from .models import Page
 from horizon import exceptions, messages
+from horizon import conf
 
 
 class WebMiddleware(object):
@@ -36,6 +37,20 @@ class WebMiddleware(object):
     """add extra context to request
 
     added some extra to request and page
+
+    .. code-block:: python
+
+        request.leonardo_options
+
+        request.LEONARDO_CONFIG
+
+        request.leonardo_page
+
+    supports this syntax
+
+    .. code-block:: python
+
+        request.LEONARDO_CONFIG.DISQUS_COMMENTS
 
     note: for support old ``webcms`` stuff adds some
     extra stuff which would be old after migration
@@ -85,6 +100,9 @@ class WebMiddleware(object):
 
         request.frontend_editing = request.COOKIES.get(
             'frontend_editing', False)
+
+        request.LEONARDO_CONFIG = conf.HORIZON_CONFIG
+
         # old
         request.webcms_page = page
         request.webcms_options = leonardo_options

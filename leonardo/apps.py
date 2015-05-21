@@ -24,6 +24,23 @@ class LeonardoConfig(AppConfig):
         urlresolvers.reverse = reverse
         urlresolvers.reverse_lazy = lazy(reverse, six.text_type)
 
+        # path settings for support functionality without hell
+        # this needs restart for propagation some keys
+        from horizon.conf import HORIZON_CONFIG
+        from horizon import conf as horizon_conf
+        try:
+            # optionaly copy all live configuration to horizon/leonardo
+            from constance import config
+            from django.conf import settings
+
+            for k in dir(config):
+                if k not in HORIZON_CONFIG:
+                    HORIZON_CONFIG[k] = getattr(config, k)
+        except Exception as e:
+            raise e
+        else:
+            horizon_conf.HORIZON_CONFIG = HORIZON_CONFIG
+
         try:
             # optionaly copy all live configuration to main settings
             from constance import config
