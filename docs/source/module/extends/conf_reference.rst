@@ -43,11 +43,23 @@ As Django documentations says, you can define your apps in ``apps.py`` or anywhe
             'css/redactor.css'
         ]
 
+        config = {
+            'BLOG_PAGINATE_BY': (10, _('Blog Entries Pagination')),
+            'DISQUS_COMMENTS': (False, _('Enable Disqus comments')),
+            'DISQUS_SHORTNAME': ('michaelkuty', _('Disqus shortname identificator.')),
+
+        }
+
         navigation_extensions = [
             'elephantblog.navigation_extensions.treeinfo',
-            'elephantblog.navigation_extensions.common',
-            'elephantblog.navigation_extensions.recursetree',
         ]
+
+        absolute_url_overrides = {
+            'elephantblog.entry': 'leonardo_store.overrides.elephantblog_entry_url_app',
+            'elephantblog.categorytranslation':
+            'leonardo_store.overrides.elephantblog_categorytranslation_url_app',
+        }
+
 
     # standard django Application
     class BlogConfig(AppConfig, Default):
@@ -94,6 +106,12 @@ Django
             'elephantblog': 'leonardo_module_blog.migrations',
         }
 
+    **absolute_url_overrides** - model name and method wich would be imported for easy integrating 3rd party app::
+
+
+        absolute_url_overrides = {
+            'elephantblog.entry': 'leonardo_store.overrides.elephantblog_entry_url_app',
+        }
 
 FeinCMS
 -------

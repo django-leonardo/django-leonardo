@@ -252,43 +252,6 @@ except Exception as e:
 
 APPLICATION_CHOICES = []
 
-def elephantblog_entry_url_app(self):
-    from leonardo.module.web.widget.application.reverse import app_reverse
-    return app_reverse(
-        'elephantblog_entry_detail',
-        'elephantblog.urls',
-        kwargs={
-            'year': self.published_on.strftime('%Y'),
-            'month': self.published_on.strftime('%m'),
-            'day': self.published_on.strftime('%d'),
-            'slug': self.slug,
-        })
-
-
-def elephantblog_categorytranslation_url_app(self):
-    from leonardo.module.web.widget.application.reverse import app_reverse
-    return app_reverse(
-        'elephantblog_category_detail',
-        'elephantblog.urls',
-        kwargs={
-            'slug': self.slug,
-        })
-
-
-def oscar_product_url_app(self):
-    from leonardo.module.web.widget.application.reverse import app_reverse
-    return app_reverse(
-        'detail',
-        'leonardo_module_eshop.apps.catalog',
-        kwargs={'product_slug': self.slug, 'pk': self.id})
-
-ABSOLUTE_URL_OVERRIDES = {
-    'catalogue.product': oscar_product_url_app,
-    'elephantblog.entry': elephantblog_entry_url_app,
-    'elephantblog.categorytranslation':
-    elephantblog_categorytranslation_url_app,
-}
-
 ADD_JS_FILES = []
 
 ADD_CSS_FILES = []
@@ -298,6 +261,8 @@ ADD_JS_SPEC_FILES = []
 ADD_MIGRATION_MODULES = {}
 
 CONSTANCE_CONFIG_GROUPS = {}
+
+ABSOLUTE_URL_OVERRIDES = {}
 
 if LEONARDO_SYSTEM_MODULE:
     APPS = merge(APPS, ['system'])
@@ -371,6 +336,14 @@ try:
                 else:
                     CONSTANCE_CONFIG_GROUPS.update({
                         'ungrouped': mod_cfg.config})
+
+        # import and update absolute overrides
+        for model, method in six.iteritems(mod_cfg.absolute_url_overrides):
+            try:
+                _mod = import_module(".".join(method.split('.')[:-1]))
+                ABSOLUTE_URL_OVERRIDES[model] = getattr(_mod, method.split('.')[-1])
+            except Exception as e:
+                raise e
 
         for nav_extension in mod_cfg.navigation_extensions:
             try:

@@ -85,6 +85,7 @@ def get_conf_from_module(mod):
         'css_files': [],
         'config': {},
         'migration_modules': {},
+        'absolute_url_overrides': {},
         'navigation_extensions': [],
     })
 
@@ -104,6 +105,7 @@ def get_conf_from_module(mod):
         conf['optgroup'] = getattr(default, 'optgroup',
                                    mod.__name__.capitalize())
         conf['config'] = getattr(default, 'config', {})
+        conf['absolute_url_overrides'] = getattr(default, 'absolute_url_overrides', {})
         conf['migration_modules'] = getattr(default, 'migration_modules', {})
         conf['navigation_extensions'] = getattr(
             default, 'navigation_extensions', [])
