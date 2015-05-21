@@ -39,7 +39,7 @@ from filer.admin.tools import (check_files_edit_permissions,
                                check_folder_edit_permissions,
                                check_folder_read_permissions,
                                userperms_for_request)
-from filer.models import (File, Folder, FolderPermission, FolderRoot, Image,
+from filer.models import (File, FolderPermission, FolderRoot, Image,
                           ImagesWithMissingData, tools, UnfiledImages)
 from filer.models.imagemodels import Image as FilerImage
 from filer.settings import FILER_PAGINATE_BY, FILER_STATICMEDIA_PREFIX

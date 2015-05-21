@@ -3,9 +3,7 @@ from __future__ import absolute_import
 
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
-from horizon_contrib.forms.views import (ContextMixin, CreateView,
-                                         ModalFormView, ModelFormMixin,
-                                         UpdateView)
+from leonardo.views import *
 from leonardo import messages
 
 from ..models import Page
@@ -14,8 +12,6 @@ from .forms import PageCreateForm, PageDeleteForm, PageUpdateForm
 
 
 class PageCreateView(ModalFormView):
-
-    template_name = 'leonardo/common/modal.html'
 
     form_class = PageCreateForm
 
@@ -36,7 +32,7 @@ class PageCreateView(ModalFormView):
         context['title'] = "self.get_header()"
         context['form_submit'] = _("Create")
         context['heading'] = "self.get_header()"
-        context['modal_size'] = "modal-lg"
+        context['modal_size'] = "lg"
         return context
 
     def form_valid(self, form):
@@ -73,8 +69,6 @@ class PageCreateView(ModalFormView):
 
 class PageUpdateView(ModalFormView):
 
-    template_name = 'leonardo/common/modal.html'
-
     form_class = PageUpdateForm
 
     @property
@@ -94,7 +88,7 @@ class PageUpdateView(ModalFormView):
         context['title'] = "self.get_header()"
         context['form_submit'] = _("Update")
         context['heading'] = "self.get_header()"
-        context['modal_size'] = "modal-lg"
+        context['modal_size'] = "lg"
         return context
 
     def get_form(self, form_class):
@@ -119,8 +113,6 @@ class PageUpdateView(ModalFormView):
 
 
 class PageDimensionUpdateView(ModalFormView):
-
-    template_name = 'leonardo/common/modal.html'
 
     form_class = PageDimensionForm
 
@@ -161,8 +153,6 @@ class PageDimensionUpdateView(ModalFormView):
 class PageDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
 
     form_class = PageDeleteForm
-
-    template_name = 'leonardo/common/modal.html'
 
     @property
     def object(self):

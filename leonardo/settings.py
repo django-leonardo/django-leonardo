@@ -44,8 +44,8 @@ TIME_ZONE = 'Europe/Prague'
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
-    ('cs', 'CS'),
     ('en', 'EN'),
+    ('cs', 'CS'),
 )
 
 USE_I18N = True
@@ -133,7 +133,7 @@ CONSTANCE_CONFIG = {}
 LEONARDO_MODULE_AUTO_INCLUDE = True
 
 # enable system module
-LEONARDO_SYSTEM_MODULE = False
+LEONARDO_SYSTEM_MODULE = True
 
 ##########################
 
@@ -246,7 +246,7 @@ if 'media' in APPS:
 try:
     from leonardo.conf.horizon import *
     from leonardo.conf.static import *
-except Exception, e:
+except Exception as e:
     pass
 
 
@@ -371,6 +371,12 @@ try:
                 else:
                     CONSTANCE_CONFIG_GROUPS.update({
                         'ungrouped': mod_cfg.config})
+
+        for nav_extension in mod_cfg.navigation_extensions:
+            try:
+                import_module(nav_extension)
+            except ImportError:
+                pass
 
         CONSTANCE_CONFIG.update(mod_cfg.config)
         ADD_MIGRATION_MODULES.update(mod_cfg.migration_modules)

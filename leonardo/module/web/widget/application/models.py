@@ -30,6 +30,7 @@ from feincms.utils import get_object
 from django.db import models
 from django.template import RequestContext
 from django.template.loader import render_to_string
+from django.shortcuts import render_to_response
 from django.utils.translation import ugettext_lazy as _
 from feincms.content.application.models import (ApplicationContent)
 from leonardo.module.web.models import Widget
@@ -156,6 +157,7 @@ class ApplicationWidget(Widget, ApplicationContent):
         request._feincms_extra_context.update({'widget': self})
         # Save the application configuration for reuse elsewhere
         request._feincms_extra_context.update({
+            'request': request,
             'app_config': dict(
                 self.app_config,
                 urlconf_path=self.urlconf_path,
@@ -203,10 +205,12 @@ class ApplicationWidget(Widget, ApplicationContent):
         elif isinstance(output, tuple) and 'view' in kw:
             # our hack
             # no template and view change and save content for our widget
-            # kw['view'].template_name = output[0]
-            # kw['view'].request._feincms_extra_context.update(output[1])
+            #kw['view'].request._feincms_extra_context.update(output[1])
             self.rendered_result = render_to_string(
                 output[0], output[1])
+            # render parent template
+            return render_to_response(self.parent.theme.template,
+                RequestContext(request, {}))
         else:
             self.raw_context = output
 

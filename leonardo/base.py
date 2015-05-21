@@ -5,21 +5,7 @@ class Default(object):
 
     @property
     def middlewares(self):
-        MIDDLEWARE_CLASSES = []
-        import django
-        if django.VERSION >= (1, 8, 0):
-            MIDDLEWARE_CLASSES += [
-                'django.contrib.auth.middleware.SessionAuthenticationMiddleware']
-        else:
-            MIDDLEWARE_CLASSES += ['django.middleware.doc.XViewMiddleware']
-
-        try:
-            import debug_toolbar
-            MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware']
-        except ImportError:
-            pass
-
-        return MIDDLEWARE_CLASSES + [
+        MIDDLEWARE_CLASSES = [
             'django.middleware.common.CommonMiddleware',
             'django.middleware.csrf.CsrfViewMiddleware',
             'django.middleware.http.ConditionalGetMiddleware',
@@ -33,6 +19,20 @@ class Default(object):
             # horizon
             'leonardo.middleware.HorizonMiddleware',
         ]
+        import django
+        if django.VERSION >= (1, 8, 0):
+            MIDDLEWARE_CLASSES += [
+                'django.contrib.auth.middleware.SessionAuthenticationMiddleware']
+        else:
+            MIDDLEWARE_CLASSES += ['django.middleware.doc.XViewMiddleware']
+
+        try:
+            import debug_toolbar
+            MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+        except ImportError:
+            pass
+
+        return MIDDLEWARE_CLASSES
 
     @property
     def apps(self):

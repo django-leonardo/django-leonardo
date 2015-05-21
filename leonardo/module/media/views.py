@@ -18,6 +18,7 @@ from filer.models import Clipboard, FolderRoot, Image, tools
 
 from .management.commands.import_files import FileImporter
 from .models import LeonardoFolder as Folder
+from feincms.views.decorators import standalone
 
 
 class NewFolderForm(forms.ModelForm):
@@ -243,3 +244,64 @@ def clone_files_from_clipboard_to_folder(request):
                                 request.POST.get('redirect_to', ''),
                                 popup_param(request),
                                 selectfolder_param(request)))
+
+
+def category_list(request, category_slug, category_parent_slug):
+    if category_slug is None:
+        category_list = Folder.objects.filter(mptt_level=0)
+        category = None
+    else:
+        category = Folder.objects.get(name=category_slug)
+        category_list = Folder.objects.filter(parent=category)
+    return render_to_response(
+        'media/category_list.html', {
+            'object_list': category_list,
+            'object': category,
+        },
+        context_instance=RequestContext(request)
+    )
+
+
+#@standalone
+def category_list_nested(request,
+                         category_slug=None,
+                         parent_category_slug=None,
+                         grandparent_category_slug=None):
+    if category_slug is None:
+        object = None
+        object_list = Folder.objects.filter(parent=None)
+    else:
+        if parent_category_slug is None:
+            object = Folder.objects.get(id=category_slug)
+            object_list = object.children.all()
+        else:
+            if grandparent_category_slug is None:
+                object = Folder.objects.get(
+                    name=category_slug, parent__name=parent_category_slug)
+                object_list = object.children.all()
+            else:
+                object = Folder.objects.get(
+                    name=category_slug,
+                    parent__name=parent_category_slug,
+                    parent__parent__name=grandparent_category_slug)
+                object_list = object.children.all()
+
+    return render_to_response(
+        'media/category_list_nested.html', {
+            'object_list': object_list,
+            'object': object,
+        },
+        context_instance=RequestContext(request, {'standalone': True})
+    )
+
+
+@standalone
+def category_detail_standalone(request, category_id):
+    object = Folder.objects.get(id=category_id)
+
+    return render_to_response(
+        'media/category_detail_standalone.html', {
+            'object': object,
+        },
+        context_instance=RequestContext(request)
+    )

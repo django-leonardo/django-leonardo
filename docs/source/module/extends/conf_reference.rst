@@ -43,6 +43,12 @@ As Django documentations says, you can define your apps in ``apps.py`` or anywhe
             'css/redactor.css'
         ]
 
+        navigation_extensions = [
+            'elephantblog.navigation_extensions.treeinfo',
+            'elephantblog.navigation_extensions.common',
+            'elephantblog.navigation_extensions.recursetree',
+        ]
+
     # standard django Application
     class BlogConfig(AppConfig, Default):
         name = 'leonardo_module_blog'
@@ -68,7 +74,7 @@ As you expext every key from settings will be inported and merged into main sett
 
 .. warning::
 
-	Be careful if you declare keys in the ``module/settings.py``. Every key is imported without special merging process which may override your global settings ! It was designed only for module/app specific defaults.
+    Be careful if you declare keys in the ``module/settings.py``. Every key is imported without special merging process which may override your global settings ! It was designed only for module/app specific defaults.
 
 Descriptor reference
 ====================
@@ -101,6 +107,8 @@ FeinCMS
     **plugins** - FeinCMS 3rd party apps support   
     
     **page_extensions** - FeinCMS page extensions
+
+    **navigation_extensions** - FeinCMS Page Extensions - will be imported before reofistering for proper load
 
 Horizon
 -------

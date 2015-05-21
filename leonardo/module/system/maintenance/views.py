@@ -2,17 +2,13 @@
 from __future__ import absolute_import
 
 from django.utils.translation import ugettext_lazy as _
-from horizon_contrib.forms.views import (ContextMixin,
-                                         ModalFormView, ModelFormMixin,
-                                         UpdateView)
+from leonardo.views import *
 from .forms import ServerReloadForm, ManagementForm, InfoForm
 
 
 class ServerReloadView(ModalFormView, ContextMixin, ModelFormMixin):
 
     form_class = ServerReloadForm
-
-    template_name = 'leonardo/common/modal.html'
 
     def get_success_url(self):
         return self.request.build_absolute_uri()
@@ -32,8 +28,6 @@ class ServerReloadView(ModalFormView, ContextMixin, ModelFormMixin):
 class InfoView(ModalFormView, ContextMixin, ModelFormMixin):
 
     form_class = InfoForm
-
-    template_name = 'leonardo/common/modal.html'
 
     def get_success_url(self):
         return self.request.build_absolute_uri()
@@ -65,8 +59,6 @@ class InfoView(ModalFormView, ContextMixin, ModelFormMixin):
 class ManagementView(ModalFormView, ContextMixin, ModelFormMixin):
 
     form_class = ManagementForm
-
-    template_name = 'leonardo/common/modal.html'
 
     def get_success_url(self):
         return self.request.build_absolute_uri()
