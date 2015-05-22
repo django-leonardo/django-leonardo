@@ -82,6 +82,7 @@ def get_conf_from_module(mod):
         'auth_backends': [],
         'js_files': [],
         'js_spec_files': [],
+        'angular_modules': [],
         'css_files': [],
         'config': {},
         'migration_modules': {},
@@ -99,13 +100,15 @@ def get_conf_from_module(mod):
         conf['page_extensions'] = getattr(default, 'page_extensions', [])
         conf['auth_backends'] = getattr(default, 'auth_backends', [])
         conf['js_files'] = getattr(default, 'js_files', [])
+        conf['angular_modules'] = getattr(default, 'angular_modules', [])
         conf['js_spec_files'] = getattr(default, 'js_spec_files', [])
         conf['css_files'] = getattr(default, 'css_files', [])
         conf['widgets'] = getattr(default, 'widgets', [])
         conf['optgroup'] = getattr(default, 'optgroup',
                                    mod.__name__.capitalize())
         conf['config'] = getattr(default, 'config', {})
-        conf['absolute_url_overrides'] = getattr(default, 'absolute_url_overrides', {})
+        conf['absolute_url_overrides'] = getattr(
+            default, 'absolute_url_overrides', {})
         conf['migration_modules'] = getattr(default, 'migration_modules', {})
         conf['navigation_extensions'] = getattr(
             default, 'navigation_extensions', [])

@@ -62,6 +62,12 @@ Horizon
             'css/redactor.css'
         ]
 
+    **angular_modules** Angular modules which will be loaded::
+
+        angular_modules = [
+            'angular-carousel'
+        ]
+
     **js_spec_files** - Angular specific see https://github.com/openstack/horizon/blob/master/openstack_dashboard/enabled/_10_project.py#L44
 
 Constance

@@ -258,6 +258,8 @@ ADD_CSS_FILES = []
 
 ADD_JS_SPEC_FILES = []
 
+ADD_ANGULAR_MODULES = []
+
 ADD_MIGRATION_MODULES = {}
 
 CONSTANCE_CONFIG_GROUPS = {}
@@ -358,6 +360,9 @@ try:
 
         ADD_CSS_FILES = merge(ADD_CSS_FILES, mod_cfg.css_files)
 
+        ADD_ANGULAR_MODULES = merge(
+            ADD_ANGULAR_MODULES, mod_cfg.angular_modules)
+
         if VERSION[:2] >= (1, 8):
             TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
             cp = TEMPLATES[0]['OPTIONS']['context_processors']
@@ -378,6 +383,7 @@ try:
     setattr(leonardo, 'js_files', ADD_JS_FILES)
     setattr(leonardo, 'css_files', ADD_CSS_FILES)
     setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
+    setattr(leonardo, 'angular_modules', ADD_ANGULAR_MODULES)
     setattr(leonardo, 'widgets', widgets)
 
     from leonardo.module.web.models import Page
@@ -476,6 +482,7 @@ except ImportError:
 HORIZON_CONFIG['js_files'] = leonardo.js_files
 HORIZON_CONFIG['js_spec_files'] = leonardo.js_spec_files
 HORIZON_CONFIG['css_files'] = leonardo.css_files
+HORIZON_CONFIG['angular_modules'] = leonardo.angular_modules
 # path horizon config
 from horizon import conf
 conf.HORIZON_CONFIG = HORIZON_CONFIG
