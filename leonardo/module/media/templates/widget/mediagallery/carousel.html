@@ -2,7 +2,7 @@
 {% load thumbnail %}
 
 {% block content %}
-<div class="carousel slide" id="carousel_{{ widget.fe_identifier }}" data-ride="carousel">
+<div data-ride="carousel" class="carousel slide" id="carousel_{{ widget.fe_identifier }}">
   <ol class="carousel-indicators">
     {% for category_file in widget.category.all_files.all %}
     {% with category_file.file as file %}
@@ -13,7 +13,7 @@
   <div class="carousel-inner" role="listbox">
     {% for category_file in widget.category.all_files.all %}
     {% with category_file.file as file %}
-    <div class="item">
+    <div class="item {% if forloop.first %}active{% endif %}">
       {% include "widget/mediagallery/_image.html" %}
     </div>
     {% endwith %}
@@ -28,9 +28,4 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-<script type="text/javascript">
-$(document).ready(function() {
-  $("#carousel_{{ widget.fe_identifier }} a[rel='{{ widget.fe_identifier }}']").colorbox();
-});
-</script>
 {% endblock %}
