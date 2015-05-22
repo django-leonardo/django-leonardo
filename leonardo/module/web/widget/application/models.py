@@ -122,7 +122,7 @@ class ApplicationWidget(Widget, ApplicationContent):
         if not hasattr(self, 'rendered_result'):
             self.process(options.get('request'))
         context['content'] = getattr(
-            self, 'rendered_result', _('No app content'))
+            self, 'rendered_result', '')
 
         return render_to_string(self.get_template, context)
 
