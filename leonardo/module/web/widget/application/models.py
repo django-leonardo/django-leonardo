@@ -208,13 +208,16 @@ class ApplicationWidget(Widget, ApplicationContent):
             #kw['view'].request._feincms_extra_context.update(output[1])
             self.rendered_result = render_to_string(
                 output[0], output[1])
-            # render parent template
-            return render_to_response(self.parent.theme.template,
-                RequestContext(request, {}))
         else:
             self.raw_context = output
 
-        return True
+        # here is the magic !
+        # return renderered parent template !
+        context = RequestContext(request, {})
+        return render_to_response(
+            self.parent.theme.template,
+            context
+            )
 
     class Meta:
         abstract = True
