@@ -342,15 +342,13 @@ try:
             try:
                 _mod = import_module(".".join(method.split('.')[:-1]))
                 ABSOLUTE_URL_OVERRIDES[model] = getattr(_mod, method.split('.')[-1])
-            except:
-                # logging here
-                pass
+            except Exception as e:
+                raise e
 
         for nav_extension in mod_cfg.navigation_extensions:
             try:
                 import_module(nav_extension)
             except ImportError:
-                # logging here
                 pass
 
         CONSTANCE_CONFIG.update(mod_cfg.config)
