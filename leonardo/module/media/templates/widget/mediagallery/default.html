@@ -12,8 +12,9 @@
   {% endfor %}
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-  $("#{{ widget.fe_identifier }}-gallery a[rel='{{ widget.fe_identifier }}']").colorbox();
-});
+$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+}); 
 </script>
 {% endblock %}
