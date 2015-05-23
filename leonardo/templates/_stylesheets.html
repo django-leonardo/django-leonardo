@@ -96,5 +96,30 @@
   outline: none;
 }
 
+input[id=search-input]:focus {
+  width: 220px!important;
+  background-color: #fff;
+  border-color: #6dcff6;
+  z-index: 9900;
+}
+#search-button {
+  z-index: 9900;
+}
+/* search input field */
+input[id=search-input] {
+  width: 100px!important;
+  border: solid 1px #ccc;
+  padding: 9px 10px 9px 32px;
+  width: 55px;
+  
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 10em;
+  
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+}
+
 </style>
 {% endcompress %}
