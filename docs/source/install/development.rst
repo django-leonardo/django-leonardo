@@ -5,6 +5,9 @@ Development Environment
 
 Simplest way is using our SaltStack Formula where you can comfortably specify sources for leonardo with plugins.
 
+Make Environment
+----------------
+
 usualy without any prerequirements you can do something like this
 
 .. code-block:: bash

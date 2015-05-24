@@ -11,39 +11,22 @@ Why
 
 Python and Django communities are dynamic. Django is best framework for building web applications with tons apps, which provide additional futures. If you want make new web site really quick you must spend a lot of time for searching right libraries, integrating and configuring. Leonardo provide new module system which makes this much more easier than before. Leonardo solves cms, graph domains and provide stable core for easy extending and building whatever.
 
-Core
-====
+How it works
+============
 
-Leonardo in default state has enabled three modules and other can be installed.
+Leonardo loads all modules and gather their stuff. Extending is provided via consistent API which mirror settings of libraries and applications on which is based. Leonardo merge all keys securelly without duplicities.
 
-* Web - precise FeinCMS integration
-* Navigation - common navigation components
-* Media - Filer integration with basic widgets
+Last thing in setup process is loading all stuff from ``local_settings``.
 
-Extensions
-==========
+These provide new features for us
 
-Leonardo provide bundled extensions, which provides pluggable advantages.
+* no app settings required
+* one ``manage.py`` etc..
+* app dependencies::
 
-Modules
--------
+    apps = [
+        'leonardo_bootswatch',
+        'leonardo_analytics', # this can be defined in other applications
+    ]
 
-* `Forms`_ - Stable Form Designer integration with Remote Forms
-* `Blog`_ - Elephant Blog integration
-* `Eshop`_ - Oscar Ecommerce - FeinCMS integration
-* `Sentry`_ - end-user friendly error page
-* Static - client-side libraries like an AngularJS, React, D3.js, ..
-
-.. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
-.. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
-.. _`Eshop`: https://github.com/leonardo-modules/leonardo-module-eshop
-.. _`Sentry`: https://github.com/leonardo-modules/leonardo-module-sentry
-
-Themes
-------
-
-* `Bootwatch`_
-* `AdminLTE`_
-
-.. _`Bootwatch`: https://github.com/leonardo-modules/leonardo-theme-bootswatch
-.. _`AdminLTE`: https://github.com/leonardo-modules/leonardo-theme-adminlte
+* autoinclude (Leonardo adds all Leonardo Modules to ``INSTALLED_APPS``)
