@@ -15,7 +15,7 @@ from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
 
 class HtmlTextWidgetAdminForm(WidgetUpdateForm):
-    text = forms.CharField(
+    text = forms.TextField(
         widget=forms.Textarea, required=False, label=_('text'))
 
     class Meta:
