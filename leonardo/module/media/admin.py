@@ -39,7 +39,7 @@ from filer.admin.tools import (check_files_edit_permissions,
                                check_folder_edit_permissions,
                                check_folder_read_permissions,
                                userperms_for_request)
-from filer.models import (File, FolderPermission, FolderRoot, Image,
+from filer.models import (File, FolderRoot, Image,
                           ImagesWithMissingData, tools, UnfiledImages)
 from filer.models.imagemodels import Image as FilerImage
 from filer.settings import FILER_PAGINATE_BY, FILER_STATICMEDIA_PREFIX
@@ -55,8 +55,6 @@ from .models import *
 #from filer.admin.imageadmin import ImageAdmin as BaseImageAdmin
 
 from filer.admin.permissionadmin import PermissionAdmin
-
-
 
 
 class ImageAdmin(ModelAdmin):
@@ -158,7 +156,7 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
 
             def folder_form_clean(form_obj):
                 cleaned_data = form_obj.cleaned_data
-                folders_with_same_name = Folder.objects.filter(
+                folders_with_same_name = LeonardoFolder.objects.filter(
                     parent=form_obj.instance.parent,
                     name=cleaned_data['name'])
                 if form_obj.instance.pk:
@@ -180,7 +178,7 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
         r = form.save(commit=False)
         parent_id = request.REQUEST.get('parent_id', None)
         if parent_id:
-            parent = Folder.objects.get(id=parent_id)
+            parent = LeonardoFolder.objects.get(id=parent_id)
             r.parent = parent
         return r
 
@@ -314,8 +312,8 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
         elif viewtype == 'last':
             last_folder_id = request.session.get('filer_last_folder_id')
             try:
-                Folder.objects.get(id=last_folder_id)
-            except Folder.DoesNotExist:
+                LeonardoFolder.objects.get(id=last_folder_id)
+            except LeonardoFolder.DoesNotExist:
                 url = reverse('admin:filer-directory_listing-root')
                 url = "%s%s%s" % (url, popup_param(request), selectfolder_param(request,"&"))
             else:
@@ -355,7 +353,7 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
                 file_qs = File.objects.filter(
                                         folder__in=folder.get_descendants())
             else:
-                folder_qs = Folder.objects.all()
+                folder_qs = LeonardoFolder.objects.all()
                 file_qs = File.objects.all()
             folder_qs = self.filter_folder(folder_qs, search_terms)
             file_qs = self.filter_file(file_qs, search_terms)
@@ -1303,9 +1301,40 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
     actions_column.allow_tags = True
     actions_column.short_description = _('actions')
 
+class PermissionAdmin(admin.ModelAdmin):
+
+    fieldsets = (
+        (None, {'fields': (('type', 'folder',))}),
+        (None, {'fields': (('user', 'group', 'everybody'),)}),
+        (None, {'fields': (
+                    ('can_edit', 'can_read', 'can_add_children')
+                    )}
+        ),
+    )
+    raw_id_fields = ('user', 'group',)
+    list_filter = ['user']
+    list_display = ['__str__', 'folder', 'user']
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        db = kwargs.get('using')
+        if db_field.name == 'folder':
+            pass
+            #kwargs['widget'] = folder.AdminFolderWidget(db_field.rel, self.admin_site, using=db)
+        return super(PermissionAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def get_model_perms(self, request):
+        # don't display the permissions admin if permissions are disabled.
+        # This method is easier for testing than not registering the admin at all at import time
+        enable_permissions = settings.FILER_ENABLE_PERMISSIONS and request.user.has_perm('filer.add_folderpermission')
+        return {
+            'add': enable_permissions,
+            'change': enable_permissions,
+            'delete': enable_permissions,
+        }
+
 #admin.site.unregister(Folder)
 #admin.site.unregister(Folder)
-#admin.site.register(Folder, MyFolderAdmin)
+admin.site.register(FolderPermission, PermissionAdmin)
 admin.site.register(LeonardoFolder, MyFolderAdmin)
 admin.site.unregister(File)
 admin.site.register(File, FileFullAdmin)

@@ -42,4 +42,13 @@ class MediaConfig(AppConfig, Default):
     name = 'leonardo.module.media'
     verbose_name = "Media"
 
+    def ready(self):
+
+        from filer import models as filer_models
+        from .models import LeonardoFolder
+        filer_models.Folder = LeonardoFolder
+
+        from filer.fields import folder
+        folder.FilerFolderField.default_model_class = LeonardoFolder
+
 default = Default()
