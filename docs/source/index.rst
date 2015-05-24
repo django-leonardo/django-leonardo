@@ -23,6 +23,7 @@ Main:
    module/extends/new_site
    config/configuration
    config/live
+   config/languages
 
 Core:
 =====
