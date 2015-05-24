@@ -207,7 +207,7 @@ class ApplicationWidget(Widget, ApplicationContent):
             # no template and view change and save content for our widget
             #kw['view'].request._feincms_extra_context.update(output[1])
             self.rendered_result = render_to_string(
-                output[0], output[1])
+                output[0], RequestContext(request, output[1]))
         else:
             self.raw_context = output
 
