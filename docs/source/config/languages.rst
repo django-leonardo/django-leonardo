@@ -14,6 +14,10 @@ For settings Langugages follow standard Django settings like this::
 
 This is default settings which specify English as default Language
 
+.. note::
+
+    location of these settings is ``local_settings.py`` or your Site settings file
+
 for switching to Czech as default redefine::
 
     LANGUAGE_CODE = 'cs'

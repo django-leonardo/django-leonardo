@@ -1,7 +1,7 @@
 
-=================
-Folders and Files
-=================
+===============
+Storage / Media
+===============
 
 In this time we have good integration of Django-Filer, which provides good base for us.
 

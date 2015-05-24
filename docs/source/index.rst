@@ -23,44 +23,11 @@ Main:
    module/extends/new_site
    config/configuration
    config/live
+   config/media
+   config/migrations
    config/languages
-
-Core:
-=====
-
-Web
----
-
-.. toctree::
-   :maxdepth: 2
-
-   module/web/overview
-   module/web/migrations
-   module/web/configuration
-   module/web/themes
-   module/web/search
-   
-Media:
-------
-
-.. toctree::
-   :maxdepth: 2
-
-   module/media/files_folders
-   module/media/thumbnails
-
-Navigation:
------------
-
-.. toctree::
-   :maxdepth: 2
-
-   module/nav/overview
-
-Common:
--------
-
-* sentry
+   config/search
+   config/themes
 
 Extending
 =========
