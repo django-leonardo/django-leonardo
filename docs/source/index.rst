@@ -19,6 +19,7 @@ Main:
 
    overview/index
    install/intro
+   install/development
    module/extends/new_site
    config/configuration
    config/live
