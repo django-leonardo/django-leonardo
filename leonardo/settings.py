@@ -284,7 +284,7 @@ try:
 
     from django.utils.module_loading import module_has_submodule  # noqa
 
-    widgets = {}
+    WIDGETS = {}
 
     # critical time to import modules
     _APPS = leonardo.get_app_modules(APPS)
@@ -377,14 +377,14 @@ try:
 
         # collect grouped widgets
         if isinstance(mod_cfg.optgroup, six.string_types):
-            widgets[mod_cfg.optgroup] = merge(
-                getattr(widgets, mod_cfg.optgroup, []), mod_cfg.widgets)
+            WIDGETS[mod_cfg.optgroup] = merge(
+                getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
 
     setattr(leonardo, 'js_files', ADD_JS_FILES)
     setattr(leonardo, 'css_files', ADD_CSS_FILES)
     setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
     setattr(leonardo, 'angular_modules', ADD_ANGULAR_MODULES)
-    setattr(leonardo, 'widgets', widgets)
+    setattr(leonardo, 'widgets', WIDGETS)
 
     from leonardo.module.web.models import Page
     from leonardo.module.web.widget import ApplicationWidget
@@ -394,7 +394,7 @@ try:
         ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
 
     # register widgets
-    for optgroup, _widgets in six.iteritems(widgets):
+    for optgroup, _widgets in six.iteritems(WIDGETS):
         for widget in _widgets:
             Page.create_content_type(widget, optgroup=optgroup)
 
@@ -402,7 +402,6 @@ try:
     Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
 except Exception as e:
     raise e
-
 
 # enable reversion for every req
 if 'reversion' in INSTALLED_APPS:

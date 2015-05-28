@@ -7,7 +7,7 @@ from leonardo.module.web.models import Widget
 
 
 class DownloadListWidget(Widget):
-    folder = models.ForeignKey('media.LeonardoFolder', verbose_name=_("folder"), related_name="%(app_label)s_%(class)s_folders")
+    folder = models.ForeignKey('media.Folder', verbose_name=_("folder"), related_name="%(app_label)s_%(class)s_folders")
 
     class Meta:
         abstract = True

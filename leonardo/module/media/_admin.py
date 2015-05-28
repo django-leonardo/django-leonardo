@@ -39,8 +39,7 @@ from filer.admin.tools import (check_files_edit_permissions,
                                check_folder_edit_permissions,
                                check_folder_read_permissions,
                                userperms_for_request)
-from filer.models import (File, FolderRoot, Image,
-                          ImagesWithMissingData, tools, UnfiledImages)
+
 from filer.models.imagemodels import Image as FilerImage
 from filer.settings import FILER_PAGINATE_BY, FILER_STATICMEDIA_PREFIX
 from filer.thumbnail_processors import normalize_subject_location
@@ -50,6 +49,7 @@ from filer.views import (popup_param, popup_status, selectfolder_param,
 from leonardo.site import leonardo_admin
 
 from .models import *
+from .models import Directory as Folder
 
 #from filer.admin.fileadmin import FileAdmin
 #from filer.admin.imageadmin import ImageAdmin as BaseImageAdmin
@@ -109,7 +109,7 @@ class AddFolderPopupForm(forms.ModelForm):
     folder = forms.HiddenInput()
 
     class Meta:
-        model = LeonardoFolder
+        model = Folder
         fields = ('name',)
 
 
@@ -156,7 +156,7 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
 
             def folder_form_clean(form_obj):
                 cleaned_data = form_obj.cleaned_data
-                folders_with_same_name = LeonardoFolder.objects.filter(
+                folders_with_same_name = Folder.objects.filter(
                     parent=form_obj.instance.parent,
                     name=cleaned_data['name'])
                 if form_obj.instance.pk:
@@ -178,7 +178,7 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
         r = form.save(commit=False)
         parent_id = request.REQUEST.get('parent_id', None)
         if parent_id:
-            parent = LeonardoFolder.objects.get(id=parent_id)
+            parent = Folder.objects.get(id=parent_id)
             r.parent = parent
         return r
 
@@ -312,8 +312,8 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
         elif viewtype == 'last':
             last_folder_id = request.session.get('filer_last_folder_id')
             try:
-                LeonardoFolder.objects.get(id=last_folder_id)
-            except LeonardoFolder.DoesNotExist:
+                Folder.objects.get(id=last_folder_id)
+            except Folder.DoesNotExist:
                 url = reverse('admin:filer-directory_listing-root')
                 url = "%s%s%s" % (url, popup_param(request), selectfolder_param(request,"&"))
             else:
@@ -353,7 +353,7 @@ class MyFolderAdmin(tree_editor.TreeEditor, PrimitivePermissionAwareModelAdmin):
                 file_qs = File.objects.filter(
                                         folder__in=folder.get_descendants())
             else:
-                folder_qs = LeonardoFolder.objects.all()
+                folder_qs = Folder.objects.all()
                 file_qs = File.objects.all()
             folder_qs = self.filter_folder(folder_qs, search_terms)
             file_qs = self.filter_file(file_qs, search_terms)
@@ -1335,8 +1335,8 @@ class PermissionAdmin(admin.ModelAdmin):
 #admin.site.unregister(Folder)
 #admin.site.unregister(Folder)
 admin.site.register(FolderPermission, PermissionAdmin)
-admin.site.register(LeonardoFolder, MyFolderAdmin)
-admin.site.unregister(File)
+#admin.site.register(Folder, MyFolderAdmin)
+#admin.site.unregister(File)
 admin.site.register(File, FileFullAdmin)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Document, DocumentAdmin)

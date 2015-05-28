@@ -17,7 +17,7 @@ from filer import settings as filer_settings
 from filer.models import Clipboard, FolderRoot, Image, tools
 
 from .management.commands.import_files import FileImporter
-from .models import LeonardoFolder as Folder
+from .models import Folder
 from feincms.views.decorators import standalone
 
 
