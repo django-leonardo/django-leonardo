@@ -14,6 +14,8 @@
 <title>{{ request.leonardo_options.site.name }} - {{ request.leonardo_options.meta_title }}</title>
 {% endif %}
 
+<link rel="shortcut icon" href="{{ STATIC_URL }}leonardo/img/favicon.ico" />
+
 {% include "base/head_meta.html" %}
 
 {% block css %}
@@ -29,7 +31,7 @@
 
 {% compress css %}
 {% for file in HORIZON_CONFIG.css_files %}
-<link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
+<link href="{{ STATIC_URL }}{{ file }}" type="text/scss" media="screen" rel="stylesheet" />
 {% endfor %}
 <link href='{{ STATIC_URL }}leonardo/scss/page.scss' type='text/scss' media='screen' rel='stylesheet' />
 <link href='{{ STATIC_URL }}themes/{{ feincms_page.theme.name }}/{{ feincms_page.color_scheme.name|lower }}/scheme.scss' type='text/scss' media='screen' rel='stylesheet' />
@@ -66,7 +68,7 @@
 
 {% endcomment %}
 </head>
-
+{{ HORIZON_CONFIG.css_files }}
 {% if request.user.is_staff and request.frontend_editing %}
   {% include "leonardo/common/_frontend_edit_sidebar.html" %}
 {% endif %}
