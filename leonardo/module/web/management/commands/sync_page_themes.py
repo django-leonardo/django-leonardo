@@ -85,9 +85,13 @@ class Command(BaseCommand):
 
     def collect(self):
         """
-        Perform the bulk of the work of collectstatic.
+        Load and save ``PageColorScheme`` for every ``PageTheme``
 
-        Split off from handle() to facilitate testing.
+        .. code-block:: bash
+
+            static/themes/bootswatch/united/variables.scss
+            static/themes/bootswatch/united/styles.scss
+
         """
 
         self.ignore_patterns = [
@@ -98,7 +102,8 @@ class Command(BaseCommand):
         for finder in get_finders():
             for path, storage in finder.list(self.ignore_patterns):
                 for t in page_themes:
-                    if t.name in path and "skins" not in path:
+                    static_path = 'themes/{0}'.format(t.name.split('/')[-1])
+                    if static_path in path:
                         try:
                             page_theme = PageTheme.objects.get(id=t.id)
                         except PageTheme.DoesNotExist:
@@ -106,18 +111,24 @@ class Command(BaseCommand):
                         except Exception as e:
                             self.stdout.write(
                                 "Cannot load {} into database original error: {}".format(t, e))
-                        page_theme.style = storage.open(path).read()
+                        page_theme.styles = storage.open(path).read()
                         page_theme.save()
 
                         # find and load skins
                         skins_path = os.path.join(
-                            storage.path(path).split("{}.".format(t.name))[0], "skins")
-                        for dirpath, subdirs, filenames in os.walk(skins_path):
-                            for f in filenames:
-                                skin, created = PageColorScheme.objects.get_or_create(
-                                    theme=page_theme, label=f, name=f.split(".")[0].title())
-                                with codecs.open(os.path.join(skins_path, f)) as skin_file:
-                                    skin.style = skin_file.read()
+                            storage.path('/'.join(path.split('/')[0:-1])))
+                        for dirpath, skins, filenames in os.walk(skins_path):
+                            for skin in skins:
+                                for skin_dirpath, skins, filenames in os.walk(os.path.join(dirpath, skin)):
+                                    skin, created = PageColorScheme.objects.get_or_create(
+                                        theme=page_theme, label=skin, name=skin.title())
+                                    for f in filenames:
+                                        if 'styles' in f:
+                                            with codecs.open(os.path.join(skin_dirpath, f)) as style_file:
+                                                skin.styles = style_file.read()
+                                        elif 'variables' in f:
+                                            with codecs.open(os.path.join(skin_dirpath, f)) as variables_file:
+                                                skin.variables = variables_file.read()
                                     skin.save()
                                     self.skins_updated += 1
 

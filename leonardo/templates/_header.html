@@ -25,33 +25,26 @@
 {% block css_extra %}
 {% endblock %}
 
+{% block page_css %}
+
 {% compress css %}
 {% for file in HORIZON_CONFIG.css_files %}
-    <link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
+<link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
 {% endfor %}
-{% endcompress %}
-
-{% block page_css %}
-{% compress css %}
+<link href='{{ STATIC_URL }}leonardo/scss/page.scss' type='text/scss' media='screen' rel='stylesheet' />
+<link href='{{ STATIC_URL }}themes/{{ feincms_page.theme.name }}/{{ feincms_page.color_scheme.name|lower }}/scheme.scss' type='text/scss' media='screen' rel='stylesheet' />
 <style type="text/css" media='screen'>
-{{ request.leonardo_page.theme.style|safe }}
+{% for widget in request.leonardo_options.widgets %}
+	{{ widget.theme.style|safe }}
+{% endfor %}
 </style>
 {% endcompress %}
-
-<style type="text/css" media='screen'>
-{{ request.leonardo_page.color_scheme.style|safe }}
-</style>
 
 {% endblock %}
 
 {% block widget_css %}
-<style type="text/css" media='screen'>
 {% compress css %}
-{% for widget in request.leonardo_options.widgets %}
-	{{ widget.theme.style|safe }}
-{% endfor %}
 {% endcompress %}
-</style>
 {% endblock %}
 
 {% include "horizon/_conf.html" %}

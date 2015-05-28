@@ -53,7 +53,7 @@ class PageTheme(models.Model):
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template = models.ForeignKey(
         'dbtemplates.Template', verbose_name=_('Template'), related_name='page_templates', limit_choices_to={'name__startswith': "base/page/"})
-    style = models.TextField(verbose_name=_('Style'), blank=True)
+    styles = models.TextField(verbose_name=_('Style'), blank=True)
 
     def __str__(self):
         return self.label or super(PageTheme, self).__str__()
@@ -70,7 +70,8 @@ class PageColorScheme(models.Model):
         verbose_name=_("Name"), max_length=255, null=True, blank=True)
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
-    style = models.TextField(verbose_name=_('Style'), blank=True)
+    styles = models.TextField(verbose_name=_('Styles'), blank=True)
+    variables = models.TextField(verbose_name=_('variables'), blank=True)
     theme = models.ForeignKey(
         PageTheme, verbose_name=_('Template'), related_name='templates')
 
