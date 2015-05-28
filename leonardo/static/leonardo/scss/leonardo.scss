@@ -3,10 +3,6 @@ $icon-font-path: "../../bootstrap/fonts/bootstrap/";
 $font-size-base: 13px;
 $modal-md: 732px;
 
-@import "/bootstrap/scss/bootstrap";
-@import "/horizon/lib/bootstrap_datepicker/datepicker.css";
-@import "_variables";
-
 /* new clearfix */
 .clearfix:after {
   visibility: hidden;
