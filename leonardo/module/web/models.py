@@ -293,11 +293,14 @@ class Widget(FeinCMSBase):
 
     def save(self, *args, **kwargs):
 
-        self.saved = True
+        created = False
+
+        if self.pk is None:
+            self.created = False
 
         super(Widget, self).save(*args, **kwargs)
 
-        if not self.dimensions.exists():
+        if not self.dimensions.exists() and created:
             WidgetDimension(**{
                 'widget_id': self.pk,
                 'widget_type': self.content_type,
