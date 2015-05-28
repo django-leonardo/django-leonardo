@@ -62,6 +62,12 @@ Horizon
             'css/redactor.css'
         ]
 
+    **scss_files** linked in head as scss style::
+
+        scss_files = [
+            'scss/redactor.scss'
+        ]
+
     **angular_modules** Angular modules which will be loaded::
 
         angular_modules = [

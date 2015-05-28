@@ -84,6 +84,7 @@ def get_conf_from_module(mod):
         'js_spec_files': [],
         'angular_modules': [],
         'css_files': [],
+        'scss_files': [],
         'config': {},
         'migration_modules': {},
         'absolute_url_overrides': {},
@@ -103,6 +104,7 @@ def get_conf_from_module(mod):
         conf['angular_modules'] = getattr(default, 'angular_modules', [])
         conf['js_spec_files'] = getattr(default, 'js_spec_files', [])
         conf['css_files'] = getattr(default, 'css_files', [])
+        conf['scss_files'] = getattr(default, 'scss_files', [])
         conf['widgets'] = getattr(default, 'widgets', [])
         conf['optgroup'] = getattr(default, 'optgroup',
                                    mod.__name__.capitalize())

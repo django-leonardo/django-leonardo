@@ -31,6 +31,9 @@
 
 {% compress css %}
 {% for file in HORIZON_CONFIG.css_files %}
+<link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
+{% endfor %}
+{% for file in HORIZON_CONFIG.scss_files %}
 <link href="{{ STATIC_URL }}{{ file }}" type="text/scss" media="screen" rel="stylesheet" />
 {% endfor %}
 <link href='{{ STATIC_URL }}leonardo/scss/page.scss' type='text/scss' media='screen' rel='stylesheet' />

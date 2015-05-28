@@ -256,6 +256,8 @@ ADD_JS_FILES = []
 
 ADD_CSS_FILES = []
 
+ADD_SCSS_FILES = []
+
 ADD_JS_SPEC_FILES = []
 
 ADD_ANGULAR_MODULES = []
@@ -359,6 +361,7 @@ try:
         ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
 
         ADD_CSS_FILES = merge(ADD_CSS_FILES, mod_cfg.css_files)
+        ADD_SCSS_FILES = merge(ADD_SCSS_FILES, mod_cfg.scss_files)
 
         ADD_ANGULAR_MODULES = merge(
             ADD_ANGULAR_MODULES, mod_cfg.angular_modules)
@@ -382,6 +385,7 @@ try:
 
     setattr(leonardo, 'js_files', ADD_JS_FILES)
     setattr(leonardo, 'css_files', ADD_CSS_FILES)
+    setattr(leonardo, 'scss_files', ADD_SCSS_FILES)
     setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
     setattr(leonardo, 'angular_modules', ADD_ANGULAR_MODULES)
     setattr(leonardo, 'widgets', WIDGETS)
@@ -481,6 +485,7 @@ except ImportError:
 HORIZON_CONFIG['js_files'] = leonardo.js_files
 HORIZON_CONFIG['js_spec_files'] = leonardo.js_spec_files
 HORIZON_CONFIG['css_files'] = leonardo.css_files
+HORIZON_CONFIG['scss_files'] = leonardo.scss_files
 HORIZON_CONFIG['angular_modules'] = leonardo.angular_modules
 # path horizon config
 from horizon import conf
