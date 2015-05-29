@@ -114,7 +114,7 @@ def scan_folder(request, folder_id=None):
         pass
     elif folder is None:
         # regular users may not add root folders unless configured otherwise
-        if not filer_settings.FILER_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS:
+        if not settings.MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS:
             raise PermissionDenied
     elif not folder.has_add_children_permission(request):
         # the user does not have the permission to add subfolders
@@ -159,7 +159,7 @@ def make_folder(request, folder_id=None):
         pass
     elif folder is None:
         # regular users may not add root folders unless configured otherwise
-        if not filer_settings.FILER_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS:
+        if not settings.MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS:
             raise PermissionDenied
     elif not folder.has_add_children_permission(request):
         # the user does not have the permission to add subfolders

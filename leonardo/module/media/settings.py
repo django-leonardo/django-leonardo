@@ -15,9 +15,9 @@ MEDIA_IS_PUBLIC_DEFAULT = getattr(settings, 'MEDIA_IS_PUBLIC_DEFAULT', True)
 MEDIA_PUBLIC_UPLOAD_TO = getattr(settings, 'MEDIA_PUBLIC_UPLOAD_TO', 'public')
 MEDIA_PRIVATE_UPLOAD_TO = getattr(settings, 'MEDIA_PRIVATE_UPLOAD_TO', 'private')
 MEDIA_PAGINATE_BY = getattr(settings, 'MEDIA_PAGINATE_BY', 25)
+MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS = getattr(settings, 'MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS', False)
 
 MEDIA_IMAGE_MODEL = getattr(settings, 'MEDIA_IMAGE_MODEL', False)
-MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS = getattr(settings, 'MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS', False)
 # This is an ordered iterable that describes a list of
 # classes that I should check for when adding files
 MEDIA_FILE_MODELS = getattr(settings, 'MEDIA_FILE_MODELS',
@@ -37,7 +37,10 @@ DEFAULT_MEDIA_STORAGES = {
     'public': {
         'main': {
             'ENGINE': DEFAULT_FILE_STORAGE,
-            'OPTIONS': {},
+            'OPTIONS': {
+                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT, MEDIA_PUBLIC_UPLOAD_TO)),
+                'base_url': '/smedia/private/',           
+            },
             'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
             'UPLOAD_TO_PREFIX': MEDIA_PUBLIC_UPLOAD_TO,
         },
@@ -85,7 +88,6 @@ if FILER_ENABLE_LOGGING:
     FILER_ENABLE_LOGGING = (FILER_ENABLE_LOGGING and (getattr(settings,'LOGGING') and
                                                       ('' in settings.LOGGING['loggers'] or
                                                        'filer' in settings.LOGGING['loggers'])))
-FILER_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS = MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS
 
 FILER_IS_PUBLIC_DEFAULT = MEDIA_IS_PUBLIC_DEFAULT
 

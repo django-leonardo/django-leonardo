@@ -1,10 +1,11 @@
-#-*- coding: utf-8 -*-
+
 import json
+from django.conf import settings
 from django.forms.models import modelform_factory
 from django.contrib import admin
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .. import settings as filer_settings
+from .. import settings as media_settings
 from ..models import Clipboard, ClipboardItem
 from filer.utils.files import handle_upload, UploadException
 from filer.utils.loader import load_object
@@ -61,7 +62,7 @@ class ClipboardAdmin(admin.ModelAdmin):
             clipboard = Clipboard.objects.get_or_create(user=request.user)[0]
 
             # find the file type
-            for filer_class in filer_settings.MEDIA_FILE_MODELS:
+            for filer_class in media_settings.MEDIA_FILE_MODELS:
                 FileSubClass = load_object(filer_class)
                 #TODO: What if there are more than one that qualify?
                 if FileSubClass.matches_file_type(filename, upload, request):
@@ -76,7 +77,7 @@ class ClipboardAdmin(admin.ModelAdmin):
             if uploadform.is_valid():
                 file_obj = uploadform.save(commit=False)
                 # Enforce the FILER_IS_PUBLIC_DEFAULT
-                file_obj.is_public = filer_settings.FILER_IS_PUBLIC_DEFAULT
+                file_obj.is_public = settings.MEDIA_IS_PUBLIC_DEFAULT
                 file_obj.save()
                 clipboard_item = ClipboardItem(
                     clipboard=clipboard, file=file_obj)

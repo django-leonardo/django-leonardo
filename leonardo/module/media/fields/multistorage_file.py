@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+
 import base64
 import hashlib
 import warnings
@@ -10,9 +10,10 @@ from django.utils import six
 from easy_thumbnails import (fields as easy_thumbnails_fields,
                              files as easy_thumbnails_files)
 
-from . import settings as filer_settings
+from .. import settings as filer_settings
 from filer.utils.filer_easy_thumbnails import ThumbnailerNameMixin
 
+from django.conf import settings
 
 STORAGES = {
     'public': filer_settings.FILER_PUBLICMEDIA_STORAGE,
@@ -30,9 +31,9 @@ THUMBNAIL_OPTIONS = {
 
 def generate_filename_multistorage(instance, filename):
     if instance.is_public:
-        upload_to = filer_settings.FILER_PUBLICMEDIA_UPLOAD_TO
+        upload_to = settings.MEDIA_PUBLIC_UPLOAD_TO
     else:
-        upload_to = filer_settings.FILER_PRIVATEMEDIA_UPLOAD_TO
+        upload_to = settings.MEDIA_PRIVATE_UPLOAD_TO
 
     if callable(upload_to):
         return upload_to(instance, filename)

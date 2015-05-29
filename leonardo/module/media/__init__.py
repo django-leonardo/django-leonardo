@@ -44,6 +44,7 @@ class Default(object):
         'MEDIA_IS_PUBLIC_DEFAULT': (True, _('Set uploaded files to public automatically')),
         'MEDIA_ENABLE_PERMISSIONS': (True, _(
             'Permissions for downloadable items. Experimental feature.')),
+        'MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS': (False, _('ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS')),
     }
 
 
