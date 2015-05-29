@@ -66,7 +66,7 @@ class FileImporter(object):
             return None
         current_parent = None
         for folder_name in folder_names:
-            current_parent, created = LeonardoFolder.objects.get_or_create(
+            current_parent, created = Folder.objects.get_or_create(
                 name=folder_name, parent=current_parent)
             if created:
                 self.folder_created += 1

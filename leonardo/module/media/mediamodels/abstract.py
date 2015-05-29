@@ -44,7 +44,7 @@ class BaseImage(File):
                                         default=None)
 
     @classmethod
-    def matches_file_type(cls, iname, ifile, request):
+    def matches_file_type(cls, iname, ifile=None, request=None):
         # This was originally in admin/clipboardadmin.py  it was inside of a try
         # except, I have moved it here outside of a try except because I can't
         # figure out just what kind of exception this could generate... all it was

@@ -1,9 +1,104 @@
 
 from django.conf import settings
+
 from django.core.files.storage import get_storage_class
 from filer.utils.loader import load_object
 from filer.utils.recursive_dictionary import RecursiveDictionaryWithExcludes
 import os
+
+
+
+# File download permissions are an experimental
+# feature. The api may change at any time.
+MEDIA_ENABLE_PERMISSIONS = getattr(settings, 'MEDIA_ENABLE_PERMISSIONS', True)
+MEDIA_IS_PUBLIC_DEFAULT = getattr(settings, 'MEDIA_IS_PUBLIC_DEFAULT', True)
+MEDIA_PUBLIC_UPLOAD_TO = getattr(settings, 'MEDIA_PUBLIC_UPLOAD_TO', 'public')
+MEDIA_PRIVATE_UPLOAD_TO = getattr(settings, 'MEDIA_PRIVATE_UPLOAD_TO', 'private')
+MEDIA_PAGINATE_BY = getattr(settings, 'MEDIA_PAGINATE_BY', 25)
+
+MEDIA_IMAGE_MODEL = getattr(settings, 'MEDIA_IMAGE_MODEL', False)
+MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS = getattr(settings, 'MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS', False)
+# This is an ordered iterable that describes a list of
+# classes that I should check for when adding files
+MEDIA_FILE_MODELS = getattr(settings, 'MEDIA_FILE_MODELS',
+    (
+        MEDIA_IMAGE_MODEL if MEDIA_IMAGE_MODEL else 'leonardo.module.media.models.Image',
+        'leonardo.module.media.models.File',
+        'leonardo.module.media.models.Document',
+        'leonardo.module.media.models.Video',
+        'leonardo.module.media.models.Vector',
+    )
+)
+
+DEFAULT_FILE_STORAGE = getattr(settings, 'DEFAULT_FILE_STORAGE', 'django.core.files.storage.FileSystemStorage')
+
+
+DEFAULT_MEDIA_STORAGES = {
+    'public': {
+        'main': {
+            'ENGINE': DEFAULT_FILE_STORAGE,
+            'OPTIONS': {},
+            'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
+            'UPLOAD_TO_PREFIX': MEDIA_PUBLIC_UPLOAD_TO,
+        },
+        'thumbnails': {
+            'ENGINE': DEFAULT_FILE_STORAGE,
+            'OPTIONS': {},
+            'THUMBNAIL_OPTIONS': {
+                'base_dir': 'public_thumbnails',
+            },
+        },
+    },
+    'private': {
+        'main': {
+            'ENGINE': 'filer.storage.PrivateFileSystemStorage',
+            'OPTIONS': {
+                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT, MEDIA_PRIVATE_UPLOAD_TO)),
+                'base_url': '/smedia/private/',
+            },
+            'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
+            'UPLOAD_TO_PREFIX': MEDIA_PRIVATE_UPLOAD_TO,
+        },
+        'thumbnails': {
+            'ENGINE': 'filer.storage.PrivateFileSystemStorage',
+            'OPTIONS': {
+                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT, MEDIA_PRIVATE_UPLOAD_TO)),
+                'base_url': '/smedia/private_thumbnails/',
+            },
+            'THUMBNAIL_OPTIONS': {},
+        },
+    },
+}
+
+# OLD FILER STUFF
+
+DEFAULT_FILER_STORAGES = DEFAULT_MEDIA_STORAGES
+
+FILER_IMAGE_MODEL = MEDIA_IMAGE_MODEL
+FILER_ENABLE_PERMISSIONS = MEDIA_ENABLE_PERMISSIONS
+FILER_DEBUG = getattr(settings, 'FILER_DEBUG', False) # When True makes
+FILER_SUBJECT_LOCATION_IMAGE_DEBUG = getattr(settings, 'FILER_SUBJECT_LOCATION_IMAGE_DEBUG', False)
+FILER_WHITESPACE_COLOR = getattr(settings, 'FILER_WHITESPACE_COLOR', '#FFFFFF')
+
+FILER_ENABLE_LOGGING = getattr(settings, 'FILER_ENABLE_LOGGING', False)
+if FILER_ENABLE_LOGGING:
+    FILER_ENABLE_LOGGING = (FILER_ENABLE_LOGGING and (getattr(settings,'LOGGING') and
+                                                      ('' in settings.LOGGING['loggers'] or
+                                                       'filer' in settings.LOGGING['loggers'])))
+FILER_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS = MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS
+
+FILER_IS_PUBLIC_DEFAULT = MEDIA_IS_PUBLIC_DEFAULT
+
+FILER_PAGINATE_BY = MEDIA_PAGINATE_BY
+
+FILER_STATICMEDIA_PREFIX = getattr(settings, 'FILER_STATICMEDIA_PREFIX', None)
+if not FILER_STATICMEDIA_PREFIX:
+    FILER_STATICMEDIA_PREFIX = (getattr(settings, 'STATIC_URL', None) or settings.MEDIA_URL) + 'filer/'
+
+MEDIA_ADMIN_ICON_SIZES = getattr(settings,"MEDIA_ADMIN_ICON_SIZES",(
+    '16', '32', '48', '64',
+    ))
+FILER_ADMIN_ICON_SIZES = MEDIA_ADMIN_ICON_SIZES
 
 THUMBNAIL_HIGH_RESOLUTION = True
 
@@ -15,44 +110,7 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.filters',
 )
 
-
-# File download permissions are an experimental
-# feature. The api may change at any time.
-MEDIA_ENABLE_PERMISSIONS = getattr(settings, 'MEDIA_ENABLE_PERMISSIONS', True)
-FILER_ENABLE_PERMISSIONS = getattr(settings, 'FILER_ENABLE_PERMISSIONS', True)
-
-FILER_IMAGE_MODEL = getattr(settings, 'FILER_IMAGE_MODEL', False)
-FILER_DEBUG = getattr(settings, 'FILER_DEBUG', False) # When True makes
-FILER_SUBJECT_LOCATION_IMAGE_DEBUG = getattr(settings, 'FILER_SUBJECT_LOCATION_IMAGE_DEBUG', False)
-FILER_WHITESPACE_COLOR = getattr(settings, 'FILER_WHITESPACE_COLOR', '#FFFFFF')
-
-FILER_ENABLE_LOGGING = getattr(settings, 'FILER_ENABLE_LOGGING', False)
-if FILER_ENABLE_LOGGING:
-    FILER_ENABLE_LOGGING = (FILER_ENABLE_LOGGING and (getattr(settings,'LOGGING') and
-                                                      ('' in settings.LOGGING['loggers'] or
-                                                       'filer' in settings.LOGGING['loggers'])))
-FILER_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS = getattr(settings, 'FILER_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS', False)
-FILER_IS_PUBLIC_DEFAULT = getattr(settings, 'FILER_IS_PUBLIC_DEFAULT', True)
-
-FILER_PAGINATE_BY = getattr(settings, 'FILER_PAGINATE_BY', 20)
-FILER_STATICMEDIA_PREFIX = getattr(settings, 'FILER_STATICMEDIA_PREFIX', None)
-if not FILER_STATICMEDIA_PREFIX:
-    FILER_STATICMEDIA_PREFIX = (getattr(settings, 'STATIC_URL', None) or settings.MEDIA_URL) + 'filer/'
-
-FILER_ADMIN_ICON_SIZES = getattr(settings,"FILER_ADMIN_ICON_SIZES",(
-    '16', '32', '48', '64',
-    ))
-
-# This is an ordered iterable that describes a list of
-# classes that I should check for when adding files
-FILER_FILE_MODELS = getattr(settings, 'FILER_FILE_MODELS',
-    (
-        FILER_IMAGE_MODEL if FILER_IMAGE_MODEL else 'filer.models.imagemodels.Image',
-        'filer.models.filemodels.File',
-    )
-)
-
-DEFAULT_FILE_STORAGE = getattr(settings, 'DEFAULT_FILE_STORAGE', 'django.core.files.storage.FileSystemStorage')
+FILER_FILE_MODELS = MEDIA_FILE_MODELS
 
 MINIMAL_FILER_STORAGES = {
     'public': {
@@ -76,44 +134,6 @@ MINIMAL_FILER_STORAGES = {
             },
         },
     }
-
-
-DEFAULT_FILER_STORAGES = {
-    'public': {
-        'main': {
-            'ENGINE': DEFAULT_FILE_STORAGE,
-            'OPTIONS': {},
-            'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
-            'UPLOAD_TO_PREFIX': 'filer_public',
-        },
-        'thumbnails': {
-            'ENGINE': DEFAULT_FILE_STORAGE,
-            'OPTIONS': {},
-            'THUMBNAIL_OPTIONS': {
-                'base_dir': 'filer_public_thumbnails',
-            },
-        },
-    },
-    'private': {
-        'main': {
-            'ENGINE': 'filer.storage.PrivateFileSystemStorage',
-            'OPTIONS': {
-                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT, '../smedia/filer_private')),
-                'base_url': '/smedia/filer_private/',
-            },
-            'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
-            'UPLOAD_TO_PREFIX': '',
-        },
-        'thumbnails': {
-            'ENGINE': 'filer.storage.PrivateFileSystemStorage',
-            'OPTIONS': {
-                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT, '../smedia/filer_private_thumbnails')),
-                'base_url': '/smedia/filer_private_thumbnails/',
-            },
-            'THUMBNAIL_OPTIONS': {},
-        },
-    },
-}
 
 MINIMAL_FILER_SERVERS = {
     'private': {

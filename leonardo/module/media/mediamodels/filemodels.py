@@ -65,7 +65,7 @@ class File(PolymorphicModel, mixins.IconsMixin):
     objects = FileManager()
 
     @classmethod
-    def matches_file_type(cls, iname, ifile, request):
+    def matches_file_type(cls, iname, ifile=None, request=None):
         return True  # I match all files...
 
     def __init__(self, *args, **kwargs):

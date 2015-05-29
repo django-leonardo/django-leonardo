@@ -63,7 +63,7 @@ class FolderTranslation(Translation(Folder)):
 
 class Document(MediaMixin, File):
 
-    filename_extensions = ['.pdf', '.xls', ]
+    filename_extensions = ['.pdf', '.xls']
 
     class Meta:
         verbose_name = ("document")

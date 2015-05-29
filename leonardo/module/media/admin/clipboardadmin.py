@@ -61,7 +61,7 @@ class ClipboardAdmin(admin.ModelAdmin):
             clipboard = Clipboard.objects.get_or_create(user=request.user)[0]
 
             # find the file type
-            for filer_class in filer_settings.FILER_FILE_MODELS:
+            for filer_class in filer_settings.MEDIA_FILE_MODELS:
                 FileSubClass = load_object(filer_class)
                 #TODO: What if there are more than one that qualify?
                 if FileSubClass.matches_file_type(filename, upload, request):

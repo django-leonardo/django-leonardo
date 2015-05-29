@@ -21,7 +21,7 @@ class DummyFolder(mixins.IconsMixin):
         return []
 
     @property
-    def children(self):
+    def media_folder_children(self):
         return Folder.objects.none()
 
     @property

@@ -39,7 +39,7 @@ from .tools import  (userperms_for_request,
                                 check_folder_read_permissions)
 from ..models import (Folder, FolderRoot, UnfiledImages, File, tools,
                           ImagesWithMissingData, FolderPermission, Image)
-from ..settings import FILER_STATICMEDIA_PREFIX, FILER_PAGINATE_BY
+from ..settings import FILER_STATICMEDIA_PREFIX
 from filer.utils.filer_easy_thumbnails import FilerActionThumbnailer
 from filer.thumbnail_processors import normalize_subject_location
 from django.conf import settings as django_settings
@@ -334,7 +334,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
         
         items = folder_children + folder_files
         items_permissions = [(item, {'change': self.has_change_permission(request, item)}) for item in items]
-        paginator = Paginator(items_permissions, FILER_PAGINATE_BY)
+        paginator = Paginator(items_permissions, settings.MEDIA_PAGINATE_BY)
 
         # Are we moving to clipboard?
         if request.method == 'POST' and '_save' not in request.POST:

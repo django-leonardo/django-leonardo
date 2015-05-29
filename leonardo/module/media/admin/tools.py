@@ -13,7 +13,7 @@ def check_folder_edit_permissions(request, folders):
         if not f.has_edit_permission(request):
             raise PermissionDenied
         check_files_edit_permissions(request, f.files)
-        check_folder_edit_permissions(request, f.children.all())
+        check_folder_edit_permissions(request, f.media_folder_children.all())
 
 
 def check_files_read_permissions(request, files):
@@ -27,7 +27,7 @@ def check_folder_read_permissions(request, folders):
         if not f.has_read_permission(request):
             raise PermissionDenied
         check_files_read_permissions(request, f.files)
-        check_folder_read_permissions(request, f.children.all())
+        check_folder_read_permissions(request, f.media_folder_children.all())
 
 
 def userperms_for_request(item, request):
