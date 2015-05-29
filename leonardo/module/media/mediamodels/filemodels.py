@@ -7,9 +7,8 @@ from django.core.files.base import ContentFile
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from filer.fields.multistorage_file import MultiStorageFileField
-from filer.models import mixins
-from filer import settings as filer_settings
-from .foldermodels import Folder
+from . import mixins
+from .. import settings as filer_settings
 from filer.utils.compatibility import python_2_unicode_compatible
 from polymorphic import PolymorphicModel, PolymorphicManager
 import hashlib

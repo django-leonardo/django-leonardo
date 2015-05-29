@@ -1,11 +1,12 @@
 #-*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
-from filer.models import filemodels
 from filer.utils.compatibility import python_2_unicode_compatible
+
+from . import filemodels
 
 
 @python_2_unicode_compatible

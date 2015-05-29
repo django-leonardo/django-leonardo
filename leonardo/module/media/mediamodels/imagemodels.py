@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+
 from datetime import datetime
 import logging
 try:
@@ -14,11 +14,10 @@ from django.db import models
 from django.utils.timezone import now, make_aware, get_current_timezone
 from django.utils.translation import ugettext_lazy as _
 
-from filer import settings as filer_settings
 from .abstract import BaseImage
 from filer.utils.loader import load_object
 
-logger = logging.getLogger("filer")
+logger = logging.getLogger("media")
 
 
 class Image(BaseImage):

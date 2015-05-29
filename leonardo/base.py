@@ -51,7 +51,6 @@ class Default(object):
             'django.contrib.admindocs',
             'django.contrib.staticfiles',
             'django.contrib.sitemaps',
-            'django.contrib.flatpages',
 
             'rest_framework',
             'dbtemplates',

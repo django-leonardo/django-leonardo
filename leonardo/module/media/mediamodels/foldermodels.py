@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.contrib.auth import models as auth_models
@@ -9,8 +9,8 @@ from django.db.models import Q
 from django.utils.http import urlquote
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from filer.models import mixins
-from filer import settings as filer_settings
+from . import mixins
+from .. import settings as filer_settings
 from filer.utils.compatibility import python_2_unicode_compatible
 
 import mptt
@@ -136,7 +136,7 @@ class Folder(models.Model, mixins.IconsMixin):
 
     @property
     def files(self):
-        return self.all_files.all()
+        return self.media_file_files.all()
 
     @property
     def logical_path(self):
@@ -202,11 +202,11 @@ class Folder(models.Model, mixins.IconsMixin):
             return self.permission_cache[permission_type]
 
     def get_admin_url_path(self):
-        return urlresolvers.reverse('admin:filer_folder_change',
+        return urlresolvers.reverse('admin:media_folder_change',
                                     args=(self.id,))
 
-    def get_admin_Folder_listing_url_path(self):
-        return urlresolvers.reverse('admin:filer-Folder_listing',
+    def get_admin_directory_listing_url_path(self):
+        return urlresolvers.reverse('admin:filer-directory_listing',
                                     args=(self.id,))
 
     def __str__(self):
@@ -222,7 +222,7 @@ class Folder(models.Model, mixins.IconsMixin):
     class Meta:
         unique_together = (('parent', 'name'),)
         ordering = ('name',)
-        permissions = (("can_use_Folder_listing",
+        permissions = (("can_use_folder_listing",
                         "Can use Folder listing"),)
         app_label = 'media'
         verbose_name = _("Folder")

@@ -14,14 +14,15 @@ from feincms.module.page.extensions.navigation import (NavigationExtension,
                                                        PagePretender)
 from feincms.translations import (TranslatedObjectManager,
                                   TranslatedObjectMixin, Translation)
-from filer import settings as filer_settings
+
 from filer.utils.compatibility import python_2_unicode_compatible
 
 from .mediamodels.foldermodels import Folder, FolderPermission
 from .mediamodels.imagemodels import Image
 from .mediamodels.filemodels import File
 from .mediamodels.clipboardmodels import Clipboard, ClipboardItem
-
+from .mediamodels.virtualitems import *
+from .mediamodels import tools
 
 
 class MediaMixin(object):
@@ -159,7 +160,7 @@ class MediaCategoriesNavigationExtension(NavigationExtension):
         category_list = Folder.objects.filter(parent=None)
         for category in category_list:
             subchildren = []
-            for subcategory in category.children.all():
+            for subcategory in category.media_folder_children.all():
                 subchildren.append(PagePretender(
                     title=subcategory,
                     url='%s%s/%s/' % (base_url, category.name, subcategory.name),

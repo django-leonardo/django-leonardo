@@ -4,14 +4,14 @@
 {% block content %}
 <div data-ride="carousel" class="carousel slide" id="carousel_{{ widget.fe_identifier }}">
   <ol class="carousel-indicators">
-    {% for category_file in widget.category.all_files.all %}
+    {% for category_file in widget.category.files %}
     {% with category_file.file as file %}
     <li data-target="#carousel_{{ widget.fe_identifier }}" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
     {% endwith %}
     {% endfor %}
   </ol>
   <div class="carousel-inner" role="listbox">
-    {% for category_file in widget.category.all_files.all %}
+    {% for category_file in widget.category.files %}
     {% with category_file.file as file %}
     <div class="item {% if forloop.first %}active{% endif %}">
       {% include "widget/mediagallery/_image.html" %}

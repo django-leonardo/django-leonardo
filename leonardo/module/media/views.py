@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 import os
@@ -11,13 +11,11 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils import six
 from django.utils.translation import ugettext_lazy as _
-from filer import settings as filer_settings
-from filer.models import Clipboard, FolderRoot, Image, tools
+from . import settings as filer_settings
 
 from .management.commands.import_files import FileImporter
-from .models import Folder
+from .models import Folder, Clipboard, FolderRoot, Image, tools
 from feincms.views.decorators import standalone
 
 
@@ -78,7 +76,7 @@ def _userperms(item, request):
 def edit_folder(request, folder_id):
     # TODO: implement edit_folder view
     folder = None
-    return render_to_response('admin/filer/folder/folder_edit.html', {
+    return render_to_response('admin/media/folder/folder_edit.html', {
         'folder': folder,
         'is_popup': popup_status(request),
         'select_folder': selectfolder_status(request),
@@ -89,7 +87,7 @@ def edit_folder(request, folder_id):
 def edit_image(request, folder_id):
     # TODO: implement edit_image view
     folder = None
-    return render_to_response('filer/image_edit.html', {
+    return render_to_response('media/image_edit.html', {
         'folder': folder,
         'is_popup': popup_status(request),
         'select_folder': selectfolder_status(request),
@@ -128,11 +126,11 @@ def scan_folder(request, folder_id=None):
                 importer.walker(**kwargs)
             except Exception, e:
                 raise e
-            return render_to_response('admin/filer/dismiss_popup.html',
+            return render_to_response('admin/media/dismiss_popup.html',
                                       context_instance=RequestContext(request))
     else:
         new_folder_form = ScanFolderForm()
-    return render_to_response('admin/filer/folder/scan_form.html', {
+    return render_to_response('admin/media/folder/scan_form.html', {
         'new_folder_form': new_folder_form,
         'is_popup': popup_status(request),
         'select_folder': selectfolder_status(request),
@@ -169,11 +167,11 @@ def make_folder(request, folder_id=None):
                 new_folder.parent = folder
                 new_folder.owner = request.user
                 new_folder.save()
-                return render_to_response('admin/filer/dismiss_popup.html',
+                return render_to_response('admin/media/dismiss_popup.html',
                                           context_instance=RequestContext(request))
     else:
         new_folder_form = NewFolderForm()
-    return render_to_response('admin/filer/folder/new_folder_form.html', {
+    return render_to_response('admin/media/folder/new_folder_form.html', {
         'new_folder_form': new_folder_form,
         'is_popup': popup_status(request),
         'select_folder': selectfolder_status(request),
@@ -189,7 +187,7 @@ class UploadFileForm(forms.ModelForm):
 
 @login_required
 def upload(request):
-    return render_to_response('filer/upload.html', {
+    return render_to_response('media/upload.html', {
         'title': 'Upload files',
         'is_popup': popup_status(request),
         'select_folder': selectfolder_status(request),

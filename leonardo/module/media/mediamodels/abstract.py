@@ -15,7 +15,7 @@ from django.db import models
 from django.utils import six
 from django.utils.translation import ugettext_lazy as _
 
-from filer import settings as filer_settings
+from .. import settings as filer_settings
 from .filemodels import File
 from filer.utils.filer_easy_thumbnails import FilerThumbnailer
 from filer.utils.pil_exif import get_exif_for_file
