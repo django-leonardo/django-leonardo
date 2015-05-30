@@ -49,15 +49,22 @@ def render_region_tools(context, feincms_object, region, request=None):
         'region': region
     }
 
+STANDALONE_REGIONS = ['header', 'footer']
+
 
 @register.simple_tag(takes_context=True)
 def feincms_render_region(context, feincms_object, region, request=None):
     """
     {% feincms_render_region feincms_page "main" request %}
+
+    Support for rendering Page without some regions especialy for modals
+    this feature is driven by context variable
     """
-    return ''.join(
-        _render_content(content, request=request, context=context)
-        for content in getattr(feincms_object.content, region))
+    if not context.get('standalone', False) or region in STANDALONE_REGIONS:
+        return ''.join(
+            _render_content(content, request=request, context=context)
+            for content in getattr(feincms_object.content, region))
+    return ''
 
 
 class AppReverseNode(template.Node):
