@@ -13,7 +13,6 @@ from django.core.management.color import no_style
 from django.utils.encoding import smart_text
 from leonardo.utils.settings import merge
 from leonardo.module.web.models import PageColorScheme, PageTheme
-
 from ._utils import app_template_dirs, DIRS, get_or_create_template
 
 from django.contrib.staticfiles.management.commands.collectstatic \
@@ -111,14 +110,12 @@ class Command(BaseCommand):
                         except Exception as e:
                             self.stdout.write(
                                 "Cannot load {} into database original error: {}".format(t, e))
-                        page_theme.styles = storage.open(path).read()
-                        page_theme.save()
 
                         # find and load skins
                         skins_path = os.path.join(
                             storage.path('/'.join(path.split('/')[0:-1])))
                         for dirpath, skins, filenames in os.walk(skins_path):
-                            for skin in skins:
+                            for skin in [s for s in skins if s not in ['fonts']]:
                                 for skin_dirpath, skins, filenames in os.walk(os.path.join(dirpath, skin)):
                                     skin, created = PageColorScheme.objects.get_or_create(
                                         theme=page_theme, label=skin, name=skin.title())
