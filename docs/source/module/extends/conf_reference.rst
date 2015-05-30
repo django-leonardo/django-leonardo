@@ -5,6 +5,17 @@ Leonardo Descriptor Reference
 
 Descriptor is Leonardo specific and is inspired from Openstack Horizon where is used for non invasive extend Dashboard extends. In the Leonardo we use same pattern, but with some additions.
 
+Directory structure::
+
+    my_awesome_module
+        |-- __init__.py
+        |-- settings.py
+        |-- urls.py
+
+.. warning::
+
+    Leonardo include all settings and urls in root of module.
+
 Descriptor reference
 ====================
 
@@ -18,6 +29,10 @@ Leonardo
             'elephantblog',
             'leonardo_module_analytics',
         ]
+
+    **urls_conf** url path to include
+
+    **public** if is set to ``True`` Leonardo does not decorate included url patters for required authentification
 
 FeinCMS
 -------
