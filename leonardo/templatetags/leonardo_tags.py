@@ -34,7 +34,11 @@ def get_col_classes(page, region):
 def render_region_tools(context, feincms_object, region, request=None):
     """
     {% render_region_tools feincms_page "main" request %}
+
+    skip rendering in standalone mode
     """
+    if context.get('standalone', False):
+        return {}
     edit = False
     if getattr(settings, 'LEONARDO_USE_PAGE_ADMIN', False):
         request = context.get('request', None)
