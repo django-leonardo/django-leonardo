@@ -174,7 +174,7 @@ class WidgetSelectForm(SelfHandlingForm):
         self.fields['cls_name'].choices = choices
 
         # for now ungrouped to grouped
-        grouped['Web'] = ungrouped + grouped['Web']
+        grouped['Web'] = ungrouped + grouped.get('Web', [])
 
         self.helper.layout = Layout(
             Field('region'),
