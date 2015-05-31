@@ -20,8 +20,12 @@ class Default(object):
 
     @property
     def middlewares(self):
-        return [
-            'leonardo.module.web.middleware.WebMiddleware',
+
+        middlewares = [
+            'leonardo.module.web.middlewares.quickstart.QuickStartMiddleware', ]
+
+        return middlewares + [
+            'leonardo.module.web.middlewares.web.WebMiddleware',
         ]
 
     @property

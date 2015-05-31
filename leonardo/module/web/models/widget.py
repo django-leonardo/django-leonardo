@@ -151,12 +151,10 @@ class Widget(FeinCMSBase):
     align = models.CharField(
         verbose_name=_("Alignment"), max_length=25, default='left', choices=WIDGET_ALIGN_CHOICES)
 
-    def save(self, *args, **kwargs):
+    def save(self, created=True, *args, **kwargs):
 
-        created = False
-
-        if self.pk is None:
-            self.created = False
+        if self.pk is None and created:
+            self.created = True
 
         super(Widget, self).save(*args, **kwargs)
 
