@@ -2,14 +2,27 @@
 import os
 from datetime import datetime
 
+from django.conf import settings
+from django.contrib.auth import models as auth_models
+from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q
 from django.utils.timezone import get_current_timezone, make_aware, now
 from django.utils.translation import ugettext_lazy as _
-from filer import settings as filer_settings
-from filer.models.abstract import BaseImage
-from filer.models.filemodels import File
-from filer.models.foldermodels import Folder
-from feincms.module.page.extensions.navigation import NavigationExtension, PagePretender
+from feincms.module.page.extensions.navigation import (NavigationExtension,
+                                                       PagePretender)
+from feincms.translations import (TranslatedObjectManager,
+                                  TranslatedObjectMixin, Translation)
+
+from filer.utils.compatibility import python_2_unicode_compatible
+
+from .mediamodels.foldermodels import Folder, FolderPermission
+from .mediamodels.imagemodels import Image
+from .mediamodels.filemodels import File
+from .mediamodels.clipboardmodels import Clipboard, ClipboardItem
+from .mediamodels.virtualitems import *
+from .mediamodels import tools
 
 
 class MediaMixin(object):
@@ -23,21 +36,50 @@ class MediaMixin(object):
         return ext in filename_extensions
 
 
-class LeonardoFolder(Folder):
+class MediaTranslationMixin(object):
+
+    original_filename = models.CharField(
+        _('original filename'), max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=255, default="", blank=True,
+                            verbose_name=_('name'))
+    description = models.TextField(null=True, blank=True,
+                                   verbose_name=_('description'))
+
+
+class FolderTranslation(Translation(Folder)):
+
+    """
+    Translated Document
+    """
+
+    name = models.CharField(max_length=255, default="", blank=True,
+                            verbose_name=_('name'))
 
     class Meta:
-        verbose_name = ("folder")
-        verbose_name_plural = ('folders')
+        verbose_name = ("Folder translation")
+        verbose_name_plural = ('Folder translations')
         app_label = 'media'
 
 
 class Document(MediaMixin, File):
 
-    filename_extensions = ['.pdf', '.xls', ]
+    filename_extensions = ['.pdf', '.xls']
 
     class Meta:
         verbose_name = ("document")
         verbose_name_plural = ('documents')
+
+
+class DocumentTranslation(Translation(Document), MediaTranslationMixin):
+
+    """
+    Translated Document
+    """
+
+    class Meta:
+        verbose_name = ("document translation")
+        verbose_name_plural = ('document translations')
+        app_label = 'media'
 
 
 class Vector(MediaMixin, File):
@@ -49,6 +91,18 @@ class Vector(MediaMixin, File):
         verbose_name_plural = ('vetors')
 
 
+class VectorTranslation(Translation(Vector), MediaTranslationMixin):
+
+    """
+    Translated Vector
+    """
+
+    class Meta:
+        verbose_name = ("vector translation")
+        verbose_name_plural = ('vector translations')
+        app_label = 'media'
+
+
 class Video(MediaMixin, File):
 
     filename_extensions = ['.dv', '.mov', '.mp4', '.avi', '.wmv', ]
@@ -56,6 +110,18 @@ class Video(MediaMixin, File):
     class Meta:
         verbose_name = ("video")
         verbose_name_plural = ('videos')
+
+
+class VideoTranslation(Translation(Video), MediaTranslationMixin):
+
+    """
+    Translated Video
+    """
+
+    class Meta:
+        verbose_name = ("video translation")
+        verbose_name_plural = ('video translations')
+        app_label = 'media'
 
 
 class Flash(MediaMixin, File):
@@ -67,49 +133,22 @@ class Flash(MediaMixin, File):
         verbose_name_plural = ('flash videos')
 
 
-class Image(MediaMixin, BaseImage):
+class ImageTranslation(Translation(Image)):
 
-    filename_extensions = ['.jpg', '.jpeg', '.png', '.gif', ]
+    name = models.CharField(max_length=255, default="", blank=True,
+                            verbose_name=_('name'))
+    default_alt_text = models.CharField(max_length=255, default="", blank=True,
+                                        verbose_name=_('default alt text'))
 
-    date_taken = models.DateTimeField(_('date taken'), null=True, blank=True,
-                                      editable=False)
+    default_caption = models.CharField(max_length=255, default="", blank=True,
+                                       verbose_name=_('default caption'))
 
-    author = models.CharField(
-        _('author'), max_length=255, null=True, blank=True)
-
-    must_always_publish_author_credit = models.BooleanField(
-        _('must always publish author credit'), default=False)
-    must_always_publish_copyright = models.BooleanField(
-        _('must always publish copyright'), default=False)
-
-    def save(self, *args, **kwargs):
-        if self.date_taken is None:
-            try:
-                exif_date = self.exif.get('DateTimeOriginal', None)
-                if exif_date is not None:
-                    d, t = exif_date.split(" ")
-                    year, month, day = d.split(':')
-                    hour, minute, second = t.split(':')
-                    if getattr(settings, "USE_TZ", False):
-                        tz = get_current_timezone()
-                        self.date_taken = make_aware(datetime(
-                            int(year), int(month), int(day),
-                            int(hour), int(minute), int(second)), tz)
-                    else:
-                        self.date_taken = datetime(
-                            int(year), int(month), int(day),
-                            int(hour), int(minute), int(second))
-            except Exception:
-                pass
-        if self.date_taken is None:
-            self.date_taken = now()
-        super(Image, self).save(*args, **kwargs)
+    description = models.TextField(null=True, blank=True,
+                                   verbose_name=_('description'))
 
     class Meta:
-        verbose_name = _("image")
-        verbose_name_plural = _('images')
-
-        # You must define a meta with en explicit app_label
+        verbose_name = ("image translation")
+        verbose_name_plural = ('image translations')
         app_label = 'media'
 
 
@@ -121,7 +160,7 @@ class MediaCategoriesNavigationExtension(NavigationExtension):
         category_list = Folder.objects.filter(parent=None)
         for category in category_list:
             subchildren = []
-            for subcategory in category.children.all():
+            for subcategory in category.media_folder_children.all():
                 subchildren.append(PagePretender(
                     title=subcategory,
                     url='%s%s/%s/' % (base_url, category.name, subcategory.name),

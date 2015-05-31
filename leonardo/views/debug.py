@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.urlresolvers import resolve, Resolver404
 from django.http import (build_request_repr, HttpRequest, HttpResponse,
                          HttpResponseNotFound)
-from django.template import Context, Template
+from django.template import RequestContext, Template
 from django.template.defaultfilters import force_escape, pprint
 from django.utils import lru_cache, six, timezone
 from django.utils.datastructures import MultiValueDict
@@ -79,7 +79,7 @@ def technical_404_response(request, exception):
         except KeyError:
             raise Exception("Nested path is not allowed !")
 
-    c = Context({
+    c = RequestContext(request, {
         'urlconf': urlconf,
         'root_urlconf': settings.ROOT_URLCONF,
         'request_path': error_url,
@@ -89,6 +89,7 @@ def technical_404_response(request, exception):
         'settings': get_safe_settings(),
         'raising_view_name': caller,
         'feincms_page': feincms_page,
+        'standalone': True,
         'slug': slug,
     })
     t = render_to_string(TECHNICAL_404_TEMPLATE, c)

@@ -3,6 +3,8 @@
 Modals Dialogs
 ==============
 
+Standard modals via views
+
 ``modal_size`` - valid options ``md``, ``lg``, ``sm``
 
 .. code-block:: python
@@ -28,3 +30,14 @@ Modals Dialogs
             context['modal_size'] = 'lg'
 
             return context
+
+Lightboxes
+==========
+
+For galleries you can use default Lightboxes for Bootstrap 3 see example below::
+
+    <a class="thumbnail" data-toggle="lightbox" data-title="{{ image.caption }}" data-footer="{{ image.description }}" href="{{ image.url }}">
+      {% thumbnail file.file "320x200" crop="center" as thumbnail %}
+      <img class="img-responsive" src="{{ thumbnail.url }}" alt="{{ category_file.default_alt_text }}" />
+      {% endthumbnail %}
+    </a>

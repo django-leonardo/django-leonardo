@@ -1,0 +1,113 @@
+{% extends "admin/media/base_site.html" %}
+{% load filer_admin_tags filermedia i18n %}
+{% load url from future %}
+
+{% block extrahead %}{{ block.super }}
+    {# upload stuff #}
+    {{ media.js }}
+    <script type="text/javascript" src="{% admin_js_base %}jquery.min.js"></script>
+    <script type="text/javascript" src="{% filer_staticmedia_prefix %}js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="{% filer_staticmedia_prefix %}js/fileuploader.js"></script>
+    <script type="text/javascript" src="{% admin_js_base %}admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="{% filer_staticmedia_prefix %}js/popup_handling.js"></script>
+    {% if action_form %}
+        {% if actions_on_top or actions_on_bottom %}
+            <script type="text/javascript">
+            (function($) {
+                $(document).ready(function($) {
+                    $("tr input.action-select").actions();
+                });
+            })(django.jQuery);
+            </script>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+{% block bodyclass %}change-list filebrowser{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% admin_css_base %}changelists.css" />
+    {{ media.css }}
+    {% if action_form %}
+        {% url 'admin:jsi18n' as jsi18nurl %}
+        <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
+    {% endif %}
+    {% if query.pop %}
+        <style type="text/css">
+            #header { display: none; }
+        </style>
+    {% endif %}
+    {% if not actions_on_top and not actions_on_bottom %}
+        <style>
+            #changelist table thead th:first-child {width: inherit}
+        </style>
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% with folder as instance %}
+        {% include "admin/media/breadcrumbs.html" %}
+    {% endwith %}
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+{% block content %}
+<div class="wrapper-search-and-tools row-fluid container">
+    <div class="col-md-6 container-changelist-search">
+        {% include "admin/media/tools/search_form.html" %}
+    </div>
+    <div class="col-md-4 container-object-tools">
+        <ul class="object-tools pull-right">
+            {% if folder.can_have_subfolders %}
+                <li>
+                    <a class="btn btn-info" id="id_new_folder" href="{% url 'admin:filer-directory_listing-make_root_folder' %}?parent_id={{ folder.id }}" class="addlink" onclick="return showAddAnotherPopup(this);" title="{% trans "Adds a new Folder" %}">
+                        {% trans "New Folder" %} <i class="icon-plus-sign icon-white"></i>
+                    </a>
+                </li>
+            {% endif %}
+            <li>
+                <a class="btn btn-primary" id="id_upload_button" href="#" class="addlink" title="{% trans 'upload files' %}">{% trans 'Upload' %} <i class="icon-upload icon-white"></i></a>
+            </li>
+            {% include 'admin/media/tools/upload_button_js.html' %}
+            <li>
+                <a class="btn btn-default" href="{% if folder.id %}{% url 'admin:media-scan-to-folder' folder.id %}{% else %}{% url 'admin:media-scan-folder' %}{% endif %}" onclick="return showAddAnotherPopup(this);" class="addlink" title="{% trans 'sync folders' %}">{% trans 'Scan' %} <i class="icon-upload icon-white"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row-fluid row-changelist">
+    <div id="content-main" class="span8">
+        <div class="module" id="changelist">
+            {% if not folder.is_root %}
+            <h1 class="folder_header">{% if folder.parent %}<a href="{% url 'admin:filer-directory_listing' folder.parent.id %}{% if is_popup %}?_popup=1{% if select_folder %}&select_folder=1{% endif %}{% endif %}" title="{% trans "Go back to the parent folder" %}"><i class="icon-arrow-up"></i></a>{% else %}<a href="{% url 'admin:filer-directory_listing-root' %}{% if is_popup %}?_popup=1{% if select_folder %}&select_folder=1{% endif %}{% endif %}" title="{% trans "Go back to" %} {% trans "root"|title %} {% trans "folder" %}"><i class="icon-arrow-up"></i></a>{% endif %}
+                <img src="{{ folder.icons.32 }}" alt="{% trans "Folder Icon" %}" /> {{ folder.name }}
+                <span class="small quiet">({% blocktrans count folder.children_count as counter %}1 folder{% plural %}{{ counter }} folders{% endblocktrans %}, {% blocktrans count folder.file_count as counter %}1 file{% plural %}{{ counter }} files{% endblocktrans %})</span>
+                <span>
+                    {% if is_popup %}
+                        {% if select_folder and folder.file_type == 'Folder' %}<a class="insertlink insertlinkButton" href="" onclick="opener.dismissRelatedFolderLookupPopup(window, {{ folder.id }}, '{{ folder.pretty_logical_path }}'); return false;" >&nbsp;</a>{% endif %}
+                    {% else %}<a class="changelink btn" href="{% url 'admin:media_folder_change' folder.id %}" title="{% trans "Change current folder details" %}"><i class="icon-pencil"></i> {% trans "Change" %}</a>{% endif %}
+                </span>
+            </h1>
+            {% else %}{% if folder.is_smart_folder %}
+            <h1 class="folder_header"><a href="{% url 'admin:filer-directory_listing-root' %}{% if is_popup %}?_popup=1{% if select_folder %}&select_folder=1{% endif %}{% endif %}"><i class="icon-arrow-up"></i></a>
+                <img src="{{ folder.icons.32 }}" alt="{% trans "Folder Icon" %}" /> {{ folder.name }}
+            </h1>
+            {% endif %}
+            {% endif %}
+            <form id="changelist-form" action="" method="post">{% csrf_token %}
+            {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+            {% if action_form and actions_on_top and paginator.count and not select_folder and not is_popup %}{% filer_actions %}{% endif %}
+            {% include "admin/media/folder/directory_table.html" %}
+            {% if action_form and actions_on_bottom and paginator.count and not select_folder and not is_popup %}{% filer_actions %}{% endif %}
+            </form>
+        </div>
+    </div>
+    <div id="content-related" class="span4 well">
+        {% include "admin/media/tools/clipboard/clipboard.html" %}
+    </div>
+</div>
+{% endblock %}

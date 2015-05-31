@@ -1,0 +1,11 @@
+{% extends "admin/delete_confirmation.html" %}
+{% load i18n filermedia %}
+{% load url from future %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% filer_staticmedia_prefix %}css/admin_style.css" />
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% include "admin/filer/breadcrumbs.html" with instance=object breadcrumbs_action="Delete" %}
+{% endblock %}

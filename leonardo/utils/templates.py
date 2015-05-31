@@ -37,7 +37,7 @@ __all__ = ('find_all_templates', 'flatten_template_loaders', 'template_choices')
 LOGGER = logging.getLogger('templatefinder')
 
 
-def find_all_templates(pattern='*.html'):
+def find_all_templates(pattern='*.html', ignore_private=True):
     """
     Finds all Django templates matching given glob in all TEMPLATE_LOADERS
 
@@ -62,6 +62,8 @@ def find_all_templates(pattern='*.html'):
             for dir in loader.get_template_sources(''):
                 for root, dirnames, filenames in os.walk(dir):
                     for basename in filenames:
+                        if ignore_private and basename.startswith("_"):
+                            continue
                         filename = os.path.join(root, basename)
                         rel_filename = filename[len(dir)+1:]
                         if fnmatch.fnmatch(filename, pattern) or \

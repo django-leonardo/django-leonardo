@@ -122,7 +122,7 @@ class ApplicationWidget(Widget, ApplicationContent):
         if not hasattr(self, 'rendered_result'):
             self.process(options.get('request'))
         context['content'] = getattr(
-            self, 'rendered_result', _('No app content'))
+            self, 'rendered_result', '')
 
         return render_to_string(self.get_template, context)
 
@@ -207,14 +207,17 @@ class ApplicationWidget(Widget, ApplicationContent):
             # no template and view change and save content for our widget
             #kw['view'].request._feincms_extra_context.update(output[1])
             self.rendered_result = render_to_string(
-                output[0], output[1])
-            # render parent template
-            return render_to_response(self.parent.theme.template,
-                RequestContext(request, {}))
+                output[0], RequestContext(request, output[1]))
         else:
             self.raw_context = output
 
-        return True
+        # here is the magic !
+        # return renderered parent template !
+        context = RequestContext(request, {})
+        return render_to_response(
+            self.parent.theme.template,
+            context
+            )
 
     class Meta:
         abstract = True

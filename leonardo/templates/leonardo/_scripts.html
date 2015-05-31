@@ -1,4 +1,4 @@
-{% load compress %}
+{% load compress django_select2_tags %}
 {% load url from future %}
 {% load datepicker_locale from horizon %}
 
@@ -10,7 +10,7 @@
 {% comment %} Compress jQuery, Angular, Plugins, Bootstrap, Hogan.js and Horizon-specific JS. {% endcomment %}
 {% compress js %}
 
-<script type="text/javascript" src="{{ STATIC_URL }}jquery/colorbox.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}leonardo/js/lightbox.min.js"></script>
 
 <script type="text/javascript">var STATIC_URL = "{{ STATIC_URL }}";</script>
 <script src='{{ STATIC_URL }}horizon/lib/angular/angular-cookies.js'></script>
@@ -100,6 +100,8 @@
     <script src='{{ STATIC_URL }}{{ file }}'></script>
 {% endfor %}
 
+{% import_django_select2_js %}
+
 {% block custom_js_files %}{% endblock %}
 {% endcompress %}
 
@@ -115,8 +117,6 @@
 <script>
   // Call init on DOM ready.
   $(document).ready(horizon.init);
-  // TODO: propagate from settings
-  var redactor_default_options = {};
 </script>
 
 {% if request.frontend_editing %}

@@ -252,52 +252,21 @@ except Exception as e:
 
 APPLICATION_CHOICES = []
 
-def elephantblog_entry_url_app(self):
-    from leonardo.module.web.widget.application.reverse import app_reverse
-    return app_reverse(
-        'elephantblog_entry_detail',
-        'elephantblog.urls',
-        kwargs={
-            'year': self.published_on.strftime('%Y'),
-            'month': self.published_on.strftime('%m'),
-            'day': self.published_on.strftime('%d'),
-            'slug': self.slug,
-        })
-
-
-def elephantblog_categorytranslation_url_app(self):
-    from leonardo.module.web.widget.application.reverse import app_reverse
-    return app_reverse(
-        'elephantblog_category_detail',
-        'elephantblog.urls',
-        kwargs={
-            'slug': self.slug,
-        })
-
-
-def oscar_product_url_app(self):
-    from leonardo.module.web.widget.application.reverse import app_reverse
-    return app_reverse(
-        'detail',
-        'leonardo_module_eshop.apps.catalog',
-        kwargs={'product_slug': self.slug, 'pk': self.id})
-
-ABSOLUTE_URL_OVERRIDES = {
-    'catalogue.product': oscar_product_url_app,
-    'elephantblog.entry': elephantblog_entry_url_app,
-    'elephantblog.categorytranslation':
-    elephantblog_categorytranslation_url_app,
-}
-
 ADD_JS_FILES = []
 
 ADD_CSS_FILES = []
 
+ADD_SCSS_FILES = []
+
 ADD_JS_SPEC_FILES = []
+
+ADD_ANGULAR_MODULES = []
 
 ADD_MIGRATION_MODULES = {}
 
 CONSTANCE_CONFIG_GROUPS = {}
+
+ABSOLUTE_URL_OVERRIDES = {}
 
 if LEONARDO_SYSTEM_MODULE:
     APPS = merge(APPS, ['system'])
@@ -317,7 +286,7 @@ try:
 
     from django.utils.module_loading import module_has_submodule  # noqa
 
-    widgets = {}
+    WIDGETS = {}
 
     # critical time to import modules
     _APPS = leonardo.get_app_modules(APPS)
@@ -372,6 +341,14 @@ try:
                     CONSTANCE_CONFIG_GROUPS.update({
                         'ungrouped': mod_cfg.config})
 
+        # import and update absolute overrides
+        for model, method in six.iteritems(mod_cfg.absolute_url_overrides):
+            try:
+                _mod = import_module(".".join(method.split('.')[:-1]))
+                ABSOLUTE_URL_OVERRIDES[model] = getattr(_mod, method.split('.')[-1])
+            except Exception as e:
+                raise e
+
         for nav_extension in mod_cfg.navigation_extensions:
             try:
                 import_module(nav_extension)
@@ -384,6 +361,10 @@ try:
         ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
 
         ADD_CSS_FILES = merge(ADD_CSS_FILES, mod_cfg.css_files)
+        ADD_SCSS_FILES = merge(ADD_SCSS_FILES, mod_cfg.scss_files)
+
+        ADD_ANGULAR_MODULES = merge(
+            ADD_ANGULAR_MODULES, mod_cfg.angular_modules)
 
         if VERSION[:2] >= (1, 8):
             TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
@@ -399,13 +380,15 @@ try:
 
         # collect grouped widgets
         if isinstance(mod_cfg.optgroup, six.string_types):
-            widgets[mod_cfg.optgroup] = merge(
-                getattr(widgets, mod_cfg.optgroup, []), mod_cfg.widgets)
+            WIDGETS[mod_cfg.optgroup] = merge(
+                getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
 
     setattr(leonardo, 'js_files', ADD_JS_FILES)
     setattr(leonardo, 'css_files', ADD_CSS_FILES)
+    setattr(leonardo, 'scss_files', ADD_SCSS_FILES)
     setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
-    setattr(leonardo, 'widgets', widgets)
+    setattr(leonardo, 'angular_modules', ADD_ANGULAR_MODULES)
+    setattr(leonardo, 'widgets', WIDGETS)
 
     from leonardo.module.web.models import Page
     from leonardo.module.web.widget import ApplicationWidget
@@ -415,7 +398,7 @@ try:
         ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
 
     # register widgets
-    for optgroup, _widgets in six.iteritems(widgets):
+    for optgroup, _widgets in six.iteritems(WIDGETS):
         for widget in _widgets:
             Page.create_content_type(widget, optgroup=optgroup)
 
@@ -423,7 +406,6 @@ try:
     Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
 except Exception as e:
     raise e
-
 
 # enable reversion for every req
 if 'reversion' in INSTALLED_APPS:
@@ -503,6 +485,8 @@ except ImportError:
 HORIZON_CONFIG['js_files'] = leonardo.js_files
 HORIZON_CONFIG['js_spec_files'] = leonardo.js_spec_files
 HORIZON_CONFIG['css_files'] = leonardo.css_files
+HORIZON_CONFIG['scss_files'] = leonardo.scss_files
+HORIZON_CONFIG['angular_modules'] = leonardo.angular_modules
 # path horizon config
 from horizon import conf
 conf.HORIZON_CONFIG = HORIZON_CONFIG

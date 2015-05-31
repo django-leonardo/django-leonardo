@@ -34,7 +34,8 @@ For Developers
 
 Further reading:
 
-* `Demo site`_ (a reference build of an Leonardo project)
+* `Demo Site`_ (a reference build of an Leonardo project)
+* `Demo Store`_ (a reference build of an Leonardo Store project)
 * `Developer Documentation`_
 * `User Documentation`_
 * `Continuous integration homepage`_
@@ -47,7 +48,8 @@ Further reading:
    :alt: Coverage
    :target: https://coveralls.io/r/django-leonardo/django-leonardo?branch=develop
 
-.. _`Demo site`: http://demo.cms.robotice.cz
+.. _`Demo Site`: http://demo.cms.robotice.cz
+.. _`Demo Store`: http://store.leonardo.robotice.org
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 .. _`Developer Documentation`: http://django-leonardo.readthedocs.org
 .. _`User Documentation`: http://leonardo-documentation.rtfd.org
@@ -114,7 +116,20 @@ Wget
 
 .. code-block:: bash
 
-    wget -O install_leonardo.sh https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh && sh install_leonardo.sh
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh | sh
+
+
+Install Blog
+
+.. code-block:: bash
+
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_blog.sh | sh
+
+Install Store
+
+.. code-block:: bash
+
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_store.sh | sh
 
 CURL
 
@@ -203,7 +218,7 @@ Themes
 Ecommerce
 ~~~~~~~~~
 
-* django-leonardo[eshop] -Django-Oscar integration (is not stable !)
+* django-leonardo[store] -Django-Oscar integration (is not stable !)
 
 Common
 ~~~~~~

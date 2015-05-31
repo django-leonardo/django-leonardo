@@ -7,7 +7,7 @@ from leonardo.module.web.models import Widget
 
 
 class DownloadItemWidget(Widget):
-    file = models.ForeignKey("filer.File", verbose_name=_("file"), related_name="%(app_label)s_%(class)s_files")
+    file = models.ForeignKey("media.File", verbose_name=_("file"), related_name="%(app_label)s_%(class)s_files")
 
     class Meta:
         abstract = True

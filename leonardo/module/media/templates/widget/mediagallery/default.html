@@ -3,17 +3,18 @@
 
 {% block content %}
 <div class="row">
-  {% for category_file in widget.category.all_files.all %}
+  {% for category_file in widget.category.files %}
   {% with category_file.file as file %}
-  <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+  <div class="col-lg-3 col-md-4 col-xs-6 {% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %} thumb">
     {% include "widget/mediagallery/_image.html" %}
   </div>
   {% endwith %}
   {% endfor %}
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-  $("#{{ widget.fe_identifier }}-gallery a[rel='{{ widget.fe_identifier }}']").colorbox();
-});
+$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+}); 
 </script>
 {% endblock %}
