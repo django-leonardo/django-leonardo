@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="gallery">
-{% for category_file in widget.category.media.all %}
+{% for category_file in widget.category.files %}
 {% with category_file.file as file %}
 		<a href="{{ link.web_address }}" rel="colorbox">
 			{% if file.type == 'image' %}

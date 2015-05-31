@@ -1,0 +1,1 @@
+leonardo-module-analytics>=2015.5.0

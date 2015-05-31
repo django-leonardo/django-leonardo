@@ -29,7 +29,7 @@ class PluginSelectField(AutoSelect2TagField):
                 repo.name,
                 {}
             )
-            for repo in pkgs
+            for repo in pkgs if term in repo.name
         ]
 
         return NO_ERR_RESP, True, res

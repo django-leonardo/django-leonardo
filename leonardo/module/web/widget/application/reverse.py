@@ -122,7 +122,10 @@ def permalink(func):
 def reverse(viewname, urlconf=None, args=None, kwargs=None, prefix=None, current_app=None):
     """monkey patched reverse
 
-    if not urlconf tries find in app contents url
+    path supports easy patching 3rd party urls
+    if 3rd party app has namespace for example ``catalogue`` and
+    you create FeinCMS plugin with same name as this namespace reverse
+    returns url from ApplicationContent !
 
     """
 

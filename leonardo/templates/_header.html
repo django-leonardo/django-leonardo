@@ -1,8 +1,6 @@
 
 {% load compress django_select2_tags %}
 
-<head>
-
 <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
 {% if feincms_page %}
 <title>{{ feincms_page.page_title|default:feincms_page.title }}</title>
@@ -14,44 +12,45 @@
 <title>{{ request.leonardo_options.site.name }} - {{ request.leonardo_options.meta_title }}</title>
 {% endif %}
 
+<link rel="shortcut icon" href="{{ STATIC_URL }}leonardo/img/favicon.ico" />
+
 {% include "base/head_meta.html" %}
 
 {% block css %}
   {% include "_stylesheets.html" %}
 {% endblock %}
 
-{% import_django_select2_js_css %}
+{% import_django_select2_css %}
 
 {% block css_extra %}
 {% endblock %}
 
-{% compress css %}
-{% for file in HORIZON_CONFIG.css_files %}
-    <link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
-{% endfor %}
-{% endcompress %}
-
 {% block page_css %}
+
 {% compress css %}
+<link href='{{ STATIC_URL }}leonardo/scss/page.scss' type='text/scss' media='screen' rel='stylesheet' />
+{% if feincms_page %}
+<link href='{{ STATIC_URL }}themes/{{ feincms_page.theme.name }}/{{ feincms_page.color_scheme.name|lower }}/scheme.scss' type='text/scss' media='screen' rel='stylesheet' />
+{% endif %}
+<link href="{{ STATIC_URL }}horizon/lib/font-awesome/scss/font-awesome.scss" type="text/scss" media="screen" rel="stylesheet" />
+{% for file in HORIZON_CONFIG.css_files %}
+<link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
+{% endfor %}
+{% for file in HORIZON_CONFIG.scss_files %}
+<link href="{{ STATIC_URL }}{{ file }}" type="text/scss" media="screen" rel="stylesheet" />
+{% endfor %}
 <style type="text/css" media='screen'>
-{{ request.leonardo_page.theme.style|safe }}
+{% for widget in request.leonardo_options.widgets %}
+	{{ widget.theme.style|safe }}
+{% endfor %}
 </style>
 {% endcompress %}
-
-<style type="text/css" media='screen'>
-{{ request.leonardo_page.color_scheme.style|safe }}
-</style>
 
 {% endblock %}
 
 {% block widget_css %}
-<style type="text/css" media='screen'>
 {% compress css %}
-{% for widget in request.leonardo_options.widgets %}
-	{{ widget.theme.style|safe }}
-{% endfor %}
 {% endcompress %}
-</style>
 {% endblock %}
 
 {% include "horizon/_conf.html" %}
@@ -72,7 +71,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 {% endcomment %}
-</head>
 
 {% if request.user.is_staff and request.frontend_editing %}
   {% include "leonardo/common/_frontend_edit_sidebar.html" %}

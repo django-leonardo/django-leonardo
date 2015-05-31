@@ -1,3 +1,5 @@
 [run]
 source = leonardo
-omit = *migrations*
+omit =
+    *migrations*
+    leonardo/conf/*

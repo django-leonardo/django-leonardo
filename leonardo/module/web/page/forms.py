@@ -80,6 +80,7 @@ class PageUpdateForm(SelfHandlingModelForm):
             'site': forms.widgets.HiddenInput,
             'parent': forms.widgets.HiddenInput,
             'override_url': forms.widgets.HiddenInput,
+            'publication_date': forms.widgets.DateInput,
         }
         exclude = tuple()
 

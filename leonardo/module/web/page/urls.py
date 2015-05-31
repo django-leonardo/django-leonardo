@@ -17,4 +17,5 @@ urlpatterns = patterns('',
                            PageCreateView.as_view(), name='page_create'),
                        url(r'^(?P<page_id>[\w\.\-]+)/dimension/add/$',
                            PageDimensionUpdateView.as_view(), name='page_dimension_add'),
+                       url(r'^change/', include('leonardo.module.web.page.common.urls')),
                        )

@@ -16,7 +16,7 @@ from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
 class HtmlTextWidgetAdminForm(WidgetUpdateForm):
     text = forms.CharField(
-        widget=forms.Textarea, required=False, label=_('text'))
+        widget=forms.Textarea(), max_length=9999, required=False, label=_('text'))
 
     class Meta:
 

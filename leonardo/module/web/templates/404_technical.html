@@ -1,8 +1,10 @@
-<!DOCTYPE html>
+{% extends feincms_page.theme.template|default:'base.html' %}
+
 {% load i18n %}
 
-<html lang="en">
-<head>
+{% block title %}{{ title }}{% endblock %}
+
+{% block page_header %}
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <title>Page not found at {{ request.path_info|escape }}</title>
   <meta name="robots" content="NONE,NOARCHIVE">
@@ -23,8 +25,10 @@
     #summary { background: #ffc; }
     #explanation { background:#eee; border-bottom: 0px none; }
   </style>
-</head>
-<body>
+{% endblock %}
+
+{% block body_main %}
+
   <div id="summary">
     <h1>Page not found <span>(404)</span>
     {% if request.frontend_editing and feincms_page %}
@@ -78,5 +82,4 @@
       will display a standard 404 page.
     </p>
   </div>
-</body>
-</html>
+{% endblock %}

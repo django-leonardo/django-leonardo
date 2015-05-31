@@ -18,7 +18,7 @@ SIZE_CHOICES = (
 )
 
 class MediaGalleryWidget(Widget):
-    category = models.ForeignKey('media.LeonardoFolder', verbose_name=_("files"), related_name="%(app_label)s_%(class)s_categories")
+    category = models.ForeignKey('media.Folder', verbose_name=_("Directory"), related_name="%(app_label)s_%(class)s_categories")
     size = models.CharField(max_length=255, verbose_name=_("thumbnail size"), choices=SIZE_CHOICES, default='96x96')
     detail = models.CharField(max_length=255, verbose_name=_("detail view"), choices=DETAIL_CHOICES, default='modal')
 

@@ -14,6 +14,7 @@ MEDIA_MODELS = [Image, Document, Vector, Video]
 
 
 class FileImporter(object):
+
     def __init__(self, * args, **kwargs):
         self.path = kwargs.get('path')
         self.base_folder = kwargs.get('base_folder')
@@ -31,24 +32,24 @@ class FileImporter(object):
             if cls.matches_file_type(file_obj.name):
 
                 obj, created = cls.objects.get_or_create(
-                                    original_filename=file_obj.name,
-                                    file=file_obj,
-                                    folder=folder,
-                                    is_public=FILER_IS_PUBLIC_DEFAULT)
+                    original_filename=file_obj.name,
+                    file=file_obj,
+                    folder=folder,
+                    is_public=FILER_IS_PUBLIC_DEFAULT)
                 if created:
                     self.image_created += 1
         if not created:
             obj, created = File.objects.get_or_create(
-                                original_filename=file_obj.name,
-                                file=file_obj,
-                                folder=folder,
-                                is_public=FILER_IS_PUBLIC_DEFAULT)
+                original_filename=file_obj.name,
+                file=file_obj,
+                folder=folder,
+                is_public=FILER_IS_PUBLIC_DEFAULT)
             if created:
                 self.file_created += 1
         if self.verbosity >= 2:
             print("file_created #%s / image_created #%s -- file : %s -- created : %s" % (self.file_created,
-                                                        self.image_created,
-                                                        obj, created))
+                                                                                         self.image_created,
+                                                                                         obj, created))
         return obj
 
     def get_or_create_folder(self, folder_names):
@@ -65,12 +66,13 @@ class FileImporter(object):
             return None
         current_parent = None
         for folder_name in folder_names:
-            current_parent, created = LeonardoFolder.objects.get_or_create(name=folder_name, parent=current_parent)
+            current_parent, created = Folder.objects.get_or_create(
+                name=folder_name, parent=current_parent)
             if created:
                 self.folder_created += 1
                 if self.verbosity >= 2:
                     print("folder_created #%s folder : %s -- created : %s" % (self.folder_created,
-                                                                               current_parent, created))
+                                                                              current_parent, created))
         return current_parent
 
     def walker(self, path=None, base_folder=None):
@@ -102,13 +104,14 @@ class FileImporter(object):
                                      name=file_obj)
                 self.import_file(file_obj=dj_file, folder=folder)
         if self.verbosity >= 1:
-            print(('folder_created #%s / file_created #%s / ' + \
+            print(('folder_created #%s / file_created #%s / ' +
                    'image_created #%s') % (
-                                self.folder_created, self.file_created,
-                                self.image_created))
+                self.folder_created, self.file_created,
+                self.image_created))
 
 
 class Command(NoArgsCommand):
+
     """
     Import directory structure into the filer ::
 
@@ -118,16 +121,16 @@ class Command(NoArgsCommand):
 
     option_list = BaseCommand.option_list + (
         make_option('--path',
-            action='store',
-            dest='path',
-            default=False,
-            help='Import files located in the path into django-filer'),
+                    action='store',
+                    dest='path',
+                    default=False,
+                    help='Import files located in the path into django-filer'),
         make_option('--folder',
-            action='store',
-            dest='base_folder',
-            default=False,
-            help='Specify the destination folder in which the directory structure should be imported'),
-        )
+                    action='store',
+                    dest='base_folder',
+                    default=False,
+                    help='Specify the destination folder in which the directory structure should be imported'),
+    )
 
     def handle_noargs(self, **options):
         file_importer = FileImporter(**options)

@@ -4,11 +4,6 @@
 
 {% block content %}
 {% feincms_nav root level=level depth=1 as toplevel %}
-<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar_{{ widget.fe_identifier }}">
-  <span class="icon-bar"></span>
-  <span class="icon-bar"></span>
-  <span class="icon-bar"></span>
-</button>
 <div class="navbar-collapse collapse" id="navbar_{{ widget.fe_identifier }}">
   <ul class="nav navbar-nav">
   {% if depth == 1 %}

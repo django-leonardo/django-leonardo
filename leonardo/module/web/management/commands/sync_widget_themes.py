@@ -1,4 +1,6 @@
 
+from django.utils import six
+from django.conf import settings
 import os
 from optparse import make_option
 
@@ -18,7 +20,24 @@ class Command(NoArgsCommand):
         make_option("-f", "--force",
                     action="store_true", dest="force", default=False,
                     help="overwrite existing database templates"),
-        )
+    )
+
+    def get_all_widget_classes(self):
+        """returns collected Leonardo Widgets
+
+        if not declared in settings is used __subclasses__
+        which not supports widget subclassing
+
+        """
+        _widgets = getattr(settings,
+                           'WIDGETS', Widget.__subclasses__())
+        widgets = []
+        if isinstance(_widgets, dict):
+            for group, widget_cls in six.iteritems(_widgets):
+                widgets.extend(widget_cls)
+        elif isinstance(_widgets, list):
+            widgets = _widgets
+        return widgets
 
     def handle_noargs(self, **options):
         force = options.get('force')
@@ -56,7 +75,7 @@ class Command(NoArgsCommand):
                         created_themes += 1
 
         # load widget templates and create widget themes with default base
-        for w in Widget.__subclasses__():
+        for w in self.get_all_widget_classes():
             templates = w.templates()
             for name in templates:
                 # ignore private members

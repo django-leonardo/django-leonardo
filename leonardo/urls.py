@@ -2,13 +2,32 @@
 from django.conf import settings
 from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
-from leonardo.site import leonardo_admin
 from django.contrib.sitemaps.views import sitemap
+from django.utils.importlib import import_module  # noqa
+from django.utils.module_loading import module_has_submodule  # noqa
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
+from leonardo.site import leonardo_admin
+
 from .base import leonardo
-from django.utils.module_loading import module_has_submodule  # noqa
-from django.utils.importlib import import_module  # noqa
+from .decorators import require_auth
+
+__all__ = ['handler400', 'handler403', 'handler404', 'handler500']
+
+
+def _decorate_urlconf(urlpatterns, decorator, *args, **kwargs):
+
+    if isinstance(urlpatterns, (list, tuple)):
+
+        for pattern in urlpatterns:
+            if getattr(pattern, 'callback', None):
+                pattern._callback = decorator(pattern.callback, *args, **kwargs)
+            if getattr(pattern, 'url_patterns', []):
+                _decorate_urlconf(pattern.url_patterns, decorator, *args, **kwargs)
+    else:
+        if getattr(urlpatterns, 'callback', None):
+            urlpatterns._callback = decorator(urlpatterns.callback, *args, **kwargs)
+
 
 urlpatterns = patterns('',
 
@@ -23,27 +42,40 @@ urlpatterns += patterns('',
 
 # search
 urlpatterns += patterns('',
-                        #url(r'', include('haystack.urls')),
+                        # url(r'', include('haystack.urls')),
                         url(r'^select2/', include('django_select2.urls')),
                         )
 
 # load all urls
 # support .urls file and urls_conf = 'elephantblog.urls' on default module
-# TODO: decorate loaded modules for sure
+# decorate all url patterns if is not explicitly excluded
 for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
     if hasattr(mod, 'default'):
         if module_has_submodule(mod, 'urls'):
             urls_mod = import_module('.urls', mod.__name__)
             _urlpatterns = []
             if hasattr(urls_mod, 'urlpatterns'):
-                urlpatterns += urls_mod.urlpatterns
+                # if not public decorate all
+                if getattr(mod.default, 'public', False):
+                    urlpatterns += urls_mod.urlpatterns
+                else:
+                    _decorate_urlconf(urls_mod.urlpatterns,
+                                      require_auth)
+                    urlpatterns += urls_mod.urlpatterns
         else:
             urlpatterns_name = getattr(mod.default, 'urls_conf', None)
             if urlpatterns_name:
-                urlpatterns += \
-                    patterns('',
-                             url(r'', include(urlpatterns_name)),
-                             )
+                if getattr(mod.default, 'public', False):
+                    urlpatterns += \
+                        patterns('',
+                                 url(r'', include(urlpatterns_name)),
+                                 )
+                else:
+                    _decorate_urlconf(
+                        url(r'', include(urlpatterns_name)),
+                        require_auth)
+                    urlpatterns += patterns('',
+                                            url(r'', include(urlpatterns_name)))
 
 if getattr(settings, 'LEONARDO_AUTH', True):
     urlpatterns += patterns('',
@@ -77,8 +109,8 @@ if settings.DEBUG:
     try:
         import debug_toolbar
         urlpatterns += patterns('',
-            url(r'^__debug__/', include(debug_toolbar.urls)),
-        )
+                                url(r'^__debug__/', include(debug_toolbar.urls)),
+                                )
     except ImportError:
         pass
 
@@ -101,10 +133,7 @@ urlpatterns += patterns('',
                          TemplateView.as_view(template_name='crossdomain.xml')),
                         )
 
-# for sentry error handler
-if hasattr(settings, "ERROR_HANDLER_MODULE"):
-    try:
-        mod = __import__(getattr(settings, "ERROR_HANDLER_MODULE", None))
-        handler500 = getattr(getattr(mod, "urls"), "handler500")
-    except Exception, e:
-        pass
+handler400 = getattr(settings, "HANDLER_400",'leonardo.views.defaults.bad_request')
+handler403 = getattr(settings, "HANDLER_403",'leonardo.views.defaults.permission_denied')
+handler404 = getattr(settings, "HANDLER_404",'leonardo.views.defaults.page_not_found')
+handler500 = getattr(settings, "HANDLER_500",'leonardo.views.defaults.server_error')

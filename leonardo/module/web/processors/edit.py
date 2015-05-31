@@ -12,6 +12,7 @@ def frontendediting_request_processor(page, request):
         return
 
     response = HttpResponseRedirect(request.path)
+
     if request.user.has_module_perms('page'):
         try:
             enable_fe = int(request.GET['frontend_editing']) > 0

@@ -4,7 +4,7 @@
 
 {% block content %}
 <ul class="horizontal" style="overflow:auto;">
-{% for category_file in widget.category.media.all %}
+{% for category_file in widget.category.files %}
 {% with category_file.file as file %}
 	<li>
 		{% if file.type == 'image' %}
