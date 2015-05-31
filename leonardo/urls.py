@@ -30,21 +30,9 @@ def _decorate_urlconf(urlpatterns, decorator, *args, **kwargs):
 
 
 urlpatterns = patterns('',
-
-                       url(r'^doc/', include('django.contrib.admindocs.urls')),
+                       url(r'^contrib/', include('horizon_contrib.urls'),),
+                       url(r'^select2/', include('django_select2.urls')),
                        )
-
-# admin
-urlpatterns += patterns('',
-                        url(r'^admin/', include(leonardo_admin.urls)),
-                        url(r'^contrib/', include('horizon_contrib.urls'),),
-                        )
-
-# search
-urlpatterns += patterns('',
-                        # url(r'', include('haystack.urls')),
-                        url(r'^select2/', include('django_select2.urls')),
-                        )
 
 # load all urls
 # support .urls file and urls_conf = 'elephantblog.urls' on default module
@@ -133,7 +121,7 @@ urlpatterns += patterns('',
                          TemplateView.as_view(template_name='crossdomain.xml')),
                         )
 
-handler400 = getattr(settings, "HANDLER_400",'leonardo.views.defaults.bad_request')
-handler403 = getattr(settings, "HANDLER_403",'leonardo.views.defaults.permission_denied')
-handler404 = getattr(settings, "HANDLER_404",'leonardo.views.defaults.page_not_found')
-handler500 = getattr(settings, "HANDLER_500",'leonardo.views.defaults.server_error')
+handler400 = getattr(settings, "HANDLER_400", 'leonardo.views.defaults.bad_request')
+handler403 = getattr(settings, "HANDLER_403", 'leonardo.views.defaults.permission_denied')
+handler404 = getattr(settings, "HANDLER_404", 'leonardo.views.defaults.page_not_found')
+handler500 = getattr(settings, "HANDLER_500", 'leonardo.views.defaults.server_error')

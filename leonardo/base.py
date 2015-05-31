@@ -39,16 +39,11 @@ class Default(object):
         return [
             'django',
 
-            'bootstrap_admin',  # theme
-            'bootstrap_admin_feincms',  # theme
-
             'django_extensions',
             'django.contrib.contenttypes',
             'django.contrib.auth',
             'django.contrib.sessions',
             'django.contrib.sites',
-            'django.contrib.admin',
-            'django.contrib.admindocs',
             'django.contrib.staticfiles',
             'django.contrib.sitemaps',
 
