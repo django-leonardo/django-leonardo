@@ -8,7 +8,7 @@
 {{ object.translation.description|safe }}
 {% endif %}
 <div class="object-grid ui-helper-clearfix">
-	{% for object in object.media.all %}
+	{% for object in object.files %}
 	<div class="span-8">
 		<div class="object-cell ui-helper-clearfix">
 			<div class="object-cell-content">
@@ -24,13 +24,7 @@
 	</div>
 	{% endfor %}
 </div>
-<script type="text/javascript">
-/* <![CDATA[ */
-jQuery(document).ready(function() {
-	jQuery("a[rel='colorbox']").colorbox();
-});
-/* ]]> */
-</script>
+
 {% endif %}
 
 <div class="object-grid ui-helper-clearfix">
@@ -38,7 +32,7 @@ jQuery(document).ready(function() {
 	<div class="span-8">
 		<div class="object-cell ui-helper-clearfix">
 			<div class="object-cell-content">
-				{% if child.media.count == 0 %}
+				{% if child.item_count == 0 %}
 				<a class="object-image" href="./{{ child.name }}/" title="{{ child }}">
 					{% thumbnail child.get_featured_image.file "200x140" format="PNG" as thumb %}
 					<img src="{{ thumb.url }}" /><br />
@@ -46,7 +40,7 @@ jQuery(document).ready(function() {
 					<h3>{{ child }} ({{ child.media.count }} {% trans "items" %})</h3>
 				</a>
 				{% else %}
-				<a class="object-image" target="_blank" href="{% app_reverse leonardo_media_category_detail_standalone leonardo.module.media.apps.category_nested child.id %}" title="{{ child }}">
+				<a class="object-image" target="_blank" href="{% app_reverse 'directory_detail_standalone' 'leonardo.module.media.apps.category_nested' category_id=child.pk %}" title="{{ child }}">
 					{% thumbnail child.get_featured_image.file "200x140" format="PNG" as thumb %}
 					<img src="{{ thumb.url }}" /><br />
 					{% endthumbnail %}

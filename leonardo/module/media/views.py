@@ -255,13 +255,13 @@ def clone_files_from_clipboard_to_folder(request):
 
 def category_list(request, category_slug, category_parent_slug):
     if category_slug is None:
-        category_list = Folder.objects.filter(mptt_level=0)
+        category_list = Folder.objects.filter(level=0)
         category = None
     else:
         category = Folder.objects.get(name=category_slug)
         category_list = Folder.objects.filter(parent=category)
     return render_to_response(
-        'media/category_list.html', {
+        'media/directory_list.html', {
             'object_list': category_list,
             'object': category,
         },
@@ -269,7 +269,6 @@ def category_list(request, category_slug, category_parent_slug):
     )
 
 
-#@standalone
 def category_list_nested(request,
                          category_slug=None,
                          parent_category_slug=None,
@@ -294,7 +293,7 @@ def category_list_nested(request,
                 object_list = object.children.all()
 
     return render_to_response(
-        'media/category_list_nested.html', {
+        'media/directory_list_nested.html', {
             'object_list': object_list,
             'object': object,
         },
@@ -302,12 +301,11 @@ def category_list_nested(request,
     )
 
 
-@standalone
 def category_detail_standalone(request, category_id):
     object = Folder.objects.get(id=category_id)
 
     return render_to_response(
-        'media/category_detail_standalone.html', {
+        'media/directory_detail.html', {
             'object': object,
         },
         context_instance=RequestContext(request)

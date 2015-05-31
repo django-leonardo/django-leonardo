@@ -8,7 +8,7 @@
 {{ object.translation.description }}
 {% endif %}
 <div class="object-grid ui-helper-clearfix">
-	{% for object in object.media.all %}
+	{% for object in object.files %}
 	<div class="span-8">
 		<div class="object-cell ui-helper-clearfix">
 			<div class="object-cell-content">
@@ -25,13 +25,6 @@
 	{% endfor %}
 </div>
 <a class="button f-right" href="../"><span><span>{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.webcms_page }}{% endif %}</span></span></a>
-<script type="text/javascript">
-/* <![CDATA[ */
-jQuery(document).ready(function() {
-	jQuery("a[rel='colorbox']").colorbox();
-});
-/* ]]> */
-</script>
 {% else %}
 <div class="object-grid ui-helper-clearfix">
 	{% for object in object_list %}
