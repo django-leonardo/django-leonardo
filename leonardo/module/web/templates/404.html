@@ -1,1 +1,8 @@
-Page not Found
+{% extends feincms_page.theme.template %}
+
+{% load i18n %}
+
+{% block body_main %}
+
+<h1>Page {{ request_path }} not found <span>(404)</span>
+{% endblock %}

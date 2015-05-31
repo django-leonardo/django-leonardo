@@ -12,6 +12,8 @@ from leonardo.site import leonardo_admin
 from .base import leonardo
 from .decorators import require_auth
 
+__all__ = ['handler400', 'handler403', 'handler404', 'handler500']
+
 
 def _decorate_urlconf(urlpatterns, decorator, *args, **kwargs):
 
@@ -131,10 +133,7 @@ urlpatterns += patterns('',
                          TemplateView.as_view(template_name='crossdomain.xml')),
                         )
 
-# for sentry error handler
-if hasattr(settings, "ERROR_HANDLER_MODULE"):
-    try:
-        mod = __import__(getattr(settings, "ERROR_HANDLER_MODULE", None))
-        handler500 = getattr(getattr(mod, "urls"), "handler500")
-    except Exception, e:
-        pass
+handler400 = getattr(settings, "HANDLER_400",'leonardo.views.defaults.bad_request')
+handler403 = getattr(settings, "HANDLER_403",'leonardo.views.defaults.permission_denied')
+handler404 = getattr(settings, "HANDLER_404",'leonardo.views.defaults.page_not_found')
+handler500 = getattr(settings, "HANDLER_500",'leonardo.views.defaults.server_error')
