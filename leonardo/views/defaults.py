@@ -31,9 +31,15 @@ def render_in_page(request, template):
     page = _get_page_from_request(request)
 
     if page:
+        try:
+            slug = request.path_info.split("/")[-2:-1][0]
+        except KeyError:
+            slug = None
+
         body = render_to_string(template, RequestContext(request, {
             'request_path': request.path,
             'feincms_page': page,
+            'slug': slug,
             'standalone': True}))
         return http.HttpResponseNotFound(body, content_type=CONTENT_TYPE)
 
