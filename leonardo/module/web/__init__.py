@@ -106,6 +106,8 @@ class Default(object):
         'META_TITLE': ('', _('Site specific meta title')),
     }
 
+    module_actions = ['base/actions.html']
+
 
 class WebConfig(AppConfig, Default):
     name = 'leonardo.module.web'

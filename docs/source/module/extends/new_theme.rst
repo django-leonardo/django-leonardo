@@ -28,11 +28,11 @@ Directory structure::
                         |-- scheme.scss
 
 
-Required stuff for color sheme is ``scheme.scss``
+Required stuff for color sheme is ``scheme.scss`` which may contains something like this::
 
-@import "_variables";
-@import "../_styles";
-@import "_styles";
+    @import "_variables";
+    @import "../_styles";
+    @import "_styles";
 
 If we run
 

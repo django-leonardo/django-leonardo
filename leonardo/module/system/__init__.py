@@ -11,7 +11,11 @@ class Default(object):
 
     optgroup = 'System'
 
+    apps = ['leonardo.module.system']
+
     urls_conf = 'leonardo.module.system.urls'
+
+    module_actions = ['system/module_actions.html']
 
 
 class Config(AppConfig, Default):

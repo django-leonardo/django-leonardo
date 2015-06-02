@@ -89,6 +89,7 @@ def get_conf_from_module(mod):
         'migration_modules': {},
         'absolute_url_overrides': {},
         'navigation_extensions': [],
+        'module_actions': [],
     })
 
     if hasattr(mod, 'default'):
@@ -106,6 +107,7 @@ def get_conf_from_module(mod):
         conf['css_files'] = getattr(default, 'css_files', [])
         conf['scss_files'] = getattr(default, 'scss_files', [])
         conf['widgets'] = getattr(default, 'widgets', [])
+        conf['module_actions'] = getattr(default, 'module_actions', [])
         conf['optgroup'] = getattr(default, 'optgroup',
                                    mod.__name__.capitalize())
         conf['config'] = getattr(default, 'config', {})
