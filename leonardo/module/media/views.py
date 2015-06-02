@@ -40,7 +40,7 @@ class ScanFolderForm(forms.Form):
             select2_options={
                 'minimumInputLength': 0,
                 'placeholder': ugettext('Click for listing or type for searching')
-                }))
+            }))
 
     class Meta:
         exclude = ()
@@ -253,12 +253,12 @@ def clone_files_from_clipboard_to_folder(request):
                                 selectfolder_param(request)))
 
 
-def category_list(request, category_slug, category_parent_slug):
-    if category_slug is None:
+def directory_list(request, directory_slug, category_parent_slug):
+    if directory_slug is None:
         category_list = Folder.objects.filter(level=0)
         category = None
     else:
-        category = Folder.objects.get(name=category_slug)
+        category = Folder.objects.get(name=directory_slug)
         category_list = Folder.objects.filter(parent=category)
     return render_to_response(
         'media/directory_list.html', {
@@ -269,27 +269,27 @@ def category_list(request, category_slug, category_parent_slug):
     )
 
 
-def category_list_nested(request,
-                         category_slug=None,
-                         parent_category_slug=None,
-                         grandparent_category_slug=None):
-    if category_slug is None:
+def directory_list_nested(request,
+                          directory_slug=None,
+                          parent_directory_slug=None,
+                          grandparent_directory_slug=None):
+    if directory_slug is None:
         object = None
         object_list = Folder.objects.filter(parent=None)
     else:
-        if parent_category_slug is None:
-            object = Folder.objects.get(id=category_slug)
+        if parent_directory_slug is None:
+            object = Folder.objects.get(id=directory_slug)
             object_list = object.children.all()
         else:
-            if grandparent_category_slug is None:
+            if grandparent_directory_slug is None:
                 object = Folder.objects.get(
-                    name=category_slug, parent__name=parent_category_slug)
+                    name=directory_slug, parent__name=parent_directory_slug)
                 object_list = object.children.all()
             else:
                 object = Folder.objects.get(
-                    name=category_slug,
-                    parent__name=parent_category_slug,
-                    parent__parent__name=grandparent_category_slug)
+                    name=directory_slug,
+                    parent__name=parent_directory_slug,
+                    parent__parent__name=grandparent_directory_slug)
                 object_list = object.children.all()
 
     return render_to_response(
@@ -301,7 +301,7 @@ def category_list_nested(request,
     )
 
 
-def category_detail_standalone(request, category_id):
+def directory_detail_standalone(request, category_id):
     object = Folder.objects.get(id=category_id)
 
     return render_to_response(

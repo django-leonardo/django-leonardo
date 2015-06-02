@@ -2,42 +2,23 @@
 {% load i18n %}
 {% load thumbnail %}
 
-<div id="outer_container">
-	<div id="customScrollBox">
-		<div class="container">
-			<div class="content">
-				<h1>{{ object }}
-					{% if object.translation.excerpt %}<br />
-					<span class="light">
-						<span class="grey">{{ object.translation.excerpt|safe }}</span>
-					</span>
-					{% endif %}
-				</h1>
-				{% if object.translation.description %}
-				<p>{{ object.translation.description|safe }}</p>
-				{% endif %}
-				<div id="toolbar"></div>
-				<div class="clear"></div>
-				{% for object in object.files %}
-				{% thumbnail object.file.file "145x90" crop="center" as thumb %}
-				{% thumbnail object.file.file "1920x1920" as image %}
-				<a class="thumb_link" href="{{ image.url }}" >
-					<img src="{{ thumb.url }}" title="{{ object.file }}" class="thumb" />
-				</a>
-				{% endthumbnail %}
-				{% endthumbnail %}
-				{% endfor %}
-				<p class="clear"></p>
-			</div>
-		</div>
-		<div id="dragger_container"><div id="dragger"></div></div>
-	</div>
-</div>
-<div id="bg">
-	{% for object in object.files %}{% if forloop.first %}
+  {% for object in object.files %}
+  {% with category_file.file as file %}
+  {% if forloop.first or forloop.counter0|divisibleby:"4" %}
+	<div class="row">
+  {% endif %}
+  <div class="col-lg-3 col-md-3 col-xs-6 {% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %} thumb">
+	{% thumbnail object.file.file "145x90" crop="center" as thumb %}
 	{% thumbnail object.file.file "1920x1920" as image %}
-	<img src="{{ image.url }}" title="{{ object.file }}" id="bgimg" />
+	<a class="thumb_link" href="{{ image.url }}" >
+		<img src="{{ thumb.url }}" title="{{ object.file }}" class="thumb" />
+	</a>
 	{% endthumbnail %}
-	{% endif %}
-	{% endfor %}
-</div>
+	{% endthumbnail %}
+  </div>
+
+  {% if forloop.counter0|divisibleby:"4" %}
+	</div>
+  {% endif %}
+  {% endwith %}
+  {% endfor %}

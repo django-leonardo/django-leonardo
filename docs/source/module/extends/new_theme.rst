@@ -3,7 +3,7 @@
 New Theme
 =========
 
-So best example is live code, we have two base themes for you and lives under main github group
+Best example is live code, we have two base themes for you and lives under main github group
 
 * AdminLTE - https://github.com/django-leonardo/leonardo-theme-adminlte
 * Bootswatch - https://github.com/django-leonardo/leonardo-theme-bootswatch
@@ -12,20 +12,27 @@ As you can see theme must contains one template for page layout and optionaly ba
 
 Directory structure::
 
-    leonardo_theme_adminlte
+    leonardo_theme_bootswatch
         |-- __init__.py
         |-- templates
             |-- base
                 |-- page
-                |-- adminlte.html
+                    |-- bootswatch.html
         |-- static
-            |-- base
-                |-- page
-                    |-- adminlte
-                        |-- adminlte.css
-                        |-- skins
-                            |-- blue.css
-                            |-- blue-light.css
+            |-- themes
+                |-- bootswatch
+                    |-- _variables.scss
+                    |-- cosmo
+                        |-- _variables.scss
+                        |-- _styles.scss
+                        |-- scheme.scss
+
+
+Required stuff for color sheme is ``scheme.scss``
+
+@import "_variables";
+@import "../_styles";
+@import "_styles";
 
 If we run
 

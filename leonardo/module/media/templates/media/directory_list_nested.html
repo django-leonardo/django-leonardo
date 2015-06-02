@@ -37,14 +37,14 @@
 					{% thumbnail child.get_featured_image.file "200x140" format="PNG" as thumb %}
 					<img src="{{ thumb.url }}" /><br />
 					{% endthumbnail %}
-					<h3>{{ child }} ({{ child.media.count }} {% trans "items" %})</h3>
+					<h3>{{ child }} ({{ child.item_count }} {% trans "items" %})</h3>
 				</a>
 				{% else %}
 				<a class="object-image" target="_blank" href="{% app_reverse 'directory_detail_standalone' 'leonardo.module.media.apps.category_nested' category_id=child.pk %}" title="{{ child }}">
 					{% thumbnail child.get_featured_image.file "200x140" format="PNG" as thumb %}
 					<img src="{{ thumb.url }}" /><br />
 					{% endthumbnail %}
-					<h3>{{ child }} ({{ child.media.count }} {% trans "items" %})</h3>
+					<h3>{{ child }} ({{ child.item_count }} {% trans "items" %})</h3>
 				</a>
 				{% endif %}
 			</div>

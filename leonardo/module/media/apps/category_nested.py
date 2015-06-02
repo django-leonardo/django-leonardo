@@ -1,9 +1,9 @@
 from django.conf.urls import *
 
 urlpatterns = patterns('leonardo.module.media.views',
-    (r'^$', 'category_list_nested', {'category_slug': None}),
-    url(r'^fullscreen/(?P<category_id>[\w\-]+)/$', 'category_detail_standalone', name="directory_detail_standalone"),
-    (r'^(?P<category_slug>[\w\-]+)/$', 'category_list_nested'),
-    (r'^(?P<parent_category_slug>[\w\-]+)/(?P<category_slug>[\w\-]+)/$', 'category_list_nested'),
-    (r'^(?P<grandparent_category_slug>[\w\-]+)/(?P<parent_category_slug>[\w\-]+)/(?P<category_slug>[\w\-]+)/$', 'category_list_nested'),
+    (r'^$', 'directory_list_nested', {'directory_slug': None}),
+    url(r'^fullscreen/(?P<category_id>[\w\-]+)/$', 'directory_detail_standalone', name="directory_detail_standalone"),
+    (r'^(?P<directory_slug>[\w\-]+)/$', 'directory_list_nested'),
+    (r'^(?P<parent_directory_slug>[\w\-]+)/(?P<directory_slug>[\w\-]+)/$', 'directory_list_nested'),
+    (r'^(?P<grandparent_directory_slug>[\w\-]+)/(?P<parent_directory_slug>[\w\-]+)/(?P<directory_slug>[\w\-]+)/$', 'directory_list_nested'),
 )
