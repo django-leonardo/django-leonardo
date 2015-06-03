@@ -16,6 +16,7 @@ Full featured framework for building everything based on Django, FeinCMS, Horizo
 
    overview/index
    install/intro
+   install/bootstrap
    install/development
    install/production
    install/salt

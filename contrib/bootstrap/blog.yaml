@@ -1,0 +1,54 @@
+auth.User:
+  admin:
+    password: root
+    mail: root@admin.cz
+elephantblog.Entry:
+  Test:
+    title: Test
+    slug: test
+    author:
+      type: auth.User
+      pk: 1
+    content:
+      main:
+        elephantblog.HtmlTextWidget:
+          attrs:
+            text: Hello world !
+            content_theme: default
+            base_theme: default
+          dimenssions:
+            md: 2
+web.Page:
+  QuickStart:
+    title: Quickstart
+    slug: quickstart
+    override_url: /
+    featured: false
+    theme: __first__
+    in_navigation: true
+    active: true
+    color_scheme: __first__
+    content:
+      header:
+        web.SiteHeadingWidget:
+          attrs:
+            site_title: Leonardo Site
+            content_theme: navbar
+            base_theme: default
+          dimenssions:
+            md: 2
+        web.TreeNavigationWidget:
+          attrs:
+            depth: 2
+            content_theme: navbar
+            base_theme: default
+          dimenssions:
+            md: 6
+        web.UserLoginWidget:
+          attrs:
+            inline: true
+            type: 2
+            content_theme: navbar
+            base_theme: default
+          dimenssions:
+            md: 4

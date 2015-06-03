@@ -2,6 +2,8 @@
 from __future__ import absolute_import
 
 import os
+import sys
+
 from os.path import abspath, dirname, join, normpath
 
 from django import VERSION
@@ -112,6 +114,12 @@ FILER_ENABLE_PERMISSIONS = True  # noqa
 MIDDLEWARE_CLASSES = default.middlewares
 
 ROOT_URLCONF = 'leonardo.urls'
+
+LEONARDO_BOOTSTRAP_DIR = os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]),
+                                                os.pardir,
+                                                'leonardo',
+                                                'contrib',
+                                                'bootstrap'))
 
 MARKITUP_FILTER = ('markitup.renderers.render_rest', {'safe_mode': True})
 
