@@ -116,10 +116,10 @@ MIDDLEWARE_CLASSES = default.middlewares
 ROOT_URLCONF = 'leonardo.urls'
 
 LEONARDO_BOOTSTRAP_DIR = os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]),
-                                                os.pardir,
-                                                'leonardo',
-                                                'contrib',
-                                                'bootstrap'))
+                                                       os.pardir,
+                                                       'leonardo',
+                                                       'contrib',
+                                                       'bootstrap'))
 
 MARKITUP_FILTER = ('markitup.renderers.render_rest', {'safe_mode': True})
 

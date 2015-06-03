@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import sys
 import os
 
 SITE_ID = 1
@@ -37,7 +38,13 @@ else:
             'USER': 'postgres',
         }
     }
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'memory:',
+        'TEST_NAME': 'test_db:',
+    }
+}
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 BASEDIR = os.path.dirname(__file__)
@@ -61,3 +68,11 @@ MIGRATION_MODULES = {
     'web': 'notmigrations',
     'filer': 'notmigrations',
 }
+
+LEONARDO_BOOTSTRAP_DIR = os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]),
+                                                       os.pardir,
+                                                       os.pardir,
+                                                       os.pardir,
+                                                       'leonardo',
+                                                       'contrib',
+                                                       'bootstrap'))

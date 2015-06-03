@@ -16,7 +16,7 @@ class Command(BaseCommand):
                     action="store_true", dest="force", default=False,
                     help="overwrite existing database templates"),
         make_option("-n", "--name",
-                    action="store", dest="script", default='demo.yaml',
+                    action="store", dest="name", default='demo.yaml',
                     help="script name in LEONARDO_BOOTSTRAP_DIR default is demo.yaml"),
         make_option("-s", "--sync",
                     action="store", dest="sync", default=True,
@@ -29,7 +29,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         force = options.get('force', False)
         sync = options.get('sync')
-        script = options.get('script')
+        script = options.get('name')
 
         page = create_new_site(script=script,
                                run_syncall=sync)

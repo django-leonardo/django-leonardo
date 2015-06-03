@@ -28,3 +28,15 @@ class ManagementCommandsTest(TestCase):
     def test_03_import_files(self):
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)),)
         management.call_command('import_files', path=path)
+
+    def test_bootstrap_site(self):
+        management.call_command('bootstrap_site',
+                                options={
+                                    'name': 'demo.yaml',
+                                    'sync': False,
+                                    })
+        management.call_command('bootstrap_site',
+                                options={
+                                    'name': 'blog.yaml',
+                                    'sync': False,
+                                    })

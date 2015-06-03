@@ -14,8 +14,10 @@ from .bootstrap_example import BOOTSTRAP
 
 LOG = logging.getLogger('leonardo')
 
+LEONARDO_BOOTSTRAP_DIR = getattr(settings, 'LEONARDO_BOOTSTRAP_DIR', None)
 
-def get_loaded_scripts(directory=getattr(settings, 'LEONARDO_BOOTSTRAP_DIR')):
+
+def get_loaded_scripts(directory=LEONARDO_BOOTSTRAP_DIR):
     """return dictionary of loaded scripts from specified directory
     """
 
@@ -98,7 +100,8 @@ def create_new_site(run_syncall=False, with_user=True, request=None,
         scripts = get_loaded_scripts()
         BOOTSTRAP = scripts[script]
     except KeyError:
-        raise Exception('Cannot find {} in {}'.format(script, scripts))
+        raise Exception('Cannot find {} in {} loaded from {}'.format(
+            script, scripts, LEONARDO_BOOTSTRAP_DIR))
 
     root_page = None
 

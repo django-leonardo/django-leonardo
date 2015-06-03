@@ -24,4 +24,4 @@ class SettingsBaseTest(TestCase):
     def test_live_config(self):
         from constance import config
         self.assertEqual(
-        	getattr(config, 'GOOGLE_ANALYTICS_SITE_SPEED'), False)
+            getattr(config, 'GOOGLE_ANALYTICS_SITE_SPEED'), False)
