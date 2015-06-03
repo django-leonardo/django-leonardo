@@ -1,7 +1,8 @@
 
-import os
-import six
 import logging
+import os
+
+import six
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -9,8 +10,6 @@ from horizon_contrib.common import get_class
 
 from ..models import (Page, PageColorScheme, PageTheme, WidgetBaseTheme,
                       WidgetContentTheme, WidgetDimension)
-
-from .bootstrap_example import BOOTSTRAP
 
 LOG = logging.getLogger('leonardo')
 
@@ -41,7 +40,8 @@ def get_loaded_scripts(directory=LEONARDO_BOOTSTRAP_DIR):
                         scripts[file_name] = json.load(file)
 
             except Exception as e:
-                LOG.exception('Error in during loading {} file'.format(file_name))
+                LOG.exception('Error in during loading {} file with {}'.format(
+                    file_name, str(e)))
 
     return scripts
 
