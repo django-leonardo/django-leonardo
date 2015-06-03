@@ -2,6 +2,7 @@
 import logging
 import os
 
+import requests
 import six
 from django.conf import settings
 from django.contrib.auth import authenticate, login
@@ -14,6 +15,25 @@ from ..models import (Page, PageColorScheme, PageTheme, WidgetBaseTheme,
 LOG = logging.getLogger('leonardo')
 
 LEONARDO_BOOTSTRAP_DIR = getattr(settings, 'LEONARDO_BOOTSTRAP_DIR', None)
+
+
+def _load_from_stream(stream):
+    result = None
+    try:
+        import yaml
+        result = yaml.load(stream)
+    except:
+        pass
+    else:
+        return result
+    try:
+        import json
+        result = json.load(stream)
+    except:
+        pass
+    else:
+        return result
+    return result
 
 
 def get_loaded_scripts(directory=LEONARDO_BOOTSTRAP_DIR):
@@ -32,12 +52,7 @@ def get_loaded_scripts(directory=LEONARDO_BOOTSTRAP_DIR):
 
                 with open(os.path.join(directory, file_name), 'r') as file:
 
-                    if ext in ['yaml', 'yml']:
-                        import yaml
-                        scripts[file_name] = yaml.load(file)
-                    elif ext == 'json':
-                        import json
-                        scripts[file_name] = json.load(file)
+                    scripts[file_name] = _load_from_stream(file)
 
             except Exception as e:
                 LOG.exception('Error in during loading {} file with {}'.format(
@@ -85,7 +100,7 @@ def _handle_regions(regions, feincms_object):
 
 
 def create_new_site(run_syncall=False, with_user=True, request=None,
-                    script='demo.yaml'):
+                    name='demo.yaml', url=None):
     """load all available scripts and try scaffold new site from them
 
     TODO(majklk): refactor and support for more cases
@@ -96,12 +111,18 @@ def create_new_site(run_syncall=False, with_user=True, request=None,
         from django.core import management
         management.call_command('sync_all', force=True)
 
-    try:
-        scripts = get_loaded_scripts()
-        BOOTSTRAP = scripts[script]
-    except KeyError:
-        raise Exception('Cannot find {} in {} loaded from {}'.format(
-            script, scripts, LEONARDO_BOOTSTRAP_DIR))
+    if url:
+        try:
+            BOOTSTRAP = _load_from_stream(requests.get(url).text)
+        except Exception as e:
+            raise e
+    else:
+        try:
+            scripts = get_loaded_scripts()
+            BOOTSTRAP = scripts[name]
+        except KeyError:
+            raise Exception('Cannot find {} in {} loaded from {}'.format(
+                name, scripts, LEONARDO_BOOTSTRAP_DIR))
 
     root_page = None
 

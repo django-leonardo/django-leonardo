@@ -68,11 +68,3 @@ MIGRATION_MODULES = {
     'web': 'notmigrations',
     'filer': 'notmigrations',
 }
-
-LEONARDO_BOOTSTRAP_DIR = os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]),
-                                                       os.pardir,
-                                                       os.pardir,
-                                                       os.pardir,
-                                                       'leonardo',
-                                                       'contrib',
-                                                       'bootstrap'))

@@ -32,11 +32,11 @@ class ManagementCommandsTest(TestCase):
     def test_bootstrap_site(self):
         management.call_command('bootstrap_site',
                                 options={
-                                    'name': 'demo.yaml',
+                                    'url': 'http://github.com/django-leonardo/django-leonardo/raw/develop/contrib/bootstrap/demo.yaml',
                                     'sync': False,
                                     })
         management.call_command('bootstrap_site',
                                 options={
-                                    'name': 'blog.yaml',
+                                    'url': 'http://github.com/django-leonardo/django-leonardo/raw/develop/contrib/bootstrap/blog.yaml',
                                     'sync': False,
                                     })

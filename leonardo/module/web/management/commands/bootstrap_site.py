@@ -21,6 +21,9 @@ class Command(BaseCommand):
         make_option("-s", "--sync",
                     action="store", dest="sync", default=True,
                     help="Run sync_all -f before load ?"),
+        make_option("--url",
+                    action="store", dest="url", default=False,
+                    help="url for bootstrap source"),
         make_option('--noinput',
                     action='store_false', dest='interactive', default=True,
                     help="Do NOT prompt the user for input of any kind."),
@@ -29,9 +32,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         force = options.get('force', False)
         sync = options.get('sync')
-        script = options.get('name')
+        name = options.get('name')
+        url = options.get('url', None)
+        page = create_new_site(name=name,
+                               run_syncall=sync,
+                               url=url)
 
-        page = create_new_site(script=script,
-                               run_syncall=sync)
-
-        self.stdout.write('Site {} was successfully loaded.'.format(script))
+        self.stdout.write('Site {} was successfully loaded.'.format(url or name))
