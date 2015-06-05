@@ -115,11 +115,7 @@ MIDDLEWARE_CLASSES = default.middlewares
 
 ROOT_URLCONF = 'leonardo.urls'
 
-LEONARDO_BOOTSTRAP_DIR = os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]),
-                                                       os.pardir,
-                                                       'leonardo',
-                                                       'contrib',
-                                                       'bootstrap'))
+LEONARDO_BOOTSTRAP_URL = 'http://github.com/django-leonardo/django-leonardo/raw/develop/contrib/bootstrap/demo.yaml'
 
 MARKITUP_FILTER = ('markitup.renderers.render_rest', {'safe_mode': True})
 
