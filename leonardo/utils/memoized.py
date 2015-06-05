@@ -125,11 +125,11 @@ class widget_memoized(object):
                 instance.__class__.__name__,
                 instance.id,
                 request.user,
-                request.leonardo_page.slug,
-                request.frontend_editing,
-                )
+                request.leonardo_page.slug
+            )
 
-            if self.is_actual(id) and not getattr(instance, 'saved', False):
+            if self.is_actual(id) and not getattr(instance, 'saved', False) \
+                    and not request.frontend_editing:
                 return self.cache[id][1]
             else:
                 content = self.func(*args)
