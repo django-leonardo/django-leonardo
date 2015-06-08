@@ -38,13 +38,7 @@ else:
             'USER': 'postgres',
         }
     }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'memory:',
-        'TEST_NAME': 'test_db:',
-    }
-}
+
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 BASEDIR = os.path.dirname(__file__)
