@@ -34,6 +34,10 @@ Required stuff for color sheme is ``scheme.scss`` which may contains something l
     @import "../_styles";
     @import "_styles";
 
+.. warning::
+
+    Every skin must have ``_variables`` file which is dynamically appended to every widget scss file.
+
 If we run
 
 .. code-block:: python

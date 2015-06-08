@@ -47,6 +47,16 @@ OUTPUT_MODES = (OUTPUT_FILE, OUTPUT_INLINE)
 
 def compress_monkey_patch():
     """patch all compress
+
+    we need access to variables from widget scss
+
+    for example we have::
+
+        /themes/bootswatch/cyborg/_variables
+
+    but only if is cyborg active for this reasone we need
+    dynamically append import to every scss file
+
     """
     from compressor.templatetags import compress as compress_tags
     from compressor import base as compress_base
@@ -104,7 +114,7 @@ def render_output(self, compressor, mode, forced=False, request=None):
 
 
 def input(self, **kwargs):
-    """our patter hack dynamicly append import for variables
+    """main override which append variables import to all scss content
     """
 
     with_variables = """
@@ -113,6 +123,7 @@ def input(self, **kwargs):
     """.format(kwargs['request'].leonardo_page.color_scheme.name.lower(), self.content)
 
     return self.compiler.compile_string(with_variables, filename=self.filename)
+
 
 def hunks(self, forced=False, request=None):
     """
@@ -152,6 +163,7 @@ def hunks(self, forced=False, request=None):
             else:
                 yield self.parser.elem_str(elem)
 
+
 def output(self, mode='file', forced=False, request=None):
     """
     The general output method, override in subclass if you need to do
@@ -168,6 +180,7 @@ def output(self, mode='file', forced=False, request=None):
         return self.handle_output(mode, filtered_output, forced)
 
     return output
+
 
 def filter_input(self, forced=False, request=None):
     """
