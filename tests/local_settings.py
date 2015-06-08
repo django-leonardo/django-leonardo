@@ -60,6 +60,8 @@ LEONARDO_MODULE_AUTO_INCLUDE = False
 
 APPS = [
     'testapp',
+    'web',
+    'media',
     'leaonrdo_theme_bootswatch',
 ]
 
