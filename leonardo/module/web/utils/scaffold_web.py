@@ -146,14 +146,17 @@ def create_new_site(run_syncall=False, with_user=True, request=None,
 
         regions = page_attrs.pop('content', {})
 
+        if not PageTheme.objects.exists() or PageColorScheme.objects.exists():
+            raise Exception("You havent any themes \
+                please install someone and run sync_all")
+
         try:
             if page_theme_name == '__first__':
                 theme = PageTheme.objects.first()
             else:
                 theme = PageTheme.objects.get(name=page_theme_name)
         except Exception:
-            raise Exception("You havent any themes \
-                please install someone and run sync_all")
+            raise Exception(_("You haven't any themes please install someone and run sync_all"))
         else:
             page_attrs['theme'] = theme
 

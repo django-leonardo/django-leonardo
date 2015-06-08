@@ -59,12 +59,11 @@ LANGUAGES = (('en', 'English'), ('cs', 'Czech'))
 LEONARDO_MODULE_AUTO_INCLUDE = False
 
 APPS = [
-    'web',
     'testapp',
-    'media',
+    'leaonrdo_theme_bootswatch',
 ]
 
 MIGRATION_MODULES = {
     'web': 'notmigrations',
-    'filer': 'notmigrations',
+    'media': 'notmigrations',
 }
