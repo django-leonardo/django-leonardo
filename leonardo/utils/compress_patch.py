@@ -1,27 +1,11 @@
 from __future__ import unicode_literals, with_statement
 
-import codecs
-import os
+import logging
 
-from compressor.cache import (cache_get, cache_set, get_hexdigest, get_mtime,
-                              get_offline_hexdigest, get_offline_manifest,
-                              get_templatetag_cachekey)
+from compressor.cache import cache_set
 from compressor.conf import settings
-from compressor.exceptions import (CompressorError, FilterDoesNotExist,
-                                   OfflineGenerationError,
-                                   UncompressableFileError)
-from compressor.filters import CompilerFilter
-from compressor.signals import post_compress
-from compressor.storage import compressor_file_storage
-from compressor.utils import get_class, get_mod_func, staticfiles
-from compressor.utils.decorators import cached_property
 from django import template
-from django.core.exceptions import ImproperlyConfigured
-from django.core.files.base import ContentFile
-from django.template import Context
-from django.template.loader import render_to_string
 from django.utils import six
-from django.utils.safestring import mark_safe
 
 try:
     from importlib import import_module
@@ -33,6 +17,7 @@ try:
 except ImportError:
     from urllib import url2pathname
 
+LOG = logging.getLogger(__name__)
 
 # Some constants for nicer handling.
 SOURCE_HUNK, SOURCE_FILE = 'inline', 'file'
@@ -89,7 +74,8 @@ def render_compressed(self, context, kind, mode, forced=False):
     compressor = self.get_compressor(context, kind)
 
     # Prepare the actual compressor and check cache
-    cache_key, cache_content = self.render_cached(compressor, kind, mode, forced=forced)
+    cache_key, cache_content = self.render_cached(
+        compressor, kind, mode, forced=forced)
     if cache_content is not None:
         return cache_content
 
@@ -117,12 +103,24 @@ def input(self, **kwargs):
     """main override which append variables import to all scss content
     """
 
-    with_variables = """
-    @import "/themes/bootswatch/{}/_variables";
-    {}
-    """.format(kwargs['request'].leonardo_page.color_scheme.name.lower(), self.content)
+    with_variables = None
 
-    return self.compiler.compile_string(with_variables, filename=self.filename)
+    try:
+        page = kwargs['request'].leonardo_page
+    except Exception as e:
+        LOG.exception(str(e))
+    else:
+        with_variables = """
+        @import "/themes/{}/{}/_variables";
+        {}
+        """.format(
+            page.theme.name.lower(),
+            page.color_scheme.name.lower(),
+            self.content)
+
+    return self.compiler.compile_string(
+        with_variables or self.content,
+        filename=self.filename)
 
 
 def hunks(self, forced=False, request=None):
