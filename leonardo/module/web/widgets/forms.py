@@ -93,11 +93,23 @@ class WidgetCreateForm(WidgetUpdateForm):
         self.fields['content_theme'].queryset = \
             queryset.filter(widget_class=self._meta.model.__name__)
 
-        self.fields['content_theme'].initial = \
-            self.fields['content_theme'].queryset.first()
+        try:
+            base_theme = self.fields['base_theme'].queryset.get(
+                name__icontains='default')
+        except:
+            self.fields['base_theme'].initial = \
+                self.fields['base_theme'].queryset.first()
+        else:
+            self.fields['base_theme'].initial = base_theme
 
-        self.fields['base_theme'].initial = \
-            self.fields['base_theme'].queryset.first()
+        try:
+            content_theme = self.fields['content_theme'].queryset.get(
+                name__icontains='default')
+        except:
+            self.fields['content_theme'].initial = \
+                self.fields['content_theme'].queryset.first()
+        else:
+            self.fields['content_theme'].initial = content_theme
 
         self._wrap_all()
 
