@@ -1,0 +1,16 @@
+{% extends widget.get_base_template %}
+
+{% block content %}
+{% if title %}
+<div class="span-{% if subtitle %}8{% else %}24{% endif %}">
+  <a id="top"></a>
+  <h1>{{ title|safe }}</h1>
+</div>
+{% else %}
+<div class="span-24">
+  <a id="top"></a>
+  <h1>{{ page.title|safe }}</h1>
+</div>
+{% endif %}
+{% endif %}
+{% endblock %}
