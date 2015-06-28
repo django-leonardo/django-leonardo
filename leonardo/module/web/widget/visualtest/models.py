@@ -10,13 +10,15 @@ from leonardo.forms import Layout, Fieldset, Row, FormHelper, Submit, Reset, Sel
 from leonardo.module.web.models import Widget
 
 TEST_CHOICES = (
-    ('para', _("paragraphs")),
-    ('list', _("lists")),
-    ('heading', _("headings")),
-    ('table', _("tables")),
-    ('form', _("forms")),
-    ('states', _("states")),
-    ('misc', _("misc")),
+    ('para', _("Paragraphs")),
+    ('list', _("Lists")),
+    ('heading', _("Headings")),
+    ('table', _("Tables")),
+    ('form', _("Forms")),
+    ('button', _("Buttons")),
+    ('typo', _("Typography")),
+    ('grid', _("Grid")),
+    ('icon', _("Icons")),
 )
 
 
