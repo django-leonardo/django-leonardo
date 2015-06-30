@@ -12,7 +12,7 @@ from leonardo.module.web.models import PageDimension
 
 
 class Slider(forms.RangeInput):
-    min = 1
+    min = 0
     max = 12
     step = 1
 
