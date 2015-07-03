@@ -46,9 +46,6 @@ class PageCreateView(ModalFormView):
 
         return HttpResponseRedirect(page.get_absolute_url())
 
-    def form_invalid(self, form):
-        raise Exception(form.errors)
-
     def get_initial(self):
         parent = self.parent
         initial = {
@@ -108,9 +105,6 @@ class PageUpdateView(ModalFormView):
 
         return HttpResponseRedirect(page.get_absolute_url())
 
-    def form_invalid(self, form):
-        raise Exception(form.errors)
-
 
 class PageDimensionUpdateView(ModalFormView):
 
@@ -145,9 +139,6 @@ class PageDimensionUpdateView(ModalFormView):
             messages.error(self.request, str(e))
 
         return HttpResponseRedirect(dimension.page.get_absolute_url())
-
-    def form_invalid(self, form):
-        raise Exception(form.errors)
 
 
 class PageDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
