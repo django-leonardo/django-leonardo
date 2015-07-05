@@ -147,23 +147,25 @@ class WidgetSelectForm(SelfHandlingForm):
         request = kwargs.pop('request', None)
         page_id = kwargs.pop('page_id', None)
         region_name = kwargs.pop('region', None)
+        feincms_cls_name = kwargs.pop('cls_name', None)
         self.next_view = kwargs.pop('next_view', None)
 
-        Page = get_model('web', 'Page')
-        page = Page.objects.get(id=page_id)
+        module, cls = feincms_cls_name.split('.')
+        ObjectCls = get_model(module, cls)
+        feincms_object = ObjectCls.objects.get(id=page_id)
 
         super(WidgetSelectForm, self).__init__(*args, **kwargs)
 
-        self.fields['page_id'].initial = page.id
+        self.fields['page_id'].initial = feincms_object.id
         self.fields['region'].initial = region_name
-        self.fields['parent'].initial = page.id
+        self.fields['parent'].initial = feincms_object.id
 
         grouped = {}
         ungrouped = []
         choices = []
 
         if request.user:
-            for ct in page._feincms_content_types:
+            for ct in feincms_object._feincms_content_types:
                 # Skip cts that we shouldn't be adding anyway
                 opts = ct._meta
                 perm = opts.app_label + "." + \

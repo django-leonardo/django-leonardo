@@ -11,7 +11,9 @@ from django.utils.translation import ugettext as _
 from feincms.templatetags.feincms_tags import _render_content
 from feincms.templatetags.fragment_tags import (fragment, get_fragment,
                                                 has_fragment)
-from leonardo.module.web.widget.application.reverse import app_reverse as do_app_reverse
+from leonardo.module.web.widget.application.reverse import \
+    app_reverse as do_app_reverse
+from leonardo.module.web.widget.application.reverse import reverse_lazy
 
 register = template.Library()
 
@@ -50,7 +52,14 @@ def render_region_tools(context, feincms_object, region, request=None):
     return {
         'edit': edit,
         'feincms_object': feincms_object,
-        'region': region
+        'region': region,
+        'widget_add_url': reverse_lazy(
+            'widget_create',
+            args=[feincms_object.id,
+                  region,
+                  '%s.%s' % (feincms_object._meta.app_label,
+                             feincms_object.__class__.__name__)
+                  ])
     }
 
 STANDALONE_REGIONS = ['header', 'footer']
