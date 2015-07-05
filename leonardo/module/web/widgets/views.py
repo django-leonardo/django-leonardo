@@ -25,7 +25,6 @@ class WidgetViewMixin(object):
         from ..models import WidgetDimension
         formset = WidgetDimensionFormset(
             self.request.POST, prefix='dimensions')
-        formset.save(commit=False)
         for form in formset.forms:
             if form.is_valid():
                 if 'id' in form.cleaned_data:
@@ -39,9 +38,12 @@ class WidgetViewMixin(object):
                 data.pop('DELETE', None)
                 wd = WidgetDimension(**data)
                 wd.save()
-        # delete objects
-        for obj in formset.deleted_objects:
-            obj.delete()
+        # optionaly delete dimensions
+        if formset.is_valid():
+            formset.save(commit=False)
+            # delete objects
+            for obj in formset.deleted_objects:
+                obj.delete()
         return True
 
 
