@@ -1,6 +1,50 @@
 CHANGES
 =======
 
+2015.7.0
+--------
+
+* bump required version of horizon-contrib and fix their modal template overrides
+* introduced render feincms object tools tag, fixed contrib modals
+* support for adding widget from frontend edit to every feincms content type #68
+* fixed widget dimensions delete
+* support for horizon style config and custom config location #74
+* removed unless scripts and fixed removing widget/page dimensions #78
+* fix app reverse monkey patch
+* check page dimensions summary
+* restrict inheritence of page dimensions
+* allowed zero dimension
+* heading cleanups
+* forms icons
+* visual testing
+* navigation tuning
+* support for old render 404
+* set default as initial for create widget themes #76
+* #75 fix compress patch and make it optional
+* proper db testing
+* sliders with tooltips #72
+* new collect behaviour
+* fix tests settings
+* cleanup tests
+* some info about compress patch and added new requires to doc
+* monkey patch compress behaviour
+* disable widget cache in frontend edit
+* use URL source as default bootstrap
+* load from source #70
+* include contrib in distribution
+* cleanup bootstrap
+* simple tests for new site bootstraping
+* better site scaffold, support for yaml,json and FK, added demo and blog as examples with docs #69
+* new multistorage field
+* frontend sidebar extendable #64
+* cleanup media app views + doc update
+* updated extras
+* fix path to public
+* next rows
+* baby steps in media galleries next step is new module for this stuff
+* admin as pluggable module and update changelog
+* filer static files
+
 2015.1.8
 --------
 
