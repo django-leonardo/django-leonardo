@@ -19,9 +19,9 @@ class SettingsBaseTest(TestCase):
         self.assertEqual(contains, True)
 
     def test_get_app_modules(self):
-        self.assertEqual(leonardo.get_app_modules(settings.APPS)[0], web)
+        self.assertEqual(settings._APPS[1], web)
 
     def test_live_config(self):
         from constance import config
         self.assertEqual(
-        	getattr(config, 'GOOGLE_ANALYTICS_SITE_SPEED'), False)
+            getattr(config, 'GOOGLE_ANALYTICS_SITE_SPEED'), False)

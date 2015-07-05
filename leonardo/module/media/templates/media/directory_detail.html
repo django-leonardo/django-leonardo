@@ -1,0 +1,24 @@
+
+{% load i18n %}
+{% load thumbnail %}
+
+  {% for object in object.files %}
+  {% with category_file.file as file %}
+  {% if forloop.first or forloop.counter0|divisibleby:"4" %}
+	<div class="row">
+  {% endif %}
+  <div class="col-lg-3 col-md-3 col-xs-6 {% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %} thumb">
+	{% thumbnail object.file.file "145x90" crop="center" as thumb %}
+	{% thumbnail object.file.file "1920x1920" as image %}
+	<a class="thumb_link" href="{{ image.url }}" >
+		<img src="{{ thumb.url }}" title="{{ object.file }}" class="thumb" />
+	</a>
+	{% endthumbnail %}
+	{% endthumbnail %}
+  </div>
+
+  {% if forloop.counter0|divisibleby:"4" %}
+	</div>
+  {% endif %}
+  {% endwith %}
+  {% endfor %}

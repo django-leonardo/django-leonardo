@@ -1,1 +1,2 @@
 django-cities>=0.4.1
+leonardo-geo>=2015.5.0

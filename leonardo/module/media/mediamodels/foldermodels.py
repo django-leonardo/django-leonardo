@@ -121,13 +121,13 @@ class Folder(models.Model, mixins.IconsMixin):
     @property
     def file_count(self):
         if not hasattr(self, '_file_count_cache'):
-            self._file_count_cache = self.files.count()
+            self._file_count_cache = self.media_file_files.count()
         return self._file_count_cache
 
     @property
     def children_count(self):
         if not hasattr(self, '_children_count_cache'):
-            self._children_count_cache = self.children.count()
+            self._children_count_cache = self.media_folder_children.count()
         return self._children_count_cache
 
     @property

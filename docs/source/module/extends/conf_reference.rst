@@ -34,6 +34,8 @@ Leonardo
 
     **public** if is set to ``True`` Leonardo does not decorate included url patters for required authentification
 
+    **module_actions** array of templates included in the frontend side bar
+
 FeinCMS
 -------
 

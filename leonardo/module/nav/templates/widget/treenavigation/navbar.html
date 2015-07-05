@@ -4,8 +4,8 @@
 
 {% block content %}
 {% feincms_nav root level=level depth=1 as toplevel %}
-<div class="navbar-collapse collapse" id="navbar_{{ widget.fe_identifier }}">
-  <ul class="nav navbar-nav">
+<div class="navbar-collapse collapse" id="top-nav">
+  <ul class="nav navbar-nav{% if widget.align == 'right' %} navbar-right{% endif %}">
   {% if depth == 1 %}
   {% for page in toplevel %}
     <li class="{% if page|is_equal_or_parent_of:current %}active{% endif %}">

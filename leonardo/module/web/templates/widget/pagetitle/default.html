@@ -2,30 +2,30 @@
 
 {% block content %}
 {% if title %}
-<div class="span-{% if subtitle %}8{% else %}24{% endif %}">
-	<a id="top"></a>
-	<h1>{{ title|safe }}</h1>
+<div class="col-md-{% if subtitle %}4{% else %}12{% endif %}">
+  <a id="top"></a>
+  <h1>{{ title|safe }}</h1>
 </div>
 {% if subtitle %}
-<div class="span-16 last">
-	<p>{{ subtitle|safe|linebreaksbr }}</p>
+<div class="col-md-8">
+  <p>{{ subtitle|safe|linebreaksbr }}</p>
 </div>
 {% endif %}
 {% else %}
 {% if page.content_title %}
-<div class="span-{% if page.content_subtitle %}8{% else %}24{% endif %}">
-	<a id="top"></a>
-	<h1>{{ page.content_title|safe }}</h1>
+<div class="col-md-{% if page.content_subtitle %}4{% else %}12{% endif %}">
+  <a id="top"></a>
+  <h1>{{ page.content_title|safe }}</h1>
 </div>
 {% if page.content_subtitle %}
-<div class="span-16 last">
-	<p>{{ page.content_subtitle|safe|linebreaksbr }}</p>
+<div class="col-md-8">
+  <p>{{ page.content_subtitle|safe|linebreaksbr }}</p>
 </div>
 {% endif %}
 {% else %}
-<div class="span-24">
-	<a id="top"></a>
-	<h1>{{ page.title|safe }}</h1>
+<div class="col-md-12">
+  <a id="top"></a>
+  <h1>{{ page.title|safe }}</h1>
 </div>
 {% endif %}
 {% endif %}

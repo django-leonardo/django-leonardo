@@ -1,6 +1,154 @@
 CHANGES
 =======
 
+2015.1.8
+--------
+
+* prototype of save-dump solution
+* scaffold new site, separation of middlewares and quickstart as optional middleware, fix rendering page without loaded theme
+* quick create in non debug 404
+* proper error handling
+* handle urlregex resolvers
+* rename action
+* skip rendering region tools in standalone mode
+* technical 404 as standalone view
+* proper standalone functionality for leonardo purposes
+* security for Leonardo
+* split web models and fields
+* page mass changes #59
+* analytical is not in the core
+* fix loading theme fonts
+* fix media files location
+* media again
+* more media stuff
+* initial of site quickstart #57
+* media module overhaul
+* font
+* fix creating defaul dimensions
+* reorder
+* scss files
+* fixes
+* stylesheets updates
+* media overhaul
+* stylesheets updates
+* support for widget subclassing
+* new extras and some docs
+* update doc structure
+* languages
+* max length
+* change charfield to text for htmltext :D
+* folder permissions
+* wsgi, pep8 coverage
+* use request context for rendering 3rd party application
+* some contrib stuff, devel installation
+* fix UX sux
+* search prettify
+* prettify default gallery template added link to demo Store
+* yes finaly patch external application !
+* render empty string
+* redactor to default requirements
+* cleanup unless stuff
+* bootstrap 3 galleries with pretty and simple lighboxes
+* oh my god after two hours is done ! carousel fixed :D
+* angular modules to module descriptor
+* path standard Django absolute url overrides behaviour
+* removed hamburger from navigation template
+* working collapse for language selector
+* search hide on small devices
+* fix hamburger collapsing
+* fail silently (reverted from commit 9116c88b0b3d916b9335cc93e155c34db85428e5)
+* fail silently
+* comment
+* better feel from page admin
+* filter plugins
+* better table visual test
+* cleanup
+* much better descriptor reference
+* removed unsless stuff
+* new support for clean absolute url overrides !
+* fail silently
+* propagate LEONARDO_CONFIG via request to external applications where is not standard horizon context processor
+* install bootswatch in quickstart and added more quick installation script for #50, eshop renamed to store
+
+2015.1.7
+--------
+
+* exclude private templates BUGFIX #51
+* use leonardo tags for render langs
+* new leonardo page tags
+* navbar selector
+* translations final and en as primary default
+* fix language selector widget templates
+* reorder reqs
+* added support for proper loading navigation extensions
+* switch to LeonardoFolder
+* finally fix 3rd party applications
+* fixes
+* fix page title
+* fix modals
+* disallow static path for indexing
+* fix SEO - site meta, title etc
+
+2015.1.6
+--------
+
+* media categories update
+* use loanardo folder for importing
+* update
+* refactoring views, system module enabled in default state, middlewares depricated fix
+* support for fullscreen modals, system actions only for superuser
+* template cleanups and system info, install packages PoC
+* system stuff as optional module
+* leonardo admin with horizon's power
+* prevent duplicity in live config admin
+* added missed horizon message settings and auto fade messagess
+* last depend param is edit
+* page delete
+* #46 constance admin improvements and debug with profiling
+* title from slug as initial
+* properly provide slug to the debug 404 page
+* create page with shortcut from technical 404
+* visual tester, client info, leonardo multiselect field
+* #46 consistent template tags for easy extend & cleanup templates, fix css tab content
+* dnd only for col3 (for now)
+* widget dnd sorting and complete info
+* migration modules for modules
+* widget DnD and better info, login/logout fixes #45, leonardo forms for consitent public API, new leonardo's messages sync/async
+* completely removed preview/prerendered content and for future make this with db signals (async)
+* widget info
+* template moved to main module
+* ungrouped to web group and without preview
+* default render without memoized
+* fix template url reverse
+* fix page dimenssions
+* for now without dimenssions
+* dimension fixes
+* search template without heading
+* application content hacking + search fixes
+* string types
+* getattr only str
+* change file field to plain FK #42
+* restrict update able values
+* use request page for uuid
+* alignments fixes, cleanups
+* widget layout property, callout widget base
+* override horizon datatable template
+* Edit layout in frontent edit
+* Layout fixes
+* page layouts
+* fix more than one package inside python package
+* added ConditionalGetMiddleware to default
+* use proxy for render content, means no dorecorate if overrides this method
+
+2015.1.5
+--------
+
+* no inheritence in class decorators !
+* methods
+* no inheritence
+* not now
+* update
+
 2015.1.4
 --------
 

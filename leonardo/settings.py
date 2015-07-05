@@ -2,6 +2,8 @@
 from __future__ import absolute_import
 
 import os
+import sys
+
 from os.path import abspath, dirname, join, normpath
 
 from django import VERSION
@@ -112,6 +114,8 @@ FILER_ENABLE_PERMISSIONS = True  # noqa
 MIDDLEWARE_CLASSES = default.middlewares
 
 ROOT_URLCONF = 'leonardo.urls'
+
+LEONARDO_BOOTSTRAP_URL = 'http://github.com/django-leonardo/django-leonardo/raw/develop/contrib/bootstrap/demo.yaml'
 
 MARKITUP_FILTER = ('markitup.renderers.render_rest', {'safe_mode': True})
 
@@ -262,6 +266,8 @@ ADD_JS_SPEC_FILES = []
 
 ADD_ANGULAR_MODULES = []
 
+ADD_MODULE_ACTIONS = []
+
 ADD_MIGRATION_MODULES = {}
 
 CONSTANCE_CONFIG_GROUPS = {}
@@ -323,6 +329,8 @@ try:
         PAGE_EXTENSIONS = merge(PAGE_EXTENSIONS, mod_cfg.page_extensions)
 
         ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
+
+        ADD_MODULE_ACTIONS = merge(ADD_MODULE_ACTIONS, mod_cfg.module_actions)
 
         # TODO move to utils.settings
         # support for one level nested in config dictionary
@@ -388,6 +396,7 @@ try:
     setattr(leonardo, 'scss_files', ADD_SCSS_FILES)
     setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
     setattr(leonardo, 'angular_modules', ADD_ANGULAR_MODULES)
+    setattr(leonardo, 'module_actions', ADD_MODULE_ACTIONS)
     setattr(leonardo, 'widgets', WIDGETS)
 
     from leonardo.module.web.models import Page
@@ -487,6 +496,7 @@ HORIZON_CONFIG['js_spec_files'] = leonardo.js_spec_files
 HORIZON_CONFIG['css_files'] = leonardo.css_files
 HORIZON_CONFIG['scss_files'] = leonardo.scss_files
 HORIZON_CONFIG['angular_modules'] = leonardo.angular_modules
+HORIZON_CONFIG['module_actions'] = leonardo.module_actions
 # path horizon config
 from horizon import conf
 conf.HORIZON_CONFIG = HORIZON_CONFIG

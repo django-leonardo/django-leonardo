@@ -1,0 +1,46 @@
+
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content %}
+{% if object != None %}
+{% if object.translation.description %}
+{{ object.translation.description }}
+{% endif %}
+<div class="object-grid ui-helper-clearfix">
+	{% for object in object.files %}
+	<div class="span-8">
+		<div class="object-cell ui-helper-clearfix">
+			<div class="object-cell-content">
+				{% thumbnail object.file.file "200x140" format="PNG" crop="center" as thumb %}
+				{% thumbnail object.file.file "800x800" as image %}
+				<a class="object-image" href="{{ image.url }}" rel="colorbox" title="{{ object.file }}">
+					<img src="{{ thumb.url }}" />
+				</a>
+				{% endthumbnail %}
+				{% endthumbnail %}
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<a class="button f-right" href="../"><span><span>{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.webcms_page }}{% endif %}</span></span></a>
+{% else %}
+<div class="object-grid ui-helper-clearfix">
+	{% for object in object_list %}
+	<div class="span-8">
+		<div class="object-cell ui-helper-clearfix">
+			<div class="object-cell-content">
+				<a class="object-image" href="./{{ object.name }}/" title="{{ object }}">
+					{% thumbnail object.get_featured_image.file "200x140" format="PNG" crop="center" as thumb %}
+					<img src="{{ thumb.url }}" /><br />
+					{% endthumbnail %}
+					<h3>{{ object }}</h3>
+				</a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endif %}
+{% endblock %}

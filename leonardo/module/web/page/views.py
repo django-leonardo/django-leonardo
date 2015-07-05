@@ -8,6 +8,7 @@ from leonardo import messages
 
 from ..models import Page
 from .dimension.forms import PageDimensionForm
+from .tables import PageDimensionTable
 from .forms import PageCreateForm, PageDeleteForm, PageUpdateForm
 
 
@@ -45,9 +46,6 @@ class PageCreateView(ModalFormView):
             return HttpResponseRedirect(self.object.get_absolute_url())
 
         return HttpResponseRedirect(page.get_absolute_url())
-
-    def form_invalid(self, form):
-        raise Exception(form.errors)
 
     def get_initial(self):
         parent = self.parent
@@ -108,8 +106,29 @@ class PageUpdateView(ModalFormView):
 
         return HttpResponseRedirect(page.get_absolute_url())
 
-    def form_invalid(self, form):
-        raise Exception(form.errors)
+    def construct_tables(self):
+        table = PageDimensionTable(
+            self.request, data=self.object.dimensions.all())
+        # Early out before data is loaded
+        preempted = table.maybe_preempt()
+        if preempted:
+            return preempted
+
+        # handle actions
+        handled = table.maybe_handle()
+        if handled:
+            return handled
+
+        # If we didn't already return a response, returning None continues
+        # with the view as normal.
+        return None
+
+    def post(self, request, *args, **kwargs):
+        # GET and POST handling are the same
+        handled = self.construct_tables()
+        if handled:
+            return handled
+        return super(PageUpdateView, self).post(request, *args, **kwargs)
 
 
 class PageDimensionUpdateView(ModalFormView):
@@ -145,9 +164,6 @@ class PageDimensionUpdateView(ModalFormView):
             messages.error(self.request, str(e))
 
         return HttpResponseRedirect(dimension.page.get_absolute_url())
-
-    def form_invalid(self, form):
-        raise Exception(form.errors)
 
 
 class PageDeleteView(ModalFormView, ContextMixin, ModelFormMixin):

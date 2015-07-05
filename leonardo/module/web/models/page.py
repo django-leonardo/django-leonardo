@@ -99,7 +99,7 @@ class Page(FeinCMSPage):
         if self_dimensions.exists():
             return self_dimensions
         parent_dimensions = None
-        if self.parent:
+        if self.parent and self.parent.template_key == self.template_key:
             parent_dimensions = self.parent.dimensions
         parent_dimensions = parent_dimensions or PageDimension.objects.none()
         return parent_dimensions

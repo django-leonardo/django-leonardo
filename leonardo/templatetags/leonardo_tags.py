@@ -11,7 +11,9 @@ from django.utils.translation import ugettext as _
 from feincms.templatetags.feincms_tags import _render_content
 from feincms.templatetags.fragment_tags import (fragment, get_fragment,
                                                 has_fragment)
-from leonardo.module.web.widget.application.reverse import app_reverse as do_app_reverse
+from leonardo.module.web.widget.application.reverse import \
+    app_reverse as do_app_reverse
+from leonardo.module.web.widget.application.reverse import reverse_lazy
 
 register = template.Library()
 
@@ -50,7 +52,14 @@ def render_region_tools(context, feincms_object, region, request=None):
     return {
         'edit': edit,
         'feincms_object': feincms_object,
-        'region': region
+        'region': region,
+        'widget_add_url': reverse_lazy(
+            'widget_create',
+            args=[feincms_object.id,
+                  region,
+                  '%s.%s' % (feincms_object._meta.app_label,
+                             feincms_object.__class__.__name__)
+                  ])
     }
 
 STANDALONE_REGIONS = ['header', 'footer']
@@ -158,3 +167,30 @@ def app_reverse(parser, token):
 @register.tag
 def url(parser, token):
     return app_reverse(parser, token)
+
+
+@register.inclusion_tag('leonardo/common/_feincms_object_tools.html',
+                        takes_context=True)
+def feincms_object_tools(context, cls_name):
+    """
+    {% feincms_object_tools 'article' %}
+    {% feincms_object_tools 'web.page' %}
+
+    render add feincms object entry
+    """
+    if context.get('standalone', False):
+        return {}
+    edit = False
+    if getattr(settings, 'LEONARDO_USE_PAGE_ADMIN', False):
+        request = context.get('request', None)
+        frontend_edit = request.COOKIES.get(
+            'frontend_editing', False)
+        if frontend_edit:
+            edit = True
+
+    return {
+        'edit': edit,
+        'add_entry_url': reverse_lazy(
+            'horizon:contrib:forms:create',
+            args=[cls_name])
+    }

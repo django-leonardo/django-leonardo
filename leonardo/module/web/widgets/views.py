@@ -35,13 +35,19 @@ class WidgetViewMixin(object):
                 data['widget_type'] = \
                     ContentType.objects.get_for_model(obj)
                 data['widget_id'] = obj.id
-                data.pop('DELETE')
+                data.pop('DELETE', None)
                 wd = WidgetDimension(**data)
                 wd.save()
+        # optionaly delete dimensions
+        if formset.is_valid():
+            formset.save(commit=False)
+            # delete objects
+            for obj in formset.deleted_objects:
+                obj.delete()
         return True
 
 
-class WidgetUpdateView(ModalFormView, UpdateView, WidgetViewMixin):
+class WidgetUpdateView(UpdateView, WidgetViewMixin):
 
     template_name = 'leonardo/common/modal.html'
 
@@ -67,7 +73,7 @@ class WidgetUpdateView(ModalFormView, UpdateView, WidgetViewMixin):
         return response
 
 
-class WidgetCreateView(ModalFormView, CreateView, WidgetViewMixin):
+class WidgetCreateView(CreateView, WidgetViewMixin):
 
     template_name = 'leonardo/common/modal.html'
 
@@ -103,7 +109,7 @@ class WidgetCreateView(ModalFormView, CreateView, WidgetViewMixin):
         return self.kwargs
 
 
-class WidgetPreCreateView(ModalFormView, CreateView):
+class WidgetPreCreateView(CreateView):
 
     form_class = WidgetSelectForm
 
@@ -129,7 +135,7 @@ class WidgetPreCreateView(ModalFormView, CreateView):
         return form_class(**kwargs)
 
 
-class WidgetInfoView(ModalFormView, UpdateView, WidgetViewMixin):
+class WidgetInfoView(UpdateView, WidgetViewMixin):
 
     template_name = 'leonardo/common/modal.html'
 

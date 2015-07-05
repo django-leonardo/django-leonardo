@@ -69,9 +69,11 @@ def technical_404_response(request, exception):
     try:
         from leonardo.module.web.models import Page
         feincms_page = Page.objects.for_request(request, best_match=True)
+        template = feincms_page.theme.template
     except:
         feincms_page = None
         slug = None
+        template = None
     else:
         # nested path is not allowed for this time
         try:
@@ -89,8 +91,13 @@ def technical_404_response(request, exception):
         'settings': get_safe_settings(),
         'raising_view_name': caller,
         'feincms_page': feincms_page,
+        'template': template or 'base.html',
         'standalone': True,
         'slug': slug,
     })
-    t = render_to_string(TECHNICAL_404_TEMPLATE, c)
+    try:
+        t = render_to_string(TECHNICAL_404_TEMPLATE, c)
+    except:
+        from django.views.debug import TECHNICAL_404_TEMPLATE
+        t = Template(TECHNICAL_404_TEMPLATE).render(c)
     return HttpResponseNotFound(t, content_type='text/html')

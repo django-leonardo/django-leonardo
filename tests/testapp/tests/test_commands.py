@@ -28,3 +28,16 @@ class ManagementCommandsTest(TestCase):
     def test_03_import_files(self):
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)),)
         management.call_command('import_files', path=path)
+
+    """
+    in this time is not testable because sqlite hasn't themes
+    def test_bootstrap_site(self):
+        management.call_command('bootstrap_site',
+                                    url='http://github.com/django-leonardo/django-leonardo/raw/develop/contrib/bootstrap/demo.yaml',
+                                    sync= True)
+        management.call_command('bootstrap_site',
+                                options={
+                                    'url': 'http://github.com/django-leonardo/django-leonardo/raw/develop/contrib/bootstrap/blog.yaml',
+                                    'sync': False,
+                                    })
+    """

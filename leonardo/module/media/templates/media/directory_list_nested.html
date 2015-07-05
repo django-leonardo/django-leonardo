@@ -1,0 +1,60 @@
+
+{% load i18n %}
+{% load thumbnail %}
+{% load leonardo_tags %}
+{% block content %}
+{% if object != None %}
+{% if object.translation.description %}
+{{ object.translation.description|safe }}
+{% endif %}
+<div class="object-grid ui-helper-clearfix">
+	{% for object in object.files %}
+	<div class="span-8">
+		<div class="object-cell ui-helper-clearfix">
+			<div class="object-cell-content">
+				{% thumbnail object.file.file "200x840" format="PNG" as thumb %}
+				{% thumbnail object.file.file "800x800" as image %}
+				<a class="object-image" href="{{ image.url }}" rel="colorbox" title="{{ object.file }}">
+					<img src="{{ thumb.url }}" />
+				</a>
+				{% endthumbnail %}
+				{% endthumbnail %}
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endif %}
+
+<div class="object-grid ui-helper-clearfix">
+	{% for child in object_list %}
+	<div class="span-8">
+		<div class="object-cell ui-helper-clearfix">
+			<div class="object-cell-content">
+				{% if child.item_count == 0 %}
+				<a class="object-image" href="./{{ child.name }}/" title="{{ child }}">
+					{% thumbnail child.get_featured_image.file "200x140" format="PNG" as thumb %}
+					<img src="{{ thumb.url }}" /><br />
+					{% endthumbnail %}
+					<h3>{{ child }} ({{ child.item_count }} {% trans "items" %})</h3>
+				</a>
+				{% else %}
+				<a class="object-image" target="_blank" href="{% app_reverse 'directory_detail_standalone' 'leonardo.module.media.apps.category_nested' category_id=child.pk %}" title="{{ child }}">
+					{% thumbnail child.get_featured_image.file "200x140" format="PNG" as thumb %}
+					<img src="{{ thumb.url }}" /><br />
+					{% endthumbnail %}
+					<h3>{{ child }} ({{ child.item_count }} {% trans "items" %})</h3>
+				</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% if object != None %}
+<div class="span-24 buttonset">
+	<a class="button f-right" href="../"><span><span>{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.webcms_page }}{% endif %}</span></span></a>
+</div>
+{% endif %}
+{% endblock %}

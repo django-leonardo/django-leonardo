@@ -39,7 +39,7 @@ DEFAULT_MEDIA_STORAGES = {
             'ENGINE': DEFAULT_FILE_STORAGE,
             'OPTIONS': {
                 'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT, MEDIA_PUBLIC_UPLOAD_TO)),
-                'base_url': '/smedia/private/',           
+                'base_url': '/smedia/public/',
             },
             'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
             'UPLOAD_TO_PREFIX': MEDIA_PUBLIC_UPLOAD_TO,

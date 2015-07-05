@@ -1,0 +1,29 @@
+
+{% block content %}
+
+
+<input type="{{ type }}" name="{{ name }}"{% if value %} value="{{ value }}"{% endif %}{% if required %} required{% endif %}{% include "floppyforms/attrs.html" %}>
+
+<script type="text/javascript">
+
+$(function() {
+	$( "#{{ attrs.id }}" ).on('blur change click dblclick focus focusin focusout mousedown mouseenter mouseleave mouseout mouseover mouseup', function(){
+
+		$("#{{ attrs.id }}").attr('data-original-title', this.value)
+          .tooltip('fixTitle').tooltip('show');
+
+		$("#{{ attrs.id }}").attr("title", this.value);
+	});
+
+	$("#{{ attrs.id }}").attr("data-toggle", "tooltip");
+	$("#{{ attrs.id }}").attr("data-placement", "top");
+	$("#{{ attrs.id }}").attr("title", {{ value }});
+	$("#{{ attrs.id }}").tooltip({trigger:'manual'});
+
+});
+
+</script>
+
+{% endblock %}
+
+

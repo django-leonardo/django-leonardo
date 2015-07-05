@@ -1,4 +1,5 @@
 
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
@@ -22,7 +23,8 @@ class QuickStartMiddleware(object):
         # TODO check page existence via request
         if response.status_code == 404 and Page.objects.count() == 0:
 
-            page = create_new_site(request=request)
+            page = create_new_site(request=request,
+                                   url=getattr(settings, 'LEONARDO_BOOTSTRAP_URL', None))
 
             return HttpResponseRedirect(reverse('page_update',
                                                 kwargs={'page_id': page.pk}))

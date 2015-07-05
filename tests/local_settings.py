@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import sys
 import os
 
 SITE_ID = 1
@@ -52,12 +53,13 @@ LANGUAGES = (('en', 'English'), ('cs', 'Czech'))
 LEONARDO_MODULE_AUTO_INCLUDE = False
 
 APPS = [
-    'web',
     'testapp',
+    'web',
     'media',
+    'leaonrdo_theme_bootswatch',
 ]
 
 MIGRATION_MODULES = {
     'web': 'notmigrations',
-    'filer': 'notmigrations',
+    'media': 'notmigrations',
 }

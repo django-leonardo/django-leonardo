@@ -12,6 +12,7 @@ class Slider(forms.RangeInput):
     min = 1
     max = 12
     step = 1
+    template_name = 'floppyforms/slider.html'
 
 
 class OffsetSlider(Slider):
