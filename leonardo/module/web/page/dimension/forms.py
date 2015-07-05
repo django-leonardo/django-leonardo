@@ -27,7 +27,7 @@ class PageDimensionForm(SelfHandlingModelForm):
         col1_width = self.cleaned_data['col1_width']
         col2_width = self.cleaned_data['col2_width']
         col3_width = self.cleaned_data['col3_width']
-        if not (col1_width + col2_width + col3_width) <= 12:
+        if not (int(col1_width) + int(col2_width) + int(col3_width)) <= 12:
             raise forms.ValidationError(_("Summary of dimensions must be 12"))
 
     def clean(self):

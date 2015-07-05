@@ -3,6 +3,7 @@ import floppyforms as forms
 from django.core import urlresolvers
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ungettext_lazy
 from horizon import tables
 from horizon.tables.formset import FormsetDataTable, FormsetRow
 from leonardo.module.web.models import PageDimension
@@ -57,6 +58,29 @@ class PageDimensionAddAction(tables.LinkAction):
         return True
 
 
+class DeletePageDimension(tables.DeleteAction):
+
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Delete Page Dimension",
+            u"Delete Page Dimension",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Deleted Page Dimension",
+            u"Deleted Page Dimension",
+            count
+        )
+
+    def delete(self, request, obj_id):
+        from ..models import PageDimension
+        PageDimension.objects.get(pk=obj_id).delete()
+
+
 class PageDimensionTable(tables.DataTable):
 
     formset_class = PageDimensionFormset
@@ -87,9 +111,16 @@ class PageDimensionTable(tables.DataTable):
     col2_width = tables.Column('col2_width', verbose_name=_('Column 2 Width'))
     col3_width = tables.Column('col3_width', verbose_name=_('Column 3 Width'))
 
+    def get_object_id(self, datum):
+        return datum.pk
+
+    def get_object_name(self, datum):
+        return str(datum)
+
     name = 'dimensions'
 
     class Meta:
         name = 'dimensions'
         table_name = 'Dimensions'
         table_actions = (PageDimensionAddAction,)
+        row_actions = (DeletePageDimension,)
