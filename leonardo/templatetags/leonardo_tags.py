@@ -167,3 +167,30 @@ def app_reverse(parser, token):
 @register.tag
 def url(parser, token):
     return app_reverse(parser, token)
+
+
+@register.inclusion_tag('leonardo/common/_feincms_object_tools.html',
+                        takes_context=True)
+def feincms_object_tools(context, cls_name):
+    """
+    {% feincms_object_tools 'article' %}
+    {% feincms_object_tools 'web.page' %}
+
+    render add feincms object entry
+    """
+    if context.get('standalone', False):
+        return {}
+    edit = False
+    if getattr(settings, 'LEONARDO_USE_PAGE_ADMIN', False):
+        request = context.get('request', None)
+        frontend_edit = request.COOKIES.get(
+            'frontend_editing', False)
+        if frontend_edit:
+            edit = True
+
+    return {
+        'edit': edit,
+        'add_entry_url': reverse_lazy(
+            'horizon:contrib:forms:create',
+            args=[cls_name])
+    }

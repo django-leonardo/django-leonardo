@@ -47,7 +47,7 @@ class WidgetViewMixin(object):
         return True
 
 
-class WidgetUpdateView(ModalFormView, UpdateView, WidgetViewMixin):
+class WidgetUpdateView(UpdateView, WidgetViewMixin):
 
     template_name = 'leonardo/common/modal.html'
 
@@ -73,7 +73,7 @@ class WidgetUpdateView(ModalFormView, UpdateView, WidgetViewMixin):
         return response
 
 
-class WidgetCreateView(ModalFormView, CreateView, WidgetViewMixin):
+class WidgetCreateView(CreateView, WidgetViewMixin):
 
     template_name = 'leonardo/common/modal.html'
 
@@ -109,7 +109,7 @@ class WidgetCreateView(ModalFormView, CreateView, WidgetViewMixin):
         return self.kwargs
 
 
-class WidgetPreCreateView(ModalFormView, CreateView):
+class WidgetPreCreateView(CreateView):
 
     form_class = WidgetSelectForm
 
@@ -135,7 +135,7 @@ class WidgetPreCreateView(ModalFormView, CreateView):
         return form_class(**kwargs)
 
 
-class WidgetInfoView(ModalFormView, UpdateView, WidgetViewMixin):
+class WidgetInfoView(UpdateView, WidgetViewMixin):
 
     template_name = 'leonardo/common/modal.html'
 
