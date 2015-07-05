@@ -8,8 +8,8 @@ from horizon_contrib.generic.views import GenericIndexView
 
 # override native horizon-contrib views
 GenericIndexView.template_name = "leonardo/common/_index.html"
-CreateView.template_name = "leonardo/common/modal2.html"
-UpdateView.template_name = "leonardo/common/modal2.html"
+CreateView.template_name = "leonardo/common/modal.html"
+UpdateView.template_name = "leonardo/common/modal.html"
 
 
 urlpatterns = patterns('',
