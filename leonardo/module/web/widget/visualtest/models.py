@@ -79,6 +79,7 @@ class VisualTestForm(SelfHandlingModelForm):
 
     class Meta:
         model = VisualTestModel
+        exclude = tuple()
 
 
 class VisualTestWidget(Widget):
