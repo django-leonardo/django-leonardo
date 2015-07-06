@@ -151,9 +151,9 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-LOGIN_URL = '/admin/login/'
+LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_URL = "/"
+LOGOUT_URL = "/auth/logout"
 
 LOGOUT_ON_GET = True
 
