@@ -24,10 +24,10 @@ web.Page:
     slug: quickstart
     override_url: /
     featured: false
-    theme: __first__
+    theme: bootstrap
     in_navigation: true
     active: true
-    color_scheme: __first__
+    color_scheme: default
     content:
       header:
         web.SiteHeadingWidget:
