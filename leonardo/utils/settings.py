@@ -3,6 +3,29 @@
 from django.utils.importlib import import_module
 from django.utils import six
 
+# define options
+CONF_SPEC = {
+    'optgroup': None,
+    'plugins': [],
+    'widgets': [],
+    'apps': [],
+    'middlewares': [],
+    'context_processors': [],
+    'dirs': [],
+    'page_extensions': [],
+    'auth_backends': [],
+    'js_files': [],
+    'js_spec_files': [],
+    'angular_modules': [],
+    'css_files': [],
+    'scss_files': [],
+    'config': {},
+    'migration_modules': {},
+    'absolute_url_overrides': {},
+    'navigation_extensions': [],
+    'module_actions': [],
+}
+
 BLACKLIST = ['haystack']
 
 
@@ -71,64 +94,15 @@ def get_leonardo_modules():
 
     return modules
 
-# define options
-CONF_SPEC = {
-    'optgroup': None,
-    'plugins': [],
-    'widgets': [],
-    'apps': [],
-    'middlewares': [],
-    'context_processors': [],
-    'dirs': [],
-    'page_extensions': [],
-    'auth_backends': [],
-    'js_files': [],
-    'js_spec_files': [],
-    'angular_modules': [],
-    'css_files': [],
-    'scss_files': [],
-    'config': {},
-    'migration_modules': {},
-    'absolute_url_overrides': {},
-    'navigation_extensions': [],
-    'module_actions': [],
-}
-
 
 def extract_conf_from(mod, conf=dotdict(CONF_SPEC)):
+    """returns extracted keys from module or object
+    by passed config scheme
+    """
 
-    conf['plugins'] = _get_key_from_module(mod, 'plugins', [])
-    conf['apps'] = _get_key_from_module(mod, 'apps', [])
-    conf['middlewares'] = _get_key_from_module(mod, 'middlewares', [])
-    conf['page_extensions'] = _get_key_from_module(mod, 'page_extensions', [])
-    conf['auth_backends'] = _get_key_from_module(mod, 'auth_backends', [])
-    conf['js_files'] = _get_key_from_module(mod, 'js_files', [])
-    conf['angular_modules'] = _get_key_from_module(mod, 'angular_modules', [])
-    conf['js_spec_files'] = _get_key_from_module(mod, 'js_spec_files', [])
-    conf['css_files'] = _get_key_from_module(mod, 'css_files', [])
-    conf['scss_files'] = _get_key_from_module(mod, 'scss_files', [])
-    conf['widgets'] = _get_key_from_module(mod, 'widgets', [])
-    conf['module_actions'] = _get_key_from_module(mod, 'module_actions', [])
-    conf['optgroup'] = _get_key_from_module(mod, 'optgroup',
-                                            getattr(
-                                                mod,
-                                                "__name__",
-                                                str(mod)).capitalize())
-    conf['config'] = _get_key_from_module(mod, 'config', {})
-    conf['absolute_url_overrides'] = _get_key_from_module(
-        mod,
-        'absolute_url_overrides',
-        {})
-    conf['migration_modules'] = _get_key_from_module(mod,
-                                                     'migration_modules', {})
-
-    conf['navigation_extensions'] = _get_key_from_module(
-        mod,
-        'navigation_extensions',
-        [])
-    conf['dirs'] = _get_key_from_module(mod, 'dirs', [])
-    conf['context_processors'] = _get_key_from_module(
-        mod, 'context_processors', [])
+    # extract config keys from module or object
+    for key, default_value in six.iteritems(conf):
+        conf[key] = _get_key_from_module(mod, key, default_value)
 
     # support for recursive dependecies
     filtered_apps = [app for app in conf['apps'] if app not in BLACKLIST]
@@ -136,7 +110,7 @@ def extract_conf_from(mod, conf=dotdict(CONF_SPEC)):
         try:
             app_module = import_module(app)
             if app_module != mod:
-                app_module = _get_right_module(app_module)
+                app_module = _get_correct_module(app_module)
                 mod_conf = extract_conf_from(app_module)
                 for k, v in six.iteritems(mod_conf):
                     # prevent config duplicity
@@ -152,8 +126,8 @@ def extract_conf_from(mod, conf=dotdict(CONF_SPEC)):
     return conf
 
 
-def _get_right_module(mod):
-    """return imported module
+def _get_correct_module(mod):
+    """returns imported module
     check if is ``leonardo_module_conf`` specified and then import them
     """
 
@@ -173,7 +147,7 @@ def get_conf_from_module(mod):
     conf = dotdict(CONF_SPEC)
 
     # get imported module
-    mod = _get_right_module(mod)
+    mod = _get_correct_module(mod)
 
     # extarct from default object or from module
     if hasattr(mod, 'default'):
