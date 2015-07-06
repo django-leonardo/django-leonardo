@@ -79,7 +79,7 @@ class WebMiddleware(object):
             Page.objects.active_filters.pop('current_site', None)
             Page.objects.add_to_active_filters(
                 lambda queryset: queryset.filter(
-                    site__name=str(request.get_host())),
+                    site__domain=str(request.get_host())),
                 key='current_site')
 
         request.LEONARDO_CONFIG = conf.HORIZON_CONFIG
