@@ -74,6 +74,14 @@ class WebMiddleware(object):
         request.frontend_editing = request.COOKIES.get(
             'frontend_editing', False)
 
+        # basic support for multisite
+        if getattr(settings, 'MULTI_SITE_ENABLED', False):
+            Page.objects.active_filters.pop('current_site', None)
+            Page.objects.add_to_active_filters(
+                lambda queryset: queryset.filter(
+                    site__name=str(request.get_host())),
+                key='current_site')
+
         request.LEONARDO_CONFIG = conf.HORIZON_CONFIG
 
         # old
