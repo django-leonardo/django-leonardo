@@ -104,8 +104,6 @@ class Default(object):
         'META_KEYWORDS': ('', _('Site specific meta keywords')),
         'META_DESCRIPTION': ('', _('Site specific meta description')),
         'META_TITLE': ('', _('Site specific meta title')),
-        'MULTI_SITE_ENABLED': (False, _(
-            'Enable multi site request processing')),
     }
 
     module_actions = ['base/actions.html']
