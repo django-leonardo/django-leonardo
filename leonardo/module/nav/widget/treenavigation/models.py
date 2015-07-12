@@ -45,7 +45,7 @@ class TreeNavigationWidget(Widget):
 
         return render_to_string(self.get_template_name(), { 
             'widget': self,
-            'current': request.webcms_page,
+            'current': getattr(request, 'leonardo_page', None),
             'root': root,
             'level': self.level(root.level),
             'level2': self.level(root.level)+1,
