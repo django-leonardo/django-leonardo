@@ -87,8 +87,14 @@ def get_leonardo_modules():
             if pkg_name not in BLACKLIST:
                 try:
                     mod = import_module(pkg_name)
-                    if hasattr(mod, 'default'):
+                    if hasattr(mod, 'default') \
+                            or hasattr(mod, 'leonardo_module_conf'):
                         modules.append(mod)
+                        continue
+                    for key in dir(mod):
+                        if 'LEONARDO' in key:
+                            modules.append(mod)
+                            break
                 except Exception:
                     pass
 
