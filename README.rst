@@ -72,31 +72,43 @@ Leonardo provide bundled extensions, which provides pluggable advantages.
 Modules
 -------
 
+* `Admin`_ - Standard Django admin
+* `Analytics`_ -  Analytics service integration for Leonardo projects
 * `Auth`_ - authentication, registration, account management as 3rd party (social) and SAML support to your Leonardo sites
 * `Blog`_ - Elephant Blog integration
+* `Multisite`_ - Multi site / tenancy with security
 * `Folio`_ - Portfolio app
+* `Geo`_ - Some geolocation related widgets (Google maps,..)
+* `Galleries`_ - Awesome galleries
 * `Forms`_ - Stable Form Designer integration with Remote Forms
-* `Eshop`_ - Oscar Ecommerce - FeinCMS integration
+* `Store`_ - Oscar Ecommerce - FeinCMS integration
 * `News`_ - News
 * `Links`_ - navigation helpers bundles as Leonardo module
 * `Redactor`_ - A lightweight wysiwyg editor for Leonardo
 * `Sentry`_ - end-user friendly error page
 * `Page Permissions`_ - extend Page and provide new Navigation templates with permissions
-* `Analytics`_ -  Analytics service integration for Leonardo projects
+* `Team`_ - team model and widgets
+* `Oembed`_ - oembed objects with caching
 * Static - client-side libraries like an AngularJS, React, D3.js, ..
 
 
+.. _`Admin`: https://github.com/leonardo-modules/leonardo-admin
 .. _`Auth`: https://github.com/leonardo-modules/leonardo-module-auth
 .. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
 .. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
+.. _`Multisite`: https://github.com/leonardo-modules/leonardo-multisite
 .. _`Folio`: https://github.com/leonardo-modules/leonardo-module-folio
-.. _`Eshop`: https://github.com/leonardo-modules/leonardo-module-eshop
+.. _`Geo`: https://github.com/leonardo-modules/leonardo-geo
+.. _`Galleries`: https://github.com/leonardo-modules/leonardo-gallery
+.. _`Store`: https://github.com/leonardo-modules/leonardo-module-eshop
 .. _`News`: https://github.com/leonardo-modules/leonardo-module-news
 .. _`Links`: https://github.com/leonardo-modules/leonardo-module-links
 .. _`Redactor`: https://github.com/leonardo-modules/leonardo-module-redactor
 .. _`Sentry`: https://github.com/leonardo-modules/leonardo-module-sentry
 .. _`Page Permissions`: https://github.com/leonardo-modules/leonardo-module-pagepermissions
 .. _`Analytics`: https://github.com/leonardo-modules/leonardo-module-analytics
+.. _`Team`: https://github.com/leonardo-modules/leonardo-team
+.. _`Oembed`: https://github.com/leonardo-modules/leonardo-oembed
 
 Themes
 ------

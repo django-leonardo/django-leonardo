@@ -27,6 +27,10 @@ Django's builtin migrations
 
 If you have database already created, redirect your migration and create empty migrations
 
+.. warning::
+
+	With Django 1.8 + you must run ``python manage.py migrate web``
+
 add this to your ``settings.py``
 
 .. code-block:: python

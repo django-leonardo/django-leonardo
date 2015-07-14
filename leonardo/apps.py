@@ -41,17 +41,6 @@ class LeonardoConfig(AppConfig):
         else:
             horizon_conf.HORIZON_CONFIG = HORIZON_CONFIG
 
-        try:
-            # optionaly copy all live configuration to main settings
-            from constance import config
-
-            for k in dir(config):
-                setattr(settings, k, getattr(config, k))
-        except Exception:
-            # in some environment may failed
-            # use optionaly strategy
-            pass
-
         # use our debug 404 for quick build scaffold of site
         try:
             from django.views import debug

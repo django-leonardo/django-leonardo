@@ -11,6 +11,10 @@ import six
 from leonardo.base import leonardo, default
 from leonardo.utils.settings import get_conf_from_module, merge, get_leonardo_modules
 
+_file_path = os.path.abspath(os.path.dirname(__file__)).split('/')
+
+BASE_DIR = '/'.join(_file_path[0:-2])
+
 EMAIL = {
     'HOST': 'mail.domain.com',
     'PORT': '25',
@@ -52,9 +56,8 @@ LANGUAGES = (
 
 USE_I18N = True
 
-# SOME DEFAULTS
-MEDIA_ROOT = '/srv/leonardo/sites/demo/media/'
-STATIC_ROOT = '/srv/leonardo/sites/demo/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
@@ -148,9 +151,9 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-LOGIN_URL = '/admin/login/'
+LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_URL = "/"
+LOGOUT_URL = "/auth/logout"
 
 LOGOUT_ON_GET = True
 

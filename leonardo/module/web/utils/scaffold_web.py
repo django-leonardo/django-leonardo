@@ -42,6 +42,10 @@ def get_loaded_scripts(directory=LEONARDO_BOOTSTRAP_DIR):
 
     scripts = {}
 
+    if not directory:
+        raise Exception("You must set LEONARDO_BOOTSTRAP_DIR"
+                        " absolute path to bootstrap scripts")
+
     for root, dirnames, filenames in os.walk(directory):
 
         for file_name in filenames:
@@ -146,7 +150,8 @@ def create_new_site(run_syncall=False, with_user=True, request=None,
 
         regions = page_attrs.pop('content', {})
 
-        if not PageTheme.objects.exists() or PageColorScheme.objects.exists():
+        if not (PageTheme.objects.exists() or
+                PageColorScheme.objects.exists()):
             raise Exception("You havent any themes \
                 please install someone and run sync_all")
 
@@ -154,9 +159,10 @@ def create_new_site(run_syncall=False, with_user=True, request=None,
             if page_theme_name == '__first__':
                 theme = PageTheme.objects.first()
             else:
-                theme = PageTheme.objects.get(name=page_theme_name)
-        except Exception:
-            raise Exception(_("You haven't any themes please install someone and run sync_all"))
+                theme = PageTheme.objects.get(name__icontains=page_theme_name)
+        except PageTheme.DoesNotExist:
+            raise Exception(
+                "Page theme %s not found" % page_theme_name)
         else:
             page_attrs['theme'] = theme
 
@@ -165,10 +171,10 @@ def create_new_site(run_syncall=False, with_user=True, request=None,
                 color_scheme = PageColorScheme.objects.first()
             else:
                 color_scheme = PageColorScheme.objects.get(
-                    name=page_color_scheme_name)
-        except Exception:
-            raise Exception("You havent any themes \
-                please install someone and run sync_all")
+                    name__icontains=page_color_scheme_name)
+        except PageColorScheme.DoesNotExist:
+            raise Exception("Page Color Scheme %s "
+                            "not found" % page_color_scheme_name)
         else:
             page_attrs['color_scheme'] = color_scheme
 

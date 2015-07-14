@@ -5,7 +5,6 @@ cd leonardo_venv
 . $PWD/bin/activate
 
 pip install django-leonardo
-pip install django-leonardo[themes]
 
 django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
 
@@ -14,7 +13,7 @@ cd myproject
 
 python manage.py makemigrations --noinput
 python manage.py migrate --noinput
-python manage.py sync_all
+python manage.py bootstrap_site --url=http://raw.githubusercontent.com/django-leonardo/django-leonardo/develop/contrib/bootstrap/demo.yaml
 
 echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'mail@leonardo.cz', 'admin')" | python manage.py shell
 
