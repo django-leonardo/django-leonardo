@@ -104,6 +104,7 @@ class Default(object):
         'META_KEYWORDS': ('', _('Site specific meta keywords')),
         'META_DESCRIPTION': ('', _('Site specific meta description')),
         'META_TITLE': ('', _('Site specific meta title')),
+        'DEBUG': (True, _('Debug mode')),
     }
 
     module_actions = ['base/actions.html']
