@@ -168,12 +168,12 @@ class Widget(FeinCMSBase):
         default='left', choices=WIDGET_ALIGN_CHOICES)
     vertical_align = models.CharField(
         verbose_name=_("Vertical Alignment"), max_length=25,
-        default='center', choices=VERTICAL_ALIGN_CHOICES)
+        default=DEFAULT_CHOICE, choices=VERTICAL_ALIGN_CHOICES)
 
     # common attributes
     enter_effect_style = models.CharField(
         verbose_name=_("Enter effect style"),
-        max_length=25, default='left', choices=ENTER_EFFECT_CHOICES)
+        max_length=25, default='disabled', choices=ENTER_EFFECT_CHOICES)
 
     enter_effect_duration = models.PositiveIntegerField(verbose_name=_(
         'Enter Effect Duration'), null=True, blank=True)
@@ -183,7 +183,7 @@ class Widget(FeinCMSBase):
 
     color_scheme = models.CharField(
         verbose_name=_("Color scheme"),
-        max_length=25, default='left', choices=WIDGET_COLOR_SCHEME_CHOICES)
+        max_length=25, default='default', choices=WIDGET_COLOR_SCHEME_CHOICES)
 
     def save(self, created=True, *args, **kwargs):
 
