@@ -1,0 +1,5 @@
+{% extends widget.get_base_template %}
+
+{% block content %}
+<a href="{{ page.get_absolute_url }}" class="btn{% if page|is_equal_or_parent_of:current %} btn-primary{% else %} btn-default{% endif %}">{{ page.title }}</a>
+{% endblock %}
