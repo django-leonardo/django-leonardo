@@ -11,25 +11,45 @@ class NavigationWidget(Widget, NavigationWidgetMixin):
     class Meta:
         abstract = True
 
-"""
-class MediaCategoriesNavigationExtension(NavigationExtension):
-    name = _('')
+
+class FlatPageContentNavigationExtension(NavigationExtension):
+    name = _('Flat page content navigation')
 
     def children(self, page, **kwargs):
         base_url = page.get_absolute_url()
-        category_list = Folder.objects.filter(parent=None)
-        for category in category_list:
+        widget_list = page.objects.filter(parent=None)
+        for widget in widget_list:
             subchildren = []
-            for subcategory in category.media_folder_children.all():
+            for subwidget in widget.media_folder_children.all():
                 subchildren.append(PagePretender(
-                    title=subcategory,
-                    url='%s%s/%s/' % (base_url, category.name, subcategory.name),
+                    title=subwidget,
+                    url='%s%s/%s/' % (base_url, widget.name, subwidget.name),
                     level=5
                 ))
             yield PagePretender(
-                title=category,
-                url='%s%s/' % (base_url, category.name),
+                title=widget,
+                url='%s%s/' % (base_url, widget.name),
                 children=subchildren,
                 level=5
             )
-"""
+
+class NestedPageContentNavigationExtension(NavigationExtension):
+    name = _('Nested page content navigation')
+
+    def children(self, page, **kwargs):
+        base_url = page.get_absolute_url()
+        widget_list = page.objects.filter(parent=None)
+        for widget in widget_list:
+            subchildren = []
+            for subwidget in widget.media_folder_children.all():
+                subchildren.append(PagePretender(
+                    title=subwidget,
+                    url='%s%s/%s/' % (base_url, widget.name, subwidget.name),
+                    level=5
+                ))
+            yield PagePretender(
+                title=widget,
+                url='%s%s/' % (base_url, widget.name),
+                children=subchildren,
+                level=5
+            )
