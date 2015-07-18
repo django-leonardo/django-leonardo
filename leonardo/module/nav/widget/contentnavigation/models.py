@@ -9,9 +9,9 @@ from leonardo.module.nav.models import NavigationWidget
 
 class ContentNavigationWidget(NavigationWidget):
     include_contextual_pages = models.BooleanField(
-        verbose_name=_("include contextual pages"), default=False)
+        verbose_name=_("Display included pages"), default=False)
     include_text_headers = models.BooleanField(
-        verbose_name=_("include widget headers"), default=False)
+        verbose_name=_("Display widget headers"), default=False)
 
     class Meta:
         abstract = True

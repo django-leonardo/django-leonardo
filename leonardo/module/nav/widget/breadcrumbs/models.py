@@ -9,24 +9,17 @@ from leonardo.module.nav.models import NavigationWidget
 def get_page_url(page):
     if page.redirect_to:
         return page.redirect_to
-    elif page.template_key == 'layout_void':
-        try:
-            url = page.active_children()[0].get_navigation_url()
-        except:
-            url = '.'
-        return url
     else:
         return page.get_absolute_url()
 
-
 class BreadcrumbsWidget(NavigationWidget):
     root_text = models.CharField(
-        max_length=255, verbose_name=_("root label"), blank=True, null=True)
+        max_length=255, verbose_name=_("Root node label"), blank=True, null=True)
 
     class Meta:
         abstract = True
-        verbose_name = _("Breadcrumbs")
-        verbose_name_plural = _('Breadcrumbs')
+        verbose_name = _("Breadcrumb trail")
+        verbose_name_plural = _('Breadcrumb trails')
 
     def render_content(self, options):
         request = options['request']

@@ -13,8 +13,8 @@ class LanguageSelectorWidget(Widget):
 
     class Meta:
         abstract = True
-        verbose_name = _("language selector")
-        verbose_name_plural = _("language selectors")
+        verbose_name = _("Language switch")
+        verbose_name_plural = _("Language switches")
 
     def render_content(self, options):
         request = options['request']

@@ -13,7 +13,7 @@ ENGINE_CHOICES = (
 
 class SiteSearchWidget(Widget):
     engine = models.CharField(
-        max_length=255, verbose_name=_("engine"),
+        max_length=255, verbose_name=_("Search engine"),
         choices=ENGINE_CHOICES, default="google")
 
     class Meta:

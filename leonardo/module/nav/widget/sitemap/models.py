@@ -11,7 +11,7 @@ from leonardo.module.web.models import Widget, Page
 class SiteMapWidget(Widget):
 
     root = models.ForeignKey(Page, blank=True, null=True, verbose_name=_(
-        "root page"), related_name="sitemap_root", help_text=_("If no root page is set, widget's parent page will be used."))
+        "Root page"), related_name="sitemap_root", help_text=_("If no root page is set, widget's parent page will be used."))
 
     class Meta:
         abstract = True

@@ -9,19 +9,18 @@ from leonardo.module.nav.models import NavigationWidget
 
 
 DEPTH_CHOICES = (
-    (1, _("only one level")),
-    (2, _("subpages too")),
+    (1, _("Only one level")),
+    (2, _("Include subpages")),
 )
 LINK_CHOICES = (
-    ('default', 'Default'),
-    ('detail', 'Detail'),
+    ('default', _('Default title')),
+    ('detail', _('Detailed title')),
 )
-
 
 class TreeNavigationWidget(NavigationWidget):
     depth = models.IntegerField(verbose_name=_("depth"), choices=DEPTH_CHOICES, default=1)
     root = models.ForeignKey(Page, blank=True, null=True, verbose_name=_(
-        "root page"), related_name="taxonomy_root", help_text=_("If no root page is set, widget's parent page will be used."))
+        "root page"), related_name="taxonomy_root", help_text=_("If not set, widget's parent page will be used as root page."))
     link_style = models.CharField(
         max_length=255, verbose_name=_("Link style"), choices=LINK_CHOICES, default='text')
 
