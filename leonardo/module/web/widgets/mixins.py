@@ -43,7 +43,7 @@ class ContentProxyWidgetMixin(models.Model):
         verbose_name=_('Cache validity'), default=3600)
 
     cache_update = models.PositiveIntegerField(
-        verbose_name=_('Cache update'), editable=False)
+        verbose_name=_('Cache update'), editable=False, null=True, blank=True)
 
     cache_data = models.TextField(
         verbose_name=_("Cache data"), blank=True)
