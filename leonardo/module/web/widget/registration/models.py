@@ -8,8 +8,6 @@ from leonardo.module.web.models import Widget
 
 class UserRegistrationWidget(Widget):
 
-    inline = models.BooleanField(verbose_name=_("inline"), default=False)
-
     class Meta:
         abstract = True
         verbose_name = _("user registration")

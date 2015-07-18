@@ -4,11 +4,14 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 
-from leonardo.module.web.models import Widget
+from leonardo.module.nav.models import NavigationWidget
 
-class ContentNavigationWidget(Widget):
-    include_contextual_pages = models.BooleanField(verbose_name=_("include contextual pages"), default=False)
-    include_text_headers = models.BooleanField(verbose_name=_("include widget headers"), default=False)
+
+class ContentNavigationWidget(NavigationWidget):
+    include_contextual_pages = models.BooleanField(
+        verbose_name=_("include contextual pages"), default=False)
+    include_text_headers = models.BooleanField(
+        verbose_name=_("include widget headers"), default=False)
 
     class Meta:
         abstract = True
@@ -28,10 +31,9 @@ class ContentNavigationWidget(Widget):
                 headers.append(content)
         """
 
-        return render_to_string(self.get_template_name(), { 
+        return render_to_string(self.get_template_name(), {
             'widget': self,
             'request': options['request'],
             'headers': headers,
             'page': page,
         })
-

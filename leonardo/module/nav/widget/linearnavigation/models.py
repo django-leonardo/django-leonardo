@@ -4,7 +4,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 
-from leonardo.module.web.models import Widget, Page
+from leonardo.module.nav.models import NavigationWidget
+
 
 TRAVERSE_CHOICES = (
     (0, _("none")),
@@ -18,9 +19,12 @@ LINK_CHOICES = (
     ('page', _("page title")),
 )
 
-class LinearNavigationWidget(Widget):
-    traverse = models.IntegerField(verbose_name=_("traverse"), choices=TRAVERSE_CHOICES, default=0)
-    link = models.CharField(max_length=255, verbose_name=_("links"), choices=LINK_CHOICES, default='text')
+
+class LinearNavigationWidget(NavigationWidget):
+    traverse = models.IntegerField(
+        verbose_name=_("traverse"), choices=TRAVERSE_CHOICES, default=0)
+    link_style = models.CharField(
+        max_length=255, verbose_name=_("Link style"), choices=LINK_CHOICES, default='text')
 
     class Meta:
         abstract = True
@@ -30,19 +34,19 @@ class LinearNavigationWidget(Widget):
     def render_content(self, options):
         request = options['request']
         page = request.webcms_page
-    
+
         if self.traverse == 0:
             prev = page.get_previous_sibling()
             next = page.get_next_sibling()
         elif self.traverse == 1:
             prev = page.get_previous_sibling()
-            if prev == None:
+            if prev is None:
                 prev = page
             next = page.get_next_sibling()
         else:
             prev = page.get_previous_sibling()
             next = page.get_next_sibling()
-        return render_to_string(self.get_template_name(), { 
+        return render_to_string(self.get_template_name(), {
             'widget': self,
             'request': request,
             'prev': prev,

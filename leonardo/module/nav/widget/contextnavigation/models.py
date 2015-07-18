@@ -4,7 +4,8 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.web.const import PAGE_REGIONS
-from leonardo.module.web.models import Page, Widget
+from leonardo.module.web.models import Page
+from leonardo.module.nav.models import NavigationWidget
 
 DEPTH_CHOICES = (
     (0, _("self")),
@@ -19,7 +20,7 @@ LINK_CHOICES = (
 )
 
 
-class ContextNavigationWidget(Widget):
+class ContextNavigationWidget(NavigationWidget):
     root = models.ForeignKey(Page, blank=True, null=True, verbose_name=_("source"), related_name="context_root", help_text=_('The child pages of root page are displayed in the context navigation.'))
     page_region = models.CharField(max_length=255, verbose_name=_("display region"), choices=PAGE_REGIONS, default='preview', help_text=_('Which region of selected pages do you wish to display.'))
     depth = models.IntegerField(verbose_name=_("depth"), choices=DEPTH_CHOICES, default=1, help_text=_('Depth to which display child pages.'))
@@ -39,7 +40,7 @@ class ContextNavigationWidget(Widget):
         if self.root:
             root = self.root
         else:
-            root = options['request'].webcms_page
+            root = options['request'].leonardo_page
 
         return render_to_string(self.get_template_name(), { 
             'widget': self,

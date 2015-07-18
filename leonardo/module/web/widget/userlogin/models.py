@@ -13,9 +13,8 @@ LOGIN_TYPE_CHOICES = (
 
 
 class UserLoginWidget(Widget):
-    inline = models.BooleanField(verbose_name=_("inline"), default=False)
     type = models.PositiveIntegerField(verbose_name=_(
-        "type"), choices=LOGIN_TYPE_CHOICES, default=1)
+        "type"), choices=LOGIN_TYPE_CHOICES, default=2)
 
     class Meta:
         abstract = True
