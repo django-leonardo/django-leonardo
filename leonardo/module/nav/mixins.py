@@ -11,7 +11,7 @@ ORIENTATION_CHOICES = (
 )
 
 
-class NavigationWidgetMixin(object):
+class NavigationWidgetMixin(models.Model):
 
     display_active = models.NullBooleanField(
         verbose_name=_('Display active'), default=True)
@@ -22,3 +22,6 @@ class NavigationWidgetMixin(object):
     orientation = models.CharField(
         verbose_name=_("Orientation"), max_length=20,
         choices=ORIENTATION_CHOICES, default='horizontal')
+
+    class Meta:
+        abstract = True
