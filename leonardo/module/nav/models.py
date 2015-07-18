@@ -1,6 +1,9 @@
 
 from leonardo.module.web.models import Widget
 from leonardo.module.nav.mixins import NavigationWidgetMixin
+from feincms.module.page.extensions.navigation import (NavigationExtension,
+                                                       PagePretender)
+from django.utils.translation import ugettext_lazy as _
 
 
 class NavigationWidget(Widget, NavigationWidgetMixin):
@@ -32,6 +35,7 @@ class FlatPageContentNavigationExtension(NavigationExtension):
                 children=subchildren,
                 level=5
             )
+
 
 class NestedPageContentNavigationExtension(NavigationExtension):
     name = _('Nested page content navigation')
