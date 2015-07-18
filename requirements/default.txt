@@ -28,7 +28,6 @@ easy-thumbnails==2.2
 gunicorn>=18.0
 
 leonardo_horizon==2015.1.1.dev5
-XStatic-react>=0.12.2.1
 XStatic-adminlte>=2.1.0.1
 
 -e git+http://github.com/michaelkuty/django-dbtemplates.git@develop#egg=django_dbtemplates
