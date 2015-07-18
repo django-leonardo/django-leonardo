@@ -11,7 +11,7 @@ class NavigationWidget(Widget, NavigationWidgetMixin):
     class Meta:
         abstract = True
 
-
+"""
 class MediaCategoriesNavigationExtension(NavigationExtension):
     name = _('')
 
@@ -32,3 +32,4 @@ class MediaCategoriesNavigationExtension(NavigationExtension):
                 children=subchildren,
                 level=5
             )
+"""
