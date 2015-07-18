@@ -1,7 +1,7 @@
 
 class Default(object):
 
-    core = ['web', 'nav', 'media', 'search']
+    core = ['web', 'nav', 'media', 'search', 'devel', 'leonardo_auth']
 
     @property
     def middlewares(self):

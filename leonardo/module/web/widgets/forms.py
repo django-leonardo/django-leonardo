@@ -44,8 +44,14 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                     ),
                 Tab(_('Theme'),
                     'base_theme', 'content_theme', 'layout', 'align', 'label', 'id',
-                    'region', 'ordering', 'parent',
+                    'region', 'ordering', 'parent', 'color_scheme',
                     css_id='theme-widget-settings'
+                    ),
+                Tab(_('Effects'),
+                    'enter_effect_style', 'enter_effect_duration',
+                     'enter_effect_delay', 'enter_effect_offset',
+                     'enter_effect_iteration',
+                    css_id='theme-widget-effects'
                     ),
             )
         )

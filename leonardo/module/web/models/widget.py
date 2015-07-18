@@ -15,7 +15,7 @@ from leonardo.utils.templates import find_all_templates, template_choices
 
 from ..const import *
 from ..widgets.forms import WIDGETS, WidgetUpdateForm
-from ..widgets.mixins import ListWidgetMixin
+from ..widgets.mixins import ListWidgetMixin, ContentProxyWidgetMixin
 from django.utils.functional import cached_property
 from leonardo.utils.memoized import widget_memoized
 
@@ -51,7 +51,14 @@ class WidgetInline(FeinCMSInline):
             (_('Theme'), {
                 'fields': [
                     ('label', 'base_theme', 'content_theme',
-                     'layout', 'align', 'enabled',),
+                     'layout', 'align', 'enabled', 'color_scheme'),
+                ],
+            }),
+            (_('Effects'), {
+                'fields': [
+                    ('enter_effect_style', 'enter_effect_duration',
+                     'enter_effect_delay', 'enter_effect_offset',
+                     'enter_effect_iteration', 'enabled',),
                 ],
             }),
         ]

@@ -26,3 +26,21 @@ class ListWidgetMixin(object):
     pagination_style = models.CharField(
         verbose_name=_("Pagination Style"), max_length=50,
         choices=PAGINATION_CHOICES, default='paginator')
+
+
+class ContentProxyWidgetMixin(object):
+
+    """Content proxy widget mixin
+    """
+
+    source_address = models.CharField(
+        verbose_name=_("Source Address"), max_length=255)
+
+    cache_validity = models.PositiveIntegerField(
+        verbose_name=_('Cache validity'), default=3600)
+
+    cache_update = models.PositiveIntegerField(
+        verbose_name=_('Cache update'), editable=False)
+
+    cache_data = models.TextField(
+        verbose_name=_("Cache data"), blank=True)

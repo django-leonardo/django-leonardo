@@ -1,5 +1,6 @@
 
 ENTER_EFFECT_CHOICES = (
+    ('disabled', 'Disabled'),
     ('Attention Seekers', (
         ('bounce', 'Bounce'),
         ('flash', 'Flash'),

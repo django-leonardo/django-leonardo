@@ -22,7 +22,7 @@ class TreeNavigationWidget(NavigationWidget):
     root = models.ForeignKey(Page, blank=True, null=True, verbose_name=_(
         "root page"), related_name="taxonomy_root", help_text=_("If not set, widget's parent page will be used as root page."))
     link_style = models.CharField(
-        max_length=255, verbose_name=_("Link style"), choices=LINK_CHOICES, default='text')
+        max_length=255, verbose_name=_("Link style"), choices=LINK_CHOICES, default='default')
 
     class Meta:
         abstract = True

@@ -10,4 +10,4 @@ class AuthPanel(horizon.Panel):
     name = _("Auth")
     slug = 'auth'
 
-dashboard.ModuleDashboard.register(AuthPanel)
+#dashboard.ModuleDashboard.register(AuthPanel)

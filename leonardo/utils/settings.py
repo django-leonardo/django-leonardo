@@ -111,7 +111,11 @@ def extract_conf_from(mod, conf=dotdict(CONF_SPEC)):
         conf[key] = _get_key_from_module(mod, key, default_value)
 
     # support for recursive dependecies
-    filtered_apps = [app for app in conf['apps'] if app not in BLACKLIST]
+    try:
+        filtered_apps = [app for app in conf['apps'] if app not in BLACKLIST]
+    except Exception as e:
+        raise Exception(conf['apps'])
+        raise e
     for app in filtered_apps:
         try:
             app_module = import_module(app)

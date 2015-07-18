@@ -7,7 +7,6 @@ class NavigationWidget(Widget, NavigationWidgetMixin):
 
     """Base class for navigation widget
     """
-    pass
 
     class Meta:
         abstract = True

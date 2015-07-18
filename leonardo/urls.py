@@ -67,7 +67,7 @@ for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
 
 if getattr(settings, 'LEONARDO_AUTH', True):
     urlpatterns += patterns('',
-                            url(r'^auth/', include('leonardo.module.auth.urls')),
+                            url(r'^auth/', include('leonardo.module.leonardo_auth.auth_urls')),
                             )
 
 if getattr(settings, 'HORIZON_ENABLED', True):

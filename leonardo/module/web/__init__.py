@@ -90,10 +90,6 @@ class Default(object):
             FeedReaderWidget,
             HtmlTextWidget,
             PageTitleWidget,
-            UserLoginWidget,
-            UserRegistrationWidget,
-            VisualTestWidget,
-            ClientInfoWidget,
         ]
 
     plugins = [
