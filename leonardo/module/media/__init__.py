@@ -45,6 +45,9 @@ class Default(object):
         'MEDIA_ENABLE_PERMISSIONS': (True, _(
             'Permissions for downloadable items. Experimental feature.')),
         'MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS': (False, _('ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS')),
+        'MEDIA_THUMN_SMALL_GEOM': ('64x64', _('MEDIA_THUMN_SMALL_GEOM')),
+        'MEDIA_THUMN_MEDIUM_GEOM': ('256x256', _('MEDIA_THUMN_MEDIUM_GEOM')),
+        'MEDIA_THUMN_LARGE_GEOM': ('768x768', _('MEDIA_THUMN_LARGE_GEOM')),
     }
 
 

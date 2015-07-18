@@ -3,32 +3,35 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from leonardo.module.web.models import Widget
+from leonardo.module.web.models import ListWidget
+
+from django.conf import settings
 
 DETAIL_CHOICES = (
-    ('modal', _('modal window')),
-    ('link', _('link to file')),
-    ('page', _('on page')),
+    ('open_modal', _('open in modal window')),
+    ('open_new_window', _('open new window')),
+    ('on_page', _('disply in page')),
 )
 
 SIZE_CHOICES = (
-    ('96x96', _('small')),
-    ('128x128', _('medium')),
-    ('386x386', _('large')),
+    ('small', _('small')),
+    ('medium', _('medium')),
+    ('large', _('large')),
 )
 
-class MediaGalleryWidget(Widget):
-    category = models.ForeignKey('media.Folder', verbose_name=_("Directory"), related_name="%(app_label)s_%(class)s_categories")
-    size = models.CharField(max_length=255, verbose_name=_("thumbnail size"), choices=SIZE_CHOICES, default='96x96')
-    detail = models.CharField(max_length=255, verbose_name=_("detail view"), choices=DETAIL_CHOICES, default='modal')
+
+class MediaGalleryWidget(ListWidget):
+    folder = models.ForeignKey('media.Folder', verbose_name=_(
+        "Directory"), related_name="%(app_label)s_%(class)s_folders")
+    size = models.CharField(max_length=255, verbose_name=_(
+        "thumbnail size"), choices=SIZE_CHOICES, default='small')
+    detail = models.CharField(max_length=255, verbose_name=_(
+        "detail view"), choices=DETAIL_CHOICES, default='modal')
 
     def thumb_geom(self):
-        if self.size == 'small':
-            return '96x96'
-        elif self.size == 'medium':
-            return '128x128'
-        else:
-            return '256x256'
+        return getattr(settings,
+                       'MEDIA_THUMB_%s_GEOM' % self.size.upper(),
+                       '96x96')
 
     def image_geom(self):
         return '800x800'

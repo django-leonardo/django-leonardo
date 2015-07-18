@@ -8,16 +8,16 @@ from django.utils.translation import ugettext_lazy as _
 from .const import PAGINATION_CHOICES
 
 
-class ListWidgetMixin(object):
+class ListWidgetMixin(models.Model):
 
     """Common fields for object lists
     """
 
     objects_per_page = models.PositiveIntegerField(
-        verbose_name=_('Objects per page'), blank=True)
+        verbose_name=_('Objects per page'), blank=True, default=6)
 
     objects_per_row = models.PositiveIntegerField(
-        verbose_name=_('Objects per row'), blank=True)
+        verbose_name=_('Objects per row'), blank=True, default=3)
 
     pagination = models.CharField(
         verbose_name=_("Pagination"), max_length=50,
@@ -27,8 +27,11 @@ class ListWidgetMixin(object):
         verbose_name=_("Pagination Style"), max_length=50,
         choices=PAGINATION_CHOICES, default='paginator')
 
+    class Meta:
+        abstract = True
 
-class ContentProxyWidgetMixin(object):
+
+class ContentProxyWidgetMixin(models.Model):
 
     """Content proxy widget mixin
     """
@@ -44,3 +47,6 @@ class ContentProxyWidgetMixin(object):
 
     cache_data = models.TextField(
         verbose_name=_("Cache data"), blank=True)
+
+    class Meta:
+        abstract = True
