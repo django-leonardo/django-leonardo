@@ -168,7 +168,7 @@ class Widget(FeinCMSBase):
         default='left', choices=WIDGET_ALIGN_CHOICES)
     vertical_align = models.CharField(
         verbose_name=_("Vertical Alignment"), max_length=25,
-        default=DEFAULT_CHOICE, choices=VERTICAL_ALIGN_CHOICES)
+        default='top', choices=VERTICAL_ALIGN_CHOICES)
 
     # common attributes
     enter_effect_style = models.CharField(

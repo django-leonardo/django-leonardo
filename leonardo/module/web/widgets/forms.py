@@ -43,8 +43,9 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                     css_id='field-{}'.format(slugify(self._meta.model))
                     ),
                 Tab(_('Theme'),
-                    'base_theme', 'content_theme', 'layout', 'align', 'label', 'id',
-                    'region', 'ordering', 'parent', 'color_scheme',
+                    'base_theme', 'content_theme', 'layout', 'align',
+                    'vertical_align', 'label', 'id', 'region', 'ordering',
+                    'parent', 'color_scheme',
                     css_id='theme-widget-settings'
                     ),
                 Tab(_('Effects'),

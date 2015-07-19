@@ -193,9 +193,9 @@ ALIGN_CHOICES = (
 )
 
 VERTICAL_ALIGN_CHOICES = (
-    (DEFAULT_CHOICE, _('top')),
-    (1, _('middle')),
-    (2, _('bottom')),
+    ('top', _('top')),
+    ('middle', _('middle')),
+    ('bottom', _('bottom')),
 )
 
 # this wil be on the Page model
