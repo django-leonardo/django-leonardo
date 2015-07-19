@@ -2,15 +2,12 @@
 
 {% block content %}
 {% if title %}
-<div class="span-{% if subtitle %}8{% else %}24{% endif %}">
-  <a id="top"></a>
-  <h1>{{ title|safe }}</h1>
+<div class="section-heading">
+  <h2>{{ title|safe }}</h2>
 </div>
 {% else %}
-<div class="span-24">
-  <a id="top"></a>
-  <h1>{{ page.title|safe }}</h1>
+<div class="section-heading">
+  <h2>{{ page.title|safe }}</h2>
 </div>
-{% endif %}
 {% endif %}
 {% endblock %}
