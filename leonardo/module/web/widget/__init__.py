@@ -1,4 +1,5 @@
 
+from .icon.models import IconWidget
 from .application.models import ApplicationWidget
 from .markuptext.models import MarkupTextWidget
 from .feedreader.models import FeedReaderWidget

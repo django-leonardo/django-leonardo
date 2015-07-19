@@ -90,6 +90,7 @@ class Default(object):
             FeedReaderWidget,
             HtmlTextWidget,
             PageTitleWidget,
+            IconWidget,
         ]
 
     plugins = [
