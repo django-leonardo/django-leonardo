@@ -1,0 +1,23 @@
+{% load applicationcontent_tags i18n  %}
+
+{% include "base/widget/_base_begin.html" %}
+
+<div id="{{ widget.fe_identifier }}" class="no-gutter {{ widget.render_base_classes }}">
+  <div class="{{ widget.render_content_classes }}">
+    {% if request.frontend_editing %}
+    <div class="widget-tools">
+      {% include "base/widget/_edit.html" %}
+    </div>
+    {% endif %}
+    {% block title %}
+    {% if widget.label %}
+    <a id="{{ widget.label|slugify }}"></a>
+    <h2 class="widget-title"><span>{{ widget.label }}</span></h2>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+  </div>
+</div>
+
+{% include "base/widget/_base_end.html" %}
