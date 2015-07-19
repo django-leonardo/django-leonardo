@@ -3,11 +3,11 @@
 {% block content %}
 {% if title %}
 <div class="section-heading">
-  <h2>{{ title|safe }}</h2>
+  <h2 class="section-heading">{{ title|safe }}</h2>
 </div>
 {% else %}
 <div class="section-heading">
-  <h2>{{ page.title|safe }}</h2>
+  <h2 class="section-heading">{{ page.title|safe }}</h2>
 </div>
 {% endif %}
 {% endblock %}

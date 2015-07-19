@@ -1,7 +1,6 @@
 {% load applicationcontent_tags i18n  %}
 
 {% include "base/widget/_base_begin.html" %}
-
 <div id="{{ widget.fe_identifier }}" class="no-gutter {{ widget.render_base_classes }}">
   <div class="{{ widget.render_content_classes }}">
     {% if request.frontend_editing %}
@@ -19,5 +18,4 @@
     {% endblock %}
   </div>
 </div>
-
 {% include "base/widget/_base_end.html" %}
