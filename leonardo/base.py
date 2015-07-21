@@ -1,4 +1,11 @@
 
+import logging
+
+logging.basicConfig()
+
+LOG = logging.getLogger(__name__)
+
+
 class Default(object):
 
     core = ['web', 'nav', 'media', 'search', 'devel', 'leonardo_auth']
@@ -127,6 +134,7 @@ class Leonardo(object):
             except ImportError:
                 _app = False
             if not _app:
+                # obsolete part
                 try:
                     # check if is not leonardo_module
                     _app = import_module('leonardo_module_{}'.format(app))
@@ -139,6 +147,8 @@ class Leonardo(object):
                 else:
                     mod = import_module('.{0}'.format(app), package_string)
                 modules.append(mod)
+            else:
+                LOG.warning('{} was skipped because app was not found in PYTHONPATH'.format(app))
         return modules
 
 leonardo = Leonardo()

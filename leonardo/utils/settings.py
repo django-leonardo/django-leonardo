@@ -24,6 +24,7 @@ CONF_SPEC = {
     'absolute_url_overrides': {},
     'navigation_extensions': [],
     'module_actions': [],
+    'ordering': 100,
 }
 
 BLACKLIST = ['haystack']

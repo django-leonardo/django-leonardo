@@ -165,7 +165,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'root': {
-        'level': 'WARNING',
+        'level': 'DEBUG',
         'handlers': ['console'],
     },
     'filters': {
@@ -303,6 +303,9 @@ try:
     if LEONARDO_MODULE_AUTO_INCLUDE:
         # fined and merge with defined app modules
         _APPS = merge(get_leonardo_modules(), _APPS)
+
+    # sort modules
+    _APPS = sorted(_APPS, key=lambda m: getattr(m, 'LEONARDO_ORDERING', 1000))
 
     for mod in _APPS:
 
@@ -445,12 +448,6 @@ setattr(leonardo, 'page_extensions', PAGE_EXTENSIONS)
 setattr(leonardo, 'plugins', APPLICATION_CHOICES)
 
 MIGRATION_MODULES.update(ADD_MIGRATION_MODULES)
-
-# ensure if bootstra_admin is on top of INSTALLED_APPS
-if 'bootstrap_admin' in INSTALLED_APPS:
-    BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
-    # INSTALLED_APPS.remove('bootstrap_admin')
-    #INSTALLED_APPS = ['bootstrap_admin'] + INSTALLED_APPS
 
 # Add HORIZON_CONFIG to the context information for offline compression
 COMPRESS_OFFLINE_CONTEXT = {
