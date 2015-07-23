@@ -1,2 +1,0 @@
-leonardo-theme-adminlte>=0.0.1
-xstatic-adminlte>=2.0.1.1

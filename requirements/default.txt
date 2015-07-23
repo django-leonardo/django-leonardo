@@ -14,7 +14,7 @@ Markdown>=2.2.1
 docutils==0.10
 django-pyscss>=1.0.3
 requests>=1.2.3
-django-filer==0.9.9
+django-filer==0.9.11
 django-admin-tools>=0.5.2
 horizon-contrib>=2015.7.3
 django-markupfield>=1.3.4
@@ -28,8 +28,9 @@ easy-thumbnails==2.2
 gunicorn>=18.0
 
 leonardo_horizon==2015.1.1.dev5
-XStatic-adminlte>=2.1.0.1
 
 -e git+http://github.com/michaelkuty/django-dbtemplates.git@develop#egg=django_dbtemplates
 -e git+http://github.com/django-leonardo/django-constance@master#egg=django_constance
 django-picklefield==0.3.1
+
+-r extras/static.txt
