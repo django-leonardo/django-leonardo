@@ -14,10 +14,6 @@ before_install:
 install:
   - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8
   - pip install -r requirements/tests.txt
-  - pip install -r requirements/extras/static.txt
-  - pip install -r requirements/extras/blog.txt
-  - pip install -r requirements/extras/themes.txt
-  - pip install -r requirements/extras/sentry.txt
   - python setup.py -q install
   - if [[ $DB == mysql ]]; then pip install -q mysql-python; fi
   - if [[ $DB == postgres ]]; then pip install -q psycopg2; fi
