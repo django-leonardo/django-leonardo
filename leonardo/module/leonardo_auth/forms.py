@@ -33,7 +33,6 @@ class LoginForm(SelfHandlingForm):
         self.helper.layout = Layout(
             'username', 'password', InlineCheckboxes('remember'),
         )
-        self._wrap_all()
 
     def handle(self, request, data):
 

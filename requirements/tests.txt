@@ -2,7 +2,7 @@ django>=1.7
 FeinCMS==1.11.0
 django-extensions==1.5.3
 djangorestframework>=3.0.0
-django-floppyforms==1.1
+django-floppyforms==1.5.1
 django-crispy-forms==1.4.0
 django-reversion==1.8.5
 python-memcached>=1.54

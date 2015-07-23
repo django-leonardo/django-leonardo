@@ -24,7 +24,7 @@ WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
     'parent': forms.widgets.HiddenInput,
     'ordering': forms.widgets.HiddenInput,
-    'icon': IconPreviewSelect(attrs={'style': "font-family: 'FontAwesome', Helvetica;"})
+    'icon': IconPreviewSelect(attrs={'style': "font-family: 'FontAwesome', Helvetica;"}),
 }
 
 
@@ -57,8 +57,8 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                     ),
                 Tab(_('Effects'),
                     'enter_effect_style', 'enter_effect_duration',
-                     'enter_effect_delay', 'enter_effect_offset',
-                     'enter_effect_iteration',
+                    'enter_effect_delay', 'enter_effect_offset',
+                    'enter_effect_iteration',
                     css_id='theme-widget-effects'
                     ),
             )
@@ -91,8 +91,6 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         if 'text' in self.fields:
             self.fields['text'].label = ''
 
-        self._wrap_all()
-
 
 class WidgetCreateForm(WidgetUpdateForm):
 
@@ -124,9 +122,6 @@ class WidgetCreateForm(WidgetUpdateForm):
                 self.fields['content_theme'].queryset.first()
         else:
             self.fields['content_theme'].initial = content_theme
-
-
-        self._wrap_all()
 
 
 class WidgetDeleteForm(SelfHandlingForm):

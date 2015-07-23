@@ -95,8 +95,9 @@ def technical_404_response(request, exception):
         'standalone': True,
         'slug': slug,
     })
+
     try:
-        t = render_to_string(TECHNICAL_404_TEMPLATE, c)
+        t = render_to_string('404_technical.html', c)
     except:
         from django.views.debug import TECHNICAL_404_TEMPLATE
         t = Template(TECHNICAL_404_TEMPLATE).render(c)
