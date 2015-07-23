@@ -11,6 +11,7 @@ At all locations where something has been changed, there are inline comments in 
 from __future__ import unicode_literals
 
 from django.contrib.admin.util import NestedObjects, quote
+from django.core.urlresolvers import reverse
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -19,7 +20,8 @@ try:
 except ImportError:
     # Django < 1.5
     from django.utils.encoding import force_unicode as force_text
-from django.core.urlresolvers import reverse
+
+from filer.utils.compatibility import get_delete_permission
 
 
 def get_deleted_objects(objs, opts, user, admin_site, using):
@@ -43,12 +45,11 @@ def get_deleted_objects(objs, opts, user, admin_site, using):
 
         if has_admin:
             admin_url = reverse('%s:%s_%s_change'
-            % (admin_site.name,
-               opts.app_label,
-               opts.object_name.lower()),
-                None, (quote(obj._get_pk_val()),))
-            p = '%s.%s' % (opts.app_label,
-                           opts.get_delete_permission())
+                                % (admin_site.name,
+                                   opts.app_label,
+                                   opts.object_name.lower()),
+                                None, (quote(obj._get_pk_val()),))
+            p = get_delete_permission(opts)
             if not user.has_perm(p):
                 perms_needed.add(opts.verbose_name)
                 # Display a link to the admin page.
@@ -70,7 +71,8 @@ def get_deleted_objects(objs, opts, user, admin_site, using):
 
 
 class PolymorphicAwareNestedObjects(NestedObjects):
-     def collect(self, objs, source_attr=None, **kwargs):
+
+    def collect(self, objs, source_attr=None, **kwargs):
         if hasattr(objs, 'non_polymorphic'):
             # .filter() is needed, because there may already be cached polymorphic results in the queryset
             objs = objs.non_polymorphic().filter()
