@@ -10,6 +10,8 @@ default_app_config = 'leonardo.module.media.MediaConfig'
 
 class Default(object):
 
+    urlconf = 'leonardo.module.media.server.urls'
+
     optgroup = 'Media'
 
     @property
