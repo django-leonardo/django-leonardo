@@ -37,3 +37,5 @@ django-picklefield==0.3.1
 -r extras/apps/blog.txt
 -r extras/themes/themes.txt
 -r extras/extensions/sentry.txt
+
+coverage

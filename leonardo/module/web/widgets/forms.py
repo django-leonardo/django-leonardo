@@ -1,8 +1,9 @@
 
 import copy
 from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Field, HTML, Layout
+from crispy_forms.layout import Field, HTML, Layout, LayoutObject
 from django import forms
+import floppyforms
 from django.contrib.auth import get_permission_codename
 from django.db.models.loading import get_model
 from django.forms.models import modelform_factory
@@ -14,10 +15,16 @@ from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
 
+
+class IconPreviewSelect(floppyforms.widgets.Select):
+    template_name = 'floppyforms/select_preview.html'
+
+
 WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
     'parent': forms.widgets.HiddenInput,
     'ordering': forms.widgets.HiddenInput,
+    'icon': IconPreviewSelect(attrs={'style': "font-family: 'FontAwesome', Helvetica;"})
 }
 
 
@@ -117,6 +124,7 @@ class WidgetCreateForm(WidgetUpdateForm):
                 self.fields['content_theme'].queryset.first()
         else:
             self.fields['content_theme'].initial = content_theme
+
 
         self._wrap_all()
 

@@ -19,15 +19,16 @@ from crispy_forms.bootstrap import (Accordion, AccordionGroup, InlineCheckboxes,
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (Field, Fieldset, HTML, Div,
                                  Layout, Reset, Row, Submit)
+import floppyforms
 
 
-class FormHelper(object):
+class FormHelper(FormHelper):
 
     def _wrap_all(self, max_level=4):
         """helper for wrapping all
         """
         self.helper.filter(
-            basestring, max_level=4).wrap(
+            basestring, max_level=max_level).wrap(
             Field, css_class="form-control")
 
 
