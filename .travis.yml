@@ -22,6 +22,7 @@ before_script:
   - psql -c 'create database django_leonardo;' -U postgres
 script:
   - cd tests
+  - python manage.py migrate auth
   - python manage.py migrate contenttypes
   - python manage.py migrate dbtemplates
   - coverage run manage.py test testapp
