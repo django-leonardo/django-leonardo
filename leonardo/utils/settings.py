@@ -3,6 +3,8 @@
 from django.utils.importlib import import_module
 from django.utils import six
 
+import warnings
+
 # define options
 CONF_SPEC = {
     'optgroup': None,
@@ -28,6 +30,7 @@ CONF_SPEC = {
 }
 
 BLACKLIST = ['haystack']
+LEONARDO_MODULES = None
 
 
 class dotdict(dict):
@@ -72,34 +75,39 @@ def get_leonardo_modules():
     check every installed module for leonardo descriptor
 
     """
+    global LEONARDO_MODULES
 
-    modules = []
+    if not LEONARDO_MODULES:
+        modules = []
 
-    try:
-        import pip
-        installed_packages = pip.get_installed_distributions()
-    except Exception:
-        installed_packages = []
+        try:
+            import pip
+            installed_packages = pip.get_installed_distributions()
+        except Exception:
+            installed_packages = []
+            warnings.warn(
+                'pip is not installed module, scan module is skipped.',
+                RuntimeWarning)
 
-    for package in installed_packages:
-        # check for default descriptor
-        pkg_names = [k for k in package._get_metadata("top_level.txt")]
-        for pkg_name in pkg_names:
-            if pkg_name not in BLACKLIST:
-                try:
-                    mod = import_module(pkg_name)
-                    if hasattr(mod, 'default') \
-                            or hasattr(mod, 'leonardo_module_conf'):
-                        modules.append(mod)
-                        continue
-                    for key in dir(mod):
-                        if 'LEONARDO' in key:
+        for package in installed_packages:
+            # check for default descriptor
+            pkg_names = [k for k in package._get_metadata("top_level.txt")]
+            for pkg_name in pkg_names:
+                if pkg_name not in BLACKLIST:
+                    try:
+                        mod = import_module(pkg_name)
+                        if hasattr(mod, 'default') \
+                                or hasattr(mod, 'leonardo_module_conf'):
                             modules.append(mod)
-                            break
-                except Exception:
-                    pass
-
-    return modules
+                            continue
+                        for key in dir(mod):
+                            if 'LEONARDO' in key:
+                                modules.append(mod)
+                                break
+                    except Exception:
+                        pass
+        LEONARDO_MODULES = modules
+    return LEONARDO_MODULES
 
 
 def extract_conf_from(mod, conf=dotdict(CONF_SPEC)):
@@ -132,7 +140,7 @@ def extract_conf_from(mod, conf=dotdict(CONF_SPEC)):
                         conf[k].update(v)
                     elif isinstance(v, (list, tuple)):
                         conf[k] = merge(conf[k], v)
-        except Exception:
+        except Exception as e:
             pass  # swallow, but maybe log for info what happens
     return conf
 

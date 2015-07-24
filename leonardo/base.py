@@ -1,9 +1,5 @@
 
-import logging
-
-logging.basicConfig()
-
-LOG = logging.getLogger(__name__)
+import warnings
 
 
 class Default(object):
@@ -148,7 +144,9 @@ class Leonardo(object):
                     mod = import_module('.{0}'.format(app), package_string)
                 modules.append(mod)
             else:
-                LOG.warning('{} was skipped because app was not found in PYTHONPATH'.format(app))
+                warnings.warn('%s was skipped because app was '
+                              'not found in PYTHONPATH' % app,
+                              ImportWarning)
         return modules
 
 leonardo = Leonardo()

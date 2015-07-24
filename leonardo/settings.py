@@ -11,6 +11,8 @@ import six
 from leonardo.base import leonardo, default
 from leonardo.utils.settings import get_conf_from_module, merge, get_leonardo_modules
 
+import warnings
+
 _file_path = os.path.abspath(os.path.dirname(__file__)).split('/')
 
 BASE_DIR = '/'.join(_file_path[0:-2])
@@ -235,7 +237,10 @@ try:
     # local settings
     from local_settings import *
 except ImportError:
-    pass
+    LOG.warning('')
+    warnings.warn(
+        'local_settings was not found in $PYTHONPATH !',
+        ImportWarning)
 
 REVERSION_MIDDLEWARE = [
     'reversion.middleware.RevisionMiddleware']
@@ -436,7 +441,7 @@ except ImportError:
 
 try:
     # full settings
-    from project.local.settings import *
+    from leonardo_site.local.settings import *
 except ImportError:
     pass
 
@@ -478,7 +483,10 @@ if DEBUG:
         ]
 
     except ImportError:
-        pass
+        if DEBUG:
+            warnings.warn('DEBUG is set to True but, DEBUG tools '
+                          'is not installed please run '
+                          '"pip install django-leonardo[debug]"')
 
 # async messages
 try:
@@ -488,6 +496,11 @@ try:
                                ['async_messages.middleware.AsyncMiddleware'])
 except ImportError:
     pass
+    """
+    LOG.debug('ASYNC MESSAGES is not installed'
+              ' install for new messaging features '
+              '"pip install django-async-messages"')
+    """
 
 
 # use js files instead of horizon
