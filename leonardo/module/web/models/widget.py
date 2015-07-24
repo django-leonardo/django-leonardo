@@ -1,6 +1,7 @@
 
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -272,7 +273,7 @@ class Widget(FeinCMSBase):
         """proxy for render_content with memoized
 
         this method provide best performence for complicated
-        widget contentc like a context navigation
+        widget content like a context navigation
         """
         return self.render_content(options)
 
@@ -283,12 +284,22 @@ class Widget(FeinCMSBase):
             'base_template': self.get_base_template,
             'request': options['request'],
         })
-        return self.template_source.render(context)
 
-    def render_error(self, error_code):
+        # handle widget render error
+        try:
+            rendered_content = self.template_source.render(context)
+        except Exception as e:
+            if settings.DEBUG:
+                raise e
+            rendered_content = self.render_error(context, e)
+        return rendered_content
+
+    def render_error(self, context, exception):
         return render_to_string("widget/error.html", {
             'widget': self,
-            'request': kwargs['request'],
+            'request': context['request'],
+            'context': context,
+            'error': str(exception),
         })
 
     @cached_property
