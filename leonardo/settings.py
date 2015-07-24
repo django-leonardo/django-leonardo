@@ -211,11 +211,6 @@ LOGGING = {
     }
 }
 
-# migrations support
-MIGRATION_MODULES = {
-    'filer': 'filer.migrations_django',
-}
-
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 SECRET_KEY = None

@@ -36,8 +36,9 @@ Further reading:
 
 * `Demo Site`_ (a reference build of an Leonardo project)
 * `Demo Store`_ (a reference build of an Leonardo Store project)
-* `Developer Documentation`_
-* `User Documentation`_
+* `Developer Documentation`_ (documentation for Django Developers)
+* `User Documentation`_ (documentation for Leonardo end-users)
+* `Modules`_ Leonardo modules
 * `Continuous integration homepage`_
 
 .. image:: https://badges.gitter.im/Join%20Chat.svg
@@ -49,6 +50,7 @@ Further reading:
    :target: https://coveralls.io/r/django-leonardo/django-leonardo?branch=develop
 
 .. _`Demo Site`: http://demo.cms.robotice.cz
+.. _`Modules`: http://github.com/leonardo-modules
 .. _`Demo Store`: http://store.leonardo.robotice.org
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 .. _`Developer Documentation`: http://django-leonardo.readthedocs.org
