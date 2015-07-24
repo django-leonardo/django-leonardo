@@ -22,6 +22,7 @@ before_script:
   - psql -c 'create database django_leonardo;' -U postgres
 script:
   - cd tests
+  - export PYTHONPATH='.'
   - coverage run manage.py test testapp
 after_success:
   - coveralls
