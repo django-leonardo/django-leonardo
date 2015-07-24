@@ -26,9 +26,15 @@ else:
         }
     }
 
+MIGRATION_MODULES = {
+    'web': 'notmigrations',
+    'media': 'notmigrations',
+}
+
+
 try:
     import psycopg2  # noqa
-except Exception:
+except Exception as e:
     pass
 else:
     DATABASES = {
@@ -38,6 +44,12 @@ else:
             'USER': 'postgres',
         }
     }
+    # monkeypath postgres tests
+    MIGRATION_MODULES['dbtemplates'] = 'notmigrations'
+    MIGRATION_MODULES['sites'] = 'notmigrations'
+    MIGRATION_MODULES['contenttypes'] = 'notmigrations'
+    MIGRATION_MODULES['auth'] = 'notmigrations'
+    MIGRATION_MODULES['reversion'] = 'notmigrations'
 
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
@@ -54,12 +66,5 @@ LEONARDO_MODULE_AUTO_INCLUDE = False
 
 APPS = [
     'testapp',
-    'web',
-    'media',
     'leaonrdo_theme_bootswatch',
 ]
-
-MIGRATION_MODULES = {
-    'web': 'notmigrations',
-    'media': 'notmigrations',
-}

@@ -1,0 +1,19 @@
+{% load applicationcontent_tags i18n  %}
+
+{% include "base/widget/_base_begin.html" %}
+
+{% if request.frontend_editing %}
+<div class="widget-tools">
+  {% include "base/widget/_edit.html" %}
+</div>
+{% endif %}
+{% block title %}
+{% if widget.label %}
+<a id="{{ widget.label|slugify }}"></a>
+<h2 class="widget-title"><span>{{ widget.label }}</span></h2>
+{% endif %}
+{% endblock %}
+{% block content %}
+{% endblock %}
+
+{% include "base/widget/_base_end.html" %}

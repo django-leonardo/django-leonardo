@@ -7,8 +7,8 @@ from leonardo.module.web.models import Widget
 
 
 class SimpleVideoWidget(Widget):
-    thumb = models.ForeignKey("media.Image", verbose_name=_("thumbnail"), limit_choices_to={
-                              'type': 'image'}, blank=True, null=True, related_name="%(app_label)s_%(class)s_thumbnails")
+    thumb = models.ForeignKey("media.Image", verbose_name=_(
+        "thumbnail"), blank=True, null=True, related_name="%(app_label)s_%(class)s_thumbnails")
     video = models.ForeignKey(
         "media.Video", verbose_name=_("video"), related_name="%(app_label)s_%(class)s_videos")
     width = models.IntegerField(verbose_name=_("width"), default=100)

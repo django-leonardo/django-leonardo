@@ -1,6 +1,78 @@
 CHANGES
 =======
 
+* handle dbtemplates and create themes from them #65
+* last fix travis build
+* fix db dict
+* remove old log occurency
+* i hope that finally fix travis tests
+* warnings for some part of loading process
+* export pythonpath
+* fix travis build
+* ordering
+* sites,sessions
+* auth before ct
+* separate migrate cmd
+* migrate contenttypes before dbtemplates
+* migrate just dbtemplates
+* migrate before testing
+* switchable page theme/color schemes, switch floppyforms to bootstrap3 and cleanup icon widget code
+* icon widget preview
+* last fix reqs
+* fix duplicity of adminlte requirement
+* fix travis build
+* path to static reqs fix
+* install static extras in the default state, bump required version ofdjango-filer, subcategorize for extras
+* fix public/private media urls
+* fix media on dj 1.8
+* sort module to include and cleanup admin dependecies, new extras
+* live settings for media options
+* empty base widget theme, empty slider
+* heading fixes
+* guterless page
+* included icon widget and removed db field
+* bump required version of horizon-contrib
+* redactor removed from defaults
+* widget update fix
+* removed redactor
+* fixes
+* icon widget
+* fix model inheritence
+* moved to auth
+* import fixes
+* navigation extensions, fullscreen context
+* make cache update nullable
+* media final
+* comment for now
+* cleanups nav templates, simple link widget
+* new devel module, make optional site title, content proxy widget mixin and reworked feed widget, updated required version leonardo adim
+* navigation cleanups
+* common widget mixins and cleanup widget models
+* replaces page memoized by cached_property
+
+2015.7.1
+--------
+
+* added new modules
+* warning: migrations on django 1.8 works only with ``migrate web`` :hankey:
+* moved specific django constance behaviour to leonardo fork and use it in main requirements
+* fix module autoinclude
+* fixed media migrations (reverted from commit fc49ddff3b55721031360e587a4f67839adaa01d)
+* fixed media migrations
+* use leonardo page
+* django 1.8
+* multisite request processing moved to own module
+* filter site by domain
+* support multisite
+* fix django 1.8
+* fix login and logout urls
+* fix assets root and added install in dev mode
+* bootstrap demo site
+* better site scaffold logging and use default bootstrap theme
+* default theme
+* refactored module config loading, added delete to widget dimension table
+* changelog + bump required version of horizon-contrib
+
 2015.7.0
 --------
 

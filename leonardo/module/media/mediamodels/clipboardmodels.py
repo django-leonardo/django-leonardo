@@ -12,7 +12,7 @@ from . import filemodels
 @python_2_unicode_compatible
 class Clipboard(models.Model):
     user = models.ForeignKey(getattr(settings, 'AUTH_USER_MODEL', 'auth.User'), verbose_name=_(
-        'user'), related_name="filer_clipboards")
+        'user'), related_name="media_clipboards")
     files = models.ManyToManyField(
         'media.File', verbose_name=_('files'), related_name="in_clipboards",
         through='ClipboardItem')

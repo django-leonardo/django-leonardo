@@ -1,0 +1,12 @@
+{% extends widget.get_base_template %}
+
+{% load feincms_page_tags %}
+
+{% block content %}
+{% feincms_nav root level=level depth=depth as toplevel %}
+<div class="list-group">
+  {% for page in toplevel %}
+  <a href="{{ page.get_absolute_url }}" class="list-group-item">{{ page.title }}</a>
+  {% endfor %}
+</div>
+{% endblock %}

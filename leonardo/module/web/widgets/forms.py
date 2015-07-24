@@ -1,8 +1,9 @@
 
 import copy
 from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Field, HTML, Layout
+from crispy_forms.layout import Field, HTML, Layout, LayoutObject
 from django import forms
+import floppyforms
 from django.contrib.auth import get_permission_codename
 from django.db.models.loading import get_model
 from django.forms.models import modelform_factory
@@ -14,10 +15,16 @@ from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
 
+
+class IconPreviewSelect(floppyforms.widgets.Select):
+    template_name = 'floppyforms/select_preview.html'
+
+
 WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
     'parent': forms.widgets.HiddenInput,
     'ordering': forms.widgets.HiddenInput,
+    'icon': IconPreviewSelect(attrs={'style': "font-family: 'FontAwesome', Helvetica;"}),
 }
 
 
@@ -43,9 +50,16 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                     css_id='field-{}'.format(slugify(self._meta.model))
                     ),
                 Tab(_('Theme'),
-                    'base_theme', 'content_theme', 'layout', 'align', 'label', 'id',
-                    'region', 'ordering', 'parent',
+                    'base_theme', 'content_theme', 'layout', 'align',
+                    'vertical_align', 'label', 'id', 'region', 'ordering',
+                    'parent', 'color_scheme',
                     css_id='theme-widget-settings'
+                    ),
+                Tab(_('Effects'),
+                    'enter_effect_style', 'enter_effect_duration',
+                    'enter_effect_delay', 'enter_effect_offset',
+                    'enter_effect_iteration',
+                    css_id='theme-widget-effects'
                     ),
             )
         )
@@ -76,8 +90,6 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         # hide label
         if 'text' in self.fields:
             self.fields['text'].label = ''
-
-        self._wrap_all()
 
 
 class WidgetCreateForm(WidgetUpdateForm):
@@ -110,8 +122,6 @@ class WidgetCreateForm(WidgetUpdateForm):
                 self.fields['content_theme'].queryset.first()
         else:
             self.fields['content_theme'].initial = content_theme
-
-        self._wrap_all()
 
 
 class WidgetDeleteForm(SelfHandlingForm):

@@ -1,0 +1,6 @@
+{% extends widget.get_base_template %}
+
+{% block content %}
+{{ widget.text|safe }}
+<i class="fa fa-{{ widget.icon }}{% if widget.spin %} fa-spin{% endif %}{% if widget.size != None %} fa-{{ widget.size }}{% endif %}"></i> {{ widget.text }}
+{% endblock %}

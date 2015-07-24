@@ -10,7 +10,6 @@ from feincms.module.page.models import BasePage as FeinCMSPage
 from ..processors import edit as edit_processors
 from ..const import *
 from django.utils.functional import cached_property
-from leonardo.utils.memoized import page_memoized
 
 
 @python_2_unicode_compatible
@@ -119,15 +118,18 @@ class Page(FeinCMSPage):
         else:
             return 'container'
 
-    @page_memoized
-    def get_col_classes(self, col='col1'):
+    @cached_property
+    def get_all_col_classes(self):
         STR = "col-{0}-{1}"
-        classes = []
-        for d in self.dimensions:
-            classes.append(
-                STR.format(
-                    d.size, getattr(d, '{}_width'.format(col))))
-        return " ".join(classes)
+        return [{'col1': STR.format(d.size, d.col1_width),
+                 'col2': STR.format(d.size, d.col2_width),
+                 'col3': STR.format(d.size, d.col3_width)}
+                for d in self.dimensions]
+
+    def get_col_classes(self, col='col1'):
+        return " ".join([
+            classes.get(col)
+            for classes in self.get_all_col_classes])
 
     @classmethod
     def register_default_processors(cls, frontend_editing=None):

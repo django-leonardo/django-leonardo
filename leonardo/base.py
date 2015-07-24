@@ -1,7 +1,10 @@
 
+import warnings
+
+
 class Default(object):
 
-    core = ['web', 'nav', 'media', 'search']
+    core = ['web', 'nav', 'media', 'search', 'devel', 'leonardo_auth']
 
     @property
     def middlewares(self):
@@ -127,6 +130,7 @@ class Leonardo(object):
             except ImportError:
                 _app = False
             if not _app:
+                # obsolete part
                 try:
                     # check if is not leonardo_module
                     _app = import_module('leonardo_module_{}'.format(app))
@@ -139,6 +143,10 @@ class Leonardo(object):
                 else:
                     mod = import_module('.{0}'.format(app), package_string)
                 modules.append(mod)
+            else:
+                warnings.warn('%s was skipped because app was '
+                              'not found in PYTHONPATH' % app,
+                              ImportWarning)
         return modules
 
 leonardo = Leonardo()

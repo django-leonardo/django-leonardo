@@ -1,0 +1,9 @@
+{% extends widget.get_base_template %}
+
+{% block content %}
+{% if title %}
+<h3>{{ title|safe }}</h3>
+{% else %}
+<h3>{{ page.title|safe }}</h3>
+{% endif %}
+{% endblock %}

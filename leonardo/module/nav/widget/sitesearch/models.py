@@ -2,7 +2,6 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.template.loader import render_to_string
 
 from leonardo.module.web.models import Widget
 
@@ -13,8 +12,9 @@ ENGINE_CHOICES = (
 
 
 class SiteSearchWidget(Widget):
-    engine = models.CharField(max_length=255, verbose_name=_("engine"), choices=ENGINE_CHOICES, default="google")
-    inline = models.BooleanField(verbose_name=_("inline"), default=False)
+    engine = models.CharField(
+        max_length=255, verbose_name=_("Search engine"),
+        choices=ENGINE_CHOICES, default="google")
 
     class Meta:
         abstract = True

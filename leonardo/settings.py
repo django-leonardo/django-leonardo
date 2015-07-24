@@ -11,6 +11,8 @@ import six
 from leonardo.base import leonardo, default
 from leonardo.utils.settings import get_conf_from_module, merge, get_leonardo_modules
 
+import warnings
+
 _file_path = os.path.abspath(os.path.dirname(__file__)).split('/')
 
 BASE_DIR = '/'.join(_file_path[0:-2])
@@ -165,7 +167,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'root': {
-        'level': 'WARNING',
+        'level': 'DEBUG',
         'handlers': ['console'],
     },
     'filters': {
@@ -209,12 +211,7 @@ LOGGING = {
     }
 }
 
-# migrations support
-MIGRATION_MODULES = {
-    'filer': 'filer.migrations_django',
-}
-
-CRISPY_TEMPLATE_PACK = 'bootstrap'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 SECRET_KEY = None
 
@@ -235,7 +232,9 @@ try:
     # local settings
     from local_settings import *
 except ImportError:
-    pass
+    warnings.warn(
+        'local_settings was not found in $PYTHONPATH !',
+        ImportWarning)
 
 REVERSION_MIDDLEWARE = [
     'reversion.middleware.RevisionMiddleware']
@@ -303,6 +302,9 @@ try:
     if LEONARDO_MODULE_AUTO_INCLUDE:
         # fined and merge with defined app modules
         _APPS = merge(get_leonardo_modules(), _APPS)
+
+    # sort modules
+    _APPS = sorted(_APPS, key=lambda m: getattr(m, 'LEONARDO_ORDERING', 1000))
 
     for mod in _APPS:
 
@@ -433,7 +435,7 @@ except ImportError:
 
 try:
     # full settings
-    from project.local.settings import *
+    from leonardo_site.local.settings import *
 except ImportError:
     pass
 
@@ -445,12 +447,6 @@ setattr(leonardo, 'page_extensions', PAGE_EXTENSIONS)
 setattr(leonardo, 'plugins', APPLICATION_CHOICES)
 
 MIGRATION_MODULES.update(ADD_MIGRATION_MODULES)
-
-# ensure if bootstra_admin is on top of INSTALLED_APPS
-if 'bootstrap_admin' in INSTALLED_APPS:
-    BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
-    # INSTALLED_APPS.remove('bootstrap_admin')
-    #INSTALLED_APPS = ['bootstrap_admin'] + INSTALLED_APPS
 
 # Add HORIZON_CONFIG to the context information for offline compression
 COMPRESS_OFFLINE_CONTEXT = {
@@ -481,7 +477,10 @@ if DEBUG:
         ]
 
     except ImportError:
-        pass
+        if DEBUG:
+            warnings.warn('DEBUG is set to True but, DEBUG tools '
+                          'is not installed please run '
+                          '"pip install django-leonardo[debug]"')
 
 # async messages
 try:
@@ -491,6 +490,11 @@ try:
                                ['async_messages.middleware.AsyncMiddleware'])
 except ImportError:
     pass
+    """
+    LOG.debug('ASYNC MESSAGES is not installed'
+              ' install for new messaging features '
+              '"pip install django-async-messages"')
+    """
 
 
 # use js files instead of horizon

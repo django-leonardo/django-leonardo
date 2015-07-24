@@ -1,6 +1,7 @@
 
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -15,6 +16,7 @@ from leonardo.utils.templates import find_all_templates, template_choices
 
 from ..const import *
 from ..widgets.forms import WIDGETS, WidgetUpdateForm
+from ..widgets.mixins import ListWidgetMixin, ContentProxyWidgetMixin
 from django.utils.functional import cached_property
 from leonardo.utils.memoized import widget_memoized
 
@@ -33,7 +35,7 @@ class WidgetInline(FeinCMSInline):
             kwargs["queryset"] = queryset.exclude(name__startswith="_")
             kwargs["initial"] = queryset.first()
         form_field = super(WidgetInline, self).formfield_for_foreignkey(
-                        db_field, request, **kwargs)
+            db_field, request, **kwargs)
         # bootstrap field
         form_field.widget.attrs['class'] = 'form-control'
         return form_field
@@ -50,7 +52,14 @@ class WidgetInline(FeinCMSInline):
             (_('Theme'), {
                 'fields': [
                     ('label', 'base_theme', 'content_theme',
-                     'layout', 'align', 'enabled',),
+                     'layout', 'align', 'enabled', 'color_scheme'),
+                ],
+            }),
+            (_('Effects'), {
+                'fields': [
+                    ('enter_effect_style', 'enter_effect_duration',
+                     'enter_effect_delay', 'enter_effect_offset',
+                     'enter_effect_iteration', 'enabled',),
                 ],
             }),
         ]
@@ -132,6 +141,9 @@ class WidgetBaseTheme(models.Model):
         verbose_name_plural = _("Widget base themes")
 
 
+from ..widgets.const import ENTER_EFFECT_CHOICES, WIDGET_COLOR_SCHEME_CHOICES
+
+
 @python_2_unicode_compatible
 class Widget(FeinCMSBase):
 
@@ -139,17 +151,40 @@ class Widget(FeinCMSBase):
 
     prerendered_content = models.TextField(
         verbose_name=_('prerendered content'), blank=True)
-    enabled = models.NullBooleanField(verbose_name=_('Is visible?'), default=True)
+    enabled = models.NullBooleanField(
+        verbose_name=_('Is visible?'), default=True)
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     base_theme = models.ForeignKey(
-        WidgetBaseTheme, verbose_name=_('Base theme'), related_name="%(app_label)s_%(class)s_related")
+        WidgetBaseTheme, verbose_name=_('Base theme'),
+        related_name="%(app_label)s_%(class)s_related")
     content_theme = models.ForeignKey(
-        WidgetContentTheme, verbose_name=_('Content theme'), related_name="%(app_label)s_%(class)s_related")
+        WidgetContentTheme, verbose_name=_('Content theme'),
+        related_name="%(app_label)s_%(class)s_related")
     layout = models.CharField(
-        verbose_name=_("Layout"), max_length=25, default='inline', choices=WIDGET_LAYOUT_CHOICES)
+        verbose_name=_("Layout"), max_length=25,
+        default='inline', choices=WIDGET_LAYOUT_CHOICES)
     align = models.CharField(
-        verbose_name=_("Alignment"), max_length=25, default='left', choices=WIDGET_ALIGN_CHOICES)
+        verbose_name=_("Alignment"), max_length=25,
+        default='left', choices=WIDGET_ALIGN_CHOICES)
+    vertical_align = models.CharField(
+        verbose_name=_("Vertical Alignment"), max_length=25,
+        default='top', choices=VERTICAL_ALIGN_CHOICES)
+
+    # common attributes
+    enter_effect_style = models.CharField(
+        verbose_name=_("Enter effect style"),
+        max_length=25, default='disabled', choices=ENTER_EFFECT_CHOICES)
+
+    enter_effect_duration = models.PositiveIntegerField(verbose_name=_(
+        'Enter Effect Duration'), null=True, blank=True)
+    enter_effect_delay = models.PositiveIntegerField(null=True, blank=True)
+    enter_effect_offset = models.PositiveIntegerField(null=True, blank=True)
+    enter_effect_iteration = models.PositiveIntegerField(null=True, blank=True)
+
+    color_scheme = models.CharField(
+        verbose_name=_("Color scheme"),
+        max_length=25, default='default', choices=WIDGET_COLOR_SCHEME_CHOICES)
 
     def save(self, created=True, *args, **kwargs):
 
@@ -238,7 +273,7 @@ class Widget(FeinCMSBase):
         """proxy for render_content with memoized
 
         this method provide best performence for complicated
-        widget contentc like a context navigation
+        widget content like a context navigation
         """
         return self.render_content(options)
 
@@ -249,12 +284,22 @@ class Widget(FeinCMSBase):
             'base_template': self.get_base_template,
             'request': options['request'],
         })
-        return self.template_source.render(context)
 
-    def render_error(self, error_code):
+        # handle widget render error
+        try:
+            rendered_content = self.template_source.render(context)
+        except Exception as e:
+            if settings.DEBUG:
+                raise e
+            rendered_content = self.render_error(context, e)
+        return rendered_content
+
+    def render_error(self, context, exception):
         return render_to_string("widget/error.html", {
             'widget': self,
-            'request': kwargs['request'],
+            'request': context['request'],
+            'context': context,
+            'error': str(exception),
         })
 
     @cached_property
@@ -284,7 +329,7 @@ class Widget(FeinCMSBase):
             "text-%s" % self.align,
             'leonardo-content',
             'template-%s' % self.content_theme.name,
-            '%s-content-%s' % (self.widget_name, self.content_theme.name )
+            '%s-content-%s' % (self.widget_name, self.content_theme.name)
         ]
         return " ".join(classes)
 
@@ -293,9 +338,9 @@ class Widget(FeinCMSBase):
         """agreggate all css classes
         """
         classes = self.get_dimension_classes
-        classes.append('%s-base-%s' % (self.widget_name, self.base_theme.name ))
+        classes.append('%s-base-%s' % (self.widget_name, self.base_theme.name))
         classes.append('leonardo-widget')
-        classes.append('leonardo-%s-widget' % self.widget_name) 
+        classes.append('leonardo-%s-widget' % self.widget_name)
         return " ".join(classes)
 
     @classmethod
@@ -344,3 +389,11 @@ class Widget(FeinCMSBase):
             self.parent_id,
             self.id,
         )
+
+
+class ListWidget(Widget, ListWidgetMixin):
+
+    """Base class for object list widget
+    """
+    class Meta:
+        abstract = True

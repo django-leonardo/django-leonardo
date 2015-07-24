@@ -1,0 +1,2 @@
+leonardo_theme_adminlte>=0.0.1
+leonardo_theme_bootswatch>=2015.5.0
