@@ -35,7 +35,7 @@ MIGRATION_MODULES = {
 try:
     import psycopg2  # noqa
 except Exception as e:
-    raise e
+    pass
 else:
     DATABASES = {
         'default': {
