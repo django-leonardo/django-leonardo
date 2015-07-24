@@ -113,6 +113,12 @@ class WebConfig(AppConfig, Default):
 
     def ready(self):
 
-        pass
+        # register signals
+        from leonardo.module.web.signals import dbtemplate_save
+        from django.db.models.signals import post_save
+        from dbtemplates.models import Template
+
+        post_save.connect(dbtemplate_save, sender=Template)
+
 
 default = Default()
