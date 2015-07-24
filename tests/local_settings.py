@@ -28,14 +28,13 @@ else:
 
 try:
     import psycopg2  # noqa
-except Exception:
-    pass
+except Exception as e:
+    raise e
 else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'django_leonardo',
-            'USER': 'postgres',
+            'NAME': 'postgres',
         }
     }
 
@@ -54,12 +53,15 @@ LEONARDO_MODULE_AUTO_INCLUDE = False
 
 APPS = [
     'testapp',
-    'web',
-    'media',
     'leaonrdo_theme_bootswatch',
 ]
 
 MIGRATION_MODULES = {
     'web': 'notmigrations',
     'media': 'notmigrations',
+    'dbtemplates': 'notmigrations',
+    'sites': 'notmigrations',
+    'contenttypes': 'notmigrations',
+    'auth': 'notmigrations',
+    'reversion': 'notmigrations',
 }
