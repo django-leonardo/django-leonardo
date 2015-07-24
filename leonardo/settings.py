@@ -237,7 +237,6 @@ try:
     # local settings
     from local_settings import *
 except ImportError:
-    LOG.warning('')
     warnings.warn(
         'local_settings was not found in $PYTHONPATH !',
         ImportWarning)
