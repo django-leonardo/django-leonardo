@@ -25,16 +25,7 @@ class FeedReaderWidget(Widget, ContentProxyWidgetMixin):
 
     def render_content(self, options):
 
-        regen = False
-        if self.cache_update:
-            now = datetime.datetime.now()
-            delta = now - self.cache_update
-            if delta.seconds > self.cache_validity:
-                regen = True
-        else:
-            regen = True
-
-        if regen:
+        if self.is_obsolete:
             self.update_cache_data()
 
         context = RequestContext(options.get('request'), {
