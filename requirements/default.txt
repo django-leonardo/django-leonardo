@@ -33,4 +33,4 @@ leonardo_horizon==2015.1.1.dev5
 -e git+http://github.com/django-leonardo/django-constance@master#egg=django_constance
 django-picklefield==0.3.1
 
--r extras/frontend/static.txt
+-r extras/static.txt
