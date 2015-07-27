@@ -395,6 +395,13 @@ try:
         if isinstance(mod_cfg.optgroup, six.string_types):
             WIDGETS[mod_cfg.optgroup] = merge(
                 getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
+        else:
+            if DEBUG:
+                warnings.warn('You have ungrouped widgets'
+                              ', please specify your ``optgroup``'
+                              'which categorize your widgets')
+            WIDGETS['ungrouped'] = merge(
+                getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
 
     setattr(leonardo, 'js_files', ADD_JS_FILES)
     setattr(leonardo, 'css_files', ADD_CSS_FILES)
