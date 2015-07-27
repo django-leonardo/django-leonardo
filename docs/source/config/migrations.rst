@@ -29,7 +29,7 @@ If you have database already created, redirect your migration and create empty m
 
 .. warning::
 
-	With Django 1.8 + you must run ``python manage.py migrate web``
+	With Django 1.8 + you must run ``python manage.py migrate web`` because django doesn't resolves dependency correctly.
 
 add this to your ``settings.py``
 
@@ -44,3 +44,29 @@ create empty migrations to new path
 .. code-block:: bash
 
     python manage.py makemigrations --empty web
+
+For big apps we recommend separation of migrations per module, like this::
+
+    MIGRATION_MODULES = {
+        'web': 'leonardo_site.migrations.web',
+    }
+
+If you changed ``LANGUAGES`` Django check new migrations, which changed choices on translation of media models. For these purposes we recommend redirect affected apps::
+
+    MIGRATION_MODULES = {
+        'web': 'leonardo_site.migrations.web',
+        'media': 'leonardo_site.migrations.media',
+    }
+
+.. note::
+
+    Don't forget to create corresponding directories.
+
+You can also redirect migrations from any leonardo module. Just use ``MIGRATIONS_MODULES`` in the module descriptor something like this::
+
+    LEONARDO_MIGRATION_MODULES = {
+        'web': 'my_module.migrations.web',
+        'media': 'my_module.migrations.media',
+    }
+
+With this, leonardo supports changing default location ``leonardo_site`` as project module.
