@@ -89,7 +89,7 @@ class ContentProxyWidgetMixin(models.Model):
         self.cache_updated = timezone.now()
         self.save()
 
-    def get_data(self):
+    def get_data(self, *args, **kwargs):
         """define your behavior for loading raw data
         """
         raise NotImplementedError
