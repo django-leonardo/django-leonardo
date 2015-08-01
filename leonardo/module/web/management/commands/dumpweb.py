@@ -15,9 +15,9 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('args', metavar='app_label[.ModelName]', nargs='*',
                             help='Restricts dumped data to the specified app_label or app_label.ModelName.')
-        parser.add_argument('--format', default='json', dest='format',
+        parser.add_argument('--format', default='xml', dest='format',
                             help='Specifies the output serialization format for fixtures.')
-        parser.add_argument('--indent', default=None, dest='indent', type=int,
+        parser.add_argument('--indent', default=4, dest='indent', type=int,
                             help='Specifies the indent level to use when pretty-printing output.')
         parser.add_argument('--database', action='store', dest='database',
                             default=DEFAULT_DB_ALIAS,
@@ -46,7 +46,7 @@ class Command(BaseCommand):
         format = options.get('format', 'xml')
         indent = options.get('indent', 4)
         using = options.get('database')
-        excludes = options.get('exclude', ['media'])
+        excludes = options.get('exclude', [])
         output = options.get('output')
         show_traceback = options.get('traceback')
         use_natural_keys = options.get('use_natural_keys', True)
@@ -164,7 +164,8 @@ class Command(BaseCommand):
         except Exception as e:
             if show_traceback:
                 raise
-            raise CommandError("Unable to serialize database: %s" % e)
+            self.stdout.write("Unable to serialize database: %s" % e)
+            #raise CommandError("Unable to serialize database: %s" % e)
 
 
 def sort_dependencies(app_list):
