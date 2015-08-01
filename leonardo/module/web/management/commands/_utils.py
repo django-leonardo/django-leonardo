@@ -55,13 +55,13 @@ def get_or_create_template(template_name, extension='.html', app_first=False,
                     except Template.DoesNotExist:
                         t = Template(name=name,
                                      content=codecs.open(path, "r").read())
-                        t.save()
+                        t.save(sync_themes=False)
                         t.sites.add(site)
 
                     else:
                         if force:
                             t.content = codecs.open(path, 'r').read()
-                            t.save()
+                            t.save(sync_themes=False)
                             t.sites.add(site)
                     return t
     return None
