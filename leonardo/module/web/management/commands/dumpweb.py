@@ -164,7 +164,6 @@ class Command(BaseCommand):
         except Exception as e:
             if show_traceback:
                 raise
-            self.stdout.write("Unable to serialize database: %s" % e)
             #raise CommandError("Unable to serialize database: %s" % e)
 
 
