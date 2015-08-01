@@ -23,7 +23,7 @@ class Command(BaseCommand):
                             default=DEFAULT_DB_ALIAS,
                             help='Nominates a specific database to dump fixtures from. '
                             'Defaults to the "default" database.')
-        parser.add_argument('-e', '--exclude', dest='exclude', action='append', default=['contenttypes.contenttype'],
+        parser.add_argument('-e', '--exclude', dest='exclude', action='append', default=[],
                             help='An app_label or app_label.ModelName to exclude '
                             '(use multiple --exclude to exclude multiple apps/models).')
         parser.add_argument('-n', '--natural', action='store_true', dest='use_natural_keys', default=True,
