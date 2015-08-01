@@ -13,8 +13,7 @@ class PageTitleWidget(Widget):
         verbose_name_plural = _('page titles')
 
     def render_content(self, options):
-        page = Page.objects.best_match_for_path(
-            options['request'].path, raise404=False)
+        page = self.parent
 
         try:
             fragments = options['request']._feincms_fragments
