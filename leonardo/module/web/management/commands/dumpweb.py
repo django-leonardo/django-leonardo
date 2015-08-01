@@ -23,14 +23,14 @@ class Command(BaseCommand):
                             default=DEFAULT_DB_ALIAS,
                             help='Nominates a specific database to dump fixtures from. '
                             'Defaults to the "default" database.')
-        parser.add_argument('-e', '--exclude', dest='exclude', action='append', default=[],
+        parser.add_argument('-e', '--exclude', dest='exclude', action='append', default=['contenttypes.contenttype'],
                             help='An app_label or app_label.ModelName to exclude '
                             '(use multiple --exclude to exclude multiple apps/models).')
-        parser.add_argument('-n', '--natural', action='store_true', dest='use_natural_keys', default=False,
+        parser.add_argument('-n', '--natural', action='store_true', dest='use_natural_keys', default=True,
                             help='Use natural keys if they are available (deprecated: use --natural-foreign instead).')
-        parser.add_argument('--natural-foreign', action='store_true', dest='use_natural_foreign_keys', default=False,
+        parser.add_argument('--natural-foreign', action='store_true', dest='use_natural_foreign_keys', default=True,
                             help='Use natural foreign keys if they are available.')
-        parser.add_argument('--natural-primary', action='store_true', dest='use_natural_primary_keys', default=False,
+        parser.add_argument('--natural-primary', action='store_true', dest='use_natural_primary_keys', default=True,
                             help='Use natural primary keys if they are available.')
         parser.add_argument('-a', '--all', action='store_true', dest='use_base_manager', default=False,
                             help="Use Django's base manager to dump all models stored in the database, "
