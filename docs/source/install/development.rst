@@ -10,6 +10,13 @@ Make Environment
 
 usualy without any prerequirements you can do something like this
 
+prerequirements:
+
+* python
+* pip
+* virtualenv
+* git
+
 .. code-block:: bash
 
     virtualenv -p /usr/bin/python2.7 /srv/leonardo/sites/mysite
