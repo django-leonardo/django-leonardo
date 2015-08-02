@@ -276,6 +276,8 @@ CONSTANCE_CONFIG_GROUPS = {}
 
 ABSOLUTE_URL_OVERRIDES = {}
 
+MODULE_URLS = {}
+
 if LEONARDO_SYSTEM_MODULE:
     APPS = merge(APPS, ['system'])
     HORIZON_CONFIG['system_module'] = True
@@ -336,6 +338,9 @@ try:
         ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
 
         ADD_MODULE_ACTIONS = merge(ADD_MODULE_ACTIONS, mod_cfg.module_actions)
+
+        if mod_cfg.urls_conf:
+            MODULE_URLS[mod_cfg.urls_conf] = {'is_public': mod_cfg.public}
 
         # TODO move to utils.settings
         # support for one level nested in config dictionary

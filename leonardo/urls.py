@@ -1,4 +1,5 @@
 
+from django.utils import six
 from django.conf import settings
 from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
@@ -10,6 +11,7 @@ from feincms.module.page.sitemap import PageSitemap
 from leonardo.site import leonardo_admin
 
 from .base import leonardo
+from leonardo.utils.settings import is_leonardo_module
 from .decorators import require_auth
 
 __all__ = ['handler400', 'handler403', 'handler404', 'handler500']
@@ -38,7 +40,8 @@ urlpatterns = patterns('',
 # support .urls file and urls_conf = 'elephantblog.urls' on default module
 # decorate all url patterns if is not explicitly excluded
 for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
-    if hasattr(mod, 'default'):
+    # TODO this not work
+    if is_leonardo_module(mod):
         if module_has_submodule(mod, 'urls'):
             urls_mod = import_module('.urls', mod.__name__)
             _urlpatterns = []
@@ -50,20 +53,20 @@ for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
                     _decorate_urlconf(urls_mod.urlpatterns,
                                       require_auth)
                     urlpatterns += urls_mod.urlpatterns
-        else:
-            urlpatterns_name = getattr(mod.default, 'urls_conf', None)
-            if urlpatterns_name:
-                if getattr(mod.default, 'public', False):
-                    urlpatterns += \
-                        patterns('',
-                                 url(r'', include(urlpatterns_name)),
-                                 )
-                else:
-                    _decorate_urlconf(
-                        url(r'', include(urlpatterns_name)),
-                        require_auth)
-                    urlpatterns += patterns('',
-                                            url(r'', include(urlpatterns_name)))
+
+for urls_conf, conf in six.iteritems(getattr(settings, 'MODULE_URLS', {})):
+    # is public ?
+    if conf['is_public']:
+        urlpatterns += \
+            patterns('',
+                     url(r'', include(urls_conf)),
+                     )
+    else:
+        _decorate_urlconf(
+            url(r'', include(urls_conf)),
+            require_auth)
+        urlpatterns += patterns('',
+                                url(r'', include(urls_conf)))
 
 if getattr(settings, 'LEONARDO_AUTH', True):
     urlpatterns += patterns('',
