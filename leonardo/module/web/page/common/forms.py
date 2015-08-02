@@ -70,7 +70,6 @@ class PageMassChangeForm(SelfHandlingForm):
             ),
         )
 
-        self._wrap_all()
         self.fields['layout'].choices.insert(0, ('', _('Select Layout')))
 
     def handle(self, request, data):
