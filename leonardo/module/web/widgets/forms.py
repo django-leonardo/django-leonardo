@@ -1,7 +1,7 @@
 
 import copy
 from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Field, HTML, Layout, LayoutObject
+from crispy_forms.layout import Field, HTML, Layout, LayoutObject, Fieldset
 from django import forms
 import floppyforms
 from django.contrib.auth import get_permission_codename
@@ -54,9 +54,11 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                     css_id='field-{}'.format(slugify(self._meta.model))
                     ),
                 Tab(_('Theme'),
-                    'base_theme', 'content_theme', 'layout', 'align',
-                    'vertical_align', 'id', 'region', 'ordering',
-                    'parent', 'color_scheme',
+                    'base_theme', 'content_theme', 'color_scheme',
+                    Fieldset(_('Positions'), 'layout', 'align',
+                             'vertical_align'),
+                    'id', 'region', 'ordering',
+                    'parent',
                     css_id='theme-widget-settings'
                     ),
                 Tab(_('Effects'),
