@@ -43,15 +43,19 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
         self.fields['content_theme'].queryset = \
             queryset.filter(widget_class=self._meta.model.__name__)
+
+        # get all fields for widget
+        main_fields = self._meta.model.fields()
+        main_fields.update({'label': 'label'})
         self.helper.layout = Layout(
             TabHolder(
                 Tab(self._meta.model._meta.verbose_name.capitalize(),
-                    *self._meta.model.fields(),
+                    *main_fields,
                     css_id='field-{}'.format(slugify(self._meta.model))
                     ),
                 Tab(_('Theme'),
                     'base_theme', 'content_theme', 'layout', 'align',
-                    'vertical_align', 'label', 'id', 'region', 'ordering',
+                    'vertical_align', 'id', 'region', 'ordering',
                     'parent', 'color_scheme',
                     css_id='theme-widget-settings'
                     ),
