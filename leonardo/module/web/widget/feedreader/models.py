@@ -8,6 +8,7 @@ from django.template.context import RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.web.models import Widget, ContentProxyWidgetMixin
+from leonardo.module.web.widgets.mixins import ListWidgetMixin
 
 TARGET_CHOICES = (
     ('modal', _('Modal window')),
@@ -15,7 +16,7 @@ TARGET_CHOICES = (
 )
 
 
-class FeedReaderWidget(Widget, ContentProxyWidgetMixin):
+class FeedReaderWidget(Widget, ContentProxyWidgetMixin, ListWidgetMixin):
     max_items = models.IntegerField(_('max. items'), default=5)
 
     class Meta:
