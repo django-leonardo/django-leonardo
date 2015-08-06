@@ -6,7 +6,7 @@
 {% feincms_nav root level=level depth=depth as toplevel %}
 <div class="list-group">
   {% for page in toplevel %}
-  <a href="{{ page.get_absolute_url }}" class="list-group-item">{{ page.title }}</a>
+  <a href="{{ page.get_navigation_url }}" class="list-group-item">{{ page.title }}</a>
   {% endfor %}
 </div>
 {% endblock %}

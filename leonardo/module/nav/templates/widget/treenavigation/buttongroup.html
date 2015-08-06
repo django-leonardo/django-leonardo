@@ -6,7 +6,7 @@
 {% feincms_nav root level=level depth=depth as toplevel %}
 <div class="btn-group{% if widget.orientation == 'vertical' %}-vertical{% endif %}">
   {% for page in toplevel %}
-  <a href="{{ page.get_absolute_url }}" class="btn{% if widget.orientation == 'vertical' %} btn-block{% endif %}{% if page|is_equal_or_parent_of:current %} btn-primary{% else %} btn-default{% endif %}">{{ page.title }}</a>
+  <a href="{{ page.get_navigation_url }}" class="btn{% if widget.orientation == 'vertical' %} btn-block{% endif %}{% if page|is_equal_or_parent_of:current %} btn-primary{% else %} btn-default{% endif %}">{{ page.title }}</a>
   {% endfor %}
 </div>
 {% endblock %}
