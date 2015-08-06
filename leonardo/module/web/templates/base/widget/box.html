@@ -19,7 +19,7 @@
     </div>
     {% endif %}
     {% endblock %}
-    <div class="panel-body box-body">
+    <div class="panel-body box-body {% if widget.enter_effect_style != 'disabled' %}wow {{ widget.enter_effect_style }}{% endif %}"{% if widget.enter_effect_duration %}data-wow-duration="{{ widget.enter_effect_duration }}s"{% endif %} {% if widget.enter_effect_delay %}data-wow-delay="{{ widget.enter_effect_delay }}s"{% endif %} {% if widget.enter_effect_iteration %}data-wow-iteration="{{ widget.enter_effect_iteration }}s"{% endif %} {% if widget.enter_effect_offset %}data-wow-offset="{{ widget.enter_effect_offset }}s"{% endif %}>
       {% block content %}{% endblock %}
     </div>
   </div>

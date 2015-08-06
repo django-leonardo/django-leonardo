@@ -97,6 +97,14 @@ class Default(object):
         ('leonardo.module.web.apps.horizon', _('Horizon'))
     ]
 
+    js_files = [
+        'extra/js/wow.min.js'
+    ]
+
+    css_files = [
+        'extra/css/animate.js'
+    ]
+
     config = {
         'META_KEYWORDS': ('', _('Site specific meta keywords')),
         'META_DESCRIPTION': ('', _('Site specific meta description')),
