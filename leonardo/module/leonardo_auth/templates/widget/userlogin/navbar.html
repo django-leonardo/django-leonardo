@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block content %}
-<ul class="navbar-collapse collapse nav {% if widget.inline %}navbar-nav navbar-right{% else %}navbar-stacked{% endif %}">
+<ul class="navbar-collapse collapse nav navbar-nav{% if widget.align == 'right' %} navbar-right{% endif %}">
   {% if request.user.is_authenticated %}
   {% comment %}
   <li><a data-toggle="control-sidebar" href="#">{{ request.user.username }}</a></li>
