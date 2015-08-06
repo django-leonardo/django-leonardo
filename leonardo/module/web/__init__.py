@@ -98,11 +98,11 @@ class Default(object):
     ]
 
     js_files = [
-        'extra/js/wow.min.js'
+        'extra/js/wow.min.js',
     ]
 
     css_files = [
-        'extra/css/animate.js'
+        'extra/css/animate.css'
     ]
 
     config = {
