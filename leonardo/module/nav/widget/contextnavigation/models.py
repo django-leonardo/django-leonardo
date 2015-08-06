@@ -21,7 +21,7 @@ LINK_CHOICES = (
     ('button', _("button")),
 )
 
-class ContextNavigationWidget(NavigationWidget, ListWidgetMixin):
+class ContextNavigationWidget(ListWidgetMixin, NavigationWidget):
     root = models.ForeignKey(Page, blank=True, null=True, verbose_name=_("Source page"), related_name="context_root", help_text=_('The child pages of root page are displayed in the context navigation.'))
     page_region = models.CharField(max_length=255, verbose_name=_("Region to display"), choices=PAGE_REGIONS, default='preview', help_text=_('Which region of selected pages do you wish to display.'))
     depth = models.IntegerField(verbose_name=_("Depth"), choices=DEPTH_CHOICES, default=1, help_text=_('Depth to which display child pages.'))

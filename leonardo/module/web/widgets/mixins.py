@@ -29,6 +29,14 @@ class ListWidgetMixin(models.Model):
         verbose_name=_("Pagination Style"), max_length=50,
         choices=PAGINATION_CHOICES, default='paginator')
 
+    @cached_property
+    def get_base_list_template(self):
+        return self.base_theme.template
+
+    @cached_property
+    def get_base_template(self):
+        return "base/widget/list/%s.html" % self.pagination_style
+
     class Meta:
         abstract = True
 
