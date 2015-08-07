@@ -31,10 +31,6 @@ class ListWidgetMixin(models.Model):
 
     @cached_property
     def get_base_list_template(self):
-        return self.base_theme.template
-
-    @cached_property
-    def get_base_template(self):
         return "base/widget/list/_%s.html" % self.pagination_style
 
     class Meta:

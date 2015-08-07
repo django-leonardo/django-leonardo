@@ -3,6 +3,8 @@
 {% block content %}
 
 <div data-ride="carousel" class="carousel slide fullscreen-slider" id="carousel_{{ widget.fe_identifier }}">
+
+  {% block count %}
   <ol class="carousel-indicators">
     {% for item in page.get_children %}
     {% if item.in_navigation %}
@@ -10,6 +12,9 @@
     {% endif %}
     {% endfor %}
   </ol>
+  {% endblock %}
+
+  {% block items %}
   <div class="carousel-inner" role="listbox">
     {% for item in page.get_children %}
     {% if item.in_navigation %}
@@ -22,12 +27,17 @@
     {% endif %}
     {% endfor %}
   </div>
+  {% endblock %}
+
+  {% block pagination %}
   <a data-slide="prev" href="#carousel_{{ widget.fe_identifier }}" class="left carousel-control">
     <span class="fa fa-chevron-left"></span>
   </a>
   <a data-slide="next" href="#carousel_{{ widget.fe_identifier }}" class="right carousel-control">
     <span class="fa fa-chevron-right"></span>
   </a>
+  {% endblock %}
+
 </div>
 
 {% endblock %}
