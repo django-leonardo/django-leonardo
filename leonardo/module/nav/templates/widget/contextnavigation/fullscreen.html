@@ -1,6 +1,6 @@
 {% extends widget.get_base_template %}
 
-{% block items %}
+{% block content %}
 {% for child_page in page.children.all %}
 {% if child_page.in_navigation %}
 <div id="{{ child_page.slug }}" class='fullSection'>
