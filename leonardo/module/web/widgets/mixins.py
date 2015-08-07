@@ -35,7 +35,7 @@ class ListWidgetMixin(models.Model):
 
     @cached_property
     def get_base_template(self):
-        return "base/widget/list/%s.html" % self.pagination_style
+        return "base/widget/list/_%s.html" % self.pagination_style
 
     class Meta:
         abstract = True
