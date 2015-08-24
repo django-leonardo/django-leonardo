@@ -31,6 +31,22 @@ def get_col_classes(page, region):
         return data
 
 
+@register.simple_tag
+def head_title(request):
+    """
+    {% head_title request %}
+    """
+    try:
+        fragments = request._feincms_fragments
+    except:
+        fragments = {}
+
+    if '_head_title' in fragments and fragments.get("_head_title"):
+        return fragments.get("_head_title")
+    else:
+        return request.webcms_page.page_title
+
+
 @register.inclusion_tag('leonardo/common/_region_tools.html',
                         takes_context=True)
 def render_region_tools(context, feincms_object, region, request=None):

@@ -20,15 +20,8 @@ class PageTitleWidget(Widget):
         except:
             fragments = {}
 
-        if fragments.has_key("_page_title"):
-            title = fragments["_page_title"]
-        else:
-            title = None
-
-        if fragments.has_key("_page_subtitle"):
-            subtitle = fragments["_page_subtitle"]
-        else:
-            subtitle = None
+        title = fragments.get("_page_title", None)
+        subtitle = fragments.get("_page_subtitle", None)
 
         return render_to_string(self.get_template, {
             'widget': self,

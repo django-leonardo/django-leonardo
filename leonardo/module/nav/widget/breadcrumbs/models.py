@@ -32,7 +32,7 @@ class BreadcrumbsWidget(NavigationWidget):
         except:
             fragments = {}
 
-        if fragments.has_key("_page_breadcrumbs"):
+        if '_page_breadcrumbs' in fragments:
             extension = fragments["_page_breadcrumbs"].strip()
             if extension == '':
                 include_self = True
