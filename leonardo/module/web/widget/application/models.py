@@ -119,8 +119,6 @@ class ApplicationWidget(Widget, ApplicationContent):
         }
         context = RequestContext(options.get('request'), data)
 
-        if not hasattr(self, 'rendered_result'):
-            self.process(options.get('request'))
         context['content'] = getattr(
             self, 'rendered_result', '')
 
@@ -129,8 +127,6 @@ class ApplicationWidget(Widget, ApplicationContent):
     def process(self, request, **kw):
         page_url = self.parent.get_absolute_url()
 
-        # Provide a way for appcontent items to customize URL processing by
-        # altering the perceived path of the page:
         if "path_mapper" in self.app_config:
             path_mapper = get_object(self.app_config["path_mapper"])
             path, page_url = path_mapper(
@@ -140,6 +136,7 @@ class ApplicationWidget(Widget, ApplicationContent):
             )
         else:
             path = request._feincms_extra_context['extra_path']
+
 
         # Resolve the module holding the application urls.
         urlconf_path = self.app_config.get('urls', self.urlconf_path)
@@ -155,9 +152,9 @@ class ApplicationWidget(Widget, ApplicationContent):
         # context_processor
         request._feincms_extra_context.update(self.parameters)
         request._feincms_extra_context.update({'widget': self})
+
         # Save the application configuration for reuse elsewhere
         request._feincms_extra_context.update({
-            'request': request,
             'app_config': dict(
                 self.app_config,
                 urlconf_path=self.urlconf_path,
@@ -178,6 +175,7 @@ class ApplicationWidget(Widget, ApplicationContent):
             if self.send_directly(request, output):
                 return output
             elif output.status_code == 200:
+                output.context_data['widget'] = self
 
                 if self.unpack(request, output) and 'view' in kw:
                     # Handling of @unpack and UnpackTemplateResponse
@@ -194,6 +192,7 @@ class ApplicationWidget(Widget, ApplicationContent):
 
                     self.rendered_result = mark_safe(
                         output.content.decode('utf-8'))
+
                 self.rendered_headers = {}
 
                 # Copy relevant headers for later perusal
@@ -203,21 +202,13 @@ class ApplicationWidget(Widget, ApplicationContent):
                             h, []).append(output[h])
 
         elif isinstance(output, tuple) and 'view' in kw:
-            # our hack
-            # no template and view change and save content for our widget
-            #kw['view'].request._feincms_extra_context.update(output[1])
-            self.rendered_result = render_to_string(
-                output[0], RequestContext(request, output[1]))
-        else:
-            self.raw_context = output
+            kw['view'].template_name = output[0]
+            kw['view'].request._feincms_extra_context.update(output[1])
 
-        # here is the magic !
-        # return renderered parent template !
-        context = RequestContext(request, {})
-        return render_to_response(
-            self.parent.theme.template,
-            context
-            )
+        else:
+            self.rendered_result = mark_safe(output)
+
+        return True  # successful
 
     class Meta:
         abstract = True
