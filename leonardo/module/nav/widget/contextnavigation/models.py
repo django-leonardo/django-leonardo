@@ -36,16 +36,31 @@ class ContextNavigationWidget(ListWidgetMixin, NavigationWidget):
     def render(self, **kwargs):
         return self.render_with_cache(kwargs)
 
-    def render_content(self, options):
+    def filter_items(self, items):
+        return super(NavigationWidget, self).filter_items(items)
+
+    def get_items(self, request=None):
+        '''returns queryset or array of items for listing'''
+        return self.get_root(request).children.all()
+
+    def get_root(self, request=None):
 
         if self.root:
             root = self.root
         else:
-            root = options['request'].leonardo_page
+            if not request:
+                raise Exception('call populate_items with request before access to data')
+            root = request.leonardo_page
+        return root
+
+    def render_content(self, options):
+
+        self.populate_items(options['request'])
 
         return render_to_string(self.get_template_name(), { 
             'widget': self,
-            'page': root,
+            'page': self.get_root(options['request']),
+            'items': self.items,
             'request': options['request'],
             'region': self.page_region,
         })

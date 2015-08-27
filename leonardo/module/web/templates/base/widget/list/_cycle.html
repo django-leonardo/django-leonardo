@@ -1,15 +1,26 @@
-{% extends widget.get_base_list_template %}
 
-{% load divide %}
+<div data-ride="carousel" data-pause="true" class="carousel" id="carousel_{{ widget.fe_identifier }}">
 
-{% block items %}
-<div class="row no-gutter">
-  {% for child_page in page.get_children %}
-  {% if child_page.in_navigation %}
-  <div class="col-md-{{ 12|divide:widget.objects_per_row }}">
-    {% include "widget/contextnavigation/_page.html" %}
+  {% block count %}
+  {% endblock %}
+
+  {% block items %}
+  <div class="carousel-inner" role="listbox">
+    {% for item in items %}
+    <div class="item{% if forloop.first %} active{% endif %}">
+      {% block item_content %}
+      {% include widget.get_item_template with item=item %}
+      {% endblock %}
+    </div>
+    {% endfor %}
   </div>
-  {% endif %}
-  {% endfor %}
+  {% endblock %}
+
+  {% block pagination %}
+	  <ul class="pager">
+	    <li class="previous"><a data-slide="prev" href="#carousel_{{ widget.fe_identifier }}">Previous</a></li>
+	    <li class="next"><a data-slide="next" href="#carousel_{{ widget.fe_identifier }}">Next <span aria-hidden="true">&rarr;</span></a></li>
+	  </ul>
+  {% endblock %}
+
 </div>
-{% endblock %}

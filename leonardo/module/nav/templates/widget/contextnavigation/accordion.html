@@ -2,8 +2,7 @@
 
 {% block content %}
 <div class="panel-group" id="accordion_{{ widget.fe_identifier }}">
-  {% for item in page.get_children %}
-  {% if item.in_navigation %}
+  {% for item in items %}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -12,11 +11,12 @@
     </div>
     <div id="accordion_{{ widget.fe_identifier }}_{{ forloop.counter0 }}" class="panel-collapse collapse{% if forloop.first %} in{% endif %}">
       <div class="panel-body">
-        {% include "widget/contextnavigation/_page.html" %}
+      {% block item_content %}
+      {% include widget.get_item_template with item=item %}
+        {% endblock %}
       </div>
     </div>
   </div>
-  {% endif %}
   {% endfor %}
 </div>
 {% endblock %}

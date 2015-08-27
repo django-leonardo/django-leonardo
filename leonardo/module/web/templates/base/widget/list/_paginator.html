@@ -1,15 +1,69 @@
-{% extends widget.get_base_list_template %}
 
-{% block content %}
-<div class="row no-gutter">
-  {% block items %}
-  {% for child_page in page.get_children %}
-  {% if child_page.in_navigation %}
-  <div class="col-md-{{ 12|divide:widget.objects_per_row }}">
-    {% include "widget/contextnavigation/_page.html" %}
-  </div>
-  {% endif %}
-  {% endfor %}
-  {% endblock %}
-</div>
-{% endblock %}
+{% load divide %}
+
+
+    <ul id="newStuff" class="nav nav-tabs nav-stacked">
+	  {% block items %}
+      {% for row in widget.get_rows %}
+      	<li>
+        {% for item in row %}
+          <div class="col-md-{{ 12|divide:widget.objects_per_row }}">
+            {% include widget.get_item_template with item=item %}
+          </div>
+        {% endfor %}
+      	</li>
+      {% endfor %}
+		  </div>
+
+	  {% endblock %}
+    </ul>
+    <div class="pagination pagination-large">
+        <ul class="pager"></ul>
+    </div>
+
+<script type="text/javascript">
+var listElement = $('#newStuff');
+var perPage = {{ widget.objects_per_page }};
+var numItems = listElement.children().size();
+var numPages = Math.ceil(numItems/perPage);
+
+$('.pager').data("curr",0);
+
+var curr = 0;
+while(numPages > curr){
+  $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo('.pager');
+  curr++;
+}
+
+$('.pager .page_link:first').addClass('active');
+
+listElement.children().css('display', 'none');
+listElement.children().slice(0, perPage).css('display', 'block');
+
+$('.pager li a').click(function(){
+  var clickedPage = $(this).html().valueOf() - 1;
+  goTo(clickedPage,perPage);
+});
+
+function previous(){
+  var goToPage = parseInt($('.pager').data("curr")) - 1;
+  if($('.active').prev('.page_link').length==true){
+    goTo(goToPage);
+  }
+}
+
+function next(){
+  goToPage = parseInt($('.pager').data("curr")) + 1;
+  if($('.active_page').next('.page_link').length==true){
+    goTo(goToPage);
+  }
+}
+
+function goTo(page){
+  var startAt = page * perPage,
+    endOn = startAt + perPage;
+  
+  listElement.children().css('display','none').slice(startAt, endOn).css('display','block');
+  $('.pager').attr("curr",page);
+}
+</script>

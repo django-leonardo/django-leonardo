@@ -1,30 +1,22 @@
-{% extends widget.get_base_list_template %}
-
-{% block content %}
 
 <div data-ride="carousel" class="carousel slide fullscreen-slider" id="carousel_{{ widget.fe_identifier }}">
 
   {% block count %}
   <ol class="carousel-indicators">
-    {% for item in page.get_children %}
-    {% if item.in_navigation %}
+    {% for item in items %}
     <li{% if forloop.first %} class="active"{% endif %} data-slide-to="{{ forloop.counter0 }}" data-target="#carousel_{{ widget.fe_identifier }}"></li>
-    {% endif %}
     {% endfor %}
   </ol>
   {% endblock %}
 
   {% block items %}
   <div class="carousel-inner" role="listbox">
-    {% for item in page.get_children %}
-    {% if item.in_navigation %}
+    {% for item in items %}
     <div class="item{% if forloop.first %} active{% endif %}">
-      <div class="slider-caption">
       {% block item_content %}
+      {% include widget.get_item_template with item=item %}
       {% endblock %}
-      </div>
     </div>
-    {% endif %}
     {% endfor %}
   </div>
   {% endblock %}
@@ -39,5 +31,3 @@
   {% endblock %}
 
 </div>
-
-{% endblock %}

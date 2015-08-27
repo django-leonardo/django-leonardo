@@ -16,7 +16,7 @@ from .const import PAGINATION_CHOICES
 
 class ListWidgetMixin(models.Model):
 
-    """Common fields for object lists
+    """Provide API for listing items
     """
 
     objects_per_page = models.PositiveIntegerField(
@@ -29,9 +29,63 @@ class ListWidgetMixin(models.Model):
         verbose_name=_("Pagination Style"), max_length=50,
         choices=PAGINATION_CHOICES, default='paginator')
 
+    def get_items(self, request=None):
+        '''returns queryset or array of items for listing'''
+        raise NotImplementedError
+
+    def filter_items(self, items):
+        '''perform filtering items by specific criteria'''
+        return items
+
     @cached_property
-    def get_base_list_template(self):
+    def items(self):
+        '''access for filtered items'''
+        if hasattr(self, '_items'):
+            return self.filter_items(self._items)
+        self._items = self.get_items()
+        return self.filter_items(self._items)
+
+    def populate_items(self, request):
+        '''populate and returns filtered items'''
+        self._items = self.get_items(request)
+        return self.items
+
+    @cached_property
+    def get_list_template(self):
+        '''returns base list template by pagination_style'''
         return "base/widget/list/_%s.html" % self.pagination_style
+
+    @cached_property
+    def get_rows(self):
+        '''returns rows with items
+        [[item1 item2 item3], [item2 ]]'''
+        rows = []
+        row = []
+        for i, item in enumerate(self.items):
+            if self.objects_per_row == i:
+                rows.append(row)
+                row = []
+            row.append(item)
+        rows.append(row)
+        return rows
+
+    @cached_property
+    def get_pages(self):
+        '''returns pages with rows'''
+        pages = []
+        page = []
+        for i, item in enumerate(self.get_rows):
+            if self.objects_per_page == i:
+                pages.append(page)
+                page = []
+            page.append(item)
+        pages.append(page)
+        return pages
+
+    @cached_property
+    def get_item_template(self):
+        '''returns template for one item from queryset'''
+        return "widget/%s/_item.html" % self.widget_name
 
     class Meta:
         abstract = True
