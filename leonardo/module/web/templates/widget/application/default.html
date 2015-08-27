@@ -1,7 +1,7 @@
 
 {% load applicationcontent_tags %}
 
-{% fragment request "_page_breadcrumbs" %}{% block breadcrumbs %}{% endblock %}{% endfragment %}
+{% fragment request "_breadcrumbs" append %}{% block breadcrumbs %}{% endblock %}{% endfragment %}
 {% fragment request "_head_title" %}{% block head_title %}{% endblock %}{% endfragment %}
 {% fragment request "_page_title" append %}{% block page_title %}{% endblock %}{% endfragment %}
 {% fragment request "_page_subtitle" %}{% block page_subtitle %}{% endblock %}{% endfragment %}
