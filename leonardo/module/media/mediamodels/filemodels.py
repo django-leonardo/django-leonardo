@@ -11,13 +11,14 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from filer.utils.compatibility import DJANGO_1_7, python_2_unicode_compatible
 from polymorphic import PolymorphicManager, PolymorphicModel
-
+from filer.utils.files import get_valid_filename
 from . import mixins
 from .. import settings as filer_settings
 from ..fields.multistorage_file import MultiStorageFileField
 
 
 class FileManager(PolymorphicManager):
+
     def find_all_duplicates(self):
         r = {}
         for file_obj in self.all():
@@ -36,23 +37,25 @@ class File(PolymorphicModel, mixins.IconsMixin):
     file_type = 'File'
     _icon = "file"
     folder = models.ForeignKey('media.Folder', verbose_name=_('folder'),
-        null=True, blank=True, related_name="%(app_label)s_%(class)s_files")
+                               null=True, blank=True, related_name="%(app_label)s_%(class)s_files")
     file = MultiStorageFileField(_('file'), null=True, blank=True, max_length=255)
     _file_size = models.IntegerField(_('file size'), null=True, blank=True)
 
     sha1 = models.CharField(_('sha1'), max_length=40, blank=True, default='')
 
-    has_all_mandatory_data = models.BooleanField(_('has all mandatory data'), default=False, editable=False)
+    has_all_mandatory_data = models.BooleanField(
+        _('has all mandatory data'), default=False, editable=False)
 
-    original_filename = models.CharField(_('original filename'), max_length=255, blank=True, null=True)
+    original_filename = models.CharField(
+        _('original filename'), max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255, default="", blank=True,
-        verbose_name=_('name'))
+                            verbose_name=_('name'))
     description = models.TextField(null=True, blank=True,
-        verbose_name=_('description'))
+                                   verbose_name=_('description'))
 
     owner = models.ForeignKey(getattr(settings, 'AUTH_USER_MODEL', 'auth.User'),
-        related_name='owned_%(class)ss',
-        null=True, blank=True, verbose_name=_('owner'))
+                              related_name='owned_%(class)ss',
+                              null=True, blank=True, verbose_name=_('owner'))
 
     uploaded_at = models.DateTimeField(_('uploaded at'), auto_now_add=True)
     modified_at = models.DateTimeField(_('modified at'), auto_now=True)
@@ -60,8 +63,8 @@ class File(PolymorphicModel, mixins.IconsMixin):
     is_public = models.BooleanField(
         default=filer_settings.FILER_IS_PUBLIC_DEFAULT,
         verbose_name=_('Permissions disabled'),
-        help_text=_('Disable any permission checking for this ' +\
-                    'file. File will be publicly accessible ' +\
+        help_text=_('Disable any permission checking for this ' +
+                    'file. File will be publicly accessible ' +
                     'to anyone.'))
 
     objects = FileManager()
@@ -100,7 +103,7 @@ class File(PolymorphicModel, mixins.IconsMixin):
         src_file = src_storage.open(src_file_name)
         src_file.open()
         self.file = dst_storage.save(dst_file_name,
-            ContentFile(src_file.read()))
+                                     ContentFile(src_file.read()))
         src_storage.delete(src_file_name)
 
     def _copy_file(self, destination, overwrite=False):
@@ -146,7 +149,8 @@ class File(PolymorphicModel, mixins.IconsMixin):
         elif issubclass(self.__class__, File):
             self._file_type_plugin_name = self.__class__.__name__
         # cache the file size
-        # TODO: only do this if needed (depending on the storage backend the whole file will be downloaded)
+        # TODO: only do this if needed (depending on the storage backend the whole
+        # file will be downloaded)
         try:
             self._file_size = self.file.size
         except:
@@ -155,11 +159,18 @@ class File(PolymorphicModel, mixins.IconsMixin):
             self._move_file()
             self._old_is_public = self.is_public
         # generate SHA1 hash
-        # TODO: only do this if needed (depending on the storage backend the whole file will be downloaded)
+        # TODO: only do this if needed (depending on the storage backend the whole
+        # file will be downloaded)
         try:
             self.generate_sha1()
         except Exception:
             pass
+        # relocate file to new folder
+        if self.folder:
+            try:
+                self.relocate_file()
+            except Exception:
+                pass
         super(File, self).save(*args, **kwargs)
     save.alters_data = True
 
@@ -255,6 +266,30 @@ class File(PolymorphicModel, mixins.IconsMixin):
         if len(filetype) > 0:
             filetype = filetype[1:]
         return filetype
+
+    @property
+    def get_logical_path(self):
+        '''returns logical path like /directory/file.jpg'''
+        folders = [f.quoted_logical_path for f in self.logical_path]
+        return os.path.join('/'.join(folders),
+                            get_valid_filename(self.original_filename))
+
+    @property
+    def get_logical_folder_path(self):
+        '''returns logical path like /directory/file.jpg'''
+        folders = [f.quoted_logical_path for f in self.logical_path]
+        return os.path.join('/'.join(folders))
+
+    def relocate_file(self):
+        '''relocate file to new directory'''
+        old_path = self.file.path
+        self.file.name = self.get_logical_path[1:]
+        if self.file.path != old_path:
+            try:
+                os.makedirs(os.path.dirname(self.file.path))
+            except:
+                pass
+            os.rename(old_path, self.file.path)
 
     @property
     def logical_folder(self):
