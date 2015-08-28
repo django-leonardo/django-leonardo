@@ -171,11 +171,19 @@ class ApplicationWidget(Widget, ApplicationContent):
 
         output = fn(request, *args, **kwargs)
 
+        # handle django rest framework as external application
+        if hasattr(output, 'renderer_context'):
+            output.context_data = output.renderer_context
+            output.standalone = True
+
         if isinstance(output, HttpResponse):
             if self.send_directly(request, output):
                 return output
             elif output.status_code == 200:
-                output.context_data['widget'] = self
+                if output.context_data:
+                    output.context_data['widget'] = self
+                else:
+                    output.context_data = {'widget': self}
 
                 if self.unpack(request, output) and 'view' in kw:
                     # Handling of @unpack and UnpackTemplateResponse
