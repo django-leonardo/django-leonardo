@@ -159,10 +159,14 @@ def create_new_site(run_syncall=False, with_user=True, request=None,
             if page_theme_name == '__first__':
                 theme = PageTheme.objects.first()
             else:
-                theme = PageTheme.objects.get(name__icontains=page_theme_name)
+                theme = PageTheme.objects.get(name=page_theme_name)
         except PageTheme.DoesNotExist:
             raise Exception(
                 "Page theme %s not found" % page_theme_name)
+        except Exception as e:
+            raise Exception(
+                "Page theme find more than one PageTheme for %s not found" % page_theme_name)
+
         else:
             page_attrs['theme'] = theme
 

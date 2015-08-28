@@ -3,6 +3,8 @@
 Advance Media Settings
 ======================
 
+Leonardo CMS has highly adopted Django-Filer.
+
 ``MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS``
 
 Regular users are not allowed to create new folders at the root level, only subfolders of already existing folders, unless this setting is set to True

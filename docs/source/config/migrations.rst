@@ -7,7 +7,7 @@ Leonardo itself does not come with any migrations. It does not have to: Its
 core models haven't changed for several versions now. This does not mean
 migrations aren't supported. You are free to use either Django's builtin
 migrations support, or also South if you're stuck with Django versions older
-than 1.6.
+than 1.7.
 
 Django's builtin migrations
 ---------------------------
@@ -26,10 +26,6 @@ Django's builtin migrations
     python manage.py migrate --noinput
 
 If you have database already created, redirect your migration and create empty migrations
-
-.. warning::
-
-	With Django 1.8 + you must run ``python manage.py migrate web`` because django doesn't resolves dependency correctly.
 
 add this to your ``settings.py``
 

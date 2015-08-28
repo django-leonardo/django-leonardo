@@ -100,16 +100,6 @@ Frontend Edit
 
     LEONARDO_FRONTEND_EDITING = True
 
-Media
-=====
-
-Configuring filer is described in ``module/media``, but is there some nessesary parts
-
-.. code-block:: python
-
-    FILER_IMAGE_MODEL = 'leonardo.module.media.models.Image'
-
-
 Horizon
 =======
 

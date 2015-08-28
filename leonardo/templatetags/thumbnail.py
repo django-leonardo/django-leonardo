@@ -12,21 +12,25 @@ try:
 except Exception:
     EASY = False
 
-
 register = Library()
 
 
-# support for both tag style
-
 def thumbnail(parser, token):
+    '''
+    This template tag supports both syntax for declare thumbanil in template
+    '''
+
     thumb = None
+
     if SORL:
         try:
             thumb = sorl_thumb(parser, token)
         except Exception:
             thumb = False
+
     if EASY and not thumb:
         thumb = easy_thumb(parser, token)
+
     return thumb
 
 register.tag(thumbnail)

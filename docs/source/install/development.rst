@@ -5,22 +5,40 @@ Development Environment
 
 Simplest way is using our SaltStack Formula where you can comfortably specify sources for leonardo with plugins.
 
-Make Environment
-----------------
+Prerequisites
+=============
 
-usualy without any prerequirements you can do something like this
+Prerequisites are installed on Ubuntu 12.04 LTS or Raspian Wheezy 7.0 with:
 
-prerequirements:
+.. code-block:: bash
 
-* python
-* pip
-* virtualenv
-* git
+    $ sudo apt-get install python-pip python-dev python-setuptools git python-virtualenv libtiff5-dev libjpeg8-dev zlib1g-dev \
+        libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
+
+Prerequisites are installed on Ubuntu 14.04 LTS with:
+
+.. code-block:: bash
+
+    $ sudo apt-get install python-pip python-dev python-setuptools git python-virtualenv libtiff5-dev libjpeg8-dev zlib1g-dev \
+        libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
+
+Prerequisites are installed on Fedora 20 with:
+
+.. code-block:: bash
+
+    $ sudo yum install python-pip python-dev python-setuptools git python-virtualenv libtiff-devel libjpeg-devel libzip-devel freetype-devel \
+        lcms2-devel libwebp-devel tcl-devel tk-devel
+
+.. note::
+
+    If you have problems with installation, please see SaltStack Formula where are all steps of installation.
+
+usualy after successfuly installated prerequisites you can start with Leonardo
 
 .. code-block:: bash
 
     virtualenv -p /usr/bin/python2.7 /srv/leonardo/sites/mysite
-    
+
     git clone https://github.com/django-leonardo/django-leonardo.git -b develop /srv/leonardo/sites/mysite/leonardo
 
     vim /srv/leonardo/sites/mysite/local_settings.py
