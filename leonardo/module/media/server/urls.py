@@ -1,6 +1,6 @@
 
 from django.conf.urls import patterns, url, include
-from . import settings as filer_settings
+from .. import settings as filer_settings
 
 
 urlpatterns = patterns('',

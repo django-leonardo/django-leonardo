@@ -10,8 +10,6 @@ default_app_config = 'leonardo.module.media.MediaConfig'
 
 class Default(object):
 
-    urlconf = 'leonardo.module.media.server.urls'
-
     optgroup = 'Media'
 
     @property
@@ -53,6 +51,7 @@ class Default(object):
         'MEDIA_THUMB_MEDIUM_OPT': ('', _('Another options for medium thumnails')),
         'MEDIA_THUMB_LARGE_GEOM': ('768x768', _('MEDIA_THUMB_LARGE_GEOM')),
         'MEDIA_THUMB_LARGE_OPT': ('', _('Another options for large thumnails')),
+        'MEDIA_LOGICAL_STRUCTURE': (False, _('If is True all folders and files will has same path in the OS')),
     }
 
 

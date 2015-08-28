@@ -165,12 +165,14 @@ class File(PolymorphicModel, mixins.IconsMixin):
             self.generate_sha1()
         except Exception:
             pass
-        # relocate file to new folder
-        if self.folder:
-            try:
-                self.relocate_file()
-            except Exception:
-                pass
+        # experimentl feature
+        if getattr(settings, 'MEDIA_LOGICAL_STRUCTURE', False):
+            # relocate file to new folder
+            if self.folder:
+                try:
+                    self.relocate_file()
+                except Exception:
+                    pass
         super(File, self).save(*args, **kwargs)
     save.alters_data = True
 
@@ -273,12 +275,6 @@ class File(PolymorphicModel, mixins.IconsMixin):
         folders = [f.quoted_logical_path for f in self.logical_path]
         return os.path.join('/'.join(folders),
                             get_valid_filename(self.original_filename))
-
-    @property
-    def get_logical_folder_path(self):
-        '''returns logical path like /directory/file.jpg'''
-        folders = [f.quoted_logical_path for f in self.logical_path]
-        return os.path.join('/'.join(folders))
 
     def relocate_file(self):
         '''relocate file to new directory'''

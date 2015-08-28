@@ -89,6 +89,10 @@ urlpatterns += patterns('',
                             name="set_language"),
                         url(r'^i18n/', include('django.conf.urls.i18n'))
                         )
+# secure media
+urlpatterns += patterns('',
+                          url(r'^', include('leonardo.module.media.server.urls'))
+                        )
 
 if settings.DEBUG:
 
