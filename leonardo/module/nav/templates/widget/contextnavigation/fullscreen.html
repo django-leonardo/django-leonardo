@@ -1,13 +1,11 @@
 {% extends widget.get_base_template %}
 
 {% block content %}
-{% for item in page.children.all %}
-{% if item.in_navigation %}
+{% for item in items %}
 <div id="{{ item.slug }}" class='fullSection'>
   <div class="container{% if item.layout == 'fluid' %}-fluid{% endif %}">
     {% include "widget/contextnavigation/_page.html"  %}
   </div>
 </div>
-{% endif %}
 {% endfor %}
 {% endblock %}
