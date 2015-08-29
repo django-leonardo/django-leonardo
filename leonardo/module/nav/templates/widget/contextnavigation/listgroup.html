@@ -2,12 +2,10 @@
 
 {% block content %}
 <div class="list-group">
-  {% for child_page in page.get_children %}
-  {% if child_page.in_navigation %}
+  {% for child_page in items %}
   <a href="{{ child_page.get_absolute_url }}" class="list-group-item">
-    {% include "widget/contextnavigation/_page.html" %}
+    {% include "widget/contextnavigation/_item.html" with item=child_page %}
   </a>
-  {% endif %}
   {% endfor %}
 </div>
 {% endblock %}
