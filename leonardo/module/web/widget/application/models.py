@@ -26,7 +26,6 @@ from feincms.translations import short_language_code
 from feincms.utils import get_object
 
 
-
 from django.db import models
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -137,7 +136,6 @@ class ApplicationWidget(Widget, ApplicationContent):
         else:
             path = request._feincms_extra_context['extra_path']
 
-
         # Resolve the module holding the application urls.
         urlconf_path = self.app_config.get('urls', self.urlconf_path)
 
@@ -212,11 +210,22 @@ class ApplicationWidget(Widget, ApplicationContent):
         elif isinstance(output, tuple) and 'view' in kw:
             kw['view'].template_name = output[0]
             kw['view'].request._feincms_extra_context.update(output[1])
-
+            # our hack
+            # no template and view change and save content for our widget
+            context = output[1]
+            context['widget'] = self
+            self.rendered_result = render_to_string(
+                output[0], RequestContext(request, context))
         else:
             self.rendered_result = mark_safe(output)
 
-        return True  # successful
+        # here is the magic !
+        # return renderered parent template !
+        context = RequestContext(request, {})
+        return render_to_response(
+            self.parent.theme.template,
+            context
+            )
 
     class Meta:
         abstract = True
