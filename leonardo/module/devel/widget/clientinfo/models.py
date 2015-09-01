@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from leonardo import messages
-from leonardo.fields import MultiSelectField
+from .fields import MultiSelectField
 from leonardo.module.web.models import Widget
 
 from .utils import add_client_type, get_client_ip

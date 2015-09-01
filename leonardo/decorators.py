@@ -5,10 +5,7 @@ General-purpose decorators for use with Leonardo.
 from __future__ import absolute_import, unicode_literals
 
 import functools
-from functools import wraps
 
-from django.http import HttpResponse
-from django.template.response import TemplateResponse
 from django.utils.decorators import available_attrs  # noqa
 from django.utils.translation import ugettext_lazy as _
 
@@ -28,20 +25,3 @@ def require_auth(view_func):
             return view_func(request, *args, **kwargs)
         raise NotAuthenticated(_("Please log in to continue."))
     return dec
-
-
-def standalone(view_func):
-    """
-    Marks the view method as standalone view; this means that
-    ``HttpResponse`` objects returned from ``ApplicationContent``
-    are returned directly, without further processing.
-    """
-
-    def inner(request, *args, **kwargs):
-        response = view_func(request, *args, **kwargs)
-        if isinstance(response, HttpResponse):
-            response.context_data['standalone'] = True
-            # support for feincms tags
-            response.standalone = True
-        return response
-    return wraps(view_func)(inner)

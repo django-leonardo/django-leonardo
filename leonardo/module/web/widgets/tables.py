@@ -1,11 +1,10 @@
 
 import floppyforms as forms
-from django.core import urlresolvers
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 from horizon import tables
 from horizon.tables.formset import FormsetDataTable, FormsetRow
-from leonardo.module.web.models import WidgetDimension, PageDimension
+from leonardo.module.web.models import WidgetDimension
 
 
 class Slider(forms.RangeInput):

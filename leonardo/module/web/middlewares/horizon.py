@@ -1,33 +1,14 @@
-# -*- coding: UTF-8 -*-
-import datetime
+
+from __future__ import absolute_import
+
 import json
 import logging
-import os
 import time
-from datetime import datetime, timedelta
-
 import six
-from django import http, shortcuts
+from django import http
 from django.conf import settings
 from django.contrib import messages as django_messages
-from django.contrib import auth
-from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.contrib.auth.views import redirect_to_login
-from django.contrib.sites.models import Site
-from django.core import exceptions, urlresolvers
-from django.core.cache import cache
-from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import loading
-from django.forms.models import model_to_dict
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
-from django.utils.encoding import iri_to_uri
-from django.utils.translation import ugettext as __
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import activate
-from feincms.content.application.models import reverse
-from horizon import exceptions, messages
 from horizon.utils import functions as utils
 
 LOG = logging.getLogger(__name__)

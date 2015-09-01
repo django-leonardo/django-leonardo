@@ -7,7 +7,7 @@ from horizon.tables.views import MultiTableView  # noqa
 from horizon_contrib.forms.views import (ContextMixin, ModalFormView,
                                          ModelFormMixin, UpdateView, CreateView)
 
-from leonardo.decorators import standalone
+from leonardo.apps import standalone
 
 # set default template name
 ModalFormView.template_name = 'leonardo/common/modal.html'

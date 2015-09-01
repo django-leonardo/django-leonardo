@@ -2,41 +2,23 @@
 
 from __future__ import absolute_import, unicode_literals
 
-from email.utils import parsedate
-from time import mktime
-from random import SystemRandom
-import re
-
-from django.conf import settings
-from django.core.cache import cache
-from django.core.urlresolvers import (
-    Resolver404, resolve, reverse, NoReverseMatch)
+from django.core.urlresolvers import (Resolver404, resolve)
 from django.db import models
-from django.db.models import signals
 from django.http import HttpResponse
-from django.template.response import TemplateResponse
-from django.utils.functional import curry as partial, lazy, wraps
-from django.utils.http import http_date
-from django.utils.safestring import mark_safe
-from django.utils.translation import get_language, ugettext_lazy as _
-
-from feincms.admin.item_editor import ItemEditorForm
-from feincms.contrib.fields import JSONField
-from feincms.translations import short_language_code
-from feincms.utils import get_object
-
-
-from django.db import models
+from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
-from django.shortcuts import render_to_response
+from django.utils.functional import curry as partial
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from feincms.content.application.models import (ApplicationContent)
+from feincms.utils import get_object
 from leonardo.module.web.models import Widget
-from feincms.admin.item_editor import ItemEditorForm
-
-
 from leonardo.module.web.widgets.forms import WidgetUpdateForm
+
+try:
+    from feincms.content.application.models import ApplicationContent
+except:
+    from feincms.apps import ApplicationContent
 
 
 class ApplicationWidget(Widget, ApplicationContent):

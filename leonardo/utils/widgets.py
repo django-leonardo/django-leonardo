@@ -1,7 +1,6 @@
 
 from django.utils import six
 from django.conf import settings
-from leonardo.module.web.models import Widget
 
 
 def get_all_widget_classes():
@@ -11,6 +10,7 @@ def get_all_widget_classes():
     which not supports widget subclassing
 
     """
+    from leonardo.module.web.models import Widget
     _widgets = getattr(settings,
                        'WIDGETS', Widget.__subclasses__())
     widgets = []

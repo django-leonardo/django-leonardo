@@ -1,7 +1,9 @@
 from haystack import indexes, site, fields
 from feincms.module.page.models import Page
 
+
 class PageIndex(indexes.RealTimeSearchIndex):
+
     """
     Index for FeinCMS Page objects
 
@@ -9,14 +11,14 @@ class PageIndex(indexes.RealTimeSearchIndex):
     for many content objects
     """
 
-    url               = fields.CharField(model_attr="_cached_url")
-    body              = fields.CharField(document=True, use_template=True)
+    url = fields.CharField(model_attr="_cached_url")
+    body = fields.CharField(document=True, use_template=True)
 
     #: Currently included so we can generate search results pages without a
     # database query (Solr will include it the results):
-    title             = fields.CharField(model_attr="title")
+    title = fields.CharField(model_attr="title")
 
-    creation_date     = fields.DateTimeField(model_attr='creation_date', null=True)
+    creation_date = fields.DateTimeField(model_attr='creation_date', null=True)
     modification_date = fields.DateTimeField(model_attr='modification_date', null=True)
 
     def should_update(self, instance, **kwargs):
@@ -29,4 +31,4 @@ class PageIndex(indexes.RealTimeSearchIndex):
     def get_updated_field(self):
         return "modification_date"
 
-site.register(Page, PageIndex) 
+site.register(Page, PageIndex)

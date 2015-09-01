@@ -1,7 +1,7 @@
 
 import copy
 from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Field, HTML, Layout, LayoutObject, Fieldset
+from crispy_forms.layout import Field, HTML, Layout, Fieldset
 from django import forms
 import floppyforms
 from django.contrib.auth import get_permission_codename

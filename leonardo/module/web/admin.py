@@ -5,8 +5,7 @@ from django.contrib.admin.options import InlineModelAdmin, ModelAdmin
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
-from feincms.admin import item_editor, tree_editor
-from feincms.admin.item_editor import FeinCMSInline, ItemEditorForm
+from feincms.admin import item_editor
 from feincms.module.page.modeladmins import PageAdmin as FeinPageAdmin
 
 from .models import *

@@ -1,28 +1,15 @@
 
 import os
-from datetime import datetime
 
-from django.conf import settings
-from django.contrib.auth import models as auth_models
-from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Q
-from django.utils.timezone import get_current_timezone, make_aware, now
 from django.utils.translation import ugettext_lazy as _
 from feincms.module.page.extensions.navigation import (NavigationExtension,
                                                        PagePretender)
-from feincms.translations import (TranslatedObjectManager,
-                                  TranslatedObjectMixin, Translation)
+from feincms.translations import Translation
 
-from filer.utils.compatibility import python_2_unicode_compatible
-
-from .mediamodels.foldermodels import Folder, FolderPermission
-from .mediamodels.imagemodels import Image
-from .mediamodels.filemodels import File
-from .mediamodels.clipboardmodels import Clipboard, ClipboardItem
-from .mediamodels.virtualitems import *
-from .mediamodels import tools
+from .imagemodels import Image
+from .filemodels import File
+from .foldermodels import Folder
 
 
 class MediaMixin(object):

@@ -1,4 +1,3 @@
-import warnings
 
 from django import http
 from django.template import (Context, RequestContext,

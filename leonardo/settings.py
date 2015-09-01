@@ -255,6 +255,7 @@ try:
 except Exception as e:
     pass
 
+FEINCMS_TIDY_HTML = False
 
 APPLICATION_CHOICES = []
 
@@ -284,154 +285,150 @@ if LEONARDO_SYSTEM_MODULE:
 else:
     HORIZON_CONFIG['system_module'] = False
 
+# override settings
 try:
+    from leonardo_site.conf.feincms import *
+except ImportError:
+    pass
 
-    # override settings
-    try:
-        from leonardo_site.conf.feincms import *
-    except ImportError:
-        pass
+from django.utils.importlib import import_module  # noqa
 
-    from django.utils.importlib import import_module  # noqa
+from django.utils.module_loading import module_has_submodule  # noqa
 
-    from django.utils.module_loading import module_has_submodule  # noqa
+WIDGETS = {}
 
-    WIDGETS = {}
+# critical time to import modules
+_APPS = leonardo.get_app_modules(APPS)
 
-    # critical time to import modules
-    _APPS = leonardo.get_app_modules(APPS)
+if LEONARDO_MODULE_AUTO_INCLUDE:
+    # fined and merge with defined app modules
+    _APPS = merge(get_leonardo_modules(), _APPS)
 
-    if LEONARDO_MODULE_AUTO_INCLUDE:
-        # fined and merge with defined app modules
-        _APPS = merge(get_leonardo_modules(), _APPS)
+# sort modules
+_APPS = sorted(_APPS, key=lambda m: getattr(m, 'LEONARDO_ORDERING', 1000))
 
-    # sort modules
-    _APPS = sorted(_APPS, key=lambda m: getattr(m, 'LEONARDO_ORDERING', 1000))
+for mod in _APPS:
 
-    for mod in _APPS:
+    # load all settings key
+    if module_has_submodule(mod, "settings"):
+        try:
+            settings_mod = import_module(
+                '{0}.settings'.format(mod.__name__))
+            for k in dir(settings_mod):
+                if not k.startswith("_"):
+                    val = getattr(settings_mod, k, None)
+                    globals()[k] = val
+                    locals()[k] = val
+        except Exception as e:
+            pass
 
-        # load all settings key
-        if module_has_submodule(mod, "settings"):
-            try:
-                settings_mod = import_module(
-                    '{0}.settings'.format(mod.__name__))
-                for k in dir(settings_mod):
-                    if not k.startswith("_"):
-                        val = getattr(settings_mod, k, None)
-                        globals()[k] = val
-                        locals()[k] = val
-            except Exception as e:
-                pass
+    mod_cfg = get_conf_from_module(mod)
 
-        mod_cfg = get_conf_from_module(mod)
+    APPLICATION_CHOICES = merge(APPLICATION_CHOICES, mod_cfg.plugins)
 
-        APPLICATION_CHOICES = merge(APPLICATION_CHOICES, mod_cfg.plugins)
+    INSTALLED_APPS = merge(INSTALLED_APPS, mod_cfg.apps)
 
-        INSTALLED_APPS = merge(INSTALLED_APPS, mod_cfg.apps)
+    MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES, mod_cfg.middlewares)
+    AUTHENTICATION_BACKENDS = merge(
+        AUTHENTICATION_BACKENDS, mod_cfg.auth_backends)
 
-        MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES, mod_cfg.middlewares)
-        AUTHENTICATION_BACKENDS = merge(
-            AUTHENTICATION_BACKENDS, mod_cfg.auth_backends)
+    PAGE_EXTENSIONS = merge(PAGE_EXTENSIONS, mod_cfg.page_extensions)
 
-        PAGE_EXTENSIONS = merge(PAGE_EXTENSIONS, mod_cfg.page_extensions)
+    ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
 
-        ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
+    ADD_MODULE_ACTIONS = merge(ADD_MODULE_ACTIONS, mod_cfg.module_actions)
 
-        ADD_MODULE_ACTIONS = merge(ADD_MODULE_ACTIONS, mod_cfg.module_actions)
+    if mod_cfg.urls_conf:
+        MODULE_URLS[mod_cfg.urls_conf] = {'is_public': mod_cfg.public}
 
-        if mod_cfg.urls_conf:
-            MODULE_URLS[mod_cfg.urls_conf] = {'is_public': mod_cfg.public}
-
-        # TODO move to utils.settings
-        # support for one level nested in config dictionary
-        for config_key, config_value in six.iteritems(mod_cfg.config):
-            if isinstance(config_value, dict):
-                CONSTANCE_CONFIG_GROUPS.update({config_key: config_value})
-                for c_key, c_value in six.iteritems(config_value):
-                    mod_cfg.config[c_key] = c_value
-                # remove from main dict
-                mod_cfg.config.pop(config_key)
+    # TODO move to utils.settings
+    # support for one level nested in config dictionary
+    for config_key, config_value in six.iteritems(mod_cfg.config):
+        if isinstance(config_value, dict):
+            CONSTANCE_CONFIG_GROUPS.update({config_key: config_value})
+            for c_key, c_value in six.iteritems(config_value):
+                mod_cfg.config[c_key] = c_value
+            # remove from main dict
+            mod_cfg.config.pop(config_key)
+        else:
+            if isinstance(mod_cfg.optgroup, six.string_types):
+                CONSTANCE_CONFIG_GROUPS.update({
+                    mod_cfg.optgroup: mod_cfg.config})
             else:
-                if isinstance(mod_cfg.optgroup, six.string_types):
-                    CONSTANCE_CONFIG_GROUPS.update({
-                        mod_cfg.optgroup: mod_cfg.config})
-                else:
-                    CONSTANCE_CONFIG_GROUPS.update({
-                        'ungrouped': mod_cfg.config})
+                CONSTANCE_CONFIG_GROUPS.update({
+                    'ungrouped': mod_cfg.config})
 
-        # import and update absolute overrides
-        for model, method in six.iteritems(mod_cfg.absolute_url_overrides):
-            try:
-                _mod = import_module(".".join(method.split('.')[:-1]))
-                ABSOLUTE_URL_OVERRIDES[model] = getattr(_mod, method.split('.')[-1])
-            except Exception as e:
-                raise e
+    # import and update absolute overrides
+    for model, method in six.iteritems(mod_cfg.absolute_url_overrides):
+        try:
+            _mod = import_module(".".join(method.split('.')[:-1]))
+            ABSOLUTE_URL_OVERRIDES[model] = getattr(_mod, method.split('.')[-1])
+        except Exception as e:
+            raise e
 
-        for nav_extension in mod_cfg.navigation_extensions:
-            try:
-                import_module(nav_extension)
-            except ImportError:
-                pass
+    for nav_extension in mod_cfg.navigation_extensions:
+        try:
+            import_module(nav_extension)
+        except ImportError:
+            pass
 
-        CONSTANCE_CONFIG.update(mod_cfg.config)
-        ADD_MIGRATION_MODULES.update(mod_cfg.migration_modules)
+    CONSTANCE_CONFIG.update(mod_cfg.config)
+    ADD_MIGRATION_MODULES.update(mod_cfg.migration_modules)
 
-        ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
+    ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
 
-        ADD_CSS_FILES = merge(ADD_CSS_FILES, mod_cfg.css_files)
-        ADD_SCSS_FILES = merge(ADD_SCSS_FILES, mod_cfg.scss_files)
+    ADD_CSS_FILES = merge(ADD_CSS_FILES, mod_cfg.css_files)
+    ADD_SCSS_FILES = merge(ADD_SCSS_FILES, mod_cfg.scss_files)
 
-        ADD_ANGULAR_MODULES = merge(
-            ADD_ANGULAR_MODULES, mod_cfg.angular_modules)
+    ADD_ANGULAR_MODULES = merge(
+        ADD_ANGULAR_MODULES, mod_cfg.angular_modules)
 
-        if VERSION[:2] >= (1, 8):
-            TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
-            cp = TEMPLATES[0]['OPTIONS']['context_processors']
-            TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
-                cp, mod_cfg.context_processors)
+    if VERSION[:2] >= (1, 8):
+        TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
+        cp = TEMPLATES[0]['OPTIONS']['context_processors']
+        TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
+            cp, mod_cfg.context_processors)
 
-        else:
+    else:
 
-            TEMPLATE_CONTEXT_PROCESSORS = merge(
-                TEMPLATE_CONTEXT_PROCESSORS, mod_cfg.context_processors)
-            TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
+        TEMPLATE_CONTEXT_PROCESSORS = merge(
+            TEMPLATE_CONTEXT_PROCESSORS, mod_cfg.context_processors)
+        TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
 
-        # collect grouped widgets
-        if isinstance(mod_cfg.optgroup, six.string_types):
-            WIDGETS[mod_cfg.optgroup] = merge(
-                getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
-        else:
-            if DEBUG:
-                warnings.warn('You have ungrouped widgets'
-                              ', please specify your ``optgroup``'
-                              'which categorize your widgets')
-            WIDGETS['ungrouped'] = merge(
-                getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
+    # collect grouped widgets
+    if isinstance(mod_cfg.optgroup, six.string_types):
+        WIDGETS[mod_cfg.optgroup] = merge(
+            getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
+    else:
+        if DEBUG:
+            warnings.warn('You have ungrouped widgets'
+                          ', please specify your ``optgroup``'
+                          'which categorize your widgets')
+        WIDGETS['ungrouped'] = merge(
+            getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
 
-    setattr(leonardo, 'js_files', ADD_JS_FILES)
-    setattr(leonardo, 'css_files', ADD_CSS_FILES)
-    setattr(leonardo, 'scss_files', ADD_SCSS_FILES)
-    setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
-    setattr(leonardo, 'angular_modules', ADD_ANGULAR_MODULES)
-    setattr(leonardo, 'module_actions', ADD_MODULE_ACTIONS)
-    setattr(leonardo, 'widgets', WIDGETS)
+setattr(leonardo, 'js_files', ADD_JS_FILES)
+setattr(leonardo, 'css_files', ADD_CSS_FILES)
+setattr(leonardo, 'scss_files', ADD_SCSS_FILES)
+setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
+setattr(leonardo, 'angular_modules', ADD_ANGULAR_MODULES)
+setattr(leonardo, 'module_actions', ADD_MODULE_ACTIONS)
+setattr(leonardo, 'widgets', WIDGETS)
 
-    from leonardo.module.web.models import Page
-    from leonardo.module.web.widget import ApplicationWidget
+from leonardo.module.web.models import Page
+from leonardo.module.web.widget import ApplicationWidget
 
-    # register external apps
-    Page.create_content_type(
-        ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
+# register external apps
+Page.create_content_type(
+    ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
 
-    # register widgets
-    for optgroup, _widgets in six.iteritems(WIDGETS):
-        for widget in _widgets:
-            Page.create_content_type(widget, optgroup=optgroup)
+# register widgets
+for optgroup, _widgets in six.iteritems(WIDGETS):
+    for widget in _widgets:
+        Page.create_content_type(widget, optgroup=optgroup)
 
-    Page.register_extensions(*PAGE_EXTENSIONS)
-    Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
-except Exception as e:
-    raise e
+Page.register_extensions(*PAGE_EXTENSIONS)
+Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
 
 # enable reversion for every req
 if 'reversion' in INSTALLED_APPS:

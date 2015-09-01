@@ -26,6 +26,7 @@ class Default(object):
 
         return middlewares + [
             'leonardo.module.web.middlewares.web.WebMiddleware',
+            'leonardo.module.web.middlewares.horizon.HorizonMiddleware',
         ]
 
     @property

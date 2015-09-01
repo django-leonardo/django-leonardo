@@ -19,8 +19,6 @@ class Default(object):
             'django.middleware.locale.LocaleMiddleware',
             'django.contrib.sites.middleware.CurrentSiteMiddleware',
 
-            # horizon
-            'leonardo.middleware.HorizonMiddleware',
         ]
         import django
         if django.VERSION >= (1, 8, 0):

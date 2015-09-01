@@ -6,7 +6,6 @@ import json
 from urlparse import urlparse
 
 from django.db import models
-from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
