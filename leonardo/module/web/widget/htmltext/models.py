@@ -7,7 +7,7 @@ from django.forms.util import ErrorList
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from feincms import settings
+from django.conf import settings
 #from feincms.admin.item_editor import ItemEditorForm, FeinCMSInline
 from feincms.utils import get_object
 from leonardo.module.web.models import Widget

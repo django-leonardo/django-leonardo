@@ -38,8 +38,8 @@ DEFAULT_MEDIA_STORAGES = {
         'main': {
             'ENGINE': DEFAULT_FILE_STORAGE,
             'OPTIONS': {
-                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT, MEDIA_PUBLIC_UPLOAD_TO)),
-                'base_url': '/media/public/',
+                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT)),
+                'base_url': '/media/',
             },
             'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
             'UPLOAD_TO_PREFIX': MEDIA_PUBLIC_UPLOAD_TO,
@@ -56,8 +56,8 @@ DEFAULT_MEDIA_STORAGES = {
         'main': {
             'ENGINE': 'filer.storage.PrivateFileSystemStorage',
             'OPTIONS': {
-                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT, MEDIA_PRIVATE_UPLOAD_TO)),
-                'base_url': '/smedia/private/',
+                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT)),
+                'base_url': '/smedia/',
             },
             'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
             'UPLOAD_TO_PREFIX': MEDIA_PRIVATE_UPLOAD_TO,

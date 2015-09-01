@@ -10,8 +10,6 @@ default_app_config = 'leonardo.module.media.MediaConfig'
 
 class Default(object):
 
-    urlconf = 'leonardo.module.media.server.urls'
-
     optgroup = 'Media'
 
     @property
@@ -47,12 +45,13 @@ class Default(object):
         'MEDIA_ENABLE_PERMISSIONS': (True, _(
             'Permissions for downloadable items. Experimental feature.')),
         'MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS': (False, _('ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS')),
-        'MEDIA_THUMN_SMALL_GEOM': ('64x64', _('MEDIA_THUMN_SMALL_GEOM')),
-        'MEDIA_THUMN_SMALL_OPT': ('', _('Another options for small thumnails')),
-        'MEDIA_THUMN_MEDIUM_GEOM': ('256x256', _('MEDIA_THUMN_MEDIUM_GEOM')),
-        'MEDIA_THUMN_MEDIUM_OPT': ('', _('Another options for medium thumnails')),
-        'MEDIA_THUMN_LARGE_GEOM': ('768x768', _('MEDIA_THUMN_LARGE_GEOM')),
-        'MEDIA_THUMN_LARGE_OPT': ('', _('Another options for large thumnails')),
+        'MEDIA_THUMB_SMALL_GEOM': ('64x64', _('MEDIA_THUMB_SMALL_GEOM')),
+        'MEDIA_THUMB_SMALL_OPT': ('', _('Another options for small thumnails')),
+        'MEDIA_THUMB_MEDIUM_GEOM': ('256x256', _('MEDIA_THUMB_MEDIUM_GEOM')),
+        'MEDIA_THUMB_MEDIUM_OPT': ('', _('Another options for medium thumnails')),
+        'MEDIA_THUMB_LARGE_GEOM': ('768x768', _('MEDIA_THUMB_LARGE_GEOM')),
+        'MEDIA_THUMB_LARGE_OPT': ('', _('Another options for large thumnails')),
+        'MEDIA_LOGICAL_STRUCTURE': (False, _('If is True all folders and files will has same path in the OS')),
     }
 
 

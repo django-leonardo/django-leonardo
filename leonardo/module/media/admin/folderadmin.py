@@ -17,6 +17,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
+from filer.utils.compatibility import get_delete_permission
 try:
     from django.utils.encoding import force_text
 except ImportError:
@@ -757,7 +758,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
                                    opts.object_name.lower()),
                                 None, (quote(obj._get_pk_val()),))
             p = '%s.%s' % (opts.app_label,
-                           opts.get_delete_permission())
+                           get_delete_permission(opts))
             if not user.has_perm(p):
                 perms_needed.add(opts.verbose_name)
             # Display a link to the admin page.

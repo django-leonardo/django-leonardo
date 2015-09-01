@@ -8,6 +8,8 @@ import warnings
 # define options
 CONF_SPEC = {
     'optgroup': None,
+    'urls_conf': None,
+    'public': False,
     'plugins': [],
     'widgets': [],
     'apps': [],
@@ -67,6 +69,19 @@ def merge(a, b):
     if a and b:
         raise Exception("Cannot merge")
     return None
+
+
+def is_leonardo_module(mod):
+    """returns True if is leonardo module
+    """
+
+    if hasattr(mod, 'default') \
+            or hasattr(mod, 'leonardo_module_conf'):
+        return True
+    for key in dir(mod):
+        if 'LEONARDO' in key:
+            return True
+    return False
 
 
 def get_leonardo_modules():

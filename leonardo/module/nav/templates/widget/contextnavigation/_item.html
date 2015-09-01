@@ -1,0 +1,19 @@
+{% load i18n feincms_tags feincms_page_tags leonardo_tags %}
+
+{% feincms_render_region item region request %}
+{% render_region_tools item region request %}
+{% if widget.link_style != "" %}
+<div class="col-md-12 text-center">
+  {% if widget.link_style == "link" %}
+  <a href="{{ item.get_absolute_url }}">
+  {% else %}
+  <a class="btn btn-primary" href="{{ item.get_absolute_url }}">
+  {% endif %}
+  {% if widget.link_text %}{{ widget.link_text }}{% else %}{{ item.short_title }}{% endif %}
+  {% if widget.link_style == "link" %}
+  </a>
+  {% else %}
+  </a>
+  {% endif %}
+</div>
+{% endif %}

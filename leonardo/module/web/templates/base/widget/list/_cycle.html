@@ -1,0 +1,26 @@
+
+<div data-ride="carousel" data-pause="true" class="carousel" id="carousel_{{ widget.fe_identifier }}">
+
+  {% block count %}
+  {% endblock %}
+
+  {% block items %}
+  <div class="carousel-inner" role="listbox">
+    {% for item in items %}
+    <div class="item{% if forloop.first %} active{% endif %}">
+      {% block item_content %}
+      {% include widget.get_item_template with item=item %}
+      {% endblock %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endblock %}
+
+  {% block pagination %}
+	  <ul class="pager">
+	    <li class="previous"><a data-slide="prev" href="#carousel_{{ widget.fe_identifier }}">Previous</a></li>
+	    <li class="next"><a data-slide="next" href="#carousel_{{ widget.fe_identifier }}">Next <span aria-hidden="true">&rarr;</span></a></li>
+	  </ul>
+  {% endblock %}
+
+</div>

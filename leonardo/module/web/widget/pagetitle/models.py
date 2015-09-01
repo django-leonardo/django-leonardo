@@ -13,23 +13,15 @@ class PageTitleWidget(Widget):
         verbose_name_plural = _('page titles')
 
     def render_content(self, options):
-        page = Page.objects.best_match_for_path(
-            options['request'].path, raise404=False)
+        page = self.parent
 
         try:
             fragments = options['request']._feincms_fragments
         except:
             fragments = {}
 
-        if fragments.has_key("_page_title"):
-            title = fragments["_page_title"]
-        else:
-            title = None
-
-        if fragments.has_key("_page_subtitle"):
-            subtitle = fragments["_page_subtitle"]
-        else:
-            subtitle = None
+        title = fragments.get("_page_title", None)
+        subtitle = fragments.get("_page_subtitle", None)
 
         return render_to_string(self.get_template, {
             'widget': self,

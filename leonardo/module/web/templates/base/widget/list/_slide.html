@@ -1,0 +1,33 @@
+
+<div data-ride="carousel" class="carousel slide fullscreen-slider" id="carousel_{{ widget.fe_identifier }}">
+
+  {% block count %}
+  <ol class="carousel-indicators">
+    {% for item in items %}
+    <li{% if forloop.first %} class="active"{% endif %} data-slide-to="{{ forloop.counter0 }}" data-target="#carousel_{{ widget.fe_identifier }}"></li>
+    {% endfor %}
+  </ol>
+  {% endblock %}
+
+  {% block items %}
+  <div class="carousel-inner" role="listbox">
+    {% for item in items %}
+    <div class="item{% if forloop.first %} active{% endif %}">
+      {% block item_content %}
+      {% include widget.get_item_template with item=item %}
+      {% endblock %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endblock %}
+
+  {% block pagination %}
+  <a data-slide="prev" href="#carousel_{{ widget.fe_identifier }}" class="left carousel-control">
+    <span class="fa fa-chevron-left"></span>
+  </a>
+  <a data-slide="next" href="#carousel_{{ widget.fe_identifier }}" class="right carousel-control">
+    <span class="fa fa-chevron-right"></span>
+  </a>
+  {% endblock %}
+
+</div>

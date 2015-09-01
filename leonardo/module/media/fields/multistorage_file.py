@@ -31,9 +31,9 @@ THUMBNAIL_OPTIONS = {
 
 def generate_filename_multistorage(instance, filename):
     if instance.is_public:
-        upload_to = settings.MEDIA_PUBLIC_UPLOAD_TO
+        upload_to = settings.FILER_PUBLICMEDIA_UPLOAD_TO
     else:
-        upload_to = settings.MEDIA_PRIVATE_UPLOAD_TO
+        upload_to = settings.FILER_PRIVATEMEDIA_UPLOAD_TO
 
     if callable(upload_to):
         return upload_to(instance, filename)

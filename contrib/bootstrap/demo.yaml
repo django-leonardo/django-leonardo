@@ -30,7 +30,7 @@ web.Page:
             md: 6
         web.UserLoginWidget:
           attrs:
-            inline: true
+            layout: inline
             type: 2
             content_theme: navbar
             base_theme: default

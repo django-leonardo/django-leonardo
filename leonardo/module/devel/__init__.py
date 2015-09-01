@@ -11,7 +11,6 @@ LEONARDO_OPTGROUP = ('Devel widgets')
 
 LEONARDO_WIDGETS = [
     ClientInfoWidget,
-    #DjangoTemplateWidget,
     VisualTestWidget,
 ]
 

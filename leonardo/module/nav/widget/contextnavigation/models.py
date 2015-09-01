@@ -7,6 +7,8 @@ from leonardo.module.web.const import PAGE_REGIONS
 from leonardo.module.web.models import Page
 from leonardo.module.nav.models import NavigationWidget
 
+from leonardo.module.web.widgets.mixins import ListWidgetMixin
+
 DEPTH_CHOICES = (
     (0, _("self")),
     (1, _("one level")),
@@ -19,7 +21,7 @@ LINK_CHOICES = (
     ('button', _("button")),
 )
 
-class ContextNavigationWidget(NavigationWidget):
+class ContextNavigationWidget(ListWidgetMixin, NavigationWidget):
     root = models.ForeignKey(Page, blank=True, null=True, verbose_name=_("Source page"), related_name="context_root", help_text=_('The child pages of root page are displayed in the context navigation.'))
     page_region = models.CharField(max_length=255, verbose_name=_("Region to display"), choices=PAGE_REGIONS, default='preview', help_text=_('Which region of selected pages do you wish to display.'))
     depth = models.IntegerField(verbose_name=_("Depth"), choices=DEPTH_CHOICES, default=1, help_text=_('Depth to which display child pages.'))
@@ -34,16 +36,31 @@ class ContextNavigationWidget(NavigationWidget):
     def render(self, **kwargs):
         return self.render_with_cache(kwargs)
 
-    def render_content(self, options):
+    def filter_items(self, items):
+        return super(NavigationWidget, self).filter_items(items)
+
+    def get_items(self, request=None):
+        '''returns queryset or array of items for listing'''
+        return self.get_root(request).children.all()
+
+    def get_root(self, request=None):
 
         if self.root:
             root = self.root
         else:
-            root = options['request'].leonardo_page
+            if not request:
+                raise Exception('call populate_items with request before access to data')
+            root = request.leonardo_page
+        return root
+
+    def render_content(self, options):
+
+        self.populate_items(options['request'])
 
         return render_to_string(self.get_template_name(), { 
             'widget': self,
-            'page': root,
+            'page': self.get_root(options['request']),
+            'items': self.items,
             'request': options['request'],
             'region': self.page_region,
         })

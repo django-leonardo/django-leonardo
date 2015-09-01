@@ -60,10 +60,16 @@ We don't repeat yourself and for really quick start with new site we provide sim
               dimenssions:
                 md: 2
 
+From local source
+
 .. code-block:: bash
 
     python manage.py bootstrap_site --name=demo.yaml
 
-.. note::
+This mechanismus is really simple without any magic features. Just define your model entyties with some parameters. For FeinCMS models is there field called ``content`` which is dictionary of content regions like ``col3`` with some ``Widgets``.
 
-    Examples lives in the ``LEONARDO_BOOTSTRAP_DIR`` which is set to ``leonardo/contrib/bootstrap`` in default state.
+From remote host
+
+.. code-block:: bash
+
+    python manage.py bootstrap_site --url=http://raw.githubusercontent.com/django-leonardo/django-leonardo/develop/contrib/bootstrap/demo.yaml

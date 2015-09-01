@@ -23,5 +23,17 @@ class NavigationWidgetMixin(models.Model):
         verbose_name=_("Orientation"), max_length=20,
         choices=ORIENTATION_CHOICES, default='horizontal')
 
+    def _filter_active(self, items):
+        return [item for item in items if item.active == self.display_in_nav]
+
+    def _filter_in_nav(self, items):
+        return [item for item in items if item.in_navigation == self.display_in_nav]
+
+    def filter_items(self, items):
+        '''perform filtering items by specific criteria'''
+        items = self._filter_active(items)
+        items = self._filter_in_nav(items)
+        return items
+
     class Meta:
         abstract = True

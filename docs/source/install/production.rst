@@ -3,6 +3,8 @@
 Leonardo in Production
 ======================
 
+Leonardo in production is standard Django application. We use Gunicorn under Supervisor with Nginx proxy.
+
 Supervisor
 ----------
 

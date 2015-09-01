@@ -12,10 +12,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _, ugettext
-from feincms.views.decorators import standalone
-from leonardo import messages
 from django_select2.widgets import AutoHeavySelect2TagWidget
-from . import settings as filer_settings
 from .management.commands.import_files import FileImporter
 from .models import Clipboard, Folder, FolderRoot, Image, tools
 

@@ -1,7 +1,7 @@
 
 import copy
 from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Field, HTML, Layout, LayoutObject
+from crispy_forms.layout import Field, HTML, Layout, Fieldset
 from django import forms
 import floppyforms
 from django.contrib.auth import get_permission_codename
@@ -43,16 +43,22 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
         self.fields['content_theme'].queryset = \
             queryset.filter(widget_class=self._meta.model.__name__)
+
+        # get all fields for widget
+        main_fields = self._meta.model.fields()
+        main_fields.update({'label': 'label'})
         self.helper.layout = Layout(
             TabHolder(
                 Tab(self._meta.model._meta.verbose_name.capitalize(),
-                    *self._meta.model.fields(),
+                    *main_fields,
                     css_id='field-{}'.format(slugify(self._meta.model))
                     ),
                 Tab(_('Theme'),
-                    'base_theme', 'content_theme', 'layout', 'align',
-                    'vertical_align', 'label', 'id', 'region', 'ordering',
-                    'parent', 'color_scheme',
+                    'base_theme', 'content_theme', 'color_scheme',
+                    Fieldset(_('Positions'), 'layout', 'align',
+                             'vertical_align'),
+                    'id', 'region', 'ordering',
+                    'parent',
                     css_id='theme-widget-settings'
                     ),
                 Tab(_('Effects'),

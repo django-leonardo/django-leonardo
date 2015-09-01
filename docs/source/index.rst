@@ -15,13 +15,26 @@ Full featured framework for building everything based on Django, FeinCMS, Horizo
    :maxdepth: 2
 
    overview/index
+
+Installation
+============
+
+.. toctree::
+   :maxdepth: 2
+
    install/intro
-   install/bootstrap
    install/development
    install/production
+   install/bootstrap
    install/salt
-   module/extends/new_site
-   config/configuration
+
+Configuration
+=============
+
+.. toctree::
+   :maxdepth: 2
+
+   config/config
    config/live
    config/media
    config/migrations
@@ -32,26 +45,24 @@ Full featured framework for building everything based on Django, FeinCMS, Horizo
 Extend
 ======
 
-Create new Site, Theme, Module or full application based on Leonardo CMS
-
 .. toctree::
    :maxdepth: 2
 
-   module/extends/new_site
-   module/extends/new_theme
-   module/extends/new_module
-   module/extends/conf_reference
+   extends/new_site
+   extends/new_theme
+   extends/new_module
+   extends/conf_reference
 
 Components
 ==========
 
-Some components for easy creating new stuff.
-
 .. toctree::
    :maxdepth: 2
 
-   components/modals
+   components/thumbnails
+   components/live_settings
    components/messages
+   components/modals
 
 Contribute
 ==========

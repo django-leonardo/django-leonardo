@@ -1,23 +1,15 @@
 from __future__ import unicode_literals
 
 import re
-import sys
 
 import types
 from django.conf import settings
-from django.core.urlresolvers import resolve, Resolver404
-from django.http import (build_request_repr, HttpRequest, HttpResponse,
-                         HttpResponseNotFound)
+from django.core.urlresolvers import Resolver404, resolve
+from django.http import HttpResponseNotFound
 from django.template import RequestContext, Template
-from django.template.defaultfilters import force_escape, pprint
-from django.utils import lru_cache, six, timezone
-from django.utils.datastructures import MultiValueDict
-from django.utils.encoding import force_bytes, smart_text
-from django.utils.module_loading import import_string
-from django.utils.translation import ugettext as _
-from django.views.debug import default_urlconf, get_safe_settings
 from django.template.loader import render_to_string
-
+from django.utils.encoding import force_bytes
+from django.views.debug import default_urlconf, get_safe_settings
 
 HIDDEN_SETTINGS = re.compile('API|TOKEN|KEY|SECRET|PASS|SIGNATURE')
 

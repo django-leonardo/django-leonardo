@@ -26,6 +26,7 @@ class Default(object):
 
         return middlewares + [
             'leonardo.module.web.middlewares.web.WebMiddleware',
+            'leonardo.module.web.middlewares.horizon.HorizonMiddleware',
         ]
 
     @property
@@ -97,6 +98,14 @@ class Default(object):
         ('leonardo.module.web.apps.horizon', _('Horizon'))
     ]
 
+    js_files = [
+        'extra/js/wow.min.js',
+    ]
+
+    css_files = [
+        'extra/css/animate.css'
+    ]
+
     config = {
         'META_KEYWORDS': ('', _('Site specific meta keywords')),
         'META_DESCRIPTION': ('', _('Site specific meta description')),
@@ -114,11 +123,10 @@ class WebConfig(AppConfig, Default):
     def ready(self):
 
         # register signals
-        from leonardo.module.web.signals import dbtemplate_save
-        from django.db.models.signals import post_save
+        from leonardo.module.web.signals import save as template_save
         from dbtemplates.models import Template
 
-        post_save.connect(dbtemplate_save, sender=Template)
+        Template.save = template_save
 
 
 default = Default()

@@ -8,6 +8,7 @@ from django.template.context import RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.web.models import Widget, ContentProxyWidgetMixin
+from leonardo.module.web.widgets.mixins import ListWidgetMixin
 
 TARGET_CHOICES = (
     ('modal', _('Modal window')),
@@ -15,7 +16,7 @@ TARGET_CHOICES = (
 )
 
 
-class FeedReaderWidget(Widget, ContentProxyWidgetMixin):
+class FeedReaderWidget(Widget, ContentProxyWidgetMixin, ListWidgetMixin):
     max_items = models.IntegerField(_('max. items'), default=5)
 
     class Meta:
@@ -25,16 +26,7 @@ class FeedReaderWidget(Widget, ContentProxyWidgetMixin):
 
     def render_content(self, options):
 
-        regen = False
-        if self.cache_update:
-            now = datetime.datetime.now()
-            delta = now - self.cache_update
-            if delta.seconds > self.cache_validity:
-                regen = True
-        else:
-            regen = True
-
-        if regen:
+        if self.is_obsolete:
             self.update_cache_data()
 
         context = RequestContext(options.get('request'), {

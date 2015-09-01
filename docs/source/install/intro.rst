@@ -15,27 +15,11 @@ Via PIP
 
     pip install git+https://github.com/django-leonardo/django-leonardo@develop#egg=leonardo
 
-one liner
-
-Wget
+WGET one-liner
 
 .. code-block:: bash
 
-    wget -O install_leonardo.sh https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh && sh install_leonardo.sh
-
-CURL
-
-.. code-block:: bash
-
-    curl -L https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh -o install_leonardo.sh
-    sh install_leonardo.sh
-
-Python
-
-.. code-block:: bash
-
-    python -c 'import urllib; print urllib.urlopen("https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh").read()' > install_leonardo.sh
-    sudo sh install_leonardo.sh
+    wget -O install_leonardo.sh https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_leonardo.sh && sh install_leonardo.sh
 
 Command by command
 
@@ -45,20 +29,21 @@ Command by command
     cd leonardo_venv
     . $PWD/bin/activate
 
-    pip install django-leonardo==2015.0.4
-
+    pip install -e git+https://github.com/django-leonardo/django-leonardo@develop#egg=django-leonardo
+    pip install -r $PWD/src/django-leonardo/requirements.txt
     django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
 
     export PYTHONPATH=$PWD/myproject
-    cd ./myproject
+    cd myproject
 
     python manage.py makemigrations --noinput
     python manage.py migrate --noinput
-    python manage.py sync_all
+    python manage.py bootstrap_site --url=http://raw.githubusercontent.com/django-leonardo/django-leonardo/develop/contrib/bootstrap/demo.yaml
 
     echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'mail@leonardo.cz', 'admin')" | python manage.py shell
 
     python manage.py runserver 0.0.0.0:80
+
 
 Using salt
 
@@ -67,74 +52,6 @@ With configured Salt use our Formula writte your pillars and run
 .. code-block:: bash
 
     salt-call state.sls leonardo
-
-Bootstrap site
---------------
-
-We don't repeat yourself and for really quick start with new site we provide simple API called Bootstrap which has simple format in ``yaml`` or ``json`` and may have contains basic stuff for your site::
-
-    auth.User:
-      admin:
-        password: root
-        mail: root@admin.cz
-    web.Page:
-      QuickStart:
-        title: Quickstart
-        slug: quickstart
-        override_url: /
-        featured: false
-        theme: __first__
-        in_navigation: true
-        active: true
-        color_scheme: __first__
-        content:
-          header:
-            web.SiteHeadingWidget:
-              attrs:
-                site_title: Leonardo Site
-                content_theme: navbar
-                base_theme: default
-              dimenssions:
-                md: 2
-            web.TreeNavigationWidget:
-              attrs:
-                depth: 2
-                content_theme: navbar
-                base_theme: default
-              dimenssions:
-                md: 6
-            web.UserLoginWidget:
-              attrs:
-                inline: true
-                type: 2
-                content_theme: navbar
-                base_theme: default
-              dimenssions:
-                md: 4
-    elephantblog.Entry:
-      Test:
-        title: Test
-        slug: test
-        author:
-          type: auth.User
-          pk: 1
-        content:
-          main:
-            elephantblog.HtmlTextWidget:
-              attrs:
-                text: Hello world !
-                content_theme: default
-                base_theme: default
-              dimenssions:
-                md: 2
-
-.. code-block:: bash
-
-    python manage.py bootstrap_site --name=demo.yaml
-
-.. note::
-
-    Examples lives in the ``LEONARDO_BOOTSTRAP_DIR`` which is set to ``leonardo/contrib/bootstrap`` in default state.
 
 Bundles
 -------
@@ -145,6 +62,8 @@ to install Leonardo and the dependencies for a given feature.
 You can specify these in your requirements or on the ``pip`` comand-line
 by using brackets.  Multiple bundles can be specified by separating them by
 commas.
+
+For all Leonardo modules continue to https://github.com/leonardo-modules
 
 .. code-block:: bash
 
@@ -157,32 +76,67 @@ The following bundles are available:
 CMS
 ~~~
 
-* django-leonardo[web] - for FeinCMS integration, is one of main parts
-
-* django-leonardo[media] - for using the Filer and related widgets like a Media Gallery, ..
-
-* django-leonardo[nav] - set of navigation widgets
-
 * django-leonardo[blog] - ElephantBlog integration
 
-* django-leonardo[forms] - Form-Builder(FeinCMS) integration with Remote-Forms for API
+* django-leonardo[folio] - Portfolio with translations
+
+* django-leonardo[multisite] - Leonardo multi sites
+
+* django-leonardo[forms] - Form Designer and Remote Forms
+
+* django-leonardo[links] - Links
+
+* django-leonardo[pagepermissions] - Page Permissions
+
+Background Jobs
+~~~~~~~~~~~~~~~
+
+* django-leonardo[celery] - Celery Workers for background Jobs
+
+Admin
+~~~~~
+
+* django-leonardo[admin] - Django Admin for Leonardo CMS
+
+Auth
+~~~~
+
+* django-leonardo[auth] - All auth
+
+* django-leonardo[saml] - SAML auth backend
+
+WYSIWYG Editors
+~~~~~~~~~~~~~~~
+
+* django-leonardo[redactor] - Redactor
+
+* django-leonardo[summernote] - SummerNote
+
+Themes
+~~~~~~
+
+* django-leonardo[themes] - Leonardo themes [Bootstrap, AdminLTE]
+
+* django-leonardo[adminlte] - AdminLTE theme
 
 Ecommerce
 ~~~~~~~~~
 
-* django-leonardo[eshop] -Django-Oscar integration (is not stable !)
+* django-leonardo[store] - Django-Oscar integration
 
+* django-leonardo[stores] - Django-Oscar Stores
 
-Django
-------
+* django-leonardo[cod] - Django-Oscar Cash On Delivery Payment Method
 
-Leonardo supports Django 1.8, but for this time requires additional steps with data migrations, because not all 3rd party apps support Dj 1.8, and if someone use South is there problem with migration dependecies.
+Common
+~~~~~~
 
-Some basic steps which allows to you experiment with new Django compatibility
+* django-leonardo[sentry] - Raven integration with end-user friendly error page
 
-* first you need Django 1.7 installation, created database
-* run migrate command
-* install django 1.8 (pip install -r Django==1.8)
+* django-leonardo[static] - AngularJS, React, BootStrap, D3.js, ..
 
-run your Leonardo on Django 1.8
+* django-leonardo[debug] - Debug toolbar
 
+* django-leonardo[tests] - Tools for testing
+
+* django-leonardo[redis] - Redis dep

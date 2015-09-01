@@ -15,9 +15,9 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('args', metavar='app_label[.ModelName]', nargs='*',
                             help='Restricts dumped data to the specified app_label or app_label.ModelName.')
-        parser.add_argument('--format', default='json', dest='format',
+        parser.add_argument('--format', default='xml', dest='format',
                             help='Specifies the output serialization format for fixtures.')
-        parser.add_argument('--indent', default=None, dest='indent', type=int,
+        parser.add_argument('--indent', default=4, dest='indent', type=int,
                             help='Specifies the indent level to use when pretty-printing output.')
         parser.add_argument('--database', action='store', dest='database',
                             default=DEFAULT_DB_ALIAS,
@@ -26,11 +26,11 @@ class Command(BaseCommand):
         parser.add_argument('-e', '--exclude', dest='exclude', action='append', default=[],
                             help='An app_label or app_label.ModelName to exclude '
                             '(use multiple --exclude to exclude multiple apps/models).')
-        parser.add_argument('-n', '--natural', action='store_true', dest='use_natural_keys', default=False,
+        parser.add_argument('-n', '--natural', action='store_true', dest='use_natural_keys', default=True,
                             help='Use natural keys if they are available (deprecated: use --natural-foreign instead).')
-        parser.add_argument('--natural-foreign', action='store_true', dest='use_natural_foreign_keys', default=False,
+        parser.add_argument('--natural-foreign', action='store_true', dest='use_natural_foreign_keys', default=True,
                             help='Use natural foreign keys if they are available.')
-        parser.add_argument('--natural-primary', action='store_true', dest='use_natural_primary_keys', default=False,
+        parser.add_argument('--natural-primary', action='store_true', dest='use_natural_primary_keys', default=True,
                             help='Use natural primary keys if they are available.')
         parser.add_argument('-a', '--all', action='store_true', dest='use_base_manager', default=False,
                             help="Use Django's base manager to dump all models stored in the database, "
@@ -46,7 +46,7 @@ class Command(BaseCommand):
         format = options.get('format', 'xml')
         indent = options.get('indent', 4)
         using = options.get('database')
-        excludes = options.get('exclude', ['media'])
+        excludes = options.get('exclude', [])
         output = options.get('output')
         show_traceback = options.get('traceback')
         use_natural_keys = options.get('use_natural_keys', True)
@@ -164,7 +164,7 @@ class Command(BaseCommand):
         except Exception as e:
             if show_traceback:
                 raise
-            raise CommandError("Unable to serialize database: %s" % e)
+            #raise CommandError("Unable to serialize database: %s" % e)
 
 
 def sort_dependencies(app_list):

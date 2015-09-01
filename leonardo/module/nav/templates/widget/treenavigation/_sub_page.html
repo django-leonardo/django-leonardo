@@ -1,4 +1,4 @@
 {% load feincms_page_tags %}
 <li class="{% if subpage|is_equal_or_parent_of:current %}active{% endif %}">
-  <a href="{{ subpage.get_absolute_url }}">{{ subpage.title }}</a>
+  <a href="{{ subpage.get_navigation_url }}">{{ subpage.title }}</a>
 </li>

@@ -75,9 +75,12 @@ Modules
 -------
 
 * `Admin`_ - Standard Django admin
+* `Bootstrap Admin`_ - Bootstrap Django admin
+* `Material Admin`_ - Material Django admin
 * `Analytics`_ -  Analytics service integration for Leonardo projects
 * `Auth`_ - authentication, registration, account management as 3rd party (social) and SAML support to your Leonardo sites
 * `Blog`_ - Elephant Blog integration
+* `Celery`_ - Celery workers for Leonardo CMS
 * `Multisite`_ - Multi site / tenancy with security
 * `Folio`_ - Portfolio app
 * `Geo`_ - Some geolocation related widgets (Google maps,..)
@@ -95,14 +98,17 @@ Modules
 
 
 .. _`Admin`: https://github.com/leonardo-modules/leonardo-admin
+.. _`Bootstrap Admin`: https://github.com/leonardo-modules/leonardo-bootstrap-admin
+.. _`Material Admin`: https://github.com/leonardo-modules/leonardo-material-admin
 .. _`Auth`: https://github.com/leonardo-modules/leonardo-module-auth
 .. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
 .. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
+.. _`Celery`: https://github.com/leonardo-modules/leonardo-celery
 .. _`Multisite`: https://github.com/leonardo-modules/leonardo-multisite
 .. _`Folio`: https://github.com/leonardo-modules/leonardo-module-folio
 .. _`Geo`: https://github.com/leonardo-modules/leonardo-geo
 .. _`Galleries`: https://github.com/leonardo-modules/leonardo-gallery
-.. _`Store`: https://github.com/leonardo-modules/leonardo-module-eshop
+.. _`Store`: https://github.com/leonardo-modules/leonardo-store
 .. _`News`: https://github.com/leonardo-modules/leonardo-module-news
 .. _`Links`: https://github.com/leonardo-modules/leonardo-module-links
 .. _`Redactor`: https://github.com/leonardo-modules/leonardo-module-redactor
@@ -130,33 +136,26 @@ Wget
 
 .. code-block:: bash
 
-    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh | sh
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_leonardo.sh | sh
 
 
 Install Blog
 
 .. code-block:: bash
 
-    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_blog.sh | sh
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_blog.sh | sh
 
 Install Store
 
 .. code-block:: bash
 
-    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_store.sh | sh
-
-CURL
-
-.. code-block:: bash
-
-    curl -L https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh -o install_leonardo.sh
-    sh install_leonardo.sh
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_store.sh | sh
 
 Python
 
 .. code-block:: bash
 
-    python -c 'import urllib; print urllib.urlopen("https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/install_leonardo.sh").read()' > install_leonardo.sh
+    python -c 'import urllib; print urllib.urlopen("https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_leonardo_dev.sh").read()' > install_leonardo.sh
     sudo sh install_leonardo.sh
 
 Command by command
@@ -167,20 +166,21 @@ Command by command
     cd leonardo_venv
     . $PWD/bin/activate
 
-    pip install django-leonardo
-
+    pip install -e git+https://github.com/django-leonardo/django-leonardo@develop#egg=django-leonardo
+    pip install -r $PWD/src/django-leonardo/requirements.txt
     django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
 
     export PYTHONPATH=$PWD/myproject
-    cd ./myproject
+    cd myproject
 
     python manage.py makemigrations --noinput
     python manage.py migrate --noinput
-    python manage.py sync_all
+    python manage.py bootstrap_site --url=http://raw.githubusercontent.com/django-leonardo/django-leonardo/develop/contrib/bootstrap/demo.yaml
 
     echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'mail@leonardo.cz', 'admin')" | python manage.py shell
 
     python manage.py runserver 0.0.0.0:80
+
 
 Navigate your browser to your_ip/admin and login with ``root:admin``
 
@@ -209,11 +209,23 @@ CMS
 
 * django-leonardo[folio] - Portfolio with translations
 
+* django-leonardo[multisite] - Leonardo multi sites
+
 * django-leonardo[forms] - Form Designer and Remote Forms
 
 * django-leonardo[links] - Links
 
 * django-leonardo[pagepermissions] - Page Permissions
+
+Background Jobs
+~~~~~~~~~~~~~~~
+
+* django-leonardo[celery] - Celery Workers for background Jobs
+
+Admin
+~~~~~
+
+* django-leonardo[admin] - Django Admin for Leonardo CMS
 
 Auth
 ~~~~
@@ -221,6 +233,13 @@ Auth
 * django-leonardo[auth] - All auth
 
 * django-leonardo[saml] - SAML auth backend
+
+WYSIWYG Editors
+~~~~~~~~~~~~~~~
+
+* django-leonardo[redactor] - Redactor
+
+* django-leonardo[summernote] - SummerNote
 
 Themes
 ~~~~~~
@@ -232,7 +251,11 @@ Themes
 Ecommerce
 ~~~~~~~~~
 
-* django-leonardo[store] -Django-Oscar integration (is not stable !)
+* django-leonardo[store] - Django-Oscar integration
+
+* django-leonardo[stores] - Django-Oscar Stores
+
+* django-leonardo[cod] - Django-Oscar Cash On Delivery Payment Method
 
 Common
 ~~~~~~

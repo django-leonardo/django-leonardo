@@ -31,7 +31,7 @@ class SwitchableFormFieldMixin(object):
 
 class PageColorSchemeSwitchableFormMixin(SwitchableFormFieldMixin):
 
-    def init_color_scheme_switch(self):
+    def init_color_scheme_switch(self, color_scheme=None):
         color_scheme_fields = []
 
         for theme in self.fields['theme'].queryset:
@@ -44,9 +44,11 @@ class PageColorSchemeSwitchableFormMixin(SwitchableFormFieldMixin):
                                                   required=False)
             field.widget.attrs = attributes
             # inital for color scheme
-            if 'parent' in self.fields and self.fields['parent'].initial:
+            if color_scheme and theme.templates.filter(id=color_scheme.id).exists():
+                field.initial = color_scheme
+            elif 'parent' in self.fields and self.fields['parent'].initial:
                 field.initial = self.fields['parent'].initial.color_scheme
-            elif self.instance and self.instance.color_scheme:
+            elif self.instance and hasattr(self.instance, 'color_scheme'):
                 field.initial = self.instance.color_scheme
             else:
                 field.initial = theme.templates.first()
@@ -82,7 +84,8 @@ class PageCreateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
         super(PageCreateForm, self).__init__(*args, **kwargs)
 
         self.fields['parent'].initial = parent
-        color_scheme_fields = self.init_color_scheme_switch()
+        color_scheme_fields = self.init_color_scheme_switch(
+            color_scheme=kwargs['initial'].get('color_scheme', None))
 
         self.helper.layout = Layout(
             TabHolder(
@@ -111,6 +114,14 @@ class PageCreateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
                     ),
             )
         )
+
+        self.fields['color_scheme'].required = False
+
+    def clean(self):
+        cleaned = super(PageCreateForm, self).clean()
+        theme = cleaned['theme']
+        cleaned['color_scheme'] = self.cleaned_data['theme__%s' % theme.id]
+        return cleaned
 
 
 class PageUpdateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
