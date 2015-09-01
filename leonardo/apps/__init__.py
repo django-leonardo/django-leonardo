@@ -6,7 +6,8 @@ from leonardo.module.web.widget.application.reverse import (app_reverse,
                                                             app_reverse_lazy)
 
 try:
-    from feincms.views.decorators import standalone, permalink, unpack
+    from feincms.views.decorators import standalone, unpack
+    from feincms.content.application.models import permalink
 except:
     from feincms.apps import standalone, permalink, unpack
 
