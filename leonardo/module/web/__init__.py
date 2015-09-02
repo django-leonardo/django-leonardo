@@ -3,7 +3,7 @@ import logging
 from django.apps import AppConfig
 
 from django.utils.translation import ugettext_lazy as _
-
+from leonardo.utils.compatibility import FEINCMS_2
 from .widget import *
 
 
@@ -17,6 +17,39 @@ class Default(object):
     optgroup = 'Web'
 
     urls_conf = 'leonardo.module.web.urls'
+
+    @property
+    def page_extensions(self):
+        if FEINCMS_2:
+            return [
+                'feincms.module.page.extensions.excerpt',
+                'feincms.module.page.extensions.relatedpages',
+                'feincms.module.page.extensions.navigation',
+                'feincms.module.page.extensions.sites',
+                'feincms.module.page.extensions.symlinks',
+                'feincms.module.page.extensions.titles',
+                'feincms.extensions.seo',
+                'feincms.extensions.datepublisher',
+                'feincms.extensions.translations',
+                'feincms.extensions.changedate',
+                'feincms.extensions.ct_tracker',
+                'feincms.extensions.featured'
+                ]
+
+        return [
+            'feincms.module.page.extensions.excerpt',
+            'feincms.module.page.extensions.relatedpages',
+            'feincms.module.page.extensions.navigation',
+            'feincms.module.page.extensions.sites',
+            'feincms.module.page.extensions.symlinks',
+            'feincms.module.page.extensions.titles',
+            'feincms.module.extensions.seo',
+            'feincms.module.extensions.datepublisher',
+            'feincms.module.extensions.translations',
+            'feincms.module.extensions.changedate',
+            'feincms.module.extensions.ct_tracker',
+            'feincms.module.extensions.featured'
+            ]
 
     @property
     def middlewares(self):
