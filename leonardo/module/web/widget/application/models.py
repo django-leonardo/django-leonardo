@@ -23,6 +23,8 @@ except:
 
 class ApplicationWidget(Widget, ApplicationContent):
 
+    icon = "fa fa-plug"
+
     @classmethod
     def initialize_type(cls, APPLICATIONS):
         for i in APPLICATIONS:

@@ -20,6 +20,8 @@ SIZE_CHOICES = (
 
 class SimpleImageWidget(Widget):
 
+    icon = "fa fa-file-image-o"
+
     image = models.ForeignKey("media.Image", verbose_name=_("image"), related_name="%(app_label)s_%(class)s_images")
     size = models.CharField(max_length=255, verbose_name=_("size"), choices=SIZE_CHOICES, blank=True)
     detail = models.CharField(max_length=255, verbose_name=_("on click action"), choices=ON_CLICK_CHOICES, blank=True)

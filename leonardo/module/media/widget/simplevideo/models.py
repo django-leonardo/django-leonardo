@@ -7,6 +7,9 @@ from leonardo.module.web.models import Widget
 
 
 class SimpleVideoWidget(Widget):
+
+    icon = "fa fa-video-camera"
+
     thumb = models.ForeignKey("media.Image", verbose_name=_(
         "thumbnail"), blank=True, null=True, related_name="%(app_label)s_%(class)s_thumbnails")
     video = models.ForeignKey(

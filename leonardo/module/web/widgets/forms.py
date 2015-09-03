@@ -4,7 +4,6 @@ from crispy_forms.bootstrap import Tab, TabHolder
 from crispy_forms.layout import Field, HTML, Layout, Fieldset
 from django import forms
 import floppyforms
-from django.contrib.auth import get_permission_codename
 from django.db.models.loading import get_model
 from django.forms.models import modelform_factory
 from django.template.defaultfilters import slugify
@@ -14,6 +13,7 @@ from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
+from leonardo.utils.widgets import get_grouped_widgets
 
 
 class IconPreviewSelect(floppyforms.widgets.Select):
@@ -176,32 +176,12 @@ class WidgetSelectForm(SelfHandlingForm):
         self.fields['region'].initial = region_name
         self.fields['parent'].initial = feincms_object.id
 
-        grouped = {}
-        ungrouped = []
-        choices = []
+        choices, grouped, ungrouped = get_grouped_widgets(
+            feincms_object, request)
 
-        if request.user:
-            for ct in feincms_object._feincms_content_types:
-                # Skip cts that we shouldn't be adding anyway
-                opts = ct._meta
-                perm = opts.app_label + "." + \
-                    get_permission_codename('add', opts)
-                if not request.user.has_perm(perm):
-                    continue
-
-                ct_info = ('.'.join([ct._meta.app_label,
-                                     ct.__name__.lower()]),
-                           ct._meta.verbose_name)
-                if hasattr(ct, 'optgroup'):
-                    if ct.optgroup in grouped:
-                        grouped[ct.optgroup].append(ct_info)
-                    else:
-                        grouped[ct.optgroup] = [ct_info]
-                else:
-                    ungrouped.append(ct_info)
-                choices.append(ct_info)
-
-        self.fields['cls_name'].choices = choices
+        # reduce choices for validation
+        self.fields['cls_name'].choices = [(choice[0], choice[1])
+                                           for choice in choices]
 
         # for now ungrouped to grouped
         grouped['Web'] = ungrouped + grouped.get('Web', [])

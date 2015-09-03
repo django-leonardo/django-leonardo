@@ -7,6 +7,9 @@ from leonardo.module.web.models import Widget
 
 
 class PdfDocumentWidget(Widget):
+
+    icon = "fa fa-file-pdf-o"
+
     file = models.ForeignKey("media.Document", verbose_name=_(
         "pdf document"), related_name="%(app_label)s_%(class)s_related")
     height = models.CharField(

@@ -80,6 +80,8 @@ class HtmlTextWidgetAdminForm(WidgetUpdateForm):
 class HtmlTextWidget(Widget):
     form = HtmlTextWidgetAdminForm
 
+    icon = "fa fa-file-text-o"
+
     #feincms_item_editor_inline = MyInline
     """
     feincms_item_editor_context_processors = (

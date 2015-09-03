@@ -21,6 +21,9 @@ SIZE_CHOICES = (
 
 
 class MediaGalleryWidget(ListWidget):
+
+    icon = "fa fa-picture-o"
+
     folder = models.ForeignKey('media.Folder', verbose_name=_(
         "Directory"), related_name="%(app_label)s_%(class)s_folders")
     size = models.CharField(max_length=255, verbose_name=_(

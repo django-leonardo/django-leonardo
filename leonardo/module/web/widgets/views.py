@@ -120,7 +120,7 @@ class WidgetPreCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(WidgetPreCreateView, self).get_context_data(**kwargs)
-        context['modal_size'] = 'sm'
+        context['modal_size'] = 'lg'
         context['form_submit'] = _('Continue')
         return context
 

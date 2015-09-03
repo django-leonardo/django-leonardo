@@ -390,6 +390,10 @@ class Widget(FeinCMSBase):
             self.id,
         )
 
+    @classmethod
+    def get_widget_icon(cls):
+        return getattr(cls, 'icon', 'fa fa-plus')
+
 
 class ListWidget(Widget, ListWidgetMixin):
 

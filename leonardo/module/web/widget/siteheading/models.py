@@ -9,6 +9,9 @@ from leonardo.module.web.models import Widget
 
 
 class SiteHeadingWidget(Widget):
+
+    icon = "fa fa-text-width"
+
     site_title = models.CharField(
         max_length=255, verbose_name=_("Site Title"), null=True, blank=True)
     logo = models.ForeignKey('media.Image',

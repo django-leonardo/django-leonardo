@@ -7,6 +7,9 @@ from leonardo.module.web.models import ListWidget
 
 
 class DownloadListWidget(ListWidget):
+
+    icon = "fa fa-list-alt"
+
     folder = models.ForeignKey('media.Folder', verbose_name=_(
         "folder"), related_name="%(app_label)s_%(class)s_folders")
 
