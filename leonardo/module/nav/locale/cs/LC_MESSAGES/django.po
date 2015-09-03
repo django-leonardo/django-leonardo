@@ -8,20 +8,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-03 11:16+0000\n"
-"PO-Revision-Date: 2011-10-16 20:20\n"
-"Last-Translator: <mail@newt.cz>\n"
+"POT-Creation-Date: 2015-09-03 14:45+0000\n"
+"PO-Revision-Date: 2015-09-03 14:31+0000\n"
+"Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Translated-Using: django-rosetta 0.5.5\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n>1 && n<5 ? 1 : 2;\n"
+"X-Translated-Using: django-rosetta 0.7.6\n"
 
 #: mixins.py:17
 msgid "Display active"
-msgstr ""
+msgstr "Zobrazit aktivní"
 
 #: mixins.py:20
 #, fuzzy
@@ -49,7 +49,7 @@ msgstr "obsahová navigace"
 
 #: templates/widget/languageselector/detail.html:7
 msgid "Select your language"
-msgstr ""
+msgstr "Vyberte si jazyk"
 
 #: templates/widget/linearnavigation/default.html:9
 #: templates/widget/linearnavigation/default.html:11
@@ -92,7 +92,7 @@ msgstr "drobečky"
 
 #: widget/contentnavigation/models.py:12
 msgid "Display included pages"
-msgstr ""
+msgstr "Displej součástí stránek"
 
 #: widget/contentnavigation/models.py:14
 #, fuzzy
@@ -148,7 +148,7 @@ msgstr "Podstránky kořenové stránky jsou zobrazené v kontextové navigaci."
 
 #: widget/contextnavigation/models.py:26
 msgid "Region to display"
-msgstr ""
+msgstr "Region zobrazit"
 
 #: widget/contextnavigation/models.py:26
 msgid "Which region of selected pages do you wish to display."
@@ -189,19 +189,19 @@ msgstr ""
 
 #: widget/contextnavigation/models.py:33 widget/simplelink/models.py:14
 msgid "Linked page"
-msgstr ""
+msgstr "Odkazované stránky"
 
 #: widget/contextnavigation/models.py:34
 msgid "Linked pages"
-msgstr ""
+msgstr "Odkazované stránky"
 
 #: widget/languageselector/models.py:16
 msgid "Language switch"
-msgstr ""
+msgstr "Jazyk Přepínač"
 
 #: widget/languageselector/models.py:17
 msgid "Language switches"
-msgstr ""
+msgstr "Jazykové spínače"
 
 #: widget/linearnavigation/models.py:12
 msgid "parents"
@@ -231,19 +231,19 @@ msgstr "přechod"
 
 #: widget/linearnavigation/models.py:31
 msgid "Linear pager"
-msgstr ""
+msgstr "Lineární pager"
 
 #: widget/linearnavigation/models.py:32
 msgid "Linear pagers"
-msgstr ""
+msgstr "Lineární pagery"
 
 #: widget/simplelink/models.py:18
 msgid "Simple link"
-msgstr ""
+msgstr "Jednoduchý odkaz"
 
 #: widget/simplelink/models.py:19
 msgid "Simple links"
-msgstr ""
+msgstr "Jednoduché odkazy"
 
 #: widget/sitemap/models.py:14
 #, fuzzy

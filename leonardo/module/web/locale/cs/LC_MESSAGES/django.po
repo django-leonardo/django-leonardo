@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-03 11:16+0000\n"
-"PO-Revision-Date: 2012-09-07 09:50\n"
-"Last-Translator:   <>\n"
+"POT-Creation-Date: 2015-09-03 14:45+0000\n"
+"PO-Revision-Date: 2015-09-03 14:22+0000\n"
+"Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Translated-Using: django-rosetta 0.6.3\n"
+"X-Translated-Using: django-rosetta 0.7.6\n"
 
 #: __init__.py:131
 msgid "Horizon"
@@ -35,15 +35,15 @@ msgstr "meta popis"
 
 #: __init__.py:145
 msgid "Site specific meta title"
-msgstr ""
+msgstr "Site specific meta titul"
 
 #: __init__.py:146
 msgid "Debug mode"
-msgstr ""
+msgstr "Ladicí režim"
 
 #: admin.py:35
 msgid "Other options"
-msgstr ""
+msgstr "Další možnosti"
 
 #: const.py:12 const.py:28
 msgid "Content"
@@ -129,15 +129,15 @@ msgstr ""
 
 #: const.py:110 const.py:117
 msgid "Fixed"
-msgstr ""
+msgstr "Fixní"
 
 #: const.py:111 const.py:118
 msgid "Fluid"
-msgstr ""
+msgstr "Fluidní"
 
 #: const.py:112
 msgid "Boxed"
-msgstr ""
+msgstr "Boxovaný"
 
 #: const.py:116
 #, fuzzy
@@ -147,7 +147,7 @@ msgstr "v řádku"
 
 #: const.py:122
 msgid "Left"
-msgstr ""
+msgstr "Doleva"
 
 #: const.py:123
 #, fuzzy
@@ -157,11 +157,11 @@ msgstr "Střední sloupec"
 
 #: const.py:124
 msgid "Right"
-msgstr ""
+msgstr "Pravá"
 
 #: const.py:138
 msgid "Extra small"
-msgstr ""
+msgstr "Velmi malé"
 
 #: const.py:139
 msgid "Small"
@@ -169,11 +169,11 @@ msgstr ""
 
 #: const.py:140
 msgid "Medium"
-msgstr ""
+msgstr "Médium"
 
 #: const.py:141
 msgid "Large"
-msgstr ""
+msgstr "Rozsáhlý"
 
 #: const.py:146
 #, fuzzy
@@ -249,103 +249,103 @@ msgstr "1 sloupec"
 
 #: const.py:162
 msgid "1 row"
-msgstr ""
+msgstr "1 řádek"
 
 #: const.py:163
 msgid "2 rows"
-msgstr ""
+msgstr "2 řady"
 
 #: const.py:164
 msgid "3 rows"
-msgstr ""
+msgstr "3 řady"
 
 #: const.py:165
 msgid "4 rows"
-msgstr ""
+msgstr "4 řady"
 
 #: const.py:166
 msgid "5 rows"
-msgstr ""
+msgstr "5 řádků"
 
 #: const.py:167
 msgid "6 rows"
-msgstr ""
+msgstr "6 řad"
 
 #: const.py:168
 msgid "7 rows"
-msgstr ""
+msgstr "7 řad"
 
 #: const.py:169
 msgid "8 rows"
-msgstr ""
+msgstr "8 řádků"
 
 #: const.py:170
 msgid "9 rows"
-msgstr ""
+msgstr "9 řad"
 
 #: const.py:171
 msgid "10 rows"
-msgstr ""
+msgstr "10 řad"
 
 #: const.py:172
 msgid "11 rows"
-msgstr ""
+msgstr "11 řádků"
 
 #: const.py:173
 msgid "12 rows"
-msgstr ""
+msgstr "12 řádků"
 
 #: const.py:177
 msgid "none"
-msgstr ""
+msgstr "nikdo"
 
 #: const.py:178
 msgid "break before"
-msgstr ""
+msgstr "zlomit před"
 
 #: const.py:179
 msgid "break after"
-msgstr ""
+msgstr "rozbít po"
 
 #: const.py:183
 msgid "no border"
-msgstr ""
+msgstr "no border"
 
 #: const.py:184
 msgid "border"
-msgstr ""
+msgstr "hranice"
 
 #: const.py:185
 msgid "wide border"
-msgstr ""
+msgstr "široký rámeček"
 
 #: const.py:189
 msgid "auto"
-msgstr ""
+msgstr "auto"
 
 #: const.py:190
 msgid "left"
-msgstr ""
+msgstr "levý"
 
 #: const.py:191
 msgid "center"
-msgstr ""
+msgstr "centrum"
 
 #: const.py:192
 msgid "right"
-msgstr ""
+msgstr "doprava"
 
 #: const.py:196
 msgid "top"
-msgstr ""
+msgstr "top"
 
 #: const.py:197
 msgid "middle"
-msgstr ""
+msgstr "prostřední"
 
 #: const.py:198
 msgid "bottom"
-msgstr ""
+msgstr "dno"
 
 #: models/page.py:18 models/page.py:84
 msgid "Page"
@@ -353,28 +353,28 @@ msgstr "Strana"
 
 #: models/page.py:21
 msgid "Column 1 width"
-msgstr ""
+msgstr "Sloupec 1 šířka"
 
 #: models/page.py:23
 msgid "Column 2 width"
-msgstr ""
+msgstr "Sloupec 2 Šířka"
 
 #: models/page.py:25
 msgid "Column 3 width"
-msgstr ""
+msgstr "Sloupec 3 Šířka"
 
 #: models/page.py:32
 msgid "Page dimension"
-msgstr ""
+msgstr "Rozměr Page"
 
 #: models/page.py:33
 msgid "Page dimensions"
-msgstr ""
+msgstr "Rozměry Page"
 
 #: models/page.py:40 models/page.py:59 models/widget.py:105
 #: models/widget.py:127
 msgid "Name"
-msgstr ""
+msgstr "Název"
 
 #: models/page.py:42 models/page.py:61 models/widget.py:107
 #: models/widget.py:129 models/widget.py:157
@@ -391,7 +391,7 @@ msgstr "šablona"
 
 #: models/page.py:45
 msgid "Style"
-msgstr ""
+msgstr "Móda"
 
 #: models/page.py:51
 #, fuzzy
@@ -407,7 +407,7 @@ msgstr "názvy stránek"
 
 #: models/page.py:62 page/common/forms.py:65
 msgid "Styles"
-msgstr ""
+msgstr "Styly"
 
 #: models/page.py:63
 #, fuzzy
@@ -417,24 +417,24 @@ msgstr "tabulky"
 
 #: models/page.py:71
 msgid "Page color scheme"
-msgstr ""
+msgstr "Page barevné schéma"
 
 #: models/page.py:72
 msgid "Page color schemes"
-msgstr ""
+msgstr "Barevná schémata Page"
 
 #: models/page.py:78 models/widget.py:165 page/common/forms.py:49
 msgid "Layout"
-msgstr ""
+msgstr "Dispozice"
 
 #: models/page.py:79 models/widget.py:52 page/common/forms.py:38
 #: page/forms.py:110 page/forms.py:170 widgets/forms.py:56
 msgid "Theme"
-msgstr ""
+msgstr "Námět"
 
 #: models/page.py:81 models/widget.py:186
 msgid "Color scheme"
-msgstr ""
+msgstr "Barevné schéma"
 
 #: models/page.py:85
 msgid "Pages"
@@ -442,27 +442,27 @@ msgstr "Stránky"
 
 #: models/widget.py:58 widgets/forms.py:64
 msgid "Effects"
-msgstr ""
+msgstr "Účinky"
 
 #: models/widget.py:77
 msgid "Width"
-msgstr ""
+msgstr "Šířka"
 
 #: models/widget.py:79 widgets/tables.py:81
 msgid "Height"
-msgstr ""
+msgstr "Výška"
 
 #: models/widget.py:81 widgets/tables.py:82
 msgid "Offset"
-msgstr ""
+msgstr "Offset"
 
 #: models/widget.py:97
 msgid "Widget dimension"
-msgstr ""
+msgstr "Widget rozměr"
 
 #: models/widget.py:98
 msgid "Widget dimensions"
-msgstr ""
+msgstr "Widget rozměry"
 
 #: models/widget.py:109
 #, fuzzy
@@ -478,15 +478,15 @@ msgstr "Obsah"
 
 #: models/widget.py:113
 msgid "Widget class"
-msgstr ""
+msgstr "Třída Widget u"
 
 #: models/widget.py:119
 msgid "Widget content theme"
-msgstr ""
+msgstr "Widget obsah téma"
 
 #: models/widget.py:120
 msgid "Widget content themes"
-msgstr ""
+msgstr "Widget obsah témata"
 
 #: models/widget.py:131
 #, fuzzy
@@ -496,23 +496,23 @@ msgstr "Změna šablony"
 
 #: models/widget.py:134
 msgid "Base style"
-msgstr ""
+msgstr "Základní styl"
 
 #: models/widget.py:140
 msgid "Widget base theme"
-msgstr ""
+msgstr "Widget základna téma"
 
 #: models/widget.py:141
 msgid "Widget base themes"
-msgstr ""
+msgstr "Widget základní témata"
 
 #: models/widget.py:153
 msgid "prerendered content"
-msgstr ""
+msgstr "předběžně vykreslena obsah"
 
 #: models/widget.py:155
 msgid "Is visible?"
-msgstr ""
+msgstr "Je vidět?"
 
 #: models/widget.py:159
 #, fuzzy
@@ -528,27 +528,27 @@ msgstr "Obsah"
 
 #: models/widget.py:168
 msgid "Alignment"
-msgstr ""
+msgstr "Zarovnání"
 
 #: models/widget.py:171
 msgid "Vertical Alignment"
-msgstr ""
+msgstr "Svislé zarovnání"
 
 #: models/widget.py:176
 msgid "Enter effect style"
-msgstr ""
+msgstr "Zadejte efekt styl"
 
 #: models/widget.py:180
 msgid "Enter Effect Duration"
-msgstr ""
+msgstr "Zadejte Effect Délka"
 
 #: models/widget.py:208
 msgid "Abstract widget"
-msgstr ""
+msgstr "Abstrakt Widget"
 
 #: models/widget.py:209
 msgid "Abstract widgets"
-msgstr ""
+msgstr "Abstraktní widgety"
 
 #: page/common/forms.py:24
 #, fuzzy
@@ -558,27 +558,27 @@ msgstr "Strana"
 
 #: page/common/forms.py:27 page/forms.py:42
 msgid "Color Scheme"
-msgstr ""
+msgstr "Barevné schéma"
 
 #: page/common/forms.py:31 page/common/forms.py:42
 msgid "Click to expand."
-msgstr ""
+msgstr "Klepnutím rozbalte."
 
 #: page/common/forms.py:52
 msgid "Depth"
-msgstr ""
+msgstr "Hloubka"
 
 #: page/common/forms.py:53
 msgid "From Root ?"
-msgstr ""
+msgstr "Od kořene?"
 
 #: page/common/forms.py:60
 msgid "Options"
-msgstr ""
+msgstr "Možnosti"
 
 #: page/common/forms.py:73
 msgid "Select Layout"
-msgstr ""
+msgstr "Vybrat Layout"
 
 #: page/common/views.py:37
 #, fuzzy
@@ -588,19 +588,19 @@ msgstr "Změna šablony"
 
 #: page/common/views.py:38
 msgid "Apply"
-msgstr ""
+msgstr "Aplikovat"
 
 #: page/dimension/forms.py:31
 msgid "Summary of dimensions must be 12"
-msgstr ""
+msgstr "Přehled rozměrů musí být 12"
 
 #: page/forms.py:92 page/forms.py:152
 msgid "Main"
-msgstr ""
+msgstr "Hlavní"
 
 #: page/forms.py:99 page/forms.py:166
 msgid "Navigation"
-msgstr ""
+msgstr "Navigace"
 
 #: page/forms.py:103 page/forms.py:159
 #, fuzzy
@@ -610,15 +610,15 @@ msgstr "nadpis stránek"
 
 #: page/forms.py:107 page/forms.py:163
 msgid "Publication"
-msgstr ""
+msgstr "Zveřejnění"
 
 #: page/forms.py:188 widgets/forms.py:90
 msgid "Dimensions"
-msgstr ""
+msgstr "Rozměry"
 
 #: page/tables.py:49
 msgid "Override page dimension"
-msgstr ""
+msgstr "Přepis strana rozměr"
 
 #: page/tables.py:66
 msgid "Delete Page Dimension"
@@ -634,15 +634,15 @@ msgstr[1] ""
 
 #: page/tables.py:109 widget/icon/models.py:22 widgets/tables.py:79
 msgid "Size"
-msgstr ""
+msgstr "Velikost"
 
 #: page/tables.py:111
 msgid "Column 2 Width"
-msgstr ""
+msgstr "Šířka 2. Sloupce"
 
 #: page/tables.py:112
 msgid "Column 3 Width"
-msgstr ""
+msgstr "Šířka 3. Sloupce "
 
 #: page/views.py:32 templates/base/actions.html:6
 #, fuzzy
@@ -652,7 +652,7 @@ msgstr "Nahradit stránku"
 
 #: page/views.py:34 page/views.py:156
 msgid "Create"
-msgstr ""
+msgstr "Vytvořit"
 
 #: page/views.py:43
 #, fuzzy, python-format
@@ -668,24 +668,24 @@ msgstr "Nahradit stránku"
 
 #: page/views.py:87
 msgid "Update"
-msgstr ""
+msgstr "Aktualizovat"
 
 #: page/views.py:154
 msgid "Add Page Dimesion"
-msgstr ""
+msgstr "Přidat stránku Dimesion"
 
 #: page/views.py:194 templates/base/widget/_edit.html:14
 #: templates/widget/base.html:8 widgets/views.py:175
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 #: templates/404.html:11 templates/404_technical.html:36
 msgid "Create Page with the "
-msgstr ""
+msgstr "Vytvořit stránku s"
 
 #: templates/404.html:11 templates/404_technical.html:36
 msgid "slug"
-msgstr ""
+msgstr "slimák"
 
 #: templates/auth/login.html:4 templates/auth/login.html.py:7
 #, fuzzy
@@ -695,7 +695,7 @@ msgstr "Přihlášení uživatele"
 
 #: templates/auth/logout.html:6
 msgid "Logout successful"
-msgstr ""
+msgstr "Odhlášení úspěšná"
 
 #: templates/auth/logout.html:10
 msgid "You have been successfully logged out."
@@ -703,17 +703,17 @@ msgstr "Byli jste úspěšně odhlášeni."
 
 #: templates/auth/password_reset_complete.html:6
 msgid "Password reset complete"
-msgstr ""
+msgstr "Heslo obnovit kompletní"
 
 #: templates/auth/password_reset_complete.html:10
 #: templates/auth/password_reset_form.html:7
 #: templates/auth/password_reset_form.html:11
 msgid "Password Reset"
-msgstr ""
+msgstr "Obnovení hesla"
 
 #: templates/auth/password_reset_complete.html:14
 msgid "Your password has been set. You may go ahead and log in now."
-msgstr ""
+msgstr "Vaše heslo bylo nastaveno. Můžete pokračovat a nyní přihlásit."
 
 #: templates/auth/password_reset_complete.html:16
 #: templates/auth/password_reset_done.html:16
@@ -729,13 +729,15 @@ msgstr "Zadejte nové heslo"
 #: templates/auth/password_reset_confirm.html:10
 #: templates/auth/password_reset_confirm.html:15
 msgid "Password reset unsuccessful"
-msgstr ""
+msgstr "Heslo obnovit neúspěšná"
 
 #: templates/auth/password_reset_confirm.html:22
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr ""
+"Prosím, zadejte své dvakrát nové heslo, takže můžeme ověřit, jak je vkládáte "
+"správně."
 
 #: templates/auth/password_reset_confirm.html:31
 #: templates/auth/password_reset_form.html:26
@@ -747,30 +749,34 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
 msgstr ""
+"Odkaz pro nastavení nového hesla byl neplatný, možná proto, že již byla "
+"použita. Prosím, požádat o nové obnovení hesla."
 
 #: templates/auth/password_reset_done.html:6
 #: templates/auth/password_reset_done.html:10
 msgid "Password reset e-mail sent"
-msgstr ""
+msgstr "Resetování hesla e-maily odeslané"
 
 #: templates/auth/password_reset_done.html:14
 msgid ""
 "We've e-mailed a link to retrieve your new password to the e-mail address "
 "you submitted."
 msgstr ""
+"Jsme e-mailem odkaz na načtení nové heslo na e-mailovou adresu, kterou jste "
+"zadali."
 
 #: templates/auth/password_reset_form.html:15
 msgid "Enter e-mail address you have entered during registration process."
-msgstr ""
+msgstr "Zadejte e-mailovou adresu, kterou jste zadali při registraci."
 
 #: templates/auth/password_reset_form.html:16
 msgid ""
 "You will receive immediatelly a link with an option to set a new password."
-msgstr ""
+msgstr "Obdržíte ihned odkaz s možností nastavit nové heslo."
 
 #: templates/auth/password_reset_form.html:20
 msgid "Account e-mail address"
-msgstr ""
+msgstr "Účet e-mailová adresa"
 
 #: templates/auth/password_reset_form.html:27
 msgid "Back"
@@ -802,19 +808,19 @@ msgstr "Otevřít administraci"
 
 #: templates/base/actions.html:12
 msgid "Stop Editing"
-msgstr ""
+msgstr "Zastavit Editaci"
 
 #: templates/base/widget/_edit.html:11 templates/widget/base.html:7
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: templates/base/widget/_edit.html:12
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: templates/widget/siteheading/navbar.html:8
 msgid "Toggle navigation"
-msgstr ""
+msgstr "Přepnout navigace"
 
 #: widget/application/models.py:55
 #, fuzzy
@@ -884,63 +890,63 @@ msgstr "HTML texty"
 
 #: widget/htmltext/models.py:108
 msgid "Empty element"
-msgstr ""
+msgstr "Prázdný element"
 
 #: widget/icon/const.py:602
 msgid "Normal"
-msgstr ""
+msgstr "Normální"
 
 #: widget/icon/const.py:603
 msgid "Larger"
-msgstr ""
+msgstr "Větší"
 
 #: widget/icon/const.py:604
 msgid "2x larger"
-msgstr ""
+msgstr "2x větší"
 
 #: widget/icon/const.py:605
 msgid "3x larger"
-msgstr ""
+msgstr "3x větší"
 
 #: widget/icon/const.py:606
 msgid "4x larger"
-msgstr ""
+msgstr "4x větší"
 
 #: widget/icon/const.py:607
 msgid "5x larger"
-msgstr ""
+msgstr "5x větší"
 
 #: widget/icon/const.py:608
 msgid "10x larger"
-msgstr ""
+msgstr "10x větší"
 
 #: widget/icon/const.py:609
 msgid "15x larger"
-msgstr ""
+msgstr "15x větší"
 
 #: widget/icon/const.py:610
 msgid "20x larger"
-msgstr ""
+msgstr "20x větší"
 
 #: widget/icon/const.py:611
 msgid "25x larger"
-msgstr ""
+msgstr "25x větší"
 
 #: widget/icon/models.py:19 widget/icon/models.py:30
 msgid "Icon"
-msgstr ""
+msgstr "Ikona"
 
 #: widget/icon/models.py:24
 msgid "Spin"
-msgstr ""
+msgstr "Točení"
 
 #: widget/icon/models.py:26
 msgid "Border"
-msgstr ""
+msgstr "Hranice"
 
 #: widget/icon/models.py:31
 msgid "Icons"
-msgstr ""
+msgstr "Ikony"
 
 #: widget/markuptext/models.py:10
 #, fuzzy
@@ -1014,31 +1020,31 @@ msgstr "data"
 
 #: widgets/forms.py:58
 msgid "Positions"
-msgstr ""
+msgstr "Pozice"
 
 #: widgets/mixins.py:22
 msgid "Objects per page"
-msgstr ""
+msgstr "Objekty na stránce"
 
 #: widgets/mixins.py:25
 msgid "Objects per row"
-msgstr ""
+msgstr "Objekty na řádek"
 
 #: widgets/mixins.py:28
 msgid "Pagination Style"
-msgstr ""
+msgstr "Stránkování Style"
 
 #: widgets/mixins.py:103
 msgid "Source Address"
-msgstr ""
+msgstr "Source Address"
 
 #: widgets/mixins.py:106
 msgid "Cache validity"
-msgstr ""
+msgstr "Platnost Cache"
 
 #: widgets/mixins.py:109
 msgid "Cache data"
-msgstr ""
+msgstr "Cache dat"
 
 #: widgets/mixins.py:112
 #, fuzzy
@@ -1060,11 +1066,11 @@ msgstr "Nové heslo"
 
 #: widgets/mixins.py:197
 msgid "API Token"
-msgstr ""
+msgstr "API Token"
 
 #: widgets/views.py:81 widgets/views.py:119
 msgid "Create new Widget"
-msgstr ""
+msgstr "Vytvořit nový widget"
 
 #: widgets/views.py:124
 #, fuzzy
@@ -1074,11 +1080,11 @@ msgstr "Obsah"
 
 #: widgets/views.py:232
 msgid "Error occured while sorting widgets."
-msgstr ""
+msgstr "Chyba při třídění widgety."
 
 #: widgets/views.py:241
 msgid "Widget sorting success."
-msgstr ""
+msgstr "Widget třídění úspěch."
 
 #~ msgid "Web Settings"
 #~ msgstr "Nastavení webu"
@@ -1295,15 +1301,12 @@ msgstr ""
 #~ msgid "items"
 #~ msgstr "položek"
 
-#, fuzzy
 #~ msgid "Customer Logout"
 #~ msgstr "Přihlášení uživatele"
 
-#, fuzzy
 #~ msgid "Save New Password"
 #~ msgstr "Nové heslo"
 
-#, fuzzy
 #~ msgid "Forgotten Password"
 #~ msgstr "Zapomněli jste heslo?"
 

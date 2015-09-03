@@ -1,0 +1,158 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-03 14:45+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: module/system/maintenance/forms.py:27
+msgid "Server was successfuly restarted !"
+msgstr ""
+
+#: module/system/maintenance/forms.py:41
+msgid "delay before restart"
+msgstr ""
+
+#: module/system/maintenance/forms.py:41
+msgid "Delay before restart"
+msgstr ""
+
+#: module/system/maintenance/forms.py:53
+msgid "Server going to down !"
+msgstr ""
+
+#: module/system/maintenance/forms.py:69
+msgid "Make migrations"
+msgstr ""
+
+#: module/system/maintenance/forms.py:71
+msgid "Run makemigrations after install ?"
+msgstr ""
+
+#: module/system/maintenance/forms.py:74
+msgid "Migrate"
+msgstr ""
+
+#: module/system/maintenance/forms.py:76
+msgid "Run migrate command after install ?"
+msgstr ""
+
+#: module/system/maintenance/forms.py:79
+msgid "Sync All"
+msgstr ""
+
+#: module/system/maintenance/forms.py:81
+msgid "Run Sync All command after install ?"
+msgstr ""
+
+#: module/system/maintenance/forms.py:84
+msgid "Sync all force"
+msgstr ""
+
+#: module/system/maintenance/forms.py:86
+msgid "Warning: this may override you database changes !"
+msgstr ""
+
+#: module/system/maintenance/forms.py:89 module/system/package/forms.py:47
+msgid "Reload Server"
+msgstr ""
+
+#: module/system/maintenance/forms.py:91 module/system/package/forms.py:49
+msgid ""
+"Warning: this kill this Leonardo instance !!!                    For "
+"successfull reload must be run under Supervisor !                    You may "
+"lost your data !"
+msgstr ""
+
+#: module/system/maintenance/forms.py:104 module/system/package/forms.py:59
+msgid "Advanced options"
+msgstr ""
+
+#: module/system/maintenance/forms.py:182
+msgid "Leonardo Modules"
+msgstr ""
+
+#: module/system/maintenance/views.py:22
+msgid "Submit Reload"
+msgstr ""
+
+#: module/system/maintenance/views.py:48 module/system/maintenance/views.py:49
+#: module/system/maintenance/views.py:51
+msgid "Leonardo Info"
+msgstr ""
+
+#: module/system/maintenance/views.py:50
+msgid "Close"
+msgstr ""
+
+#: module/system/maintenance/views.py:70 module/system/maintenance/views.py:71
+#: module/system/maintenance/views.py:73
+#: module/system/templates/system/module_actions.html:15
+msgid "Management commands"
+msgstr ""
+
+#: module/system/maintenance/views.py:72
+msgid "Run commands"
+msgstr ""
+
+#: module/system/package/forms.py:44
+msgid "Search packages"
+msgstr ""
+
+#: module/system/package/utils.py:50
+#, python-format
+msgid ""
+"Packages %s was successfully installed,                     please restart "
+"your server."
+msgstr ""
+
+#: module/system/package/utils.py:55
+#, python-format
+msgid "Installing packages raised exception %s"
+msgstr ""
+
+#: module/system/package/utils.py:67
+#, python-format
+msgid "Run post install task fails with %s"
+msgstr ""
+
+#: module/system/package/utils.py:74 module/system/package/utils.py:152
+msgid "For this functionality please install pip package"
+msgstr ""
+
+#: module/system/package/utils.py:173
+msgid "For this functionality please run pip install PyGithub"
+msgstr ""
+
+#: module/system/package/views.py:20 module/system/package/views.py:23
+msgid "Install Packages"
+msgstr ""
+
+#: module/system/package/views.py:21 module/system/package/views.py:22
+msgid "Install"
+msgstr ""
+
+#: module/system/templates/system/module_actions.html:6
+msgid "Reload server"
+msgstr ""
+
+#: module/system/templates/system/module_actions.html:9
+msgid "System Info"
+msgstr ""
+
+#: module/system/templates/system/module_actions.html:12
+msgid "Install Plugins"
+msgstr ""

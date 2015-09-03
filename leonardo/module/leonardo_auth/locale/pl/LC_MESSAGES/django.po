@@ -1,0 +1,127 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-03 14:45+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: module/leonardo_auth/forms.py:19 module/leonardo_auth/forms.py:23
+#: module/leonardo_auth/forms.py:52 module/leonardo_auth/forms.py:56
+msgid "Username"
+msgstr ""
+
+#: module/leonardo_auth/forms.py:26 module/leonardo_auth/forms.py:63
+msgid "Password"
+msgstr ""
+
+#: module/leonardo_auth/forms.py:28
+msgid "Remember Me"
+msgstr ""
+
+#: module/leonardo_auth/forms.py:60
+msgid "E-mail address"
+msgstr ""
+
+#: module/leonardo_auth/forms.py:68
+msgid "Confirm Password"
+msgstr ""
+
+#: module/leonardo_auth/forms.py:82
+msgid "Username or email exists in database."
+msgstr ""
+
+#: module/leonardo_auth/forms.py:86
+msgid "Passwords do not match."
+msgstr ""
+
+#: module/leonardo_auth/forms.py:97
+msgid "User account {} was successfuly created."
+msgstr ""
+
+#: module/leonardo_auth/forms.py:105
+msgid "Create Account failed."
+msgstr ""
+
+#: module/leonardo_auth/panel.py:10
+msgid "Auth"
+msgstr ""
+
+#: module/leonardo_auth/templates/widget/userlogin/default.html:13
+#: module/leonardo_auth/templates/widget/userlogin/navbar.html:13
+msgid "Stop Editing"
+msgstr ""
+
+#: module/leonardo_auth/templates/widget/userlogin/default.html:15
+#: module/leonardo_auth/templates/widget/userlogin/navbar.html:15
+msgid "Start Editing"
+msgstr ""
+
+#: module/leonardo_auth/templates/widget/userlogin/default.html:17
+#: module/leonardo_auth/templates/widget/userlogin/navbar.html:17
+msgid "Sign Out"
+msgstr ""
+
+#: module/leonardo_auth/templates/widget/userlogin/default.html:20
+#: module/leonardo_auth/templates/widget/userlogin/default.html:22
+#: module/leonardo_auth/templates/widget/userlogin/navbar.html:20
+#: module/leonardo_auth/templates/widget/userlogin/navbar.html:22
+msgid "Sign In"
+msgstr ""
+
+#: module/leonardo_auth/templates/widget/userregistration/default.html:8
+msgid "Sign Up"
+msgstr ""
+
+#: module/leonardo_auth/views.py:38
+msgid "Login"
+msgstr ""
+
+#: module/leonardo_auth/views.py:66
+msgid "Register"
+msgstr ""
+
+#: module/leonardo_auth/views.py:87
+msgid "Logout complete"
+msgstr ""
+
+#: module/leonardo_auth/widget/registration/models.py:13
+msgid "user registration"
+msgstr ""
+
+#: module/leonardo_auth/widget/registration/models.py:14
+msgid "user registrations"
+msgstr ""
+
+#: module/leonardo_auth/widget/userlogin/models.py:10
+msgid "Admin"
+msgstr ""
+
+#: module/leonardo_auth/widget/userlogin/models.py:11
+msgid "Public"
+msgstr ""
+
+#: module/leonardo_auth/widget/userlogin/models.py:17
+msgid "type"
+msgstr ""
+
+#: module/leonardo_auth/widget/userlogin/models.py:21
+msgid "user login"
+msgstr ""
+
+#: module/leonardo_auth/widget/userlogin/models.py:22
+msgid "user logins"
+msgstr ""

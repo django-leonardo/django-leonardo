@@ -32,5 +32,5 @@ class Command(BaseCommand):
                 self.stderr.write(str(e))
 
         if skipped_paths:
-            self.stderr.write('Skipped paths %s' % skipped_paths)
+            self.stderr.write('Skipped paths: \n%s' % '\n'.join(skipped_paths))
         self.stdout.write('Successfully generated and compiled all messages')
