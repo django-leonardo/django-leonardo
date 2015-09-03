@@ -11,7 +11,7 @@ from feincms.module.page.sitemap import PageSitemap
 from leonardo.site import leonardo_admin
 
 from .base import leonardo
-from leonardo.utils.settings import is_leonardo_module
+from leonardo.utils.settings import is_leonardo_module, get_conf_from_module
 from .decorators import require_auth
 
 __all__ = ['handler400', 'handler403', 'handler404', 'handler500']
@@ -42,12 +42,16 @@ urlpatterns = patterns('',
 for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
     # TODO this not work
     if is_leonardo_module(mod):
+
+        conf = get_conf_from_module(mod)
+
         if module_has_submodule(mod, 'urls'):
             urls_mod = import_module('.urls', mod.__name__)
             _urlpatterns = []
             if hasattr(urls_mod, 'urlpatterns'):
                 # if not public decorate all
-                if getattr(mod.default, 'public', False):
+
+                if conf['public']:
                     urlpatterns += urls_mod.urlpatterns
                 else:
                     _decorate_urlconf(urls_mod.urlpatterns,

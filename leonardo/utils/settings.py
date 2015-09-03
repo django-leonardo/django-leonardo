@@ -46,9 +46,9 @@ class dotdict(dict):
 
 
 def _get_key_from_module(mod, key, default):
-    value = getattr(mod, key, default)
-    # if not found try second variant
-    if value == default:
+    if hasattr(mod, key):
+        value = getattr(mod, key, default)
+    else:
         value = getattr(mod, 'LEONARDO_%s' % key.upper(), default)
     return value
 
