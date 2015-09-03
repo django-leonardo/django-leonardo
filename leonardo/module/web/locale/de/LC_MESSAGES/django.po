@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"POT-Creation-Date: 2015-09-03 11:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,421 +18,620 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: config.py:6
-msgid "Web Settings"
+#: __init__.py:131
+msgid "Horizon"
 msgstr ""
 
-#: config.py:11
-msgid "meta keywords"
+#: __init__.py:143
+msgid "Site specific meta keywords"
 msgstr ""
 
-#: config.py:13
-msgid ""
-"Default meta keywords. If you have multilingual site, use keywords in all "
-"languages."
+#: __init__.py:144
+msgid "Site specific meta description"
 msgstr ""
 
-#: config.py:19
-msgid "meta description"
+#: __init__.py:145
+msgid "Site specific meta title"
 msgstr ""
 
-#: config.py:21
-msgid ""
-"Default description of the site. If you have multilingual site, write "
-"description in all languages."
+#: __init__.py:146
+msgid "Debug mode"
 msgstr ""
 
-#: config.py:27
-msgid "title of the site"
+#: admin.py:35
+msgid "Other options"
 msgstr ""
 
-#: config.py:29
-msgid "Title of the site to be shown in browser's title bar."
-msgstr ""
-
-#: config.py:35
-msgid "Under construction"
-msgstr ""
-
-#: config.py:36
-msgid "If yes, there will be just Under Construction notice instead of web."
-msgstr ""
-
-#: config.py:44
-msgid "Is private"
-msgstr ""
-
-#: config.py:45
-msgid ""
-"If yes, there will be just Login screen instead of web for anonymous users."
-msgstr ""
-
-#: models.py:17 models.py:33
+#: const.py:12 const.py:28
 msgid "Content"
 msgstr ""
 
-#: models.py:18
+#: const.py:13
 msgid "Left sidebar"
 msgstr ""
 
-#: models.py:19
+#: const.py:14
 msgid "Right sidebar"
 msgstr ""
 
-#: models.py:20 models.py:32
+#: const.py:15 const.py:27
 msgid "Header"
 msgstr ""
 
-#: models.py:21 models.py:34
+#: const.py:16 const.py:29
 msgid "Footer"
 msgstr ""
 
-#: models.py:22 models.py:35
+#: const.py:17 const.py:30
 msgid "Toolbar"
 msgstr ""
 
-#: models.py:23 models.py:36
+#: const.py:18 const.py:31
 msgid "Preview"
 msgstr ""
 
-#: models.py:24 models.py:37
+#: const.py:19 const.py:32
 msgid "Helper"
 msgstr ""
 
-#: models.py:27 models.py:31
+#: const.py:22 const.py:26
 msgid "Left column"
 msgstr ""
 
-#: models.py:28
+#: const.py:23
 msgid "Right column"
 msgstr ""
 
-#: models.py:29
+#: const.py:24
 msgid "Main content"
 msgstr ""
 
-#: models.py:30
+#: const.py:25
 msgid "Center column"
 msgstr ""
 
-#: models.py:45
+#: const.py:40
 msgid "1 column"
 msgstr ""
 
-#: models.py:55
+#: const.py:50
 msgid "2 same columns"
 msgstr ""
 
-#: models.py:65
+#: const.py:60
 msgid "2 columns right"
 msgstr ""
 
-#: models.py:75
+#: const.py:70
 msgid "2 columns left"
 msgstr ""
 
-#: models.py:85
+#: const.py:80
 msgid "3 columns"
 msgstr ""
 
-#: models.py:95
+#: const.py:90
 msgid "3 same columns"
 msgstr ""
 
-#: models.py:101
-msgid "Void"
+#: const.py:96
+msgid "Dashboard"
 msgstr ""
 
-#: conf/admin.py:9
+#: const.py:102
+msgid "API"
+msgstr ""
+
+#: const.py:110 const.py:117
+msgid "Fixed"
+msgstr ""
+
+#: const.py:111 const.py:118
+msgid "Fluid"
+msgstr ""
+
+#: const.py:112
+msgid "Boxed"
+msgstr ""
+
+#: const.py:116
+msgid "Inline"
+msgstr ""
+
+#: const.py:122
+msgid "Left"
+msgstr ""
+
+#: const.py:123
+msgid "Center"
+msgstr ""
+
+#: const.py:124
+msgid "Right"
+msgstr ""
+
+#: const.py:138
+msgid "Extra small"
+msgstr ""
+
+#: const.py:139
+msgid "Small"
+msgstr ""
+
+#: const.py:140
+msgid "Medium"
+msgstr ""
+
+#: const.py:141
+msgid "Large"
+msgstr ""
+
+#: const.py:146
+msgid "1 col"
+msgstr ""
+
+#: const.py:147
+msgid "2 cols"
+msgstr ""
+
+#: const.py:148
+msgid "3 cols"
+msgstr ""
+
+#: const.py:149
+msgid "4 cols"
+msgstr ""
+
+#: const.py:150
+msgid "5 cols"
+msgstr ""
+
+#: const.py:151
+msgid "6 cols"
+msgstr ""
+
+#: const.py:152
+msgid "7 cols"
+msgstr ""
+
+#: const.py:153
+msgid "8 cols"
+msgstr ""
+
+#: const.py:154
+msgid "9 cols"
+msgstr ""
+
+#: const.py:155
+msgid "10 cols"
+msgstr ""
+
+#: const.py:156
+msgid "11 cols"
+msgstr ""
+
+#: const.py:157
+msgid "12 cols"
+msgstr ""
+
+#: const.py:162
+msgid "1 row"
+msgstr ""
+
+#: const.py:163
+msgid "2 rows"
+msgstr ""
+
+#: const.py:164
+msgid "3 rows"
+msgstr ""
+
+#: const.py:165
+msgid "4 rows"
+msgstr ""
+
+#: const.py:166
+msgid "5 rows"
+msgstr ""
+
+#: const.py:167
+msgid "6 rows"
+msgstr ""
+
+#: const.py:168
+msgid "7 rows"
+msgstr ""
+
+#: const.py:169
+msgid "8 rows"
+msgstr ""
+
+#: const.py:170
+msgid "9 rows"
+msgstr ""
+
+#: const.py:171
+msgid "10 rows"
+msgstr ""
+
+#: const.py:172
+msgid "11 rows"
+msgstr ""
+
+#: const.py:173
+msgid "12 rows"
+msgstr ""
+
+#: const.py:177
+msgid "none"
+msgstr ""
+
+#: const.py:178
+msgid "break before"
+msgstr ""
+
+#: const.py:179
+msgid "break after"
+msgstr ""
+
+#: const.py:183
+msgid "no border"
+msgstr ""
+
+#: const.py:184
+msgid "border"
+msgstr ""
+
+#: const.py:185
+msgid "wide border"
+msgstr ""
+
+#: const.py:189
+msgid "auto"
+msgstr ""
+
+#: const.py:190
+msgid "left"
+msgstr ""
+
+#: const.py:191
+msgid "center"
+msgstr ""
+
+#: const.py:192
+msgid "right"
+msgstr ""
+
+#: const.py:196
+msgid "top"
+msgstr ""
+
+#: const.py:197
+msgid "middle"
+msgstr ""
+
+#: const.py:198
+msgid "bottom"
+msgstr ""
+
+#: models/page.py:18 models/page.py:84
+msgid "Page"
+msgstr ""
+
+#: models/page.py:21
+msgid "Column 1 width"
+msgstr ""
+
+#: models/page.py:23
+msgid "Column 2 width"
+msgstr ""
+
+#: models/page.py:25
+msgid "Column 3 width"
+msgstr ""
+
+#: models/page.py:32
+msgid "Page dimension"
+msgstr ""
+
+#: models/page.py:33
+msgid "Page dimensions"
+msgstr ""
+
+#: models/page.py:40 models/page.py:59 models/widget.py:105
+#: models/widget.py:127
+msgid "Name"
+msgstr ""
+
+#: models/page.py:42 models/page.py:61 models/widget.py:107
+#: models/widget.py:129 models/widget.py:157
+msgid "Title"
+msgstr ""
+
+#: models/page.py:44 models/page.py:65
+msgid "Template"
+msgstr ""
+
+#: models/page.py:45
+msgid "Style"
+msgstr ""
+
+#: models/page.py:51
+msgid "Page theme"
+msgstr ""
+
+#: models/page.py:52
+msgid "Page themes"
+msgstr ""
+
+#: models/page.py:62 page/common/forms.py:65
+msgid "Styles"
+msgstr ""
+
+#: models/page.py:63
+msgid "variables"
+msgstr ""
+
+#: models/page.py:71
+msgid "Page color scheme"
+msgstr ""
+
+#: models/page.py:72
+msgid "Page color schemes"
+msgstr ""
+
+#: models/page.py:78 models/widget.py:165 page/common/forms.py:49
+msgid "Layout"
+msgstr ""
+
+#: models/page.py:79 models/widget.py:52 page/common/forms.py:38
+#: page/forms.py:110 page/forms.py:170 widgets/forms.py:56
+msgid "Theme"
+msgstr ""
+
+#: models/page.py:81 models/widget.py:186
+msgid "Color scheme"
+msgstr ""
+
+#: models/page.py:85
 msgid "Pages"
 msgstr ""
 
-#: conf/admin.py:9
-msgid "Manage site structure and content widgets."
+#: models/widget.py:58 widgets/forms.py:64
+msgid "Effects"
 msgstr ""
 
-#: conf/admin.py:14
-msgid "Files"
+#: models/widget.py:77
+msgid "Width"
 msgstr ""
 
-#: conf/admin.py:14
-msgid "All multimedial files uploaded to the site."
+#: models/widget.py:79 widgets/tables.py:81
+msgid "Height"
 msgstr ""
 
-#: conf/admin.py:19
-msgid "Media categories"
+#: models/widget.py:81 widgets/tables.py:82
+msgid "Offset"
 msgstr ""
 
-#: conf/admin.py:19
-msgid "Multimedial categories to be used in other modules."
+#: models/widget.py:97
+msgid "Widget dimension"
 msgstr ""
 
-#: conf/admin.py:24
-msgid "News"
+#: models/widget.py:98
+msgid "Widget dimensions"
 msgstr ""
 
-#: conf/admin.py:24
-msgid "Periodical short messages ordered in timely manner."
+#: models/widget.py:109
+msgid "Content template"
 msgstr ""
 
-#: conf/admin.py:29
-msgid "Links"
+#: models/widget.py:111
+msgid "Content style"
 msgstr ""
 
-#: conf/admin.py:29
-msgid "Links to the other pages or resources."
+#: models/widget.py:113
+msgid "Widget class"
 msgstr ""
 
-#: conf/admin.py:34
-msgid "Link lists"
+#: models/widget.py:119
+msgid "Widget content theme"
 msgstr ""
 
-#: conf/admin.py:34
-msgid "Lists of links."
+#: models/widget.py:120
+msgid "Widget content themes"
 msgstr ""
 
-#: conf/admin.py:39
-msgid "Banners"
+#: models/widget.py:131
+msgid "Base template"
 msgstr ""
 
-#: conf/admin.py:39
-msgid "Easy management of banners."
+#: models/widget.py:134
+msgid "Base style"
 msgstr ""
 
-#: conf/admin.py:44
-msgid "Banner slots"
+#: models/widget.py:140
+msgid "Widget base theme"
 msgstr ""
 
-#: conf/admin.py:44
-msgid "Easy management of multiple banner positions."
+#: models/widget.py:141
+msgid "Widget base themes"
 msgstr ""
 
-#: conf/admin.py:49
-msgid "Glossary terms"
+#: models/widget.py:153
+msgid "prerendered content"
 msgstr ""
 
-#: conf/admin.py:49 conf/admin.py:54 conf/admin.py:59
-msgid "List of terms with synonims."
+#: models/widget.py:155
+msgid "Is visible?"
 msgstr ""
 
-#: conf/admin.py:54
-msgid "Image annotations"
+#: models/widget.py:159
+msgid "Base theme"
 msgstr ""
 
-#: conf/admin.py:59
-msgid "Annotated images"
+#: models/widget.py:162
+msgid "Content theme"
 msgstr ""
 
-#: conf/admin.py:64
-msgid "FAQ categories"
+#: models/widget.py:168
+msgid "Alignment"
 msgstr ""
 
-#: conf/admin.py:69
-msgid "Frequest questions"
+#: models/widget.py:171
+msgid "Vertical Alignment"
 msgstr ""
 
-#: conf/admin.py:74
-msgid "Flexible forms"
+#: models/widget.py:176
+msgid "Enter effect style"
 msgstr ""
 
-#: conf/admin.py:79
-msgid "Form submissions"
+#: models/widget.py:180
+msgid "Enter Effect Duration"
 msgstr ""
 
-#: conf/admin.py:83
-msgid "Web site"
+#: models/widget.py:208
+msgid "Abstract widget"
 msgstr ""
 
-#: conf/admin.py:83
-msgid "Basic web components and applications."
+#: models/widget.py:209
+msgid "Abstract widgets"
 msgstr ""
 
-#: conf/admin.py:86
-msgid "Users"
+#: page/common/forms.py:24
+msgid "Page ID"
 msgstr ""
 
-#: conf/admin.py:86
-msgid "Administration of system users."
+#: page/common/forms.py:27 page/forms.py:42
+msgid "Color Scheme"
 msgstr ""
 
-#: conf/admin.py:88
-msgid "Site setup"
+#: page/common/forms.py:31 page/common/forms.py:42
+msgid "Click to expand."
 msgstr ""
 
-#: conf/admin.py:91
-msgid "Advanced settings"
+#: page/common/forms.py:52
+msgid "Depth"
 msgstr ""
 
-#: conf/admin.py:91
-msgid "Advanced settings, analytics and maintenance tools."
+#: page/common/forms.py:53
+msgid "From Root ?"
 msgstr ""
 
-#: conf/admin.py:94
-msgid "Project dashboard"
+#: page/common/forms.py:60
+msgid "Options"
 msgstr ""
 
-#: conf/admin.py:94
-msgid "Project admin dashboard."
+#: page/common/forms.py:73
+msgid "Select Layout"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:4
-msgid "Really delete item?"
+#: page/common/views.py:37
+msgid "Change Pages"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:4
-msgid "Confirm to delete item"
+#: page/common/views.py:38
+msgid "Apply"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:5
-msgid "Item deleted successfully."
+#: page/dimension/forms.py:31
+msgid "Summary of dimensions must be 12"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:5
-msgid "Cannot delete item"
+#: page/forms.py:92 page/forms.py:152
+msgid "Main"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:6
-msgid "Cannot delete item, because it is parent of at least one other item."
+#: page/forms.py:99 page/forms.py:166
+msgid "Navigation"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:7
-msgid "Change template"
+#: page/forms.py:103 page/forms.py:159
+msgid "Heading"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:8
-msgid "Really change template? <br />All changes are saved."
+#: page/forms.py:107 page/forms.py:163
+msgid "Publication"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:9
+#: page/forms.py:188 widgets/forms.py:90
+msgid "Dimensions"
+msgstr ""
+
+#: page/tables.py:49
+msgid "Override page dimension"
+msgstr ""
+
+#: page/tables.py:66
+msgid "Delete Page Dimension"
+msgid_plural "Delete Page Dimension"
+msgstr[0] ""
+msgstr[1] ""
+
+#: page/tables.py:74
+msgid "Deleted Page Dimension"
+msgid_plural "Deleted Page Dimension"
+msgstr[0] ""
+msgstr[1] ""
+
+#: page/tables.py:109 widget/icon/models.py:22 widgets/tables.py:79
+msgid "Size"
+msgstr ""
+
+#: page/tables.py:111
+msgid "Column 2 Width"
+msgstr ""
+
+#: page/tables.py:112
+msgid "Column 3 Width"
+msgstr ""
+
+#: page/views.py:32 templates/base/actions.html:6
+msgid "Create Page"
+msgstr ""
+
+#: page/views.py:34 page/views.py:156
+msgid "Create"
+msgstr ""
+
+#: page/views.py:43
 #, python-format
-msgid ""
-"Really change template? <br />All changes are saved and content from <strong>"
-"%(source_regions)s</strong> is moved to <strong>%(target_region)s</strong>."
+msgid "Page %s was successfully crated."
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:12
-msgid "Hide"
+#: page/views.py:85
+msgid "Update Page"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:13
-msgid "Show"
+#: page/views.py:87
+msgid "Update"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:14
-msgid "After"
+#: page/views.py:154
+msgid "Add Page Dimesion"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:15
-msgid "Before"
+#: page/views.py:194 templates/base/widget/_edit.html:14
+#: templates/widget/base.html:8 widgets/views.py:175
+msgid "Delete"
 msgstr ""
 
-#: templates/admin/feincms/_messages_js.html:16
-msgid "Insert new:"
+#: templates/404.html:11 templates/404_technical.html:36
+msgid "Create Page with the "
 msgstr ""
 
-#: templates/admin/feincms/content_editor.html:11
-msgid "Region empty"
+#: templates/404.html:11 templates/404_technical.html:36
+msgid "slug"
 msgstr ""
 
-#: templates/admin/feincms/content_editor.html:15
-msgid ""
-"Content from the parent site is automatically inherited. To override this "
-"behaviour, add some content."
-msgstr ""
-
-#: templates/admin/feincms/content_editor.html:23
-msgid "Add new item"
-msgstr ""
-
-#: templates/admin/feincms/content_inline.html:9
-msgid "View on site"
-msgstr ""
-
-#: templates/admin/feincms/content_inline.html:91
-#, python-format
-msgid "Add another %(verbose_name)s"
-msgstr ""
-
-#: templates/admin/feincms/content_inline.html:94
-msgid "Remove"
-msgstr ""
-
-#: templates/admin/feincms/item_editor.html:29
-msgid "available translations"
-msgstr ""
-
-#: templates/admin/feincms/recover_form.html:7
-#: templates/admin/feincms/revision_form.html:10
-msgid "Home"
-msgstr ""
-
-#: templates/admin/feincms/recover_form.html:10
-#, python-format
-msgid "Recover deleted %(verbose_name)s"
-msgstr ""
-
-#: templates/admin/feincms/recover_form.html:17
-msgid "Press the save button below to recover this version of the object."
-msgstr ""
-
-#: templates/admin/feincms/revision_form.html:14
-msgid "History"
-msgstr ""
-
-#: templates/admin/feincms/revision_form.html:15
-#, python-format
-msgid "Revert %(verbose_name)s"
-msgstr ""
-
-#: templates/admin/feincms/revision_form.html:28
-msgid "Press the save button below to revert to this version of the object."
-msgstr ""
-
-#: templates/admin/feincms/tree_editor.html:21
-msgid "Collapse tree"
-msgstr ""
-
-#: templates/admin/feincms/tree_editor.html:22
-msgid "Expand tree"
-msgstr ""
-
-#: templates/admin/feincms/page/page/item_editor.html:8
-msgid "Replace Page"
-msgstr ""
-
-#: templates/admin/feincms/page/page/item_editor.html:11
-msgid "Copy Page"
-msgstr ""
-
-#: templates/admin/feincms/page/page/item_editor.html:12
-msgid "Edit On-site"
-msgstr ""
-
-#: templates/auth/login.html:7
-msgid "User Login"
-msgstr ""
-
-#: templates/auth/login.html:27
-msgid "Forgot your password?"
-msgstr ""
-
-#: templates/auth/login.html:27
-msgid "Request a new one!"
-msgstr ""
-
-#: templates/auth/login.html:29 templates/auth/password_reset_confirm.html:31
-#: templates/auth/password_reset_form.html:26
-#: templates/registration/password_change_form.html:32
-#: templates/registration/password_reset_confirm.html:30
-#: templates/registration/password_reset_form.html:28
-msgid "Required fields"
+#: templates/auth/login.html:4 templates/auth/login.html.py:7
+msgid "Login"
 msgstr ""
 
 #: templates/auth/logout.html:6
 msgid "Logout successful"
 msgstr ""
 
-#: templates/auth/logout.html:10 templates/registration/logout.html:19
+#: templates/auth/logout.html:10
 msgid "You have been successfully logged out."
 msgstr ""
 
@@ -447,16 +646,11 @@ msgid "Password Reset"
 msgstr ""
 
 #: templates/auth/password_reset_complete.html:14
-#: templates/registration/password_reset_complete.html:18
 msgid "Your password has been set. You may go ahead and log in now."
 msgstr ""
 
 #: templates/auth/password_reset_complete.html:16
 #: templates/auth/password_reset_done.html:16
-#: templates/registration/password_reset_complete.html:20
-#: templates/registration/password_reset_form.html:29
-#: templates/widget/userlogin/default.html:26
-#: templates/widget/userlogin/default.html:30
 msgid "Log In"
 msgstr ""
 
@@ -472,10 +666,14 @@ msgid "Password reset unsuccessful"
 msgstr ""
 
 #: templates/auth/password_reset_confirm.html:22
-#: templates/registration/password_reset_confirm.html:22
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
+msgstr ""
+
+#: templates/auth/password_reset_confirm.html:31
+#: templates/auth/password_reset_form.html:26
+msgid "Required fields"
 msgstr ""
 
 #: templates/auth/password_reset_confirm.html:36
@@ -490,7 +688,6 @@ msgid "Password reset e-mail sent"
 msgstr ""
 
 #: templates/auth/password_reset_done.html:14
-#: templates/registration/password_reset_done.html:18
 msgid ""
 "We've e-mailed a link to retrieve your new password to the e-mail address "
 "you submitted."
@@ -513,153 +710,48 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: templates/email/base.html:4
-msgid "Infomail"
+#: templates/base/actions.html:7
+msgid "Delete Page"
 msgstr ""
 
-#: templates/email/base.html:35
-msgid "Regards"
+#: templates/base/actions.html:9
+msgid "Edit Page"
 msgstr ""
 
-#: templates/pagination/pagination.html:4
-#: templates/pagination/pagination.html:27
-msgid "items"
+#: templates/base/actions.html:10
+msgid "Mass Update"
 msgstr ""
 
-#: templates/pagination/pagination.html:7
-msgid "Page"
+#: templates/base/actions.html:11
+msgid "Open Admin"
 msgstr ""
 
-#: templates/registration/logout.html:7 templates/registration/logout.html:11
-#: templates/registration/logout.html:15
-msgid "Customer Logout"
+#: templates/base/actions.html:12
+msgid "Stop Editing"
 msgstr ""
 
-#: templates/registration/password_change_done.html:7
-#: templates/registration/password_change_form.html:7
-msgid "My Account"
+#: templates/base/widget/_edit.html:11 templates/widget/base.html:7
+msgid "Edit"
 msgstr ""
 
-#: templates/registration/password_change_done.html:7
-#: templates/registration/password_change_done.html:11
-#: templates/registration/password_change_done.html:15
-#: templates/registration/password_change_form.html:7
-#: templates/registration/password_change_form.html:11
-#: templates/registration/password_change_form.html:15
-#: templates/registration/password_reset_complete.html:6
-#: templates/registration/password_reset_complete.html:10
-#: templates/registration/password_reset_complete.html:14
-#: templates/registration/password_reset_confirm.html:7
-#: templates/registration/password_reset_confirm.html:11
-#: templates/registration/password_reset_confirm.html:15
-msgid "Password Change"
+#: templates/base/widget/_edit.html:12
+msgid "Info"
 msgstr ""
 
-#: templates/registration/password_change_done.html:19
-msgid "Password has been changed."
+#: templates/widget/siteheading/navbar.html:8
+msgid "Toggle navigation"
 msgstr ""
 
-#: templates/registration/password_change_form.html:21
-msgid ""
-"For the sake of security, please enter your old password, and then enter "
-"your new password twice."
+#: widget/application/models.py:55
+msgid "application"
 msgstr ""
 
-#: templates/registration/password_reset_confirm.html:35
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used. Please request a new password reset."
+#: widget/application/models.py:214
+msgid "External application"
 msgstr ""
 
-#: templates/registration/password_reset_confirm.html:39
-msgid "Save New Password"
-msgstr ""
-
-#: templates/registration/password_reset_done.html:6
-#: templates/registration/password_reset_done.html:10
-#: templates/registration/password_reset_done.html:14
-#: templates/registration/password_reset_form.html:7
-#: templates/registration/password_reset_form.html:11
-#: templates/registration/password_reset_form.html:15
-msgid "Forgotten Password"
-msgstr ""
-
-#: templates/registration/password_reset_form.html:19
-msgid ""
-"Enter your e-mail address and you will receive immediatelly a link with an "
-"option to set a new password."
-msgstr ""
-
-#: templates/widget/userlogin/default.html:10
-msgid "Close admin"
-msgstr ""
-
-#: templates/widget/userlogin/default.html:12
-msgid "Open admin"
-msgstr ""
-
-#: templates/widget/userlogin/default.html:17
-#: templates/widget/userlogin/default.html:21
-msgid "Log Out"
-msgstr ""
-
-#: views/auth.py:86
-msgid "Logged out"
-msgstr ""
-
-#: views/auth.py:113
-msgid "E-mail"
-msgstr ""
-
-#: views/auth.py:122
-msgid ""
-"That e-mail address doesn't have an associated user account. Are you sure "
-"you've registered?"
-msgstr ""
-
-#: views/auth.py:148
-#, python-format
-msgid "Password reset on %s"
-msgstr ""
-
-#: views/auth.py:156
-msgid "New password"
-msgstr ""
-
-#: views/auth.py:157
-msgid "New password confirmation"
-msgstr ""
-
-#: views/auth.py:168
-msgid "The two password fields didn't match."
-msgstr ""
-
-#: views/auth.py:182
-msgid "Old password"
-msgstr ""
-
-#: views/auth.py:190
-msgid "Your old password was entered incorrectly. Please enter it again."
-msgstr ""
-
-#: widget/application/models.py:33
-msgid "external application"
-msgstr ""
-
-#: widget/application/models.py:34
-msgid "external applications"
-msgstr ""
-
-#: widget/djangotemplate/models.py:18 widget/djangotemplate/models.py:32
-msgid "template"
-msgstr ""
-
-#: widget/djangotemplate/models.py:36
-msgid "django template"
-msgstr ""
-
-#: widget/djangotemplate/models.py:37
-msgid "django templates"
+#: widget/application/models.py:215
+msgid "External applications"
 msgstr ""
 
 #: widget/feedreader/models.py:14
@@ -670,126 +762,230 @@ msgstr ""
 msgid "Blank window"
 msgstr ""
 
-#: widget/feedreader/models.py:21
-msgid "link"
-msgstr ""
-
-#: widget/feedreader/models.py:23
+#: widget/feedreader/models.py:20
 msgid "max. items"
 msgstr ""
 
 #: widget/feedreader/models.py:24
-msgid "last updated"
-msgstr ""
-
-#: widget/feedreader/models.py:28
 msgid "feed reader"
 msgstr ""
 
-#: widget/feedreader/models.py:29
+#: widget/feedreader/models.py:25
 msgid "feed readers"
 msgstr ""
 
-#: widget/htmltext/models.py:19 widget/htmltext/models.py:81
-#: widget/markuptext/models.py:13
+#: widget/htmltext/models.py:19 widget/htmltext/models.py:94
+#: widget/markuptext/models.py:9
 msgid "text"
 msgstr ""
 
-#: widget/htmltext/models.py:30
+#: widget/htmltext/models.py:36
 msgid "HTML Tidy"
 msgstr ""
 
-#: widget/htmltext/models.py:31
+#: widget/htmltext/models.py:37
 msgid "Ignore the HTML validation warnings"
 msgstr ""
 
-#: widget/htmltext/models.py:55
+#: widget/htmltext/models.py:65
 #, python-format
 msgid ""
 "HTML validation produced %(count)d warnings. Please review the updated "
 "content below before continuing: %(messages)s"
 msgstr ""
 
-#: widget/htmltext/models.py:85
+#: widget/htmltext/models.py:98
 msgid "HTML text"
 msgstr ""
 
-#: widget/htmltext/models.py:86
+#: widget/htmltext/models.py:99
 msgid "HTML texts"
 msgstr ""
 
-#: widget/markuptext/models.py:17
+#: widget/htmltext/models.py:108
+msgid "Empty element"
+msgstr ""
+
+#: widget/icon/const.py:602
+msgid "Normal"
+msgstr ""
+
+#: widget/icon/const.py:603
+msgid "Larger"
+msgstr ""
+
+#: widget/icon/const.py:604
+msgid "2x larger"
+msgstr ""
+
+#: widget/icon/const.py:605
+msgid "3x larger"
+msgstr ""
+
+#: widget/icon/const.py:606
+msgid "4x larger"
+msgstr ""
+
+#: widget/icon/const.py:607
+msgid "5x larger"
+msgstr ""
+
+#: widget/icon/const.py:608
+msgid "10x larger"
+msgstr ""
+
+#: widget/icon/const.py:609
+msgid "15x larger"
+msgstr ""
+
+#: widget/icon/const.py:610
+msgid "20x larger"
+msgstr ""
+
+#: widget/icon/const.py:611
+msgid "25x larger"
+msgstr ""
+
+#: widget/icon/models.py:19 widget/icon/models.py:30
+msgid "Icon"
+msgstr ""
+
+#: widget/icon/models.py:24
+msgid "Spin"
+msgstr ""
+
+#: widget/icon/models.py:26
+msgid "Border"
+msgstr ""
+
+#: widget/icon/models.py:31
+msgid "Icons"
+msgstr ""
+
+#: widget/markuptext/models.py:10
+msgid "Empty text"
+msgstr ""
+
+#: widget/markuptext/models.py:14
 msgid "markup text"
 msgstr ""
 
-#: widget/markuptext/models.py:18
+#: widget/markuptext/models.py:15
 msgid "markup texts"
 msgstr ""
 
-#: widget/pagetitle/models.py:15
+#: widget/pagetitle/models.py:12
 msgid "page title"
 msgstr ""
 
-#: widget/pagetitle/models.py:16
+#: widget/pagetitle/models.py:13
 msgid "page titles"
 msgstr ""
 
-#: widget/siteheading/models.py:11
+#: widget/siteheading/models.py:13
 msgid "Site Title"
 msgstr ""
 
-#: widget/siteheading/models.py:12
+#: widget/siteheading/models.py:15
 msgid "Logo"
 msgstr ""
 
-#: widget/siteheading/models.py:13
+#: widget/siteheading/models.py:17
 msgid "Tagline"
 msgstr ""
 
-#: widget/siteheading/models.py:17
+#: widget/siteheading/models.py:32
 msgid "site heading"
 msgstr ""
 
-#: widget/siteheading/models.py:18
+#: widget/siteheading/models.py:33
 msgid "site headings"
 msgstr ""
 
-#: widget/table/models.py:93
+#: widget/table/models.py:97
 msgid "plain"
 msgstr ""
 
-#: widget/table/models.py:94
+#: widget/table/models.py:98
 msgid "title row"
 msgstr ""
 
-#: widget/table/models.py:96
+#: widget/table/models.py:100
 msgid "title row and column"
 msgstr ""
 
-#: widget/table/models.py:102
+#: widget/table/models.py:106
 msgid "table"
 msgstr ""
 
-#: widget/table/models.py:103
+#: widget/table/models.py:107
 msgid "tables"
 msgstr ""
 
-#: widget/table/models.py:112
+#: widget/table/models.py:116
 msgid "type"
 msgstr ""
 
-#: widget/table/models.py:116
+#: widget/table/models.py:120
 msgid "data"
 msgstr ""
 
-#: widget/userlogin/models.py:9
-msgid "inline"
+#: widgets/forms.py:58
+msgid "Positions"
 msgstr ""
 
-#: widget/userlogin/models.py:13
-msgid "user login"
+#: widgets/mixins.py:22
+msgid "Objects per page"
 msgstr ""
 
-#: widget/userlogin/models.py:14
-msgid "user logins"
+#: widgets/mixins.py:25
+msgid "Objects per row"
+msgstr ""
+
+#: widgets/mixins.py:28
+msgid "Pagination Style"
+msgstr ""
+
+#: widgets/mixins.py:103
+msgid "Source Address"
+msgstr ""
+
+#: widgets/mixins.py:106
+msgid "Cache validity"
+msgstr ""
+
+#: widgets/mixins.py:109
+msgid "Cache data"
+msgstr ""
+
+#: widgets/mixins.py:112
+msgid "Cache update"
+msgstr ""
+
+#: widgets/mixins.py:191
+msgid "Username"
+msgstr ""
+
+#: widgets/mixins.py:194
+msgid "Password"
+msgstr ""
+
+#: widgets/mixins.py:197
+msgid "API Token"
+msgstr ""
+
+#: widgets/views.py:81 widgets/views.py:119
+msgid "Create new Widget"
+msgstr ""
+
+#: widgets/views.py:124
+msgid "Continue"
+msgstr ""
+
+#: widgets/views.py:232
+msgid "Error occured while sorting widgets."
+msgstr ""
+
+#: widgets/views.py:241
+msgid "Widget sorting success."
 msgstr ""

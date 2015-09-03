@@ -55,9 +55,12 @@ def render_region_tools(context, feincms_object, region, request=None):
 
     skip rendering in standalone mode
     """
-    if context.get('standalone', False):
+
+    if context.get('standalone', False) or not feincms_object:
         return {}
+
     edit = False
+
     if getattr(settings, 'LEONARDO_USE_PAGE_ADMIN', False):
         request = context.get('request', None)
         frontend_edit = request.COOKIES.get(
@@ -89,6 +92,9 @@ def feincms_render_region(context, feincms_object, region, request=None):
     Support for rendering Page without some regions especialy for modals
     this feature is driven by context variable
     """
+    if not feincms_object:
+        return ''
+
     if not context.get('standalone', False) or region in STANDALONE_REGIONS:
         return ''.join(
             _render_content(content, request=request, context=context)

@@ -30,3 +30,7 @@ for switching to Czech as default redefine::
 .. warning::
 
     Ordering in the ``LANGUAGES`` is important for translations ! First must be default language.
+
+Leonardo provides one management command for making messages and theirs compiling::
+
+    python manage.py update_translations

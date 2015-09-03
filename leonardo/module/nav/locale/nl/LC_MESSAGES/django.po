@@ -1,0 +1,285 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-03 11:16+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: mixins.py:17
+msgid "Display active"
+msgstr ""
+
+#: mixins.py:20
+msgid "Display in navigation"
+msgstr ""
+
+#: mixins.py:23
+msgid "Orientation"
+msgstr ""
+
+#: models.py:19
+msgid "Flat page content navigation"
+msgstr ""
+
+#: models.py:41
+msgid "Nested page content navigation"
+msgstr ""
+
+#: templates/widget/languageselector/detail.html:7
+msgid "Select your language"
+msgstr ""
+
+#: templates/widget/linearnavigation/default.html:9
+#: templates/widget/linearnavigation/default.html:11
+msgid "prev"
+msgstr ""
+
+#: templates/widget/linearnavigation/default.html:14
+#: templates/widget/linearnavigation/default.html:16
+#: templates/widget/linearnavigation/paragraph.html:15
+#: templates/widget/linearnavigation/paragraph.html:17
+msgid "next"
+msgstr ""
+
+#: templates/widget/linearnavigation/paragraph.html:9
+#: templates/widget/linearnavigation/paragraph.html:11
+msgid "previous"
+msgstr ""
+
+#: templates/widget/sitesearch/default.html:23
+msgid "Search"
+msgstr ""
+
+#: widget/breadcrumbs/models.py:17
+msgid "Root node label"
+msgstr ""
+
+#: widget/breadcrumbs/models.py:21
+msgid "Breadcrumb trail"
+msgstr ""
+
+#: widget/breadcrumbs/models.py:22
+msgid "Breadcrumb trails"
+msgstr ""
+
+#: widget/contentnavigation/models.py:12
+msgid "Display included pages"
+msgstr ""
+
+#: widget/contentnavigation/models.py:14
+msgid "Display widget headers"
+msgstr ""
+
+#: widget/contentnavigation/models.py:18
+msgid "Content navigation"
+msgstr ""
+
+#: widget/contentnavigation/models.py:19
+msgid "Content navigations"
+msgstr ""
+
+#: widget/contextnavigation/models.py:13
+msgid "self"
+msgstr ""
+
+#: widget/contextnavigation/models.py:14
+msgid "one level"
+msgstr ""
+
+#: widget/contextnavigation/models.py:15
+msgid "all levels"
+msgstr ""
+
+#: widget/contextnavigation/models.py:19 widget/linearnavigation/models.py:11
+msgid "none"
+msgstr ""
+
+#: widget/contextnavigation/models.py:20
+msgid "link"
+msgstr ""
+
+#: widget/contextnavigation/models.py:21
+msgid "button"
+msgstr ""
+
+#: widget/contextnavigation/models.py:25
+msgid "Source page"
+msgstr ""
+
+#: widget/contextnavigation/models.py:25
+msgid "The child pages of root page are displayed in the context navigation."
+msgstr ""
+
+#: widget/contextnavigation/models.py:26
+msgid "Region to display"
+msgstr ""
+
+#: widget/contextnavigation/models.py:26
+msgid "Which region of selected pages do you wish to display."
+msgstr ""
+
+#: widget/contextnavigation/models.py:27
+msgid "Depth"
+msgstr ""
+
+#: widget/contextnavigation/models.py:27
+msgid "Depth to which display child pages."
+msgstr ""
+
+#: widget/contextnavigation/models.py:28 widget/linearnavigation/models.py:27
+#: widget/treenavigation/models.py:25
+msgid "Link style"
+msgstr ""
+
+#: widget/contextnavigation/models.py:28
+msgid "Visual style of links to displayed pages."
+msgstr ""
+
+#: widget/contextnavigation/models.py:29
+msgid "Link label"
+msgstr ""
+
+#: widget/contextnavigation/models.py:29
+msgid "Arbitrary text of links. If empty, page's title will be used instead."
+msgstr ""
+
+#: widget/contextnavigation/models.py:33 widget/simplelink/models.py:14
+msgid "Linked page"
+msgstr ""
+
+#: widget/contextnavigation/models.py:34
+msgid "Linked pages"
+msgstr ""
+
+#: widget/languageselector/models.py:16
+msgid "Language switch"
+msgstr ""
+
+#: widget/languageselector/models.py:17
+msgid "Language switches"
+msgstr ""
+
+#: widget/linearnavigation/models.py:12
+msgid "parents"
+msgstr ""
+
+#: widget/linearnavigation/models.py:13
+msgid "siblings"
+msgstr ""
+
+#: widget/linearnavigation/models.py:14
+msgid "cousins"
+msgstr ""
+
+#: widget/linearnavigation/models.py:18
+msgid "previous/next"
+msgstr ""
+
+#: widget/linearnavigation/models.py:19
+msgid "page title"
+msgstr ""
+
+#: widget/linearnavigation/models.py:25
+msgid "Node traversal"
+msgstr ""
+
+#: widget/linearnavigation/models.py:31
+msgid "Linear pager"
+msgstr ""
+
+#: widget/linearnavigation/models.py:32
+msgid "Linear pagers"
+msgstr ""
+
+#: widget/simplelink/models.py:18
+msgid "Simple link"
+msgstr ""
+
+#: widget/simplelink/models.py:19
+msgid "Simple links"
+msgstr ""
+
+#: widget/sitemap/models.py:14
+msgid "Root page"
+msgstr ""
+
+#: widget/sitemap/models.py:14
+msgid "If no root page is set, widget's parent page will be used."
+msgstr ""
+
+#: widget/sitemap/models.py:18
+msgid "Site map"
+msgstr ""
+
+#: widget/sitemap/models.py:19
+msgid "Site maps"
+msgstr ""
+
+#: widget/sitesearch/models.py:9
+msgid "Google Custom Search"
+msgstr ""
+
+#: widget/sitesearch/models.py:10
+msgid "Django Haystack"
+msgstr ""
+
+#: widget/sitesearch/models.py:16
+msgid "Search engine"
+msgstr ""
+
+#: widget/sitesearch/models.py:21
+msgid "Site search"
+msgstr ""
+
+#: widget/sitesearch/models.py:22
+msgid "Site searches"
+msgstr ""
+
+#: widget/treenavigation/models.py:12
+msgid "Only one level"
+msgstr ""
+
+#: widget/treenavigation/models.py:13
+msgid "Include subpages"
+msgstr ""
+
+#: widget/treenavigation/models.py:16
+msgid "Default title"
+msgstr ""
+
+#: widget/treenavigation/models.py:17
+msgid "Detailed title"
+msgstr ""
+
+#: widget/treenavigation/models.py:21
+msgid "depth"
+msgstr ""
+
+#: widget/treenavigation/models.py:23
+msgid "root page"
+msgstr ""
+
+#: widget/treenavigation/models.py:23
+msgid "If not set, widget's parent page will be used as root page."
+msgstr ""
+
+#: widget/treenavigation/models.py:29
+msgid "Navigation menu"
+msgstr ""
+
+#: widget/treenavigation/models.py:30
+msgid "Navigation menus"
+msgstr ""

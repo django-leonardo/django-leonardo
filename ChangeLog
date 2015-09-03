@@ -1,6 +1,73 @@
 CHANGES
 =======
 
+1.0.0
+-----
+
+* cleanup imports and configure defalt logging
+* fix warning - MultiStorageFileField can handle only File objects;
+* add generated locales and simple util for updating them
+* fail silently when feincms_object is not in the context
+* fix new location of page extensions and properly handle exteptions from loading modules
+* fix old permalink location
+* huge cleanup and support for FeinCMS 2
+* finalize rendering of external application
+* update docutils version and added pygments
+* fix linkedpage templates
+* fix fullscreen template
+* support django rest framework as external application
+* render region tools in bootstrap template
+* try to use kilo horizon in production
+* update meta
+* fixed secure media, mark logical structured media as experimental and non default
+* fix media location
+* breadcrumbs renamed
+* progress in list widgets
+* update aplication process
+* cleanup widget fragments and added head_title tag which respects actual fragments
+* added fragments #US101
+* fix template
+* cleanup templates
+* fixes
+* template fix
+* make list
+* fix user login navbar
+* list templating PoC
+* use proper method for navigation url
+* fix asset name
+* fixed const
+* wow effect implementation
+* added choices
+* contextnavigation
+* fix asset name
+* fixed const
+* wow effect implementation
+* added choices
+* fix settings key
+* removed squash
+* properly load all urls from leonardo modules
+* fix page mass update form
+* widget update form layout changed
+* use ListMixin for ContextNavigation and FeedReader widgets
+* add widget label to main tab
+* fix title
+* page create fixes
+* fix bootstrap yaml and dumpweb cleanup
+* no exclude
+* dump web fix
+* small changes in dumpweb function
+* fix sync templates from management commands
+* fix installing extras in test environment
+* fix install dev skript
+* rebuild index task
+* get may has some extra attributes
+* updated migrations
+* inform users about ungrouped widgets
+* improve ContentProxyMixin and provide new JsonContentProxy
+* reworked cache mechanism for content proxy
+* keep requirements in one directory
+* render widget content securely without debug mode
+* update meta
 * handle dbtemplates and create themes from them #65
 * last fix travis build
 * fix db dict
@@ -49,10 +116,6 @@ CHANGES
 * navigation cleanups
 * common widget mixins and cleanup widget models
 * replaces page memoized by cached_property
-
-2015.7.1
---------
-
 * added new modules
 * warning: migrations on django 1.8 works only with ``migrate web`` :hankey:
 * moved specific django constance behaviour to leonardo fork and use it in main requirements
@@ -72,10 +135,6 @@ CHANGES
 * default theme
 * refactored module config loading, added delete to widget dimension table
 * changelog + bump required version of horizon-contrib
-
-2015.7.0
---------
-
 * bump required version of horizon-contrib and fix their modal template overrides
 * introduced render feincms object tools tag, fixed contrib modals
 * support for adding widget from frontend edit to every feincms content type #68
@@ -116,10 +175,6 @@ CHANGES
 * baby steps in media galleries next step is new module for this stuff
 * admin as pluggable module and update changelog
 * filer static files
-
-2015.1.8
---------
-
 * prototype of save-dump solution
 * scaffold new site, separation of middlewares and quickstart as optional middleware, fix rendering page without loaded theme
 * quick create in non debug 404
@@ -185,10 +240,6 @@ CHANGES
 * fail silently
 * propagate LEONARDO_CONFIG via request to external applications where is not standard horizon context processor
 * install bootswatch in quickstart and added more quick installation script for #50, eshop renamed to store
-
-2015.1.7
---------
-
 * exclude private templates BUGFIX #51
 * use leonardo tags for render langs
 * new leonardo page tags
@@ -204,10 +255,6 @@ CHANGES
 * fix modals
 * disallow static path for indexing
 * fix SEO - site meta, title etc
-
-2015.1.6
---------
-
 * media categories update
 * use loanardo folder for importing
 * update
@@ -255,19 +302,11 @@ CHANGES
 * fix more than one package inside python package
 * added ConditionalGetMiddleware to default
 * use proxy for render content, means no dorecorate if overrides this method
-
-2015.1.5
---------
-
 * no inheritence in class decorators !
 * methods
 * no inheritence
 * not now
 * update
-
-2015.1.4
---------
-
 * revalide in-memory cache after widget update
 * update readme coverage
 * suppor for disabling MEMOIZED
@@ -279,10 +318,6 @@ CHANGES
 * native memoized all render_content calls #29
 * user to id
 * memoized for test decrese server response time from 1s to 150ms
-
-2015.1.3
---------
-
 * fix page dimenssions and remove unless memonized
 * use primary _APPS from main config
 * no autodiscover for tests
@@ -297,28 +332,16 @@ CHANGES
 * fix new return type
 * FEATURE: auto include leonardo modules
 * use current site middleware
-
-2015.1.2
---------
-
 * update
 * fix fatal non existent redactor
 * namespace package not now see Django doc
 * fix namespaced packages is pase for Django now.
-
-2015.1.1
---------
-
 * 2015.1.1
 * gitter link
 * pickled field
 * fix constance dep
 * live configuration for test #31 redis as optional extra
 * changelog update
-
-2015.1.0
---------
-
 * cosmetic
 * more extras auth,saml debug and tests
 * test all management commands and importing and rebuilding indexes #17
@@ -326,15 +349,7 @@ CHANGES
 * handle error when loading which was detect on sqlite and MySQL and tests for management commands also describes in #17
 * fixed new location for merge
 * changelog + cleanups
-
-2015.0.4
---------
-
 * remove bulbs from requirements
-
-2015.0.4b1
-----------
-
 * install instead http
 * cleanup
 * more lazy imports
@@ -381,10 +396,6 @@ CHANGES
 * cleanup, fix requirements
 * search rebuild and get to ready state #14
 * ref fix
-
-2015.0.3
---------
-
 * update extras
 * cleanup
 * some contrib stuff
@@ -485,10 +496,6 @@ CHANGES
 * markupfield was fixed with our issue, now can be installed from pypi
 * related name on widget with app and update doc, requirements
 * use our markupfield fixed for Dj 1.8
-
-0.0.2
------
-
 * cleanup
 * fixed dbtemplates from git
 * doc ref changed

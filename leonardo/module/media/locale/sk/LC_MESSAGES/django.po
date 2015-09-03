@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-30 11:30+0100\n"
+"POT-Creation-Date: 2015-09-03 11:16+0000\n"
 "PO-Revision-Date: 2010-06-17 09:47\n"
 "Last-Translator: <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,452 +17,541 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.5.3\n"
 
-#: config.py:6
-msgid "Media settings"
+#: __init__.py:41
+msgid "Pagination count for media files"
 msgstr ""
 
-#: config.py:11
-msgid "Synchronise folders"
+#: __init__.py:42
+msgid "Prefix for public files from MEDIA_ROOT"
 msgstr ""
 
-#: config.py:12
-msgid "If yes, every folder will be synced with a Media Category."
+#: __init__.py:43
+msgid "Prefix for private files from MEDIA_ROOT"
 msgstr ""
 
-#: config.py:20
-msgid "small thumb geomerty"
+#: __init__.py:44
+msgid "Set uploaded files to public automatically"
 msgstr ""
 
-#: config.py:22
-msgid "Geometry of small thumbnails. I.e.: \"400x50\" or \"x90\""
+#: __init__.py:46
+msgid "Permissions for downloadable items. Experimental feature."
 msgstr ""
 
-#: config.py:29
-msgid "small thumb options"
+#: __init__.py:47
+msgid "ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS"
 msgstr ""
 
-#: config.py:31
-msgid "Additional options for small thumnais."
+#: __init__.py:48
+msgid "MEDIA_THUMB_SMALL_GEOM"
 msgstr ""
 
-#: config.py:38
-msgid "medium thumb geomerty"
+#: __init__.py:49
+msgid "Another options for small thumnails"
 msgstr ""
 
-#: config.py:40
-msgid "Geometry of medium thumbnails. I.e.: \"400x50\" or \"x90\""
+#: __init__.py:50
+msgid "MEDIA_THUMB_MEDIUM_GEOM"
 msgstr ""
 
-#: config.py:47
-msgid "medium thumb options"
+#: __init__.py:51
+msgid "Another options for medium thumnails"
 msgstr ""
 
-#: config.py:49
-msgid "Additional options for medium thumnais."
+#: __init__.py:52
+msgid "MEDIA_THUMB_LARGE_GEOM"
 msgstr ""
 
-#: config.py:56
-msgid "large thumb geomerty"
+#: __init__.py:53
+msgid "Another options for large thumnails"
 msgstr ""
 
-#: config.py:58
-msgid "Geometry of large thumbnails. I.e.: \"400x50\" or \"x90\""
+#: __init__.py:54
+msgid "If is True all folders and files will has same path in the OS"
 msgstr ""
 
-#: config.py:65
-msgid "large thumb options"
+#: admin/fileadmin.py:42
+msgid "Advanced"
 msgstr ""
 
-#: config.py:67
-msgid "Additional options for large thumbnais."
-msgstr ""
-
-#: fields.py:127
-msgid "and"
-msgstr ""
-
-#: fields.py:129
-#, python-format
+#: admin/folderadmin.py:360 admin/folderadmin.py:510
 msgid ""
-"Use the left field to do %(model_name)s lookups in the fields %(field_list)s."
+"Items must be selected in order to perform actions on them. No items have "
+"been changed."
 msgstr ""
 
-#: forms.py:26
-msgid "This would create a loop in the hierarchy"
-msgstr ""
-
-#: forms.py:64
+#: admin/folderadmin.py:380
 #, python-format
-msgid ""
-"Cannot overwrite with different file type (attempt to overwrite a "
-"%(old_ext)s with a %(new_ext)s)"
+msgid "%(total_count)s selected"
+msgid_plural "All %(total_count)s selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/folderadmin.py:415
+#, python-format
+msgid "0 of %(cnt)s selected"
 msgstr ""
 
-#: models.py:78 models.py:166 models.py:533
-msgid "name"
+#: admin/folderadmin.py:539
+msgid "No action selected."
 msgstr ""
 
-#: models.py:78
-msgid "URL friendly name of the media category."
-msgstr ""
-
-#: models.py:79
-msgid "sort order"
-msgstr ""
-
-#: models.py:80 models.py:196 models.py:244
-msgid "created"
-msgstr ""
-
-#: models.py:81
-msgid "is active?"
-msgstr ""
-
-#: models.py:82
-msgid "is hidden?"
-msgstr ""
-
-#: models.py:83
-msgid "sync"
-msgstr ""
-
-#: models.py:109
-msgid "media category"
-msgstr "galéria"
-
-#: models.py:110
-msgid "media categories"
-msgstr "galérie"
-
-#: models.py:167
-msgid "excerpt"
-msgstr ""
-
-#: models.py:168 models.py:534 ext/annotatedimages/models.py:75
+#: admin/folderadmin.py:552
 #, fuzzy
-msgid "description"
+msgid "Scan folder"
+msgstr "mediálne súbory"
+
+#: admin/folderadmin.py:555
+msgid "Create Subfolder"
+msgstr ""
+
+#: admin/folderadmin.py:562
+#, fuzzy
+msgid "actions"
 msgstr "popisok"
 
-#: models.py:171
-#, fuzzy
-msgid "category translation"
-msgstr "kategórie"
+#: admin/folderadmin.py:596
+#, python-format
+msgid "Successfully moved %(count)d files to clipboard."
+msgstr ""
 
-#: models.py:172
+#: admin/folderadmin.py:602
 #, fuzzy
-msgid "category translations"
-msgstr "Kategórie"
+msgid "Move selected files to clipboard"
+msgstr "Vyberte súbory pre nahranie"
 
-#: models.py:178
+#: admin/folderadmin.py:636
+#, python-format
+msgid "Successfully disabled permissions for %(count)d files."
+msgstr ""
+
+#: admin/folderadmin.py:640
+#, python-format
+msgid "Successfully enabled permissions for %(count)d files."
+msgstr ""
+
+#: admin/folderadmin.py:649
+msgid "Enable permissions for selected files"
+msgstr ""
+
+#: admin/folderadmin.py:654
+msgid "Disable permissions for selected files"
+msgstr ""
+
+#: admin/folderadmin.py:715
+#, python-format
+msgid "Successfully deleted %(count)d files and/or folders."
+msgstr ""
+
+#: admin/folderadmin.py:722
 #, fuzzy
-msgid "all media categories"
-msgstr "galérie"
+msgid "Cannot delete files and/or folders"
+msgstr "Vložené"
 
-#: models.py:193 models.py:568 widget/downloaditem/models.py:11
+#: admin/folderadmin.py:724
+msgid "Are you sure?"
+msgstr ""
+
+#: admin/folderadmin.py:729
+#, fuzzy
+msgid "Delete files and/or folders"
+msgstr "Vložené"
+
+#: admin/folderadmin.py:748
+msgid "Delete selected files and/or folders"
+msgstr ""
+
+#: admin/folderadmin.py:865
+#, python-format
+msgid "Folders with names %s already exist at the selected destination"
+msgstr ""
+
+#: admin/folderadmin.py:869
+#, python-format
+msgid ""
+"Successfully moved %(count)d files and/or folders to folder "
+"'%(destination)s'."
+msgstr ""
+
+#: admin/folderadmin.py:876 admin/folderadmin.py:878
+#, fuzzy
+msgid "Move files and/or folders"
+msgstr "Vložené"
+
+#: admin/folderadmin.py:895
+#, fuzzy
+msgid "Move selected files and/or folders"
+msgstr "Vložené"
+
+#: admin/folderadmin.py:952
+#, python-format
+msgid "Successfully renamed %(count)d files."
+msgstr ""
+
+#: admin/folderadmin.py:960 admin/folderadmin.py:962 admin/folderadmin.py:979
+#, fuzzy
+msgid "Rename files"
+msgstr "mediálne súbory"
+
+#: admin/folderadmin.py:1073
+#, python-format
+msgid ""
+"Successfully copied %(count)d files and/or folders to folder "
+"'%(destination)s'."
+msgstr ""
+
+#: admin/folderadmin.py:1089 admin/folderadmin.py:1091
+#, fuzzy
+msgid "Copy files and/or folders"
+msgstr "Vložené"
+
+#: admin/folderadmin.py:1110
+#, fuzzy
+msgid "Copy selected files and/or folders"
+msgstr "Vložené"
+
+#: admin/folderadmin.py:1204
+#, python-format
+msgid "Successfully resized %(count)d images."
+msgstr ""
+
+#: admin/folderadmin.py:1212 admin/folderadmin.py:1214
+msgid "Resize images"
+msgstr ""
+
+#: admin/folderadmin.py:1232
+msgid "Resize selected images"
+msgstr ""
+
+#: admin/forms.py:22
+msgid "Suffix which will be appended to filenames of copied files."
+msgstr ""
+
+#: admin/forms.py:29
+#, python-format
+msgid ""
+"Suffix should be a valid, simple and lowercase filename part, like "
+"\"%(valid)s\"."
+msgstr ""
+
+#: admin/forms.py:50
+#, python-format
+msgid "Unknown rename format value key \"%(key)s\"."
+msgstr ""
+
+#: admin/forms.py:52
+#, python-format
+msgid "Invalid rename format: %(error)s."
+msgstr ""
+
+#: admin/forms.py:58 widget/flashobject/models.py:32
+#: widget/pdfdocument/models.py:15 widget/simplevideo/models.py:14
+msgid "width"
+msgstr ""
+
+#: admin/forms.py:59 widget/flashobject/models.py:34
+#: widget/pdfdocument/models.py:13 widget/simplevideo/models.py:15
+msgid "height"
+msgstr ""
+
+#: admin/forms.py:60
+msgid "crop"
+msgstr ""
+
+#: admin/forms.py:61
+msgid "upscale"
+msgstr ""
+
+#: admin/forms.py:66
+msgid "Thumbnail option or resize parameters must be choosen."
+msgstr ""
+
+#: admin/forms.py:68
+msgid "Resize parameters must be choosen."
+msgstr ""
+
+#: admin/imageadmin.py:13
+msgid "Subject location"
+msgstr ""
+
+#: admin/imageadmin.py:14
+msgid "Location of the main subject of the scene."
+msgstr ""
+
+#: models/abstract.py:40 models/media.py:128
+msgid "default alt text"
+msgstr ""
+
+#: models/abstract.py:41 models/media.py:131
+#, fuzzy
+msgid "default caption"
+msgstr "popisok"
+
+#: models/abstract.py:43
+msgid "subject location"
+msgstr ""
+
+#: models/abstract.py:172 models/imagemodels.py:58
+#: widget/simpleimage/models.py:23
+msgid "image"
+msgstr "obrázok"
+
+#: models/abstract.py:173 models/imagemodels.py:59
+#, fuzzy
+#| msgid "image"
+msgid "images"
+msgstr "obrázok"
+
+#: models/clipboardmodels.py:15 models/foldermodels.py:263
+msgid "user"
+msgstr ""
+
+#: models/clipboardmodels.py:17 models/filemodels.py:321
+#, fuzzy
+msgid "files"
+msgstr "názov"
+
+#: models/clipboardmodels.py:36 models/clipboardmodels.py:42
+msgid "clipboard"
+msgstr ""
+
+#: models/clipboardmodels.py:37
+msgid "clipboards"
+msgstr ""
+
+#: models/clipboardmodels.py:41 models/filemodels.py:41
+#: models/filemodels.py:320 widget/downloaditem/models.py:10
 #, fuzzy
 msgid "file"
 msgstr "názov"
 
-#: models.py:194
+#: models/clipboardmodels.py:46
 #, fuzzy
-msgid "file name"
-msgstr "veľkosť"
+msgid "clipboard item"
+msgstr "odkaz k stiahnutiu"
 
-#: models.py:195 models.py:362
-msgid "file type"
-msgstr ""
-
-#: models.py:197
+#: models/clipboardmodels.py:47
 #, fuzzy
-msgid "copyright"
-msgstr "vpravo"
+msgid "clipboard items"
+msgstr "odkaz k stiahnutiu"
 
-#: models.py:198 models.py:239
-#, fuzzy
-msgid "file size"
-msgstr "veľkosť"
-
-#: models.py:199
-msgid "hash"
-msgstr ""
-
-#: models.py:200
-msgid "metadata"
-msgstr ""
-
-#: models.py:201
+#: models/filemodels.py:39
+#: templates/admin/media/folder/directory_listing.html:86
+#: templates/admin/media/folder/new_folder_form.html:16
+#: templates/admin/media/folder/scan_form.html:19
+#: templates/admin/media/tools/clipboard/clipboard.html:26
+#: widget/downloadlist/models.py:11
 #, fuzzy
 msgid "folder"
 msgstr "názov"
 
-#: models.py:202
+#: models/filemodels.py:42
 #, fuzzy
-msgid "categories"
-msgstr "Kategórie"
+msgid "file size"
+msgstr "veľkosť"
 
-#: models.py:207
+#: models/filemodels.py:44
+msgid "sha1"
+msgstr ""
+
+#: models/filemodels.py:47
+msgid "has all mandatory data"
+msgstr ""
+
+#: models/filemodels.py:50 models/media.py:29
 #, fuzzy
-msgid "media file"
-msgstr "mediálny súbor"
+msgid "original filename"
+msgstr "veľkosť"
 
-#: models.py:208
+#: models/filemodels.py:52 models/foldermodels.py:108 models/media.py:31
+#: models/media.py:43 models/media.py:126
+msgid "name"
+msgstr ""
+
+#: models/filemodels.py:54 models/media.py:33 models/media.py:134
 #, fuzzy
-msgid "media files"
-msgstr "mediálne súbory"
+msgid "description"
+msgstr "popisok"
 
-#: models.py:234
-msgid "full path"
+#: models/filemodels.py:58
+msgid "owner"
 msgstr ""
 
-#: models.py:379
-msgid "file info"
+#: models/filemodels.py:60 models/foldermodels.py:114
+msgid "uploaded at"
 msgstr ""
 
-#: models.py:505
-msgid "Image"
-msgstr "Obrázok"
-
-#: models.py:506
-#, fuzzy
-msgid "Video"
-msgstr "Skrýť"
-
-#: models.py:507
-msgid "Audio"
+#: models/filemodels.py:61 models/foldermodels.py:117
+msgid "modified at"
 msgstr ""
 
-#: models.py:508
-msgid "Graph"
+#: models/filemodels.py:65
+msgid "Permissions disabled"
 msgstr ""
 
-#: models.py:509
-msgid "Ontology"
+#: models/filemodels.py:66
+msgid ""
+"Disable any permission checking for this file. File will be publicly "
+"accessible to anyone."
 msgstr ""
 
-#: models.py:510
-msgid "PDF document"
-msgstr "PDF dokument"
-
-#: models.py:511
-msgid "Flash"
+#: models/foldermodels.py:116
+msgid "created at"
 msgstr ""
 
-#: models.py:512
-msgid "Text"
-msgstr "Text"
-
-#: models.py:513
-#, fuzzy
-msgid "Rich text"
-msgstr "Text"
-
-#: models.py:514 widget/vectorgraphics/models.py:211
-#: widget/vectorgraphics/models.py:212
-msgid "Vector graphics"
-msgstr ""
-
-#: models.py:515
-msgid "Zip archive"
-msgstr ""
-
-#: models.py:516
-msgid "Microsoft Word"
-msgstr ""
-
-#: models.py:517
-msgid "Microsoft Excel"
-msgstr ""
-
-#: models.py:518
-msgid "Microsoft PowerPoint"
-msgstr ""
-
-#: models.py:519
-msgid "Binary"
-msgstr "Binárny"
-
-#: models.py:520
+#: models/foldermodels.py:228
+#: templates/admin/media/widgets/admin_folder.html:3
+#: templates/admin/media/widgets/admin_folder.html:5
 msgid "Folder"
 msgstr ""
 
-#: models.py:537
-msgid "media file translation"
-msgstr ""
-
-#: models.py:538
-msgid "media file translations"
-msgstr ""
-
-#: models.py:563
-#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:21
-msgid "Preview"
-msgstr ""
-
-#: models.py:567
+#: models/foldermodels.py:229
 #, fuzzy
-msgid "category"
-msgstr "Kategórie"
+msgid "Folders"
+msgstr "názov"
 
-#: models.py:569
-msgid "ordering"
-msgstr ""
-
-#: models.py:570
-msgid "featured"
-msgstr ""
-
-#: models.py:571 ext/annotatedimages/models.py:40
-msgid "active"
-msgstr ""
-
-#: models.py:575
+#: models/foldermodels.py:248
 #, fuzzy
-msgid "category file"
-msgstr "kategórie"
+msgid "all items"
+msgstr "odkaz k stiahnutiu"
 
-#: models.py:576
-#, fuzzy
-msgid "category files"
-msgstr "Kategórie"
+#: models/foldermodels.py:249
+msgid "this item only"
+msgstr ""
 
-#: models.py:580
+#: models/foldermodels.py:250
+msgid "this item and all children"
+msgstr ""
+
+#: models/foldermodels.py:254
+msgid "allow"
+msgstr ""
+
+#: models/foldermodels.py:255
+msgid "deny"
+msgstr ""
+
+#: models/foldermodels.py:260
+msgid "type"
+msgstr ""
+
+#: models/foldermodels.py:266
+msgid "group"
+msgstr ""
+
+#: models/foldermodels.py:267
+msgid "everybody"
+msgstr ""
+
+#: models/foldermodels.py:270
+msgid "can edit"
+msgstr ""
+
+#: models/foldermodels.py:272
+msgid "can read"
+msgstr ""
+
+#: models/foldermodels.py:274
+msgid "can add children"
+msgstr ""
+
+#: models/foldermodels.py:319
+msgid "folder permission"
+msgstr ""
+
+#: models/foldermodels.py:320
+msgid "folder permissions"
+msgstr ""
+
+#: models/imagemodels.py:24
+msgid "date taken"
+msgstr ""
+
+#: models/imagemodels.py:27
+msgid "author"
+msgstr ""
+
+#: models/imagemodels.py:29
+msgid "must always publish author credit"
+msgstr ""
+
+#: models/imagemodels.py:30
+msgid "must always publish copyright"
+msgstr ""
+
+#: models/media.py:143
 #, fuzzy
 msgid "All media categories"
 msgstr "galérie"
 
-#: models.py:623
+#: models/virtualitems.py:46
+#: templates/admin/media/tools/clipboard/clipboard.html:26
 #, fuzzy
-msgid "Actions"
-msgstr "popisok"
+msgid "unfiled files"
+msgstr "mediálne súbory"
 
-#: models.py:680 models.py:733
-msgid "No input file given"
+#: models/virtualitems.py:60
+msgid "files with missing metadata"
 msgstr ""
 
-#: models.py:704
-msgid "Could not access storage"
+#: models/virtualitems.py:74 templates/admin/media/breadcrumbs.html:6
+#: templates/admin/media/folder/directory_listing.html:86
+msgid "root"
 msgstr ""
 
-#: models.py:725
+#: templates/admin/media/actions.html:4
+msgid "Run the selected action"
+msgstr ""
+
+#: templates/admin/media/actions.html:4
+msgid "Go"
+msgstr ""
+
+#: templates/admin/media/actions.html:11
+msgid "Click here to select the objects across all pages"
+msgstr ""
+
+#: templates/admin/media/actions.html:11
 #, python-format
-msgid "%d files imported"
+msgid "Select all %(total_count)s files and/or folders"
 msgstr ""
 
-#: models.py:727
+#: templates/admin/media/actions.html:13
+msgid "Clear selection"
+msgstr ""
+
+#: templates/admin/media/breadcrumbs.html:4
+msgid "Go back to admin homepage"
+msgstr ""
+
+#: templates/admin/media/breadcrumbs.html:4
+#: templates/admin/media/folder/change_form.html:7
+#: templates/admin/media/folder/new_folder_form.html:6
+#: templates/admin/media/folder/scan_form.html:6
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:40
+msgid "Home"
+msgstr ""
+
+#: templates/admin/media/breadcrumbs.html:5
+msgid "Go back to Filer app"
+msgstr ""
+
+#: templates/admin/media/breadcrumbs.html:5
+msgid "Filer"
+msgstr ""
+
+#: templates/admin/media/breadcrumbs.html:6
+msgid "Go back to root folder"
+msgstr ""
+
+#: templates/admin/media/breadcrumbs.html:8
+#: templates/admin/media/breadcrumbs.html:11
+#: templates/admin/media/folder/new_folder_form.html:9
 #, python-format
-msgid "ZIP file invalid: %s"
+msgid "Go back to '%(folder_name)s' folder"
 msgstr ""
 
-#: views.py:196
-#, fuzzy
-msgid "Folder name"
-msgstr "veľkosť"
-
-#: views.py:197
-#, fuzzy
-msgid "Location"
-msgstr "popisok"
-
-#: ext/annotatedimages/models.py:18 ext/annotatedimages/models.py:35
-#: ext/annotatedimages/widget/annotatedimage/models.py:14
-#: widget/simpleimage/models.py:28
-msgid "image"
-msgstr "obrázok"
-
-#: ext/annotatedimages/models.py:21
-#: ext/annotatedimages/widget/annotatedimage/models.py:51
-msgid "annotated image"
-msgstr ""
-
-#: ext/annotatedimages/models.py:22
-#: ext/annotatedimages/widget/annotatedimage/models.py:52
-msgid "annotated images"
-msgstr ""
-
-#: ext/annotatedimages/models.py:28
-msgid "above"
-msgstr ""
-
-#: ext/annotatedimages/models.py:29
-#, fuzzy
-msgid "below"
-msgstr "blok"
-
-#: ext/annotatedimages/models.py:30
-#, fuzzy
-msgid "to left"
-msgstr "vľavo"
-
-#: ext/annotatedimages/models.py:31
-#, fuzzy
-msgid "to right"
-msgstr "vpravo"
-
-#: ext/annotatedimages/models.py:36
-msgid "number"
-msgstr ""
-
-#: ext/annotatedimages/models.py:37
-#, fuzzy
-msgid "position"
-msgstr "popisok"
-
-#: ext/annotatedimages/models.py:38
-msgid "link"
-msgstr "odkaz"
-
-#: ext/annotatedimages/models.py:39
-msgid "date"
-msgstr ""
-
-#: ext/annotatedimages/models.py:41 widget/simpleimage/models.py:23
-msgid "left"
-msgstr "vľavo"
-
-#: ext/annotatedimages/models.py:42
-msgid "top"
-msgstr ""
-
-#: ext/annotatedimages/models.py:43
-#: ext/annotatedimages/widget/annotatedimage/models.py:16
-#: widget/flashobject/models.py:30 widget/pdfdocument/models.py:13
-#: widget/simplevideo/models.py:13
-msgid "width"
-msgstr ""
-
-#: ext/annotatedimages/models.py:44
-#: ext/annotatedimages/widget/annotatedimage/models.py:17
-#: widget/flashobject/models.py:31 widget/pdfdocument/models.py:12
-#: widget/simplevideo/models.py:14
-msgid "height"
-msgstr ""
-
-#: ext/annotatedimages/models.py:45
-msgid "author"
-msgstr ""
-
-#: ext/annotatedimages/models.py:49
-msgid "image annotation"
-msgstr ""
-
-#: ext/annotatedimages/models.py:50
-msgid "image annotations"
-msgstr ""
-
-#: ext/annotatedimages/models.py:74
-msgid "title"
-msgstr "názov"
-
-#: ext/annotatedimages/models.py:78
-msgid "annotation text"
-msgstr ""
-
-#: ext/annotatedimages/models.py:79
-msgid "annotation texts"
-msgstr ""
-
-#: ext/annotatedimages/widget/annotatedimage/models.py:15
-msgid "show info"
+#: templates/admin/media/change_form.html:28
+msgid "duplicates"
 msgstr ""
 
 #: templates/admin/media/create_folder.html:6
@@ -473,7 +562,6 @@ msgstr ""
 #: templates/admin/media/create_folder.html:9
 #: templates/admin/media/scan_files.html:9
 #: templates/admin/media/select_folder.html:9
-#: templates/admin/media/upload_files.html:9
 #, fuzzy
 msgid "Media files"
 msgstr "mediálne súbory"
@@ -481,8 +569,6 @@ msgstr "mediálne súbory"
 #: templates/admin/media/create_folder.html:10
 #: templates/admin/media/scan_files.html:10
 #: templates/admin/media/select_folder.html:10
-#: templates/admin/media/upload_files.html:10
-#: templates/admin/media/file/change_list.html:10
 msgid "Project dashboard"
 msgstr ""
 
@@ -492,6 +578,328 @@ msgstr ""
 
 #: templates/admin/media/create_folder.html:28
 msgid "Create folder and upload files"
+msgstr ""
+
+#: templates/admin/media/delete_selected_files_confirmation.html:11
+msgid ""
+"Deleting the selected files and/or folders would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: templates/admin/media/delete_selected_files_confirmation.html:19
+msgid ""
+"Deleting the selected files and/or folders would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: templates/admin/media/delete_selected_files_confirmation.html:27
+msgid ""
+"Are you sure you want to delete the selected files and/or folders? All of "
+"the following objects and their related items will be deleted:"
+msgstr ""
+
+#: templates/admin/media/delete_selected_files_confirmation.html:45
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: templates/admin/media/folder/change_form.html:7
+#: templates/admin/media/folder/change_form.html:8
+#: templates/admin/media/folder/directory_listing.html:86
+#: templates/admin/media/folder/new_folder_form.html:6
+#: templates/admin/media/folder/new_folder_form.html:7
+#: templates/admin/media/folder/scan_form.html:6
+#: templates/admin/media/folder/scan_form.html:7
+msgid "Go back to"
+msgstr ""
+
+#: templates/admin/media/folder/change_form.html:7
+#: templates/admin/media/folder/new_folder_form.html:6
+#: templates/admin/media/folder/scan_form.html:6
+msgid "admin homepage"
+msgstr ""
+
+#: templates/admin/media/folder/change_form.html:8
+#: templates/admin/media/folder/new_folder_form.html:7
+#: templates/admin/media/folder/scan_form.html:7
+msgid "Media"
+msgstr "Média"
+
+#: templates/admin/media/folder/change_form.html:24
+#: templates/admin/media/image/change_form.html:9
+msgid "History"
+msgstr ""
+
+#: templates/admin/media/folder/change_form.html:25
+#: templates/admin/media/image/change_form.html:10
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:18
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:31
+msgid "View on site"
+msgstr ""
+
+#: templates/admin/media/folder/change_form.html:37
+#: templates/admin/media/folder/directory_listing.html:87
+#: templates/admin/media/folder/directory_listing.html:97
+#: templates/admin/media/folder/directory_table.html:23
+#, fuzzy
+msgid "Folder Icon"
+msgstr "veľkosť"
+
+#: templates/admin/media/folder/choose_copy_destination.html:12
+msgid ""
+"Your account doesn't have permissions to copy all of the selected files and/"
+"or folders."
+msgstr ""
+
+#: templates/admin/media/folder/choose_copy_destination.html:15
+#: templates/admin/media/folder/choose_move_destination.html:15
+msgid "There are no destination folders available."
+msgstr ""
+
+#: templates/admin/media/folder/choose_copy_destination.html:18
+msgid "There are no files and/or folders available to copy."
+msgstr ""
+
+#: templates/admin/media/folder/choose_copy_destination.html:20
+msgid ""
+"The following files and/or folders will be copied to a destination folder "
+"(retaining their tree structure):"
+msgstr ""
+
+#: templates/admin/media/folder/choose_copy_destination.html:32
+#: templates/admin/media/folder/choose_move_destination.html:32
+msgid "Destination folder:"
+msgstr ""
+
+#: templates/admin/media/folder/choose_copy_destination.html:39
+msgid "Copy"
+msgstr ""
+
+#: templates/admin/media/folder/choose_images_resize_options.html:12
+msgid ""
+"Your account doesn't have permissions to resize all of the selected images."
+msgstr ""
+
+#: templates/admin/media/folder/choose_images_resize_options.html:15
+msgid "There are no images available to resize."
+msgstr ""
+
+#: templates/admin/media/folder/choose_images_resize_options.html:17
+msgid "The following images will be resized:"
+msgstr ""
+
+#: templates/admin/media/folder/choose_images_resize_options.html:30
+msgid "Choose an existing thumbnail option or enter resize parameters:"
+msgstr ""
+
+#: templates/admin/media/folder/choose_images_resize_options.html:32
+msgid "Choose resize parameters:"
+msgstr ""
+
+#: templates/admin/media/folder/choose_images_resize_options.html:35
+msgid ""
+"Warning: Images will be resized in-place and originals will be lost. Maybe "
+"first make a copy of them to retain the originals."
+msgstr ""
+
+#: templates/admin/media/folder/choose_images_resize_options.html:36
+#, fuzzy
+msgid "Resize"
+msgstr "veľkosť"
+
+#: templates/admin/media/folder/choose_move_destination.html:12
+msgid ""
+"Your account doesn't have permissions to move all of the selected files and/"
+"or folders."
+msgstr ""
+
+#: templates/admin/media/folder/choose_move_destination.html:18
+msgid "There are no files and/or folders available to move."
+msgstr ""
+
+#: templates/admin/media/folder/choose_move_destination.html:20
+msgid ""
+"The following files and/or folders will be moved to a destination folder "
+"(retaining their tree structure):"
+msgstr ""
+
+#: templates/admin/media/folder/choose_move_destination.html:38
+msgid "Move"
+msgstr ""
+
+#: templates/admin/media/folder/choose_rename_format.html:12
+msgid ""
+"Your account doesn't have permissions to rename all of the selected files."
+msgstr ""
+
+#: templates/admin/media/folder/choose_rename_format.html:15
+msgid "There are no files available to rename."
+msgstr ""
+
+#: templates/admin/media/folder/choose_rename_format.html:17
+msgid ""
+"The following files will be renamed (they will stay in their folders and "
+"keep original filename, only displayed filename will be changed):"
+msgstr ""
+
+#: templates/admin/media/folder/choose_rename_format.html:54
+#, fuzzy
+msgid "Rename"
+msgstr "veľkosť"
+
+#: templates/admin/media/folder/directory_listing.html:67
+#, fuzzy
+msgid "Adds a new Folder"
+msgstr "názov"
+
+#: templates/admin/media/folder/directory_listing.html:68
+#, fuzzy
+msgid "New Folder"
+msgstr "názov"
+
+#: templates/admin/media/folder/directory_listing.html:73
+#, fuzzy
+msgid "upload files"
+msgstr "Vložené"
+
+#: templates/admin/media/folder/directory_listing.html:73
+#, fuzzy
+msgid "Upload"
+msgstr "Vložené"
+
+#: templates/admin/media/folder/directory_listing.html:77
+#, fuzzy
+msgid "sync folders"
+msgstr "názov"
+
+#: templates/admin/media/folder/directory_listing.html:77
+#: templates/admin/media/folder/scan_form.html:43
+msgid "Scan"
+msgstr ""
+
+#: templates/admin/media/folder/directory_listing.html:86
+msgid "Go back to the parent folder"
+msgstr ""
+
+#: templates/admin/media/folder/directory_listing.html:88
+#: templates/admin/media/folder/directory_table.html:29
+#: templates/admin/media/tools/search_form.html:17
+#, fuzzy, python-format
+msgid "1 folder"
+msgid_plural "%(counter)s folders"
+msgstr[0] "názov"
+msgstr[1] "názov"
+
+#: templates/admin/media/folder/directory_listing.html:88
+#: templates/admin/media/folder/directory_table.html:29
+#: templates/admin/media/tools/search_form.html:18
+#, fuzzy, python-format
+msgid "1 file"
+msgid_plural "%(counter)s files"
+msgstr[0] "názov"
+msgstr[1] "názov"
+
+#: templates/admin/media/folder/directory_listing.html:92
+msgid "Change current folder details"
+msgstr ""
+
+#: templates/admin/media/folder/directory_listing.html:92
+#: templates/admin/media/folder/directory_table.html:27
+#: templates/admin/media/folder/directory_table.html:43
+msgid "Change"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:13
+msgid "Name"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:23
+#: templates/admin/media/folder/directory_table.html:27
+#: templates/admin/media/folder/directory_table.html:29
+#, python-format
+msgid "Change '%(item_label)s' folder details"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:30
+#: templates/admin/media/folder/directory_table.html:46
+msgid "Owner"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:36
+msgid "Select this file"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:38
+#: templates/admin/media/folder/directory_table.html:43
+#: templates/admin/media/folder/directory_table.html:45
+#, python-format
+msgid "Change '%(item_label)s' details"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:42
+#, python-format
+msgid "Delete '%(item_label)s'"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:42
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:47
+msgid "Permissions"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:47
+msgid "disabled"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:47
+msgid "enabled"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:51
+msgid "Move to clipboard"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:59
+msgid "there are no files or subfolders"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:66
+msgid "previous"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:70
+#, python-format
+msgid ""
+"\n"
+"            Page %(number)s of %(num_pages)s.\n"
+"            "
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:76
+msgid "next"
+msgstr ""
+
+#: templates/admin/media/folder/new_folder_form.html:16
+#: templates/admin/media/folder/scan_form.html:19
+#, fuzzy
+msgid "Add new"
+msgstr "Nahrať nové"
+
+#: templates/admin/media/folder/new_folder_form.html:25
+#: templates/admin/media/folder/scan_form.html:28
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/media/folder/new_folder_form.html:40
+msgid "Save"
+msgstr ""
+
+#: templates/admin/media/image/change_form.html:21
+msgid "Full size preview"
 msgstr ""
 
 #: templates/admin/media/scan_files.html:6
@@ -510,32 +918,94 @@ msgstr ""
 msgid "Select folder for upload"
 msgstr "Vyberte súbory pre nahranie"
 
-#: templates/admin/media/upload_files.html:6
-#: templates/admin/media/upload_files.html:14
+#: templates/admin/media/tools/clipboard/clipboard.html:7
+msgid "Clipboard"
+msgstr ""
+
+#: templates/admin/media/tools/clipboard/clipboard.html:19
+msgid "Paste all items here"
+msgstr ""
+
+#: templates/admin/media/tools/clipboard/clipboard.html:26
+msgid "discard"
+msgstr ""
+
+#: templates/admin/media/tools/clipboard/clipboard.html:26
+msgid "Move all clipboard files to"
+msgstr ""
+
+#: templates/admin/media/tools/clipboard/clipboard.html:43
+msgid "the clipboard is empty"
+msgstr ""
+
+#: templates/admin/media/tools/clipboard/clipboard_item_rows.html:11
 #, fuzzy
-msgid "Upload files to folder"
+msgid "upload failed"
 msgstr "Vložené"
 
-#: templates/admin/media/upload_files.html:34
-#, fuzzy
-msgid "Select files to upload..."
-msgstr "Vyberte súbory pre nahranie"
+#: templates/admin/media/tools/search_form.html:7
+#: templates/admin/media/tools/search_form.html:13
+msgid "Search"
+msgstr "Hľadať"
 
-#: templates/admin/media/file/change_list.html:7
-#, fuzzy
-msgid "Add folder"
-msgstr "názov"
-
-#: templates/admin/media/file/change_list.html:8
-msgid "Scan media"
+#: templates/admin/media/tools/search_form.html:12
+msgid "Enter your search phrase here"
 msgstr ""
 
-#: templates/admin/media/file/change_list.html:17
-msgid "Bulk upload a ZIP file"
+#: templates/admin/media/tools/search_form.html:13
+msgid "Click here to"
 msgstr ""
 
-#: templates/admin/media/file/change_list.html:26
-msgid "Send"
+#: templates/admin/media/tools/search_form.html:13
+msgid "run search for entered phrase"
+msgstr ""
+
+#: templates/admin/media/tools/search_form.html:14
+msgid "Check it to"
+msgstr ""
+
+#: templates/admin/media/tools/search_form.html:14
+#: templates/admin/media/tools/search_form.html:15
+msgid "limit the search to current folder"
+msgstr ""
+
+#: templates/admin/media/tools/search_form.html:17
+msgid "found"
+msgstr ""
+
+#: templates/admin/media/tools/search_form.html:17
+msgid "and"
+msgstr ""
+
+#: templates/admin/media/tools/search_form.html:18
+msgid "cancel search"
+msgstr ""
+
+#: templates/admin/media/tools/upload_button_js.html:24
+#: templates/admin/media/widgets/admin_file.html:8
+#: templates/admin/media/widgets/admin_file.html:9
+#, fuzzy
+msgid "file missing"
+msgstr "veľkosť"
+
+#: templates/admin/media/widgets/admin_file.html:12
+msgid "no file selected"
+msgstr ""
+
+#: templates/admin/media/widgets/admin_file.html:15
+#: templates/admin/media/widgets/admin_file.html:16
+#: templates/admin/media/widgets/admin_folder.html:7
+#: templates/admin/media/widgets/admin_folder.html:8
+msgid "Lookup"
+msgstr ""
+
+#: templates/admin/media/widgets/admin_file.html:18
+#: templates/admin/media/widgets/admin_folder.html:10
+msgid "Clear"
+msgstr ""
+
+#: templates/admin/media/widgets/admin_folder.html:5
+msgid "none selected"
 msgstr ""
 
 #: templates/admin/svg/edit_link.html:2
@@ -550,50 +1020,45 @@ msgstr ""
 msgid "View"
 msgstr "Skrýť"
 
-#: templates/media/category_detail_standalone.html:51
-msgid "LOADING..."
-msgstr ""
-
-#: templates/media/category_detail_standalone.html:53
-msgid "Click for next image"
-msgstr ""
-
-#: templates/media/category_list.html:30
-#: templates/media/category_list_nested.html:66
+#: templates/media/directory_list.html:27
+#: templates/media/directory_list_nested.html:57
 msgid "Back to"
 msgstr ""
 
-#: templates/media/category_list_nested.html:49
-#: templates/media/category_list_nested.html:56
+#: templates/media/directory_list_nested.html:40
+#: templates/media/directory_list_nested.html:47
 msgid "items"
 msgstr ""
 
-#: templates/widget/flashobject/default.html:8
-#: templates/widget/simplevideo/default.html:8
+#: templates/widget/flashobject/default.html:7
+#: templates/widget/simplevideo/default.html:7
 msgid ""
 "Click link to get Flash Player or try to enable JavaScript and reload the "
 "page."
 msgstr ""
 
-#: templates/widget/flashobject/default.html:9
-#: templates/widget/simplevideo/default.html:11
+#: templates/widget/flashobject/default.html:8
+#: templates/widget/simplevideo/default.html:10
 msgid "Get Adobe Flash player"
 msgstr ""
 
-#: widget/downloaditem/models.py:15
+#: views.py:39
+msgid "Click for listing or type for searching"
+msgstr ""
+
+#: views.py:171
+msgid "Folder with this name already exists."
+msgstr ""
+
+#: widget/downloaditem/models.py:14
 #, fuzzy
 msgid "download item"
 msgstr "odkaz k stiahnutiu"
 
-#: widget/downloaditem/models.py:16
+#: widget/downloaditem/models.py:15
 #, fuzzy
 msgid "download items"
 msgstr "odkaz k stiahnutiu"
-
-#: widget/downloadlist/models.py:11 widget/mediagallery/models.py:23
-#, fuzzy
-msgid "files"
-msgstr "názov"
 
 #: widget/downloadlist/models.py:15
 #, fuzzy
@@ -605,11 +1070,11 @@ msgstr "odkaz k stiahnutiu"
 msgid "download lists"
 msgstr "odkaz k stiahnutiu"
 
-#: widget/flashobject/models.py:11
+#: widget/flashobject/models.py:9
 msgid "version 10 and newer"
 msgstr ""
 
-#: widget/flashobject/models.py:12
+#: widget/flashobject/models.py:10
 msgid "version 9 and newer"
 msgstr ""
 
@@ -618,136 +1083,124 @@ msgstr ""
 msgid "flash file"
 msgstr "Nahrať súbory"
 
-#: widget/flashobject/models.py:29
+#: widget/flashobject/models.py:30
 msgid "flash version"
 msgstr ""
 
-#: widget/flashobject/models.py:32
+#: widget/flashobject/models.py:35
 msgid "variables"
 msgstr ""
 
-#: widget/flashobject/models.py:33
+#: widget/flashobject/models.py:37
 msgid "parameters"
 msgstr ""
 
-#: widget/flashobject/models.py:34
+#: widget/flashobject/models.py:39
 #, fuzzy
 msgid "attributes"
 msgstr "Kategórie"
 
-#: widget/flashobject/models.py:38
+#: widget/flashobject/models.py:43
 msgid "flash object"
 msgstr ""
 
-#: widget/flashobject/models.py:39
+#: widget/flashobject/models.py:44
 msgid "flash objects"
 msgstr ""
 
-#: widget/internetvideo/models.py:25
+#: widget/internetvideo/models.py:29
 #, fuzzy
 msgid "video link"
 msgstr "odkaz k stiahnutiu"
 
-#: widget/internetvideo/models.py:26
+#: widget/internetvideo/models.py:30
 msgid ""
 "This should be a link to a youtube or vimeo video, i.e.: http://www.youtube."
 "com/watch?v=zmj1rpzDRZ0"
 msgstr ""
 
-#: widget/internetvideo/models.py:42
+#: widget/internetvideo/models.py:46
 msgid "internet video"
 msgstr ""
 
-#: widget/internetvideo/models.py:43
+#: widget/internetvideo/models.py:47
 msgid "internet videos"
 msgstr ""
 
-#: widget/mediagallery/models.py:11
-msgid "modal window"
-msgstr "modálne okno"
-
-#: widget/mediagallery/models.py:12
-msgid "link to file"
-msgstr ""
-
-#: widget/mediagallery/models.py:13
-msgid "on page"
-msgstr ""
-
-#: widget/mediagallery/models.py:17 widget/simpleimage/models.py:17
-msgid "small"
-msgstr "malý"
-
-#: widget/mediagallery/models.py:18 widget/simpleimage/models.py:18
-msgid "medium"
-msgstr "stredný"
-
-#: widget/mediagallery/models.py:19 widget/simpleimage/models.py:19
-msgid "large"
-msgstr "veľký"
-
-#: widget/mediagallery/models.py:24
-#, fuzzy
-msgid "thumbnail size"
-msgstr "veľkosť"
-
-#: widget/mediagallery/models.py:25
-#, fuzzy
-msgid "detail view"
-msgstr "detail"
-
-#: widget/mediagallery/models.py:48
-#, fuzzy
-msgid "media gallery"
-msgstr "galéria"
-
-#: widget/mediagallery/models.py:49
-#, fuzzy
-msgid "media galleries"
-msgstr "galérie"
-
-#: widget/pdfdocument/models.py:11 widget/pdfdocument/models.py:17
-#, fuzzy
-msgid "pdf document"
-msgstr "PDF dokument"
-
-#: widget/pdfdocument/models.py:18
-#, fuzzy
-msgid "pdf documents"
-msgstr "PDF dokument"
-
-#: widget/simpleimage/models.py:12
+#: widget/mediagallery/models.py:11 widget/simpleimage/models.py:9
 #, fuzzy
 msgid "open in modal window"
 msgstr "modálne okno"
 
-#: widget/simpleimage/models.py:13
-msgid "go to linked page"
+#: widget/mediagallery/models.py:12 widget/simpleimage/models.py:10
+#, fuzzy
+msgid "open new window"
+msgstr "modálne okno"
+
+#: widget/mediagallery/models.py:13 widget/simpleimage/models.py:11
+msgid "disply in page"
 msgstr ""
 
-#: widget/simpleimage/models.py:24
-#, fuzzy
-msgid "right"
-msgstr "vpravo"
+#: widget/mediagallery/models.py:17 widget/simpleimage/models.py:15
+msgid "small"
+msgstr "malý"
 
-#: widget/simpleimage/models.py:29
+#: widget/mediagallery/models.py:18 widget/simpleimage/models.py:16
+msgid "medium"
+msgstr "stredný"
+
+#: widget/mediagallery/models.py:19 widget/simpleimage/models.py:17
+msgid "large"
+msgstr "veľký"
+
+#: widget/mediagallery/models.py:25
+msgid "Directory"
+msgstr ""
+
+#: widget/mediagallery/models.py:27
+#, fuzzy
+msgid "thumbnail size"
+msgstr "veľkosť"
+
+#: widget/mediagallery/models.py:29
+#, fuzzy
+msgid "detail view"
+msgstr "detail"
+
+#: widget/mediagallery/models.py:41
+#, fuzzy
+msgid "media gallery"
+msgstr "galéria"
+
+#: widget/mediagallery/models.py:42
+#, fuzzy
+msgid "media galleries"
+msgstr "galérie"
+
+#: widget/pdfdocument/models.py:11 widget/pdfdocument/models.py:19
+#, fuzzy
+msgid "pdf document"
+msgstr "PDF dokument"
+
+#: widget/pdfdocument/models.py:20
+#, fuzzy
+msgid "pdf documents"
+msgstr "PDF dokument"
+
+#: widget/simpleimage/models.py:24
 #, fuzzy
 msgid "size"
 msgstr "veľkosť"
 
-#: widget/simpleimage/models.py:30
+#: widget/simpleimage/models.py:25
 msgid "on click action"
 msgstr ""
 
-#: widget/simpleimage/models.py:31
-msgid "alignment"
-msgstr ""
-
-#: widget/simpleimage/models.py:43
+#: widget/simpleimage/models.py:34
 msgid "simple image"
 msgstr ""
 
-#: widget/simpleimage/models.py:44
+#: widget/simpleimage/models.py:35
 msgid "simple images"
 msgstr ""
 
@@ -755,18 +1208,21 @@ msgstr ""
 msgid "thumbnail"
 msgstr ""
 
-#: widget/simplevideo/models.py:12
+#: widget/simplevideo/models.py:13
 #, fuzzy
 msgid "video"
 msgstr "Skrýť"
 
-#: widget/simplevideo/models.py:18 widget/simplevideo/models.py:19
+#: widget/simplevideo/models.py:19 widget/simplevideo/models.py:20
 msgid "simple video"
 msgstr ""
 
-#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:18
-#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:31
-msgid "View on site"
+#: widget/vectorgraphics/models.py:15 widget/vectorgraphics/models.py:16
+msgid "Vector graphics"
+msgstr ""
+
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:21
+msgid "Preview"
 msgstr ""
 
 #: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:24
@@ -782,17 +1238,103 @@ msgstr ""
 msgid "Create hidden copy of this page"
 msgstr ""
 
-#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:40
-msgid "Home"
-msgstr ""
+#~ msgid "media category"
+#~ msgstr "galéria"
+
+#~ msgid "media categories"
+#~ msgstr "galérie"
 
 #, fuzzy
-#~ msgid "Upload files"
-#~ msgstr "Vložené"
+#~ msgid "category translation"
+#~ msgstr "kategórie"
 
 #, fuzzy
-#~ msgid "Add %(name)s"
-#~ msgstr "Nahrať nové"
+#~ msgid "category translations"
+#~ msgstr "Kategórie"
+
+#, fuzzy
+#~ msgid "all media categories"
+#~ msgstr "galérie"
+
+#, fuzzy
+#~ msgid "copyright"
+#~ msgstr "vpravo"
+
+#, fuzzy
+#~ msgid "categories"
+#~ msgstr "Kategórie"
+
+#, fuzzy
+#~ msgid "media file"
+#~ msgstr "mediálny súbor"
+
+#~ msgid "Image"
+#~ msgstr "Obrázok"
+
+#, fuzzy
+#~ msgid "Video"
+#~ msgstr "Skrýť"
+
+#~ msgid "PDF document"
+#~ msgstr "PDF dokument"
+
+#~ msgid "Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Rich text"
+#~ msgstr "Text"
+
+#~ msgid "Binary"
+#~ msgstr "Binárny"
+
+#, fuzzy
+#~ msgid "category"
+#~ msgstr "Kategórie"
+
+#, fuzzy
+#~ msgid "category file"
+#~ msgstr "kategórie"
+
+#, fuzzy
+#~ msgid "category files"
+#~ msgstr "Kategórie"
+
+#, fuzzy
+#~ msgid "Location"
+#~ msgstr "popisok"
+
+#, fuzzy
+#~ msgid "below"
+#~ msgstr "blok"
+
+#, fuzzy
+#~ msgid "to left"
+#~ msgstr "vľavo"
+
+#, fuzzy
+#~ msgid "to right"
+#~ msgstr "vpravo"
+
+#, fuzzy
+#~ msgid "position"
+#~ msgstr "popisok"
+
+#~ msgid "link"
+#~ msgstr "odkaz"
+
+#~ msgid "left"
+#~ msgstr "vľavo"
+
+#~ msgid "title"
+#~ msgstr "názov"
+
+#~ msgid "modal window"
+#~ msgstr "modálne okno"
+
+#, fuzzy
+#~ msgid "right"
+#~ msgstr "vpravo"
 
 #, fuzzy
 #~ msgid "Media categories"
@@ -801,9 +1343,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "parent category"
 #~ msgstr "kategórie"
-
-#~ msgid "Media"
-#~ msgstr "Média"
 
 #~ msgid "Library"
 #~ msgstr "Knihovňa"
@@ -873,9 +1412,6 @@ msgstr ""
 
 #~ msgid "Dimensions"
 #~ msgstr "Rozmery"
-
-#~ msgid "Search"
-#~ msgstr "Hľadať"
 
 #~ msgid "Video from unknown portal"
 #~ msgstr "Video z neznámeho portálu"

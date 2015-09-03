@@ -1,0 +1,992 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-03 11:16+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: __init__.py:131
+msgid "Horizon"
+msgstr ""
+
+#: __init__.py:143
+msgid "Site specific meta keywords"
+msgstr ""
+
+#: __init__.py:144
+msgid "Site specific meta description"
+msgstr ""
+
+#: __init__.py:145
+msgid "Site specific meta title"
+msgstr ""
+
+#: __init__.py:146
+msgid "Debug mode"
+msgstr ""
+
+#: admin.py:35
+msgid "Other options"
+msgstr ""
+
+#: const.py:12 const.py:28
+msgid "Content"
+msgstr ""
+
+#: const.py:13
+msgid "Left sidebar"
+msgstr ""
+
+#: const.py:14
+msgid "Right sidebar"
+msgstr ""
+
+#: const.py:15 const.py:27
+msgid "Header"
+msgstr ""
+
+#: const.py:16 const.py:29
+msgid "Footer"
+msgstr ""
+
+#: const.py:17 const.py:30
+msgid "Toolbar"
+msgstr ""
+
+#: const.py:18 const.py:31
+msgid "Preview"
+msgstr ""
+
+#: const.py:19 const.py:32
+msgid "Helper"
+msgstr ""
+
+#: const.py:22 const.py:26
+msgid "Left column"
+msgstr ""
+
+#: const.py:23
+msgid "Right column"
+msgstr ""
+
+#: const.py:24
+msgid "Main content"
+msgstr ""
+
+#: const.py:25
+msgid "Center column"
+msgstr ""
+
+#: const.py:40
+msgid "1 column"
+msgstr ""
+
+#: const.py:50
+msgid "2 same columns"
+msgstr ""
+
+#: const.py:60
+msgid "2 columns right"
+msgstr ""
+
+#: const.py:70
+msgid "2 columns left"
+msgstr ""
+
+#: const.py:80
+msgid "3 columns"
+msgstr ""
+
+#: const.py:90
+msgid "3 same columns"
+msgstr ""
+
+#: const.py:96
+msgid "Dashboard"
+msgstr ""
+
+#: const.py:102
+msgid "API"
+msgstr ""
+
+#: const.py:110 const.py:117
+msgid "Fixed"
+msgstr ""
+
+#: const.py:111 const.py:118
+msgid "Fluid"
+msgstr ""
+
+#: const.py:112
+msgid "Boxed"
+msgstr ""
+
+#: const.py:116
+msgid "Inline"
+msgstr ""
+
+#: const.py:122
+msgid "Left"
+msgstr ""
+
+#: const.py:123
+msgid "Center"
+msgstr ""
+
+#: const.py:124
+msgid "Right"
+msgstr ""
+
+#: const.py:138
+msgid "Extra small"
+msgstr ""
+
+#: const.py:139
+msgid "Small"
+msgstr ""
+
+#: const.py:140
+msgid "Medium"
+msgstr ""
+
+#: const.py:141
+msgid "Large"
+msgstr ""
+
+#: const.py:146
+msgid "1 col"
+msgstr ""
+
+#: const.py:147
+msgid "2 cols"
+msgstr ""
+
+#: const.py:148
+msgid "3 cols"
+msgstr ""
+
+#: const.py:149
+msgid "4 cols"
+msgstr ""
+
+#: const.py:150
+msgid "5 cols"
+msgstr ""
+
+#: const.py:151
+msgid "6 cols"
+msgstr ""
+
+#: const.py:152
+msgid "7 cols"
+msgstr ""
+
+#: const.py:153
+msgid "8 cols"
+msgstr ""
+
+#: const.py:154
+msgid "9 cols"
+msgstr ""
+
+#: const.py:155
+msgid "10 cols"
+msgstr ""
+
+#: const.py:156
+msgid "11 cols"
+msgstr ""
+
+#: const.py:157
+msgid "12 cols"
+msgstr ""
+
+#: const.py:162
+msgid "1 row"
+msgstr ""
+
+#: const.py:163
+msgid "2 rows"
+msgstr ""
+
+#: const.py:164
+msgid "3 rows"
+msgstr ""
+
+#: const.py:165
+msgid "4 rows"
+msgstr ""
+
+#: const.py:166
+msgid "5 rows"
+msgstr ""
+
+#: const.py:167
+msgid "6 rows"
+msgstr ""
+
+#: const.py:168
+msgid "7 rows"
+msgstr ""
+
+#: const.py:169
+msgid "8 rows"
+msgstr ""
+
+#: const.py:170
+msgid "9 rows"
+msgstr ""
+
+#: const.py:171
+msgid "10 rows"
+msgstr ""
+
+#: const.py:172
+msgid "11 rows"
+msgstr ""
+
+#: const.py:173
+msgid "12 rows"
+msgstr ""
+
+#: const.py:177
+msgid "none"
+msgstr ""
+
+#: const.py:178
+msgid "break before"
+msgstr ""
+
+#: const.py:179
+msgid "break after"
+msgstr ""
+
+#: const.py:183
+msgid "no border"
+msgstr ""
+
+#: const.py:184
+msgid "border"
+msgstr ""
+
+#: const.py:185
+msgid "wide border"
+msgstr ""
+
+#: const.py:189
+msgid "auto"
+msgstr ""
+
+#: const.py:190
+msgid "left"
+msgstr ""
+
+#: const.py:191
+msgid "center"
+msgstr ""
+
+#: const.py:192
+msgid "right"
+msgstr ""
+
+#: const.py:196
+msgid "top"
+msgstr ""
+
+#: const.py:197
+msgid "middle"
+msgstr ""
+
+#: const.py:198
+msgid "bottom"
+msgstr ""
+
+#: models/page.py:18 models/page.py:84
+msgid "Page"
+msgstr ""
+
+#: models/page.py:21
+msgid "Column 1 width"
+msgstr ""
+
+#: models/page.py:23
+msgid "Column 2 width"
+msgstr ""
+
+#: models/page.py:25
+msgid "Column 3 width"
+msgstr ""
+
+#: models/page.py:32
+msgid "Page dimension"
+msgstr ""
+
+#: models/page.py:33
+msgid "Page dimensions"
+msgstr ""
+
+#: models/page.py:40 models/page.py:59 models/widget.py:105
+#: models/widget.py:127
+msgid "Name"
+msgstr ""
+
+#: models/page.py:42 models/page.py:61 models/widget.py:107
+#: models/widget.py:129 models/widget.py:157
+msgid "Title"
+msgstr ""
+
+#: models/page.py:44 models/page.py:65
+msgid "Template"
+msgstr ""
+
+#: models/page.py:45
+msgid "Style"
+msgstr ""
+
+#: models/page.py:51
+msgid "Page theme"
+msgstr ""
+
+#: models/page.py:52
+msgid "Page themes"
+msgstr ""
+
+#: models/page.py:62 page/common/forms.py:65
+msgid "Styles"
+msgstr ""
+
+#: models/page.py:63
+msgid "variables"
+msgstr ""
+
+#: models/page.py:71
+msgid "Page color scheme"
+msgstr ""
+
+#: models/page.py:72
+msgid "Page color schemes"
+msgstr ""
+
+#: models/page.py:78 models/widget.py:165 page/common/forms.py:49
+msgid "Layout"
+msgstr ""
+
+#: models/page.py:79 models/widget.py:52 page/common/forms.py:38
+#: page/forms.py:110 page/forms.py:170 widgets/forms.py:56
+msgid "Theme"
+msgstr ""
+
+#: models/page.py:81 models/widget.py:186
+msgid "Color scheme"
+msgstr ""
+
+#: models/page.py:85
+msgid "Pages"
+msgstr ""
+
+#: models/widget.py:58 widgets/forms.py:64
+msgid "Effects"
+msgstr ""
+
+#: models/widget.py:77
+msgid "Width"
+msgstr ""
+
+#: models/widget.py:79 widgets/tables.py:81
+msgid "Height"
+msgstr ""
+
+#: models/widget.py:81 widgets/tables.py:82
+msgid "Offset"
+msgstr ""
+
+#: models/widget.py:97
+msgid "Widget dimension"
+msgstr ""
+
+#: models/widget.py:98
+msgid "Widget dimensions"
+msgstr ""
+
+#: models/widget.py:109
+msgid "Content template"
+msgstr ""
+
+#: models/widget.py:111
+msgid "Content style"
+msgstr ""
+
+#: models/widget.py:113
+msgid "Widget class"
+msgstr ""
+
+#: models/widget.py:119
+msgid "Widget content theme"
+msgstr ""
+
+#: models/widget.py:120
+msgid "Widget content themes"
+msgstr ""
+
+#: models/widget.py:131
+msgid "Base template"
+msgstr ""
+
+#: models/widget.py:134
+msgid "Base style"
+msgstr ""
+
+#: models/widget.py:140
+msgid "Widget base theme"
+msgstr ""
+
+#: models/widget.py:141
+msgid "Widget base themes"
+msgstr ""
+
+#: models/widget.py:153
+msgid "prerendered content"
+msgstr ""
+
+#: models/widget.py:155
+msgid "Is visible?"
+msgstr ""
+
+#: models/widget.py:159
+msgid "Base theme"
+msgstr ""
+
+#: models/widget.py:162
+msgid "Content theme"
+msgstr ""
+
+#: models/widget.py:168
+msgid "Alignment"
+msgstr ""
+
+#: models/widget.py:171
+msgid "Vertical Alignment"
+msgstr ""
+
+#: models/widget.py:176
+msgid "Enter effect style"
+msgstr ""
+
+#: models/widget.py:180
+msgid "Enter Effect Duration"
+msgstr ""
+
+#: models/widget.py:208
+msgid "Abstract widget"
+msgstr ""
+
+#: models/widget.py:209
+msgid "Abstract widgets"
+msgstr ""
+
+#: page/common/forms.py:24
+msgid "Page ID"
+msgstr ""
+
+#: page/common/forms.py:27 page/forms.py:42
+msgid "Color Scheme"
+msgstr ""
+
+#: page/common/forms.py:31 page/common/forms.py:42
+msgid "Click to expand."
+msgstr ""
+
+#: page/common/forms.py:52
+msgid "Depth"
+msgstr ""
+
+#: page/common/forms.py:53
+msgid "From Root ?"
+msgstr ""
+
+#: page/common/forms.py:60
+msgid "Options"
+msgstr ""
+
+#: page/common/forms.py:73
+msgid "Select Layout"
+msgstr ""
+
+#: page/common/views.py:37
+msgid "Change Pages"
+msgstr ""
+
+#: page/common/views.py:38
+msgid "Apply"
+msgstr ""
+
+#: page/dimension/forms.py:31
+msgid "Summary of dimensions must be 12"
+msgstr ""
+
+#: page/forms.py:92 page/forms.py:152
+msgid "Main"
+msgstr ""
+
+#: page/forms.py:99 page/forms.py:166
+msgid "Navigation"
+msgstr ""
+
+#: page/forms.py:103 page/forms.py:159
+msgid "Heading"
+msgstr ""
+
+#: page/forms.py:107 page/forms.py:163
+msgid "Publication"
+msgstr ""
+
+#: page/forms.py:188 widgets/forms.py:90
+msgid "Dimensions"
+msgstr ""
+
+#: page/tables.py:49
+msgid "Override page dimension"
+msgstr ""
+
+#: page/tables.py:66
+msgid "Delete Page Dimension"
+msgid_plural "Delete Page Dimension"
+msgstr[0] ""
+msgstr[1] ""
+
+#: page/tables.py:74
+msgid "Deleted Page Dimension"
+msgid_plural "Deleted Page Dimension"
+msgstr[0] ""
+msgstr[1] ""
+
+#: page/tables.py:109 widget/icon/models.py:22 widgets/tables.py:79
+msgid "Size"
+msgstr ""
+
+#: page/tables.py:111
+msgid "Column 2 Width"
+msgstr ""
+
+#: page/tables.py:112
+msgid "Column 3 Width"
+msgstr ""
+
+#: page/views.py:32 templates/base/actions.html:6
+msgid "Create Page"
+msgstr ""
+
+#: page/views.py:34 page/views.py:156
+msgid "Create"
+msgstr ""
+
+#: page/views.py:43
+#, python-format
+msgid "Page %s was successfully crated."
+msgstr ""
+
+#: page/views.py:85
+msgid "Update Page"
+msgstr ""
+
+#: page/views.py:87
+msgid "Update"
+msgstr ""
+
+#: page/views.py:154
+msgid "Add Page Dimesion"
+msgstr ""
+
+#: page/views.py:194 templates/base/widget/_edit.html:14
+#: templates/widget/base.html:8 widgets/views.py:175
+msgid "Delete"
+msgstr ""
+
+#: templates/404.html:11 templates/404_technical.html:36
+msgid "Create Page with the "
+msgstr ""
+
+#: templates/404.html:11 templates/404_technical.html:36
+msgid "slug"
+msgstr ""
+
+#: templates/auth/login.html:4 templates/auth/login.html.py:7
+msgid "Login"
+msgstr ""
+
+#: templates/auth/logout.html:6
+msgid "Logout successful"
+msgstr ""
+
+#: templates/auth/logout.html:10
+msgid "You have been successfully logged out."
+msgstr ""
+
+#: templates/auth/password_reset_complete.html:6
+msgid "Password reset complete"
+msgstr ""
+
+#: templates/auth/password_reset_complete.html:10
+#: templates/auth/password_reset_form.html:7
+#: templates/auth/password_reset_form.html:11
+msgid "Password Reset"
+msgstr ""
+
+#: templates/auth/password_reset_complete.html:14
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr ""
+
+#: templates/auth/password_reset_complete.html:16
+#: templates/auth/password_reset_done.html:16
+msgid "Log In"
+msgstr ""
+
+#: templates/auth/password_reset_confirm.html:8
+#: templates/auth/password_reset_confirm.html:15
+#: templates/auth/password_reset_confirm.html:24
+msgid "Enter new password"
+msgstr ""
+
+#: templates/auth/password_reset_confirm.html:10
+#: templates/auth/password_reset_confirm.html:15
+msgid "Password reset unsuccessful"
+msgstr ""
+
+#: templates/auth/password_reset_confirm.html:22
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: templates/auth/password_reset_confirm.html:31
+#: templates/auth/password_reset_form.html:26
+msgid "Required fields"
+msgstr ""
+
+#: templates/auth/password_reset_confirm.html:36
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: templates/auth/password_reset_done.html:6
+#: templates/auth/password_reset_done.html:10
+msgid "Password reset e-mail sent"
+msgstr ""
+
+#: templates/auth/password_reset_done.html:14
+msgid ""
+"We've e-mailed a link to retrieve your new password to the e-mail address "
+"you submitted."
+msgstr ""
+
+#: templates/auth/password_reset_form.html:15
+msgid "Enter e-mail address you have entered during registration process."
+msgstr ""
+
+#: templates/auth/password_reset_form.html:16
+msgid ""
+"You will receive immediatelly a link with an option to set a new password."
+msgstr ""
+
+#: templates/auth/password_reset_form.html:20
+msgid "Account e-mail address"
+msgstr ""
+
+#: templates/auth/password_reset_form.html:27
+msgid "Back"
+msgstr ""
+
+#: templates/base/actions.html:7
+msgid "Delete Page"
+msgstr ""
+
+#: templates/base/actions.html:9
+msgid "Edit Page"
+msgstr ""
+
+#: templates/base/actions.html:10
+msgid "Mass Update"
+msgstr ""
+
+#: templates/base/actions.html:11
+msgid "Open Admin"
+msgstr ""
+
+#: templates/base/actions.html:12
+msgid "Stop Editing"
+msgstr ""
+
+#: templates/base/widget/_edit.html:11 templates/widget/base.html:7
+msgid "Edit"
+msgstr ""
+
+#: templates/base/widget/_edit.html:12
+msgid "Info"
+msgstr ""
+
+#: templates/widget/siteheading/navbar.html:8
+msgid "Toggle navigation"
+msgstr ""
+
+#: widget/application/models.py:55
+msgid "application"
+msgstr ""
+
+#: widget/application/models.py:214
+msgid "External application"
+msgstr ""
+
+#: widget/application/models.py:215
+msgid "External applications"
+msgstr ""
+
+#: widget/feedreader/models.py:14
+msgid "Modal window"
+msgstr ""
+
+#: widget/feedreader/models.py:15
+msgid "Blank window"
+msgstr ""
+
+#: widget/feedreader/models.py:20
+msgid "max. items"
+msgstr ""
+
+#: widget/feedreader/models.py:24
+msgid "feed reader"
+msgstr ""
+
+#: widget/feedreader/models.py:25
+msgid "feed readers"
+msgstr ""
+
+#: widget/htmltext/models.py:19 widget/htmltext/models.py:94
+#: widget/markuptext/models.py:9
+msgid "text"
+msgstr ""
+
+#: widget/htmltext/models.py:36
+msgid "HTML Tidy"
+msgstr ""
+
+#: widget/htmltext/models.py:37
+msgid "Ignore the HTML validation warnings"
+msgstr ""
+
+#: widget/htmltext/models.py:65
+#, python-format
+msgid ""
+"HTML validation produced %(count)d warnings. Please review the updated "
+"content below before continuing: %(messages)s"
+msgstr ""
+
+#: widget/htmltext/models.py:98
+msgid "HTML text"
+msgstr ""
+
+#: widget/htmltext/models.py:99
+msgid "HTML texts"
+msgstr ""
+
+#: widget/htmltext/models.py:108
+msgid "Empty element"
+msgstr ""
+
+#: widget/icon/const.py:602
+msgid "Normal"
+msgstr ""
+
+#: widget/icon/const.py:603
+msgid "Larger"
+msgstr ""
+
+#: widget/icon/const.py:604
+msgid "2x larger"
+msgstr ""
+
+#: widget/icon/const.py:605
+msgid "3x larger"
+msgstr ""
+
+#: widget/icon/const.py:606
+msgid "4x larger"
+msgstr ""
+
+#: widget/icon/const.py:607
+msgid "5x larger"
+msgstr ""
+
+#: widget/icon/const.py:608
+msgid "10x larger"
+msgstr ""
+
+#: widget/icon/const.py:609
+msgid "15x larger"
+msgstr ""
+
+#: widget/icon/const.py:610
+msgid "20x larger"
+msgstr ""
+
+#: widget/icon/const.py:611
+msgid "25x larger"
+msgstr ""
+
+#: widget/icon/models.py:19 widget/icon/models.py:30
+msgid "Icon"
+msgstr ""
+
+#: widget/icon/models.py:24
+msgid "Spin"
+msgstr ""
+
+#: widget/icon/models.py:26
+msgid "Border"
+msgstr ""
+
+#: widget/icon/models.py:31
+msgid "Icons"
+msgstr ""
+
+#: widget/markuptext/models.py:10
+msgid "Empty text"
+msgstr ""
+
+#: widget/markuptext/models.py:14
+msgid "markup text"
+msgstr ""
+
+#: widget/markuptext/models.py:15
+msgid "markup texts"
+msgstr ""
+
+#: widget/pagetitle/models.py:12
+msgid "page title"
+msgstr ""
+
+#: widget/pagetitle/models.py:13
+msgid "page titles"
+msgstr ""
+
+#: widget/siteheading/models.py:13
+msgid "Site Title"
+msgstr ""
+
+#: widget/siteheading/models.py:15
+msgid "Logo"
+msgstr ""
+
+#: widget/siteheading/models.py:17
+msgid "Tagline"
+msgstr ""
+
+#: widget/siteheading/models.py:32
+msgid "site heading"
+msgstr ""
+
+#: widget/siteheading/models.py:33
+msgid "site headings"
+msgstr ""
+
+#: widget/table/models.py:97
+msgid "plain"
+msgstr ""
+
+#: widget/table/models.py:98
+msgid "title row"
+msgstr ""
+
+#: widget/table/models.py:100
+msgid "title row and column"
+msgstr ""
+
+#: widget/table/models.py:106
+msgid "table"
+msgstr ""
+
+#: widget/table/models.py:107
+msgid "tables"
+msgstr ""
+
+#: widget/table/models.py:116
+msgid "type"
+msgstr ""
+
+#: widget/table/models.py:120
+msgid "data"
+msgstr ""
+
+#: widgets/forms.py:58
+msgid "Positions"
+msgstr ""
+
+#: widgets/mixins.py:22
+msgid "Objects per page"
+msgstr ""
+
+#: widgets/mixins.py:25
+msgid "Objects per row"
+msgstr ""
+
+#: widgets/mixins.py:28
+msgid "Pagination Style"
+msgstr ""
+
+#: widgets/mixins.py:103
+msgid "Source Address"
+msgstr ""
+
+#: widgets/mixins.py:106
+msgid "Cache validity"
+msgstr ""
+
+#: widgets/mixins.py:109
+msgid "Cache data"
+msgstr ""
+
+#: widgets/mixins.py:112
+msgid "Cache update"
+msgstr ""
+
+#: widgets/mixins.py:191
+msgid "Username"
+msgstr ""
+
+#: widgets/mixins.py:194
+msgid "Password"
+msgstr ""
+
+#: widgets/mixins.py:197
+msgid "API Token"
+msgstr ""
+
+#: widgets/views.py:81 widgets/views.py:119
+msgid "Create new Widget"
+msgstr ""
+
+#: widgets/views.py:124
+msgid "Continue"
+msgstr ""
+
+#: widgets/views.py:232
+msgid "Error occured while sorting widgets."
+msgstr ""
+
+#: widgets/views.py:241
+msgid "Widget sorting success."
+msgstr ""

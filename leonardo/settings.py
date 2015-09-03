@@ -2,16 +2,15 @@
 from __future__ import absolute_import
 
 import os
-import sys
-
-from os.path import abspath, dirname, join, normpath
+import six
+import logging
+import warnings
 
 from django import VERSION
-import six
 from leonardo.base import leonardo, default
-from leonardo.utils.settings import get_conf_from_module, merge, get_leonardo_modules
+from leonardo.utils.settings import (get_conf_from_module, merge,
+                                     get_leonardo_modules)
 
-import warnings
 
 _file_path = os.path.abspath(os.path.dirname(__file__)).split('/')
 
@@ -309,103 +308,112 @@ _APPS = sorted(_APPS, key=lambda m: getattr(m, 'LEONARDO_ORDERING', 1000))
 
 for mod in _APPS:
 
-    # load all settings key
-    if module_has_submodule(mod, "settings"):
-        try:
-            settings_mod = import_module(
-                '{0}.settings'.format(mod.__name__))
-            for k in dir(settings_mod):
-                if not k.startswith("_"):
-                    val = getattr(settings_mod, k, None)
-                    globals()[k] = val
-                    locals()[k] = val
-        except Exception as e:
-            pass
+    try:
 
-    mod_cfg = get_conf_from_module(mod)
+        # load all settings key
+        if module_has_submodule(mod, "settings"):
+            try:
+                settings_mod = import_module(
+                    '{0}.settings'.format(mod.__name__))
+                for k in dir(settings_mod):
+                    if not k.startswith("_"):
+                        val = getattr(settings_mod, k, None)
+                        globals()[k] = val
+                        locals()[k] = val
+            except Exception as e:
+                warnings.warn(
+                    'Exception "{}" raised during loading '
+                    'settings from {}'.format(str(e), mod))
 
-    APPLICATION_CHOICES = merge(APPLICATION_CHOICES, mod_cfg.plugins)
+        mod_cfg = get_conf_from_module(mod)
 
-    INSTALLED_APPS = merge(INSTALLED_APPS, mod_cfg.apps)
+        APPLICATION_CHOICES = merge(APPLICATION_CHOICES, mod_cfg.plugins)
 
-    MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES, mod_cfg.middlewares)
-    AUTHENTICATION_BACKENDS = merge(
-        AUTHENTICATION_BACKENDS, mod_cfg.auth_backends)
+        INSTALLED_APPS = merge(INSTALLED_APPS, mod_cfg.apps)
 
-    PAGE_EXTENSIONS = merge(PAGE_EXTENSIONS, mod_cfg.page_extensions)
+        MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES, mod_cfg.middlewares)
+        AUTHENTICATION_BACKENDS = merge(
+            AUTHENTICATION_BACKENDS, mod_cfg.auth_backends)
 
-    ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
+        PAGE_EXTENSIONS = merge(PAGE_EXTENSIONS, mod_cfg.page_extensions)
 
-    ADD_MODULE_ACTIONS = merge(ADD_MODULE_ACTIONS, mod_cfg.module_actions)
+        ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
 
-    if mod_cfg.urls_conf:
-        MODULE_URLS[mod_cfg.urls_conf] = {'is_public': mod_cfg.public}
+        ADD_MODULE_ACTIONS = merge(ADD_MODULE_ACTIONS, mod_cfg.module_actions)
 
-    # TODO move to utils.settings
-    # support for one level nested in config dictionary
-    for config_key, config_value in six.iteritems(mod_cfg.config):
-        if isinstance(config_value, dict):
-            CONSTANCE_CONFIG_GROUPS.update({config_key: config_value})
-            for c_key, c_value in six.iteritems(config_value):
-                mod_cfg.config[c_key] = c_value
-            # remove from main dict
-            mod_cfg.config.pop(config_key)
-        else:
-            if isinstance(mod_cfg.optgroup, six.string_types):
-                CONSTANCE_CONFIG_GROUPS.update({
-                    mod_cfg.optgroup: mod_cfg.config})
+        if mod_cfg.urls_conf:
+            MODULE_URLS[mod_cfg.urls_conf] = {'is_public': mod_cfg.public}
+
+        # TODO move to utils.settings
+        # support for one level nested in config dictionary
+        for config_key, config_value in six.iteritems(mod_cfg.config):
+            if isinstance(config_value, dict):
+                CONSTANCE_CONFIG_GROUPS.update({config_key: config_value})
+                for c_key, c_value in six.iteritems(config_value):
+                    mod_cfg.config[c_key] = c_value
+                # remove from main dict
+                mod_cfg.config.pop(config_key)
             else:
-                CONSTANCE_CONFIG_GROUPS.update({
-                    'ungrouped': mod_cfg.config})
+                if isinstance(mod_cfg.optgroup, six.string_types):
+                    CONSTANCE_CONFIG_GROUPS.update({
+                        mod_cfg.optgroup: mod_cfg.config})
+                else:
+                    CONSTANCE_CONFIG_GROUPS.update({
+                        'ungrouped': mod_cfg.config})
 
-    # import and update absolute overrides
-    for model, method in six.iteritems(mod_cfg.absolute_url_overrides):
-        try:
-            _mod = import_module(".".join(method.split('.')[:-1]))
-            ABSOLUTE_URL_OVERRIDES[model] = getattr(_mod, method.split('.')[-1])
-        except Exception as e:
-            raise e
+        # import and update absolute overrides
+        for model, method in six.iteritems(mod_cfg.absolute_url_overrides):
+            try:
+                _mod = import_module(".".join(method.split('.')[:-1]))
+                ABSOLUTE_URL_OVERRIDES[model] = getattr(_mod, method.split('.')[-1])
+            except Exception as e:
+                raise e
 
-    for nav_extension in mod_cfg.navigation_extensions:
-        try:
-            import_module(nav_extension)
-        except ImportError:
-            pass
+        for nav_extension in mod_cfg.navigation_extensions:
+            try:
+                import_module(nav_extension)
+            except ImportError:
+                pass
 
-    CONSTANCE_CONFIG.update(mod_cfg.config)
-    ADD_MIGRATION_MODULES.update(mod_cfg.migration_modules)
+        CONSTANCE_CONFIG.update(mod_cfg.config)
+        ADD_MIGRATION_MODULES.update(mod_cfg.migration_modules)
 
-    ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
+        ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
 
-    ADD_CSS_FILES = merge(ADD_CSS_FILES, mod_cfg.css_files)
-    ADD_SCSS_FILES = merge(ADD_SCSS_FILES, mod_cfg.scss_files)
+        ADD_CSS_FILES = merge(ADD_CSS_FILES, mod_cfg.css_files)
+        ADD_SCSS_FILES = merge(ADD_SCSS_FILES, mod_cfg.scss_files)
 
-    ADD_ANGULAR_MODULES = merge(
-        ADD_ANGULAR_MODULES, mod_cfg.angular_modules)
+        ADD_ANGULAR_MODULES = merge(
+            ADD_ANGULAR_MODULES, mod_cfg.angular_modules)
 
-    if VERSION[:2] >= (1, 8):
-        TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
-        cp = TEMPLATES[0]['OPTIONS']['context_processors']
-        TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
-            cp, mod_cfg.context_processors)
+        if VERSION[:2] >= (1, 8):
+            TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
+            cp = TEMPLATES[0]['OPTIONS']['context_processors']
+            TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
+                cp, mod_cfg.context_processors)
 
-    else:
+        else:
 
-        TEMPLATE_CONTEXT_PROCESSORS = merge(
-            TEMPLATE_CONTEXT_PROCESSORS, mod_cfg.context_processors)
-        TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
+            TEMPLATE_CONTEXT_PROCESSORS = merge(
+                TEMPLATE_CONTEXT_PROCESSORS, mod_cfg.context_processors)
+            TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
 
-    # collect grouped widgets
-    if isinstance(mod_cfg.optgroup, six.string_types):
-        WIDGETS[mod_cfg.optgroup] = merge(
-            getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
-    else:
-        if DEBUG:
-            warnings.warn('You have ungrouped widgets'
-                          ', please specify your ``optgroup``'
-                          'which categorize your widgets')
-        WIDGETS['ungrouped'] = merge(
-            getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
+        # collect grouped widgets
+        if isinstance(mod_cfg.optgroup, six.string_types):
+            WIDGETS[mod_cfg.optgroup] = merge(
+                getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
+        else:
+            if DEBUG:
+                warnings.warn('You have ungrouped widgets'
+                              ', please specify your ``optgroup``'
+                              'which categorize your widgets')
+            WIDGETS['ungrouped'] = merge(
+                getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
+
+    except Exception as e:
+        warnings.warn(
+            'Exception "{}" raised during loading '
+            'module {}'.format(str(e), mod))
 
 setattr(leonardo, 'js_files', ADD_JS_FILES)
 setattr(leonardo, 'css_files', ADD_CSS_FILES)
@@ -440,7 +448,8 @@ try:
     # local settings
     from local_settings import *
 except ImportError:
-    pass
+    warnings.warn(
+        'Missing local_settings !')
 
 try:
     # full settings
@@ -516,3 +525,6 @@ HORIZON_CONFIG['module_actions'] = leonardo.module_actions
 # path horizon config
 from horizon import conf
 conf.HORIZON_CONFIG = HORIZON_CONFIG
+
+if DEBUG:
+    logging.basicConfig(level=logging.DEBUG)
