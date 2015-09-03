@@ -2,16 +2,15 @@
 from __future__ import absolute_import
 
 import os
-import sys
-
-from os.path import abspath, dirname, join, normpath
+import six
+import logging
+import warnings
 
 from django import VERSION
-import six
 from leonardo.base import leonardo, default
-from leonardo.utils.settings import get_conf_from_module, merge, get_leonardo_modules
+from leonardo.utils.settings import (get_conf_from_module, merge,
+                                     get_leonardo_modules)
 
-import warnings
 
 _file_path = os.path.abspath(os.path.dirname(__file__)).split('/')
 
@@ -526,3 +525,6 @@ HORIZON_CONFIG['module_actions'] = leonardo.module_actions
 # path horizon config
 from horizon import conf
 conf.HORIZON_CONFIG = HORIZON_CONFIG
+
+if DEBUG:
+    logging.basicConfig(level=logging.DEBUG)
