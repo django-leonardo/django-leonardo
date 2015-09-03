@@ -139,4 +139,5 @@ PAGINATION_CHOICES = (
     ('paginator', 'Paginator'),
     ('cycle', 'Cycle'),
     ('slide', 'Slide'),
+    ('grid', 'Grid'),
 )
