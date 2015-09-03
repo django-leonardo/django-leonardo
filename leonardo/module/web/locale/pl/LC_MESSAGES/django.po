@@ -1,27 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the Satchmo package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-03 11:16+0000\n"
-"PO-Revision-Date: 2010-06-17 11:11\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Translated-Using: django-rosetta 0.5.3\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: __init__.py:131
-#, fuzzy
-#| msgid "horizontal"
 msgid "Horizon"
-msgstr "horizontálny"
+msgstr ""
 
 #: __init__.py:143
 msgid "Site specific meta keywords"
@@ -45,79 +45,79 @@ msgstr ""
 
 #: const.py:12 const.py:28
 msgid "Content"
-msgstr "Obsah"
+msgstr ""
 
 #: const.py:13
 msgid "Left sidebar"
-msgstr "Lavý stĺpec"
+msgstr ""
 
 #: const.py:14
 msgid "Right sidebar"
-msgstr "Pravý stĺpec"
+msgstr ""
 
 #: const.py:15 const.py:27
 msgid "Header"
-msgstr "Záhlavie"
+msgstr ""
 
 #: const.py:16 const.py:29
 msgid "Footer"
-msgstr "Zápätie"
+msgstr ""
 
 #: const.py:17 const.py:30
 msgid "Toolbar"
-msgstr "Lišta"
+msgstr ""
 
 #: const.py:18 const.py:31
 msgid "Preview"
-msgstr "Náhľad"
+msgstr ""
 
 #: const.py:19 const.py:32
 msgid "Helper"
-msgstr "Pomocný panel"
+msgstr ""
 
 #: const.py:22 const.py:26
 msgid "Left column"
-msgstr "Lavý stĺpec"
+msgstr ""
 
 #: const.py:23
 msgid "Right column"
-msgstr "Pravý stĺpec"
+msgstr ""
 
 #: const.py:24
 msgid "Main content"
-msgstr "Hlavný obsah"
+msgstr ""
 
 #: const.py:25
 msgid "Center column"
-msgstr "Stredný stĺpec"
+msgstr ""
 
 #: const.py:40
 msgid "1 column"
-msgstr "1 stĺpec"
+msgstr ""
 
 #: const.py:50
 msgid "2 same columns"
-msgstr "2 rovnaké stĺpce"
+msgstr ""
 
 #: const.py:60
 msgid "2 columns right"
-msgstr "2 stĺpece vpravo"
+msgstr ""
 
 #: const.py:70
 msgid "2 columns left"
-msgstr "2 stĺpece vlevo"
+msgstr ""
 
 #: const.py:80
 msgid "3 columns"
-msgstr "3 stĺpece"
+msgstr ""
 
 #: const.py:90
 msgid "3 same columns"
-msgstr "3 rovnaké stĺpce"
+msgstr ""
 
 #: const.py:96
 msgid "Dashboard"
-msgstr "Úvodná stránka"
+msgstr ""
 
 #: const.py:102
 msgid "API"
@@ -144,10 +144,8 @@ msgid "Left"
 msgstr ""
 
 #: const.py:123
-#, fuzzy
-#| msgid "Center column"
 msgid "Center"
-msgstr "Stredný stĺpec"
+msgstr ""
 
 #: const.py:124
 msgid "Right"
@@ -170,76 +168,52 @@ msgid "Large"
 msgstr ""
 
 #: const.py:146
-#, fuzzy
-#| msgid "1 column"
 msgid "1 col"
-msgstr "1 stĺpec"
+msgstr ""
 
 #: const.py:147
-#, fuzzy
-#| msgid "3 columns"
 msgid "2 cols"
-msgstr "3 stĺpece"
+msgstr ""
 
 #: const.py:148
-#, fuzzy
-#| msgid "3 columns"
 msgid "3 cols"
-msgstr "3 stĺpece"
+msgstr ""
 
 #: const.py:149
-#, fuzzy
-#| msgid "3 columns"
 msgid "4 cols"
-msgstr "3 stĺpece"
+msgstr ""
 
 #: const.py:150
-#, fuzzy
-#| msgid "3 columns"
 msgid "5 cols"
-msgstr "3 stĺpece"
+msgstr ""
 
 #: const.py:151
-#, fuzzy
-#| msgid "3 columns"
 msgid "6 cols"
-msgstr "3 stĺpece"
+msgstr ""
 
 #: const.py:152
-#, fuzzy
-#| msgid "3 columns"
 msgid "7 cols"
-msgstr "3 stĺpece"
+msgstr ""
 
 #: const.py:153
-#, fuzzy
-#| msgid "3 columns"
 msgid "8 cols"
-msgstr "3 stĺpece"
+msgstr ""
 
 #: const.py:154
-#, fuzzy
-#| msgid "3 columns"
 msgid "9 cols"
-msgstr "3 stĺpece"
+msgstr ""
 
 #: const.py:155
-#, fuzzy
-#| msgid "1 column"
 msgid "10 cols"
-msgstr "1 stĺpec"
+msgstr ""
 
 #: const.py:156
-#, fuzzy
-#| msgid "1 column"
 msgid "11 cols"
-msgstr "1 stĺpec"
+msgstr ""
 
 #: const.py:157
-#, fuzzy
-#| msgid "1 column"
 msgid "12 cols"
-msgstr "1 stĺpec"
+msgstr ""
 
 #: const.py:162
 msgid "1 row"
@@ -342,9 +316,8 @@ msgid "bottom"
 msgstr ""
 
 #: models/page.py:18 models/page.py:84
-#, fuzzy
 msgid "Page"
-msgstr "Stránky"
+msgstr ""
 
 #: models/page.py:21
 msgid "Column 1 width"
@@ -369,44 +342,36 @@ msgstr ""
 #: models/page.py:40 models/page.py:59 models/widget.py:105
 #: models/widget.py:127
 msgid "Name"
-msgstr "Meno"
+msgstr ""
 
 #: models/page.py:42 models/page.py:61 models/widget.py:107
 #: models/widget.py:129 models/widget.py:157
-#, fuzzy
 msgid "Title"
-msgstr "názov"
+msgstr ""
 
 #: models/page.py:44 models/page.py:65
-#, fuzzy
-#| msgid "template"
 msgid "Template"
-msgstr "šablóna"
+msgstr ""
 
 #: models/page.py:45
 msgid "Style"
 msgstr ""
 
 #: models/page.py:51
-#, fuzzy
-#| msgid "Change Theme"
 msgid "Page theme"
-msgstr "Zmeniť vzhľad"
+msgstr ""
 
 #: models/page.py:52
-#, fuzzy
-#| msgid "Change Theme"
 msgid "Page themes"
-msgstr "Zmeniť vzhľad"
+msgstr ""
 
 #: models/page.py:62 page/common/forms.py:65
 msgid "Styles"
 msgstr ""
 
 #: models/page.py:63
-#, fuzzy
 msgid "variables"
-msgstr "kategórie obchodu"
+msgstr ""
 
 #: models/page.py:71
 msgid "Page color scheme"
@@ -431,7 +396,7 @@ msgstr ""
 
 #: models/page.py:85
 msgid "Pages"
-msgstr "Stránky"
+msgstr ""
 
 #: models/widget.py:58 widgets/forms.py:64
 msgid "Effects"
@@ -458,34 +423,28 @@ msgid "Widget dimensions"
 msgstr ""
 
 #: models/widget.py:109
-#, fuzzy
 msgid "Content template"
-msgstr "django šablóna"
+msgstr ""
 
 #: models/widget.py:111
-#, fuzzy
-#| msgid "content title"
 msgid "Content style"
-msgstr "titulok obsahu"
+msgstr ""
 
 #: models/widget.py:113
 msgid "Widget class"
 msgstr ""
 
 #: models/widget.py:119
-#, fuzzy
-#| msgid "content title"
 msgid "Widget content theme"
-msgstr "titulok obsahu"
+msgstr ""
 
 #: models/widget.py:120
 msgid "Widget content themes"
 msgstr ""
 
 #: models/widget.py:131
-#, fuzzy
 msgid "Base template"
-msgstr "django šablóna"
+msgstr ""
 
 #: models/widget.py:134
 msgid "Base style"
@@ -500,26 +459,20 @@ msgid "Widget base themes"
 msgstr ""
 
 #: models/widget.py:153
-#, fuzzy
-#| msgid "pre-rendered content"
 msgid "prerendered content"
-msgstr "predgenerovaný obsahu"
+msgstr ""
 
 #: models/widget.py:155
 msgid "Is visible?"
 msgstr ""
 
 #: models/widget.py:159
-#, fuzzy
-#| msgid "Change Theme"
 msgid "Base theme"
-msgstr "Zmeniť vzhľad"
+msgstr ""
 
 #: models/widget.py:162
-#, fuzzy
-#| msgid "Content"
 msgid "Content theme"
-msgstr "Obsah"
+msgstr ""
 
 #: models/widget.py:168
 msgid "Alignment"
@@ -546,9 +499,8 @@ msgid "Abstract widgets"
 msgstr ""
 
 #: page/common/forms.py:24
-#, fuzzy
 msgid "Page ID"
-msgstr "Stránky"
+msgstr ""
 
 #: page/common/forms.py:27 page/forms.py:42
 msgid "Color Scheme"
@@ -567,19 +519,16 @@ msgid "From Root ?"
 msgstr ""
 
 #: page/common/forms.py:60
-#, fuzzy
-#| msgid "Action"
 msgid "Options"
-msgstr "Akcie"
+msgstr ""
 
 #: page/common/forms.py:73
 msgid "Select Layout"
 msgstr ""
 
 #: page/common/views.py:37
-#, fuzzy
 msgid "Change Pages"
-msgstr "django šablóna"
+msgstr ""
 
 #: page/common/views.py:38
 msgid "Apply"
@@ -598,10 +547,8 @@ msgid "Navigation"
 msgstr ""
 
 #: page/forms.py:103 page/forms.py:159
-#, fuzzy
-#| msgid "Header"
 msgid "Heading"
-msgstr "Záhlavie"
+msgstr ""
 
 #: page/forms.py:107 page/forms.py:163
 msgid "Publication"
@@ -640,9 +587,8 @@ msgid "Column 3 Width"
 msgstr ""
 
 #: page/views.py:32 templates/base/actions.html:6
-#, fuzzy
 msgid "Create Page"
-msgstr "Úvod"
+msgstr ""
 
 #: page/views.py:34 page/views.py:156
 msgid "Create"
@@ -654,9 +600,8 @@ msgid "Page %s was successfully crated."
 msgstr ""
 
 #: page/views.py:85
-#, fuzzy
 msgid "Update Page"
-msgstr "Úvod"
+msgstr ""
 
 #: page/views.py:87
 msgid "Update"
@@ -680,9 +625,8 @@ msgid "slug"
 msgstr ""
 
 #: templates/auth/login.html:4 templates/auth/login.html.py:7
-#, fuzzy
 msgid "Login"
-msgstr "profil zákazníka"
+msgstr ""
 
 #: templates/auth/logout.html:6
 msgid "Logout successful"
@@ -708,9 +652,8 @@ msgstr ""
 
 #: templates/auth/password_reset_complete.html:16
 #: templates/auth/password_reset_done.html:16
-#, fuzzy
 msgid "Log In"
-msgstr "Vyhľadávanie"
+msgstr ""
 
 #: templates/auth/password_reset_confirm.html:8
 #: templates/auth/password_reset_confirm.html:15
@@ -766,22 +709,19 @@ msgstr ""
 
 #: templates/auth/password_reset_form.html:27
 msgid "Back"
-msgstr "Späť"
+msgstr ""
 
 #: templates/base/actions.html:7
 msgid "Delete Page"
 msgstr ""
 
 #: templates/base/actions.html:9
-#, fuzzy
 msgid "Edit Page"
-msgstr "Stránky"
+msgstr ""
 
 #: templates/base/actions.html:10
-#, fuzzy
-#| msgid "last updated"
 msgid "Mass Update"
-msgstr "posledná aktualizácia"
+msgstr ""
 
 #: templates/base/actions.html:11
 msgid "Open Admin"
@@ -796,29 +736,24 @@ msgid "Edit"
 msgstr ""
 
 #: templates/base/widget/_edit.html:12
-#, fuzzy
 msgid "Info"
-msgstr "e-mail"
+msgstr ""
 
 #: templates/widget/siteheading/navbar.html:8
 msgid "Toggle navigation"
 msgstr ""
 
 #: widget/application/models.py:55
-#, fuzzy
-#| msgid "application sidebar"
 msgid "application"
-msgstr "pomocný panel aplikácie"
+msgstr ""
 
 #: widget/application/models.py:214
-#, fuzzy
 msgid "External application"
-msgstr "Akcie"
+msgstr ""
 
 #: widget/application/models.py:215
-#, fuzzy
 msgid "External applications"
-msgstr "Akcie"
+msgstr ""
 
 #: widget/feedreader/models.py:14
 msgid "Modal window"
@@ -830,7 +765,7 @@ msgstr ""
 
 #: widget/feedreader/models.py:20
 msgid "max. items"
-msgstr "max. položiek"
+msgstr ""
 
 #: widget/feedreader/models.py:24
 msgid "feed reader"
@@ -842,9 +777,8 @@ msgstr ""
 
 #: widget/htmltext/models.py:19 widget/htmltext/models.py:94
 #: widget/markuptext/models.py:9
-#, fuzzy
 msgid "text"
-msgstr "daľšia"
+msgstr ""
 
 #: widget/htmltext/models.py:36
 msgid "HTML Tidy"
@@ -943,22 +877,19 @@ msgstr ""
 
 #: widget/pagetitle/models.py:12
 msgid "page title"
-msgstr "titulok stránky"
+msgstr ""
 
 #: widget/pagetitle/models.py:13
-#, fuzzy
 msgid "page titles"
-msgstr "titulok stránky"
+msgstr ""
 
 #: widget/siteheading/models.py:13
-#, fuzzy
 msgid "Site Title"
-msgstr "názov"
+msgstr ""
 
 #: widget/siteheading/models.py:15
-#, fuzzy
 msgid "Logo"
-msgstr "Vyhľadávanie"
+msgstr ""
 
 #: widget/siteheading/models.py:17
 msgid "Tagline"
@@ -973,23 +904,20 @@ msgid "site headings"
 msgstr ""
 
 #: widget/table/models.py:97
-#, fuzzy
 msgid "plain"
-msgstr "odkaz"
+msgstr ""
 
 #: widget/table/models.py:98
 msgid "title row"
 msgstr ""
 
 #: widget/table/models.py:100
-#, fuzzy
 msgid "title row and column"
-msgstr "Stredný stĺpec"
+msgstr ""
 
 #: widget/table/models.py:106
-#, fuzzy
 msgid "table"
-msgstr "označenie"
+msgstr ""
 
 #: widget/table/models.py:107
 msgid "tables"
@@ -1004,10 +932,8 @@ msgid "data"
 msgstr ""
 
 #: widgets/forms.py:58
-#, fuzzy
-#| msgid "orientation"
 msgid "Positions"
-msgstr "orientácia"
+msgstr ""
 
 #: widgets/mixins.py:22
 msgid "Objects per page"
@@ -1022,10 +948,8 @@ msgid "Pagination Style"
 msgstr ""
 
 #: widgets/mixins.py:103
-#, fuzzy
-#| msgid "IP Address"
 msgid "Source Address"
-msgstr "IP adresa"
+msgstr ""
 
 #: widgets/mixins.py:106
 msgid "Cache validity"
@@ -1036,16 +960,12 @@ msgid "Cache data"
 msgstr ""
 
 #: widgets/mixins.py:112
-#, fuzzy
-#| msgid "last updated"
 msgid "Cache update"
-msgstr "posledná aktualizácia"
+msgstr ""
 
 #: widgets/mixins.py:191
-#, fuzzy
-#| msgid "name"
 msgid "Username"
-msgstr "meno"
+msgstr ""
 
 #: widgets/mixins.py:194
 msgid "Password"
@@ -1060,10 +980,8 @@ msgid "Create new Widget"
 msgstr ""
 
 #: widgets/views.py:124
-#, fuzzy
-#| msgid "Content"
 msgid "Continue"
-msgstr "Obsah"
+msgstr ""
 
 #: widgets/views.py:232
 msgid "Error occured while sorting widgets."
@@ -1072,361 +990,3 @@ msgstr ""
 #: widgets/views.py:241
 msgid "Widget sorting success."
 msgstr ""
-
-#, fuzzy
-#~ msgid "Web Settings"
-#~ msgstr "Nastavenia"
-
-#, fuzzy
-#~ msgid "Files"
-#~ msgstr "súborov"
-
-#, fuzzy
-#~ msgid "Media categories"
-#~ msgstr "kategórie obchodu"
-
-#~ msgid "News"
-#~ msgstr "Novinky"
-
-#, fuzzy
-#~ msgid "Links"
-#~ msgstr "odkaz"
-
-#, fuzzy
-#~ msgid "FAQ categories"
-#~ msgstr "Kategórie"
-
-#, fuzzy
-#~ msgid "Web site"
-#~ msgstr "WWW"
-
-#, fuzzy
-#~ msgid "Users"
-#~ msgstr "Užívateľské role"
-
-#, fuzzy
-#~ msgid "Site setup"
-#~ msgstr "Užívatelia"
-
-#, fuzzy
-#~ msgid "Advanced settings"
-#~ msgstr "Nastavenia"
-
-#, fuzzy
-#~ msgid "Project dashboard"
-#~ msgstr "Úvodná stránka"
-
-#, fuzzy
-#~ msgid "Project admin dashboard."
-#~ msgstr "Úvodná stránka"
-
-#, fuzzy
-#~ msgid "Hide"
-#~ msgstr "Záhlavie"
-
-#, fuzzy
-#~ msgid "Insert new:"
-#~ msgstr "posledné novinky"
-
-#~ msgid "Remove"
-#~ msgstr "Odstrániť"
-
-#~ msgid "Home"
-#~ msgstr "Úvod"
-
-#, fuzzy
-#~ msgid "items"
-#~ msgstr "max. položiek"
-
-#, fuzzy
-#~ msgid "My Account"
-#~ msgstr "počet noviniek"
-
-#, fuzzy
-#~ msgid "E-mail"
-#~ msgstr "Email"
-
-#~ msgid "django template"
-#~ msgstr "django šablóna"
-
-#, fuzzy
-#~ msgid "django templates"
-#~ msgstr "django šablóna"
-
-#, fuzzy
-#~ msgid "link"
-#~ msgstr "odkaz"
-
-#, fuzzy
-#~ msgid "Store Management"
-#~ msgstr "správa obchodu"
-
-#~ msgid "Site overview"
-#~ msgstr "Prehľad doplnkov"
-
-#~ msgid "CMS"
-#~ msgstr "Web"
-
-#~ msgid "Comments"
-#~ msgstr "Komentáre"
-
-#~ msgid "Domains"
-#~ msgstr "Domény"
-
-#~ msgid "Redirections"
-#~ msgstr "Presmerovanie"
-
-#~ msgid "blog entries"
-#~ msgstr "položky blogu"
-
-#~ msgid "eshop products"
-#~ msgstr "produkty v obchode"
-
-#~ msgid "payment process"
-#~ msgstr "priebeh platby"
-
-#~ msgid "shopping cart"
-#~ msgstr "nákupný košík"
-
-#~ msgid "eshop core"
-#~ msgstr "jadro obchodu"
-
-#~ msgid "eshop accounts"
-#~ msgstr "účty zákazníkov"
-
-#~ msgid "Entry layout"
-#~ msgstr "novinka"
-
-#~ msgid "vertical"
-#~ msgstr "vertikálny"
-
-#~ msgid "HTFS"
-#~ msgstr "HTFS"
-
-#~ msgid "language code"
-#~ msgstr "kód jazyku"
-
-#~ msgid "language name"
-#~ msgstr "názov jazyku"
-
-#~ msgid "no label"
-#~ msgstr "bez označenia"
-
-#~ msgid "show flag"
-#~ msgstr "ukázať vlajku"
-
-#~ msgid "language switcher"
-#~ msgstr "prepínanie jazyku"
-
-#~ msgid "language switchers"
-#~ msgstr "prepínanie jazykov"
-
-#~ msgid "news count"
-#~ msgstr "počet noviniek"
-
-#~ msgid "show link"
-#~ msgstr "zobraziť odkaz"
-
-#~ msgid "link label"
-#~ msgstr "označenie odkazu"
-
-#~ msgid "phone"
-#~ msgstr "telefón"
-
-#~ msgid "subject"
-#~ msgstr "predmet"
-
-#~ msgid "content"
-#~ msgstr "obsah"
-
-#~ msgid "contact form"
-#~ msgstr "kontaktný formulár"
-
-#~ msgid "contact forms"
-#~ msgstr "kontaktné formuláre"
-
-#, fuzzy
-#~ msgid "Message from contact form"
-#~ msgstr "kontaktný formulár"
-
-#, fuzzy
-#~ msgid "captcha contact form"
-#~ msgstr "kontaktný formulár"
-
-#, fuzzy
-#~ msgid "captcha contact forms"
-#~ msgstr "kontaktné formuláre"
-
-#~ msgid ""
-#~ "The rss field is updated several times a day. A change in the title will "
-#~ "only be visible on the home page after the next feed update."
-#~ msgstr ""
-#~ "RSS pole se aktualizuje niekoľko krát denne. Zmena názvu bude viditeľná "
-#~ "len na úvodnej stránke až po daľšej aktualizácií."
-
-#~ msgid "RSS feed"
-#~ msgstr "RSS kanál"
-
-#~ msgid "RSS feeds"
-#~ msgstr "RSS kanály"
-
-#~ msgid "The first line is the main title, the following lines are subtitles."
-#~ msgstr "Prvý riadok je hlavný titul, následujúce riadky sú titulky."
-
-#~ msgid "Page title for browser window. Same as title by default."
-#~ msgstr ""
-#~ "Názov stránky pre okná prehliadača. Vo východzom nastavení je to rovnaká "
-#~ "hodnota ako názov."
-
-#~ msgid "Error"
-#~ msgstr "Chyba"
-
-#~ msgid "Could not find the page you were looking for."
-#~ msgstr "Hľadaná stránka nebola nájdená."
-
-#~ msgid "There was an error with the store.  The admin has been notified."
-#~ msgstr "V obchode došlo k chybe. Administátor obdržal protokol chyby."
-
-#~ msgid "Project"
-#~ msgstr "Projekt"
-
-#~ msgid "overview"
-#~ msgstr "prehľad"
-
-#~ msgid "Site"
-#~ msgstr "Stránky"
-
-#~ msgid "2_Pages"
-#~ msgstr "stránok"
-
-#~ msgid "Catalog"
-#~ msgstr "Katalóg"
-
-#~ msgid "2_Categories"
-#~ msgstr "kategorií"
-
-#~ msgid "2_Products"
-#~ msgstr "produktov"
-
-#~ msgid "2_Galleries"
-#~ msgstr "galerií"
-
-#~ msgid "You are using"
-#~ msgstr "Používate"
-
-#~ msgid "with theme"
-#~ msgstr "s vzhľadom"
-
-#~ msgid "Approve a comment"
-#~ msgstr "Schváliť komentár"
-
-#~ msgid "Really make this comment public?"
-#~ msgstr "Naozaj zverejniť tento komentár verejnosti?"
-
-#~ msgid "Approve"
-#~ msgstr "Schváliť"
-
-#~ msgid "Thanks for approving"
-#~ msgstr "Ďakujeme za schválenie"
-
-#~ msgid ""
-#~ "Thanks for taking the time to improve the quality of discussion on our "
-#~ "site"
-#~ msgstr ""
-#~ "Ďakujeme za čas, ktorý ste venovali na zlepšenie  kvality diskusí na "
-#~ "našich stránkach"
-
-#~ msgid "Remove a comment"
-#~ msgstr "Odobrať komentár"
-
-#~ msgid "Really remove this comment?"
-#~ msgstr "Naozaj odstrániť teto komentár?"
-
-#~ msgid "Thanks for removing"
-#~ msgstr "Ďakujeme za odstránenie"
-
-#~ msgid "Flag this comment"
-#~ msgstr "Označiť tento komentár"
-
-#~ msgid "Really flag this comment?"
-#~ msgstr "Opravdu označiť tento komentár?"
-
-#~ msgid "Flag"
-#~ msgstr "Označenie"
-
-#~ msgid "Thanks for flagging"
-#~ msgstr "Ďakujeme za označenie"
-
-#~ msgid "Comment moderation queue"
-#~ msgstr "Fronta komentárov pre schválenie"
-
-#~ msgid "No comments to moderate"
-#~ msgstr "Žiadne komentáre na schválenie"
-
-#~ msgid "Comment"
-#~ msgstr "Komentár"
-
-#~ msgid "URL"
-#~ msgstr "URL"
-
-#~ msgid "Authenticated?"
-#~ msgstr "Overený?"
-
-#~ msgid "Date posted"
-#~ msgstr "Dátum pridania"
-
-#~ msgid "yes"
-#~ msgstr "áno"
-
-#~ msgid "no"
-#~ msgstr "nie"
-
-#~ msgid "%(comment_count)s comments."
-#~ msgstr " %(comment_count)s komentárov."
-
-#~ msgid "%(comment_username)s said on %(comment_submit_date)s"
-#~ msgstr "%(comment_username)s povedal dňa %(comment_submit_date)s"
-
-#~ msgid "No comments."
-#~ msgstr "Nie sú žiadne komentáre."
-
-#~ msgid "Post Comment"
-#~ msgstr "Odoslať komentár"
-
-#~ msgid "Submit"
-#~ msgstr "Odoslať"
-
-#~ msgid "Thanks!"
-#~ msgstr "Ďakujeme!"
-
-#~ msgid "previous"
-#~ msgstr "predchádzajúca"
-
-#~ msgid "Contact Form"
-#~ msgstr "Kontaktný formulár"
-
-#~ msgid "Change"
-#~ msgstr "Zmena"
-
-#, fuzzy
-#~ msgid "Theme switcher"
-#~ msgstr "prepínanie jazyku"
-
-#, fuzzy
-#~ msgid "Progress"
-#~ msgstr "Stránky"
-
-#, fuzzy
-#~ msgid "Messages"
-#~ msgstr "Stránky"
-
-#, fuzzy
-#~ msgid "item"
-#~ msgstr "Stránky"
-
-#, fuzzy
-#~ msgid "Featured products"
-#~ msgstr "produkty v obchode"
-
-#~ msgid "Currently"
-#~ msgstr "Aktuálne"

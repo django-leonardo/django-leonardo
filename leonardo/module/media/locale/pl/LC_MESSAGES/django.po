@@ -1,21 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the Satchmo package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-03 11:16+0000\n"
-"PO-Revision-Date: 2012-10-09 15:46\n"
-"Last-Translator:   <>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Translated-Using: django-rosetta 0.6.3\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: __init__.py:41
 msgid "Pagination count for media files"
@@ -46,30 +48,24 @@ msgid "MEDIA_THUMB_SMALL_GEOM"
 msgstr ""
 
 #: __init__.py:49
-#, fuzzy
-#| msgid "Additional options for small thumnais."
 msgid "Another options for small thumnails"
-msgstr "Další možnosti pro malé obrázky."
+msgstr ""
 
 #: __init__.py:50
 msgid "MEDIA_THUMB_MEDIUM_GEOM"
 msgstr ""
 
 #: __init__.py:51
-#, fuzzy
-#| msgid "Additional options for medium thumnais."
 msgid "Another options for medium thumnails"
-msgstr "Další možnosti pro střední obrázky."
+msgstr ""
 
 #: __init__.py:52
 msgid "MEDIA_THUMB_LARGE_GEOM"
 msgstr ""
 
 #: __init__.py:53
-#, fuzzy
-#| msgid "Additional options for large thumbnais."
 msgid "Another options for large thumnails"
-msgstr "Další možnosti pro velké obrázky."
+msgstr ""
 
 #: __init__.py:54
 msgid "If is True all folders and files will has same path in the OS"
@@ -102,22 +98,16 @@ msgid "No action selected."
 msgstr ""
 
 #: admin/folderadmin.py:552
-#, fuzzy
-#| msgid "Scan files"
 msgid "Scan folder"
-msgstr "Skenovat soubory"
+msgstr ""
 
 #: admin/folderadmin.py:555
-#, fuzzy
-#| msgid "Create new folder"
 msgid "Create Subfolder"
-msgstr "Vytvořit novou složku"
+msgstr ""
 
 #: admin/folderadmin.py:562
-#, fuzzy
-#| msgid "Actions"
 msgid "actions"
-msgstr "Možnosti"
+msgstr ""
 
 #: admin/folderadmin.py:596
 #, python-format
@@ -125,10 +115,8 @@ msgid "Successfully moved %(count)d files to clipboard."
 msgstr ""
 
 #: admin/folderadmin.py:602
-#, fuzzy
-#| msgid "Select files to upload..."
 msgid "Move selected files to clipboard"
-msgstr "Vyberte soubory k nahrání ..."
+msgstr ""
 
 #: admin/folderadmin.py:636
 #, python-format
@@ -154,20 +142,16 @@ msgid "Successfully deleted %(count)d files and/or folders."
 msgstr ""
 
 #: admin/folderadmin.py:722
-#, fuzzy
-#| msgid "Upload files to folder"
 msgid "Cannot delete files and/or folders"
-msgstr "Nahrát soubory do složky"
+msgstr ""
 
 #: admin/folderadmin.py:724
 msgid "Are you sure?"
 msgstr ""
 
 #: admin/folderadmin.py:729
-#, fuzzy
-#| msgid "Upload files to folder"
 msgid "Delete files and/or folders"
-msgstr "Nahrát soubory do složky"
+msgstr ""
 
 #: admin/folderadmin.py:748
 msgid "Delete selected files and/or folders"
@@ -186,16 +170,12 @@ msgid ""
 msgstr ""
 
 #: admin/folderadmin.py:876 admin/folderadmin.py:878
-#, fuzzy
-#| msgid "Upload files to folder"
 msgid "Move files and/or folders"
-msgstr "Nahrát soubory do složky"
+msgstr ""
 
 #: admin/folderadmin.py:895
-#, fuzzy
-#| msgid "Upload files to folder"
 msgid "Move selected files and/or folders"
-msgstr "Nahrát soubory do složky"
+msgstr ""
 
 #: admin/folderadmin.py:952
 #, python-format
@@ -203,10 +183,8 @@ msgid "Successfully renamed %(count)d files."
 msgstr ""
 
 #: admin/folderadmin.py:960 admin/folderadmin.py:962 admin/folderadmin.py:979
-#, fuzzy
-#| msgid "media files"
 msgid "Rename files"
-msgstr "soubory"
+msgstr ""
 
 #: admin/folderadmin.py:1073
 #, python-format
@@ -216,16 +194,12 @@ msgid ""
 msgstr ""
 
 #: admin/folderadmin.py:1089 admin/folderadmin.py:1091
-#, fuzzy
-#| msgid "Upload files to folder"
 msgid "Copy files and/or folders"
-msgstr "Nahrát soubory do složky"
+msgstr ""
 
 #: admin/folderadmin.py:1110
-#, fuzzy
-#| msgid "Upload files to folder"
 msgid "Copy selected files and/or folders"
-msgstr "Nahrát soubory do složky"
+msgstr ""
 
 #: admin/folderadmin.py:1204
 #, python-format
@@ -233,16 +207,12 @@ msgid "Successfully resized %(count)d images."
 msgstr ""
 
 #: admin/folderadmin.py:1212 admin/folderadmin.py:1214
-#, fuzzy
-#| msgid "simple images"
 msgid "Resize images"
-msgstr "jednoduché obrázky"
+msgstr ""
 
 #: admin/folderadmin.py:1232
-#, fuzzy
-#| msgid "simple images"
 msgid "Resize selected images"
-msgstr "jednoduché obrázky"
+msgstr ""
 
 #: admin/forms.py:22
 msgid "Suffix which will be appended to filenames of copied files."
@@ -268,12 +238,12 @@ msgstr ""
 #: admin/forms.py:58 widget/flashobject/models.py:32
 #: widget/pdfdocument/models.py:15 widget/simplevideo/models.py:14
 msgid "width"
-msgstr "šířka"
+msgstr ""
 
 #: admin/forms.py:59 widget/flashobject/models.py:34
 #: widget/pdfdocument/models.py:13 widget/simplevideo/models.py:15
 msgid "height"
-msgstr "výška"
+msgstr ""
 
 #: admin/forms.py:60
 msgid "crop"
@@ -304,10 +274,8 @@ msgid "default alt text"
 msgstr ""
 
 #: models/abstract.py:41 models/media.py:131
-#, fuzzy
-#| msgid "description"
 msgid "default caption"
-msgstr "popisek"
+msgstr ""
 
 #: models/abstract.py:43
 msgid "subject location"
@@ -316,13 +284,11 @@ msgstr ""
 #: models/abstract.py:172 models/imagemodels.py:58
 #: widget/simpleimage/models.py:23
 msgid "image"
-msgstr "obrázek"
+msgstr ""
 
 #: models/abstract.py:173 models/imagemodels.py:59
-#, fuzzy
-#| msgid "image"
 msgid "images"
-msgstr "obrázek"
+msgstr ""
 
 #: models/clipboardmodels.py:15 models/foldermodels.py:263
 msgid "user"
@@ -330,7 +296,7 @@ msgstr ""
 
 #: models/clipboardmodels.py:17 models/filemodels.py:321
 msgid "files"
-msgstr "soubory"
+msgstr ""
 
 #: models/clipboardmodels.py:36 models/clipboardmodels.py:42
 msgid "clipboard"
@@ -343,17 +309,15 @@ msgstr ""
 #: models/clipboardmodels.py:41 models/filemodels.py:41
 #: models/filemodels.py:320 widget/downloaditem/models.py:10
 msgid "file"
-msgstr "soubor"
+msgstr ""
 
 #: models/clipboardmodels.py:46
-#, fuzzy
 msgid "clipboard item"
-msgstr "odkazy ke stažení"
+msgstr ""
 
 #: models/clipboardmodels.py:47
-#, fuzzy
 msgid "clipboard items"
-msgstr "odkazy ke stažení"
+msgstr ""
 
 #: models/filemodels.py:39
 #: templates/admin/media/folder/directory_listing.html:86
@@ -362,11 +326,11 @@ msgstr "odkazy ke stažení"
 #: templates/admin/media/tools/clipboard/clipboard.html:26
 #: widget/downloadlist/models.py:11
 msgid "folder"
-msgstr "složka"
+msgstr ""
 
 #: models/filemodels.py:42
 msgid "file size"
-msgstr "velikost souboru"
+msgstr ""
 
 #: models/filemodels.py:44
 msgid "sha1"
@@ -377,19 +341,17 @@ msgid "has all mandatory data"
 msgstr ""
 
 #: models/filemodels.py:50 models/media.py:29
-#, fuzzy
-#| msgid "file name"
 msgid "original filename"
-msgstr "název souboru"
+msgstr ""
 
 #: models/filemodels.py:52 models/foldermodels.py:108 models/media.py:31
 #: models/media.py:43 models/media.py:126
 msgid "name"
-msgstr "jméno"
+msgstr ""
 
 #: models/filemodels.py:54 models/media.py:33 models/media.py:134
 msgid "description"
-msgstr "popisek"
+msgstr ""
 
 #: models/filemodels.py:58
 msgid "owner"
@@ -414,27 +376,22 @@ msgid ""
 msgstr ""
 
 #: models/foldermodels.py:116
-#, fuzzy
-#| msgid "created"
 msgid "created at"
-msgstr "vytvořeno"
+msgstr ""
 
 #: models/foldermodels.py:228
 #: templates/admin/media/widgets/admin_folder.html:3
 #: templates/admin/media/widgets/admin_folder.html:5
 msgid "Folder"
-msgstr "Složka"
+msgstr ""
 
 #: models/foldermodels.py:229
-#, fuzzy
-#| msgid "Folder"
 msgid "Folders"
-msgstr "Složka"
+msgstr ""
 
 #: models/foldermodels.py:248
-#, fuzzy
 msgid "all items"
-msgstr "odkazy ke stažení"
+msgstr ""
 
 #: models/foldermodels.py:249
 msgid "this item only"
@@ -453,10 +410,8 @@ msgid "deny"
 msgstr ""
 
 #: models/foldermodels.py:260
-#, fuzzy
-#| msgid "file type"
 msgid "type"
-msgstr "typ souboru"
+msgstr ""
 
 #: models/foldermodels.py:266
 msgid "group"
@@ -467,26 +422,20 @@ msgid "everybody"
 msgstr ""
 
 #: models/foldermodels.py:270
-#, fuzzy
-#| msgid "Scan media"
 msgid "can edit"
-msgstr "Skenování souborů"
+msgstr ""
 
 #: models/foldermodels.py:272
-#, fuzzy
-#| msgid "Scan media"
 msgid "can read"
-msgstr "Skenování souborů"
+msgstr ""
 
 #: models/foldermodels.py:274
 msgid "can add children"
 msgstr ""
 
 #: models/foldermodels.py:319
-#, fuzzy
-#| msgid "flash version"
 msgid "folder permission"
-msgstr "verze Flashe"
+msgstr ""
 
 #: models/foldermodels.py:320
 msgid "folder permissions"
@@ -498,7 +447,7 @@ msgstr ""
 
 #: models/imagemodels.py:27
 msgid "author"
-msgstr "autor"
+msgstr ""
 
 #: models/imagemodels.py:29
 msgid "must always publish author credit"
@@ -510,14 +459,12 @@ msgstr ""
 
 #: models/media.py:143
 msgid "All media categories"
-msgstr "Všechny galerie médií"
+msgstr ""
 
 #: models/virtualitems.py:46
 #: templates/admin/media/tools/clipboard/clipboard.html:26
-#, fuzzy
-#| msgid "media files"
 msgid "unfiled files"
-msgstr "soubory"
+msgstr ""
 
 #: models/virtualitems.py:60
 msgid "files with missing metadata"
@@ -587,27 +534,27 @@ msgstr ""
 #: templates/admin/media/create_folder.html:6
 #: templates/admin/media/create_folder.html:14
 msgid "Create new folder"
-msgstr "Vytvořit novou složku"
+msgstr ""
 
 #: templates/admin/media/create_folder.html:9
 #: templates/admin/media/scan_files.html:9
 #: templates/admin/media/select_folder.html:9
 msgid "Media files"
-msgstr "Seznam souborů"
+msgstr ""
 
 #: templates/admin/media/create_folder.html:10
 #: templates/admin/media/scan_files.html:10
 #: templates/admin/media/select_folder.html:10
 msgid "Project dashboard"
-msgstr "Úvodní strana"
+msgstr ""
 
 #: templates/admin/media/create_folder.html:27
 msgid "Create folder and close"
-msgstr "Vytvořit a zavřít"
+msgstr ""
 
 #: templates/admin/media/create_folder.html:28
 msgid "Create folder and upload files"
-msgstr "Vytvořit a nahrát soubory"
+msgstr ""
 
 #: templates/admin/media/delete_selected_files_confirmation.html:11
 msgid ""
@@ -639,10 +586,8 @@ msgstr ""
 #: templates/admin/media/folder/new_folder_form.html:7
 #: templates/admin/media/folder/scan_form.html:6
 #: templates/admin/media/folder/scan_form.html:7
-#, fuzzy
-#| msgid "Back to"
 msgid "Go back to"
-msgstr "Zpět na"
+msgstr ""
 
 #: templates/admin/media/folder/change_form.html:7
 #: templates/admin/media/folder/new_folder_form.html:6
@@ -653,10 +598,8 @@ msgstr ""
 #: templates/admin/media/folder/change_form.html:8
 #: templates/admin/media/folder/new_folder_form.html:7
 #: templates/admin/media/folder/scan_form.html:7
-#, fuzzy
-#| msgid "Media files"
 msgid "Media"
-msgstr "Seznam souborů"
+msgstr ""
 
 #: templates/admin/media/folder/change_form.html:24
 #: templates/admin/media/image/change_form.html:9
@@ -674,10 +617,8 @@ msgstr ""
 #: templates/admin/media/folder/directory_listing.html:87
 #: templates/admin/media/folder/directory_listing.html:97
 #: templates/admin/media/folder/directory_table.html:23
-#, fuzzy
-#| msgid "Folder name"
 msgid "Folder Icon"
-msgstr "Název složky"
+msgstr ""
 
 #: templates/admin/media/folder/choose_copy_destination.html:12
 msgid ""
@@ -702,10 +643,8 @@ msgstr ""
 
 #: templates/admin/media/folder/choose_copy_destination.html:32
 #: templates/admin/media/folder/choose_move_destination.html:32
-#, fuzzy
-#| msgid "Create new folder"
 msgid "Destination folder:"
-msgstr "Vytvořit novou složku"
+msgstr ""
 
 #: templates/admin/media/folder/choose_copy_destination.html:39
 msgid "Copy"
@@ -739,10 +678,8 @@ msgid ""
 msgstr ""
 
 #: templates/admin/media/folder/choose_images_resize_options.html:36
-#, fuzzy
-#| msgid "size"
 msgid "Resize"
-msgstr "velikost"
+msgstr ""
 
 #: templates/admin/media/folder/choose_move_destination.html:12
 msgid ""
@@ -780,40 +717,28 @@ msgid ""
 msgstr ""
 
 #: templates/admin/media/folder/choose_rename_format.html:54
-#, fuzzy
-#| msgid "name"
 msgid "Rename"
-msgstr "jméno"
+msgstr ""
 
 #: templates/admin/media/folder/directory_listing.html:67
-#, fuzzy
-#| msgid "Add folder"
 msgid "Adds a new Folder"
-msgstr "Přidat složku"
+msgstr ""
 
 #: templates/admin/media/folder/directory_listing.html:68
-#, fuzzy
-#| msgid "Folder"
 msgid "New Folder"
-msgstr "Složka"
+msgstr ""
 
 #: templates/admin/media/folder/directory_listing.html:73
-#, fuzzy
-#| msgid "Upload files"
 msgid "upload files"
-msgstr "Nahrát soubory"
+msgstr ""
 
 #: templates/admin/media/folder/directory_listing.html:73
-#, fuzzy
-#| msgid "Upload files"
 msgid "Upload"
-msgstr "Nahrát soubory"
+msgstr ""
 
 #: templates/admin/media/folder/directory_listing.html:77
-#, fuzzy
-#| msgid "Synchronise folders"
 msgid "sync folders"
-msgstr "Synchronizovat složky"
+msgstr ""
 
 #: templates/admin/media/folder/directory_listing.html:77
 #: templates/admin/media/folder/scan_form.html:43
@@ -827,22 +752,20 @@ msgstr ""
 #: templates/admin/media/folder/directory_listing.html:88
 #: templates/admin/media/folder/directory_table.html:29
 #: templates/admin/media/tools/search_form.html:17
-#, fuzzy, python-format
-#| msgid "folder"
+#, python-format
 msgid "1 folder"
 msgid_plural "%(counter)s folders"
-msgstr[0] "složka"
-msgstr[1] "složka"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/admin/media/folder/directory_listing.html:88
 #: templates/admin/media/folder/directory_table.html:29
 #: templates/admin/media/tools/search_form.html:18
-#, fuzzy, python-format
-#| msgid "file"
+#, python-format
 msgid "1 file"
 msgid_plural "%(counter)s files"
-msgstr[0] "soubor"
-msgstr[1] "soubor"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/admin/media/folder/directory_listing.html:92
 msgid "Change current folder details"
@@ -928,10 +851,8 @@ msgstr ""
 
 #: templates/admin/media/folder/new_folder_form.html:16
 #: templates/admin/media/folder/scan_form.html:19
-#, fuzzy
-#| msgid "Add %(name)s"
 msgid "Add new"
-msgstr "Přidat %(name)s "
+msgstr ""
 
 #: templates/admin/media/folder/new_folder_form.html:25
 #: templates/admin/media/folder/scan_form.html:28
@@ -951,16 +872,16 @@ msgstr ""
 #: templates/admin/media/scan_files.html:6
 #: templates/admin/media/scan_files.html:14
 msgid "Scan files"
-msgstr "Skenovat soubory"
+msgstr ""
 
 #: templates/admin/media/scan_files.html:27
 msgid "Start Scan"
-msgstr "Zahájit skenování"
+msgstr ""
 
 #: templates/admin/media/select_folder.html:6
 #: templates/admin/media/select_folder.html:14
 msgid "Select folder for upload"
-msgstr "Vyberte složku pro nahrání souborů"
+msgstr ""
 
 #: templates/admin/media/tools/clipboard/clipboard.html:7
 msgid "Clipboard"
@@ -983,10 +904,8 @@ msgid "the clipboard is empty"
 msgstr ""
 
 #: templates/admin/media/tools/clipboard/clipboard_item_rows.html:11
-#, fuzzy
-#| msgid "Upload files"
 msgid "upload failed"
-msgstr "Nahrát soubory"
+msgstr ""
 
 #: templates/admin/media/tools/search_form.html:7
 #: templates/admin/media/tools/search_form.html:13
@@ -1029,10 +948,8 @@ msgstr ""
 #: templates/admin/media/tools/upload_button_js.html:24
 #: templates/admin/media/widgets/admin_file.html:8
 #: templates/admin/media/widgets/admin_file.html:9
-#, fuzzy
-#| msgid "file size"
 msgid "file missing"
-msgstr "velikost souboru"
+msgstr ""
 
 #: templates/admin/media/widgets/admin_file.html:12
 msgid "no file selected"
@@ -1058,17 +975,17 @@ msgstr ""
 #: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:32
 #: widget/vectorgraphics/templates/admin/svgfile/edit_link.html:2
 msgid "Edit on site"
-msgstr "Upravit na stránkách"
+msgstr ""
 
 #: templates/admin/svg/link.html:2
 #: widget/vectorgraphics/templates/admin/svgfile/link.html:2
 msgid "View"
-msgstr "Pohled"
+msgstr ""
 
 #: templates/media/directory_list.html:27
 #: templates/media/directory_list_nested.html:57
 msgid "Back to"
-msgstr "Zpět na"
+msgstr ""
 
 #: templates/media/directory_list_nested.html:40
 #: templates/media/directory_list_nested.html:47
@@ -1081,13 +998,11 @@ msgid ""
 "Click link to get Flash Player or try to enable JavaScript and reload the "
 "page."
 msgstr ""
-"Klikněte na odkaz pro stažení Flash Playeru, nebo povolte JavaScript a "
-"obnovte stránku."
 
 #: templates/widget/flashobject/default.html:8
 #: templates/widget/simplevideo/default.html:10
 msgid "Get Adobe Flash player"
-msgstr "Stáhnout Adobe Flash player"
+msgstr ""
 
 #: views.py:39
 msgid "Click for listing or type for searching"
@@ -1098,62 +1013,60 @@ msgid "Folder with this name already exists."
 msgstr ""
 
 #: widget/downloaditem/models.py:14
-#, fuzzy
 msgid "download item"
-msgstr "odkazy ke stažení"
+msgstr ""
 
 #: widget/downloaditem/models.py:15
-#, fuzzy
 msgid "download items"
-msgstr "odkazy ke stažení"
+msgstr ""
 
 #: widget/downloadlist/models.py:15
 msgid "download list"
-msgstr "odkazy ke stažení"
+msgstr ""
 
 #: widget/downloadlist/models.py:16
 msgid "download lists"
-msgstr "odkazy ke stažení"
+msgstr ""
 
 #: widget/flashobject/models.py:9
 msgid "version 10 and newer"
-msgstr "verze 10.0 a novější"
+msgstr ""
 
 #: widget/flashobject/models.py:10
 msgid "version 9 and newer"
-msgstr "verze 9.0 a novější"
+msgstr ""
 
 #: widget/flashobject/models.py:28
 msgid "flash file"
-msgstr "flash soubor"
+msgstr ""
 
 #: widget/flashobject/models.py:30
 msgid "flash version"
-msgstr "verze Flashe"
+msgstr ""
 
 #: widget/flashobject/models.py:35
 msgid "variables"
-msgstr "proměnné"
+msgstr ""
 
 #: widget/flashobject/models.py:37
 msgid "parameters"
-msgstr "parametry"
+msgstr ""
 
 #: widget/flashobject/models.py:39
 msgid "attributes"
-msgstr "atributy"
+msgstr ""
 
 #: widget/flashobject/models.py:43
 msgid "flash object"
-msgstr "flashový objekt"
+msgstr ""
 
 #: widget/flashobject/models.py:44
 msgid "flash objects"
-msgstr "flashové objekty"
+msgstr ""
 
 #: widget/internetvideo/models.py:29
 msgid "video link"
-msgstr "odkaz na video"
+msgstr ""
 
 #: widget/internetvideo/models.py:30
 msgid ""
@@ -1163,21 +1076,19 @@ msgstr ""
 
 #: widget/internetvideo/models.py:46
 msgid "internet video"
-msgstr "internetové video"
+msgstr ""
 
 #: widget/internetvideo/models.py:47
 msgid "internet videos"
-msgstr "internetová videa"
+msgstr ""
 
 #: widget/mediagallery/models.py:11 widget/simpleimage/models.py:9
 msgid "open in modal window"
-msgstr "otevřít v modálním okně"
+msgstr ""
 
 #: widget/mediagallery/models.py:12 widget/simpleimage/models.py:10
-#, fuzzy
-#| msgid "open in modal window"
 msgid "open new window"
-msgstr "otevřít v modálním okně"
+msgstr ""
 
 #: widget/mediagallery/models.py:13 widget/simpleimage/models.py:11
 msgid "disply in page"
@@ -1185,15 +1096,15 @@ msgstr ""
 
 #: widget/mediagallery/models.py:17 widget/simpleimage/models.py:15
 msgid "small"
-msgstr "malý"
+msgstr ""
 
 #: widget/mediagallery/models.py:18 widget/simpleimage/models.py:16
 msgid "medium"
-msgstr "střední"
+msgstr ""
 
 #: widget/mediagallery/models.py:19 widget/simpleimage/models.py:17
 msgid "large"
-msgstr "velký"
+msgstr ""
 
 #: widget/mediagallery/models.py:25
 msgid "Directory"
@@ -1201,65 +1112,63 @@ msgstr ""
 
 #: widget/mediagallery/models.py:27
 msgid "thumbnail size"
-msgstr "velikost miniatury"
+msgstr ""
 
 #: widget/mediagallery/models.py:29
 msgid "detail view"
-msgstr "detailní pohled"
+msgstr ""
 
 #: widget/mediagallery/models.py:41
 msgid "media gallery"
-msgstr "galerie médií"
+msgstr ""
 
 #: widget/mediagallery/models.py:42
 msgid "media galleries"
-msgstr "galerie médií"
+msgstr ""
 
 #: widget/pdfdocument/models.py:11 widget/pdfdocument/models.py:19
-#, fuzzy
 msgid "pdf document"
-msgstr "PDF dokument"
+msgstr ""
 
 #: widget/pdfdocument/models.py:20
-#, fuzzy
 msgid "pdf documents"
-msgstr "PDF dokument"
+msgstr ""
 
 #: widget/simpleimage/models.py:24
 msgid "size"
-msgstr "velikost"
+msgstr ""
 
 #: widget/simpleimage/models.py:25
 msgid "on click action"
-msgstr "akce po kliknutí"
+msgstr ""
 
 #: widget/simpleimage/models.py:34
 msgid "simple image"
-msgstr "jednoduchý obrázek"
+msgstr ""
 
 #: widget/simpleimage/models.py:35
 msgid "simple images"
-msgstr "jednoduché obrázky"
+msgstr ""
 
 #: widget/simplevideo/models.py:11
 msgid "thumbnail"
-msgstr "náhled"
+msgstr ""
 
 #: widget/simplevideo/models.py:13
 msgid "video"
-msgstr "video"
+msgstr ""
 
 #: widget/simplevideo/models.py:19 widget/simplevideo/models.py:20
 msgid "simple video"
-msgstr "jednoduché video"
+msgstr ""
 
 #: widget/vectorgraphics/models.py:15 widget/vectorgraphics/models.py:16
 msgid "Vector graphics"
-msgstr "Vektorová grafika"
+msgstr ""
 
 #: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:21
 msgid "Preview"
-msgstr "Náhled"
+msgstr ""
 
 #: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:24
 msgid "Add child page"
@@ -1273,249 +1182,3 @@ msgstr ""
 #: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:30
 msgid "Create hidden copy of this page"
 msgstr ""
-
-#~ msgid "Media settings"
-#~ msgstr "Nastavení médií"
-
-#~ msgid "small thumb geomerty"
-#~ msgstr "Geometrie malých obrázků"
-
-#~ msgid "small thumb options"
-#~ msgstr "Možnosti malých obrázků"
-
-#~ msgid "medium thumb geomerty"
-#~ msgstr "Geometrie středních obrázků"
-
-#~ msgid "medium thumb options"
-#~ msgstr "Možnosti středních obrázků"
-
-#~ msgid "large thumb geomerty"
-#~ msgstr "Geometrie velkých obrázků"
-
-#~ msgid "large thumb options"
-#~ msgstr "Možnosti velkých obrázků"
-
-#~ msgid "URL friendly name of the media category."
-#~ msgstr "URL popisný název galerie médií."
-
-#~ msgid "sort order"
-#~ msgstr "řazení"
-
-#~ msgid "is active?"
-#~ msgstr "je aktivní?"
-
-#~ msgid "is hidden?"
-#~ msgstr "je skrytá?"
-
-#~ msgid "sync"
-#~ msgstr "synchronizace"
-
-#~ msgid "media category"
-#~ msgstr "galerie"
-
-#~ msgid "media categories"
-#~ msgstr "galerie"
-
-#~ msgid "excerpt"
-#~ msgstr "výňatek"
-
-#~ msgid "category translation"
-#~ msgstr "překlad"
-
-#~ msgid "category translations"
-#~ msgstr "překlady"
-
-#~ msgid "all media categories"
-#~ msgstr "všechny kategorie"
-
-#~ msgid "copyright"
-#~ msgstr "copyright"
-
-#~ msgid "hash"
-#~ msgstr "hash"
-
-#~ msgid "metadata"
-#~ msgstr "metadata"
-
-#~ msgid "categories"
-#~ msgstr "kategorie"
-
-#~ msgid "media file"
-#~ msgstr "soubor"
-
-#~ msgid "full path"
-#~ msgstr "plná cesta"
-
-#~ msgid "file info"
-#~ msgstr "informace o souboru"
-
-#~ msgid "Image"
-#~ msgstr "Obrázek"
-
-#~ msgid "Video"
-#~ msgstr "Video"
-
-#~ msgid "Audio"
-#~ msgstr "Audio"
-
-#~ msgid "Graph"
-#~ msgstr "Graf"
-
-#~ msgid "Ontology"
-#~ msgstr "Ontologie"
-
-#~ msgid "PDF document"
-#~ msgstr "PDF dokument"
-
-#~ msgid "Flash"
-#~ msgstr "Flash"
-
-#~ msgid "Text"
-#~ msgstr "Text"
-
-#~ msgid "Rich text"
-#~ msgstr "Bohatý text"
-
-#~ msgid "Zip archive"
-#~ msgstr "Zip archiv"
-
-#~ msgid "Microsoft Word"
-#~ msgstr "Microsoft Word"
-
-#~ msgid "Microsoft Excel"
-#~ msgstr "Microsoft Excel"
-
-#~ msgid "Microsoft PowerPoint"
-#~ msgstr "Microsoft PowerPoint"
-
-#~ msgid "Binary"
-#~ msgstr "Binární"
-
-#~ msgid "media file translation"
-#~ msgstr "překlad"
-
-#~ msgid "media file translations"
-#~ msgstr "překlady"
-
-#~ msgid "category"
-#~ msgstr "kategorie"
-
-#~ msgid "ordering"
-#~ msgstr "řazeno"
-
-#~ msgid "featured"
-#~ msgstr "doporučený"
-
-#~ msgid "active"
-#~ msgstr "aktivní"
-
-#~ msgid "category file"
-#~ msgstr "soubor v kategorii"
-
-#~ msgid "category files"
-#~ msgstr "soubory v kategorii"
-
-#~ msgid "No input file given"
-#~ msgstr "Nebyl zadaný vstupní soubor"
-
-#~ msgid "Could not access storage"
-#~ msgstr "Nelze získat přístup k datovému prostoru"
-
-#~ msgid "%d files imported"
-#~ msgstr "importováno %d souborů"
-
-#~ msgid "ZIP file invalid: %s"
-#~ msgstr "neplatný ZIP archiv: %s"
-
-#~ msgid "Location"
-#~ msgstr "Umístění"
-
-#~ msgid "annotated image"
-#~ msgstr "komentovaný obrázek"
-
-#~ msgid "annotated images"
-#~ msgstr "komentované obrázky"
-
-#~ msgid "above"
-#~ msgstr "nad"
-
-#~ msgid "below"
-#~ msgstr "pod"
-
-#~ msgid "to left"
-#~ msgstr "vlevo"
-
-#~ msgid "to right"
-#~ msgstr "vpravo"
-
-#~ msgid "number"
-#~ msgstr "číslo"
-
-#~ msgid "position"
-#~ msgstr "poloha"
-
-#~ msgid "link"
-#~ msgstr "odkaz"
-
-#~ msgid "date"
-#~ msgstr "datum"
-
-#~ msgid "left"
-#~ msgstr "vlevo"
-
-#~ msgid "top"
-#~ msgstr "shora"
-
-#~ msgid "image annotation"
-#~ msgstr "anotace obrázku"
-
-#~ msgid "image annotations"
-#~ msgstr "anotace obrázku"
-
-#~ msgid "title"
-#~ msgstr "název"
-
-#~ msgid "annotation text"
-#~ msgstr "text"
-
-#~ msgid "annotation texts"
-#~ msgstr "texty"
-
-#~ msgid "show info"
-#~ msgstr "zobrazit informace"
-
-#~ msgid "Bulk upload a ZIP file"
-#~ msgstr "Hromadné nahrání ZIP souboru"
-
-#~ msgid "Send"
-#~ msgstr "Odeslat"
-
-#~ msgid "LOADING..."
-#~ msgstr "NAHRÁVÁM..."
-
-#~ msgid "Click for next image"
-#~ msgstr "Klikněte pro další obrázek"
-
-#~ msgid "modal window"
-#~ msgstr "modální okno"
-
-#~ msgid "link to file"
-#~ msgstr "odkaz na soubor"
-
-#~ msgid "on page"
-#~ msgstr "na stránce"
-
-#~ msgid "go to linked page"
-#~ msgstr "přejít na odkazovanou stránku"
-
-#~ msgid "right"
-#~ msgstr "vpravo"
-
-#~ msgid "alignment"
-#~ msgstr "zarovnání"
-
-#~ msgid "Scan Report"
-#~ msgstr "Zpráva o scanování"
-
-#~ msgid "Media categories"
-#~ msgstr "Kategorie medií"
