@@ -1,4 +1,4 @@
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import
 
 from horizon.tables.views import DataTableView  # noqa
 from horizon.tables.views import MixedDataTableView  # noqa
