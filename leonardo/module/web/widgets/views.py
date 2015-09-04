@@ -94,7 +94,6 @@ class WidgetCreateView(CreateView, WidgetViewMixin):
     def form_valid(self, form):
         try:
             obj = form.save(commit=False)
-            obj.ordering = obj.next_ordering
             obj.save()
             obj.parent.save()
             success_url = self.get_success_url()

@@ -1,10 +1,89 @@
 {% load i18n %}
 
-<select class="select form-control" id='id_cls_name' name="cls_name">
-  {% for v,n in ungrouped %}<option value="{{ v }}">{% trans n|capfirst %}</option> {% endfor %}
+<div class="cc-selector">
   {% for label,cts in grouped.items %}
-  <optgroup label="{{ label }}">
-    {% for v,n,icon in cts %}<option value="{{ v }}"><i class="fa fa-check">{% trans n|capfirst %}</i></option> {% endfor %}
-  </optgroup>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+    	<a data-parent="#accordion_select_widget" href="#accordion_select_widget_{{ forloop.counter0 }}">
+      		<h4 class="panel-title">{{ label }}</h4>
+        </a>
+    </div>
+    <div id="accordion_select_widget_{{ forloop.counter0 }}" class="panel-default">
+      <div class="panel-body">
+	    {% for v,n,icon in cts %}
+	        <input id="{{ v|slugify }}" type="radio" name="cls_name" value="{{ v }}" />
+	        <label class="drinkcard-cc col-md-2" for="{{ v|slugify }}">
+			<i class="{{ icon }} fa-2x"></i>
+			{% trans n|capfirst %}
+	        </label>
+    	{% endfor %}
+      </div>
+    </div>
+    </div>
   {% endfor %}
-</select>
+ {% if ungrouped %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion_select_widget" href="#accordion_select_widget_{{ forloop.counter0 }}">{% trans "Ungrouped" %}</a>
+      </h4>
+    </div>
+    <div id="accordion_select_widget_{{ forloop.counter0 }}" class="panel-collapse  in">
+      <div class="panel-body">
+  		{% for v,n,icon in ungrouped %}
+	        <input id="{{ v|slugify }}" type="radio" name="cls_name" value="{{ v }}" />
+	        <label class="drinkcard-cc" for="{{ v|slugify }}">
+			{% trans n|capfirst %}
+			<i class="fa fa-check fa-2x"></i>
+	        </label>
+    	{% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  </div>
+
+    
+<style type="text/css">
+
+.fa {
+	float:none;
+	width: 100%;
+}
+
+.cc-selector input{
+    margin:0;padding:0;
+    height: 0; width: 0;
+    display:none;
+    -webkit-appearance:none;
+       -moz-appearance:none;
+            appearance:none;
+}
+
+.drinkcard-cc, .cc-selector input:active +.drinkcard-cc{opacity: .9;}
+.drinkcard-cc, .cc-selector input:checked +.drinkcard-cc{
+    -webkit-filter: none;
+       -moz-filter: none;
+            filter: none;
+}
+.drinkcard-cc{
+	text-align: center;
+    cursor:pointer;
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    -webkit-transition: all 100ms ease-in;
+       -moz-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+       -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+            filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+.drinkcard-cc:hover{
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+
+</style>

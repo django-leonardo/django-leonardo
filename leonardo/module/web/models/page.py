@@ -111,6 +111,11 @@ class Page(FeinCMSPage):
     def get_base_template(self):
         return self.theme.template
 
+    def get_next_ordering(self, region):
+        """return order for new CT in region
+        """
+        return len(getattr(self.content, region, [])) + 1
+
     @cached_property
     def get_layout_class(self):
         if self.layout == 'fluid':

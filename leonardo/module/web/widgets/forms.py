@@ -144,6 +144,14 @@ class WidgetSelectForm(SelfHandlingForm):
         required=True
     )
 
+    first = forms.BooleanField(
+        label=('First'),
+        help_text=_('If is checked, widget will be'
+                    ' placed as first widget in this region'),
+        initial=False,
+        required=False
+    )
+
     page_id = forms.IntegerField(
         widget=forms.widgets.HiddenInput,
     )
@@ -174,6 +182,8 @@ class WidgetSelectForm(SelfHandlingForm):
 
         self.fields['page_id'].initial = feincms_object.id
         self.fields['region'].initial = region_name
+        self.fields['ordering'].initial = \
+            feincms_object.get_next_ordering(region_name)
         self.fields['parent'].initial = feincms_object.id
 
         choices, grouped, ungrouped = get_grouped_widgets(
@@ -194,6 +204,7 @@ class WidgetSelectForm(SelfHandlingForm):
             HTML(render_to_string("widget/content_type_selection_widget.html",
                                   {'grouped': grouped, 'ungrouped': {}}),
                  ),
+            Field('first'),
         )
 
     def handle(self, request, data):
@@ -201,6 +212,11 @@ class WidgetSelectForm(SelfHandlingForm):
         # request so that we can chain it as an input to the next view...
         # but hey, it totally works.
         request.method = 'GET'
+
+        first = data.pop('first', None)
+
+        if first:
+            data['ordering'] = 0
 
         return self.next_view.as_view()(request, **data)
 
