@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class NavigationWidget(Widget, NavigationWidgetMixin):
 
-    """Base class for navigation widget
+    """Base class for navigation widgets
     """
 
     class Meta:

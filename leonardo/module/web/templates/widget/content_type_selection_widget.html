@@ -1,77 +1,10 @@
 {% load i18n %}
 
-<div class="cc-selector panel-group" id="accordion_select_widget">
+<select class="select form-control" id='id_cls_name' name="cls_name">
+  {% for v,n in ungrouped %}<option value="{{ v }}">{% trans n|capfirst %}</option> {% endfor %}
   {% for label,cts in grouped.items %}
-  <div class="panel panel-default">
-    <div class="panel-heading">
-    	<a data-toggle="collapse" data-parent="#accordion_select_widget" href="#accordion_select_widget_{{ forloop.counter0 }}">
-      		<h4 class="panel-title">{{ label }}</h4>
-        </a>
-    </div>
-    <div id="accordion_select_widget_{{ forloop.counter0 }}" class="panel-collapse collapse{% if 'Web' == label %} in{% endif %}">
-      <div class="panel-body">
-	    {% for v,n,icon in cts %}
-	        <input id="{{ v|slugify }}" type="radio" name="cls_name" value="{{ v }}" />
-	        <label class="drinkcard-cc" for="{{ v|slugify }}">{% trans n|capfirst %}
-			<i class="{{ icon }} fa-5x"></i>
-	        </label>
-    	{% endfor %}
-      </div>
-    </div>
-    </div>
+  <optgroup label="{{ label }}">
+    {% for v,n,icon in cts %}<option value="{{ v }}"><i class="fa fa-check">{% trans n|capfirst %}</i></option> {% endfor %}
+  </optgroup>
   {% endfor %}
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion_select_widget" href="#accordion_select_widget_{{ forloop.counter0 }}">{% trans "Ungrouped" %}</a>
-      </h4>
-    </div>
-    <div id="accordion_select_widget_{{ forloop.counter0 }}" class="panel-collapse collapse{% if forloop.first %} in{% endif %}">
-      <div class="panel-body">
-  		{% for v,n in ungrouped %}
-	        <input id="{{ v|slugify }}" type="radio" name="cls_name" value="{{ v }}" />
-	        <label class="drinkcard-cc" for="{{ v|slugify }}">{% trans n|capfirst %}
-			<i class="fa fa-check fa-5x"></i>
-	        </label>
-    	{% endfor %}
-      </div>
-    </div>
-  </div>
-
-  </div>
-
-    
-<style type="text/css">
-.cc-selector input{
-    margin:0;padding:0;
-    -webkit-appearance:none;
-       -moz-appearance:none;
-            appearance:none;
-}
-
-.drinkcard-cc, .cc-selector input:active +.drinkcard-cc{opacity: .9;}
-.drinkcard-cc, .cc-selector input:checked +.drinkcard-cc{
-    -webkit-filter: none;
-       -moz-filter: none;
-            filter: none;
-}
-.drinkcard-cc{
-    cursor:pointer;
-    background-size:contain;
-    background-repeat:no-repeat;
-    display:inline-block;
-    width:112px;
-    -webkit-transition: all 100ms ease-in;
-       -moz-transition: all 100ms ease-in;
-            transition: all 100ms ease-in;
-    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
-       -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
-            filter: brightness(1.8) grayscale(1) opacity(.7);
-}
-.drinkcard-cc:hover{
-    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
-       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
-            filter: brightness(1.2) grayscale(.5) opacity(.9);
-}
-
-</style>
+</select>
