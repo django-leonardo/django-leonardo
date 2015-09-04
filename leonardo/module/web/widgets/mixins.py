@@ -36,6 +36,10 @@ class ListWidgetMixin(models.Model):
         '''perform filtering items by specific criteria'''
         return items
 
+    def set_items(self, items):
+        '''just setter for items'''
+        self._items = items
+
     @cached_property
     def items(self):
         '''access for filtered items'''
