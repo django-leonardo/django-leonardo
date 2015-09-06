@@ -159,13 +159,16 @@ class ApplicationWidget(Widget, ApplicationContent):
             output.standalone = True
 
         if isinstance(output, HttpResponse):
+
+            # update context
+            if hasattr(output, 'context_data'):
+                output.context_data['widget'] = self
+            else:
+                output.context_data = {'widget': self}
+
             if self.send_directly(request, output):
                 return output
             elif output.status_code == 200:
-                if output.context_data:
-                    output.context_data['widget'] = self
-                else:
-                    output.context_data = {'widget': self}
 
                 if self.unpack(request, output) and 'view' in kw:
                     # Handling of @unpack and UnpackTemplateResponse
