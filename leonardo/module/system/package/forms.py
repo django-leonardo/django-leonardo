@@ -61,7 +61,6 @@ class PluginInstallForm(forms.SelfHandlingForm):
                                 )
                             ),
         )
-        self._wrap_all()
 
     def handle(self, request, data):
 

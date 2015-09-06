@@ -107,7 +107,6 @@ class ManagementForm(forms.SelfHandlingForm):
                             )
                             ),
         )
-        self._wrap_all()
 
     def handle(self, request, data):
 
@@ -217,7 +216,6 @@ class InfoForm(forms.SelfHandlingForm):
                           )
             )
         )
-        self._wrap_all()
 
     def handle(self, request, data):
         return True
