@@ -28,11 +28,25 @@ CONF_SPEC = {
     'absolute_url_overrides': {},
     'navigation_extensions': [],
     'module_actions': [],
-    'ordering': 100,
+    'ordering': 0,
 }
 
 BLACKLIST = ['haystack']
 LEONARDO_MODULES = None
+
+
+def get_loaded_modules(modules):
+    '''load modules and order it by ordering key'''
+
+    _modules = []
+    for mod in modules:
+        mod_cfg = get_conf_from_module(mod)
+
+        _modules.append((mod, mod_cfg,))
+
+    _modules = sorted(_modules, key=lambda m: m[1].get('ordering'))
+
+    return _modules
 
 
 class dotdict(dict):

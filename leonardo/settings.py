@@ -9,7 +9,7 @@ import warnings
 from django import VERSION
 from leonardo.base import leonardo, default
 from leonardo.utils.settings import (get_conf_from_module, merge,
-                                     get_leonardo_modules)
+                                     get_leonardo_modules, get_loaded_modules)
 
 
 _file_path = os.path.abspath(os.path.dirname(__file__)).split('/')
@@ -303,10 +303,8 @@ if LEONARDO_MODULE_AUTO_INCLUDE:
     # fined and merge with defined app modules
     _APPS = merge(get_leonardo_modules(), _APPS)
 
-# sort modules
-_APPS = sorted(_APPS, key=lambda m: getattr(m, 'LEONARDO_ORDERING', 1000))
-
-for mod in _APPS:
+# iterate over sorted modules
+for mod, mod_cfg in get_loaded_modules(_APPS):
 
     try:
 
@@ -324,8 +322,6 @@ for mod in _APPS:
                 warnings.warn(
                     'Exception "{}" raised during loading '
                     'settings from {}'.format(str(e), mod))
-
-        mod_cfg = get_conf_from_module(mod)
 
         APPLICATION_CHOICES = merge(APPLICATION_CHOICES, mod_cfg.plugins)
 
