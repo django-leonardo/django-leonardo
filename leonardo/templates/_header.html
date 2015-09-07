@@ -2,6 +2,7 @@
 {% load compress django_select2_tags %}
 
 <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 {% if feincms_page %}
 <title>{{ feincms_page.page_title|default:feincms_page.title }}</title>
 <meta name="description" content="{{ feincms_page.meta_description|default:request.leonardo_options.meta_description }}">
@@ -10,7 +11,6 @@
 <meta name="keywords" content="{{ request.leonardo_options.meta_keywords|default:'CMS, Django' }}">
 <meta name="description" content="{{ request.leonardo_options.meta_description|default:'Leonardo' }}">
 <title>{{ request.leonardo_options.site.name }} - {{ request.leonardo_options.meta_title }}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 {% endif %}
 
 <link rel="shortcut icon" href="{{ STATIC_URL }}leonardo/img/favicon.ico" />
