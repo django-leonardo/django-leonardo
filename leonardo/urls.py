@@ -60,7 +60,7 @@ for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
 
 for urls_conf, conf in six.iteritems(getattr(settings, 'MODULE_URLS', {})):
     # is public ?
-    if conf['public']:
+    if conf['is_public']:
         urlpatterns += \
             patterns('',
                      url(r'', include(urls_conf)),
