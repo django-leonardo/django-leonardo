@@ -42,7 +42,6 @@ class PageColorSchemeSwitchableFormMixin(SwitchableFormFieldMixin):
             field = django_forms.ModelChoiceField(label=_('Color Scheme'),
                                                   queryset=theme.templates.all(),
                                                   required=False)
-            field.widget.attrs = attributes
             # inital for color scheme
             if color_scheme and theme.templates.filter(id=color_scheme.id).exists():
                 field.initial = color_scheme
