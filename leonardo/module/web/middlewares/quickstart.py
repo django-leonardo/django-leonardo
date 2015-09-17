@@ -20,11 +20,21 @@ class QuickStartMiddleware(object):
 
     def process_response(self, request, response):
 
-        # TODO check page existence via request
-        if response.status_code == 404 and Page.objects.count() == 0:
+        # count pages as last option
+        if response.status_code == 404 \
+            and not hasattr(request, 'feincms_page') \
+                and Page.objects.count() == 0:
+
+            # use directory as first choice
+            directory = getattr(settings, 'LEONARDO_BOOTSTRAP_DIR', None)
+            if directory:
+                url = None
+            else:
+                url = getattr(settings, 'LEONARDO_BOOTSTRAP_URL', None)
 
             page = create_new_site(request=request,
-                                   url=getattr(settings, 'LEONARDO_BOOTSTRAP_URL', None))
+                                   url=url,
+                                   run_syncall=True)
 
             return HttpResponseRedirect(reverse('page_update',
                                                 kwargs={'page_id': page.pk}))
