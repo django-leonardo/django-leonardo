@@ -60,21 +60,25 @@ for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
 
 for urls_conf, conf in six.iteritems(getattr(settings, 'MODULE_URLS', {})):
     # is public ?
-    if conf['is_public']:
-        urlpatterns += \
-            patterns('',
-                     url(r'', include(urls_conf)),
-                     )
-    else:
-        _decorate_urlconf(
-            url(r'', include(urls_conf)),
-            require_auth)
-        urlpatterns += patterns('',
-                                url(r'', include(urls_conf)))
+    try:
+        if conf['is_public']:
+            urlpatterns += \
+                patterns('',
+                         url(r'', include(urls_conf)),
+                         )
+        else:
+            _decorate_urlconf(
+                url(r'', include(urls_conf)),
+                require_auth)
+            urlpatterns += patterns('',
+                                    url(r'', include(urls_conf)))
+    except Exception as e:
+        raise Exception('raised %s during loading %s' % (str(e), urls_conf))
 
 if getattr(settings, 'LEONARDO_AUTH', True):
     urlpatterns += patterns('',
-                            url(r'^auth/', include('leonardo.module.leonardo_auth.auth_urls')),
+                            url(r'^auth/',
+                                include('leonardo.module.leonardo_auth.auth_urls')),
                             )
 
 if getattr(settings, 'HORIZON_ENABLED', True):
@@ -95,7 +99,7 @@ urlpatterns += patterns('',
                         )
 # secure media
 urlpatterns += patterns('',
-                          url(r'^', include('leonardo.module.media.server.urls'))
+                        url(r'^', include('leonardo.module.media.server.urls'))
                         )
 
 if settings.DEBUG:
