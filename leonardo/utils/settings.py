@@ -140,8 +140,8 @@ def get_leonardo_modules():
     return LEONARDO_MODULES
 
 
-def extract_conf_from(mod, conf=dotdict(CONF_SPEC)):
-    """returns extracted keys from module or object
+def extract_conf_from(mod, conf=dotdict(CONF_SPEC), depth=0, max_depth=2):
+    """recursively extract keys from module or object
     by passed config scheme
     """
 
@@ -160,16 +160,17 @@ def extract_conf_from(mod, conf=dotdict(CONF_SPEC)):
             app_module = import_module(app)
             if app_module != mod:
                 app_module = _get_correct_module(app_module)
-                mod_conf = extract_conf_from(app_module)
-                for k, v in six.iteritems(mod_conf):
-                    # prevent config duplicity
-                    # skip config merge
-                    if k == 'config':
-                        continue
-                    if isinstance(v, dict):
-                        conf[k].update(v)
-                    elif isinstance(v, (list, tuple)):
-                        conf[k] = merge(conf[k], v)
+                if depth < max_depth:
+                    mod_conf = extract_conf_from(app_module, depth=depth+1)
+                    for k, v in six.iteritems(mod_conf):
+                        # prevent config duplicity
+                        # skip config merge
+                        if k == 'config':
+                            continue
+                        if isinstance(v, dict):
+                            conf[k].update(v)
+                        elif isinstance(v, (list, tuple)):
+                            conf[k] = merge(conf[k], v)
         except Exception as e:
             pass  # swallow, but maybe log for info what happens
     return conf
