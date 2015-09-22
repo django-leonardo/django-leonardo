@@ -5,13 +5,11 @@
     <ul id="newStuff" class="nav nav-tabs nav-stacked">
 	  {% block items %}
       {% for row in widget.get_rows %}
-      	<li>
         {% for item in row %}
-          <div class="col-md-{{ 12|divide:widget.objects_per_row }}">
+      	  <li class="col-md-{{ 12|divide:widget.objects_per_row }}">
             {% include widget.get_item_template with item=item %}
-          </div>
+      	  </li>
         {% endfor %}
-      	</li>
       {% endfor %}
 		  </div>
 
