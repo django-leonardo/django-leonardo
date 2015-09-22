@@ -27,7 +27,8 @@ CONF_SPEC = {
     'migration_modules': {},
     'absolute_url_overrides': {},
     'navigation_extensions': [],
-    'module_actions': [],
+    'page_actions': [],
+    'widget_actions': [],
     'ordering': 0,
 }
 

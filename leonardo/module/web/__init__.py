@@ -130,7 +130,8 @@ class Default(object):
         'DEBUG': (True, _('Debug mode')),
     }
 
-    module_actions = ['base/actions.html']
+    page_actions = ['base/page/_actions.html']
+    widget_actions = ['base/widget/_actions.html']
 
 
 class WebConfig(AppConfig, Default):

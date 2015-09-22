@@ -15,7 +15,7 @@ class Default(object):
 
     urls_conf = 'leonardo.module.system.urls'
 
-    module_actions = ['system/module_actions.html']
+    page_actions = ['system/module_actions.html']
 
 
 class Config(AppConfig, Default):
