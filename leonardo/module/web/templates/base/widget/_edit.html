@@ -8,7 +8,7 @@
 <div class="btn-group">
   <button data-toggle="dropdown" class="btn btn-box-tool btn-info btn-xs dropdown-toggle"><i class="fa fa-wrench"></i></button>
   <ul role="menu" class="dropdown-menu">
-    {% for action in HORIZON_CONFIG.widget_actions %}
+    {% for action in request.LEONARDO_CONFIG.widget_actions %}
       {% include action %}
     {% endfor %}
   </ul>
