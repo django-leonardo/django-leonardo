@@ -7,7 +7,7 @@
 {% if widget.detail == "open_modal" %}
 
 {% thumbnail widget.image.file "800x800" as image %}
-<a class="thumbnail" href="{{ image.url }}" data-title="{{ widget.image.default_caption }}" data-footer="{{ widget.image.description }}" data-toggle="lightbox" href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
+<a class="thumbnail" href="{{ image.url }}" data-title="{{ widget.image.default_caption|default:'' }}" data-footer="{{ widget.image.description|default:'' }}" data-toggle="lightbox" href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
 {% endthumbnail %}
 {% endif %} 
 {% if widget.detail == "go_to_page" %}

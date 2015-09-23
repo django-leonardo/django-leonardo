@@ -1,6 +1,6 @@
 {% load i18n thumbnail %}
 {% thumbnail file.file widget.image_geom as image %}
-<a class="thumbnail" data-title="{{ category_file.default_caption }}" data-footer="{{ category_file.description }}" data-toggle="lightbox" href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
+<a class="thumbnail" data-title="{{ category_file.default_caption|default:'' }}" data-footer="{{ category_file.description|default:'' }}" data-toggle="lightbox" href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
   {% thumbnail file.file "320x200" crop="center" as thumbnail %}
   <img class="img-responsive" src="{{ thumbnail.url }}" alt="{{ category_file.default_alt_text }}" />
   {% endthumbnail %}
