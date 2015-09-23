@@ -4,7 +4,7 @@
 
 {% block content %}
 {% with widget.get_size as size %}
-{% if widget.on_click == "open_modal" %}
+{% if widget.detail == "open_modal" %}
 <script type="text/javascript">
 $(document).ready(function() {
 	$("a[rel='{{ widget.fe_identifier }}']").colorbox();
@@ -15,7 +15,7 @@ $(document).ready(function() {
 <a class="thumbnail" href="{{ image.url }}" data-title="{{ widget.image.default_caption }}" data-footer="{{ widget.image.description }}" data-toggle="lightbox" href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
 {% endthumbnail %}
 {% endif %} 
-{% if widget.on_click == "go_to_page" %}
+{% if widget.detail == "go_to_page" %}
 <a class="thumbnail" href="{{ widget.parent.get_absolute_url }}">
 {% endif %}
   {% if widget.size %}
@@ -25,7 +25,7 @@ $(document).ready(function() {
   {% else %}
   <img class="img-responsive" src='/media/files/{{ widget.image.file }}' alt='' />
   {% endif %}
-{% if widget.on_click %}
+{% if widget.detail %}
 </a>
 {% endif %} 
 {% endwith %}
