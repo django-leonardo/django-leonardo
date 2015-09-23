@@ -206,6 +206,10 @@ $.ajaxSetup({
 });
 
 </script>
+{% endcompress %}
+{% endif %}
+
+{% compress js %}
 <script type="text/javascript">
 $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
     event.preventDefault();
@@ -213,4 +217,3 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
 }); 
 </script>
 {% endcompress %}
-{% endif %}
