@@ -10,8 +10,9 @@ $(document).ready(function() {
 	$("a[rel='{{ widget.fe_identifier }}']").colorbox();
 });
 </script>
+
 {% thumbnail widget.image.file "800x800" as image %}
-<a class="thumbnail" href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
+<a class="thumbnail" href="{{ image.url }}" data-title="{{ widget.image.default_caption }}" data-footer="{{ widget.image.description }}" data-toggle="lightbox" href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
 {% endthumbnail %}
 {% endif %} 
 {% if widget.on_click == "go_to_page" %}
