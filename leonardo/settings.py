@@ -283,7 +283,7 @@ ABSOLUTE_URL_OVERRIDES = {}
 MODULE_URLS = {}
 
 if LEONARDO_SYSTEM_MODULE:
-    APPS = merge(APPS, ['system'])
+    APPS = merge(APPS, ['leonardo_system'])
     HORIZON_CONFIG['system_module'] = True
 else:
     HORIZON_CONFIG['system_module'] = False
