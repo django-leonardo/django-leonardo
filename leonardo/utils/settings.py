@@ -153,7 +153,7 @@ def extract_conf_from(mod, conf=dotdict(CONF_SPEC), depth=0, max_depth=2):
     try:
         filtered_apps = [app for app in conf['apps'] if app not in BLACKLIST]
     except Exception as e:
-        raise Exception('Error %s during loading %s' % (e, conf['apps']))
+        warnings.warn('Error %s during loading %s' % (e, conf['apps']))
 
     for app in filtered_apps:
         try:

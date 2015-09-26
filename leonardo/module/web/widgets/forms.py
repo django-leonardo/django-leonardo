@@ -30,6 +30,8 @@ WIDGETS = {
 
 class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
+    '''Widget Create/Update Form'''
+
     id = forms.CharField(
         widget=forms.widgets.HiddenInput,
         required=False
@@ -39,10 +41,15 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         request = kwargs.pop('request', None)
         super(WidgetUpdateForm, self).__init__(*args, **kwargs)
 
-        queryset = self.fields['content_theme'].queryset
+        if request:
+            queryset = self.fields['content_theme'].queryset
 
-        self.fields['content_theme'].queryset = \
-            queryset.filter(widget_class=self._meta.model.__name__)
+            self.fields['content_theme'].queryset = \
+                queryset.filter(widget_class=self._meta.model.__name__)
+        else:
+            # set defaults
+            self.init_themes()
+            del self.fields['id']
 
         # get all fields for widget
         main_fields = self._meta.model.fields()
@@ -97,15 +104,7 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         if 'text' in self.fields:
             self.fields['text'].label = ''
 
-
-class WidgetCreateForm(WidgetUpdateForm):
-
-    class Meta:
-        exclude = ['id']
-
-    def __init__(self, *args, **kwargs):
-        super(WidgetCreateForm, self).__init__(*args, **kwargs)
-
+    def init_themes(self):
         queryset = self.fields['content_theme'].queryset
 
         self.fields['content_theme'].queryset = \
@@ -128,6 +127,13 @@ class WidgetCreateForm(WidgetUpdateForm):
                 self.fields['content_theme'].queryset.first()
         else:
             self.fields['content_theme'].initial = content_theme
+
+
+class WidgetCreateForm(WidgetUpdateForm):
+
+    ''''''
+
+    pass
 
 
 class WidgetDeleteForm(SelfHandlingForm):

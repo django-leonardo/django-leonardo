@@ -1,17 +1,10 @@
-#-*- coding: utf-8 -*-
-from filer.fields.file import AdminFileWidget, AdminFileFormField, \
-    FilerFileField
-from filer.models import Image
+from ..models import Image
+from .utils import FileField, FileMultipleField
 
 
-class AdminImageWidget(AdminFileWidget):
-    pass
+class ImageField(FileField):
+    queryset = Image.objects
 
 
-class AdminImageFormField(AdminFileFormField):
-    widget = AdminImageWidget
-
-
-class FilerImageField(FilerFileField):
-    default_form_class = AdminImageFormField
-    default_model_class = Image
+class ImageMultipleField(FileMultipleField):
+    queryset = Image.objects

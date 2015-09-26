@@ -11,6 +11,13 @@ from .imagemodels import Image
 from .filemodels import File
 from .foldermodels import Folder
 
+MEDIA_FILE_EXTENSIONS = {
+    'media.document': ['.pdf', '.xls'],
+    'media.vector': ['.svg', '.eps', ],
+    'media.video': ['.dv', '.mov', '.mp4', '.avi', '.wmv', ],
+    'media.flash': ['.swf']
+}
+
 
 class MediaMixin(object):
 
@@ -50,7 +57,7 @@ class FolderTranslation(Translation(Folder)):
 
 class Document(MediaMixin, File):
 
-    filename_extensions = ['.pdf', '.xls']
+    filename_extensions = MEDIA_FILE_EXTENSIONS['media.document']
 
     class Meta:
         verbose_name = ("document")
@@ -71,7 +78,7 @@ class DocumentTranslation(Translation(Document), MediaTranslationMixin):
 
 class Vector(MediaMixin, File):
 
-    filename_extensions = ['.svg', '.eps', ]
+    filename_extensions = MEDIA_FILE_EXTENSIONS['media.vector']
 
     class Meta:
         verbose_name = ("vector")
@@ -92,7 +99,7 @@ class VectorTranslation(Translation(Vector), MediaTranslationMixin):
 
 class Video(MediaMixin, File):
 
-    filename_extensions = ['.dv', '.mov', '.mp4', '.avi', '.wmv', ]
+    filename_extensions = MEDIA_FILE_EXTENSIONS['media.video']
 
     class Meta:
         verbose_name = ("video")
@@ -113,7 +120,7 @@ class VideoTranslation(Translation(Video), MediaTranslationMixin):
 
 class Flash(MediaMixin, File):
 
-    filename_extensions = ['.swf']
+    filename_extensions = MEDIA_FILE_EXTENSIONS['media.flash']
 
     class Meta:
         verbose_name = ("flash video")
