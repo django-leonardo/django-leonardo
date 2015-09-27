@@ -189,7 +189,7 @@ class WidgetSelectForm(SelfHandlingForm):
         self.fields['page_id'].initial = feincms_object.id
         self.fields['region'].initial = region_name
         self.fields['ordering'].initial = \
-            feincms_object.get_next_ordering(region_name)
+            len(getattr(feincms_object.content, region_name, [])) + 1
         self.fields['parent'].initial = feincms_object.id
 
         choices, grouped, ungrouped = get_grouped_widgets(
