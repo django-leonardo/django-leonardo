@@ -34,7 +34,7 @@ class DirectorySelectField(AutoSelect2TagField):
             for subdir in os.walk(media_path).next()[1]
         ]
 
-        return NO_ERR_RESP, True, res
+        return NO_ERR_RESP, False, res
 
 
 class FolderField(FileField):

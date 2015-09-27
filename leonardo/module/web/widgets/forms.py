@@ -7,13 +7,13 @@ import floppyforms
 from django.db.models.loading import get_model
 from django.forms.models import modelform_factory
 from django.template.defaultfilters import slugify
-from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
 from leonardo.utils.widgets import get_grouped_widgets
+from .fields import get_widget_select_field
 
 
 class IconPreviewSelect(floppyforms.widgets.Select):
@@ -196,7 +196,9 @@ class WidgetSelectForm(SelfHandlingForm):
             feincms_object, request)
 
         # reduce choices for validation
-        self.fields['cls_name'].choices = [(choice[0], choice[1])
+        self.fields['cls_name'] = get_widget_select_field(feincms_object)
+        self.fields['cls_name'].initial = feincms_cls_name
+        self.fields['cls_name'].choices = [(str(choice[0]), str(choice[1]))
                                            for choice in choices]
 
         # for now ungrouped to grouped
@@ -207,9 +209,7 @@ class WidgetSelectForm(SelfHandlingForm):
             Field('parent'),
             Field('page_id'),
             Field('ordering'),
-            HTML(render_to_string("widget/content_type_selection_widget.html",
-                                  {'grouped': grouped, 'ungrouped': {}}),
-                 ),
+            'cls_name',
             Field('first'),
         )
 

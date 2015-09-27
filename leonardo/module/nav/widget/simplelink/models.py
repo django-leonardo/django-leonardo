@@ -1,15 +1,16 @@
 # -#- coding: utf-8 -#-
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language_from_request
-
-from leonardo.module.web.models import Widget, Page
+from leonardo.module.nav.forms import NavigationForm
+from leonardo.module.web.models import Page, Widget
 
 
 class SimpleLinkWidget(Widget):
 
+    feincms_item_editor_form = NavigationForm
     page = models.ForeignKey(Page, verbose_name=_(
         "Linked page"), related_name="simplelink_node")
 

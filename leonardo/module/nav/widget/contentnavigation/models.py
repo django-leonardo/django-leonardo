@@ -1,9 +1,9 @@
 # -#- coding: utf-8 -#-
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
-
+from django.utils.translation import ugettext_lazy as _
+from leonardo.module.nav.forms import NavigationForm
 from leonardo.module.nav.models import NavigationWidget
 
 
@@ -17,6 +17,8 @@ class ContentNavigationWidget(NavigationWidget):
         abstract = True
         verbose_name = _("Content navigation")
         verbose_name_plural = _('Content navigations')
+
+    feincms_item_editor_form = NavigationForm
 
     def render_content(self, options):
         request = options['request']

@@ -2,8 +2,7 @@
 from __future__ import unicode_literals
 from django.utils.translation import ugettext_lazy as _
 
-# don't use this field
-from leonardo.module.devel.widget.clientinfo.fields import MultiSelectField
+from .multiple import MultiSelectField
 
 from django_select2.fields import AutoModelSelect2Field
 

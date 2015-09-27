@@ -3,10 +3,9 @@
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-from leonardo.module.web.models import Page
-
+from leonardo.module.nav.forms import NavigationForm
 from leonardo.module.nav.models import NavigationWidget
-
+from leonardo.module.web.models import Page
 
 DEPTH_CHOICES = (
     (1, _("Only one level")),
@@ -16,6 +15,7 @@ LINK_CHOICES = (
     ('default', _('Default title')),
     ('detail', _('Detailed title')),
 )
+
 
 class TreeNavigationWidget(NavigationWidget):
     depth = models.IntegerField(verbose_name=_("depth"), choices=DEPTH_CHOICES, default=1)
@@ -28,6 +28,8 @@ class TreeNavigationWidget(NavigationWidget):
         abstract = True
         verbose_name = _("Navigation menu")
         verbose_name_plural = _('Navigation menus')
+
+    feincms_item_editor_form = NavigationForm
 
     def level(self, level):
         return level + 2

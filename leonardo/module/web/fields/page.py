@@ -3,11 +3,16 @@ from django_select2.fields import AutoModelSelect2Field
 
 from django_select2.widgets import *
 
-from ..models import PageColorScheme, PageTheme
+from ..models import PageColorScheme, PageTheme, Page
 
 
 class Field(AutoModelSelect2Field):
     empty_values = [u'']
+
+
+class PageSelectField(Field):
+    queryset = Page.objects
+    search_fields = ['title__icontains', ]
 
 
 class PageColorSchemeSelectField(Field):
