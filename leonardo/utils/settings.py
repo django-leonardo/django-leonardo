@@ -27,12 +27,27 @@ CONF_SPEC = {
     'migration_modules': {},
     'absolute_url_overrides': {},
     'navigation_extensions': [],
-    'module_actions': [],
-    'ordering': 100,
+    'page_actions': [],
+    'widget_actions': [],
+    'ordering': 0,
 }
 
 BLACKLIST = ['haystack']
 LEONARDO_MODULES = None
+
+
+def get_loaded_modules(modules):
+    '''load modules and order it by ordering key'''
+
+    _modules = []
+    for mod in modules:
+        mod_cfg = get_conf_from_module(mod)
+
+        _modules.append((mod, mod_cfg,))
+
+    _modules = sorted(_modules, key=lambda m: m[1].get('ordering'))
+
+    return _modules
 
 
 class dotdict(dict):
@@ -46,9 +61,9 @@ class dotdict(dict):
 
 
 def _get_key_from_module(mod, key, default):
-    value = getattr(mod, key, default)
-    # if not found try second variant
-    if value == default:
+    if hasattr(mod, key):
+        value = getattr(mod, key, default)
+    else:
         value = getattr(mod, 'LEONARDO_%s' % key.upper(), default)
     return value
 
@@ -125,8 +140,8 @@ def get_leonardo_modules():
     return LEONARDO_MODULES
 
 
-def extract_conf_from(mod, conf=dotdict(CONF_SPEC)):
-    """returns extracted keys from module or object
+def extract_conf_from(mod, conf=dotdict(CONF_SPEC), depth=0, max_depth=2):
+    """recursively extract keys from module or object
     by passed config scheme
     """
 
@@ -138,23 +153,24 @@ def extract_conf_from(mod, conf=dotdict(CONF_SPEC)):
     try:
         filtered_apps = [app for app in conf['apps'] if app not in BLACKLIST]
     except Exception as e:
-        raise Exception(conf['apps'])
-        raise e
+        warnings.warn('Error %s during loading %s' % (e, conf['apps']))
+
     for app in filtered_apps:
         try:
             app_module = import_module(app)
             if app_module != mod:
                 app_module = _get_correct_module(app_module)
-                mod_conf = extract_conf_from(app_module)
-                for k, v in six.iteritems(mod_conf):
-                    # prevent config duplicity
-                    # skip config merge
-                    if k == 'config':
-                        continue
-                    if isinstance(v, dict):
-                        conf[k].update(v)
-                    elif isinstance(v, (list, tuple)):
-                        conf[k] = merge(conf[k], v)
+                if depth < max_depth:
+                    mod_conf = extract_conf_from(app_module, depth=depth+1)
+                    for k, v in six.iteritems(mod_conf):
+                        # prevent config duplicity
+                        # skip config merge
+                        if k == 'config':
+                            continue
+                        if isinstance(v, dict):
+                            conf[k].update(v)
+                        elif isinstance(v, (list, tuple)):
+                            conf[k] = merge(conf[k], v)
         except Exception as e:
             pass  # swallow, but maybe log for info what happens
     return conf

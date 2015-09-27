@@ -8,26 +8,8 @@
 <div class="btn-group">
   <button data-toggle="dropdown" class="btn btn-box-tool btn-info btn-xs dropdown-toggle"><i class="fa fa-wrench"></i></button>
   <ul role="menu" class="dropdown-menu">
-    <li><a class="ajax-modal" href="{% url 'widget_update' widget.get_ct_name widget.id %}">{% trans 'Edit' %}</a></li>
-    <li><a id="ajax-info-{{ widget.fe_identifier }}" href='#'>{% trans 'Info' %}</a></li>
-    <li class="divider"></li>
-    <li><a class="ajax-modal" href="{% url 'widget_delete' widget.get_ct_name widget.id %}">{% trans 'Delete' %}</a></li>
+    {% for action in request.LEONARDO_CONFIG.widget_actions %}
+      {% include action %}
+    {% endfor %}
   </ul>
 </div>
-
-<script type="text/javascript">
-
-$(function() {
-
-  $('#ajax-info-' + '{{ widget.fe_identifier }}').on('click', function (evt, modal) {
-  		$.ajax({
-        type: "GET",
-        url: '{% url 'widget_info' widget.get_ct_name widget.id %}',
-        async: true,
-        success: function(data){
-          horizon.autoDismissAlerts();
-        }      
-      });
-  });
-});	
-</script>

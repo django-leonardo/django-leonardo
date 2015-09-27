@@ -4,6 +4,10 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.web.models import Widget
+from leonardo.module.media.fields.image import ImageField
+from leonardo.fields import SimpleSelect2Widget
+
+from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
 ON_CLICK_CHOICES = (
     ('open_modal', _('open in modal window')),
@@ -18,11 +22,23 @@ SIZE_CHOICES = (
 )
 
 
+class ImageForm(WidgetUpdateForm):
+
+    image = ImageField(widget=SimpleSelect2Widget())
+
+
 class SimpleImageWidget(Widget):
 
-    image = models.ForeignKey("media.Image", verbose_name=_("image"), related_name="%(app_label)s_%(class)s_images")
-    size = models.CharField(max_length=255, verbose_name=_("size"), choices=SIZE_CHOICES, blank=True)
-    detail = models.CharField(max_length=255, verbose_name=_("on click action"), choices=ON_CLICK_CHOICES, blank=True)
+    icon = "fa fa-file-image-o"
+
+    feincms_item_editor_form = ImageForm
+
+    image = models.ForeignKey(
+        "media.Image", verbose_name=_("image"), related_name="%(app_label)s_%(class)s_images")
+    size = models.CharField(
+        max_length=255, verbose_name=_("size"), choices=SIZE_CHOICES, blank=True)
+    detail = models.CharField(max_length=255, verbose_name=_(
+        "on click action"), choices=ON_CLICK_CHOICES, blank=True)
 
     def get_size(self):
         return getattr(settings,

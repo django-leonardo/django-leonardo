@@ -1,0 +1,150 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-03 14:45+0000\n"
+"PO-Revision-Date: 2015-09-03 14:47+0000\n"
+"Last-Translator:   <root@admin.cz>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Translated-Using: django-rosetta 0.7.6\n"
+
+#: module/devel/templates/widget/visualtest/_test_heading.html:4
+msgid "Largest Heading"
+msgstr "Největší Nadpis"
+
+#: module/devel/templates/widget/visualtest/_test_heading.html:5
+msgid "2nd Largest Heading"
+msgstr "2. největší Nadpis"
+
+#: module/devel/templates/widget/visualtest/_test_heading.html:6
+msgid "3rd Largest Heading"
+msgstr "3. největší Nadpis"
+
+#: module/devel/templates/widget/visualtest/_test_heading.html:7
+msgid "3rd Smallest Heading"
+msgstr "3rd Nejmenší Nadpis"
+
+#: module/devel/templates/widget/visualtest/_test_heading.html:8
+msgid "2nd Smallest Heading"
+msgstr "2nd Nejmenší Nadpis"
+
+#: module/devel/templates/widget/visualtest/_test_heading.html:9
+msgid "Smallest Heading"
+msgstr "Nejmenší Nadpis"
+
+#: module/devel/templates/widget/visualtest/_test_list.html:4
+msgid "Ordered List"
+msgstr "Objednané Seznam"
+
+#: module/devel/templates/widget/visualtest/_test_list.html:34
+msgid "Unordered List"
+msgstr "Výčtu"
+
+#: module/devel/templates/widget/visualtest/_test_list.html:41
+msgid "Definition List"
+msgstr "Seznam definice"
+
+#: module/devel/templates/widget/visualtest/_test_list.html:55
+msgid "Custom List"
+msgstr "Vlastní seznam"
+
+#: module/devel/widget/clientinfo/fields.py:17
+#, python-format
+msgid "You must select a maximum of  %(limit_value)d choices."
+msgstr ""
+
+#: module/devel/widget/clientinfo/models.py:13
+msgid "browser information"
+msgstr "Informace o prohlížeč"
+
+#: module/devel/widget/clientinfo/models.py:14
+msgid "operating system"
+msgstr "operační systém"
+
+#: module/devel/widget/clientinfo/models.py:15
+msgid "IP address"
+msgstr "IP adresa"
+
+#: module/devel/widget/clientinfo/models.py:16
+msgid "hostname"
+msgstr "hostname"
+
+#: module/devel/widget/clientinfo/models.py:23
+msgid "show info"
+msgstr "Zobrazit informace"
+
+#: module/devel/widget/clientinfo/models.py:27
+#: module/devel/widget/clientinfo/models.py:28
+msgid "client info"
+msgstr "Klient info"
+
+#: module/devel/widget/clientinfo/models.py:40
+msgid "Please install httpagentparser"
+msgstr "Prosím, nainstalujte httpagentparser"
+
+#: module/devel/widget/visualtest/models.py:13
+msgid "Paragraphs"
+msgstr "Odstavce"
+
+#: module/devel/widget/visualtest/models.py:14
+msgid "Lists"
+msgstr "Seznamy"
+
+#: module/devel/widget/visualtest/models.py:15
+msgid "Headings"
+msgstr "Nadpisy"
+
+#: module/devel/widget/visualtest/models.py:16
+msgid "Tables"
+msgstr "Tabulky"
+
+#: module/devel/widget/visualtest/models.py:17
+msgid "Forms"
+msgstr "Formuláře"
+
+#: module/devel/widget/visualtest/models.py:18
+msgid "Buttons"
+msgstr "Tlačítka"
+
+#: module/devel/widget/visualtest/models.py:19
+msgid "Typography"
+msgstr "Typografie"
+
+#: module/devel/widget/visualtest/models.py:20
+msgid "Grid"
+msgstr "Rošt"
+
+#: module/devel/widget/visualtest/models.py:21
+msgid "Icons"
+msgstr "Ikony"
+
+#: module/devel/widget/visualtest/models.py:27
+msgid "Date taken"
+msgstr "Datum pořízení"
+
+#: module/devel/widget/visualtest/models.py:69
+msgid "Contact details"
+msgstr "Kontaktní údaje"
+
+#: module/devel/widget/visualtest/models.py:87
+msgid "type of test"
+msgstr "typ testu"
+
+#: module/devel/widget/visualtest/models.py:94
+msgid "visual tester"
+msgstr "vizuální Tester"
+
+#: module/devel/widget/visualtest/models.py:95
+msgid "visual testers"
+msgstr "vizuální testery"

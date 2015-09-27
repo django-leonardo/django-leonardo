@@ -26,7 +26,7 @@
 <div class="no-print btn btn-primary" id="settings_button"><i class="fa fa-gear"></i></div>
 <div class="no-print panel panel-default" id="settings_menu">
 
-    {% for action in HORIZON_CONFIG.module_actions %}
+    {% for action in request.LEONARDO_CONFIG.page_actions %}
       {% include action %}
     {% endfor %}
 

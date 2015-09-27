@@ -3,7 +3,6 @@ import logging
 from django.apps import AppConfig
 
 from django.utils.translation import ugettext_lazy as _
-from leonardo.utils.compatibility import FEINCMS_2
 from .widget import *
 
 
@@ -20,21 +19,6 @@ class Default(object):
 
     @property
     def page_extensions(self):
-        if FEINCMS_2:
-            return [
-                'feincms.module.page.extensions.excerpt',
-                'feincms.module.page.extensions.relatedpages',
-                'feincms.module.page.extensions.navigation',
-                'feincms.module.page.extensions.sites',
-                'feincms.module.page.extensions.symlinks',
-                'feincms.module.page.extensions.titles',
-                'feincms.extensions.seo',
-                'feincms.extensions.datepublisher',
-                'feincms.extensions.translations',
-                'feincms.extensions.changedate',
-                'feincms.extensions.ct_tracker',
-                'feincms.extensions.featured'
-                ]
 
         return [
             'feincms.module.page.extensions.excerpt',
@@ -43,12 +27,12 @@ class Default(object):
             'feincms.module.page.extensions.sites',
             'feincms.module.page.extensions.symlinks',
             'feincms.module.page.extensions.titles',
-            'feincms.module.extensions.seo',
-            'feincms.module.extensions.datepublisher',
-            'feincms.module.extensions.translations',
-            'feincms.module.extensions.changedate',
-            'feincms.module.extensions.ct_tracker',
-            'feincms.module.extensions.featured'
+            'leonardo.extensions.seo',
+            'leonardo.extensions.datepublisher',
+            'leonardo.extensions.translations',
+            'leonardo.extensions.changedate',
+            'leonardo.extensions.ct_tracker',
+            'leonardo.extensions.featured'
             ]
 
     @property
@@ -146,7 +130,8 @@ class Default(object):
         'DEBUG': (True, _('Debug mode')),
     }
 
-    module_actions = ['base/actions.html']
+    page_actions = ['base/page/_actions.html']
+    widget_actions = ['base/widget/_actions.html']
 
 
 class WebConfig(AppConfig, Default):

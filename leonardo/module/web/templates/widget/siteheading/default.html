@@ -1,20 +1,8 @@
 {% extends widget.get_base_template %}
 
 {% block content %}
-{% comment %}
-{% if widget.logo %}
-{% load thumbnail %}
-<a class="navbar-brand" href="/">
-	{% if widget.size %}
-	<img src="{% thumbnail widget.logo.file size crop %}" alt="{{ widget.site_title }}" />
-	{% else %}
-	<img src='/media/files/{{ widget.logo.file }}' alt="{{ widget.site_title }}" />
-	{% endif %}
-</a>
-{% else %}
-{% endcomment %}
 <h1>
-  <a class="navbar-brand" href="/"><b>{{ widget.site_title }}</b></a>
+  <a href="/"><b>{{ widget.site_title }}</b></a>
   {% if widget.tagline %}
   <span>{{ widget.tagline }}</span>
   {% endif %}

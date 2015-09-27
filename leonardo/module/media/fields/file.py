@@ -1,19 +1,20 @@
 #-*- coding: utf-8 -*-
+import logging
 import warnings
 
 from django import forms
-from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.contrib.admin.sites import site
+from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-
 from filer.utils.compatibility import truncate_words
-from ..models import File
-from .. import settings as filer_settings
 
-import logging
+from .. import settings as filer_settings
+from ..models import File, Video, Vector, Document
+from .utils import FileField, FileMultipleField
+
 logger = logging.getLogger(__name__)
 
 
@@ -30,13 +31,13 @@ class AdminFileWidget(ForeignKeyRawIdWidget):
             try:
                 file_obj = File.objects.get(pk=value)
                 related_url = file_obj.logical_folder.\
-                                get_admin_directory_listing_url_path()
+                    get_admin_directory_listing_url_path()
             except Exception as e:
                 # catch exception and manage it. We can re-raise it for debugging
                 # purposes and/or just logging it, provided user configured
                 # proper logging configuration
                 if filer_settings.FILER_ENABLE_LOGGING:
-                    logger.error('Error while rendering file widget: %s',e)
+                    logger.error('Error while rendering file widget: %s', e)
                 if filer_settings.FILER_DEBUG:
                     raise
         if not related_url:
@@ -44,7 +45,7 @@ class AdminFileWidget(ForeignKeyRawIdWidget):
         params = self.url_parameters()
         if params:
             lookup_url = '?' + '&amp;'.join(
-                                ['%s=%s' % (k, v) for k, v in list(params.items())])
+                ['%s=%s' % (k, v) for k, v in list(params.items())])
         else:
             lookup_url = ''
         if not 'class' in attrs:
@@ -54,7 +55,7 @@ class AdminFileWidget(ForeignKeyRawIdWidget):
         # we only need the input and none of the other stuff that
         # ForeignKeyRawIdWidget adds
         hidden_input = super(ForeignKeyRawIdWidget, self).render(
-                                                            name, value, attrs)
+            name, value, attrs)
         filer_static_prefix = filer_settings.FILER_STATICMEDIA_PREFIX
         if not filer_static_prefix[-1] == '/':
             filer_static_prefix += '/'
@@ -101,7 +102,8 @@ class AdminFileFormField(forms.ModelChoiceField):
         self.max_value = None
         self.min_value = None
         kwargs.pop('widget', None)
-        super(AdminFileFormField, self).__init__(queryset, widget=self.widget(rel, site), *args, **kwargs)
+        super(AdminFileFormField, self).__init__(
+            queryset, widget=self.widget(rel, site), *args, **kwargs)
 
     def widget_attrs(self, widget):
         widget.required = self.required
@@ -141,3 +143,35 @@ class FilerFileField(models.ForeignKey):
         args, kwargs = introspector(self)
         # That's our definition!
         return (field_class, args, kwargs)
+
+
+class FileField(FileField):
+    queryset = File.objects
+
+
+class VideoField(FileField):
+    queryset = Video.objects
+
+
+class VectorField(FileField):
+    queryset = Vector.objects
+
+
+class DocumentField(FileField):
+    queryset = Document.objects
+
+
+class MultipleFileField(FileMultipleField):
+    queryset = File.objects
+
+
+class MultipleDocumentField(FileMultipleField):
+    queryset = Document.objects
+
+
+class MultipleVectorField(FileMultipleField):
+    queryset = Vector.objects
+
+
+class MultipleVideoField(FileMultipleField):
+    queryset = Video.objects

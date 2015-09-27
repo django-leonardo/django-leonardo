@@ -13,6 +13,8 @@ ORIENTATION_CHOICES = (
 
 class NavigationWidgetMixin(models.Model):
 
+    '''Common fields for Page navigation'''
+
     display_active = models.NullBooleanField(
         verbose_name=_('Display active'), default=True)
 

@@ -4,16 +4,16 @@ from crispy_forms.bootstrap import Tab, TabHolder
 from crispy_forms.layout import Field, HTML, Layout, Fieldset
 from django import forms
 import floppyforms
-from django.contrib.auth import get_permission_codename
 from django.db.models.loading import get_model
 from django.forms.models import modelform_factory
 from django.template.defaultfilters import slugify
-from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
+from leonardo.utils.widgets import get_grouped_widgets
+from .fields import get_widget_select_field
 
 
 class IconPreviewSelect(floppyforms.widgets.Select):
@@ -30,6 +30,8 @@ WIDGETS = {
 
 class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
+    '''Widget Create/Update Form'''
+
     id = forms.CharField(
         widget=forms.widgets.HiddenInput,
         required=False
@@ -39,10 +41,15 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         request = kwargs.pop('request', None)
         super(WidgetUpdateForm, self).__init__(*args, **kwargs)
 
-        queryset = self.fields['content_theme'].queryset
+        if request:
+            queryset = self.fields['content_theme'].queryset
 
-        self.fields['content_theme'].queryset = \
-            queryset.filter(widget_class=self._meta.model.__name__)
+            self.fields['content_theme'].queryset = \
+                queryset.filter(widget_class=self._meta.model.__name__)
+        else:
+            # set defaults
+            self.init_themes()
+            del self.fields['id']
 
         # get all fields for widget
         main_fields = self._meta.model.fields()
@@ -97,15 +104,7 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         if 'text' in self.fields:
             self.fields['text'].label = ''
 
-
-class WidgetCreateForm(WidgetUpdateForm):
-
-    class Meta:
-        exclude = ['id']
-
-    def __init__(self, *args, **kwargs):
-        super(WidgetCreateForm, self).__init__(*args, **kwargs)
-
+    def init_themes(self):
         queryset = self.fields['content_theme'].queryset
 
         self.fields['content_theme'].queryset = \
@@ -130,6 +129,13 @@ class WidgetCreateForm(WidgetUpdateForm):
             self.fields['content_theme'].initial = content_theme
 
 
+class WidgetCreateForm(WidgetUpdateForm):
+
+    ''''''
+
+    pass
+
+
 class WidgetDeleteForm(SelfHandlingForm):
 
     def handle(self, request, data):
@@ -142,6 +148,14 @@ class WidgetSelectForm(SelfHandlingForm):
         label="Widget Type",
         choices=[],
         required=True
+    )
+
+    first = forms.BooleanField(
+        label=('First'),
+        help_text=_('If is checked, widget will be'
+                    ' placed as first widget in this region'),
+        initial=False,
+        required=False
     )
 
     page_id = forms.IntegerField(
@@ -174,34 +188,17 @@ class WidgetSelectForm(SelfHandlingForm):
 
         self.fields['page_id'].initial = feincms_object.id
         self.fields['region'].initial = region_name
+        self.fields['ordering'].initial = \
+            len(getattr(feincms_object.content, region_name, [])) + 1
         self.fields['parent'].initial = feincms_object.id
 
-        grouped = {}
-        ungrouped = []
-        choices = []
+        choices, grouped, ungrouped = get_grouped_widgets(
+            feincms_object, request)
 
-        if request.user:
-            for ct in feincms_object._feincms_content_types:
-                # Skip cts that we shouldn't be adding anyway
-                opts = ct._meta
-                perm = opts.app_label + "." + \
-                    get_permission_codename('add', opts)
-                if not request.user.has_perm(perm):
-                    continue
-
-                ct_info = ('.'.join([ct._meta.app_label,
-                                     ct.__name__.lower()]),
-                           ct._meta.verbose_name)
-                if hasattr(ct, 'optgroup'):
-                    if ct.optgroup in grouped:
-                        grouped[ct.optgroup].append(ct_info)
-                    else:
-                        grouped[ct.optgroup] = [ct_info]
-                else:
-                    ungrouped.append(ct_info)
-                choices.append(ct_info)
-
-        self.fields['cls_name'].choices = choices
+        # reduce choices for validation
+        self.fields['cls_name'] = get_widget_select_field(feincms_object)
+        self.fields['cls_name'].choices = [(str(choice[0]), str(choice[1]))
+                                           for choice in choices]
 
         # for now ungrouped to grouped
         grouped['Web'] = ungrouped + grouped.get('Web', [])
@@ -211,9 +208,8 @@ class WidgetSelectForm(SelfHandlingForm):
             Field('parent'),
             Field('page_id'),
             Field('ordering'),
-            HTML(render_to_string("widget/content_type_selection_widget.html",
-                                  {'grouped': grouped, 'ungrouped': {}}),
-                 ),
+            'cls_name',
+            Field('first'),
         )
 
     def handle(self, request, data):
@@ -221,6 +217,11 @@ class WidgetSelectForm(SelfHandlingForm):
         # request so that we can chain it as an input to the next view...
         # but hey, it totally works.
         request.method = 'GET'
+
+        first = data.pop('first', None)
+
+        if first:
+            data['ordering'] = 0
 
         return self.next_view.as_view()(request, **data)
 

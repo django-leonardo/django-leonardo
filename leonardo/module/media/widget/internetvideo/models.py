@@ -26,6 +26,8 @@ class InternetVideoWidget(Widget):
     would take up the baton.
     """
 
+    icon = "fa fa-youtube-square"
+
     video = models.URLField(_('video link'),
                             help_text=_('This should be a link to a youtube or vimeo video, i.e.: http://www.youtube.com/watch?v=zmj1rpzDRZ0'))
 

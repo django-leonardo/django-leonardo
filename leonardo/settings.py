@@ -9,7 +9,7 @@ import warnings
 from django import VERSION
 from leonardo.base import leonardo, default
 from leonardo.utils.settings import (get_conf_from_module, merge,
-                                     get_leonardo_modules)
+                                     get_leonardo_modules, get_loaded_modules)
 
 
 _file_path = os.path.abspath(os.path.dirname(__file__)).split('/')
@@ -268,7 +268,11 @@ ADD_JS_SPEC_FILES = []
 
 ADD_ANGULAR_MODULES = []
 
-ADD_MODULE_ACTIONS = []
+ADD_PAGE_ACTIONS = []
+
+ADD_WIDGET_ACTIONS = []
+
+MIGRATION_MODULES = {}
 
 ADD_MIGRATION_MODULES = {}
 
@@ -279,7 +283,7 @@ ABSOLUTE_URL_OVERRIDES = {}
 MODULE_URLS = {}
 
 if LEONARDO_SYSTEM_MODULE:
-    APPS = merge(APPS, ['system'])
+    APPS = merge(APPS, ['leonardo_system'])
     HORIZON_CONFIG['system_module'] = True
 else:
     HORIZON_CONFIG['system_module'] = False
@@ -303,10 +307,8 @@ if LEONARDO_MODULE_AUTO_INCLUDE:
     # fined and merge with defined app modules
     _APPS = merge(get_leonardo_modules(), _APPS)
 
-# sort modules
-_APPS = sorted(_APPS, key=lambda m: getattr(m, 'LEONARDO_ORDERING', 1000))
-
-for mod in _APPS:
+# iterate over sorted modules
+for mod, mod_cfg in get_loaded_modules(_APPS):
 
     try:
 
@@ -325,8 +327,6 @@ for mod in _APPS:
                     'Exception "{}" raised during loading '
                     'settings from {}'.format(str(e), mod))
 
-        mod_cfg = get_conf_from_module(mod)
-
         APPLICATION_CHOICES = merge(APPLICATION_CHOICES, mod_cfg.plugins)
 
         INSTALLED_APPS = merge(INSTALLED_APPS, mod_cfg.apps)
@@ -339,7 +339,8 @@ for mod in _APPS:
 
         ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
 
-        ADD_MODULE_ACTIONS = merge(ADD_MODULE_ACTIONS, mod_cfg.module_actions)
+        ADD_PAGE_ACTIONS = merge(ADD_PAGE_ACTIONS, mod_cfg.page_actions)
+        ADD_WIDGET_ACTIONS = merge(ADD_WIDGET_ACTIONS, mod_cfg.widget_actions)
 
         if mod_cfg.urls_conf:
             MODULE_URLS[mod_cfg.urls_conf] = {'is_public': mod_cfg.public}
@@ -420,7 +421,8 @@ setattr(leonardo, 'css_files', ADD_CSS_FILES)
 setattr(leonardo, 'scss_files', ADD_SCSS_FILES)
 setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
 setattr(leonardo, 'angular_modules', ADD_ANGULAR_MODULES)
-setattr(leonardo, 'module_actions', ADD_MODULE_ACTIONS)
+setattr(leonardo, 'page_actions', ADD_PAGE_ACTIONS)
+setattr(leonardo, 'widget_actions', ADD_WIDGET_ACTIONS)
 setattr(leonardo, 'widgets', WIDGETS)
 
 from leonardo.module.web.models import Page
@@ -521,7 +523,8 @@ HORIZON_CONFIG['js_spec_files'] = leonardo.js_spec_files
 HORIZON_CONFIG['css_files'] = leonardo.css_files
 HORIZON_CONFIG['scss_files'] = leonardo.scss_files
 HORIZON_CONFIG['angular_modules'] = leonardo.angular_modules
-HORIZON_CONFIG['module_actions'] = leonardo.module_actions
+HORIZON_CONFIG['page_actions'] = leonardo.page_actions
+HORIZON_CONFIG['widget_actions'] = leonardo.widget_actions
 # path horizon config
 from horizon import conf
 conf.HORIZON_CONFIG = HORIZON_CONFIG

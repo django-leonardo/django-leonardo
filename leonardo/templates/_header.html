@@ -2,6 +2,7 @@
 {% load compress django_select2_tags %}
 
 <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 {% if feincms_page %}
 <title>{{ feincms_page.page_title|default:feincms_page.title }}</title>
 <meta name="description" content="{{ feincms_page.meta_description|default:request.leonardo_options.meta_description }}">

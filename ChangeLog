@@ -1,14 +1,66 @@
 CHANGES
 =======
 
-1.0.0
+1.0.1
 -----
 
+* fix contains folder and select2
+* calculate next ordering directly in form
+* fix client info widget
+* more select2 fields
+* select2-tize media forms, make media extensions configurable
+* update requirements
+* removed system module moved to own leonardo module outside from leonardo base
+* moved constance admin override to constance
+* use widget image size and original to lightbox
+* init in non edit mode
+* init lightboxes just once
+* default empty labels
+* init lightbox
+* no init scripts required
+* fix simple image rendering
+* fix simple image lightbox
+* basic widget list template with paginator
+* fix paginator
+* better info for errors raised during loading urls
+* fix javascript in default skin
+* use horizon config via leonardo variable
+* limit recurse in loading configuration dependencies
+* simple reorder action
+* extendable widget actions separate context actions to page and widget
+* better error handling during loading modules
+* use bootstrap dir as primary option
+* fix missing migration modules
+* fix (reverted from commit b8a15e19cafeeddfb20366b78acc1dc4d7e186d1)
+* fix
+* fix
+* fix public urls
+* fix position
+* fix mobile width
+* properly sort loaded modules
+* support for updating only specific applications
+* back to old content selecting
+* update context for all
+* fix system forms
+* improve list widget mixin
+* fix site heading logo issue
+* new shortcut for placing widgets to regions and get back select widget CT template
+* fix TypeError: Item in ``from list'' not a string
+* proper encapsulate feincms changes and provide public endpoints
+* improved select widget dialog and add icon to some widgets
+* grid test
+* next bunch of translations
+* fix loading urls from leonardo modules
+* update meta and reinit python versioning
 * cleanup imports and configure defalt logging
 * fix warning - MultiStorageFileField can handle only File objects;
 * add generated locales and simple util for updating them
 * fail silently when feincms_object is not in the context
 * fix new location of page extensions and properly handle exteptions from loading modules
+
+2015.8.1
+--------
+
 * fix old permalink location
 * huge cleanup and support for FeinCMS 2
 * finalize rendering of external application
@@ -66,6 +118,10 @@ CHANGES
 * improve ContentProxyMixin and provide new JsonContentProxy
 * reworked cache mechanism for content proxy
 * keep requirements in one directory
+
+2015.7.3
+--------
+
 * render widget content securely without debug mode
 * update meta
 * handle dbtemplates and create themes from them #65
@@ -116,6 +172,10 @@ CHANGES
 * navigation cleanups
 * common widget mixins and cleanup widget models
 * replaces page memoized by cached_property
+
+2015.7.1
+--------
+
 * added new modules
 * warning: migrations on django 1.8 works only with ``migrate web`` :hankey:
 * moved specific django constance behaviour to leonardo fork and use it in main requirements
@@ -135,6 +195,10 @@ CHANGES
 * default theme
 * refactored module config loading, added delete to widget dimension table
 * changelog + bump required version of horizon-contrib
+
+2015.7.0
+--------
+
 * bump required version of horizon-contrib and fix their modal template overrides
 * introduced render feincms object tools tag, fixed contrib modals
 * support for adding widget from frontend edit to every feincms content type #68
@@ -175,6 +239,10 @@ CHANGES
 * baby steps in media galleries next step is new module for this stuff
 * admin as pluggable module and update changelog
 * filer static files
+
+2015.1.8
+--------
+
 * prototype of save-dump solution
 * scaffold new site, separation of middlewares and quickstart as optional middleware, fix rendering page without loaded theme
 * quick create in non debug 404
@@ -240,6 +308,10 @@ CHANGES
 * fail silently
 * propagate LEONARDO_CONFIG via request to external applications where is not standard horizon context processor
 * install bootswatch in quickstart and added more quick installation script for #50, eshop renamed to store
+
+2015.1.7
+--------
+
 * exclude private templates BUGFIX #51
 * use leonardo tags for render langs
 * new leonardo page tags
@@ -255,6 +327,10 @@ CHANGES
 * fix modals
 * disallow static path for indexing
 * fix SEO - site meta, title etc
+
+2015.1.6
+--------
+
 * media categories update
 * use loanardo folder for importing
 * update
@@ -302,11 +378,19 @@ CHANGES
 * fix more than one package inside python package
 * added ConditionalGetMiddleware to default
 * use proxy for render content, means no dorecorate if overrides this method
+
+2015.1.5
+--------
+
 * no inheritence in class decorators !
 * methods
 * no inheritence
 * not now
 * update
+
+2015.1.4
+--------
+
 * revalide in-memory cache after widget update
 * update readme coverage
 * suppor for disabling MEMOIZED
@@ -318,6 +402,10 @@ CHANGES
 * native memoized all render_content calls #29
 * user to id
 * memoized for test decrese server response time from 1s to 150ms
+
+2015.1.3
+--------
+
 * fix page dimenssions and remove unless memonized
 * use primary _APPS from main config
 * no autodiscover for tests
@@ -332,16 +420,28 @@ CHANGES
 * fix new return type
 * FEATURE: auto include leonardo modules
 * use current site middleware
+
+2015.1.2
+--------
+
 * update
 * fix fatal non existent redactor
 * namespace package not now see Django doc
 * fix namespaced packages is pase for Django now.
+
+2015.1.1
+--------
+
 * 2015.1.1
 * gitter link
 * pickled field
 * fix constance dep
 * live configuration for test #31 redis as optional extra
 * changelog update
+
+2015.1.0
+--------
+
 * cosmetic
 * more extras auth,saml debug and tests
 * test all management commands and importing and rebuilding indexes #17
@@ -349,7 +449,15 @@ CHANGES
 * handle error when loading which was detect on sqlite and MySQL and tests for management commands also describes in #17
 * fixed new location for merge
 * changelog + cleanups
+
+2015.0.4
+--------
+
 * remove bulbs from requirements
+
+2015.0.4b1
+----------
+
 * install instead http
 * cleanup
 * more lazy imports
@@ -396,6 +504,10 @@ CHANGES
 * cleanup, fix requirements
 * search rebuild and get to ready state #14
 * ref fix
+
+2015.0.3
+--------
+
 * update extras
 * cleanup
 * some contrib stuff
@@ -496,6 +608,10 @@ CHANGES
 * markupfield was fixed with our issue, now can be installed from pypi
 * related name on widget with app and update doc, requirements
 * use our markupfield fixed for Dj 1.8
+
+0.0.2
+-----
+
 * cleanup
 * fixed dbtemplates from git
 * doc ref changed

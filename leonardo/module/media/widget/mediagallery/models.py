@@ -1,11 +1,12 @@
 # -#- coding: utf-8 -#-
 
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
+from leonardo.fields import SimpleSelect2Widget
+from leonardo.module.media.fields.folder import FolderField
 from leonardo.module.web.models import ListWidget
-
-from django.conf import settings
+from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
 DETAIL_CHOICES = (
     ('open_modal', _('open in modal window')),
@@ -20,7 +21,17 @@ SIZE_CHOICES = (
 )
 
 
+class FolderForm(WidgetUpdateForm):
+
+    folder = FolderField(widget=SimpleSelect2Widget())
+
+
 class MediaGalleryWidget(ListWidget):
+
+    feincms_item_editor_form = FolderForm
+
+    icon = "fa fa-picture-o"
+
     folder = models.ForeignKey('media.Folder', verbose_name=_(
         "Directory"), related_name="%(app_label)s_%(class)s_folders")
     size = models.CharField(max_length=255, verbose_name=_(

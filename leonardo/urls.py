@@ -11,7 +11,7 @@ from feincms.module.page.sitemap import PageSitemap
 from leonardo.site import leonardo_admin
 
 from .base import leonardo
-from leonardo.utils.settings import is_leonardo_module
+from leonardo.utils.settings import is_leonardo_module, get_conf_from_module
 from .decorators import require_auth
 
 __all__ = ['handler400', 'handler403', 'handler404', 'handler500']
@@ -42,12 +42,16 @@ urlpatterns = patterns('',
 for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
     # TODO this not work
     if is_leonardo_module(mod):
+
+        conf = get_conf_from_module(mod)
+
         if module_has_submodule(mod, 'urls'):
             urls_mod = import_module('.urls', mod.__name__)
             _urlpatterns = []
             if hasattr(urls_mod, 'urlpatterns'):
                 # if not public decorate all
-                if getattr(mod.default, 'public', False):
+
+                if conf['public']:
                     urlpatterns += urls_mod.urlpatterns
                 else:
                     _decorate_urlconf(urls_mod.urlpatterns,
@@ -56,21 +60,25 @@ for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
 
 for urls_conf, conf in six.iteritems(getattr(settings, 'MODULE_URLS', {})):
     # is public ?
-    if conf['is_public']:
-        urlpatterns += \
-            patterns('',
-                     url(r'', include(urls_conf)),
-                     )
-    else:
-        _decorate_urlconf(
-            url(r'', include(urls_conf)),
-            require_auth)
-        urlpatterns += patterns('',
-                                url(r'', include(urls_conf)))
+    try:
+        if conf['is_public']:
+            urlpatterns += \
+                patterns('',
+                         url(r'', include(urls_conf)),
+                         )
+        else:
+            _decorate_urlconf(
+                url(r'', include(urls_conf)),
+                require_auth)
+            urlpatterns += patterns('',
+                                    url(r'', include(urls_conf)))
+    except Exception as e:
+        raise Exception('raised %s during loading %s' % (str(e), urls_conf))
 
 if getattr(settings, 'LEONARDO_AUTH', True):
     urlpatterns += patterns('',
-                            url(r'^auth/', include('leonardo.module.leonardo_auth.auth_urls')),
+                            url(r'^auth/',
+                                include('leonardo.module.leonardo_auth.auth_urls')),
                             )
 
 if getattr(settings, 'HORIZON_ENABLED', True):
@@ -91,7 +99,7 @@ urlpatterns += patterns('',
                         )
 # secure media
 urlpatterns += patterns('',
-                          url(r'^', include('leonardo.module.media.server.urls'))
+                        url(r'^', include('leonardo.module.media.server.urls'))
                         )
 
 if settings.DEBUG:

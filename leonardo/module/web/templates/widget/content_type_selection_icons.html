@@ -1,0 +1,9 @@
+{% load i18n %}
+<select class="select form-control" id='id_cls_name' name="cls_name">
+  {% for v,n in ungrouped %}<option value="{{ v }}">{% trans n|capfirst %}</option> {% endfor %}
+  {% for label,cts in grouped.items %}
+  <optgroup label="{{ label }}">
+    {% for v,n in cts %}<option value="{{ v }}">{% trans n|capfirst %}</option> {% endfor %}
+  </optgroup>
+  {% endfor %}
+</select>

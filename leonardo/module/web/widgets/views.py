@@ -94,7 +94,6 @@ class WidgetCreateView(CreateView, WidgetViewMixin):
     def form_valid(self, form):
         try:
             obj = form.save(commit=False)
-            obj.ordering = obj.next_ordering
             obj.save()
             obj.parent.save()
             success_url = self.get_success_url()
@@ -207,6 +206,8 @@ class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
 
 class WidgetSortView(ModalFormView):
 
+    '''Simple handle jquery sortable'''
+
     template_name = 'leonardo/common/modal.html'
 
     form_class = WidgetUpdateForm
@@ -217,10 +218,8 @@ class WidgetSortView(ModalFormView):
     def post(self, *args, **kwargs):
 
         widgets = self.request.POST.getlist('widgets[]', [])
-        page_id = self.request.POST.get('page_id', None)
 
         widget_list = []
-        widget_list_id = []
 
         try:
             for widget_id in widgets:
@@ -241,3 +240,52 @@ class WidgetSortView(ModalFormView):
         messages.success(self.request, _('Widget sorting success.'))
 
         return HttpResponse('ok')
+
+
+class WidgetReorderView(ModalFormView, ModelFormMixin):
+
+    '''Handle reorder 0 = first, 1 = last'''
+
+    template_name = 'leonardo/common/modal.html'
+
+    form_class = WidgetUpdateForm
+
+    def get(self, *args, **kwargs):
+        return self.post(*args, **kwargs)
+
+    def post(self, *args, **kwargs):
+
+        widget = self.object
+
+        ordering = self.kwargs.get('ordering')
+
+        if int(ordering) == 0:
+
+            widget.ordering = 0
+            widget.save()
+
+            widgets = getattr(widget.parent.content, widget.region)
+            widgets = [w for w in widgets if w.id != widget.id]
+
+            for i, _widget in enumerate(widgets):
+                _widget.ordering = i + 1
+                _widget.save()
+
+        else:
+            widget.ordering = widget.next_ordering
+            widget.save()
+            widgets = getattr(widget.parent.content, widget.region)
+            widgets = [w for w in widgets if w.id != widget.id]
+            widgets.sort(key=lambda w: w.ordering)
+
+            for i, _widget in enumerate(widgets):
+                _widget.ordering = i
+                _widget.save()
+
+        messages.success(self.request, _('Widget was successfully moved.'))
+
+        # TODO try HTTP_REFERER
+        success_url = widget.parent.get_absolute_url()
+        response = HttpResponseRedirect(success_url)
+        response['X-Horizon-Location'] = success_url
+        return response
