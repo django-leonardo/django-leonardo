@@ -1,6 +1,5 @@
 
 from __future__ import unicode_literals
-from django.utils.translation import ugettext_lazy as _
 
 from .multiple import MultiSelectField
 
@@ -25,4 +24,4 @@ class SimpleSelect2Widget(AutoHeavySelect2Widget):
         super(SimpleSelect2Widget, self).__init__(**kwargs)
 
         self.options['minimumInputLength'] = 0
-        self.options['placeholder'] = _('Click to expand.')
+        self.options['placeholder'] = 'Click to expand.'

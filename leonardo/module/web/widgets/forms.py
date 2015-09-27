@@ -197,7 +197,6 @@ class WidgetSelectForm(SelfHandlingForm):
 
         # reduce choices for validation
         self.fields['cls_name'] = get_widget_select_field(feincms_object)
-        self.fields['cls_name'].initial = feincms_cls_name
         self.fields['cls_name'].choices = [(str(choice[0]), str(choice[1]))
                                            for choice in choices]
 

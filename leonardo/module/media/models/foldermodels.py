@@ -214,7 +214,7 @@ class Folder(models.Model, mixins.IconsMixin):
 
     def contains_folder(self, folder_name):
         try:
-            self.children.get(name=folder_name)
+            self.media_folder_children.get(name=folder_name)
             return True
         except Folder.DoesNotExist:
             return False
