@@ -1,4 +1,3 @@
-
 from django_select2.fields import AutoModelSelect2Field
 
 from django_select2.widgets import *
@@ -13,6 +12,12 @@ class Field(AutoModelSelect2Field):
 class PageSelectField(Field):
     queryset = Page.objects
     search_fields = ['title__icontains', ]
+
+    def label_from_instance(self, obj):
+        """
+        Coerces ``value`` to a Python data type.
+        """
+        return obj.tree_label
 
 
 class PageColorSchemeSelectField(Field):

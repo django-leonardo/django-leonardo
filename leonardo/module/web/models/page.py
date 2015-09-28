@@ -2,14 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
+from django.utils.encoding import python_2_unicode_compatible, smart_text
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from feincms.module.page.models import BasePage as FeinCMSPage
 
-
-from ..processors import edit as edit_processors
 from ..const import *
-from django.utils.functional import cached_property
+from ..processors import edit as edit_processors
 
 
 @python_2_unicode_compatible
@@ -84,6 +83,15 @@ class Page(FeinCMSPage):
         verbose_name = _("Page")
         verbose_name_plural = _("Pages")
         ordering = ['tree_id', 'lft']
+
+    @cached_property
+    def tree_label(self):
+        titles = []
+        page = self
+        while page:
+            titles.append(page.title)
+            page = page.parent
+        return smart_text(' > '.join(reversed(titles)))
 
     @cached_property
     def own_dimensions(self):
