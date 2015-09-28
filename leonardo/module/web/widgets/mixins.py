@@ -91,7 +91,8 @@ class ListWidgetMixin(models.Model):
     def needs_pagination(self):
         if self.objects_per_page == 0:
             return False
-        if len(self.get_pages[0]) > 1:
+        if len(self.items) > self.objects_per_page \
+                or len(self.get_pages[0]) >= self.objects_per_page:
             return True
         return False
 
@@ -99,6 +100,15 @@ class ListWidgetMixin(models.Model):
     def get_item_template(self):
         '''returns template for one item from queryset'''
         return "widget/%s/_item.html" % self.widget_name
+
+    def __init__(self, *args, **kwargs):
+        super(ListWidgetMixin, self).__init__(*args, **kwargs)
+
+        get_items = getattr(self, 'get_items', None)
+        render = getattr(self, 'render', None)
+        if not callable(get_items) or not callable(render):
+            raise Exception('bases on ListWidgetMixin must '
+                            'have implemented get_items or render method')
 
     class Meta:
         abstract = True

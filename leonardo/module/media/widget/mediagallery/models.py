@@ -44,8 +44,8 @@ class MediaGalleryWidget(ListWidget):
                        'MEDIA_THUMB_%s_GEOM' % self.size.upper(),
                        '96x96')
 
-    def image_geom(self):
-        return '800x800'
+    def get_items(self):
+        return self.folder.media_file_files.all()
 
     class Meta:
         abstract = True

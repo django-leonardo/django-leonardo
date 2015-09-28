@@ -1,0 +1,6 @@
+{% load i18n thumbnail %}
+<a class="thumbnail" data-title="{{ item.default_caption|default:'' }}" data-footer="{{ item.description|default:'' }}" data-toggle="lightbox" href="{{ item.file.url }}" rel="{{ widget.fe_identifier }}">
+  {% thumbnail item.file widget.thumb_geom crop="center" as thumbnail %}
+  <img class="img-responsive" src="{{ thumbnail.url }}" alt="{{ item.default_alt_text }}" />
+  {% endthumbnail %}
+</a>

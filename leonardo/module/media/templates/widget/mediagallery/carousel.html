@@ -14,7 +14,7 @@
     {% for category_file in widget.category.files %}
     {% with category_file.file as file %}
     <div class="item {% if forloop.first %}active{% endif %}">
-      {% include "widget/mediagallery/_image.html" %}
+      {% include "widget/mediagallery/_item.html" %}
     </div>
     {% endwith %}
     {% endfor %}

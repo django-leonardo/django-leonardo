@@ -1,0 +1,8 @@
+
+{% load thumbnail %}
+
+{% with item.file as file %}
+<a href="{{ file.url }}" target="_blank">
+	<span>{% if file.translation.name %}{{ file.translation.name }}{% else %}{{ file }}{% endif %}</span>
+</a>
+{% endwith %}
