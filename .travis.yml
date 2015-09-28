@@ -1,7 +1,8 @@
 language: python
 sudo: true
 python:
-  - "2.7"
+  - 2.7
+  - 3.5
 env:
   matrix:
    - DJANGO_REQUIREMENT="Django>=1.8,<1.9"
@@ -41,3 +42,6 @@ notifications:
     on_success: change
     on_failure: always
     on_start: false
+matrix:
+  allow_failures:
+    - python: 3.5
