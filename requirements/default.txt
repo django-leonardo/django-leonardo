@@ -30,8 +30,8 @@ gunicorn>=18.0
 
 leonardo_horizon==2015.3
 
--e git+http://github.com/michaelkuty/django-dbtemplates.git@develop#egg=django_dbtemplates
--e git+http://github.com/django-leonardo/django-constance@master#egg=django_constance
+http://github.com/michaelkuty/django-dbtemplates/zipball/master#egg=django_dbtemplates
+http://github.com/django-leonardo/django-constance/zipball/master#egg=django_dbtemplates
 django-picklefield==0.3.1
 
 -r extras/static.txt
