@@ -68,6 +68,7 @@ class ListWidgetMixin(models.Model):
             if self.objects_per_row == i:
                 rows.append(row)
                 row = []
+                i = 0
             row.append(item)
         rows.append(row)
         return rows
@@ -81,9 +82,18 @@ class ListWidgetMixin(models.Model):
             if self.objects_per_page == i:
                 pages.append(page)
                 page = []
+                i = 0
             page.append(item)
         pages.append(page)
         return pages
+
+    @cached_property
+    def needs_pagination(self):
+        if self.objects_per_page == 0:
+            return False
+        if len(self.get_pages[0]) > 1:
+            return True
+        return False
 
     @cached_property
     def get_item_template(self):

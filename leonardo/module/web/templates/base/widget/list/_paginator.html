@@ -2,7 +2,7 @@
 {% load divide %}
 
 
-    <ul id="newStuff" class="nav nav-tabs nav-stacked">
+    <ul id="pagination-{{ widget.fe_identifier }}" class="nav">
 	  {% block items %}
       {% for row in widget.get_rows %}
         {% for item in row %}
@@ -15,12 +15,13 @@
 
 	  {% endblock %}
     </ul>
+    {% if widget.needs_pagination %}
     <div class="pagination pagination-large">
         <ul class="pager"></ul>
     </div>
 
 <script type="text/javascript">
-var listElement = $('#newStuff');
+var listElement = $('#pagination-{{ widget.fe_identifier }}');
 var perPage = {{ widget.objects_per_page }};
 var numItems = listElement.children().size();
 var numPages = Math.ceil(numItems/perPage);
@@ -65,3 +66,4 @@ function goTo(page){
   $('.pager').attr("curr",page);
 }
 </script>
+    {% endif %}
