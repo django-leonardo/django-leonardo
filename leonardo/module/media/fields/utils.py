@@ -11,13 +11,22 @@ FOLDER_SEARCH_FIELDS = [
 ]
 
 
-class FileFieldMixin(object):
+class LabelFieldMixin(object):
+
+    def label_from_instance(self, obj):
+        """
+        Coerces ``value`` to a Python data type.
+        """
+        return obj.pretty_logical_path
+
+
+class FileFieldMixin(LabelFieldMixin):
     search_fields = FILE_SEARCH_FIELDS
 
 
-class FileField(AutoModelSelect2Field, FileFieldMixin):
+class FileField(FileFieldMixin, AutoModelSelect2Field):
     empty_values = [u'']
 
 
-class FileMultipleField(AutoModelSelect2MultipleField, FileFieldMixin):
+class FileMultipleField(FileFieldMixin, AutoModelSelect2MultipleField):
     empty_values = [u'']

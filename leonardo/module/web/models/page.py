@@ -86,6 +86,7 @@ class Page(FeinCMSPage):
 
     @cached_property
     def tree_label(self):
+        '''render tree label like as `root > child > child`'''
         titles = []
         page = self
         while page:
