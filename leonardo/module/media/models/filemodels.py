@@ -276,6 +276,13 @@ class File(PolymorphicModel, mixins.IconsMixin):
         return os.path.join('/'.join(folders),
                             get_valid_filename(self.original_filename))
 
+    @property
+    def pretty_logical_path(self):
+        '''returns pretty logical path like /directory/File.jpg'''
+        folders = [f.quoted_logical_path for f in self.logical_path]
+        return os.path.join('/'.join(folders),
+                            self.label)
+
     def relocate_file(self):
         '''relocate file to new directory'''
         old_path = self.file.path

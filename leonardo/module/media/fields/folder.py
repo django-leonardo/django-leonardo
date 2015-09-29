@@ -6,7 +6,7 @@ from django_select2.fields import AutoSelect2TagField
 from django_select2.views import NO_ERR_RESP
 
 from ..models import Folder
-from .utils import FileField, FileMultipleField, FOLDER_SEARCH_FIELDS
+from .utils import FOLDER_SEARCH_FIELDS, FileField, FileMultipleField
 
 
 class DirectorySelectField(AutoSelect2TagField):

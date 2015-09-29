@@ -302,6 +302,10 @@ class Widget(FeinCMSBase):
             'error': str(exception),
         })
 
+    def render_response(self, context={}):
+        '''just render to string shortcut for less imports'''
+        return render_to_string(self.get_template_name, context)
+
     @cached_property
     def model_cls(self):
         return self.__class__.__name__

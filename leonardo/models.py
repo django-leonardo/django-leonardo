@@ -1,6 +1,2 @@
 
-"""
-
-placeholder for old Django
-
-"""
+from leonardo.module.web.models import *

@@ -23,6 +23,9 @@ class DownloadListWidget(ListWidget):
     folder = models.ForeignKey('media.Folder', verbose_name=_(
         "folder"), related_name="%(app_label)s_%(class)s_folders")
 
+    def get_items(self):
+        return self.folder.media_file_files.all()
+
     class Meta:
         abstract = True
         verbose_name = _("download list")
