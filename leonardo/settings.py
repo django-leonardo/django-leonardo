@@ -470,6 +470,12 @@ try:
 except ImportError:
     pass
 
+try:
+    # full settings
+    from leonardo_site.settings import *
+except ImportError:
+    pass
+
 # and again merge core with others
 APPS = merge(APPS, default.core)
 
