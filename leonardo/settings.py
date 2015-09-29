@@ -218,12 +218,25 @@ APPS = []
 
 PAGE_EXTENSIONS = []
 
+MIGRATION_MODULES = {}
+
 # use default leonardo auth urls
 LEONARDO_AUTH = True
 
 try:
-    # full settings
+    # obsole location since 1.0.3 use `leonrdo_site.settings`
     from leonardo_site.local.settings import *
+    warnings.warn(
+        'leonardo_site.local.settings is obsolete use new location',
+        ImportWarning)
+except ImportError:
+    pass
+
+try:
+    # full settings
+    # TODO support configurable from local_settings
+    # LEONARDO_PROJECT_NAME = 'leonardo_site'
+    from leonardo_site.settings import *
 except ImportError:
     pass
 
@@ -271,8 +284,6 @@ ADD_ANGULAR_MODULES = []
 ADD_PAGE_ACTIONS = []
 
 ADD_WIDGET_ACTIONS = []
-
-MIGRATION_MODULES = {}
 
 ADD_MIGRATION_MODULES = {}
 
@@ -456,6 +467,12 @@ except ImportError:
 try:
     # full settings
     from leonardo_site.local.settings import *
+except ImportError:
+    pass
+
+try:
+    # full settings
+    from leonardo_site.settings import *
 except ImportError:
     pass
 
