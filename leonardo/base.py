@@ -1,6 +1,7 @@
 
 import warnings
-
+from leonardo.utils.settings import (get_conf_from_module, merge,
+                                     get_leonardo_modules, get_loaded_modules)
 
 class Default(object):
 
@@ -107,44 +108,73 @@ class Leonardo(object):
 
     default = default
 
-    def get_all_modules(self):
-        from leonardo.utils.settings import get_leonardo_modules
-        return get_leonardo_modules
+    MODULES_AUTOLOAD = True
+
+    def load_modules(self):
+        """find all leonardo modules from environment"""
+        if self.MODULES_AUTOLOAD:
+            self.add_modules(get_leonardo_modules())
+        return self.modules
+
+    @property
+    def modules(self):
+        """loaded modules
+        auto populated if is not present
+        """
+        return self._modules
+
+    def set_modules(self, modules):
+        """setter for modules"""
+        self._modules = modules
+
+    def add_modules(self, modules):
+        """Merge new modules to loaded modules"""
+        merged_modules = merge(modules, self.modules)
+        self.set_modules(merged_modules)
+
+    def get_modules(self, modules=None):
+        """load configuration for all modules"""
+        if not hasattr(self, "loaded_modules"):
+            self.loaded_modules = get_loaded_modules(modules or self.modules)
+        return self.loaded_modules
 
     def get_app_modules(self, apps):
         """return array of imported leonardo modules for apps
         """
-        from django.utils.importlib import import_module
-        from django.utils.module_loading import module_has_submodule
-        modules = []
+        modules = getattr(self, "_modules", [])
 
-        # Try importing a modules from the module package
-        package_string = '.'.join(['leonardo', 'module'])
+        if not modules:
+            from django.utils.importlib import import_module
+            from django.utils.module_loading import module_has_submodule
 
-        for app in apps:
-            try:
-                # check if is not full app
-                _app = import_module(app)
-            except ImportError:
-                _app = False
-            if not _app:
-                # obsolete part
+            # Try importing a modules from the module package
+            package_string = '.'.join(['leonardo', 'module'])
+ 
+            for app in apps:
                 try:
-                    # check if is not leonardo_module
-                    _app = import_module('leonardo_module_{}'.format(app))
+                    # check if is not full app
+                    _app = import_module(app)
                 except ImportError:
                     _app = False
+                if not _app:
+                    # obsolete part
+                    try:
+                        # check if is not leonardo_module
+                        _app = import_module('leonardo_module_{}'.format(app))
+                    except ImportError:
+                        _app = False
 
-            if module_has_submodule(import_module(package_string), app) or _app:
-                if _app:
-                    mod = _app
+                if module_has_submodule(import_module(package_string), app) or _app:
+                    if _app:
+                        mod = _app
+                    else:
+                        mod = import_module('.{0}'.format(app), package_string)
+                    modules.append(mod)
                 else:
-                    mod = import_module('.{0}'.format(app), package_string)
-                modules.append(mod)
-            else:
-                warnings.warn('%s was skipped because app was '
-                              'not found in PYTHONPATH' % app,
-                              ImportWarning)
-        return modules
+                    warnings.warn('%s was skipped because app was '
+                                  'not found in PYTHONPATH' % app,
+                                  ImportWarning)
+            self._modules = modules
+        return self._modules
 
 leonardo = Leonardo()

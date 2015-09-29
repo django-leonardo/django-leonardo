@@ -2,7 +2,7 @@
 
 from django.utils.importlib import import_module
 from django.utils import six
-
+from .versions import get_versions
 import warnings
 
 # define options
@@ -32,6 +32,19 @@ CONF_SPEC = {
     'ordering': 0,
 }
 
+# just MAP - Django - Our spec
+DJANGO_CONF = {
+    'INSTALLED_APPS': "apps",
+    'APPLICATION_CHOICES': "plugins",
+    'MIDDLEWARE_CLASSES': "middlewares",
+    'AUTHENTICATION_BACKENDS': "auth_backends",
+    'PAGE_EXTENSIONS': "page_extensions",
+    'ADD_JS_FILES': "js_files",
+    'PAGE_EXTENSIONS': "page_extensions",
+    'ADD_PAGE_ACTIONS': "page_actions",
+    'ADD_WIDGET_ACTIONS': "widget_actions",
+}
+
 BLACKLIST = ['haystack']
 LEONARDO_MODULES = None
 
@@ -56,6 +69,53 @@ class dotdict(dict):
 
     def __getattr__(self, attr):
         return self.get(attr, None)
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
+
+
+class Config(dict):
+
+    """Simple Module Config Object
+    encapsulation of dot access dictionary
+
+    use dictionary as constructor
+
+    """
+
+    def get_value(self, key, values):
+        return merge(values, self.get_property(key))
+
+    def get_property(self, key):
+        """Expect Django Conf property"""
+        return getattr(self, DJANGO_CONF[key], None)
+
+    @property
+    def module_name(self):
+        """Module name from module if is set"""
+        if hasattr(self, "module"):
+            return self.module.__name__
+        return None
+
+    @property
+    def version(self):
+        """return module version"""
+        return get_versions(list(self.module_name))[self.module_name]
+
+    @property
+    def needs_migrations(self):
+        """Indicates whater module needs migrations"""
+        # TODO(majklk): also check models etc.
+        if len(self.widgets) > 0:
+            return True
+        return False
+
+    def set_module(self, module):
+        """Just setter for module"""
+        setattr(self, "module", module)
+
+    def __getattr__(self, attr):
+        return self.get(attr, None)
+
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
 
@@ -140,7 +200,7 @@ def get_leonardo_modules():
     return LEONARDO_MODULES
 
 
-def extract_conf_from(mod, conf=dotdict(CONF_SPEC), depth=0, max_depth=2):
+def extract_conf_from(mod, conf=Config(CONF_SPEC), depth=0, max_depth=2):
     """recursively extract keys from module or object
     by passed config scheme
     """
@@ -194,10 +254,12 @@ def get_conf_from_module(mod):
 
     """
 
-    conf = dotdict(CONF_SPEC)
+    conf = Config(CONF_SPEC)
 
     # get imported module
     mod = _get_correct_module(mod)
+
+    conf.set_module(mod)
 
     # extarct from default object or from module
     if hasattr(mod, 'default'):

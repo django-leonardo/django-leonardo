@@ -9,7 +9,8 @@ import warnings
 from django import VERSION
 from leonardo.base import leonardo, default
 from leonardo.utils.settings import (get_conf_from_module, merge,
-                                     get_leonardo_modules, get_loaded_modules)
+                                     get_leonardo_modules, get_loaded_modules,
+                                     DJANGO_CONF)
 
 
 _file_path = os.path.abspath(os.path.dirname(__file__)).split('/')
@@ -306,24 +307,31 @@ except ImportError:
     pass
 
 from django.utils.importlib import import_module  # noqa
-
 from django.utils.module_loading import module_has_submodule  # noqa
+from django.utils import six
 
 WIDGETS = {}
 
 # critical time to import modules
-_APPS = leonardo.get_app_modules(APPS)
 
-if LEONARDO_MODULE_AUTO_INCLUDE:
-    # fined and merge with defined app modules
-    _APPS = merge(get_leonardo_modules(), _APPS)
+# load directly specified apps
+leonardo.get_app_modules(APPS)
+
+# propagate settings to leonardo
+leonardo.MODULES_AUTOLOAD = LEONARDO_MODULE_AUTO_INCLUDE
+
+# load all modules
+leonardo.load_modules()
+
+# just propagate all loaded modules to settings
+LEONARDO_MODULES = leonardo.get_modules()
 
 # iterate over sorted modules
-for mod, mod_cfg in get_loaded_modules(_APPS):
+for mod, mod_cfg in LEONARDO_MODULES:
 
     try:
 
-        # load all settings key
+        # import all settings keys from module
         if module_has_submodule(mod, "settings"):
             try:
                 settings_mod = import_module(
@@ -338,20 +346,11 @@ for mod, mod_cfg in get_loaded_modules(_APPS):
                     'Exception "{}" raised during loading '
                     'settings from {}'.format(str(e), mod))
 
-        APPLICATION_CHOICES = merge(APPLICATION_CHOICES, mod_cfg.plugins)
+        # go through django keys and merge it to main settings
+        for key in DJANGO_CONF.keys():
 
-        INSTALLED_APPS = merge(INSTALLED_APPS, mod_cfg.apps)
-
-        MIDDLEWARE_CLASSES = merge(MIDDLEWARE_CLASSES, mod_cfg.middlewares)
-        AUTHENTICATION_BACKENDS = merge(
-            AUTHENTICATION_BACKENDS, mod_cfg.auth_backends)
-
-        PAGE_EXTENSIONS = merge(PAGE_EXTENSIONS, mod_cfg.page_extensions)
-
-        ADD_JS_FILES = merge(ADD_JS_FILES, mod_cfg.js_files)
-
-        ADD_PAGE_ACTIONS = merge(ADD_PAGE_ACTIONS, mod_cfg.page_actions)
-        ADD_WIDGET_ACTIONS = merge(ADD_WIDGET_ACTIONS, mod_cfg.widget_actions)
+            globals()[key] = mod_cfg.get_value(key, globals()[key])
+            locals()[key] = mod_cfg.get_value(key, locals()[key])
 
         if mod_cfg.urls_conf:
             MODULE_URLS[mod_cfg.urls_conf] = {'is_public': mod_cfg.public}
