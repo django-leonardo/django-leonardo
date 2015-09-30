@@ -17,53 +17,55 @@
     </ul>
     {% if widget.needs_pagination %}
     <div class="pagination pagination-large">
-        <ul class="pager"></ul>
+        <ul class="pager pager-{{ widget.fe_identifier }}"></ul>
     </div>
 
 <script type="text/javascript">
-var listElement = $('#pagination-{{ widget.fe_identifier }}');
-var perPage = {{ widget.objects_per_page }};
-var numItems = listElement.children().size();
-var numPages = Math.ceil(numItems/perPage);
+(function(){
+  var listElement = $('#pagination-{{ widget.fe_identifier }}');
+  var perPage = {{ widget.objects_per_page }};
+  var numItems = listElement.children().size();
+  var numPages = Math.ceil(numItems/perPage);
 
-$('.pager').data("curr",0);
+  $('.pager-{{ widget.fe_identifier }}').data("curr",0);
 
-var curr = 0;
-while(numPages > curr){
-  $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo('.pager');
-  curr++;
-}
-
-$('.pager .page_link:first').addClass('active');
-
-listElement.children().css('display', 'none');
-listElement.children().slice(0, perPage).css('display', 'block');
-
-$('.pager li a').click(function(){
-  var clickedPage = $(this).html().valueOf() - 1;
-  goTo(clickedPage,perPage);
-});
-
-function previous(){
-  var goToPage = parseInt($('.pager').data("curr")) - 1;
-  if($('.active').prev('.page_link').length==true){
-    goTo(goToPage);
+  var curr = 0;
+  while(numPages > curr){
+    $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo('.pager-{{ widget.fe_identifier }}');
+    curr++;
   }
-}
 
-function next(){
-  goToPage = parseInt($('.pager').data("curr")) + 1;
-  if($('.active_page').next('.page_link').length==true){
-    goTo(goToPage);
+  $('.pager-{{ widget.fe_identifier }} .page_link:first').addClass('active');
+
+  listElement.children().css('display', 'none');
+  listElement.children().slice(0, perPage).css('display', 'block');
+
+  $('.pager-{{ widget.fe_identifier }} li a').click(function(){
+    var clickedPage = $(this).html().valueOf() - 1;
+    goTo(clickedPage,perPage);
+  });
+
+  function previous(){
+    var goToPage = parseInt($('.pager-{{ widget.fe_identifier }}').data("curr")) - 1;
+    if($('.active').prev('.page_link').length==true){
+      goTo(goToPage);
+    }
   }
-}
 
-function goTo(page){
-  var startAt = page * perPage,
-    endOn = startAt + perPage;
-  
-  listElement.children().css('display','none').slice(startAt, endOn).css('display','block');
-  $('.pager').attr("curr",page);
-}
+  function next(){
+    goToPage = parseInt($('.pager-{{ widget.fe_identifier }}').data("curr")) + 1;
+    if($('.active_page').next('.page_link').length==true){
+      goTo(goToPage);
+    }
+  }
+
+  function goTo(page){
+    var startAt = page * perPage,
+      endOn = startAt + perPage;
+    
+    listElement.children().css('display','none').slice(startAt, endOn).css('display','block');
+    $('.pager-{{ widget.fe_identifier }}').attr("curr",page);
+  }
+}());
 </script>
     {% endif %}
