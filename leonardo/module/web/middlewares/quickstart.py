@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-
+from django.core.exceptions import MiddlewareNotUsed
 from leonardo.module.web.utils.scaffold_web import create_new_site
 from ..models import Page
 
@@ -17,6 +17,10 @@ class QuickStartMiddleware(object):
     Populating content is separed into own module
 
     """
+
+    def __init__(self):
+        if Page.objects.count() == 0:
+            raise MiddlewareNotUsed
 
     def process_response(self, request, response):
 
@@ -39,7 +43,4 @@ class QuickStartMiddleware(object):
             return HttpResponseRedirect(reverse('page_update',
                                                 kwargs={'page_id': page.pk}))
 
-        if hasattr(request, 'user') and not request.user.is_authenticated():
-            response.delete_cookie('frontend_editing')
-            request.frontend_editing = False
         return response
