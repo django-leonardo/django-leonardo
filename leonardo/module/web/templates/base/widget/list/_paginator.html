@@ -1,12 +1,9 @@
 
-{% load divide %}
-
-
     <ul id="pagination-{{ widget.fe_identifier }}" class="nav">
 	  {% block items %}
       {% for row in widget.get_rows %}
         {% for item in row %}
-      	  <li class="col-md-{{ 12|divide:widget.objects_per_row }}">
+      	  <li class="col-md-{{ widget.columns_classes.0 }} col-xs-{{ widget.columns_classes.2 }} col-sm-{{ widget.columns_classes.1 }}">
             {% include widget.get_item_template with item=item %}
       	  </li>
         {% endfor %}
