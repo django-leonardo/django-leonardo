@@ -34,7 +34,8 @@ def get_widget_select_field(feincms_object):
                     str(cls[1]).capitalize(),
                     {}
                 )
-                for cls in choices if term in str(cls)
+                for cls in choices
+                if term in cls[0] or term in cls[1]
             ]
 
             return NO_ERR_RESP, False, res
