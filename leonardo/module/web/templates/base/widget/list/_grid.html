@@ -1,13 +1,13 @@
 {% load divide %}
 
 {% block items %}
-<div class="row">
 {% for row in widget.get_rows %}
+  <div class="row">
   {% for item in row %}
     <div class="col-md-{{ 12|divide:widget.objects_per_row }}">
       {% include widget.get_item_template with item=item %}
     </div>
   {% endfor %}
+  </div>
 {% endfor %}
-</div>
 {% endblock %}
