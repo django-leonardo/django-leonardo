@@ -250,7 +250,7 @@ except ImportError:
 
 if not DEBUG:
     if VERSION[:2] >= (1, 8):
-        TEMPLATES['OPTIONS']['loaders'] = [
+        TEMPLATES[0]['OPTIONS']['loaders'] = [
             ('django.template.loaders.cached.Loader', [
                 'dbtemplates.loader.Loader',
                 'django.template.loaders.filesystem.Loader',
