@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 import json
-from urlparse import urlparse
 
 from django.db import models
 from django.utils import timezone
@@ -11,6 +10,11 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from .const import PAGINATION_CHOICES
+
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
 
 
 class ListWidgetMixin(models.Model):
