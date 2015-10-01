@@ -19,7 +19,7 @@ class SettingsBaseTest(TestCase):
         self.assertEqual(contains, True)
 
     def test_get_app_modules(self):
-        self.assertEqual(settings._APPS[1], web)
+        self.assertIn(web, leonardo.modules)
 
     def test_live_config(self):
         from constance import config

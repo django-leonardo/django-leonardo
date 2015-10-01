@@ -107,7 +107,7 @@ class Config(dict):
     @property
     def version(self):
         """return module version"""
-        return get_versions(list(self.module_name))[self.module_name]
+        return get_versions([self.module_name]).get(self.module_name, None)
 
     @property
     def needs_migrations(self):
@@ -177,6 +177,7 @@ def get_leonardo_modules():
 
     check every installed module for leonardo descriptor
 
+    by default use in memory cache
     """
     global LEONARDO_MODULES
 
