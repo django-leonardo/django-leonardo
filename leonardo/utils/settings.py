@@ -43,6 +43,12 @@ DJANGO_CONF = {
     'PAGE_EXTENSIONS': "page_extensions",
     'ADD_PAGE_ACTIONS': "page_actions",
     'ADD_WIDGET_ACTIONS': "widget_actions",
+    'ADD_CSS_FILES': "css_files",
+    'ADD_JS_FILES': "js_files",
+    'ADD_JS_SPEC_FILES': "js_spec_files",
+    'ADD_SCSS_FILES': "scss_files",
+    'ADD_ANGULAR_MODULES': "angular_modules",
+    'MIGRATION_MODULES': "migration_modules",
 }
 
 BLACKLIST = ['haystack']
@@ -83,11 +89,13 @@ class Config(dict):
     """
 
     def get_value(self, key, values):
+        '''Accept key of propery and actual values'''
         return merge(values, self.get_property(key))
 
     def get_property(self, key):
         """Expect Django Conf property"""
-        return getattr(self, DJANGO_CONF[key], None)
+        _key = DJANGO_CONF[key]
+        return getattr(self, _key, CONF_SPEC[_key])
 
     @property
     def module_name(self):
@@ -127,7 +135,7 @@ def _get_key_from_module(mod, key, default):
         value = getattr(mod, 'LEONARDO_%s' % key.upper(), default)
     return value
 
-CONFIG_VALID = (list, tuple)
+CONFIG_VALID = (list, tuple, dict)
 
 
 def merge(a, b):
@@ -136,6 +144,11 @@ def merge(a, b):
     """
     if isinstance(a, CONFIG_VALID) \
             and isinstance(b, CONFIG_VALID):
+        # dict update
+        if isinstance(a, (dict,)) and isinstance(b, (dict)):
+            a.update(b)
+            return a
+        # list update
         _a = list(a)
         for x in list(b):
             if x not in _a:
@@ -143,7 +156,7 @@ def merge(a, b):
         return _a
     if a and b:
         raise Exception("Cannot merge")
-    return None
+    raise NotImplementedError
 
 
 def is_leonardo_module(mod):

@@ -8,7 +8,6 @@ from django.utils.importlib import import_module  # noqa
 from django.utils.module_loading import module_has_submodule  # noqa
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
-from leonardo.site import leonardo_admin
 
 from .base import leonardo
 from leonardo.utils.settings import is_leonardo_module, get_conf_from_module
@@ -39,7 +38,7 @@ urlpatterns = patterns('',
 # load all urls
 # support .urls file and urls_conf = 'elephantblog.urls' on default module
 # decorate all url patterns if is not explicitly excluded
-for mod in getattr(settings, '_APPS', leonardo.get_app_modules(settings.APPS)):
+for mod in leonardo.modules:
     # TODO this not work
     if is_leonardo_module(mod):
 

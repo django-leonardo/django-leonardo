@@ -11,52 +11,15 @@ from leonardo.base import leonardo, default
 from leonardo.utils.settings import (get_conf_from_module, merge,
                                      get_leonardo_modules, get_loaded_modules,
                                      DJANGO_CONF)
+from django.utils.importlib import import_module  # noqa
+from django.utils.module_loading import module_has_submodule  # noqa
 
 
 _file_path = os.path.abspath(os.path.dirname(__file__)).split('/')
 
 BASE_DIR = '/'.join(_file_path[0:-2])
 
-EMAIL = {
-    'HOST': 'mail.domain.com',
-    'PORT': '25',
-    'USER': 'username',
-    'PASSWORD': 'pwd',
-    'SECURITY': True,
-}
-
-RAVEN_CONFIG = {}
-
-ALLOWED_HOSTS = ['*']
-
-USE_TZ = True
-
-DEBUG = True
-
-TEMPLATE_DEBUG = DEBUG
-
-ADMINS = (
-    ('admin', 'mail@leonardo.cz'),
-)
-
-DEFAULT_CHARSET = 'utf-8'
-
-MANAGERS = ADMINS
-
-SITE_ID = 1
-
-SITE_NAME = 'Leonardo'
-
-TIME_ZONE = 'Europe/Prague'
-
-LANGUAGE_CODE = 'en'
-
-LANGUAGES = (
-    ('en', 'EN'),
-    ('cs', 'CS'),
-)
-
-USE_I18N = True
+from leonardo.conf.default import *
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -102,127 +65,6 @@ else:
         'horizon.loaders.TemplateLoader',
     )
 
-DBTEMPLATES_USE_REVERSION = True
-
-DBTEMPLATES_MEDIA_PREFIX = '/static-/'
-
-DBTEMPLATES_USE_CODEMIRROR = False
-
-DBTEMPLATES_USE_TINYMCE = False
-
-DBTEMPLATES_AUTO_POPULATE_CONTENT = True
-
-DBTEMPLATES_ADD_DEFAULT_SITE = True
-
-FILER_ENABLE_PERMISSIONS = True  # noqa
-
-MIDDLEWARE_CLASSES = default.middlewares
-
-ROOT_URLCONF = 'leonardo.urls'
-
-LEONARDO_BOOTSTRAP_URL = 'http://github.com/django-leonardo/django-leonardo/raw/develop/contrib/bootstrap/demo.yaml'
-
-MARKITUP_FILTER = ('markitup.renderers.render_rest', {'safe_mode': True})
-
-INSTALLED_APPS = default.apps
-
-# For easy_thumbnails to support retina displays (recent MacBooks, iOS)
-
-FEINCMS_USE_PAGE_ADMIN = False
-
-LEONARDO_USE_PAGE_ADMIN = True
-
-FEINCMS_DEFAULT_PAGE_MODEL = 'web.Page'
-
-CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
-
-CONSTANCE_CONFIG = {}
-
-# enable auto loading packages
-LEONARDO_MODULE_AUTO_INCLUDE = True
-
-# enable system module
-LEONARDO_SYSTEM_MODULE = True
-
-##########################
-
-
-STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    'compressor.finders.CompressorFinder',
-)
-
-LOGIN_URL = '/auth/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_URL = "/auth/logout"
-
-LOGOUT_ON_GET = True
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'root': {
-        'level': 'DEBUG',
-        'handlers': ['console'],
-    },
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-    'formatters': {
-        'verbose': {
-            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        },
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': 'leonardo_app.log',
-            'formatter': 'verbose'
-        },
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'leonardo': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    }
-}
-
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
-
-SECRET_KEY = None
-
-APPS = []
-
-PAGE_EXTENSIONS = []
-
-MIGRATION_MODULES = {}
-
-# use default leonardo auth urls
-LEONARDO_AUTH = True
 
 try:
     # obsole location since 1.0.3 use `leonrdo_site.settings`
@@ -259,15 +101,6 @@ if not DEBUG:
                 'horizon.loaders.TemplateLoader',
             ])]
 
-
-REVERSION_MIDDLEWARE = [
-    'reversion.middleware.RevisionMiddleware']
-
-
-OAUTH_CTP = [
-    "allauth.socialaccount.context_processors.socialaccount"
-]
-
 APPS = merge(APPS, default.core)
 
 if 'media' in APPS:
@@ -279,51 +112,11 @@ try:
 except Exception as e:
     pass
 
-FEINCMS_TIDY_HTML = False
-
-APPLICATION_CHOICES = []
-
-ADD_JS_FILES = []
-
-ADD_CSS_FILES = []
-
-ADD_SCSS_FILES = []
-
-ADD_JS_SPEC_FILES = []
-
-ADD_ANGULAR_MODULES = []
-
-ADD_PAGE_ACTIONS = []
-
-ADD_WIDGET_ACTIONS = []
-
-ADD_MIGRATION_MODULES = {}
-
-CONSTANCE_CONFIG_GROUPS = {}
-
-ABSOLUTE_URL_OVERRIDES = {}
-
-MODULE_URLS = {}
-
 if LEONARDO_SYSTEM_MODULE:
     APPS = merge(APPS, ['leonardo_system'])
     HORIZON_CONFIG['system_module'] = True
 else:
     HORIZON_CONFIG['system_module'] = False
-
-# override settings
-try:
-    from leonardo_site.conf.feincms import *
-except ImportError:
-    pass
-
-from django.utils.importlib import import_module  # noqa
-from django.utils.module_loading import module_has_submodule  # noqa
-from django.utils import six
-
-WIDGETS = {}
-
-# critical time to import modules
 
 # load directly specified apps
 leonardo.get_app_modules(APPS)
@@ -359,13 +152,14 @@ for mod, mod_cfg in LEONARDO_MODULES:
 
         # go through django keys and merge it to main settings
         for key in DJANGO_CONF.keys():
-
-            globals()[key] = mod_cfg.get_value(key, globals()[key])
-            locals()[key] = mod_cfg.get_value(key, locals()[key])
+            updated_value = mod_cfg.get_value(key, globals()[key])
+            globals()[key] = updated_value
+            locals()[key] = updated_value
+            # map value to leonardo but under our internal name
+            setattr(leonardo, DJANGO_CONF[key], updated_value)
 
         if mod_cfg.urls_conf:
             MODULE_URLS[mod_cfg.urls_conf] = {'is_public': mod_cfg.public}
-
         # TODO move to utils.settings
         # support for one level nested in config dictionary
         for config_key, config_value in six.iteritems(mod_cfg.config):
@@ -398,15 +192,6 @@ for mod, mod_cfg in LEONARDO_MODULES:
                 pass
 
         CONSTANCE_CONFIG.update(mod_cfg.config)
-        ADD_MIGRATION_MODULES.update(mod_cfg.migration_modules)
-
-        ADD_JS_SPEC_FILES = merge(ADD_JS_SPEC_FILES, mod_cfg.js_spec_files)
-
-        ADD_CSS_FILES = merge(ADD_CSS_FILES, mod_cfg.css_files)
-        ADD_SCSS_FILES = merge(ADD_SCSS_FILES, mod_cfg.scss_files)
-
-        ADD_ANGULAR_MODULES = merge(
-            ADD_ANGULAR_MODULES, mod_cfg.angular_modules)
 
         if VERSION[:2] >= (1, 8):
             TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
@@ -437,13 +222,6 @@ for mod, mod_cfg in LEONARDO_MODULES:
             'Exception "{}" raised during loading '
             'module {}'.format(str(e), mod))
 
-setattr(leonardo, 'js_files', ADD_JS_FILES)
-setattr(leonardo, 'css_files', ADD_CSS_FILES)
-setattr(leonardo, 'scss_files', ADD_SCSS_FILES)
-setattr(leonardo, 'js_spec_files', ADD_JS_SPEC_FILES)
-setattr(leonardo, 'angular_modules', ADD_ANGULAR_MODULES)
-setattr(leonardo, 'page_actions', ADD_PAGE_ACTIONS)
-setattr(leonardo, 'widget_actions', ADD_WIDGET_ACTIONS)
 setattr(leonardo, 'widgets', WIDGETS)
 
 from leonardo.module.web.models import Page
@@ -460,10 +238,6 @@ for optgroup, _widgets in six.iteritems(WIDGETS):
 
 Page.register_extensions(*PAGE_EXTENSIONS)
 Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
-
-# enable reversion for every req
-if 'reversion' in INSTALLED_APPS:
-    MIDDLEWARE_CLASSES = merge(REVERSION_MIDDLEWARE, MIDDLEWARE_CLASSES)
 
 # FINALLY OVERRIDE ALL
 
@@ -489,11 +263,10 @@ except ImportError:
 # and again merge core with others
 APPS = merge(APPS, default.core)
 
-setattr(leonardo, 'apps', APPS)
-setattr(leonardo, 'page_extensions', PAGE_EXTENSIONS)
-setattr(leonardo, 'plugins', APPLICATION_CHOICES)
-
-MIGRATION_MODULES.update(ADD_MIGRATION_MODULES)
+# go through django keys and merge it to main settings
+for key in DJANGO_CONF.keys():
+    # map value to leonardo but under our internal name
+    setattr(leonardo, DJANGO_CONF[key], globals()[key])
 
 # Add HORIZON_CONFIG to the context information for offline compression
 COMPRESS_OFFLINE_CONTEXT = {
@@ -502,27 +275,11 @@ COMPRESS_OFFLINE_CONTEXT = {
 }
 
 if DEBUG:
-    # debug
+
     try:
         import debug_toolbar
         INSTALLED_APPS = merge(INSTALLED_APPS, ['debug_toolbar'])
-        INTERNAL_IPS = ['10.10.10.1', '127.0.0.1']
-        DEBUG_TOOLBAR_PANELS = [
-            'debug_toolbar.panels.versions.VersionsPanel',
-            'debug_toolbar.panels.timer.TimerPanel',
-            'debug_toolbar.panels.settings.SettingsPanel',
-            'debug_toolbar.panels.headers.HeadersPanel',
-            'debug_toolbar.panels.request.RequestPanel',
-            'debug_toolbar.panels.sql.SQLPanel',
-            'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-            'debug_toolbar.panels.templates.TemplatesPanel',
-            'debug_toolbar.panels.cache.CachePanel',
-            'debug_toolbar.panels.signals.SignalsPanel',
-            'debug_toolbar.panels.logging.LoggingPanel',
-            'debug_toolbar.panels.redirects.RedirectsPanel',
-            'debug_toolbar.panels.profiling.ProfilingPanel'
-        ]
-
+        from leonardo.conf.debug import *
     except ImportError:
         if DEBUG:
             warnings.warn('DEBUG is set to True but, DEBUG tools '
@@ -537,12 +294,6 @@ try:
                                ['async_messages.middleware.AsyncMiddleware'])
 except ImportError:
     pass
-    """
-    LOG.debug('ASYNC MESSAGES is not installed'
-              ' install for new messaging features '
-              '"pip install django-async-messages"')
-    """
-
 
 # use js files instead of horizon
 HORIZON_CONFIG['js_files'] = leonardo.js_files

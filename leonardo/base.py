@@ -3,6 +3,7 @@ import warnings
 from leonardo.utils.settings import (get_conf_from_module, merge,
                                      get_leonardo_modules, get_loaded_modules)
 
+
 class Default(object):
 
     core = ['web', 'nav', 'media', 'search', 'devel', 'leonardo_auth']
@@ -149,7 +150,7 @@ class Leonardo(object):
 
             # Try importing a modules from the module package
             package_string = '.'.join(['leonardo', 'module'])
- 
+
             for app in apps:
                 try:
                     # check if is not full app
@@ -176,5 +177,14 @@ class Leonardo(object):
                                   ImportWarning)
             self._modules = modules
         return self._modules
+
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        """A singleton implementation of Leonardo. There can be only one.
+        """
+        if not cls._instance:
+            cls._instance = super(Leonardo, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
 
 leonardo = Leonardo()
