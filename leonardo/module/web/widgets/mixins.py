@@ -74,6 +74,15 @@ class ListWidgetMixin(models.Model):
         return rows
 
     @cached_property
+    def columns_classes(self):
+        '''returns columns count'''
+        md = 12 / self.objects_per_row
+        sm = None
+        if self.objects_per_row > 2:
+            sm = 12 / (self.objects_per_row / 2)
+        return md, (sm or md), 12
+
+    @cached_property
     def get_pages(self):
         '''returns pages with rows'''
         pages = []

@@ -249,6 +249,17 @@ except ImportError:
         'local_settings was not found in $PYTHONPATH !',
         ImportWarning)
 
+if not DEBUG:
+    if VERSION[:2] >= (1, 8):
+        TEMPLATES[0]['OPTIONS']['loaders'] = [
+            ('django.template.loaders.cached.Loader', [
+                'dbtemplates.loader.Loader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'horizon.loaders.TemplateLoader',
+            ])]
+
+
 REVERSION_MIDDLEWARE = [
     'reversion.middleware.RevisionMiddleware']
 

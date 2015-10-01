@@ -35,3 +35,8 @@ load widget themes
 .. code-block:: python
 
     python manage.py sync_widget_themes
+
+Favicons
+--------
+
+For enabling your favicon copy your favicon to ``static/img/favicon.ico`` anywhere in your installed app.
