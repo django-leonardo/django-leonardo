@@ -1,8 +1,8 @@
-from leonardo.module.web.fields import PageSelectField
 from leonardo.module.web.widgets.forms import WidgetUpdateForm
-from leonardo.fields import SimpleSelect2Widget
+from leonardo.module.web.page.widgets import PageSelectWidget
+from leonardo.module.web.page.fields import PageSelectField
 
 
 class NavigationForm(WidgetUpdateForm):
 
-    root = PageSelectField(widget=SimpleSelect2Widget(), required=False)
+    root = PageSelectField(widget=PageSelectWidget(), required=False)

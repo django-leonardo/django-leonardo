@@ -1,7 +1,6 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from leonardo.fields import SimpleSelect2Widget
 from leonardo.module.media.fields import VectorField
 from leonardo.module.media.models import Vector
 from leonardo.module.web.models import Widget
@@ -10,7 +9,7 @@ from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
 class VectorForm(WidgetUpdateForm):
 
-    source = VectorField(widget=SimpleSelect2Widget())
+    source = VectorField()
 
 
 class VectorGraphicsWidget(Widget):

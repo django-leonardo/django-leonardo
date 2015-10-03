@@ -20,7 +20,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (Field, Fieldset, HTML, Div,
                                  Layout, Reset, Row, Submit)
 import floppyforms
-
+from leonardo.fields import *
+from django_select2.forms import *
 
 # Convenience imports for public API components.
 

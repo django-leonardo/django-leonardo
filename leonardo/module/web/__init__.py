@@ -120,7 +120,7 @@ class Default(object):
     ]
 
     css_files = [
-        'extra/css/animate.css'
+        'extra/css/animate.css',
     ]
 
     config = {

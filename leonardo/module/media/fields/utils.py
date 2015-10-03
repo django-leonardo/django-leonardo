@@ -1,4 +1,6 @@
-from django_select2 import AutoModelSelect2Field, AutoModelSelect2MultipleField
+from django import forms
+from django_select2.forms import ModelSelect2Widget
+from leonardo.module.media.models import File
 
 FILE_SEARCH_FIELDS = [
     'original_filename__icontains',
@@ -11,7 +13,11 @@ FOLDER_SEARCH_FIELDS = [
 ]
 
 
-class LabelFieldMixin(object):
+class FileSelectWidget(ModelSelect2Widget):
+
+    model = File
+
+    search_fields = FILE_SEARCH_FIELDS
 
     def label_from_instance(self, obj):
         """
@@ -20,13 +26,20 @@ class LabelFieldMixin(object):
         return obj.pretty_logical_path
 
 
-class FileFieldMixin(LabelFieldMixin):
-    search_fields = FILE_SEARCH_FIELDS
+class FileFieldMixin(object):
+    empty_label = "(Nothing)"
+
+    widget = FileSelectWidget()
+
+    def __init__(self, *args, **kwargs):
+        super(FileFieldMixin, self).__init__(
+            self.queryset, self.empty_label, *args, **kwargs)
 
 
-class FileField(FileFieldMixin, AutoModelSelect2Field):
-    empty_values = [u'']
+class FileField(FileFieldMixin, forms.ModelChoiceField):
+
+    pass
 
 
-class FileMultipleField(FileFieldMixin, AutoModelSelect2MultipleField):
-    empty_values = [u'']
+class FileMultipleField(FileFieldMixin, forms.ModelMultipleChoiceField):
+    pass

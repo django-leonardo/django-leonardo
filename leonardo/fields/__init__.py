@@ -3,25 +3,23 @@ from __future__ import unicode_literals
 
 from .multiple import MultiSelectField
 
-from django_select2.fields import AutoModelSelect2Field
-
-from django_select2 import AutoModelSelect2MultipleField
-from django_select2.widgets import *
+from django_select2.forms import *
 
 
-class Select2Field(AutoModelSelect2Field):
-    empty_values = [u'']
+class InitMixin(object):
+
+    '''Support for declaring Model Select Field'''
+
+    def __init__(self, *args, **kwargs):
+        super(FileField, self).__init__(
+            self.queryset, self.empty_label, *args, **kwargs)
 
 
-class Select2MultipleField(AutoModelSelect2MultipleField):
-    empty_values = [u'']
+class Select2Field(ModelSelect2Widget, InitMixin):
+
+    pass
 
 
-class SimpleSelect2Widget(AutoHeavySelect2Widget):
+class Select2MultipleField(ModelSelect2MultipleWidget, InitMixin):
 
-    def __init__(self, **kwargs):
-
-        super(SimpleSelect2Widget, self).__init__(**kwargs)
-
-        self.options['minimumInputLength'] = 0
-        self.options['placeholder'] = 'Click to expand.'
+    pass

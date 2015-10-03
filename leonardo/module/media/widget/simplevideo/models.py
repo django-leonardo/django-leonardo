@@ -2,7 +2,6 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from leonardo.fields import SimpleSelect2Widget
 from leonardo.module.media.fields import VideoField
 from leonardo.module.web.models import Widget
 from leonardo.module.web.widgets.forms import WidgetUpdateForm
@@ -10,7 +9,7 @@ from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
 class VideoForm(WidgetUpdateForm):
 
-    video = VideoField(widget=SimpleSelect2Widget())
+    video = VideoField()
 
 
 class SimpleVideoWidget(Widget):

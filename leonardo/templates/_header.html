@@ -1,5 +1,5 @@
 
-{% load compress django_select2_tags %}
+{% load compress %}
 
 <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,14 +21,13 @@
   {% include "_stylesheets.html" %}
 {% endblock %}
 
-{% import_django_select2_css %}
-
 {% block css_extra %}
 {% endblock %}
 
 {% block page_css %}
 
 {% compress css %}
+<link href='{{ STATIC_URL }}dashboard/css/select2.css' type='text/css' media='screen' rel='stylesheet' />
 <link href='{{ STATIC_URL }}leonardo/scss/page.scss' type='text/scss' media='screen' rel='stylesheet' />
 {% if feincms_page %}
 <link href='{{ STATIC_URL }}themes/{{ feincms_page.theme.name }}/{{ feincms_page.color_scheme.name|lower }}/scheme.scss' type='text/scss' media='screen' rel='stylesheet' />

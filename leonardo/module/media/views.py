@@ -11,12 +11,9 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils.translation import ugettext_lazy as _, ugettext
-from django_select2.widgets import AutoHeavySelect2TagWidget
+from django.utils.translation import ugettext_lazy as _
 from .management.commands.import_files import FileImporter
 from .models import Clipboard, Folder, FolderRoot, Image, tools
-
-from .fields.folder import DirectorySelectField
 
 
 class NewFolderForm(forms.ModelForm):
@@ -31,13 +28,8 @@ class NewFolderForm(forms.ModelForm):
 
 class ScanFolderForm(forms.Form):
 
-    folders = DirectorySelectField(
-        label='Path to scan', help_text='relative path to MEDIA_ROOT',
-        widget=AutoHeavySelect2TagWidget(
-            select2_options={
-                'minimumInputLength': 0,
-                'placeholder': ugettext('Click for listing or type for searching')
-            }))
+    folders = forms.CharField(
+        label='Path to scan', help_text='relative path from MEDIA_ROOT')
 
     class Meta:
         exclude = ()
@@ -120,18 +112,17 @@ def scan_folder(request, folder_id=None):
     if request.method == 'POST':
         scan_folder_form = ScanFolderForm(request.POST)
         if scan_folder_form.is_valid():
-            for folder_name in scan_folder_form.cleaned_data['folders']:
-                kwargs = {
-                    'path': os.path.join(settings.MEDIA_ROOT,
-                                         folder_name),
-                }
-                if folder:
-                    kwargs['base_folder'] = folder.name
-                try:
-                    importer = FileImporter(**kwargs)
-                    importer.walker(**kwargs)
-                except Exception, e:
-                    raise e
+            kwargs = {
+                'path': os.path.join(settings.MEDIA_ROOT,
+                                     scan_folder_form.cleaned_data['folders']),
+            }
+            if folder:
+                kwargs['base_folder'] = folder.name
+            try:
+                importer = FileImporter(**kwargs)
+                importer.walker(**kwargs)
+            except Exception as e:
+                raise e
             return render_to_response('admin/media/dismiss_popup.html',
                                       context_instance=RequestContext(request))
     else:

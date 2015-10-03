@@ -1,19 +1,20 @@
 
 import copy
-from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Field, HTML, Layout, Fieldset
-from django import forms
+
 import floppyforms
+from crispy_forms.bootstrap import Tab, TabHolder
+from crispy_forms.layout import HTML, Field, Fieldset, Layout
+from django import forms
 from django.db.models.loading import get_model
 from django.forms.models import modelform_factory
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
+from django_select2.forms import Select2Widget
 from feincms.admin.item_editor import ItemEditorForm
 from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
 from leonardo.utils.widgets import get_grouped_widgets
-from .fields import get_widget_select_field
 
 
 class IconPreviewSelect(floppyforms.widgets.Select):
@@ -147,7 +148,8 @@ class WidgetSelectForm(SelfHandlingForm):
     cls_name = forms.ChoiceField(
         label="Widget Type",
         choices=[],
-        required=True
+        required=True,
+        widget=Select2Widget()
     )
 
     first = forms.BooleanField(
@@ -196,7 +198,6 @@ class WidgetSelectForm(SelfHandlingForm):
             feincms_object, request)
 
         # reduce choices for validation
-        self.fields['cls_name'] = get_widget_select_field(feincms_object)
         self.fields['cls_name'].choices = [(str(choice[0]), str(choice[1]))
                                            for choice in choices]
 

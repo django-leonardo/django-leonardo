@@ -3,9 +3,9 @@ from crispy_forms.bootstrap import Tab, TabHolder
 from crispy_forms.layout import Layout
 from django.http import HttpResponseRedirect
 from leonardo import forms
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext_lazy as _
 from leonardo.forms import SelfHandlingForm
-from leonardo.module.web.fields.page import (AutoHeavySelect2Widget,
+from leonardo.module.web.page.fields import (
                                              PageColorSchemeSelectField,
                                              PageThemeSelectField)
 from leonardo.module.web.models import Page
@@ -25,23 +25,11 @@ class PageMassChangeForm(SelfHandlingForm):
 
     color_scheme = PageColorSchemeSelectField(
         label=_('Color Scheme'),
-        widget=AutoHeavySelect2Widget(
-            select2_options={
-                'minimumInputLength': 0,
-                'placeholder': ugettext('Click to expand.'),
-            },
-        ),
         required=False
     )
 
     theme = PageThemeSelectField(
         label=_('Theme'),
-        widget=AutoHeavySelect2Widget(
-            select2_options={
-                'minimumInputLength': 0,
-                'placeholder': ugettext('Click to expand.'),
-            },
-        ),
         required=False
     )
 

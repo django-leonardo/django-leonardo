@@ -5,7 +5,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.web.models import Widget
 from leonardo.module.media.fields.image import ImageField
-from leonardo.fields import SimpleSelect2Widget
 
 from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
@@ -24,7 +23,7 @@ SIZE_CHOICES = (
 
 class ImageForm(WidgetUpdateForm):
 
-    image = ImageField(widget=SimpleSelect2Widget())
+    image = ImageField()
 
 
 class SimpleImageWidget(Widget):

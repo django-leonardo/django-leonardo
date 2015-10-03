@@ -14,7 +14,6 @@ from filer.utils.compatibility import truncate_words
 from .. import settings as filer_settings
 from ..models import File, Video, Vector, Document
 from .utils import FileField, FileMultipleField
-
 logger = logging.getLogger(__name__)
 
 
