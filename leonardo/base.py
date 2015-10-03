@@ -139,6 +139,9 @@ class Leonardo(object):
             self.loaded_modules = get_loaded_modules(modules or self.modules)
         return self.loaded_modules
 
+    def get_modules_as_list(self):
+        return [module_cfg for mod, module_cfg in self.get_modules()]
+
     def get_app_modules(self, apps):
         """return array of imported leonardo modules for apps
         """

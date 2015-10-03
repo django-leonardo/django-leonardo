@@ -117,6 +117,19 @@ class Config(dict):
             return True
         return False
 
+    @property
+    def needs_sync(self):
+        """Indicates whater module needs templates, static etc."""
+
+        affected_attributes = [
+            'css_files', 'js_files',
+            'scss_files', 'widgets']
+
+        for attr in affected_attributes:
+            if len(getattr(self, attr)) > 0:
+                return True
+        return False
+
     def set_module(self, module):
         """Just setter for module"""
         setattr(self, "module", module)
