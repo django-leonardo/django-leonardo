@@ -210,10 +210,10 @@ for mod, mod_cfg in LEONARDO_MODULES:
             WIDGETS[mod_cfg.optgroup] = merge(
                 getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
         else:
-            if DEBUG:
+            if len(mod_cfg.widgets) > 0 and DEBUG:
                 warnings.warn('You have ungrouped widgets'
                               ', please specify your ``optgroup``'
-                              'which categorize your widgets')
+                              'which categorize your widgets in %s' % mod)
             WIDGETS['ungrouped'] = merge(
                 getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
 
