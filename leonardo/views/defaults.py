@@ -34,14 +34,17 @@ def render_in_page(request, template):
         except KeyError:
             slug = None
 
-        body = render_to_string(template, RequestContext(request, {
-            'request_path': request.path,
-            'feincms_page': page,
-            'slug': slug,
-            'standalone': True}))
-        return http.HttpResponseNotFound(body, content_type=CONTENT_TYPE)
+        try:
+            body = render_to_string(template, RequestContext(request, {
+                'request_path': request.path,
+                'feincms_page': page,
+                'slug': slug,
+                'standalone': True}))
+            response = http.HttpResponseNotFound(body, content_type=CONTENT_TYPE)
+        except TemplateDoesNotExist:
+            response = False
 
-    return False
+    return response
 
 
 # This can be called when CsrfViewMiddleware.process_view has not run,
