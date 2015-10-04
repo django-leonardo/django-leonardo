@@ -118,7 +118,7 @@ def permalink(func):
     return wraps(func)(inner)
 
 
-def reverse(viewname, urlconf=None, args=None, kwargs=None, prefix=None, current_app=None):
+def reverse(viewname, urlconf=None, args=None, kwargs=None, current_app=None):
     """monkey patched reverse
 
     path supports easy patching 3rd party urls
@@ -134,8 +134,7 @@ def reverse(viewname, urlconf=None, args=None, kwargs=None, prefix=None, current
     args = args or []
     kwargs = kwargs or {}
 
-    if prefix is None:
-        prefix = get_script_prefix()
+    prefix = get_script_prefix()
 
     if not isinstance(viewname, six.string_types):
         view = viewname
@@ -178,7 +177,7 @@ def reverse(viewname, urlconf=None, args=None, kwargs=None, prefix=None, current
                     try:
                         url = app_reverse(
                             ':'.join(partials), urlconf, args=args, kwargs=kwargs,
-                            current_app=current_app, prefix=prefix)
+                            current_app=current_app)
                     except NoReverseMatch:
                         pass
                     else:
