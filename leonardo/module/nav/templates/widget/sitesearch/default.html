@@ -6,22 +6,11 @@
 {% block content %}
 
 <form action="{% url 'haystack_search' 'leonardo.module.search.apps.search' %}" method="get" class="navbar-collapse collapse navbar-form navbar-left" role="search">
-	{% if widget.inline %}
-	<div>
-		  <div class="input-group">
-		    <input id="search-input" type="text" class="form-control" name="q" placeholder="Search">
-		  	<span class="input-group-btn">
-		  		<button id='search-button' class="btn btn-default" type="submit"><i class=" glyphicon glyphicon-search" aria-hidden="true"></i></button>
-		  	</span>
-		  </div>
-	</div>
-	{% else %}
-	<div class="fieldset">
-		<input value="{{ query }}" type="text" class="form-control"  name="q" id="search_keywords" />
-	</div>
-	<div class="buttonset">
-		<button type="submit" class="button"><span><span>{% trans "Search" %}</span></span></button>
-	</div>
-	{% endif %}
+  <div class="input-group">
+	<input value="{{ query }}" type="text" class="form-control"  name="q" id="search_keywords" />
+  	<span class="input-group-btn">
+  		<button id='search-button' class="btn btn-default" type="submit">{% trans "Search" %}&nbsp;<i class=" glyphicon glyphicon-search" aria-hidden="true"></i></button>
+  	</span>
+  </div>
 </form>
 {% endblock %}
