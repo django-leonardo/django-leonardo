@@ -99,7 +99,7 @@ class WidgetCreateView(CreateView, WidgetViewMixin):
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
-        except Exception, e:
+        except Exception as e:
             raise e
 
         return response
@@ -195,7 +195,7 @@ class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
             success_url = parent.get_absolute_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
-        except Exception, e:
+        except Exception as e:
             raise e
 
         return response

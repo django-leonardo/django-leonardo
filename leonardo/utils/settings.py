@@ -158,7 +158,7 @@ def merge(a, b):
     if isinstance(a, CONFIG_VALID) \
             and isinstance(b, CONFIG_VALID):
         # dict update
-        if isinstance(a, (dict,)) and isinstance(b, (dict)):
+        if isinstance(a, dict) and isinstance(b, dict):
             a.update(b)
             return a
         # list update

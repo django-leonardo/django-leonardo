@@ -21,7 +21,7 @@ except ImportError:
 try:
     from django.utils.six import string_types
 except ImportError:
-    string_types = (basestring,)
+    string_types = (str,)
 try:
     from django.template import Engine
 except ImportError:

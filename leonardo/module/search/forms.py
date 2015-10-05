@@ -13,7 +13,7 @@ class SearchForm(ModelSearchForm):
     def _wrap_all(self):
         # stylung
         self.helper.filter(
-            basestring, max_level=4).wrap(
+            str, max_level=4).wrap(
             Field, css_class="form-control")
 
     def __init__(self, *args, **kwargs):

@@ -27,7 +27,7 @@ def add_bootstrap_class(field):
         django.forms.widgets.CheckboxSelectMultiple,
         django.forms.widgets.RadioSelect,
         django.forms.widgets.FileInput,
-        str,
+        str
     )):
         field_classes = set(field.field.widget.attrs.get('class', '').split())
         field_classes.add('form-control')
