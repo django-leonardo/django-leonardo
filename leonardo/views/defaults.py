@@ -44,7 +44,9 @@ def render_in_page(request, template):
         except TemplateDoesNotExist:
             response = False
 
-    return response
+        return response
+
+    return False
 
 
 # This can be called when CsrfViewMiddleware.process_view has not run,
