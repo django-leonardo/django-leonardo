@@ -8,24 +8,32 @@ from .widgets import (PageColorSchemeSelectWidget, PageSelectWidget,
 
 
 class Field(forms.ModelChoiceField):
-    empty_values = [u'']
-    empty_label = "(nothing)"
 
     def __init__(self, *args, **kwargs):
         super(Field, self).__init__(
-            self.queryset, self.empty_label, *args, **kwargs)
+            queryset=getattr(self, 'model', Page).objects.all(),
+            empty_label='---', *args, **kwargs)
+
+    def label_from_instance(self, obj):
+        """
+        Coerces ``value`` to a Python data type.
+        """
+        return obj.tree_label
 
 
 class PageSelectField(Field):
-    queryset = Page.objects
+    '''Page Select2 Field'''
+    model = Page
     widget = PageSelectWidget
 
 
 class PageColorSchemeSelectField(Field):
-    queryset = PageColorScheme.objects
+    '''PageColorScheme Select2 Field'''
+    model = PageColorScheme
     widget = PageColorSchemeSelectWidget
 
 
 class PageThemeSelectField(Field):
-    queryset = PageTheme.objects
+    '''PageTheme Select2 Field'''
+    model = PageTheme
     widget = PageThemeSelectWidget

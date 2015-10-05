@@ -145,32 +145,32 @@ class FilerFileField(models.ForeignKey):
 
 
 class FileField(FileField):
-    queryset = File.objects
+    model = File
 
 
 class VideoField(FileField):
-    queryset = Video.objects
+    model = Video
 
 
 class VectorField(FileField):
-    queryset = Vector.objects
+    model = Vector
 
 
 class DocumentField(FileField):
-    queryset = Document.objects
+    model = Document
 
 
 class MultipleFileField(FileMultipleField):
-    queryset = File.objects
+    model = File
 
 
 class MultipleDocumentField(FileMultipleField):
-    queryset = Document.objects
+    model = Document
 
 
 class MultipleVectorField(FileMultipleField):
-    queryset = Vector.objects
+    model = Vector
 
 
 class MultipleVideoField(FileMultipleField):
-    queryset = Video.objects
+    model = Video
