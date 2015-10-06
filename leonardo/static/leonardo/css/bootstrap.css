@@ -6585,3 +6585,7 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+.asteriskField {
+    display: none;
+}
