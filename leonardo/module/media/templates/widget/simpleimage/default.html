@@ -6,7 +6,7 @@
 {% with widget.get_size as size %}
 {% if widget.detail == "open_modal" %}
 
-{% thumbnail widget.image.file widget.get_size as image %}
+{% thumbnail widget.image.file size as image %}
 <a class="thumbnail" href="{{ widget.image.url }}" data-title="{{ widget.image.default_caption|default:'' }}" data-footer="{{ widget.image.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}">
 {% endthumbnail %}
 {% endif %} 
@@ -22,6 +22,6 @@
   {% endif %}
 {% if widget.detail %}
 </a>
-{% endif %} 
+{% endif %}
 {% endwith %}
 {% endblock %}
