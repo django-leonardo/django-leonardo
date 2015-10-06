@@ -7,7 +7,7 @@ from django.utils.functional import cached_property
 from leonardo.utils.settings import (get_conf_from_module,
                                      get_leonardo_modules, get_loaded_modules,
                                      is_leonardo_module, merge)
-from django.utils.importlib import import_module  # noqa
+from importlib import import_module  # noqa
 from django.utils.module_loading import module_has_submodule  # noqa
 from leonardo.decorators import require_auth, _decorate_urlconf
 
@@ -156,7 +156,6 @@ class Leonardo(object):
         modules = getattr(self, "_modules", [])
 
         if not modules:
-            from django.utils.importlib import import_module
             from django.utils.module_loading import module_has_submodule
 
             # Try importing a modules from the module package

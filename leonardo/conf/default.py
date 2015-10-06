@@ -17,8 +17,6 @@ USE_TZ = True
 
 DEBUG = True
 
-TEMPLATE_DEBUG = DEBUG
-
 ADMINS = (
     ('admin', 'mail@leonardo.cz'),
 )

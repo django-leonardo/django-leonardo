@@ -56,7 +56,7 @@ class LeonardoConfig(AppConfig):
         # is imported ! this behaviour breaks our strategy
         from django.db.models.loading import get_model
         from django.conf import settings
-        from django.utils.importlib import import_module  # noqa
+        from importlib import import_module  # noqa
 
         for model, method in six.iteritems(settings.ABSOLUTE_URL_OVERRIDES):
             try:

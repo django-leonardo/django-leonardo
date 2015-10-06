@@ -11,7 +11,7 @@ from leonardo.base import leonardo, default
 from leonardo.utils.settings import (get_conf_from_module, merge,
                                      get_leonardo_modules, get_loaded_modules,
                                      DJANGO_CONF)
-from django.utils.importlib import import_module  # noqa
+from importlib import import_module  # noqa
 from django.utils.module_loading import module_has_submodule  # noqa
 
 
@@ -44,7 +44,8 @@ if VERSION[:2] >= (1, 8):
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
                     'horizon.loaders.TemplateLoader',
-                ]
+                ],
+                'debug': True
             },
         },
     ]
@@ -64,7 +65,6 @@ else:
         'django.template.loaders.app_directories.Loader',
         'horizon.loaders.TemplateLoader',
     )
-
 
 try:
     # obsole location since 1.0.3 use `leonrdo_site.settings`
@@ -100,6 +100,7 @@ if not DEBUG:
                 'django.template.loaders.app_directories.Loader',
                 'horizon.loaders.TemplateLoader',
             ])]
+        TEMPLATES[0]['OPTIONS']['debug'] = False
 
 APPS = merge(APPS, default.core)
 

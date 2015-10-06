@@ -1,6 +1,6 @@
 
 
-from django.utils.importlib import import_module
+from importlib import import_module
 from django.utils import six
 from .versions import get_versions
 import warnings

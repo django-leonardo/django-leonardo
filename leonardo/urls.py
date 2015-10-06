@@ -1,17 +1,12 @@
 
-from django.utils import six
 from django.conf import settings
 from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
-from django.utils.importlib import import_module  # noqa
-from django.utils.module_loading import module_has_submodule  # noqa
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
 
 from .base import leonardo
-from leonardo.utils.settings import is_leonardo_module, get_conf_from_module
-from .decorators import require_auth
 
 __all__ = ['handler400', 'handler403', 'handler404', 'handler500']
 
