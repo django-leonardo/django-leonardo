@@ -16,69 +16,18 @@ from .decorators import require_auth
 __all__ = ['handler400', 'handler403', 'handler404', 'handler500']
 
 
-def _decorate_urlconf(urlpatterns, decorator, *args, **kwargs):
-
-    if isinstance(urlpatterns, (list, tuple)):
-
-        for pattern in urlpatterns:
-            if getattr(pattern, 'callback', None):
-                pattern._callback = decorator(pattern.callback, *args, **kwargs)
-            if getattr(pattern, 'url_patterns', []):
-                _decorate_urlconf(pattern.url_patterns, decorator, *args, **kwargs)
-    else:
-        if getattr(urlpatterns, 'callback', None):
-            urlpatterns._callback = decorator(urlpatterns.callback, *args, **kwargs)
-
-
 urlpatterns = patterns('',
                        url(r'^contrib/', include('horizon_contrib.urls'),),
                        url(r'^select2/', include('django_select2.urls')),
                        )
-
-# load all urls
-# support .urls file and urls_conf = 'elephantblog.urls' on default module
-# decorate all url patterns if is not explicitly excluded
-for mod in leonardo.modules:
-    # TODO this not work
-    if is_leonardo_module(mod):
-
-        conf = get_conf_from_module(mod)
-
-        if module_has_submodule(mod, 'urls'):
-            urls_mod = import_module('.urls', mod.__name__)
-            _urlpatterns = []
-            if hasattr(urls_mod, 'urlpatterns'):
-                # if not public decorate all
-
-                if conf['public']:
-                    urlpatterns += urls_mod.urlpatterns
-                else:
-                    _decorate_urlconf(urls_mod.urlpatterns,
-                                      require_auth)
-                    urlpatterns += urls_mod.urlpatterns
-
-for urls_conf, conf in six.iteritems(getattr(settings, 'MODULE_URLS', {})):
-    # is public ?
-    try:
-        if conf['is_public']:
-            urlpatterns += \
-                patterns('',
-                         url(r'', include(urls_conf)),
-                         )
-        else:
-            _decorate_urlconf(
-                url(r'', include(urls_conf)),
-                require_auth)
-            urlpatterns += patterns('',
-                                    url(r'', include(urls_conf)))
-    except Exception as e:
-        raise Exception('raised %s during loading %s' % (str(e), urls_conf))
 
 if getattr(settings, 'LEONARDO_AUTH', True):
     urlpatterns += patterns('',
                             url(r'^auth/',
                                 include('leonardo.module.leonardo_auth.auth_urls')),
                             )
+
+urlpatterns += leonardo.urlpatterns
 
 if getattr(settings, 'HORIZON_ENABLED', True):
     import horizon
