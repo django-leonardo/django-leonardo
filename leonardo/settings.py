@@ -101,6 +101,8 @@ if not DEBUG:
                 'horizon.loaders.TemplateLoader',
             ])]
         TEMPLATES[0]['OPTIONS']['debug'] = False
+else:
+    TEMPLATE_DEBUG = DEBUG
 
 APPS = merge(APPS, default.core)
 
