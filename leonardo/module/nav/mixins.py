@@ -26,9 +26,13 @@ class NavigationWidgetMixin(models.Model):
         choices=ORIENTATION_CHOICES, default='horizontal')
 
     def _filter_active(self, items):
-        return [item for item in items if item.active == self.display_in_nav]
+        if self.display_active is None:
+            return items
+        return [item for item in items if item.active == self.display_active]
 
     def _filter_in_nav(self, items):
+        if self.display_in_nav is None:
+            return items
         return [item for item in items if item.in_navigation == self.display_in_nav]
 
     def filter_items(self, items):
