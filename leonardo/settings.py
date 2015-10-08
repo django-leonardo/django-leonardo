@@ -184,7 +184,8 @@ for mod, mod_cfg in LEONARDO_MODULES:
         for model, method in six.iteritems(mod_cfg.absolute_url_overrides):
             try:
                 _mod = import_module(".".join(method.split('.')[:-1]))
-                ABSOLUTE_URL_OVERRIDES[model] = getattr(_mod, method.split('.')[-1])
+                ABSOLUTE_URL_OVERRIDES[model] = getattr(
+                    _mod, method.split('.')[-1])
             except Exception as e:
                 raise e
 
@@ -236,8 +237,9 @@ Page.create_content_type(
 
 # register widgets
 for optgroup, _widgets in six.iteritems(WIDGETS):
+    _optgroup = optgroup if optgroup != 'ungrouped' else None
     for widget in _widgets:
-        Page.create_content_type(widget, optgroup=optgroup)
+        Page.create_content_type(widget, optgroup=_optgroup)
 
 Page.register_extensions(*PAGE_EXTENSIONS)
 Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
