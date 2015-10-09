@@ -6,10 +6,14 @@ from __future__ import absolute_import, unicode_literals
 
 import functools
 import sys
-from StringIO import StringIO
 
 from django.utils.decorators import available_attrs  # noqa
 from django.utils.translation import ugettext_lazy as _
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 
 def require_auth(view_func):
@@ -36,7 +40,8 @@ def _decorate_urlconf(urlpatterns, decorator, *args, **kwargs):
 
         for pattern in urlpatterns:
             if getattr(pattern, 'callback', None):
-                pattern._callback = decorator(pattern.callback, *args, **kwargs)
+                pattern._callback = decorator(
+                    pattern.callback, *args, **kwargs)
             if getattr(pattern, 'url_patterns', []):
                 _decorate_urlconf(
                     pattern.url_patterns, decorator, *args, **kwargs)
