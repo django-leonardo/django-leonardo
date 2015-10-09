@@ -236,9 +236,9 @@ Page.create_content_type(
 
 # register widgets
 for _optgroup, _widgets in six.iteritems(WIDGETS):
-    _optgroup = optgroup if optgroup != 'ungrouped' else None
+    optgroup = _optgroup if _optgroup != 'ungrouped' else None
     for widget in _widgets:
-        Page.create_content_type(widget, optgroup=_optgroup)
+        Page.create_content_type(widget, optgroup=optgroup)
 
 Page.register_extensions(*PAGE_EXTENSIONS)
 Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
