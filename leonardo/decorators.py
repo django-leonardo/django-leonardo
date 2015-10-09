@@ -55,34 +55,11 @@ def catch_result(task_func):
     """Catch printed result from Celery Task and return it in task response
     """
 
-    @functools.wraps(task_func)
+    @functools.wraps(task_func, assigned=available_attrs(task_func))
     def dec(*args, **kwargs):
         # inicialize
         orig_stdout = sys.stdout
         sys.stdout = content = StringIO()
-        task_response = task_func(*args, **kwargs)
-        # catch
-        sys.stdout = orig_stdout
-        content.seek(0)
-        # propagate to the response
-        task_response['stdout'] = content.read()
-        return task_response
-    return dec
-
-
-def catch_result_with_stdout(task_func):
-    """Catch printed result
-    same as standard ``catch_result`` but provides ``stdout``
-    variable as task argument
-    """
-
-    @functools.wraps(task_func)
-    def dec(*args, **kwargs):
-        # inicialize
-        orig_stdout = sys.stdout
-        sys.stdout = content = StringIO()
-        # propagate down to the task
-        kwargs['stdout'] = content
         task_response = task_func(*args, **kwargs)
         # catch
         sys.stdout = orig_stdout

@@ -70,8 +70,7 @@ try:
     # obsole location since 1.0.3 use `leonrdo_site.settings`
     from leonardo_site.local.settings import *
     warnings.warn(
-        'leonardo_site.local.settings is obsolete use new location',
-        ImportWarning)
+        'leonardo_site.local.settings is obsolete use new location')
 except ImportError:
     pass
 
@@ -88,8 +87,7 @@ try:
     from local_settings import *
 except ImportError:
     warnings.warn(
-        'local_settings was not found in $PYTHONPATH !',
-        ImportWarning)
+        'local_settings was not found in $PYTHONPATH !')
 
 if not DEBUG:
     if VERSION[:2] >= (1, 8):
@@ -211,15 +209,16 @@ for mod, mod_cfg in LEONARDO_MODULES:
 
         # collect grouped widgets
         if isinstance(mod_cfg.optgroup, six.string_types):
-            WIDGETS[mod_cfg.optgroup] = merge(
-                getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
+            if len(mod_cfg.widgets) > 0:
+                WIDGETS[mod_cfg.optgroup] = merge(
+                    getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
         else:
             if len(mod_cfg.widgets) > 0 and DEBUG:
+                WIDGETS['ungrouped'] = merge(
+                    getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
                 warnings.warn('You have ungrouped widgets'
                               ', please specify your ``optgroup``'
                               'which categorize your widgets in %s' % mod)
-            WIDGETS['ungrouped'] = merge(
-                getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
 
     except Exception as e:
         warnings.warn(
@@ -236,7 +235,7 @@ Page.create_content_type(
     ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
 
 # register widgets
-for optgroup, _widgets in six.iteritems(WIDGETS):
+for _optgroup, _widgets in six.iteritems(WIDGETS):
     _optgroup = optgroup if optgroup != 'ungrouped' else None
     for widget in _widgets:
         Page.create_content_type(widget, optgroup=_optgroup)

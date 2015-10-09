@@ -10,11 +10,10 @@ from .base import leonardo
 
 __all__ = ['handler400', 'handler403', 'handler404', 'handler500']
 
-
-urlpatterns = patterns('',
-                       url(r'^contrib/', include('horizon_contrib.urls'),),
-                       url(r'^select2/', include('django_select2.urls')),
-                       )
+urlpatterns = [
+    url(r'^contrib/', include('horizon_contrib.urls'),),
+    url(r'^select2/', include('django_select2.urls')),
+]
 
 if getattr(settings, 'LEONARDO_AUTH', True):
     urlpatterns += patterns('',
@@ -72,14 +71,18 @@ sitemaps = {
 urlpatterns += patterns('',
                         (r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}),
                         (r'^favicon\.ico$', RedirectView.as_view(
-                            **{'permanent': True, 'url': '/static/img/favicon.ico'}),),
+                            **{'permanent': True, 'url': settings.FAVICON_PATH}),),
                         (r'^robots\.txt$',
                          TemplateView.as_view(template_name='robots.txt')),
                         (r'^crossdomain\.xml$',
                          TemplateView.as_view(template_name='crossdomain.xml')),
                         )
 
-handler400 = getattr(settings, "HANDLER_400", 'leonardo.views.defaults.bad_request')
-handler403 = getattr(settings, "HANDLER_403", 'leonardo.views.defaults.permission_denied')
-handler404 = getattr(settings, "HANDLER_404", 'leonardo.views.defaults.page_not_found')
-handler500 = getattr(settings, "HANDLER_500", 'leonardo.views.defaults.server_error')
+handler400 = getattr(settings, "HANDLER_400",
+                     'leonardo.views.defaults.bad_request')
+handler403 = getattr(settings, "HANDLER_403",
+                     'leonardo.views.defaults.permission_denied')
+handler404 = getattr(settings, "HANDLER_404",
+                     'leonardo.views.defaults.page_not_found')
+handler500 = getattr(settings, "HANDLER_500",
+                     'leonardo.views.defaults.server_error')

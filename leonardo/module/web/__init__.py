@@ -128,6 +128,7 @@ class Default(object):
         'META_DESCRIPTION': ('', _('Site specific meta description')),
         'META_TITLE': ('', _('Site specific meta title')),
         'DEBUG': (True, _('Debug mode')),
+        'FAVICON_PATH': ('/static/img/favicon.ico', _('Favicon path')),
     }
 
     page_actions = ['base/page/_actions.html']
