@@ -1,4 +1,4 @@
-from django.db.models import loading
+from django.apps import apps
 
 
 def get_widget_from_id(id):
@@ -9,7 +9,7 @@ def get_widget_from_id(id):
 
     res = id.split('-')
     try:
-        model_cls = loading.get_model(res[0], res[1])
+        model_cls = apps.get_model(res[0], res[1])
         obj = model_cls.objects.get(parent=res[2], id=res[3])
     except:
         obj = None
@@ -24,7 +24,7 @@ def get_widget_class_from_id(id):
 
     res = id.split('-')
     try:
-        model_cls = loading.get_model(res[1], res[2])
+        model_cls = apps.get_model(res[1], res[2])
     except:
         model_cls = None
     return model_cls

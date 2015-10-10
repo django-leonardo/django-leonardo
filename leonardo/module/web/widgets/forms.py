@@ -5,7 +5,7 @@ import floppyforms
 from crispy_forms.bootstrap import Tab, TabHolder
 from crispy_forms.layout import HTML, Field, Fieldset, Layout
 from django import forms
-from django.db.models.loading import get_model
+from django.apps import apps
 from django.forms.models import modelform_factory
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -183,7 +183,7 @@ class WidgetSelectForm(SelfHandlingForm):
         self.next_view = kwargs.pop('next_view', None)
 
         module, cls = feincms_cls_name.split('.')
-        ObjectCls = get_model(module, cls)
+        ObjectCls = apps.get_model(module, cls)
         feincms_object = ObjectCls.objects.get(id=page_id)
 
         super(WidgetSelectForm, self).__init__(*args, **kwargs)

@@ -105,7 +105,10 @@ class Default(object):
 
     js_files = [
         'extra/js/wow.min.js',
+        'js/angular/ng-FitText.js',
     ]
+
+    angular_modules = ['ngFitText']
 
     css_files = [
         'extra/css/animate.css',

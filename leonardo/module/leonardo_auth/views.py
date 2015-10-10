@@ -19,7 +19,7 @@ from django.views.decorators.debug import sensitive_post_parameters  # noqa
 
 class LoginView(forms.ModalFormView):
     form_class = LoginForm
-    template_name = 'auth/login.html'
+    template_name = 'leonardo_auth/login.html'
     success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
     redirect_field_name = "next"
