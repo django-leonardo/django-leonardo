@@ -47,21 +47,9 @@ class Default(object):
         ]
 
     @property
-    def themes(self):
-        """supported themes
-        """
-        return ['leonardo_theme_adminlte', 'leonardo_theme_bootswatch']
-
-    @property
     def apps(self):
 
         INSTALLED_APPS = []
-        for theme in self.themes:
-            try:
-                __import__(theme)
-                INSTALLED_APPS += [theme]
-            except ImportError:
-                LOG.warning("you are missing available theme {}".format(theme))
 
         try:
             import sorl  # noqa
