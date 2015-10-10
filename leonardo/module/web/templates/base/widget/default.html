@@ -2,7 +2,7 @@
 
 {% include "base/widget/_base_begin.html" %}
 
-<div id="{{ widget.fe_identifier }}" class="{{ widget.render_base_classes }}">
+<div id="{{ widget.fe_identifier }}" class="{{ widget.render_base_classes }} {% if widget.enter_effect_style != 'disabled' %}wow {{ widget.enter_effect_style }}{% endif %}"{% if widget.enter_effect_duration %}data-wow-duration="{{ widget.enter_effect_duration }}"{% endif %} {% if widget.enter_effect_delay %}data-wow-delay="{{ widget.enter_effect_delay }}"{% endif %} {% if widget.enter_effect_iteration %}data-wow-iteration="{{ widget.enter_effect_iteration }}"{% endif %} {% if widget.enter_effect_offset %}data-wow-offset="{{ widget.enter_effect_offset }}"{% endif %}>
   <div class="{{ widget.render_content_classes }}">
     {% if request.frontend_editing %}
     <div class="widget-tools">
