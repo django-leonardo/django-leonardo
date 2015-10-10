@@ -2,6 +2,7 @@ language: python
 sudo: true
 python:
   - 2.7
+  - 3.4
   - 3.5
 env:
   matrix:
@@ -45,3 +46,4 @@ notifications:
 matrix:
   allow_failures:
     - python: 3.5
+    - python: 3.4
