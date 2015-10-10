@@ -4,8 +4,7 @@
 
 {% block content %}
 <table>
-{% for root in page_list %}
-	{% for child_page in root.get_children %}
+	{% for child_page in widget.get_root.get_children %}
 	{% if child_page.in_navigation %}
 	<li><a href="{{ child_page.get_absolute_url }}">{{ child_page }}</a>
 	{% if child_page.get_children %}
@@ -30,6 +29,5 @@
 	</td>
 	{% endif %}
 	{% endfor %}
-{% endfor %}
 </table>
 {% endblock %}
