@@ -58,18 +58,6 @@
 
 <link rel="shortcut icon" href="/favicon.ico" />
 
-{% comment %}
-
-{% if request.user.is_authenticated %}
-<script src="{{ STATIC_URL }}dashboard/js/app.js"></script>
-{% endif %} 
-
-<script src="{{ STATIC_URL }}assets/js/jquery.min.js"></script>
-<script src="{{ STATIC_URL }}assets/js/smoothscroll.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-{% endcomment %}
-
-{% if request.user.is_staff and request.frontend_editing %}
+{% if request.user.is_staff %}
   {% include "leonardo/common/_frontend_edit_sidebar.html" %}
 {% endif %}

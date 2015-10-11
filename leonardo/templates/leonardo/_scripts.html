@@ -110,8 +110,8 @@
 </script>
 
 {% if request.frontend_editing %}
-{% compress js %}
 
+{% compress js %}
 <script type="text/javascript">
 
 /* Setup django csrf-token for ajax calls, necessary since Django 1.2.5 */
@@ -145,21 +145,9 @@ $.ajaxSetup({
       // Widgets sort
       $(".col3").sortable({
         revert: true,
-        receive: function(event, ui) {
-          console.log("receive");
-          new_box = $('#content .fe_box_new');
-          new_box.attr('id', new_box.attr('class').replace(/\s/g, "__"));
-          drag_options = {
-            'page_id': webcms_session.page_id,
-            'region': 'col3',
-            'options': {
-              'id': new_box.attr('id'),
-              'index': new_box.parent().children().index(new_box)
-            },
-          }
-          ui.item.removeMe = false;
-          Dajaxice.webcms.module.web.widget_create(Dajax.process, drag_options);
-        },
+        forceHelperSize: true,
+        opacity: 0.3,
+        tolerance: 'pointer',
         start: function (e,ui) {
           $(ui.helper).addClass('fe_dragging');
         },
@@ -173,19 +161,19 @@ $.ajaxSetup({
               sort = false;
             }
             if(widgets[i].length === 0) {
-            	widgets.pop(i);
+              widgets.pop(i);
             }
           }
 
           if(sort) {
             sort_options = {
-  		      url: '{% url 'widget_sort' %}',
-  		      type: "POST",
-  		      data: {
-  	              'page_id': {{ feincms_page.id }},
-  	              'region': 'col3',
-  	              'widgets': widgets,
-  		      },
+            url: '{% url 'widget_sort' %}',
+            type: "POST",
+            data: {
+                  'page_id': {{ feincms_page.id }},
+                  'region': 'col3',
+                  'widgets': widgets,
+            },
             success: function(){
               horizon.autoDismissAlerts();
             }
