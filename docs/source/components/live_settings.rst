@@ -14,6 +14,7 @@ Live settings now supports these types:
 * String
 * Number
 * Boolean
+* Dict
 
 .. code-block:: python
 
@@ -30,6 +31,12 @@ Live settings now supports these types:
             'GOOGLE_ANALYTICS_PROPERTY_ID': ('xx-xxx-x', _('Google Site identificator')),
             'GOOGLE_ANALYTICS_SITE_SPEED': (False, _('analyze page speed')),
             'GOOGLE_ANALYTICS_ANONYMIZE_IP': (False, _('anonymize ip')),
+            'Media Thumbnails': {
+                'SIZES': ({
+                    'SMALL': '64x64',
+                    'MEDIUM': '265x265',
+                }, 'Help Text')
+            }
         }
 
     default = Default()
