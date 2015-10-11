@@ -3,6 +3,7 @@
 from importlib import import_module
 from django.utils import six
 from .versions import get_versions
+
 import warnings
 
 # define options
@@ -105,9 +106,22 @@ class Config(dict):
         return None
 
     @property
+    def name(self):
+        """Distribution name from module if is set"""
+        if hasattr(self, "module"):
+            return self.module.__name__.replace('_', '-')
+        return None
+
+    @property
     def version(self):
         """return module version"""
         return get_versions([self.module_name]).get(self.module_name, None)
+
+    @property
+    def latest_version(self):
+        """return latest version if is available"""
+        from leonardo_system.pip import check_versions
+        return check_versions(True).get(self.name, None).get('new', None)
 
     @property
     def needs_migrations(self):
@@ -170,19 +184,6 @@ def merge(a, b):
     if a and b:
         raise Exception("Cannot merge")
     raise NotImplementedError
-
-
-def is_leonardo_module(mod):
-    """returns True if is leonardo module
-    """
-
-    if hasattr(mod, 'default') \
-            or hasattr(mod, 'leonardo_module_conf'):
-        return True
-    for key in dir(mod):
-        if 'LEONARDO' in key:
-            return True
-    return False
 
 
 def get_leonardo_modules():

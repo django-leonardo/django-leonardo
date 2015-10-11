@@ -6,7 +6,8 @@ from django.utils import six
 from django.utils.functional import cached_property
 from leonardo.utils.settings import (get_conf_from_module,
                                      get_leonardo_modules, get_loaded_modules,
-                                     is_leonardo_module, merge)
+                                     merge)
+from leonardo.utils import is_leonardo_module
 from importlib import import_module  # noqa
 from django.utils.module_loading import module_has_submodule  # noqa
 from leonardo.decorators import require_auth, _decorate_urlconf
