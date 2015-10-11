@@ -271,6 +271,26 @@ class WidgetReorderView(ModalFormView, ModelFormMixin):
                 _widget.ordering = i + 1
                 _widget.save()
 
+        elif int(ordering) == -1:
+            next_ordering = widget.ordering - 1
+            widgets = getattr(widget.parent.content, widget.region)
+            for w in widgets:
+                if w.ordering == next_ordering:
+                    w.ordering = widget.ordering
+                    w.save()
+                    widget.ordering = next_ordering
+                    widget.save()
+        elif int(ordering) == 1:
+
+            next_ordering = widget.ordering + 1
+            widgets = getattr(widget.parent.content, widget.region)
+            for w in widgets:
+                if w.ordering == next_ordering:
+                    w.ordering = widget.ordering
+                    w.save()
+                    widget.ordering = next_ordering
+                    widget.save()
+
         else:
             widget.ordering = widget.next_ordering
             widget.save()
