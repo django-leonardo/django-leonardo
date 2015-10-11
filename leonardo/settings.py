@@ -164,6 +164,7 @@ for mod, mod_cfg in LEONARDO_MODULES:
         # TODO move to utils.settings
         # support for one level nested in config dictionary
         for config_key, config_value in six.iteritems(mod_cfg.config):
+
             if isinstance(config_value, dict):
                 CONSTANCE_CONFIG_GROUPS.update({config_key: config_value})
                 for c_key, c_value in six.iteritems(config_value):
@@ -175,8 +176,11 @@ for mod, mod_cfg in LEONARDO_MODULES:
                     CONSTANCE_CONFIG_GROUPS.update({
                         mod_cfg.optgroup: mod_cfg.config})
                 else:
-                    CONSTANCE_CONFIG_GROUPS.update({
-                        'ungrouped': mod_cfg.config})
+                    if 'ungrouped' in CONSTANCE_CONFIG_GROUPS:
+                        CONSTANCE_CONFIG_GROUPS['ungrouped'].update(mod_cfg.config)
+                    else:
+                        CONSTANCE_CONFIG_GROUPS['ungrouped'] = \
+                            mod_cfg.config
 
         # import and update absolute overrides
         for model, method in six.iteritems(mod_cfg.absolute_url_overrides):
