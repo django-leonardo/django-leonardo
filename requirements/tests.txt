@@ -9,26 +9,24 @@ python-memcached>=1.54
 django_compressor>=1.3
 Django-Select2==5.1.0
 lesscpy>=0.10.1
-Whoosh==2.6.0
+Whoosh>=2.6.0
 Markdown>=2.2.1
-docutils==0.10
+docutils>=0.10
 django-pyscss>=1.0.3
 requests>=1.2.3
 django-filer==0.9.11
 django-admin-tools>=0.5.2
-horizon-contrib>=2015.7.3
-django-markupfield>=1.3.4
-django-haystack==2.3.1
-
-leonardo-admin>=2015.5.0
-leonardo-system>=0.0.3
-
-sorl-thumbnail==12.2
-easy-thumbnails==2.2
+django-markupfield==1.3.4
+django-haystack>=2.3.1
+sorl-thumbnail>=12.2
+easy-thumbnails>=2.2
 
 gunicorn>=18.0
 
-leonardo_horizon>=2015.10.4
+horizon-contrib>=2015.10.4
+leonardo-admin>=2015.10.0
+leonardo-system>=0.0.8
+leonardo_horizon>=2015.3.0
 leonardo_dbtemplates>=0.9
 leonardo_constance>=0.9
 
