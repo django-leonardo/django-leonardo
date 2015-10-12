@@ -1,9 +1,11 @@
+{% load compress %}
 <div id="{% block modal_id %}{% endblock %}"
   class="{% block modal_class %}{% if hide %}modal{% else %}static_page{% endif %}{% endblock %} {{ modal_size|default:'md' }}">
   <div class="{% if hide %}modal-dialog{% endif %} modal-{{ modal_size|default:'md' }}">
     <div class="{% if hide %}modal-content{% endif %}">
       <div class="modal-header">
         {% if hide %}<a href="#" class="close" data-dismiss="modal">&times;</a>{% endif %}
+        {% if hide %}<a href="#" class="full-screen" id="modal-full-screen"><i class="fa fa-expand"></i></a>{% endif %}
         <h3>{% block modal-header %}{% endblock %}</h3>
       </div>
       {% comment %}
@@ -56,5 +58,22 @@
     </div>
   </div>
 </div>
+{% compress js %}
+<script type="text/javascript"> 
+  $(function() {
+    $("#modal-full-screen").on('click', function(event){
+      var $el = $(this).closest('.modal-dialog');
+      if($el.hasClass("modal-sm")){
+        $el.removeClass('modal-sm').addClass('modal-md');  
+      }else if($el.hasClass("modal-md")){
+        $el.removeClass('modal-md').addClass('modal-lg');  
+      }else if($el.hasClass("modal-lg")){
+        $el.removeClass('modal-lg').addClass('modal-sm');  
+      }
+    });
+  });
+</script>
+{% endcompress %}
+
 {% block modal-js %}
 {% endblock %}
