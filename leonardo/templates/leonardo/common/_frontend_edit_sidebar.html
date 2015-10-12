@@ -1,6 +1,5 @@
 
-{% load crispy_forms_tags i18n %}
-{% load url from future %}
+{% load crispy_forms_tags i18n compress %}
 
 {% block css_extra %}
 <style type="text/css">
@@ -33,14 +32,19 @@
   </div>
 </div>
 
+{% compress js %}
 <script type="text/javascript">
 $(function () {
   var $settingsButton = $("#settings_button");
   var $demo_settings = $('#settings_menu');
   $settingsButton.draggable({
     axis:'y',
+    start: function( event, ui ) {
+       event.stopPropagation();
+    },
     stop: function( event, ui ) {
         localStorage.setItem('settingsButton_position',ui.position.top);
+        $settingsButton.css("left", "");
     },
     drag: function( event, ui ) {
         $demo_settings.css("top", ui.position.top);
@@ -51,27 +55,29 @@ $(function () {
   $settingsButton.css("top", parseInt(y));
   $demo_settings.css("top", parseInt(y));
 
-  $settingsButton.click(function () {
-    if (!$(this).hasClass("open")) {
-      localStorage.setItem('settingsButton_open',true);
-      $(this).animate({"right": "250px"});
-      $demo_settings.animate({"right": "0"});
-      $(this).addClass("open");
-    } else {
-      localStorage.setItem('settingsButton_open',false);
-      $(this).animate({"right": "0"});
-      $demo_settings.animate({"right": "-250px"});
-      $(this).removeClass("open");
-    }
-  });
-
   if(Boolean(localStorage.getItem('settingsButton_open')) == true){
-    $demo_settings = $('#settings_menu');
     $settingsButton.animate({"right": "250px"});
     $demo_settings.animate({"right": "0"});
     $settingsButton.addClass("open");
   }
 
+  $settingsButton.click(function () {
+    if (!$settingsButton.hasClass("open")) {
+      localStorage.setItem('settingsButton_open',true);
+      $settingsButton.animate({"right": "250px"});
+      $settingsButton.addClass("open");
+      $demo_settings.animate({"right": "0"});
+    } else {
+      localStorage.setItem('settingsButton_open',false);
+      $settingsButton.animate({"right": "0"});
+        $settingsButton.css('left', '');
+      $demo_settings.animate({"right": "-250px"});
+      $settingsButton.removeClass("open");
+    }
+  });
+
+
 });
 
 </script>
+{% endcompress %}
