@@ -31,7 +31,7 @@ class LoginForm(SelfHandlingForm):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
         self.helper.layout = Layout(
-            'username', 'password', InlineCheckboxes('remember'),
+            'username', 'password', 'remember',
         )
 
     def handle(self, request, data):
