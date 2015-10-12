@@ -2,6 +2,6 @@
 
 {% if request.user.is_authenticated %}
 <div class="panel-body">
-	<a class="btn btn-primary btn-sm btn-block" href="{% url 'logout' %}"><i class="fa fa-power-off"></i> {% trans 'Logout' %}</a>
+	<a class="btn btn-primary btn-sm btn-block" href="{% url 'logout' %}?next={{ request.build_absolute_uri }}"><i class="fa fa-power-off"></i> {% trans 'Logout' %}</a>
 </div>
 {% endif %}
