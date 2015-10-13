@@ -1,6 +1,98 @@
 CHANGES
 =======
 
+1.0.2
+-----
+
+* no compress
+* admin action and target all admin actions to blank window
+* media quick actions and add tooltip for actions
+* fix sqlite hack on python3
+* fix svg scale
+* fix svg / vector widget
+* fix JS boolean evaluation
+* use empty choice for layout in mass update and fix side bar
+* compress and fix side bar
+* small ui improvements
+* use aplha version
+* update requirements
+* update django-select2 in test environment
+* switch dbtemplates and constance to our builds
+* fix remember checkbox
+* user friendly logout redirect
+* show settings for admins without enable frontend edit, cleanup templates
+* remove cached loader from debug mode
+* move leonardo is module function to root of utils, provide latest version as lazy property on module config
+* add doc for support dictinaries in live settings
+* fix live settings in ungrouped group
+* bootstrap downdown submenu and more widget reordering
+* fix wow.js time parameters
+* fix gitignore which hides stuff in lib directory anywhere
+* cleanup client site scripts, auth templates and switch deprecated get_model, wow.js to working state move auth template to own app, cleanup using get_model and add ng-fittext to angular modules
+* python 3.4 to allow failures
+* move auth template to own app, cleanup using get_model and add ng-fittext to angular modules
+* fix sitemap
+* remove useless stuff from web init
+* move fields to forms module
+* fix variable names
+* fix loading widgets when optgroup is not specified #95, configurable favicon cleanup loading and decorators
+* also python 3 support for stringio
+* catch result from celery task as helper decorators
+* propagate option groups only if not ungrouped
+* fix list of imports
+* move cosmetic styles to main page styles
+* fix filtering pages in navigation
+* template debug for django < 1.8
+* hide asterrisk
+* center responsive images
+* small cleanup
+* move url patterns loading to leonardo object
+* bunch of python 3 fixes
+* fixing all select2 fields
+* fix paginator template
+* search template fixes
+* fix modal margin
+* fix UnboundLocalError
+* handle missing template in rendering debug stuff
+* better handling non categorized widgets warning
+* remove prefix from core reverse
+* bump required version of select2 module
+* bump required version of leonardo system module
+* small improve of accessing to modules
+* select2 rewriting to latest version
+* fix python 3 urlparse
+* fix test and version on module config
+* drop django 1.6 and cleanup python version in tox env
+* provide cached layout classes
+* better widget searching and add row in grid template
+* properly disable quickstart middleware when is not helpful
+* fix templates override
+* use cached template loader in production mode
+* fix unclosed div element and add favicon doc
+* cleanup reverse, fix when paginator is used multiple times, favicon relocation
+* simplify loading process
+* provide cached layout classes
+* better widget searching and add row in grid template
+* properly disable quickstart middleware when is not helpful
+* fix templates override
+* use cached template loader in production mode
+* fix unclosed div element and add favicon doc
+* cleanup reverse, fix when paginator is used multiple times, favicon relocation
+* improved loading process
+* fix external requirements
+* fix migrations and use new location for site settings
+* try python 3 as non failure build
+* fix migrations and use new location for site settings
+* fix migrations and use new location for site settings
+* try python 3 as non failure build
+* media select2 labels tunning
+* use full page path as label in select
+* use benefits from list widget mixin
+* fix list widget mixin
+* fix egg name
+* change source of external requirements, provide render_response directly on widget and make accessible web models in root of leonardo
+* released 1.0.1
+
 1.0.1
 -----
 
@@ -52,6 +144,10 @@ CHANGES
 * next bunch of translations
 * fix loading urls from leonardo modules
 * update meta and reinit python versioning
+
+1.0.0
+-----
+
 * cleanup imports and configure defalt logging
 * fix warning - MultiStorageFileField can handle only File objects;
 * add generated locales and simple util for updating them
