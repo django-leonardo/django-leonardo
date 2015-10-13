@@ -54,6 +54,8 @@ class Default(object):
         'MEDIA_LOGICAL_STRUCTURE': (False, _('If is True all folders and files will has same path in the OS')),
     }
 
+    page_actions = ['media/_actions.html']
+
 
 class MediaConfig(AppConfig, Default):
     name = 'leonardo.module.media'
