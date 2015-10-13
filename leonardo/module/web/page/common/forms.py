@@ -1,4 +1,5 @@
 
+from django.db.models.fields import BLANK_CHOICE_DASH
 from crispy_forms.bootstrap import Tab, TabHolder
 from crispy_forms.layout import Layout
 from django.http import HttpResponseRedirect
@@ -34,7 +35,7 @@ class PageMassChangeForm(SelfHandlingForm):
     )
 
     layout = forms.ChoiceField(
-        label=_('Layout'), choices=PAGE_LAYOUT_CHOICES,
+        label=_('Layout'), choices=BLANK_CHOICE_DASH + list(PAGE_LAYOUT_CHOICES),
         required=False)
 
     depth = forms.IntegerField(label=_('Depth'), initial=1)
@@ -57,8 +58,6 @@ class PageMassChangeForm(SelfHandlingForm):
                     ),
             ),
         )
-
-        self.fields['layout'].choices.insert(0, ('', _('Select Layout')))
 
     def handle(self, request, data):
 
