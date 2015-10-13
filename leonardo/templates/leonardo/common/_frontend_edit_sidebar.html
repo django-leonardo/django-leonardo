@@ -71,14 +71,10 @@ $(function () {
     }
   });
 
-  if(Boolean(localStorage.getItem('settingsButton_open')) == true){
+  if(localStorage.getItem('settingsButton_open') === "true"){
     $settingsButton.animate({"right": "250px"});
     $demo_settings.animate({"right": "0"});
     $settingsButton.addClass("open");
-  } 
-  if (Boolean(localStorage.getItem('settingsButton_open')) == false) {
-    $settingsButton.animate({"right": "0"});
-    $demo_settings.animate({"right": "-250px"});
   }
 
 });
