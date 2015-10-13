@@ -5,6 +5,7 @@ import os
 from django.test import TestCase
 
 from django.core import management
+from django.utils import six
 
 
 class ManagementCommandsTest(TestCase):
@@ -15,7 +16,8 @@ class ManagementCommandsTest(TestCase):
             # fix sqlite
             from django.db import connection
             connection.cursor()
-            connection.connection.text_factory = lambda x: unicode(x, "utf-8", "ignore")
+            connection.connection.text_factory = \
+                lambda x: six.text_type(x, "utf-8", "ignore")
         except Exception:
             pass
 
