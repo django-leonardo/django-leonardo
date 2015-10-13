@@ -111,7 +111,6 @@
 
 {% if request.frontend_editing %}
 
-{% compress js %}
 <script type="text/javascript">
 
 /* Setup django csrf-token for ajax calls, necessary since Django 1.2.5 */
@@ -195,7 +194,6 @@ $.ajaxSetup({
 });
 
 </script>
-{% endcompress %}
 {% endif %}
 
 {% compress js %}
