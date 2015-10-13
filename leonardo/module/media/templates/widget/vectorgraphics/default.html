@@ -1,3 +1,9 @@
-<object style="border: 1px blue dotted;" class='svg_preview' data="{{ widget.markup.file.url }}" type="image/svg+xml" {% if width and height %}width="{{ width }}" height="{{ height }}"{% else %}width="640px" height="480px"{% endif %}>
-    <embed src="{{ widget.markup.file.url }}" type="image/svg+xml" {% if width and height %}width="{{ width }}" height="{{ height }}"{% else %}width="640px" height="480px"{% endif %}/>
+{% extends widget.get_base_template %}
+
+{% load i18n %}
+
+{% block content %}
+<object class='svg_preview' data="{{ widget.source.file.url }}" type="image/svg+xml" {% if width and height %}width="{{ width }}" height="{{ height }}"{% else %}width="640px" height="480px"{% endif %}>
+    <embed src="{{ widget.source.file.url }}" type="image/svg+xml" {% if width and height %}width="{{ width }}" height="{{ height }}"{% else %}width="640px" height="480px"{% endif %}/>
 </object>
+{% endblock %}
