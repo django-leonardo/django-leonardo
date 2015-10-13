@@ -3,7 +3,11 @@
 {% load i18n %}
 
 {% block content %}
-<object class='svg_preview' data="{{ widget.source.file.url }}" type="image/svg+xml" {% if width and height %}width="{{ width }}" height="{{ height }}"{% else %}width="640px" height="480px"{% endif %}>
+<object id="svg-{{ widget.fe_identifier }}" class='svg_preview' data="{{ widget.source.file.url }}" type="image/svg+xml" {% if width and height %}width="{{ width }}" height="{{ height }}"{% else %}width="640px" height="480px"{% endif %}>
     <embed src="{{ widget.source.file.url }}" type="image/svg+xml" {% if width and height %}width="{{ width }}" height="{{ height }}"{% else %}width="640px" height="480px"{% endif %}/>
 </object>
+<script type="text/javascript">
+$('#svg-{{ widget.fe_identifier }}').width($('#svg-{{ widget.fe_identifier }}').closest('#{{ widget.fe_identifier }}').width());
+
+</script>
 {% endblock %}
