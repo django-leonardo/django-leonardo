@@ -2,10 +2,15 @@
 
 <div class="panel-body" style="padding-top: 5px;padding-bottom:0;">
 <div class="btn-group btn-group-justified" style="margin-top: 5px;">
-	<a class="btn btn-primary btn-sm btn-block" target="_blank" href="{% url 'admin:media_folder_changelist' %}" data-toggle="tooltip" title="{% trans 'Folders' %}"><i class="fa fa-folder-open-o"></i></a>
-	<a class="btn btn-primary btn-sm btn-block" target="_blank" href="{% url 'admin:media_file_changelist' %}" data-toggle="tooltip" title="{% trans 'Files' %}"><i class="fa fa-file"></i></a>
-	<a class="btn btn-primary btn-sm btn-block" target="_blank" href="{% url 'admin:media_image_changelist' %}" data-toggle="tooltip" title="{% trans 'Images' %}"><i class="fa fa-file-image-o"></i></a>
-	<a class="btn btn-primary btn-sm btn-block" target="_blank" data-toggle="tooltip" title="{% trans 'Documents' %}" href="{% url 'admin:media_document_changelist' %}"><i class="fa fa-file-pdf-o"></i></a>
-	<a class="btn btn-primary btn-sm btn-block" target="_blank" href="{% url 'admin:media_video_changelist' %}" data-toggle="tooltip" title="{% trans 'Videos' %}"><i class="fa fa-film"></i></a>
+	{% url 'admin:media_folder_changelist' as folder_admin %}
+	<a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'modal_iframe' url=folder_admin %}" data-toggle="tooltip" title="{% trans 'Folders' %}"><i class="fa fa-folder-open-o"></i></a>
+	{% url 'admin:media_file_changelist' as file_admin %}
+	<a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'modal_iframe' url=file_admin %}" data-toggle="tooltip" title="{% trans 'Files' %}"><i class="fa fa-file"></i></a>
+	{% url 'admin:media_image_changelist' as image_admin %}
+	<a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'modal_iframe' url=image_admin %}" data-toggle="tooltip" title="{% trans 'Images' %}"><i class="fa fa-file-image-o"></i></a>
+	{% url 'admin:media_document_changelist' as document_admin %}
+	<a class="btn btn-primary btn-sm btn-block ajax-modal" data-toggle="tooltip" title="{% trans 'Documents' %}" href="{% url 'modal_iframe' url=document_admin %}"><i class="fa fa-file-pdf-o"></i></a>
+	{% url 'admin:media_video_changelist' as video_admin %}
+	<a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'modal_iframe' url=video_admin %}" data-toggle="tooltip" title="{% trans 'Videos' %}"><i class="fa fa-film"></i></a>
 </div>
 </div>

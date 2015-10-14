@@ -8,6 +8,8 @@
 </div>
 <a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'page_update' feincms_page.id %}" data-toggle="tooltip" title="{% trans 'Edit Page' %}"><i class="fa fa-sliders"></i> {% trans 'Edit Page' %}</a>
 <a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'page_mass_update' feincms_page.id %}" data-toggle="tooltip" title="{% trans 'Mass Update' %}"><i class="fa fa-pencil"></i> {% trans 'Mass Update' %}</a>
-<a class="btn btn-primary btn-sm btn-block" target="_blank" href="{% url 'admin:web_page_change' feincms_page.id %}" data-toggle="tooltip" title="{% trans 'Page Admin' %}"><i class="fa fa-sliders"></i> {% trans 'Page Admin' %}</a>
+{% url 'admin:web_page_change' feincms_page.id as page_admin %}
+<a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'modal_iframe' url=page_admin %}" data-toggle="tooltip" title="{% trans 'Page Admin' %}"><i class="fa fa-sliders"></i> {% trans 'Page Admin' %}</a>
+
 <a class="btn btn-primary btn-sm btn-block" target="_blank" href="{% url 'admin:index' %}" data-toggle="tooltip" title="{% trans 'Admin' %}"><i class="fa fa-tachometer"></i> {% trans 'Admin' %}</a>
 </div>
