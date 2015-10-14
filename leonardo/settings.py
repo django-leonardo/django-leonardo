@@ -42,6 +42,7 @@ if VERSION[:2] >= (1, 8):
                 'loaders': [
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
+                    'dbtemplates.loader.Loader',
                     'horizon.loaders.TemplateLoader',
                 ],
                 'debug': True

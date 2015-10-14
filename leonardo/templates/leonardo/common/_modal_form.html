@@ -62,12 +62,17 @@
   $(function() {
     $("#modal-full-screen").on('click', function(event){
       var $el = $(this).closest('.modal-dialog');
+      var $modal = $(this).closest('.modal');
       if($el.hasClass("modal-sm")){
         $el.removeClass('modal-sm').addClass('modal-md');  
       }else if($el.hasClass("modal-md")){
         $el.removeClass('modal-md').addClass('modal-lg');  
       }else if($el.hasClass("modal-lg")){
-        $el.removeClass('modal-lg').addClass('modal-sm');  
+        $el.removeClass('modal-lg').addClass('modal-fullscreen');  
+        $modal.addClass('fullscreen');  
+      }else if($el.hasClass("modal-fullscreen")){
+        $modal.removeClass('fullscreen');
+        $el.removeClass('modal-fullscreen').addClass('modal-sm');  
       }
     });
   });

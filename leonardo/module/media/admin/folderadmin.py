@@ -60,7 +60,7 @@ class AddFolderPopupForm(forms.ModelForm):
 class FolderAdmin(PrimitivePermissionAwareModelAdmin):
     list_display = ('name',)
     exclude = ('parent',)
-    list_per_page = 20
+    list_per_page = settings.MEDIA_PAGINATE_BY
     list_filter = ('owner',)
     search_fields = ['name', 'files__name']
     raw_id_fields = ('owner',)
