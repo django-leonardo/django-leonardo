@@ -23,10 +23,10 @@ MEDIA_IMAGE_MODEL = getattr(settings, 'MEDIA_IMAGE_MODEL', False)
 MEDIA_FILE_MODELS = getattr(settings, 'MEDIA_FILE_MODELS',
     (
         MEDIA_IMAGE_MODEL if MEDIA_IMAGE_MODEL else 'leonardo.module.media.models.Image',
-        'leonardo.module.media.models.File',
         'leonardo.module.media.models.Document',
         'leonardo.module.media.models.Video',
         'leonardo.module.media.models.Vector',
+        'leonardo.module.media.models.File',
     )
 )
 
