@@ -67,3 +67,12 @@
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
+
+.carousel-control {
+    background-image: none !important;
+    background: transparent !important;
+    .fa {
+        top: 50%;
+        position: absolute;
+    }
+}
