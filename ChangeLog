@@ -1,6 +1,25 @@
 CHANGES
 =======
 
+1.0.3
+-----
+
+* loading tunning
+* modal size fix
+* hide carousel backround
+* compress init stuff in one bundle
+* fix media pagination
+* hide duplicate asterisk
+* add dbtemplate loader to debug mode
+* fullscreen modal
+* declare ngFit
+* ignore non iterable modules
+* remove profiling from default panels
+* simple iframe admin like a django-cms
+* fix matching other document types
+* Compress seems to break modals - removed
+* update changelog
+
 1.0.2
 -----
 
