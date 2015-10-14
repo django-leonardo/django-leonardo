@@ -1,4 +1,3 @@
-{% load compress %}
 <div id="{% block modal_id %}{% endblock %}"
   class="{% block modal_class %}{% if hide %}modal{% else %}static_page{% endif %}{% endblock %} {{ modal_size|default:'md' }}">
   <div class="{% if hide %}modal-dialog{% endif %} modal-{{ modal_size|default:'md' }}">
@@ -58,7 +57,7 @@
     </div>
   </div>
 </div>
-{% compress js %}
+
 <script type="text/javascript"> 
   $(function() {
     $("#modal-full-screen").on('click', function(event){
@@ -73,7 +72,6 @@
     });
   });
 </script>
-{% endcompress %}
 
 {% block modal-js %}
 {% endblock %}
