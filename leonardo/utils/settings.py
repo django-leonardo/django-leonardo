@@ -240,6 +240,8 @@ def extract_conf_from(mod, conf=Config(CONF_SPEC), depth=0, max_depth=2):
     # support for recursive dependecies
     try:
         filtered_apps = [app for app in conf['apps'] if app not in BLACKLIST]
+    except TypeError:
+        pass
     except Exception as e:
         warnings.warn('Error %s during loading %s' % (e, conf['apps']))
 
