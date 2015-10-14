@@ -199,15 +199,13 @@ $.ajaxSetup({
 
 {% compress js %}
 <script type="text/javascript">
-$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
-    event.preventDefault();
-    $(this).ekkoLightbox();
-}); 
-</script>
-{% endcompress %}
-<script type="text/javascript">
 $(function() {
-  
+
+  $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+      event.preventDefault();
+      $(this).ekkoLightbox();
+  }); 
+
   new WOW().init();
   horizon.modals.addModalInitFunction(function(modal) {
     $('.django-select2').not('django-select2-heavy').select2();
@@ -234,3 +232,4 @@ $(function() {
 
 });
 </script>
+{% endcompress %}
