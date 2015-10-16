@@ -11,7 +11,7 @@
     <span class="icon-bar"></span>
   </button>
   {% if widget.logo %}
-  {% thumbnail widget.logo.file "50x200" format="PNG" as thumb %}
+  {% thumbnail widget.logo.file "200x50" format="PNG" as thumb %}
   <a class="navbar-brand" href="/"><img class="img-responsive" src='{{ thumb.url }}' alt='logo' /></a>
   {% endthumbnail %}
   {% else %}
