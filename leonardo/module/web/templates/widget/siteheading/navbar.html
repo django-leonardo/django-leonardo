@@ -1,6 +1,6 @@
 {% extends widget.get_base_template %}
 
-{% load i18n %}
+{% load i18n thumbnail %}
 
 {% block content %}
 <div class="navbar-header">
@@ -11,7 +11,9 @@
     <span class="icon-bar"></span>
   </button>
   {% if widget.logo %}
-  <a class="navbar-brand" href="/"><img src="/static/img/logo.png" alt="logo" /></a>
+  {% thumbnail widget.logo.file "50x200" format="PNG" as thumb %}
+  <a class="navbar-brand" href="/"><img class="img-responsive" src='{{ thumb.url }}' alt='logo' /></a>
+  {% endthumbnail %}
   {% else %}
   <a class="navbar-brand" href="/">{{ widget.site_title }}
     {% if widget.tagline %}
