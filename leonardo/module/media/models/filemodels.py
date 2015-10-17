@@ -38,7 +38,8 @@ class File(PolymorphicModel, mixins.IconsMixin):
     _icon = "file"
     folder = models.ForeignKey('media.Folder', verbose_name=_('folder'),
                                null=True, blank=True, related_name="%(app_label)s_%(class)s_files")
-    file = MultiStorageFileField(_('file'), null=True, blank=True, max_length=255)
+    file = MultiStorageFileField(
+        _('file'), null=True, blank=True, max_length=255)
     _file_size = models.IntegerField(_('file size'), null=True, blank=True)
 
     sha1 = models.CharField(_('sha1'), max_length=40, blank=True, default='')
@@ -272,14 +273,18 @@ class File(PolymorphicModel, mixins.IconsMixin):
     @property
     def get_logical_path(self):
         '''returns logical path like /directory/file.jpg'''
-        folders = [f.quoted_logical_path for f in self.logical_path]
+        folders = [f.quoted_logical_path
+                   for f in self.logical_path
+                   if hasattr(f, 'quoted_logical_path')]
         return os.path.join('/'.join(folders),
                             get_valid_filename(self.original_filename))
 
     @property
     def pretty_logical_path(self):
         '''returns pretty logical path like /directory/File.jpg'''
-        folders = [f.quoted_logical_path for f in self.logical_path]
+        folders = [f.quoted_logical_path
+                   for f in self.logical_path
+                   if hasattr(f, 'quoted_logical_path')]
         return os.path.join('/'.join(folders),
                             self.label)
 
