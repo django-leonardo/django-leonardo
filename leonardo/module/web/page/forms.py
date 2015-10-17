@@ -129,7 +129,6 @@ class PageUpdateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
         model = Page
         widgets = {
             'parent': forms.widgets.HiddenInput,
-            'override_url': forms.widgets.HiddenInput,
             'publication_date': forms.widgets.DateInput,
         }
         exclude = tuple()
