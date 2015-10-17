@@ -159,7 +159,7 @@ def create_new_site(run_syncall=False, with_user=True, request=None,
             if page_theme_name == '__first__':
                 theme = PageTheme.objects.first()
             else:
-                theme = PageTheme.objects.get(name=page_theme_name)
+                theme = PageTheme.objects.filter(name=page_theme_name).first()
         except PageTheme.DoesNotExist:
             raise Exception(
                 "Page theme %s not found" % page_theme_name)
@@ -174,8 +174,8 @@ def create_new_site(run_syncall=False, with_user=True, request=None,
             if page_color_scheme_name == '__first__':
                 color_scheme = PageColorScheme.objects.first()
             else:
-                color_scheme = PageColorScheme.objects.get(
-                    name__icontains=page_color_scheme_name)
+                color_scheme = PageColorScheme.objects.filter(
+                    name__icontains=page_color_scheme_name).first()
         except PageColorScheme.DoesNotExist:
             raise Exception("Page Color Scheme %s "
                             "not found" % page_color_scheme_name)
