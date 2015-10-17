@@ -5,11 +5,11 @@
 {% block content %}
 {% with widget.get_size as size %}
 {% if widget.detail == "open_modal" %}
-
 {% thumbnail widget.image.file size as image %}
 <a class="thumbnail" href="{{ widget.image.url }}" data-title="{{ widget.image.default_caption|default:'' }}" data-footer="{{ widget.image.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}">
 {% endthumbnail %}
 {% endif %} 
+
 {% if widget.detail == "go_to_page" %}
 <a class="thumbnail" href="{{ widget.parent.get_absolute_url }}">
 {% endif %}
@@ -18,7 +18,7 @@
   <img class="img-responsive" src='{{ thumb.url }}' alt='' />
   {% endthumbnail %}
   {% else %}
-  <img class="img-responsive" src='/media/files/{{ widget.image.file }}' alt='' />
+  <img class="img-responsive" src='{{ widget.image.url }}' alt='' />
   {% endif %}
 {% if widget.detail %}
 </a>
