@@ -40,9 +40,9 @@ if VERSION[:2] >= (1, 8):
             'OPTIONS': {
                 'context_processors': default.context_processors,
                 'loaders': [
+                    'dbtemplates.loader.Loader',
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
-                    'dbtemplates.loader.Loader',
                     'horizon.loaders.TemplateLoader',
                 ],
                 'debug': True
