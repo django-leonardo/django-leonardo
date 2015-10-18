@@ -238,10 +238,13 @@ def get_widget_update_form(**kwargs):
     form_class_base = getattr(
         model_cls, 'feincms_item_editor_form', WidgetUpdateForm)
 
+    default_widgets = WIDGETS
+    default_widgets.update(getattr(model_cls, 'widgets', {}))
+
     WidgetModelForm = modelform_factory(model_cls,
                                         exclude=[],
                                         form=form_class_base,
-                                        widgets=WIDGETS)
+                                        widgets=default_widgets)
 
     return WidgetModelForm
 
@@ -257,9 +260,12 @@ def get_widget_create_form(**kwargs):
     form_class_base = getattr(
         model_cls, 'feincms_item_editor_form', WidgetCreateForm)
 
+    default_widgets = WIDGETS
+    default_widgets.update(getattr(model_cls, 'widgets', {}))
+
     WidgetModelForm = modelform_factory(model_cls,
                                         exclude=[],
                                         form=form_class_base,
-                                        widgets=WIDGETS)
+                                        widgets=default_widgets)
 
     return WidgetModelForm
