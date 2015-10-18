@@ -31,7 +31,7 @@ horizon-contrib>=2015.10.4
 leonardo_horizon==2015.3
 leonardo_dbtemplates>=1.0.0a0
 leonardo_constance>=1.0.0a1
-leonardo-sitestarter>=1.0.0a0
+leonardo-sitestarter>=1.0.0a2
 
 django-picklefield==0.3.1
 
