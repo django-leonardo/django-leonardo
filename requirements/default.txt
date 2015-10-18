@@ -33,6 +33,8 @@ leonardo_dbtemplates>=1.0.0a0
 leonardo_constance>=1.0.0a1
 leonardo-sitestarter>=1.0.0a2
 
+leonardo-ckeditor>=1.0.0a1
+
 django-picklefield==0.3.1
 
 -r extras/static.txt
