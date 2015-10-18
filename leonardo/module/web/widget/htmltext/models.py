@@ -17,6 +17,7 @@ class HtmlTextWidget(Widget):
     widgets = {
         'text': forms.Textarea()
     }
+    form_size = 'lg'
 
     class Meta:
         abstract = True

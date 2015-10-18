@@ -46,6 +46,13 @@ class WidgetViewMixin(object):
                 obj.delete()
         return True
 
+    def _get_moda_size(self):
+        '''try get form_size attribute form form or widget'''
+        form_class = self.get_form_class()
+        return getattr(form_class,
+                       'form_size',
+                       getattr(self.model, 'form_size', 'md'))
+
 
 class WidgetUpdateView(UpdateView, WidgetViewMixin):
 
@@ -55,7 +62,13 @@ class WidgetUpdateView(UpdateView, WidgetViewMixin):
 
     def get_context_data(self, **kwargs):
         context = super(WidgetUpdateView, self).get_context_data(**kwargs)
+        context['modal_size'] = self._get_moda_size()
         return context
+
+    def get_form_class(self):
+        if not hasattr(self, '_form_class'):
+            self._form_class = get_widget_update_form(**self.kwargs)
+        return self._form_class
 
     def get_form(self, form_class):
         """Returns an instance of the form to be used in this view."""
@@ -64,7 +77,7 @@ class WidgetUpdateView(UpdateView, WidgetViewMixin):
         kwargs.update({
             'request': self.request,
         })
-        return get_widget_update_form(**self.kwargs)(**kwargs)
+        return form_class(**kwargs)
 
     def form_valid(self, form):
         response = super(WidgetUpdateView, self).form_valid(form)
@@ -80,15 +93,19 @@ class WidgetCreateView(CreateView, WidgetViewMixin):
     def get_label(self):
         return ugettext("Create new Widget")
 
+    def get_form_class(self):
+        return get_widget_create_form(**self.kwargs)
+
     def get_form(self, form_class):
         kwargs = self.get_form_kwargs()
-        return get_widget_create_form(**self.kwargs)(**kwargs)
+        return form_class(**kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(WidgetCreateView, self).get_context_data(**kwargs)
         context['table'] = WidgetDimensionTable(self.request, data=[])
         # add extra context for template
         context['url'] = reverse("widget_create_full", kwargs=self.kwargs)
+        context['modal_size'] = self._get_moda_size()
         return context
 
     def form_valid(self, form):
@@ -119,7 +136,7 @@ class WidgetPreCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(WidgetPreCreateView, self).get_context_data(**kwargs)
-        context['modal_size'] = 'sm'
+        context['modal_size'] = 'md'
         context['form_submit'] = _('Continue')
         return context
 
