@@ -34,7 +34,7 @@ class ListWidgetMixin(models.Model):
 
     def get_items(self, request=None):
         '''returns queryset or array of items for listing'''
-        raise NotImplementedError
+        raise NotImplementedError('ListWidget must has get_items method')
 
     def filter_items(self, items):
         '''perform filtering items by specific criteria'''
