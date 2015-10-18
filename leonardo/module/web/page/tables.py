@@ -106,10 +106,10 @@ class PageDimensionTable(tables.DataTable):
             request, data, needs_form_wrapper, **kwargs)
 
     page = tables.Column('page')
-    size = tables.Column('size', verbose_name=_('Size'))
-    col1_width = tables.Column('col1_width', verbose_name=('Column 1 Width'))
-    col2_width = tables.Column('col2_width', verbose_name=_('Column 2 Width'))
-    col3_width = tables.Column('col3_width', verbose_name=_('Column 3 Width'))
+    size = tables.Column('size', verbose_name=_('Dimension'))
+    col1_width = tables.Column('col1_width', verbose_name=_('Left Column Size (1)'))
+    col3_width = tables.Column('col3_width', verbose_name=_('Centreal Column Size (3)'))
+    col2_width = tables.Column('col2_width', verbose_name=_('Right Column Size (2)'))
 
     def get_object_id(self, datum):
         return datum.pk
