@@ -67,10 +67,17 @@ FeinCMS
 Horizon
 -------
 
-    **js_files** - merged and added to main page header::
+    **js_files** - merged and added to main page footer::
 
         js_files = [
             'js/redactor.js'
+        ]
+
+
+    **js_compress_files** - already compressed static files::
+
+        js_files = [
+            'js/redactor.min.js'
         ]
 
     **css_files** linked in head as style::

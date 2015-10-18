@@ -88,7 +88,6 @@ LEONARDO_SYSTEM_MODULE = True
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    'compressor.finders.CompressorFinder',
 )
 
 LOGIN_URL = '/'
@@ -181,6 +180,8 @@ ADD_PAGE_ACTIONS = []
 ADD_WIDGET_ACTIONS = []
 
 ADD_MIGRATION_MODULES = {}
+
+ADD_JS_COMPRESS_FILES = []
 
 CONSTANCE_CONFIG_GROUPS = {}
 

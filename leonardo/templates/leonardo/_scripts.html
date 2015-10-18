@@ -231,3 +231,6 @@ $(function() {
 
 });
 </script>
+{% for file in HORIZON_CONFIG.js_compress_files %}
+    <script src='{{ STATIC_URL }}{{ file }}'></script>
+{% endfor %}
