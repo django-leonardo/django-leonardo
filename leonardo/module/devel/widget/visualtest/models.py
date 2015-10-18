@@ -75,7 +75,10 @@ class VisualTestForm(SelfHandlingModelForm):
             Submit('enter', 'enter some data')
         )
 
-        self._wrap_all()
+        try:
+            self._wrap_all()
+        except AttributeError:
+            pass
 
     class Meta:
         model = VisualTestModel
