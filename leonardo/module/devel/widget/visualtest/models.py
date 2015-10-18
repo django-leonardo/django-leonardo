@@ -75,8 +75,6 @@ class VisualTestForm(SelfHandlingModelForm):
             Submit('enter', 'enter some data')
         )
 
-        self._wrap_all()
-
     class Meta:
         model = VisualTestModel
         exclude = tuple()

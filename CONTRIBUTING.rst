@@ -22,4 +22,4 @@ Lead developers
 Contributors (in alphabetical order)
 ------------------------------------
 
-* No contribution
+* Adam Tengler (a.tengler@tcpcloud.eu)
