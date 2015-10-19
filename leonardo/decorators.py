@@ -33,7 +33,7 @@ def require_auth(view_func):
     return dec
 
 
-def _decorate_urlconf(urlpatterns, decorator, *args, **kwargs):
+def _decorate_urlconf(urlpatterns, decorator=require_auth, *args, **kwargs):
     '''Decorate all urlpatterns by specified decorator'''
 
     if isinstance(urlpatterns, (list, tuple)):
@@ -50,6 +50,8 @@ def _decorate_urlconf(urlpatterns, decorator, *args, **kwargs):
             urlpatterns._callback = decorator(
                 urlpatterns.callback, *args, **kwargs)
 
+# make this method public
+decorate_urlconf = _decorate_urlconf
 
 def catch_result(task_func):
     """Catch printed result from Celery Task and return it in task response
