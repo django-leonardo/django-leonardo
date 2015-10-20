@@ -64,11 +64,11 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
                 r['Location'] == self._get_post_url(obj)):
                 # this means it was a save: redirect to the directory view
                 if obj.folder:
-                    url = reverse('admin:media-directory_listing',
+                    url = reverse('admin:filer-directory_listing',
                                   kwargs={'folder_id': obj.folder.id})
                 else:
                     url = reverse(
-                            'admin:media-directory_listing-unfiled_images')
+                            'admin:filer-directory_listing-unfiled_images')
                 url = "%s%s%s" % (url,popup_param(request),
                                   selectfolder_param(request,"&"))
                 return HttpResponseRedirect(url)
@@ -114,10 +114,10 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
                 url == reverse("admin:media_file_changelist") or
                 url == reverse("admin:media_image_changelist")):
             if parent_folder:
-                url = reverse('admin:media-directory_listing',
+                url = reverse('admin:filer-directory_listing',
                               kwargs={'folder_id': parent_folder.id})
             else:
-                url = reverse('admin:media-directory_listing-unfiled_images')
+                url = reverse('admin:filer-directory_listing-unfiled_images')
             url = "%s%s%s" % (url,popup_param(request),
                               selectfolder_param(request,"&"))
             return HttpResponseRedirect(url)
