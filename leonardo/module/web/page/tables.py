@@ -108,7 +108,7 @@ class PageDimensionTable(tables.DataTable):
     page = tables.Column('page')
     size = tables.Column('size', verbose_name=_('Dimension'))
     col1_width = tables.Column('col1_width', verbose_name=_('Left Column Size (1)'))
-    col3_width = tables.Column('col3_width', verbose_name=_('Centreal Column Size (3)'))
+    col3_width = tables.Column('col3_width', verbose_name=_('Central Column Size (3)'))
     col2_width = tables.Column('col2_width', verbose_name=_('Right Column Size (2)'))
 
     def get_object_id(self, datum):
