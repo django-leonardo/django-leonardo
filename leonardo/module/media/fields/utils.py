@@ -19,6 +19,12 @@ class FileSelectWidget(ModelSelect2Widget):
 
     search_fields = FILE_SEARCH_FIELDS
 
+    def label_from_instance(self, obj):
+        """
+        Coerces ``value`` to a Python data type.
+        """
+        return obj.pretty_logical_path
+
 
 class FileFieldMixin(object):
 
@@ -27,12 +33,6 @@ class FileFieldMixin(object):
             queryset=getattr(self, 'model', File).objects.all(),
             empty_label='---',
             widget=FileSelectWidget(), *args, **kwargs)
-
-    def label_from_instance(self, obj):
-        """
-        Coerces ``value`` to a Python data type.
-        """
-        return obj.pretty_logical_path
 
 
 class FileField(FileFieldMixin, forms.ModelChoiceField):

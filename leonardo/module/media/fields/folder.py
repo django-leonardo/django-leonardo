@@ -2,7 +2,7 @@
 from django_select2 import forms
 from django import forms as django_forms
 from ..models import Folder
-from .utils import FOLDER_SEARCH_FIELDS, FileField, FileMultipleField
+from .utils import FOLDER_SEARCH_FIELDS, FileMultipleField
 
 
 class FolderPathSelectWidget(forms.Select2Widget):

@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
+from leonardo.views.select2 import Select2ResponseView
 
 from .base import leonardo
 
@@ -12,7 +13,8 @@ __all__ = ['handler400', 'handler403', 'handler404', 'handler500']
 
 urlpatterns = [
     url(r'^contrib/', include('horizon_contrib.urls'),),
-    url(r'^select2/', include('django_select2.urls')),
+    url(r"^fields/auto.json$",
+        Select2ResponseView.as_view(), name="django_select2-json"),
 ]
 
 if getattr(settings, 'LEONARDO_AUTH', True):
