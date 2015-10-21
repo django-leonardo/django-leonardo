@@ -7,7 +7,9 @@
 
 {% block modal-body %}
 
-<iframe src="{{ url }}" width="100%" height="600px"></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="{{ url }}" allowfullscreen></iframe>
+</div>
 
 {% endblock %}
 
