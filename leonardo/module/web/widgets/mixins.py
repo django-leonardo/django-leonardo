@@ -17,9 +17,8 @@ except ImportError:
     from urlparse import urlparse
 
 
-class ListWidgetMixin(models.Model):
-
-    """Provide API for listing items
+class ListModelMixin(models.Model):
+    """Common fields for list functionality
     """
 
     objects_per_page = models.PositiveIntegerField(
@@ -31,6 +30,30 @@ class ListWidgetMixin(models.Model):
     pagination_style = models.CharField(
         verbose_name=_("Pagination Style"), max_length=50,
         choices=PAGINATION_CHOICES, default='paginator')
+
+    class Meta:
+        abstract = True
+
+
+class ListMixin(object):
+
+    """Basic object list implementation
+
+    1. declare get_items which returns all objects
+    2. if you want filtering data make this in filter_items(items)
+    3. if you want get data in template use items property or
+    get_rows or get_pages which has sorted items to pages and rows by settings
+
+    note: this mixin could be used without model but is limited to default
+    pagination
+    """
+
+    # template for single object
+    item_template = "_item.html"
+
+    objects_per_page = 25
+    objects_per_row = 3
+    pagination_style = "paginator"
 
     def get_items(self, request=None):
         '''returns queryset or array of items for listing'''
@@ -56,11 +79,6 @@ class ListWidgetMixin(models.Model):
         '''populate and returns filtered items'''
         self._items = self.get_items(request)
         return self.items
-
-    @cached_property
-    def get_list_template(self):
-        '''returns base list template by pagination_style'''
-        return "base/widget/list/_%s.html" % self.pagination_style
 
     @cached_property
     def get_rows(self):
@@ -102,6 +120,7 @@ class ListWidgetMixin(models.Model):
 
     @cached_property
     def needs_pagination(self):
+        """Calculate needs pagination"""
         if self.objects_per_page == 0:
             return False
         if len(self.items) > self.objects_per_page \
@@ -110,9 +129,14 @@ class ListWidgetMixin(models.Model):
         return False
 
     @cached_property
+    def get_list_template(self):
+        '''returns base list template by pagination_style'''
+        return "base/widget/list/_%s.html" % self.pagination_style
+
+    @cached_property
     def get_item_template(self):
         '''returns template for one item from queryset'''
-        return "widget/%s/_item.html" % self.widget_name
+        return "widget/%s/%s" % (self.widget_name, self.item_template)
 
     def __init__(self, *args, **kwargs):
         super(ListWidgetMixin, self).__init__(*args, **kwargs)
@@ -122,6 +146,12 @@ class ListWidgetMixin(models.Model):
         if not callable(get_items) or not callable(render):
             raise Exception('bases on ListWidgetMixin must '
                             'have implemented get_items or render method')
+
+
+class ListWidgetMixin(ListModelMixin, ListMixin):
+
+    """Provide basae for listing widgets
+    """
 
     class Meta:
         abstract = True
