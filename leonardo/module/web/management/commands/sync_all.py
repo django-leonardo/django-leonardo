@@ -14,9 +14,6 @@ class Command(BaseCommand):
         make_option("-f", "--force",
                     action="store_true", dest="force", default=False,
                     help="overwrite existing database templates"),
-        make_option('--noinput',
-                    action='store_false', dest='interactive', default=True,
-                    help="Do NOT prompt the user for input of any kind."),
     )
 
     def handle(self, **options):

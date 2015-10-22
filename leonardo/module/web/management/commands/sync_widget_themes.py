@@ -8,6 +8,8 @@ from django.core.management.base import NoArgsCommand
 from leonardo.module.web.models import Widget, WidgetContentTheme, WidgetBaseTheme
 
 from ._utils import get_or_create_template
+from leonardo.utils.widgets import get_all_widget_classes
+
 
 "widget.verbose_name - template.name"
 THEME_NAME_FORMAT = "{0} {1}"
@@ -20,30 +22,17 @@ class Command(NoArgsCommand):
         make_option("-f", "--force",
                     action="store_true", dest="force", default=False,
                     help="overwrite existing database templates"),
+        make_option("-v", "--verbose",
+                    action="store_true", dest="verbose", default=True,
+                    help="verbose output"),
     )
-
-    def get_all_widget_classes(self):
-        """returns collected Leonardo Widgets
-
-        if not declared in settings is used __subclasses__
-        which not supports widget subclassing
-
-        """
-        _widgets = getattr(settings,
-                           'WIDGETS', Widget.__subclasses__())
-        widgets = []
-        if isinstance(_widgets, dict):
-            for group, widget_cls in six.iteritems(_widgets):
-                widgets.extend(widget_cls)
-        elif isinstance(_widgets, list):
-            widgets = _widgets
-        return widgets
 
     def handle_noargs(self, **options):
         force = options.get('force')
+        verbose = options.get('verbose')
 
-        created_themes = 0
-        synced_themes = 0
+        created_themes = []
+        synced_themes = []
 
         # base
         path = os.path.dirname(os.path.abspath(__file__))
@@ -61,7 +50,7 @@ class Command(NoArgsCommand):
                 if not f.startswith("_"):
                     w_base_template = get_or_create_template(
                         f, force=force, prefix="base/widget")
-                    synced_themes += 1
+                    synced_themes.append(w_base_template)
                     name = f.split("/")[-1].split(".")[0]
                     try:
                         widget_theme = WidgetBaseTheme.objects.get(
@@ -72,16 +61,16 @@ class Command(NoArgsCommand):
                         widget_theme.label = name.split(".")[0].title()
                         widget_theme.template = w_base_template
                         widget_theme.save()
-                        created_themes += 1
+                        created_themes.append(widget_theme)
 
         # load widget templates and create widget themes with default base
-        for w in self.get_all_widget_classes():
+        for w in get_all_widget_classes():
             templates = w.templates()
             for name in templates:
                 # ignore private members
                 if not name.startswith("_"):
                     widget_template = get_or_create_template(name, force=force)
-                    synced_themes += 1
+                    synced_themes.append(widget_template)
 
                     if not widget_template:
                         self.stdout.write('Template for "%s" not found' % name)
@@ -99,7 +88,13 @@ class Command(NoArgsCommand):
                         widget_theme.template = widget_template
                         widget_theme.widget_class = w.__name__
                         widget_theme.save()
-                        created_themes += 1
+                        synced_themes.append(widget_theme)
 
-        self.stdout.write('Successfully created %s widget themes' % created_themes)
-        self.stdout.write('Successfully synced %s widget themes' % synced_themes)
+        if verbose:
+            # TODO prettyprint
+            self.stdout.write(created_themes)
+            self.stdout.write(synced_themes)
+
+        if len(created_themes) > 0:
+            self.stdout.write('Successfully created %s new widget themes' % len(created_themes))
+        self.stdout.write('Successfully synced %s widget themes' % len(synced_themes))
