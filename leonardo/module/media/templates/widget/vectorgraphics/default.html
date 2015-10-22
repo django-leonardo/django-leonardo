@@ -4,24 +4,20 @@
 
 {% block content %}
 <div class="embed-responsive embed-responsive-16by9">
-<object id="svg-{{ widget.fe_identifier }}" class='svg_preview embed-responsive-item' data="{{ widget.source.file.url }}" type="image/svg+xml">
+<object id="svg-{{ widget.fe_identifier }}" onload="set_dimensions_{{ widget.id }}" class='svg_preview embed-responsive-item' data="{{ widget.source.file.url }}" type="image/svg+xml">
     <embed src="{{ widget.source.file.url }}" type="image/svg+xml"/>
 </object>
 </div>
 <script type="text/javascript">
-$( document ).ready(function() {
 
-	function set_dimensions(){
-		var placeholder = document.getElementById("svg-{{ widget.fe_identifier }}");
-		var doc = placeholder.getSVGDocument();
-		var svg = doc.getElementsByTagName('svg')
-		var width = $(svg).attr('width').replace('px', '');
-		var height = $(svg).attr('height').replace('px', '');
-		$(svg).attr('viewBox', '0 0 ' + width + ' ' + height);
-	}
-	// temporary solution for PoC
-	setTimeout(set_dimensions, 2000);
-});
+function set_dimensions_{{ widget.id }}(){
+	var placeholder = document.getElementById("svg-{{ widget.fe_identifier }}");
+	var doc = placeholder.getSVGDocument();
+	var svg = doc.getElementsByTagName('svg')
+	var width = $(svg).attr('width').replace('px', '');
+	var height = $(svg).attr('height').replace('px', '');
+	$(svg).attr('viewBox', '0 0 ' + width + ' ' + height);
+}
 
 </script>
 {% endblock %}
