@@ -91,7 +91,7 @@ class ListMixin(object):
                 rows.append(row)
                 row = []
                 i = 0
-            row.append(item)ListMixin
+            row.append(item)
         rows.append(row)
         return rows
 
