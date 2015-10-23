@@ -91,7 +91,7 @@ class ListMixin(object):
                 rows.append(row)
                 row = []
                 i = 0
-            row.append(item)
+            row.append(item)ListMixin
         rows.append(row)
         return rows
 
@@ -139,7 +139,7 @@ class ListMixin(object):
         return "widget/%s/%s" % (self.widget_name, self.item_template)
 
     def __init__(self, *args, **kwargs):
-        super(ListWidgetMixin, self).__init__(*args, **kwargs)
+        super(ListMixin, self).__init__(*args, **kwargs)
 
         get_items = getattr(self, 'get_items', None)
         render = getattr(self, 'render', None)
