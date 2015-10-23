@@ -23,6 +23,9 @@ def frontendediting_request_processor(page, request):
             response.set_cookie(str('frontend_editing'), enable_fe)
         else:
             response.delete_cookie(str('frontend_editing'))
+    else:
+        response.delete_cookie(str('frontend_editing'))
+
 
     # Redirect to cleanup URLs
     return response
