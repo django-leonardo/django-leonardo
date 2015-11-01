@@ -17,7 +17,7 @@ For Users
 * CMS, Page, Responsive, Layouts, Themes, Color Variations 
 * Widgets, Plugins, 3rd party app integrations
 * Frontend Edit, Install modules in one click !
-* Eshop, Form Designer, Blog, News, Folio, Links, Navigations, ..
+* Store, Form Designer, Blog, News, Folio, Links, Navigations, ..
 * Media, Folders, Files, Images, Documents, Import - Export, ..
 * Authentification, 3rd party backends, SAML standard, ..
 * Auto loading modules, LIVE configuration, editable templates, ..
@@ -59,35 +59,62 @@ Further reading:
 Core
 ====
 
-Leonardo in default state has enabled three modules and other can be installed.
+Leonardo in default state has enabled some modules which provides basic stuff for common sites:
 
 * Web - precise FeinCMS integration
 * Navigation - common navigation components
-* Media - Filer integration with basic widgets
-* Search - Haystack integration with Whoosh backend
+* Media - Filer integration with media widgets
+* Search - Haystack integration
+* Auth - Basic auth with standard user actions
+* Devel - Widgets for site developers
+
+Installed
+=========
+
+These modules is installed in default leonardo installation, but could be uninstalled:
+
+* System - Common management stuff (listing installed packages, widgets version etc..)
+* Sitestarter - simple site starter which handle missing site and create it from custom yaml template
+* Admin - django admin
+* Ckeditor - Default wysiwyg editor for now. Alternatives: Redactor,Summernote,Tinymce..
+
+For uninstalling::
+
+    pip uninstall leonardo-system
+    pip uninstall leonardo-sitestarter
+
+For switch wysiwyg::
+
+    pip uninstall leonardo-ckeditor
+    pip install leonardo-redactor
 
 Extensions
 ==========
 
 Leonardo provide bundled extensions, which provides pluggable advantages.
 
+All modules lives in `Package Index`_.
+
+.. _`Package Index`: http://packages.leonardo.robotice.org/
+
 Modules
 -------
 
 * `Admin`_ - Standard Django admin
+* `Admin Honeypot`_ - Django admin honeypot
 * `Bootstrap Admin`_ - Bootstrap Django admin
 * `Material Admin`_ - Material Django admin
 * `Analytics`_ -  Analytics service integration for Leonardo projects
-* `Auth`_ - authentication, registration, account management as 3rd party (social) and SAML support to your Leonardo sites
 * `Blog`_ - Elephant Blog integration
 * `Celery`_ - Celery workers for Leonardo CMS
-* `Multisite`_ - Multi site / tenancy with security
+* `Multisite`_ - Multi site with security
 * `Folio`_ - Portfolio app
 * `Geo`_ - Some geolocation related widgets (Google maps,..)
 * `Galleries`_ - Awesome galleries
 * `Forms`_ - Stable Form Designer integration with Remote Forms
 * `Store`_ - Oscar Ecommerce - FeinCMS integration
-* `News`_ - News
+* `News`_ - Heavy FeinCMS News
+* `Newswall`_ - Newswall
 * `Links`_ - navigation helpers bundles as Leonardo module
 * `Redactor`_ - A lightweight wysiwyg editor for Leonardo
 * `Sentry`_ - end-user friendly error page
@@ -98,9 +125,9 @@ Modules
 
 
 .. _`Admin`: https://github.com/leonardo-modules/leonardo-admin
+.. _`Admin Honeypot`: https://github.com/leonardo-modules/leonardo-admin-honeypot
 .. _`Bootstrap Admin`: https://github.com/leonardo-modules/leonardo-bootstrap-admin
 .. _`Material Admin`: https://github.com/leonardo-modules/leonardo-material-admin
-.. _`Auth`: https://github.com/leonardo-modules/leonardo-module-auth
 .. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
 .. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
 .. _`Celery`: https://github.com/leonardo-modules/leonardo-celery
@@ -198,7 +225,7 @@ commas.
 
     $ pip install "django-leonardo[folio]"
 
-    $ pip install "django-leonardo[blog,eshop,static,themes]"
+    $ pip install "django-leonardo[blog,store,multisite]"
 
 The following bundles are available:
 

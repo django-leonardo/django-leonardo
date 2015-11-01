@@ -8,10 +8,12 @@
   {% comment %}
   <li><a data-toggle="control-sidebar" href="#">{{ request.user.username }}</a></li>
   {% endcomment %}
+  {% if request.user.is_stuff %}
   {% if request.frontend_editing %}
   <li><a href=".?frontend_editing=0">{% trans "Stop Editing" %}</a></li>
   {% else %}
   <li><a href=".?frontend_editing=1">{% trans "Start Editing" %}</a></li>
+  {% endif %}
   {% endif %}
   <li><a href="{% url 'logout' %}?next={{ request.build_absolute_uri }}">{% trans "Sign Out" %}</a></li>
   {% else %}

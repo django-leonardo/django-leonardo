@@ -37,11 +37,7 @@ class Default(object):
 
     @property
     def middlewares(self):
-
-        middlewares = [
-            'leonardo.module.web.middlewares.quickstart.QuickStartMiddleware', ]
-
-        return middlewares + [
+        return [
             'leonardo.module.web.middlewares.web.WebMiddleware',
             'leonardo.module.web.middlewares.horizon.HorizonMiddleware',
         ]

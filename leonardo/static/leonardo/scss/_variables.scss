@@ -70,12 +70,12 @@ $rbrowser-footer-background-color: #f1f1f1;
 
 // spinner config
 
-$spinner-size: 100px;
-$spinner-thickness: 10px;
+$spinner-size: 200px;
+$spinner-thickness: 15px;
 $spinner-speed: 1.2s;
 
-$spinner-3d: false;
+$spinner-3d: true;
 $spinner-loops: infinite;
 
-$spinner-color-1: $brand-primary;
-$spinner-color-2: lighten($brand-primary, 15%);
+$spinner-color-1: lighten($brand-primary, 10%);
+$spinner-color-2: saturate($brand-primary, 20%);

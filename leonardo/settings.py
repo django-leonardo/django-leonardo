@@ -40,9 +40,9 @@ if VERSION[:2] >= (1, 8):
             'OPTIONS': {
                 'context_processors': default.context_processors,
                 'loaders': [
+                    'dbtemplates.loader.Loader',
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
-                    'dbtemplates.loader.Loader',
                     'horizon.loaders.TemplateLoader',
                 ],
                 'debug': True
@@ -305,6 +305,7 @@ except ImportError:
 
 # use js files instead of horizon
 HORIZON_CONFIG['js_files'] = leonardo.js_files
+HORIZON_CONFIG['js_compress_files'] = leonardo.js_compress_files
 HORIZON_CONFIG['js_spec_files'] = leonardo.js_spec_files
 HORIZON_CONFIG['css_files'] = leonardo.css_files
 HORIZON_CONFIG['scss_files'] = leonardo.scss_files
