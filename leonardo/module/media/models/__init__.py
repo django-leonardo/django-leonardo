@@ -7,3 +7,6 @@ from .virtualitems import *
 from . import tools
 
 from .media import *
+
+
+MEDIA_MODELS = [Image, Document, Vector, Video, Flash, File]
