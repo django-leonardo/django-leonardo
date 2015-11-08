@@ -102,3 +102,11 @@ and add it to APPS in ``local_settings.py``
     ]
 
 That's it. Run ``sync_all``.
+
+New  scaffold theme with using cookiecutter
+
+.. code-block:: bash
+
+    pip install cookiecutter
+    git clone https://github.com/django-leonardo/cookiecutter-site.git cookiecutter-leonardo-site
+    cookiecutter cookiecutter-leonardo-site

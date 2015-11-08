@@ -14,7 +14,7 @@ Full featured framework for building everything based on Django, FeinCMS, Horizo
 .. toctree::
    :maxdepth: 2
 
-   overview/index
+   readme
 
 Installation
 ============

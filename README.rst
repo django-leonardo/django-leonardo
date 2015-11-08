@@ -16,11 +16,11 @@ For Users
 
 * CMS, Page, Responsive, Layouts, Themes, Color Variations 
 * Widgets, Plugins, 3rd party app integrations
-* Frontend Edit, Install modules in one click !
+* Frontend Edit, Install/Uninstall modules in one click !
 * Store, Form Designer, Blog, News, Folio, Links, Navigations, ..
 * Media, Folders, Files, Images, Documents, Import - Export, ..
+* LIVE settings, Auto loading modules, editable templates, ..
 * Authentification, 3rd party backends, SAML standard, ..
-* Auto loading modules, LIVE configuration, editable templates, ..
 
 For Developers
 ==============
@@ -56,6 +56,66 @@ Further reading:
 .. _`Developer Documentation`: http://django-leonardo.readthedocs.org
 .. _`User Documentation`: http://leonardo-documentation.rtfd.org
 
+Installation
+============
+
+one liner
+
+Wget
+
+.. code-block:: bash
+
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_leonardo.sh | sh
+
+
+Install Blog
+
+.. code-block:: bash
+
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_blog.sh | sh
+
+Install Store
+
+.. code-block:: bash
+
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_store.sh | sh
+
+Python
+
+.. code-block:: bash
+
+    python -c 'import urllib; print urllib.urlopen("https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_leonardo_dev.sh").read()' > install_leonardo.sh
+    sudo sh install_leonardo.sh
+
+Command by command
+
+.. code-block:: bash
+
+    virtualenv -p /usr/bin/python2.7 leonardo_venv
+    cd leonardo_venv
+    . $PWD/bin/activate
+
+    pip install -e git+https://github.com/django-leonardo/django-leonardo@develop#egg=django-leonardo
+    pip install -r $PWD/src/django-leonardo/requirements.txt
+    django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
+
+    export PYTHONPATH=$PWD/myproject
+    cd myproject
+
+    python manage.py makemigrations --noinput
+    python manage.py migrate --noinput
+    python manage.py bootstrap_site --url=http://raw.githubusercontent.com/django-leonardo/django-leonardo/develop/contrib/bootstrap/demo.yaml
+
+    echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'mail@leonardo.cz', 'admin')" | python manage.py shell
+
+    python manage.py runserver 0.0.0.0:80
+
+
+Navigate your browser to your_ip/admin and login with ``root:admin``
+For settings production mode could take inspiration from `Leonardo Documentation`_.
+
+.. _`Leonardo Documentation`: http://django-leonardo.readthedocs.org/en/develop/install/production.html
+
 Core
 ====
 
@@ -71,7 +131,7 @@ Leonardo in default state has enabled some modules which provides basic stuff fo
 Installed
 =========
 
-These modules is installed in default leonardo installation, but could be uninstalled:
+These modules are included in default leonardo installation, but could be uninstalled anytime without affecting your DB:
 
 * System - Common management stuff (listing installed packages, widgets version etc..)
 * Sitestarter - simple site starter which handle missing site and create it from custom yaml template
@@ -91,7 +151,7 @@ For switch wysiwyg::
 Extensions
 ==========
 
-Leonardo provide bundled extensions, which provides pluggable advantages.
+Leonardo in default state using module loader which allows you to easy installation of new packages.
 
 All modules lives in `Package Index`_.
 
@@ -154,62 +214,18 @@ Themes
 .. _`Bootwatch`: https://github.com/leonardo-modules/leonardo-theme-bootswatch
 .. _`AdminLTE`: https://github.com/leonardo-modules/leonardo-theme-adminlte
 
-Installation
-============
+Cookiecutters
+-------------
 
-one liner
+Our cookiecutters are a good start for creating new `Site`_, `Module`_ or `Theme`_.
 
-Wget
+* `Site`_
+* `Module`_
+* `Theme`_
 
-.. code-block:: bash
-
-    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_leonardo.sh | sh
-
-
-Install Blog
-
-.. code-block:: bash
-
-    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_blog.sh | sh
-
-Install Store
-
-.. code-block:: bash
-
-    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_store.sh | sh
-
-Python
-
-.. code-block:: bash
-
-    python -c 'import urllib; print urllib.urlopen("https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_leonardo_dev.sh").read()' > install_leonardo.sh
-    sudo sh install_leonardo.sh
-
-Command by command
-
-.. code-block:: bash
-
-    virtualenv -p /usr/bin/python2.7 leonardo_venv
-    cd leonardo_venv
-    . $PWD/bin/activate
-
-    pip install -e git+https://github.com/django-leonardo/django-leonardo@develop#egg=django-leonardo
-    pip install -r $PWD/src/django-leonardo/requirements.txt
-    django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
-
-    export PYTHONPATH=$PWD/myproject
-    cd myproject
-
-    python manage.py makemigrations --noinput
-    python manage.py migrate --noinput
-    python manage.py bootstrap_site --url=http://raw.githubusercontent.com/django-leonardo/django-leonardo/develop/contrib/bootstrap/demo.yaml
-
-    echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'mail@leonardo.cz', 'admin')" | python manage.py shell
-
-    python manage.py runserver 0.0.0.0:80
-
-
-Navigate your browser to your_ip/admin and login with ``root:admin``
+.. _`Site`: https://github.com/django-leonardo/cookiecutter-site
+.. _`Module`: https://github.com/django-leonardo/cookiecutter-module
+.. _`Theme`: https://github.com/django-leonardo/cookiecutter-theme
 
 Bundles
 -------
@@ -223,79 +239,13 @@ commas.
 
 .. code-block:: bash
 
-    $ pip install "django-leonardo[folio]"
+    $ pip install "django-leonardo[multisite]"
 
     $ pip install "django-leonardo[blog,store,multisite]"
 
-The following bundles are available:
+`Here`_ is current list of bundles.
 
-CMS
-~~~
-
-* django-leonardo[blog] - ElephantBlog integration
-
-* django-leonardo[folio] - Portfolio with translations
-
-* django-leonardo[multisite] - Leonardo multi sites
-
-* django-leonardo[forms] - Form Designer and Remote Forms
-
-* django-leonardo[links] - Links
-
-* django-leonardo[pagepermissions] - Page Permissions
-
-Background Jobs
-~~~~~~~~~~~~~~~
-
-* django-leonardo[celery] - Celery Workers for background Jobs
-
-Admin
-~~~~~
-
-* django-leonardo[admin] - Django Admin for Leonardo CMS
-
-Auth
-~~~~
-
-* django-leonardo[auth] - All auth
-
-* django-leonardo[saml] - SAML auth backend
-
-WYSIWYG Editors
-~~~~~~~~~~~~~~~
-
-* django-leonardo[redactor] - Redactor
-
-* django-leonardo[summernote] - SummerNote
-
-Themes
-~~~~~~
-
-* django-leonardo[themes] - Leonardo themes [Bootstrap, AdminLTE]
-
-* django-leonardo[adminlte] - AdminLTE theme
-
-Ecommerce
-~~~~~~~~~
-
-* django-leonardo[store] - Django-Oscar integration
-
-* django-leonardo[stores] - Django-Oscar Stores
-
-* django-leonardo[cod] - Django-Oscar Cash On Delivery Payment Method
-
-Common
-~~~~~~
-
-* django-leonardo[sentry] - Raven integration with end-user friendly error page
-
-* django-leonardo[static] - AngularJS, React, BootStrap, D3.js, ..
-
-* django-leonardo[debug] - Debug toolbar
-
-* django-leonardo[tests] - Tools for testing
-
-* django-leonardo[redis] - Redis dep
+.. _`Here`: https://github.com/django-leonardo/django-leonardo/blob/master/setup.cfg#L28
 
 Looking for commercial support?
 ===============================
