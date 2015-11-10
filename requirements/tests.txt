@@ -1,6 +1,6 @@
 django>=1.7
 FeinCMS==1.11.0
-django-extensions==1.5.3
+django-extensions==1.5.9
 djangorestframework>=3.0.0
 django-floppyforms==1.5.1
 django-crispy-forms==1.4.0
