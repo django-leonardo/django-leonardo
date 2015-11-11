@@ -51,7 +51,6 @@ class Default(object):
 
             'django_select2',
 
-            'reversion',
             'compressor',
 
             'horizon',
