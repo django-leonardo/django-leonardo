@@ -1,4 +1,6 @@
 
 -r default.txt
 
+Whoosh>=2.6.0
+
 coverage
