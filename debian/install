@@ -1,0 +1,3 @@
+contrib/django/manage.py     usr/lib/leonardo/bin/
+contrib/gunicorn/server     usr/lib/leonardo/bin/gunicorn_start.sh
+#templates/*   usr/share/leonardo/templates

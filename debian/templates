@@ -1,0 +1,44 @@
+Template: leonardo/user
+Type: string
+Description: System user to run with
+Default: www-data
+
+Template: leonardo/group
+Type: string
+Description: System group to run with
+Default: www-data
+
+Template: leonardo/debug
+Type: boolean
+Description: Enable debug
+Default: false
+
+Template: leonardo/bind_host
+Type: string
+Description: Bind host
+Default: 0.0.0.0
+
+Template: leonardo/bind_port
+Type: string
+Description: Bind port
+Default: 9753
+
+Template: leonardo/workers
+Type: string
+Description: Number of workers, eg. for gunicorn. Defaults to number of CPUs
+
+Template: leonardo/log_level
+Type: select
+Description: Log level of gunicorn process
+Choices: debug, info, warning, error, critical
+Default: info
+
+Template: leonardo/static_root
+Type: string
+Description: Path to static files
+Default: /var/lib/leonardo/static
+
+Template: leonardo/media_root
+Type: string
+Description: Path to media files
+Default: /var/lib/leonardo/media
