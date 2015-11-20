@@ -61,9 +61,8 @@ def compress_monkey_patch():
 def render_compressed(self, context, kind, mode, forced=False):
 
     # See if it has been rendered offline
-    cached_offline = self.render_offline(context, forced=forced)
-    if cached_offline:
-        return cached_offline
+    if self.is_offline_compression_enabled(forced) and not forced:
+        return self.render_offline(context)
 
     # Take a shortcut if we really don't have anything to do
     if ((not settings.COMPRESS_ENABLED and
@@ -75,7 +74,7 @@ def render_compressed(self, context, kind, mode, forced=False):
 
     # Prepare the actual compressor and check cache
     cache_key, cache_content = self.render_cached(
-        compressor, kind, mode, forced=forced)
+        compressor, kind, mode)
     if cache_content is not None:
         return cache_content
 
@@ -149,17 +148,21 @@ def hunks(self, forced=False, request=None):
             options = dict(options, filename=value)
             value = self.get_filecontent(value, charset)
 
-        if self.all_mimetypes:
+        if self.precompiler_mimetypes:
             precompiled, value = self.precompile(value, **options)
 
         if enabled:
-            yield self.filter(value, **options)
+            yield self.filter(value, self.cached_filters, **options)
+        elif precompiled:
+            # since precompiling moves files around, it breaks url()
+            # statements in css files. therefore we run the absolute filter
+            # on precompiled css files even if compression is disabled.
+            if CssAbsoluteFilter in self.cached_filters:
+                value = self.filter(value, [CssAbsoluteFilter], **options)
+            yield self.handle_output(kind, value, forced=True,
+                                     basename=basename)
         else:
-            if precompiled:
-                yield self.handle_output(kind, value, forced=True,
-                                         basename=basename)
-            else:
-                yield self.parser.elem_str(elem)
+            yield self.parser.elem_str(elem)
 
 
 def output(self, mode='file', forced=False, request=None):
