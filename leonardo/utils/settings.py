@@ -188,6 +188,20 @@ def merge(a, b):
     raise NotImplementedError
 
 
+def _is_leonardo_module(whatever):
+    '''check if is leonardo module'''
+
+    # check if is python module
+    if hasattr(whatever, 'default') \
+            or hasattr(whatever, 'leonardo_module_conf'):
+        return True
+
+    # check if is python object
+    for key in dir(whatever):
+        if 'LEONARDO' in key:
+            return True
+
+
 def get_leonardo_modules():
     """return all leonardo modules
 
@@ -278,6 +292,16 @@ def _get_correct_module(mod):
         getattr(mod, "LEONARDO_MODULE_CONF", None))
     if module_location:
         mod = import_module(module_location)
+
+    elif hasattr(mod, 'default_app_config'):
+        # use django behavior
+        mod_path, _, cls_name = mod.default_app_config.rpartition('.')
+        _mod = import_module(mod_path)
+        config_class = getattr(_mod, cls_name)
+        # check if is leonardo config compliant
+        if _is_leonardo_module(config_class):
+            mod = config_class
+
     return mod
 
 
