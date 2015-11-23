@@ -1,20 +1,18 @@
-FROM ubuntu:14.04
+FROM leonardocms/ubuntu:14.04
 MAINTAINER Michael Kuty "mail@michaelkuty.eu"
-RUN apt-get -qq update
-RUN apt-get install -y python-dev python-setuptools supervisor git-core libjpeg-dev libfreetype6 libfreetype6-dev zlib1g-dev
-RUN easy_install pip
-RUN pip install virtualenv
-RUN pip install uwsgi
+RUN apt-get install git-core supervisor -y
 RUN virtualenv --no-site-packages /opt/leonardo
-ADD . /opt/apps/leonardo
-ADD /contrib/supervisor/docker.conf /opt/supervisor.conf
-ADD /contrib/supervisor/run.sh /usr/local/bin/run
-RUN /opt/leonardo/bin/pip install -e git+https://github.com/django-leonardo/django-leonardo.git@develop#egg=django_leonardo
-RUN (cd /opt/apps/leonardo && /opt/leonardo/bin/django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject)
-RUN export PYTHONPATH=/opt/apps/leonardo/myproject
-ADD /contrib/django/manage.py /opt/apps/leonardo/manage.py
-RUN (/opt/leonardo/bin/python /opt/apps/leonardo/myproject/manage.py makemigrations --noinput)
-RUN (/opt/leonardo/bin/python /opt/apps/leonardo/myproject/manage.py migrate --noinput)
-RUN (/opt/leonardo/bin/python /opt/apps/leonardo/myproject/manage.py collectstatic --noinput)
+ADD . /usr/lib/leonardo/bin/activate
+RUN /usr/lib/leonardo/bin/pip install uwsgi
+RUN /usr/lib/leonardo/bin/pip install -e git+https://github.com/django-leonardo/django-leonardo.git@feature/debian_docker#egg=django_leonardo
+RUN (cd /usr/lib/leonardo && /usr/lib/leonardo/bin/django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject)
+ADD /usr/lib/leonardo/src/django-leonardo/contrib/supervisor/docker.conf /opt/supervisor.conf
+ADD /usr/lib/leonardo/src/django-leonardo/contrib/supervisor/run.sh /usr/local/bin/run
+ADD /usr/lib/leonardo/src/django-leonardo/contrib/django/wsgi.py /usr/lib/leonardo/wsgi.py
+RUN export PYTHONPATH=/usr/lib/leonardo/myproject
+ADD /usr/lib/leonardo/src/django-leonardo/contrib/django/manage.py /usr/lib/leonardo/myproject/manage.py
+RUN (/usr/lib/leonardo/bin/python /usr/lib/leonardo/myproject/manage.py makemigrations --noinput)
+RUN (/usr/lib/leonardo/bin/python /usr/lib/leonardo/myproject/manage.py migrate --noinput)
+RUN (cd /usr/lib/leonardo; /usr/lib/leonardo/bin/python /usr/lib/leonardo/myproject/manage.py collectstatic --noinput)
 EXPOSE 8000
 CMD ["/bin/sh", "-e", "/usr/local/bin/run"]
