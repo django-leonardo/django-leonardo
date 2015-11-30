@@ -16,11 +16,11 @@ For Users
 
 * CMS, Page, Responsive, Layouts, Themes, Color Variations 
 * Widgets, Plugins, 3rd party app integrations
-* Frontend Edit, Install modules in one click !
-* Eshop, Form Designer, Blog, News, Folio, Links, Navigations, ..
+* Frontend Edit, Install/Uninstall modules in one click !
+* Store, Form Designer, Blog, News, Folio, Links, Navigations, ..
 * Media, Folders, Files, Images, Documents, Import - Export, ..
+* LIVE settings, Auto loading modules, editable templates, ..
 * Authentification, 3rd party backends, SAML standard, ..
-* Auto loading modules, LIVE configuration, editable templates, ..
 
 For Developers
 ==============
@@ -55,77 +55,6 @@ Further reading:
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 .. _`Developer Documentation`: http://django-leonardo.readthedocs.org
 .. _`User Documentation`: http://leonardo-documentation.rtfd.org
-
-Core
-====
-
-Leonardo in default state has enabled three modules and other can be installed.
-
-* Web - precise FeinCMS integration
-* Navigation - common navigation components
-* Media - Filer integration with basic widgets
-* Search - Haystack integration with Whoosh backend
-
-Extensions
-==========
-
-Leonardo provide bundled extensions, which provides pluggable advantages.
-
-Modules
--------
-
-* `Admin`_ - Standard Django admin
-* `Bootstrap Admin`_ - Bootstrap Django admin
-* `Material Admin`_ - Material Django admin
-* `Analytics`_ -  Analytics service integration for Leonardo projects
-* `Auth`_ - authentication, registration, account management as 3rd party (social) and SAML support to your Leonardo sites
-* `Blog`_ - Elephant Blog integration
-* `Celery`_ - Celery workers for Leonardo CMS
-* `Multisite`_ - Multi site / tenancy with security
-* `Folio`_ - Portfolio app
-* `Geo`_ - Some geolocation related widgets (Google maps,..)
-* `Galleries`_ - Awesome galleries
-* `Forms`_ - Stable Form Designer integration with Remote Forms
-* `Store`_ - Oscar Ecommerce - FeinCMS integration
-* `News`_ - News
-* `Links`_ - navigation helpers bundles as Leonardo module
-* `Redactor`_ - A lightweight wysiwyg editor for Leonardo
-* `Sentry`_ - end-user friendly error page
-* `Page Permissions`_ - extend Page and provide new Navigation templates with permissions
-* `Team`_ - team model and widgets
-* `Oembed`_ - oembed objects with caching
-* Static - client-side libraries like an AngularJS, React, D3.js, ..
-
-
-.. _`Admin`: https://github.com/leonardo-modules/leonardo-admin
-.. _`Bootstrap Admin`: https://github.com/leonardo-modules/leonardo-bootstrap-admin
-.. _`Material Admin`: https://github.com/leonardo-modules/leonardo-material-admin
-.. _`Auth`: https://github.com/leonardo-modules/leonardo-module-auth
-.. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
-.. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
-.. _`Celery`: https://github.com/leonardo-modules/leonardo-celery
-.. _`Multisite`: https://github.com/leonardo-modules/leonardo-multisite
-.. _`Folio`: https://github.com/leonardo-modules/leonardo-module-folio
-.. _`Geo`: https://github.com/leonardo-modules/leonardo-geo
-.. _`Galleries`: https://github.com/leonardo-modules/leonardo-gallery
-.. _`Store`: https://github.com/leonardo-modules/leonardo-store
-.. _`News`: https://github.com/leonardo-modules/leonardo-module-news
-.. _`Links`: https://github.com/leonardo-modules/leonardo-module-links
-.. _`Redactor`: https://github.com/leonardo-modules/leonardo-module-redactor
-.. _`Sentry`: https://github.com/leonardo-modules/leonardo-module-sentry
-.. _`Page Permissions`: https://github.com/leonardo-modules/leonardo-module-pagepermissions
-.. _`Analytics`: https://github.com/leonardo-modules/leonardo-module-analytics
-.. _`Team`: https://github.com/leonardo-modules/leonardo-team
-.. _`Oembed`: https://github.com/leonardo-modules/leonardo-oembed
-
-Themes
-------
-
-* `Bootwatch`_
-* `AdminLTE`_
-
-.. _`Bootwatch`: https://github.com/leonardo-modules/leonardo-theme-bootswatch
-.. _`AdminLTE`: https://github.com/leonardo-modules/leonardo-theme-adminlte
 
 Installation
 ============
@@ -183,6 +112,120 @@ Command by command
 
 
 Navigate your browser to your_ip/admin and login with ``root:admin``
+For settings production mode could take inspiration from `Leonardo Documentation`_.
+
+.. _`Leonardo Documentation`: http://django-leonardo.readthedocs.org/en/develop/install/production.html
+
+Core
+====
+
+Leonardo in default state has enabled some modules which provides basic stuff for common sites:
+
+* Web - precise FeinCMS integration
+* Navigation - common navigation components
+* Media - Filer integration with media widgets
+* Search - Haystack integration
+* Auth - Basic auth with standard user actions
+* Devel - Widgets for site developers
+
+Installed
+=========
+
+These modules are included in default leonardo installation, but could be uninstalled anytime without affecting your DB:
+
+* System - Common management stuff (listing installed packages, widgets version etc..)
+* Sitestarter - simple site starter which handle missing site and create it from custom yaml template
+* Admin - django admin
+* Ckeditor - Default wysiwyg editor for now. Alternatives: Redactor,Summernote,Tinymce..
+
+For uninstalling::
+
+    pip uninstall leonardo-system
+    pip uninstall leonardo-sitestarter
+
+For switch wysiwyg::
+
+    pip uninstall leonardo-ckeditor
+    pip install leonardo-redactor
+
+Extensions
+==========
+
+Leonardo in default state using module loader which allows you to easy installation of new packages.
+
+All modules lives in `Package Index`_.
+
+.. _`Package Index`: http://packages.leonardo.robotice.org/
+
+Modules
+-------
+
+* `Admin`_ - Standard Django admin
+* `Admin Honeypot`_ - Django admin honeypot
+* `Bootstrap Admin`_ - Bootstrap Django admin
+* `Material Admin`_ - Material Django admin
+* `Analytics`_ -  Analytics service integration for Leonardo projects
+* `Blog`_ - Elephant Blog integration
+* `Celery`_ - Celery workers for Leonardo CMS
+* `Multisite`_ - Multi site with security
+* `Folio`_ - Portfolio app
+* `Geo`_ - Some geolocation related widgets (Google maps,..)
+* `Galleries`_ - Awesome galleries
+* `Forms`_ - Stable Form Designer integration with Remote Forms
+* `Store`_ - Oscar Ecommerce - FeinCMS integration
+* `News`_ - Heavy FeinCMS News
+* `Newswall`_ - Newswall
+* `Links`_ - navigation helpers bundles as Leonardo module
+* `Redactor`_ - A lightweight wysiwyg editor for Leonardo
+* `Sentry`_ - end-user friendly error page
+* `Page Permissions`_ - extend Page and provide new Navigation templates with permissions
+* `Team`_ - team model and widgets
+* `Oembed`_ - oembed objects with caching
+* Static - client-side libraries like an AngularJS, React, D3.js, ..
+
+
+.. _`Admin`: https://github.com/leonardo-modules/leonardo-admin
+.. _`Admin Honeypot`: https://github.com/leonardo-modules/leonardo-admin-honeypot
+.. _`Bootstrap Admin`: https://github.com/leonardo-modules/leonardo-bootstrap-admin
+.. _`Material Admin`: https://github.com/leonardo-modules/leonardo-material-admin
+.. _`Forms`: https://github.com/leonardo-modules/leonardo-module-forms
+.. _`Blog`: https://github.com/leonardo-modules/leonardo-module-blog
+.. _`Celery`: https://github.com/leonardo-modules/leonardo-celery
+.. _`Multisite`: https://github.com/leonardo-modules/leonardo-multisite
+.. _`Folio`: https://github.com/leonardo-modules/leonardo-module-folio
+.. _`Geo`: https://github.com/leonardo-modules/leonardo-geo
+.. _`Galleries`: https://github.com/leonardo-modules/leonardo-gallery
+.. _`Store`: https://github.com/leonardo-modules/leonardo-store
+.. _`News`: https://github.com/leonardo-modules/leonardo-module-news
+.. _`Links`: https://github.com/leonardo-modules/leonardo-module-links
+.. _`Redactor`: https://github.com/leonardo-modules/leonardo-module-redactor
+.. _`Sentry`: https://github.com/leonardo-modules/leonardo-module-sentry
+.. _`Page Permissions`: https://github.com/leonardo-modules/leonardo-module-pagepermissions
+.. _`Analytics`: https://github.com/leonardo-modules/leonardo-module-analytics
+.. _`Team`: https://github.com/leonardo-modules/leonardo-team
+.. _`Oembed`: https://github.com/leonardo-modules/leonardo-oembed
+
+Themes
+------
+
+* `Bootwatch`_
+* `AdminLTE`_
+
+.. _`Bootwatch`: https://github.com/leonardo-modules/leonardo-theme-bootswatch
+.. _`AdminLTE`: https://github.com/leonardo-modules/leonardo-theme-adminlte
+
+Cookiecutters
+-------------
+
+Our cookiecutters are a good start for creating new `Site`_, `Module`_ or `Theme`_.
+
+* `Site`_
+* `Module`_
+* `Theme`_
+
+.. _`Site`: https://github.com/django-leonardo/cookiecutter-site
+.. _`Module`: https://github.com/django-leonardo/cookiecutter-module
+.. _`Theme`: https://github.com/django-leonardo/cookiecutter-theme
 
 Bundles
 -------
@@ -196,79 +239,13 @@ commas.
 
 .. code-block:: bash
 
-    $ pip install "django-leonardo[folio]"
+    $ pip install "django-leonardo[multisite]"
 
-    $ pip install "django-leonardo[blog,eshop,static,themes]"
+    $ pip install "django-leonardo[blog,store,multisite]"
 
-The following bundles are available:
+`Here`_ is current list of bundles.
 
-CMS
-~~~
-
-* django-leonardo[blog] - ElephantBlog integration
-
-* django-leonardo[folio] - Portfolio with translations
-
-* django-leonardo[multisite] - Leonardo multi sites
-
-* django-leonardo[forms] - Form Designer and Remote Forms
-
-* django-leonardo[links] - Links
-
-* django-leonardo[pagepermissions] - Page Permissions
-
-Background Jobs
-~~~~~~~~~~~~~~~
-
-* django-leonardo[celery] - Celery Workers for background Jobs
-
-Admin
-~~~~~
-
-* django-leonardo[admin] - Django Admin for Leonardo CMS
-
-Auth
-~~~~
-
-* django-leonardo[auth] - All auth
-
-* django-leonardo[saml] - SAML auth backend
-
-WYSIWYG Editors
-~~~~~~~~~~~~~~~
-
-* django-leonardo[redactor] - Redactor
-
-* django-leonardo[summernote] - SummerNote
-
-Themes
-~~~~~~
-
-* django-leonardo[themes] - Leonardo themes [Bootstrap, AdminLTE]
-
-* django-leonardo[adminlte] - AdminLTE theme
-
-Ecommerce
-~~~~~~~~~
-
-* django-leonardo[store] - Django-Oscar integration
-
-* django-leonardo[stores] - Django-Oscar Stores
-
-* django-leonardo[cod] - Django-Oscar Cash On Delivery Payment Method
-
-Common
-~~~~~~
-
-* django-leonardo[sentry] - Raven integration with end-user friendly error page
-
-* django-leonardo[static] - AngularJS, React, BootStrap, D3.js, ..
-
-* django-leonardo[debug] - Debug toolbar
-
-* django-leonardo[tests] - Tools for testing
-
-* django-leonardo[redis] - Redis dep
+.. _`Here`: https://github.com/django-leonardo/django-leonardo/blob/master/setup.cfg#L28
 
 Looking for commercial support?
 ===============================

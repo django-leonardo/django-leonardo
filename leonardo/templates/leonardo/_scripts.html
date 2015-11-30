@@ -205,7 +205,12 @@ $(function() {
       $(this).ekkoLightbox();
   }); 
 
-  new WOW().init();
+  try {
+      new WOW().init();
+  }
+  catch(err) {
+      console.log(err);
+  }
   horizon.modals.addModalInitFunction(function(modal) {
     $('.django-select2').not('django-select2-heavy').select2();
     $('.django-select2.django-select2-heavy').each(function () {

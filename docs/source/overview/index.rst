@@ -9,7 +9,7 @@ Full featured framework for building everything based on Django, FeinCMS, Horizo
 Why
 ===
 
-Python and Django communities are dynamic. Django is best framework for building web applications with tons apps, which provide additional futures. If you want make new web site really quick you must spend a lot of time for searching right libraries, integrating and configuring. Leonardo provide new module system which makes this much more easier than before. Leonardo solves cms, graph domains and provide stable core for easy extending and building whatever.
+Python and Django communities are dynamic. Django is best framework for building web applications with tons apps, which provide additional futures. If you want make new web site really quick you must spend a lot of time for searching right libraries, integrating and configuring. Leonardo provides new module system which makes this things much more easier than before. Leonardo solves cms, graph domains and provide stable core for easy extending and building whatever.
 
 How it works
 ============

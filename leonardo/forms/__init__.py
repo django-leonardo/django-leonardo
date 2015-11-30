@@ -1,5 +1,6 @@
 
 from django.core.exceptions import ValidationError
+from django.forms import *
 from django.forms import widgets
 from django.forms.fields import *
 from django.forms.forms import *

@@ -15,16 +15,18 @@ class Default(object):
 
         INSTALLED_APPS = []
         try:
-            import whoosh  # noqa
-            INSTALLED_APPS += ['whoosh']
-        except Exception:
+            import whoosh
+        except ImportError:
             pass
+        else:
+            INSTALLED_APPS += ['whoosh']
 
         return INSTALLED_APPS + ['haystack', 'leonardo.module.search']
 
     plugins = [
         ('leonardo.module.search.apps.search', _('Search'))
     ]
+
 
 class SearchConfig(AppConfig, Default):
     name = 'leonardo.module.search'

@@ -6,7 +6,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
 from leonardo.views.select2 import Select2ResponseView
-
+from constance import config
 from .base import leonardo
 
 __all__ = ['handler400', 'handler403', 'handler404', 'handler500']
@@ -73,7 +73,7 @@ sitemaps = {
 urlpatterns += patterns('',
                         (r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}),
                         (r'^favicon\.ico$', RedirectView.as_view(
-                            **{'permanent': True, 'url': settings.FAVICON_PATH}),),
+                            **{'permanent': True, 'url': config.FAVICON_PATH}),),
                         (r'^robots\.txt$',
                          TemplateView.as_view(template_name='robots.txt')),
                         (r'^crossdomain\.xml$',
