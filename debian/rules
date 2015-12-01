@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+
+export DH_VIRTUALENV_INSTALL_ROOT=/usr/lib
+export PBR_VERSION=1.2.3
+
+%:
+	dh $@ --with python-virtualenv --python /usr/bin/python --no-test

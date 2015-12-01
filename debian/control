@@ -1,0 +1,13 @@
+Source: django-leonardo
+Maintainer: Michael Kuty <mail@michaelkuty.eu>
+Section: web
+Priority: optional
+Build-Depends: debhelper (>= 9), python, python-dev, python-virtualenv, dh-virtualenv (>= 0.6), dh-python, python-setuptools, libpq-dev, libjpeg-dev, libfreetype6, libfreetype6-dev, zlib1g-dev
+Standards-Version: 3.9.1
+X-Python-Version: >= 2.7
+
+Package: leonardo
+Architecture: any
+Pre-Depends: dpkg (>= 1.16.1), python, python-yaml, ${misc:Pre-Depends}, debconf, libpq5, python-dev, libpq-dev, libjpeg-dev, libfreetype6, libfreetype6-dev, zlib1g-dev
+Depends: ${misc:Depends}, ${python:Depends}, python-docutils
+Description: Django based CMS.
