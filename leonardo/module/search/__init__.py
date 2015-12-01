@@ -17,19 +17,19 @@ class Default(object):
         INSTALLED_APPS = []
         try:
             import whoosh
-        except ImportError:
-            pass
+        except Exception as e:
+            try:
+                import haystack
+            except ImportError as e:
+                warnings.warn(
+                    'Haystack search engine is disabled because: {}'.format(e))
+            except ImproperlyConfigured as e:
+                warnings.warn(
+                    'Haystack search engine is disabled because: {}'.format(e))
+            else:
+                INSTALLED_APPS += ['haystack']
         else:
-            INSTALLED_APPS += ['whoosh']
-
-        try:
-            import haystack
-        except ImportError as e:
-            warnings.warn('Haystack search engine is disabled because: {}'.format(e))
-        except ImproperlyConfigured as e:
-            warnings.warn('Haystack search engine is disabled because: {}'.format(e))
-        else:
-            INSTALLED_APPS += ['haystack']
+            INSTALLED_APPS += ['whoosh', 'haystack']
 
         return INSTALLED_APPS + ['leonardo.module.search']
 
