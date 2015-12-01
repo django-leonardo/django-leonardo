@@ -1,7 +1,8 @@
 
+import warnings
 from django.apps import AppConfig
 from django.utils.translation import ugettext_lazy as _
-
+from django.core.exceptions import ImproperlyConfigured
 
 default_app_config = 'leonardo.module.search.SearchConfig'
 
@@ -21,7 +22,16 @@ class Default(object):
         else:
             INSTALLED_APPS += ['whoosh']
 
-        return INSTALLED_APPS + ['haystack', 'leonardo.module.search']
+        try:
+            import haystack
+        except ImportError as e:
+            warnings.warn('Haystack search engine is disabled because: {}'.format(e))
+        except ImproperlyConfigured as e:
+            warnings.warn('Haystack search engine is disabled because: {}'.format(e))
+        else:
+            INSTALLED_APPS += ['haystack']
+
+        return INSTALLED_APPS + ['leonardo.module.search']
 
     plugins = [
         ('leonardo.module.search.apps.search', _('Search'))
