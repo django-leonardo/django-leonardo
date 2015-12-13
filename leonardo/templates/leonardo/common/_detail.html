@@ -1,0 +1,18 @@
+
+{% extends widget.get_base_template %}
+
+{% load i18n %}
+{% load applicationcontent_tags %}
+
+{% block content %}
+
+{% fragment request "_page_title" %}{% block page_title %}{{ page_title }}{% endblock %}{% endfragment %}
+
+{% block main %}
+  <div class="row">
+    <div class="col-sm-12">
+      {{ tab_group.render }}
+    </div>
+  </div>
+{% endblock %}
+{% endblock content %}
