@@ -190,7 +190,25 @@ class WidgetInfoView(UpdateView, WidgetViewMixin):
         return HttpResponse(mark_safe(widget_info))
 
 
-class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
+class SuccessUrlMixin(object):
+
+    def get_success_url(self):
+        if self.request.META.get("HTTP_REFERER") != \
+                self.request.build_absolute_uri():
+            return self.request.META.get('HTTP_REFERER')
+
+        try:
+            success_url = self.object.parent.get_absolute_url()
+        except:
+            pass
+        else:
+            return success_url
+
+        return super(WidgetActionMixin, self).get_success_url()
+
+
+class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
+                       ContextMixin, ModelFormMixin):
 
     form_class = WidgetDeleteForm
 
@@ -230,7 +248,7 @@ class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
         return self.kwargs
 
 
-class WidgetActionMixin(object):
+class WidgetActionMixin(SuccessUrlMixin):
 
     template_name = 'leonardo/common/modal.html'
     form_class = WidgetUpdateForm
@@ -238,20 +256,6 @@ class WidgetActionMixin(object):
 
     def get(self, *args, **kwargs):
         return self.post(*args, **kwargs)
-
-    def get_success_url(self):
-        if self.request.META.get("HTTP_REFERER") != \
-                self.request.build_absolute_uri():
-            return self.request.META.get('HTTP_REFERER')
-
-        try:
-            success_url = self.object.parent.get_absolute_url()
-        except:
-            pass
-        else:
-            return success_url
-
-        return super(WidgetActionMixin, self).get_success_url()
 
 
 class WidgetSortView(WidgetActionMixin, ModalFormView):
