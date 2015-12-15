@@ -24,5 +24,6 @@ class ModalIframeView(ModalFormView):
         if self.request.method == "GET":
             context['url'] = context['url'] + '?_popup=1'
 
-        context['modal_size'] = 'lg'
+        context['modal_size'] = self.kwargs.get('size', 'lg')
+
         return context

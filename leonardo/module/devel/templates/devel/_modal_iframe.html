@@ -8,8 +8,20 @@
 {% block modal-body %}
 
 <div class="embed-responsive embed-responsive-16by9">
-  <iframe class="embed-responsive-item" src="{{ url }}" allowfullscreen></iframe>
+  <iframe class="embed-responsive-item" id="iframe-modal" src="{{ url }}" allowfullscreen></iframe>
 </div>
+
+<script type="text/javascript">
+$(function(){
+    $("#iframe-modal").on('load', function(){
+		$("#iframe-modal").contents().find('[type=submit]').bind('click', function () {
+		        $("#iframe-modal").on('load', function(){
+		        	location.reload();
+		        });
+		});
+	});
+}); 
+</script>
 
 {% endblock %}
 
