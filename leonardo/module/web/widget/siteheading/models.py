@@ -6,9 +6,12 @@ from django.template.loader import render_to_string
 from django.template.context import RequestContext
 from django.conf import settings
 from leonardo.module.web.models import Widget
+from .forms import SiteHeadingForm
 
 
 class SiteHeadingWidget(Widget):
+
+    feincms_item_editor_form = SiteHeadingForm
 
     icon = "fa fa-text-width"
 

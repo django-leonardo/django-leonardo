@@ -14,7 +14,7 @@ env:
 before_install:
   - sudo apt-get install build-essential libssl-dev libffi-dev python-dev -y
 install:
-  - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8
+  - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8 Whoosh
   - pip install -r requirements/tests.txt
   - python setup.py -q install
   - if [[ $DB == mysql ]]; then pip install -q mysql-python; fi

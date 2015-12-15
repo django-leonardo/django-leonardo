@@ -1,6 +1,7 @@
 {% load i18n %}
 
 <li><a class="ajax-modal" href="{% url 'widget_update' widget.get_ct_name widget.id %}">{% trans 'Edit' %}</a></li>
+<li><a href="{% url 'widget_copy' widget.get_ct_name widget.id %}">{% trans 'Copy' %}</a></li>
 <li><a id="ajax-info-{{ widget.fe_identifier }}" href='#'>{% trans 'Info' %}</a></li>
 <li class="divider"></li>
 
