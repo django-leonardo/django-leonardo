@@ -34,6 +34,7 @@ For Developers
 
 Further reading:
 
+* `Leonardo Site`_
 * `Demo Site`_ (a reference build of an Leonardo project)
 * `Demo Store`_ (a reference build of an Leonardo Store project)
 * `Developer Documentation`_ (documentation for Django Developers)
@@ -49,9 +50,10 @@ Further reading:
    :alt: Coverage
    :target: https://coveralls.io/r/django-leonardo/django-leonardo?branch=develop
 
-.. _`Demo Site`: http://demo.cms.robotice.cz
+.. _`Leonardo Site`: http://leonardo-cms.org
+.. _`Demo Site`: http://demo.leonardo-cms.org
 .. _`Modules`: http://github.com/leonardo-modules
-.. _`Demo Store`: http://store.leonardo.robotice.org
+.. _`Demo Store`: http://store.leonardo-cms.org
 .. _`Continuous integration homepage`: http://travis-ci.org/django-leonardo/django-leonardo
 .. _`Developer Documentation`: http://django-leonardo.readthedocs.org
 .. _`User Documentation`: http://leonardo-documentation.rtfd.org

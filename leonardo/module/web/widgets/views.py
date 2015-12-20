@@ -236,7 +236,7 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
             obj.delete()
             # invalide page cache
             parent.invalidate_cache()
-            success_url = parent.get_absolute_url()
+            success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
         except Exception as e:
