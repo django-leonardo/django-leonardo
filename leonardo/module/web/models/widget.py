@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.forms.models import fields_for_model
@@ -19,6 +18,11 @@ from ..widgets.forms import WIDGETS, WidgetUpdateForm
 from ..widgets.mixins import ListWidgetMixin, ContentProxyWidgetMixin
 from django.utils.functional import cached_property
 from leonardo.utils.memoized import widget_memoized
+
+try:
+    from django.contrib.contenttypes import generic
+except ImportError:
+    from django.contrib.contenttypes.fields import GenericForeignKey
 
 
 class WidgetInline(FeinCMSInline):
