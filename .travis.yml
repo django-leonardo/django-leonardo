@@ -6,16 +6,17 @@ python:
   - 3.5
 env:
   matrix:
+   - DJANGO_REQUIREMENT="Django>=1.7,<1.8 django-mptt<0.8"
    - DJANGO_REQUIREMENT="Django>=1.8,<1.9"
-   - DJANGO="Django>=1.9,<1.10"
+   - DJANGO_REQUIREMENT="Django>=1.9,<1.10"
    - DB=mysql
    - DB=postgres
    - DB=sqlite
 before_install:
   - sudo apt-get install build-essential libssl-dev libffi-dev python-dev -y
 install:
-  - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8 Whoosh
   - pip install -r requirements/tests.txt
+  - pip install -q $DJANGO_REQUIREMENT django-mptt Pillow feedparser flake8 Whoosh
   - python setup.py -q install
   - if [[ $DB == mysql ]]; then pip install -q mysql-python; fi
   - if [[ $DB == postgres ]]; then pip install -q psycopg2; fi
