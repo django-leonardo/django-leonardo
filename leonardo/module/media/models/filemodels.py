@@ -10,11 +10,17 @@ from django.core.files.base import ContentFile
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from filer.utils.compatibility import DJANGO_1_7, python_2_unicode_compatible
-from polymorphic import PolymorphicManager, PolymorphicModel
 from filer.utils.files import get_valid_filename
 from . import mixins
 from .. import settings as filer_settings
 from ..fields.multistorage_file import MultiStorageFileField
+
+try:
+    from polymorphic.models import PolymorphicModel
+    from polymorphic.managers import PolymorphicManager
+except ImportError:
+    # django-polymorphic < 0.8
+    from polymorphic import PolymorphicModel, PolymorphicManager
 
 
 class FileManager(PolymorphicManager):
