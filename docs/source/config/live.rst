@@ -99,3 +99,26 @@ of via constance module
 
     if config.THE_ANSWER == 42:
         answer_the_question()
+
+Custom Fields
+=============
+
+Sometimes is better to use custom choices fields or someting like this for this purposes could be used ``LEONARDO_ADDITIONAL_FIELDS``:
+
+    LEONARDO_CONFIG = {
+        'MULTISITE_ENABLED': (False, _(
+            'Enable multi site request processing')),
+        'SESSION_COOKIE_DOMAIN': ('', _(
+            '''If you set your session cookie domain to start with
+            a "." character it will let you handle wildcard sub-domains
+            and share a session cookie (login session) across multiple
+            subdomains.''')),
+        'MY_SELECT_KEY': ('yes', 'select yes or no', 'yes_no_null_select'),
+    }
+    LEONARDO_ADDITIONAL_FIELDS = {
+        'yes_no_null_select': ['django.forms.fields.ChoiceField',
+                               {
+                                   'widget': 'django.forms.Select',
+                                   'choices': (("-----", None), ("yes", "Yes"), ("no", "No"))
+                               }],
+    }

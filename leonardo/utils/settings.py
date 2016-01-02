@@ -26,6 +26,7 @@ CONF_SPEC = {
     'css_files': [],
     'scss_files': [],
     'config': {},
+    'additional_fields': {},
     'migration_modules': {},
     'absolute_url_overrides': {},
     'navigation_extensions': [],
@@ -52,6 +53,7 @@ DJANGO_CONF = {
     'ADD_SCSS_FILES': "scss_files",
     'ADD_ANGULAR_MODULES': "angular_modules",
     'MIGRATION_MODULES': "migration_modules",
+    'CONSTANCE_ADDITIONAL_FIELDS': "additional_fields",
 }
 
 BLACKLIST = ['haystack']

@@ -33,7 +33,7 @@ class Default(object):
             'leonardo.extensions.changedate',
             'leonardo.extensions.ct_tracker',
             'leonardo.extensions.featured'
-            ]
+        ]
 
     @property
     def middlewares(self):
@@ -116,6 +116,15 @@ class Default(object):
         'META_TITLE': ('', _('Site specific meta title')),
         'DEBUG': (True, _('Debug mode')),
         'FAVICON_PATH': ('/static/img/favicon.ico', _('Favicon path')),
+    }
+
+    # Example of custom field
+    additional_fields = {
+        'yes_no_null_select': ['django.forms.fields.ChoiceField',
+                               {
+                                   'widget': 'django.forms.Select',
+                                   'choices': (("-----", None), ("yes", "Yes"), ("no", "No"))
+                               }],
     }
 
     page_actions = ['base/page/_actions.html']

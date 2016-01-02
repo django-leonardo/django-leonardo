@@ -59,8 +59,15 @@ class WidgetViewMixin(object):
     def get_page(self):
         return Page.objects.get(id=self.kwargs['page_id'])
 
+    def get_form_kwargs(self):
+        kwargs = super(WidgetViewMixin, self).get_form_kwargs()
+        kwargs.update({
+            'request': self.request,
+        })
+        return kwargs
 
-class WidgetUpdateView(UpdateView, WidgetViewMixin):
+
+class WidgetUpdateView(WidgetViewMixin, UpdateView):
 
     template_name = 'leonardo/common/modal.html'
 
@@ -80,9 +87,6 @@ class WidgetUpdateView(UpdateView, WidgetViewMixin):
         """Returns an instance of the form to be used in this view."""
 
         kwargs = self.get_form_kwargs()
-        kwargs.update({
-            'request': self.request,
-        })
         return form_class(**kwargs)
 
     def form_valid(self, form):
@@ -92,7 +96,7 @@ class WidgetUpdateView(UpdateView, WidgetViewMixin):
         return response
 
 
-class WidgetCreateView(CreateView, WidgetViewMixin):
+class WidgetCreateView(WidgetViewMixin, CreateView):
 
     template_name = 'leonardo/common/modal.html'
 
@@ -120,7 +124,8 @@ class WidgetCreateView(CreateView, WidgetViewMixin):
     def form_valid(self, form):
         try:
             obj = form.save(commit=False)
-            obj.save()
+            obj.save(created=False)
+            self.handle_dimensions(obj)
             obj.parent.save()
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
@@ -236,7 +241,7 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
             obj.delete()
             # invalide page cache
             parent.invalidate_cache()
-            success_url = parent.get_absolute_url()
+            success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
         except Exception as e:
