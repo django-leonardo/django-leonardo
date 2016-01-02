@@ -70,6 +70,8 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {}
 
+CONSTANCE_ADDITIONAL_FIELDS = {}
+
 # enable auto loading packages
 LEONARDO_MODULE_AUTO_INCLUDE = True
 

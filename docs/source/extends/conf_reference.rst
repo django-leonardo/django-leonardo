@@ -36,6 +36,28 @@ Leonardo
 
     **module_actions** array of templates included in the frontend side bar
 
+    **additional_fields** dictionary of custom fields which could be used in config::
+
+        LEONARDO_ADDITIONAL_FIELDS = {
+            'yes_no_null_select': ['django.forms.fields.ChoiceField',
+                                   {
+                                       'widget': 'django.forms.Select',
+                                       'choices': (("-----", None), ("yes", "Yes"), ("no", "No"))
+                                   }],
+        }
+
+        LEONARDO_CONFIG = {
+            'MULTISITE_ENABLED': (False, _(
+                'Enable multi site request processing')),
+            'SESSION_COOKIE_DOMAIN': ('', _(
+                '''If you set your session cookie domain to start with
+                a "." character it will let you handle wildcard sub-domains
+                and share a session cookie (login session) across multiple
+                subdomains.''')),
+            'MY_SELECT_KEY': ('yes', 'select yes or no', 'yes_no_null_select'),
+        }
+
+
 FeinCMS
 -------
 
