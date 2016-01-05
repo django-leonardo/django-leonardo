@@ -6,7 +6,7 @@ django-floppyforms==1.5.1
 django-crispy-forms==1.4.0
 django_compressor==1.5
 Django-Select2==5.2.0
-
+python-app-loader>=0.0.1
 docutils==0.12
 django-pyscss>=1.0.3
 django-filer==1.0.6

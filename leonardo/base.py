@@ -1,27 +1,34 @@
 
 import warnings
 
+from app_loader.base import AppLoader
 from django.conf.urls import include, patterns, url
 from django.utils import six
 from django.utils.functional import cached_property
+from django.utils.module_loading import module_has_submodule  # noqa
+from importlib import import_module  # noqa
+from leonardo.conf import Default
+from leonardo.decorators import _decorate_urlconf, require_auth
+from leonardo.utils import is_leonardo_module
 from leonardo.utils.settings import (get_conf_from_module,
                                      get_leonardo_modules, get_loaded_modules,
                                      merge)
-from leonardo.utils import is_leonardo_module
-from importlib import import_module  # noqa
-from django.utils.module_loading import module_has_submodule  # noqa
-from leonardo.decorators import require_auth, _decorate_urlconf
-from leonardo.conf import Default
+
 
 # use leonardo instead
 default = Default()
 
 
-class Leonardo(object):
+class Leonardo(AppLoader):
 
     default = default
 
     MODULES_AUTOLOAD = True
+
+    CONFIG_MODULE_PREFIX = "LEONARDO"
+    CONFIG_MODULE_SPEC_CLASS = "leonardo.conf.spec.CONF_SPEC"
+    CONFIG_MODULE_OBJECT_CLASS = "leonardo.conf.base.ModuleConfig"
+    CONFIG_MASTER_OBJECT_CLASS = "leonardo.conf.base.LeonardoConfig"
 
     def load_modules(self):
         """find all leonardo modules from environment"""
@@ -135,7 +142,8 @@ class Leonardo(object):
                     urlpatterns += patterns('',
                                             url(r'', include(urls_conf)))
             except Exception as e:
-                raise Exception('raised %s during loading %s' % (str(e), urls_conf))
+                raise Exception('raised %s during loading %s' %
+                                (str(e), urls_conf))
         return urlpatterns
 
     _instance = None
