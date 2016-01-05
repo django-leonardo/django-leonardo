@@ -231,22 +231,6 @@ for mod, mod_cfg in LEONARDO_MODULES:
 
 setattr(leonardo, 'widgets', WIDGETS)
 
-from leonardo.module.web.models import Page
-from leonardo.module.web.widget import ApplicationWidget
-
-# register external apps
-Page.create_content_type(
-    ApplicationWidget, APPLICATIONS=APPLICATION_CHOICES)
-
-# register widgets
-for _optgroup, _widgets in six.iteritems(WIDGETS):
-    optgroup = _optgroup if _optgroup != 'ungrouped' else None
-    for widget in _widgets:
-        Page.create_content_type(widget, optgroup=optgroup)
-
-Page.register_extensions(*PAGE_EXTENSIONS)
-Page.register_default_processors(LEONARDO_FRONTEND_EDITING)
-
 # FINALLY OVERRIDE ALL
 
 try:

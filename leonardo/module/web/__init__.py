@@ -87,9 +87,10 @@ class Default(object):
     def widgets(self):
         return [
             ApplicationWidget,
-            SiteHeadingWidget,
+            'leonardo.module.web.widget.siteheading.models.SiteHeadingWidget',
+            ('leonardo.module.web.widget.feedreader.models.FeedReaderWidget', {
+             'dummy': 'dummy'}),
             MarkupTextWidget,
-            FeedReaderWidget,
             HtmlTextWidget,
             PageTitleWidget,
             IconWidget,
