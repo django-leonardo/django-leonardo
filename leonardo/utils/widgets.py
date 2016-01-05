@@ -37,7 +37,7 @@ def load_widget_classes(widgets):
 
         _widgets.append(WidgetCls)
 
-    return widgets
+    return _widgets
 
 
 def get_all_widget_classes():
