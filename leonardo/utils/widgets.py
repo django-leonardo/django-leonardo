@@ -1,6 +1,43 @@
 
 from django.conf import settings
 from django.utils import six
+from importlib import import_module
+
+
+def load_widget_classes(widgets):
+
+    _widgets = []
+
+    def get_class_from_string(widget):
+        mod = '.'.join(widget.split('.')[0:-1])
+        cls_name = widget.split('.')[-1]
+        return mod, cls_name
+
+    for widget in widgets:
+
+        kwargs = {}
+
+        # load class from strings
+        if isinstance(widget, six.string_types):
+            try:
+                mod, cls_name = get_class_from_string(widget)
+                WidgetCls = getattr(import_module(mod), cls_name)
+            except Exception as e:
+                raise e
+        elif isinstance(widget, tuple):
+            try:
+                mod, cls_name = get_class_from_string(widget[0])
+                if len(widget) > 1:
+                    kwargs.update(widget[1])
+                WidgetCls = getattr(import_module(mod), cls_name)
+            except Exception as e:
+                raise Exception('%s: %s' % (mod, e))
+        else:
+            WidgetCls = widget
+
+        _widgets.append(WidgetCls)
+
+    return widgets
 
 
 def get_all_widget_classes():
@@ -19,7 +56,7 @@ def get_all_widget_classes():
             widgets.extend(widget_cls)
     elif isinstance(_widgets, list):
         widgets = _widgets
-    return widgets
+    return load_widget_classes(widgets)
 
 
 def get_grouped_widgets(feincms_object, request=None):
