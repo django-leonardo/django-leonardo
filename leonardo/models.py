@@ -1,15 +1,15 @@
 import six
-from leonardo.module.web.models import *
-from leonardo.module.web.models import Page
-from . import settings
-from leonardo.module.web.widget import ApplicationWidget
 from importlib import import_module
+from leonardo.module.web.models import *
+from leonardo.module.web.models import ApplicationWidget, Page
+
+from . import settings
 
 
 def get_class_from_string(widget):
     mod = '.'.join(widget.split('.')[0:-1])
     cls_name = widget.split('.')[-1]
-    return mod, cls_name
+    return getattr(import_module(mod), cls_name)
 
 
 def register_widgets():
@@ -33,16 +33,14 @@ def register_widgets():
             # load class from strings
             if isinstance(widget, six.string_types):
                 try:
-                    mod, cls_name = get_class_from_string(widget)
-                    WidgetCls = getattr(import_module(mod), cls_name)
+                    WidgetCls = get_class_from_string(widget)
                 except Exception as e:
                     raise e
             elif isinstance(widget, tuple):
                 try:
-                    mod, cls_name = get_class_from_string(widget[0])
+                    WidgetCls = get_class_from_string(widget[0])
                     if len(widget) > 1:
                         kwargs.update(widget[1])
-                    WidgetCls = getattr(import_module(mod), cls_name)
                 except Exception as e:
                     raise Exception('%s: %s' % (mod, e))
             else:

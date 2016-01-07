@@ -1,11 +1,9 @@
 
 from django.apps import AppConfig
 
-from .widget import *
-
 LEONARDO_WIDGETS = [
-    UserLoginWidget,
-    UserRegistrationWidget
+    'leonardo.module.leonardo_auth.models.UserLoginWidget',
+    'leonardo.module.leonardo_auth.models.UserRegistrationWidget'
 ]
 
 LEONARDO_APPS = ['leonardo.module.leonardo_auth']

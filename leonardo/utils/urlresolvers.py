@@ -6,7 +6,7 @@ from django.conf import settings
 from django.template.base import Library
 from django.utils import six
 from django.utils.encoding import smart_text
-from leonardo.module.web.widget import ApplicationWidget
+from leonardo.module.web.models import ApplicationWidget
 from leonardo.module.web.widget.application.reverse import app_reverse as do_app_reverse
 
 register = Library()

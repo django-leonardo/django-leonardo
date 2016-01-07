@@ -57,3 +57,13 @@ class NestedPageContentNavigationExtension(NavigationExtension):
                 children=subchildren,
                 level=5
             )
+
+# must be at last because widgets uses mixins
+from .widget.breadcrumbs.models import BreadcrumbsWidget
+from .widget.contentnavigation.models import ContentNavigationWidget
+from .widget.contextnavigation.models import ContextNavigationWidget
+from .widget.linearnavigation.models import LinearNavigationWidget
+from .widget.sitemap.models import SiteMapWidget
+from .widget.sitesearch.models import SiteSearchWidget
+from .widget.treenavigation.models import TreeNavigationWidget
+from .widget.languageselector.models import LanguageSelectorWidget
