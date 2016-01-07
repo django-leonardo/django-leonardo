@@ -31,7 +31,7 @@ after_success:
 branches:
   only:
     - master
-    - develop
+    - stable/1.0
 notifications:
   email:
     recipients:
