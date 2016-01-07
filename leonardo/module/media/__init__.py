@@ -22,14 +22,15 @@ class Default(object):
     @property
     def widgets(self):
         return [
-            DownloadListWidget,
-            DownloadItemWidget,
-            InternetVideoWidget,
-            MediaGalleryWidget,
-            SimpleImageWidget,
-            VectorGraphicsWidget,
-            PdfDocumentWidget,
-            FlashObjectWidget,
+            'leonardo.module.media.widget.models.DownloadListWidget',
+            'leonardo.module.media.widget.models.DownloadItemWidget',
+            'leonardo.module.media.widget.models.InternetVideoWidget',
+            'leonardo.module.media.widget.models.MediaGalleryWidget',
+            'leonardo.module.media.widget.models.SimpleImageWidget',
+            'leonardo.module.media.widget.models.SimpleVideoWidget',
+            'leonardo.module.media.widget.models.VectorGraphicsWidget',
+            'leonardo.module.media.widget.models.PdfDocumentWidget',
+            'leonardo.module.media.widget.models.FlashObjectWidget',
         ]
 
     plugins = [

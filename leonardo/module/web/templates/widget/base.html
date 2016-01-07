@@ -1,7 +1,5 @@
 {% load applicationcontent_tags i18n %}
 
-{% include "widget/_common.html" %}
-
 <div id="{{ widget.fe_identifier }}" class="fe_box leonardo-widget leonardo-{{ widget.widget_name }}-widget {{ widget.render_box_classes }}">
   {% if request.frontend_editing %}
   <a class="ajax-modal" href="{% url 'widget_update' widget.model_cls widget.id %}">{% trans 'Edit' %}</a>

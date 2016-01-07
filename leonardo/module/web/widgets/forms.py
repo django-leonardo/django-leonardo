@@ -42,13 +42,22 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         request = kwargs.pop('request', None)
         super(WidgetUpdateForm, self).__init__(*args, **kwargs)
 
-        if request:
-            queryset = self.fields['content_theme'].queryset
+        initial = kwargs.get('initial', None)
+        if initial and initial.get('id', None):
+            widget = self._meta.model.objects.get(
+                id=initial['id'])
+            data = widget.dimensions
 
+            # filter content themes by widget
+            queryset = self.fields['content_theme'].queryset
             self.fields['content_theme'].queryset = \
                 queryset.filter(widget_class=self._meta.model.__name__)
+
         else:
-            # set defaults
+            data = []
+            widget = None
+
+            # set defaults and delete id field
             self.init_themes()
             del self.fields['id']
 
@@ -83,21 +92,15 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                 attrs={'placeholder': self._meta.model._meta.verbose_name})
 
         if request:
-            from .tables import WidgetDimensionTable
             _request = copy.copy(request)
             _request.POST = {}
             _request.method = 'GET'
-            initial = kwargs.get('initial', None)
-            if initial and initial.get('id', None):
-                widget = self._meta.model.objects.get(
-                    id=initial['id'])
-                data = widget.dimensions
-            else:
-                data = []
-                widget = None
+            from .tables import WidgetDimensionTable
             dimensions = Tab(_('Dimensions'),
                              HTML(
-                                 WidgetDimensionTable(_request, widget=widget, data=data).render()),
+                                 WidgetDimensionTable(_request,
+                                                      widget=widget,
+                                                      data=data).render()),
                              )
             self.helper.layout[0].append(dimensions)
 

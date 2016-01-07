@@ -3,11 +3,14 @@
 New Site
 ========
 
+Django Template
+---------------
+
 Easiest way how you can create new Leonardo Site is our Django Site Template which lives here
 
 https://github.com/django-leonardo/site-template
 
-If you have installed Leonardo simply type
+If you have installed Leonardo
 
 .. code-block:: bash
 
@@ -20,7 +23,7 @@ If you have installed Leonardo simply type
 
 .. note::
 
-    ``leonardo_site`` must be in the ``PYTHONPATH``
+    ``leonardo_site`` must be in the ``PYTHONPATH``, you could use ``pip install git+url.git#egg=leonardo_site`` format
 
 .. code-block:: python
 
@@ -43,6 +46,27 @@ Leonardo  template https://github.com/django-leonardo/site-template
 If you have configured your database and other common stuff run
 
 .. code-block:: bash
+    
+    manage.py makemigrations --noinput
+    manage.py migrate --noinput
+    manage.py sync_all
+
+
+Cookiecutter
+------------
+
+.. code-block:: bash
+
+    pip install cookiecutter
+    git clone https://github.com/django-leonardo/cookiecutter-site.git cookiecutter-leonardo-site
+    cookiecutter cookiecutter-leonardo-site
+    project_name [leonardo-site]:
+    enter
+    repo_name [leonardo_site]:
+    enter
+    done.
+
+    export PYTHONPATH=/path/to/leonardo-site
     
     manage.py makemigrations --noinput
     manage.py migrate --noinput

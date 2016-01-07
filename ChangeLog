@@ -1,9 +1,94 @@
 CHANGES
 =======
 
-1.0.3
------
-
+* cleanup tox
+* Add search backend deps to travis tests
+* Handle missing haystack backend
+* small cleanup
+* small docker fixes and change path to standard
+* Get favicon key from constance directly may cause some error when this key is not present in settings
+* freeze on compress 1.5
+* add initial support for loading django apps #120
+* adjust to compress 1.6
+* make whoosh independent
+* Add initial of Debian and Docker spec
+* fix missing whoosh
+* do not duplicate requirements in test env
+* update requirements related to #118
+* cleanup dependencies #118
+* update version of django extensions because failing on dj 1.8.6 +
+* improve handle uploaded files
+* handle missing WOW js
+* doc update and include django forms to leonardo forms
+* expose MEDIA FILES and handle_uploaded_files function
+* update whoosh backend
+* remove useless common fragments
+* readme update
+* include video widget
+* delete cookie in unauth mode
+* ug
+* fix calling parent
+* list mixin separation for using without model
+* change collectstatic command verbosity and refactoring syncing tools #108
+* onload svg viewBox
+* add .embed-responsive from bootstrap 4 and restrict django versions
+* reload on close iframe modal, use popup mode only for get requests
+* fix urls
+* spell fix
+* adjust labels in select2 fields
+* show edit button only in administrator mode
+* use default decorator and make decorate_urlconf public method
+* fix file admin common urls
+* Loading spinner tweaked
+* ckeditor to default requirements // temporary
+* allow declaring form size directly from widget class or form
+* cosmetic changes
+* update required version
+* move site bootstraping to leonardo-sitestarter module
+* uf fix missing compressor
+* cleanup html widget and add ability to override widgets on every feincms widget without creating form
+* allow use already compressed js files
+* better developers message
+* disable quickstart middleware in production mode
+* fix dimensions
+* fix site logo
+* loading style fix
+* loading cleanup
+* client side fixes
+* ckeditor to default requirements // temporary
+* allow declaring form size directly from widget class or form
+* cosmetic changes
+* update required version
+* move site bootstraping to leonardo-sitestarter module
+* uf fix missing compressor
+* cleanup html widget and add ability to override widgets on every feincms widget without creating form
+* allow use already compressed js files
+* fix image url without defined size
+* fix unfiled images has not attribute quoted_logical_path
+* show override url field
+* fix template loading
+* switch license to BSD
+* make site quickstart db error resistent
+* fix dimensions
+* fix site logo
+* loading style fix
+* loading cleanup
+* client side fixes
+* better developers message
+* wrap_all removed
+* disable quickstart middleware in production mode
+* fix image url without defined size
+* fix unfiled images has not attribute quoted_logical_path
+* show override url field
+* fix template loading
+* switch license to BSD
+* make site quickstart db error resistent
+* fix dimensions
+* fix site logo
+* loading style fix
+* loading cleanup
+* client side fixes
+* update release meta and no compress on init stuff
 * loading tunning
 * modal size fix
 * hide carousel backround

@@ -1,58 +1,11 @@
 
 
-from importlib import import_module
-from django.utils import six
-from .versions import get_versions
-
 import warnings
 
-# define options
-CONF_SPEC = {
-    'optgroup': None,
-    'urls_conf': None,
-    'public': False,
-    'plugins': [],
-    'widgets': [],
-    'apps': [],
-    'middlewares': [],
-    'context_processors': [],
-    'dirs': [],
-    'page_extensions': [],
-    'auth_backends': [],
-    'js_compress_files': [],
-    'js_files': [],
-    'js_spec_files': [],
-    'angular_modules': [],
-    'css_files': [],
-    'scss_files': [],
-    'config': {},
-    'migration_modules': {},
-    'absolute_url_overrides': {},
-    'navigation_extensions': [],
-    'page_actions': [],
-    'widget_actions': [],
-    'ordering': 0,
-}
-
-# just MAP - Django - Our spec
-DJANGO_CONF = {
-    'INSTALLED_APPS': "apps",
-    'APPLICATION_CHOICES': "plugins",
-    'MIDDLEWARE_CLASSES': "middlewares",
-    'AUTHENTICATION_BACKENDS': "auth_backends",
-    'PAGE_EXTENSIONS': "page_extensions",
-    'ADD_JS_FILES': "js_files",
-    'ADD_JS_COMPRESS_FILES': "js_compress_files",
-    'PAGE_EXTENSIONS': "page_extensions",
-    'ADD_PAGE_ACTIONS': "page_actions",
-    'ADD_WIDGET_ACTIONS': "widget_actions",
-    'ADD_CSS_FILES': "css_files",
-    'ADD_JS_FILES': "js_files",
-    'ADD_JS_SPEC_FILES': "js_spec_files",
-    'ADD_SCSS_FILES': "scss_files",
-    'ADD_ANGULAR_MODULES': "angular_modules",
-    'MIGRATION_MODULES': "migration_modules",
-}
+from django.utils import six
+from importlib import import_module
+from leonardo.conf.spec import CONF_SPEC
+from leonardo.conf.base import ModuleConfig
 
 BLACKLIST = ['haystack']
 LEONARDO_MODULES = None
@@ -78,81 +31,6 @@ class dotdict(dict):
 
     def __getattr__(self, attr):
         return self.get(attr, None)
-    __setattr__ = dict.__setitem__
-    __delattr__ = dict.__delitem__
-
-
-class Config(dict):
-
-    """Simple Module Config Object
-    encapsulation of dot access dictionary
-
-    use dictionary as constructor
-
-    """
-
-    def get_value(self, key, values):
-        '''Accept key of propery and actual values'''
-        return merge(values, self.get_property(key))
-
-    def get_property(self, key):
-        """Expect Django Conf property"""
-        _key = DJANGO_CONF[key]
-        return getattr(self, _key, CONF_SPEC[_key])
-
-    @property
-    def module_name(self):
-        """Module name from module if is set"""
-        if hasattr(self, "module"):
-            return self.module.__name__
-        return None
-
-    @property
-    def name(self):
-        """Distribution name from module if is set"""
-        if hasattr(self, "module"):
-            return self.module.__name__.replace('_', '-')
-        return None
-
-    @property
-    def version(self):
-        """return module version"""
-        return get_versions([self.module_name]).get(self.module_name, None)
-
-    @property
-    def latest_version(self):
-        """return latest version if is available"""
-        from leonardo_system.pip import check_versions
-        return check_versions(True).get(self.name, None).get('new', None)
-
-    @property
-    def needs_migrations(self):
-        """Indicates whater module needs migrations"""
-        # TODO(majklk): also check models etc.
-        if len(self.widgets) > 0:
-            return True
-        return False
-
-    @property
-    def needs_sync(self):
-        """Indicates whater module needs templates, static etc."""
-
-        affected_attributes = [
-            'css_files', 'js_files',
-            'scss_files', 'widgets']
-
-        for attr in affected_attributes:
-            if len(getattr(self, attr)) > 0:
-                return True
-        return False
-
-    def set_module(self, module):
-        """Just setter for module"""
-        setattr(self, "module", module)
-
-    def __getattr__(self, attr):
-        return self.get(attr, None)
-
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
 
@@ -186,6 +64,20 @@ def merge(a, b):
     if a and b:
         raise Exception("Cannot merge")
     raise NotImplementedError
+
+
+def _is_leonardo_module(whatever):
+    '''check if is leonardo module'''
+
+    # check if is python module
+    if hasattr(whatever, 'default') \
+            or hasattr(whatever, 'leonardo_module_conf'):
+        return True
+
+    # check if is python object
+    for key in dir(whatever):
+        if 'LEONARDO' in key:
+            return True
 
 
 def get_leonardo_modules():
@@ -230,7 +122,7 @@ def get_leonardo_modules():
     return LEONARDO_MODULES
 
 
-def extract_conf_from(mod, conf=Config(CONF_SPEC), depth=0, max_depth=2):
+def extract_conf_from(mod, conf=ModuleConfig(CONF_SPEC), depth=0, max_depth=2):
     """recursively extract keys from module or object
     by passed config scheme
     """
@@ -278,6 +170,16 @@ def _get_correct_module(mod):
         getattr(mod, "LEONARDO_MODULE_CONF", None))
     if module_location:
         mod = import_module(module_location)
+
+    elif hasattr(mod, 'default_app_config'):
+        # use django behavior
+        mod_path, _, cls_name = mod.default_app_config.rpartition('.')
+        _mod = import_module(mod_path)
+        config_class = getattr(_mod, cls_name)
+        # check if is leonardo config compliant
+        if _is_leonardo_module(config_class):
+            mod = config_class
+
     return mod
 
 
@@ -286,7 +188,7 @@ def get_conf_from_module(mod):
 
     """
 
-    conf = Config(CONF_SPEC)
+    conf = ModuleConfig(CONF_SPEC)
 
     # get imported module
     mod = _get_correct_module(mod)

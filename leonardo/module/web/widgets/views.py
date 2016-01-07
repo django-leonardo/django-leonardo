@@ -1,5 +1,5 @@
 
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
@@ -7,11 +7,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
-from leonardo.views import *
+from horizon.utils import memoized
 from leonardo import messages
+from leonardo.views import *
 
-from .forms import (get_widget_create_form, get_widget_update_form,
-                    WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm)
+from ..models import Page
+from .forms import (WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm,
+                    get_widget_create_form, get_widget_update_form)
 from .tables import WidgetDimensionTable
 from .utils import get_widget_from_id
 
@@ -53,8 +55,19 @@ class WidgetViewMixin(object):
                        'form_size',
                        getattr(self.model, 'form_size', 'md'))
 
+    @memoized.memoized_method
+    def get_page(self):
+        return Page.objects.get(id=self.kwargs['page_id'])
 
-class WidgetUpdateView(UpdateView, WidgetViewMixin):
+    def get_form_kwargs(self):
+        kwargs = super(WidgetViewMixin, self).get_form_kwargs()
+        kwargs.update({
+            'request': self.request,
+        })
+        return kwargs
+
+
+class WidgetUpdateView(WidgetViewMixin, UpdateView):
 
     template_name = 'leonardo/common/modal.html'
 
@@ -74,9 +87,6 @@ class WidgetUpdateView(UpdateView, WidgetViewMixin):
         """Returns an instance of the form to be used in this view."""
 
         kwargs = self.get_form_kwargs()
-        kwargs.update({
-            'request': self.request,
-        })
         return form_class(**kwargs)
 
     def form_valid(self, form):
@@ -86,15 +96,20 @@ class WidgetUpdateView(UpdateView, WidgetViewMixin):
         return response
 
 
-class WidgetCreateView(CreateView, WidgetViewMixin):
+class WidgetCreateView(WidgetViewMixin, CreateView):
 
     template_name = 'leonardo/common/modal.html'
 
     def get_label(self):
-        return ugettext("Create new Widget")
+        form = self.get_form(self.get_form_class())
+        return ugettext("Add new {} to {}".format(
+            form._meta.model._meta.verbose_name,
+            self.get_page()))
 
     def get_form_class(self):
-        return get_widget_create_form(**self.kwargs)
+        if not hasattr(self, '_form_class'):
+            self._form_class = get_widget_create_form(**self.kwargs)
+        return self._form_class
 
     def get_form(self, form_class):
         kwargs = self.get_form_kwargs()
@@ -111,7 +126,8 @@ class WidgetCreateView(CreateView, WidgetViewMixin):
     def form_valid(self, form):
         try:
             obj = form.save(commit=False)
-            obj.save()
+            obj.save(created=False)
+            self.handle_dimensions(obj)
             obj.parent.save()
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
@@ -125,14 +141,14 @@ class WidgetCreateView(CreateView, WidgetViewMixin):
         return self.kwargs
 
 
-class WidgetPreCreateView(CreateView):
+class WidgetPreCreateView(CreateView, WidgetViewMixin):
 
     form_class = WidgetSelectForm
 
     template_name = 'leonardo/common/modal.html'
 
     def get_label(self):
-        return ugettext("Create new Widget")
+        return ugettext("Add new Widget to {}".format(self.get_page()))
 
     def get_context_data(self, **kwargs):
         context = super(WidgetPreCreateView, self).get_context_data(**kwargs)
@@ -181,14 +197,32 @@ class WidgetInfoView(UpdateView, WidgetViewMixin):
         return HttpResponse(mark_safe(widget_info))
 
 
-class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
+class SuccessUrlMixin(object):
+
+    def get_success_url(self):
+        if self.request.META.get("HTTP_REFERER") != \
+                self.request.build_absolute_uri():
+            return self.request.META.get('HTTP_REFERER')
+
+        try:
+            success_url = self.object.parent.get_absolute_url()
+        except:
+            pass
+        else:
+            return success_url
+
+        return super(WidgetActionMixin, self).get_success_url()
+
+
+class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
+                       ContextMixin, ModelFormMixin):
 
     form_class = WidgetDeleteForm
 
     template_name = 'leonardo/common/modal.html'
 
     def get_label(self):
-        return ugettext("Delete")  # .format(self.object.label))
+        return ugettext("Delete {}".format(self.object._meta.verbose_name))
 
     def get_context_data(self, **kwargs):
         context = super(WidgetDeleteView, self).get_context_data(**kwargs)
@@ -209,7 +243,7 @@ class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
             obj.delete()
             # invalide page cache
             parent.invalidate_cache()
-            success_url = parent.get_absolute_url()
+            success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
         except Exception as e:
@@ -221,16 +255,19 @@ class WidgetDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
         return self.kwargs
 
 
-class WidgetSortView(ModalFormView):
-
-    '''Simple handle jquery sortable'''
+class WidgetActionMixin(SuccessUrlMixin):
 
     template_name = 'leonardo/common/modal.html'
-
     form_class = WidgetUpdateForm
+    success_url = "/"
 
     def get(self, *args, **kwargs):
         return self.post(*args, **kwargs)
+
+
+class WidgetSortView(WidgetActionMixin, ModalFormView):
+
+    '''Simple handle jquery sortable'''
 
     def post(self, *args, **kwargs):
 
@@ -259,16 +296,9 @@ class WidgetSortView(ModalFormView):
         return HttpResponse('ok')
 
 
-class WidgetReorderView(ModalFormView, ModelFormMixin):
+class WidgetReorderView(WidgetActionMixin, ModalFormView, ModelFormMixin):
 
     '''Handle reorder 0 = first, 1 = last'''
-
-    template_name = 'leonardo/common/modal.html'
-
-    form_class = WidgetUpdateForm
-
-    def get(self, *args, **kwargs):
-        return self.post(*args, **kwargs)
 
     def post(self, *args, **kwargs):
 
@@ -321,8 +351,26 @@ class WidgetReorderView(ModalFormView, ModelFormMixin):
 
         messages.success(self.request, _('Widget was successfully moved.'))
 
+        success_url = self.get_success_url()
+        response = HttpResponseRedirect(success_url)
+        response['X-Horizon-Location'] = success_url
+        return response
+
+
+class WidgetCopyView(WidgetReorderView):
+
+    '''Create widget copy.'''
+
+    def post(self, *args, **kwargs):
+
+        widget = self.object
+        widget.pk = None
+        widget.save()
+
+        messages.success(self.request, _('Widget was successfully cloned.'))
+
         # TODO try HTTP_REFERER
-        success_url = widget.parent.get_absolute_url()
+        success_url = self.get_success_url()
         response = HttpResponseRedirect(success_url)
         response['X-Horizon-Location'] = success_url
         return response

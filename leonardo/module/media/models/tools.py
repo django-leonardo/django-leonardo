@@ -1,5 +1,5 @@
 
-from ..models import Clipboard
+from .clipboardmodels import Clipboard
 
 
 def discard_clipboard(clipboard):

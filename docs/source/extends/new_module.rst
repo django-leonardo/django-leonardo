@@ -5,6 +5,12 @@ Leonardo Module
 
 Leonardo module is standard Django application with many additional posibilities. In Leonardo module just type your needs and develop your application.
 
+.. code-block:: bash
+
+    pip install cookiecutter
+    git clone https://github.com/django-leonardo/cookiecutter-module.git cookiecutter-leonardo-module
+    cookiecutter cookiecutter-leonardo-module
+
 start module directory structure::
 
     leonardo_module_blog
