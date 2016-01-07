@@ -80,10 +80,11 @@ class Leonardo(AppLoader):
                 try:
                     # check if is not full app
                     _app = import_module(app)
-                except ImportError:
+                except Exception as e:
                     _app = False
 
-                if module_has_submodule(import_module(package_string), app) or _app:
+                if module_has_submodule(
+                        import_module(package_string), app) or _app:
                     if _app:
                         mod = _app
                     else:
@@ -92,8 +93,7 @@ class Leonardo(AppLoader):
                         modules.append(mod)
                         continue
 
-                warnings.warn('%s was skipped because app was '
-                              'not found in PYTHONPATH' % app)
+                warnings.warn('%s was skipped because %s ' % (app, e))
 
             self._modules = modules
         return self._modules
