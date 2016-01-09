@@ -6,9 +6,15 @@
 {% with widget.get_size as size %}
 
 {% if widget.detail == "open_modal" %}
-{% thumbnail widget.image.file size as image %}
-<a class="thumbnail" href="{{ widget.image.url }}" data-title="{{ widget.image.default_caption|default:'' }}" data-footer="{{ widget.image.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}"></a>
-{% endthumbnail %}
+<a class="thumbnail" href="{{ widget.image.url }}" data-title="{{ widget.image.default_caption|default:'' }}" data-footer="{{ widget.image.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}">
+  {% if widget.size %}
+  {% thumbnail widget.image.file size format="PNG" as thumb %}
+  <img class="img-responsive" src='{{ thumb.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+  {% endthumbnail %}
+  {% else %}
+  <img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+  {% endif %}
+</a>
 {% endif %}
 
 {% if widget.detail == "open_new_window" %}
