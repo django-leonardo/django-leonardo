@@ -176,6 +176,7 @@ class Page(FeinCMSPage):
         request_factory = RequestFactory()
         request = request_factory.get(
             self.get_absolute_url(), data={})
+        request.feincms_page = self
 
         content = ''
 
