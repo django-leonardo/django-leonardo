@@ -2,11 +2,11 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.test import RequestFactory
 from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from feincms.module.page.models import BasePage as FeinCMSPage
-
 from ..const import *
 from ..processors import edit as edit_processors
 
@@ -163,3 +163,26 @@ class Page(FeinCMSPage):
             cls.register_response_processor(
                 edit_processors.frontendediting_response_processor,
                 key='frontend_editing')
+
+    @property
+    def as_text(self):
+        '''Fetch and render all regions
+
+        For search and test purposes
+
+        just a prototype
+        '''
+        from leonardo.templatetags.leonardo_tags import _render_content
+        request_factory = RequestFactory()
+        request = request_factory.get(
+            self.get_absolute_url(), data={})
+
+        content = ''
+
+        for region in [region.key
+                       for region in self._feincms_all_regions]:
+            content += ''.join(
+                _render_content(content, request=request, context={})
+                for content in getattr(self.content, region))
+
+        return content

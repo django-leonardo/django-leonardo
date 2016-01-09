@@ -4,4 +4,4 @@ from leonardo.module.media.fields.image import ImageField
 
 class SiteHeadingForm(WidgetUpdateForm):
 
-    logo = ImageField()
+    logo = ImageField(required=False)

@@ -1,6 +1,41 @@
 CHANGES
 =======
 
+
+1.0.5
+-----
+
+* Change all imports to string notation and move imports from widget to models. related to Django 1.9 permited import models before full setup
+* Better info about errors in modules
+* Test all widget classes
+* Construct widget form just once
+* Fix return in load_widget_classes
+* First integration of python-app-loader, cleanup useless stuff
+* Load widget classes in get_all_widgets method
+* Register new content types in models.py and support strings and tuples. #122 From this time use strings instead of classes. Add www prefix to domain in readme
+* Implement target blank option in Simple ImageWidget #123 and mark requirements #125
+* Remove restframework relics
+* Add new Django import path for generic FK and make logo optional
+* Fix travis conf
+* Dj 1.10 to allow failures
+* Add 1.10 to allow failures
+* Add widget dimensions table to widget create form. Which allows create dimensions during widget create
+* Fix double requirement in travis tests
+* Add Django 1.7 back to tests
+* Drops django 1.7 from tests and add 1.10. We still support Django 1.7, but mptt 0.8 drops support for < 1.8
+* Fix imports in new version of polymorphic
+* Bump required version of django-filer. Because dependency to django-polymorphic brokes release
+* Add support for custom constance fields. See django-constance repo for more details
+* Fix delete widget success redirect and update links in README
+* Remove ajax-modal class from target=_blank
+* Tune frontend page admin
+* Split ActionMixin and apply successurl to delete widget view
+* Add widget copy action and cleanup modal headers and redirects
+* Fix unicode on python 2
+* Add common detail tab template
+* Add pbr depndency. Which is included only in setup.py
+* Add image field to Site Heading Widget
+* Set version and changelog update
 * cleanup tox
 * Add search backend deps to travis tests
 * Handle missing haystack backend
@@ -23,6 +58,10 @@ CHANGES
 * expose MEDIA FILES and handle_uploaded_files function
 * update whoosh backend
 * remove useless common fragments
+
+1.0.4
+-----
+
 * readme update
 * include video widget
 * delete cookie in unauth mode
@@ -89,6 +128,13 @@ CHANGES
 * loading cleanup
 * client side fixes
 * update release meta and no compress on init stuff
+
+1.0.3
+-----
+
+* loading tunning
+* modal size fix
+* hide carousel backround
 * loading tunning
 * modal size fix
 * hide carousel backround

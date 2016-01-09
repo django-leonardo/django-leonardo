@@ -1,9 +1,6 @@
 
 from django.apps import AppConfig
 
-from .widget import *
-
-
 default_app_config = 'leonardo.module.nav.NavConfig'
 
 
@@ -16,14 +13,14 @@ class Default(object):
     @property
     def widgets(self):
         return [
-            TreeNavigationWidget,
-            ContentNavigationWidget,
-            ContextNavigationWidget,
-            LinearNavigationWidget,
-            BreadcrumbsWidget,
-            SiteMapWidget,
-            SiteSearchWidget,
-            LanguageSelectorWidget
+            'leonardo.module.nav.models.TreeNavigationWidget',
+            'leonardo.module.nav.models.ContentNavigationWidget',
+            'leonardo.module.nav.models.ContextNavigationWidget',
+            'leonardo.module.nav.models.LinearNavigationWidget',
+            'leonardo.module.nav.models.BreadcrumbsWidget',
+            'leonardo.module.nav.models.SiteMapWidget',
+            'leonardo.module.nav.models.SiteSearchWidget',
+            'leonardo.module.nav.models.LanguageSelectorWidget'
         ]
 
 

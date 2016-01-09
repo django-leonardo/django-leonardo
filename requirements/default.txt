@@ -2,12 +2,11 @@ pbr>=0.11,<2.0
 Django<1.9,>=1.7
 FeinCMS==1.11.1
 django-extensions==1.5.9
-djangorestframework>=3.0.0
 django-floppyforms==1.5.1
 django-crispy-forms==1.4.0
 django_compressor==1.5
 Django-Select2==5.2.0
-
+python-app-loader>=0.0.1
 docutils==0.12
 django-pyscss>=1.0.3
 django-filer==1.0.6
@@ -17,15 +16,15 @@ django-haystack==2.3.1
 sorl-thumbnail==12.2
 easy-thumbnails==2.2
 
-leonardo-system>=0.1.0
-leonardo-admin>=2015.10.0
+leonardo-system>=0.1.0 # optional
+leonardo-admin>=2015.10.0 # optional
 horizon-contrib>=2015.10.4
 leonardo_horizon==2015.3
 leonardo_dbtemplates>=1.0.0a0
 leonardo_constance>=1.0.0a3
-leonardo-sitestarter>=1.0.0a2
+leonardo-sitestarter>=1.0.0a2 # optional
 
-leonardo-ckeditor>=1.0.0a1
+leonardo-ckeditor>=1.0.0a1 # optional
 
 django-picklefield==0.3.1
 

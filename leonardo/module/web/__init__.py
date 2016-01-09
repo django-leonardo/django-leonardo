@@ -86,13 +86,14 @@ class Default(object):
     @property
     def widgets(self):
         return [
-            ApplicationWidget,
-            SiteHeadingWidget,
-            MarkupTextWidget,
-            FeedReaderWidget,
-            HtmlTextWidget,
-            PageTitleWidget,
-            IconWidget,
+            'leonardo.module.web.models.ApplicationWidget',
+            'leonardo.module.web.models.SiteHeadingWidget',
+            ('leonardo.module.web.models.FeedReaderWidget', {
+             'dummy': 'dummy'}),
+            'leonardo.module.web.models.MarkupTextWidget',
+            'leonardo.module.web.models.HtmlTextWidget',
+            'leonardo.module.web.models.PageTitleWidget',
+            'leonardo.module.web.models.IconWidget',
         ]
 
     plugins = [

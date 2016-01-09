@@ -1,3 +1,4 @@
+
 {{ object.title }}
 {{ object.slug }}
-{{ object.content }}
+{{ object.as_text|safe }}

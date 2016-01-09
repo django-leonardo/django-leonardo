@@ -9,9 +9,9 @@ from leonardo.module.media.fields.image import ImageField
 from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
 ON_CLICK_CHOICES = (
-    ('open_modal', _('open in modal window')),
-    ('open_new_window', _('open new window')),
-    ('on_page', _('disply in page')),
+    ('open_modal', _('Open in modal window')),
+    ('open_new_window', _('Open new window')),
+    ('on_page', _('Display in page')),
 )
 
 SIZE_CHOICES = (

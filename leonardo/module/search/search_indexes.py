@@ -1,5 +1,7 @@
-from haystack import indexes, fields
+from django.test import RequestFactory
+from haystack import fields, indexes
 from leonardo.module.web.models import Page
+from leonardo.templatetags.leonardo_tags import _render_content
 
 
 class PageIndex(indexes.SearchIndex, indexes.Indexable):
@@ -20,10 +22,10 @@ class PageIndex(indexes.SearchIndex, indexes.Indexable):
     meta_description = fields.CharField(model_attr="meta_description")
     meta_keywords = fields.CharField(model_attr="meta_keywords")
     content_title = fields.CharField(model_attr="_content_title")
-    content = fields.CharField(model_attr="content")
 
     creation_date = fields.DateTimeField(model_attr='creation_date', null=True)
-    modification_date = fields.DateTimeField(model_attr='modification_date', null=True)
+    modification_date = fields.DateTimeField(
+        model_attr='modification_date', null=True)
 
     def should_update(self, instance, **kwargs):
         return instance.is_active()
@@ -35,5 +37,6 @@ class PageIndex(indexes.SearchIndex, indexes.Indexable):
         """Used when the entire index for model is updated."""
         return self.get_model().objects.filter(active=True)
 
-    def get_updated_field(self):
-        return "modification_date"
+# I don't know if this date is changed if some widget was changed..
+#    def get_updated_field(self):
+#        return "modification_date"

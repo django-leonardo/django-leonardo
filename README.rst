@@ -50,7 +50,7 @@ Further reading:
    :alt: Coverage
    :target: https://coveralls.io/r/django-leonardo/django-leonardo?branch=develop
 
-.. _`Leonardo Site`: http://leonardo-cms.org
+.. _`Leonardo Site`: http://www.leonardo-cms.org
 .. _`Demo Site`: http://demo.leonardo-cms.org
 .. _`Modules`: http://github.com/leonardo-modules
 .. _`Demo Store`: http://store.leonardo-cms.org

@@ -1,6 +1,6 @@
 
 from django_select2.forms import ModelSelect2Widget
-from leonardo.models import Page, PageColorScheme, PageTheme
+from leonardo.module.web.models.page import Page, PageColorScheme, PageTheme
 
 
 class PageSelectWidget(ModelSelect2Widget):

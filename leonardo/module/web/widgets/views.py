@@ -107,7 +107,9 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
             self.get_page()))
 
     def get_form_class(self):
-        return get_widget_create_form(**self.kwargs)
+        if not hasattr(self, '_form_class'):
+            self._form_class = get_widget_create_form(**self.kwargs)
+        return self._form_class
 
     def get_form(self, form_class):
         kwargs = self.get_form_kwargs()

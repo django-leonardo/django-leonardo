@@ -46,7 +46,6 @@ class Default(object):
             'django.contrib.staticfiles',
             'django.contrib.sitemaps',
 
-            'rest_framework',
             'dbtemplates',
 
             'django_select2',
