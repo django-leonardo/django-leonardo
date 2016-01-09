@@ -3,10 +3,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.test import RequestFactory
+from django.contrib.auth.models import AnonymousUser
 from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from feincms.module.page.models import BasePage as FeinCMSPage
+from django.core.exceptions import PermissionDenied
 from ..const import *
 from ..processors import edit as edit_processors
 
@@ -164,6 +166,21 @@ class Page(FeinCMSPage):
                 edit_processors.frontendediting_response_processor,
                 key='frontend_editing')
 
+    def run_request_processors(self, request):
+        """
+        Before rendering a page, run all registered request processors. A
+        request processor may peruse and modify the page or the request. It can
+        also return a ``HttpResponse`` for shortcutting the rendering and
+        returning that response immediately to the client.
+        """
+        if not getattr(self, 'request_processors', None):
+            return
+
+        for fn in reversed(list(self.request_processors.values())):
+            r = fn(self, request)
+            if r:
+                return r
+
     @property
     def as_text(self):
         '''Fetch and render all regions
@@ -173,17 +190,30 @@ class Page(FeinCMSPage):
         just a prototype
         '''
         from leonardo.templatetags.leonardo_tags import _render_content
+
         request_factory = RequestFactory()
         request = request_factory.get(
             self.get_absolute_url(), data={})
         request.feincms_page = request.leonardo_page = self
+        request.user = AnonymousUser()
+
+        if not hasattr(request, '_feincms_extra_context'):
+            request._feincms_extra_context = {}
 
         content = ''
+        try:
 
-        for region in [region.key
-                       for region in self._feincms_all_regions]:
-            content += ''.join(
-                _render_content(content, request=request, context={})
-                for content in getattr(self.content, region))
+            # check permissions etc..
+            self.run_request_processors(request)
+
+            for region in [region.key
+                           for region in self._feincms_all_regions]:
+                content += ''.join(
+                    _render_content(content, request=request, context={})
+                    for content in getattr(self.content, region))
+        except PermissionDenied:
+            pass
+        except Exception as e:
+            raise e
 
         return content
