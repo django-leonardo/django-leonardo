@@ -1,5 +1,5 @@
 from haystack import indexes, fields
-from .models import File, Image, Document, Video
+from .models import File, Image, Document, Video, Vector
 
 
 class FileIndex(indexes.SearchIndex, indexes.Indexable):
@@ -15,7 +15,8 @@ class FileIndex(indexes.SearchIndex, indexes.Indexable):
     title = fields.CharField(model_attr="name", null=True)
     description = fields.CharField(model_attr="description", null=True)
     folder = fields.CharField(model_attr="folder", null=True)
-    original_filename = fields.CharField(model_attr="original_filename", null=True)
+    original_filename = fields.CharField(
+        model_attr="original_filename", null=True)
 
     uploaded_at = fields.DateTimeField(model_attr='uploaded_at', null=True)
 
@@ -45,3 +46,9 @@ class VideoIndex(FileIndex):
 
     def get_model(self):
         return Video
+
+
+class VectorIndex(FileIndex):
+
+    def get_model(self):
+        return Vector

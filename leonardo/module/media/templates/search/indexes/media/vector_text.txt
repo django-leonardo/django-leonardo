@@ -1,0 +1,6 @@
+{{ object.url }}
+{{ object.title }}
+{{ object.description }}
+{{ object.folder }}
+{{ object.original_filename }}
+{{ object.updated_at }}
