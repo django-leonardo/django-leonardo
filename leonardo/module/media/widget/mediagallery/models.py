@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from leonardo.module.media.fields.folder import FolderField
 from leonardo.module.web.models import ListWidget
 from leonardo.module.web.widgets.forms import WidgetUpdateForm
+from leonardo.module.media.models import Image
 
 DETAIL_CHOICES = (
     ('open_modal', _('open in modal window')),
@@ -44,7 +45,7 @@ class MediaGalleryWidget(ListWidget):
                        '96x96')
 
     def get_items(self):
-        return self.folder.media_file_files.all()
+        return self.folder.media_file_files.instance_of(Image)
 
     class Meta:
         abstract = True
