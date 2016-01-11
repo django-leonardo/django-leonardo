@@ -6,9 +6,14 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .. import settings as media_settings
-from ..models import Clipboard, ClipboardItem
+from ..models import Clipboard, ClipboardItem, Folder
 from filer.utils.files import handle_upload, UploadException
 from filer.utils.loader import load_object
+
+NO_FOLDER_ERROR = "Can't find folder to upload. Please refresh and try again"
+NO_PERMISSIONS_FOR_FOLDER = (
+    "Can't use this folder, Permission Denied. Please select another folder."
+)
 
 
 # ModelAdmins
@@ -29,21 +34,27 @@ class ClipboardAdmin(admin.ModelAdmin):
         urls = super(ClipboardAdmin, self).get_urls()
         from .. import views
         url_patterns = patterns('',
-            url(r'^operations/paste_clipboard_to_folder/$',
-                self.admin_site.admin_view(views.paste_clipboard_to_folder),
-                name='filer-paste_clipboard_to_folder'),
-            url(r'^operations/discard_clipboard/$',
-                self.admin_site.admin_view(views.discard_clipboard),
-                name='filer-discard_clipboard'),
-            url(r'^operations/delete_clipboard/$',
-                self.admin_site.admin_view(views.delete_clipboard),
-                name='filer-delete_clipboard'),
-            # upload does it's own permission stuff (because of the stupid
-            # flash missing cookie stuff)
-            url(r'^operations/upload/$',
-                self.ajax_upload,
-                name='filer-ajax_upload'),
-        )
+                                url(r'^operations/paste_clipboard_to_folder/$',
+                                    self.admin_site.admin_view(
+                                        views.paste_clipboard_to_folder),
+                                    name='filer-paste_clipboard_to_folder'),
+                                url(r'^operations/discard_clipboard/$',
+                                    self.admin_site.admin_view(
+                                        views.discard_clipboard),
+                                    name='filer-discard_clipboard'),
+                                url(r'^operations/delete_clipboard/$',
+                                    self.admin_site.admin_view(
+                                        views.delete_clipboard),
+                                    name='filer-delete_clipboard'),
+                                # upload does it's own permission stuff (because of the stupid
+                                # flash missing cookie stuff)
+                                url(r'^operations/upload/(?P<folder_id>[0-9]+)/$',
+                                    self.ajax_upload,
+                                    name='filer-ajax_upload'),
+                                url(r'^operations/upload/no_folder/$',
+                                    self.ajax_upload,
+                                    name='filer-ajax_upload'),
+                                )
         url_patterns.extend(urls)
         return url_patterns
 
@@ -55,16 +66,31 @@ class ClipboardAdmin(admin.ModelAdmin):
         mimetype = "application/json" if request.is_ajax() else "text/html"
         content_type_key = 'content_type'
         response_params = {content_type_key: mimetype}
+        folder = None
+        if folder_id:
+            try:
+                # Get folder
+                folder = Folder.objects.get(pk=folder_id)
+            except Folder.DoesNotExist:
+                return HttpResponse(json.dumps({'error': NO_FOLDER_ERROR}),
+                                    **response_params)
+
+        # check permissions
+        if folder and not folder.has_add_children_permission(request):
+            return HttpResponse(
+                json.dumps({'error': NO_PERMISSIONS_FOR_FOLDER}),
+                **response_params)
         try:
             upload, filename, is_raw = handle_upload(request)
 
             # Get clipboad
-            clipboard = Clipboard.objects.get_or_create(user=request.user)[0]
+            # TODO: Deprecated/refactor
+            # clipboard = Clipboard.objects.get_or_create(user=request.user)[0]
 
             # find the file type
             for filer_class in media_settings.MEDIA_FILE_MODELS:
                 FileSubClass = load_object(filer_class)
-                #TODO: What if there are more than one that qualify?
+                # TODO: What if there are more than one that qualify?
                 if FileSubClass.matches_file_type(filename, upload, request):
                     FileForm = modelform_factory(
                         model=FileSubClass,
@@ -78,14 +104,17 @@ class ClipboardAdmin(admin.ModelAdmin):
                 file_obj = uploadform.save(commit=False)
                 # Enforce the FILER_IS_PUBLIC_DEFAULT
                 file_obj.is_public = settings.MEDIA_IS_PUBLIC_DEFAULT
+                file_obj.folder = folder
                 file_obj.save()
-                clipboard_item = ClipboardItem(
-                    clipboard=clipboard, file=file_obj)
-                clipboard_item.save()
+                # TODO: Deprecated/refactor
+                # clipboard_item = ClipboardItem(
+                #    clipboard=clipboard, file=file_obj)
+                # clipboard_item.save()
                 json_response = {
                     'thumbnail': file_obj.icons['32'],
                     'alt_text': '',
                     'label': str(file_obj),
+                    'file_id': file_obj.pk,
                 }
                 return HttpResponse(json.dumps(json_response),
                                     **response_params)
@@ -94,7 +123,8 @@ class ClipboardAdmin(admin.ModelAdmin):
                     field,
                     ', '.join(errors)) for field, errors in list(uploadform.errors.items())
                 ])
-                raise UploadException("AJAX request not valid: form invalid '%s'" % (form_errors,))
+                raise UploadException(
+                    "AJAX request not valid: form invalid '%s'" % (form_errors,))
         except UploadException as e:
             return HttpResponse(json.dumps({'error': str(e)}),
                                 **response_params)

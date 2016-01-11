@@ -564,7 +564,8 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
 
     def move_to_clipboard(self, request, files_queryset, folders_queryset):
         """
-        Action which moves the selected files and files in selected folders to clipboard.
+        Action which moves the selected files and files in selected folders
+        to clipboard.
         """
 
         if not self.has_change_permission(request):
@@ -578,9 +579,12 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
         check_files_edit_permissions(request, files_queryset)
         check_folder_edit_permissions(request, folders_queryset)
 
-        # TODO: Display a confirmation page if moving more than X files to clipboard?
+        # TODO: Display a confirmation page if moving more than X files to
+        # clipboard?
 
-        files_count = [0]  # We define it like that so that we can modify it inside the move_files function
+        # We define it like that so that we can modify it inside the
+        # move_files function
+        files_count = [0]
 
         def move_files(files):
             files_count[0] += tools.move_file_to_clipboard(files, clipboard)
@@ -588,18 +592,18 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
         def move_folders(folders):
             for f in folders:
                 move_files(f.files)
-                move_folders(f.media_folder_children.all())
+                move_folders(f.children.all())
 
         move_files(files_queryset)
         move_folders(folders_queryset)
 
-        self.message_user(request, _("Successfully moved %(count)d files to clipboard.") % {
-            "count": files_count[0],
-        })
+        self.message_user(request, _("Successfully moved %(count)d files to "
+                                     "clipboard.") % {"count": files_count[0]})
 
         return None
 
-    move_to_clipboard.short_description = ugettext_lazy("Move selected files to clipboard")
+    move_to_clipboard.short_description = ugettext_lazy(
+        "Move selected files to clipboard")
 
     def files_set_public_or_private(self, request, set_public, files_queryset, folders_queryset):
         """
