@@ -199,9 +199,11 @@ class PageDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
     def form_valid(self, form):
         obj = self.object
         try:
-            parent = obj.parent
+            if object.parent:
+                success_url = obj.parent.get_absolute_url()
+            else:
+                success_url = '/'
             obj.delete()
-            success_url = parent.get_absolute_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
         except Exception as e:

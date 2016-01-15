@@ -33,17 +33,12 @@
 {% endif %}
 <link href="{{ STATIC_URL }}horizon/lib/font-awesome/scss/font-awesome.scss" type="text/scss" media="screen" rel="stylesheet" />
 <link href="{{ STATIC_URL }}horizon/lib/bootstrap_datepicker/datepicker3.css" type="text/css" media="screen" rel="stylesheet" />
-{% for file in HORIZON_CONFIG.scss_files %}
+{% for file in LEONARDO_CONFIG.scss_files %}
 <link href="{{ STATIC_URL }}{{ file }}" type="text/scss" media="screen" rel="stylesheet" />
 {% endfor %}
-{% for file in HORIZON_CONFIG.css_files %}
+{% for file in LEONARDO_CONFIG.css_files %}
 <link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
 {% endfor %}
-<style type="text/css" media='screen'>
-{% for widget in request.leonardo_options.widgets %}
-  {{ widget.theme.style|safe }}
-{% endfor %}
-</style>
 {% endcompress %}
 
 {% endblock %}

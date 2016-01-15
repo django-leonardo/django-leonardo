@@ -76,6 +76,7 @@ class WebMiddleware(object):
         request.frontend_editing = request.COOKIES.get(
             'frontend_editing', False)
 
+        # obsolete use context variable
         request.LEONARDO_CONFIG = conf.HORIZON_CONFIG
 
         # old
