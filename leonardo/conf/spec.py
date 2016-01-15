@@ -47,3 +47,18 @@ DJANGO_CONF = {
     'MIGRATION_MODULES': "migration_modules",
     'CONSTANCE_ADDITIONAL_FIELDS': "additional_fields",
 }
+
+try:
+    from local_settings import LEONARDO_CONF_SPEC
+    CONF_SPEC.update(LEONARDO_CONF_SPEC)
+except ImportError:
+    pass
+else:
+    # TODO: say something useful
+    pass
+
+try:
+    from local_settings import LEONARDO_DJANGO_CONF
+    DJANGO_CONF.update(LEONARDO_DJANGO_CONF)
+except ImportError:
+    pass
