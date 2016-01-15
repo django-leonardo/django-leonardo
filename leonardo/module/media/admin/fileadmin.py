@@ -13,6 +13,7 @@ from .permissions import PrimitivePermissionAwareModelAdmin
 
 
 class FileAdminChangeFrom(forms.ModelForm):
+
     class Meta:
         model = File
         exclude = ()
@@ -23,7 +24,7 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
     list_per_page = settings.MEDIA_PAGINATE_BY
     search_fields = ['name', 'original_filename', 'sha1', 'description']
     raw_id_fields = ('owner',)
-    readonly_fields = ('sha1',)
+    readonly_fields = ('sha1', 'display_canonical')
 
     # save_as hack, because without save_as it is impossible to hide the
     # save_and_add_another if save_as is False. To show only save_and_continue
@@ -40,10 +41,10 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
                 'fields': ('name', 'owner', 'description',) + extra_main_fields,
             }),
             (_('Advanced'), {
-                'fields': ('file', 'sha1',) + extra_advanced_fields,
+                'fields': ('file', 'sha1', 'display_canonical') + extra_advanced_fields,
                 'classes': ('collapse',),
-                }),
-            ) + extra_fieldsets
+            }),
+        ) + extra_fieldsets
         if settings.FILER_ENABLE_PERMISSIONS:
             fieldsets = fieldsets + (
                 (None, {
@@ -61,16 +62,16 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
         if r['Location']:
             # it was a successful save
             if (r['Location'] in ['../'] or
-                r['Location'] == self._get_post_url(obj)):
+                    r['Location'] == self._get_post_url(obj)):
                 # this means it was a save: redirect to the directory view
                 if obj.folder:
                     url = reverse('admin:filer-directory_listing',
                                   kwargs={'folder_id': obj.folder.id})
                 else:
                     url = reverse(
-                            'admin:filer-directory_listing-unfiled_images')
-                url = "%s%s%s" % (url,popup_param(request),
-                                  selectfolder_param(request,"&"))
+                        'admin:filer-directory_listing-unfiled_images')
+                url = "%s%s%s" % (url, popup_param(request),
+                                  selectfolder_param(request, "&"))
                 return HttpResponseRedirect(url)
             else:
                 # this means it probably was a save_and_continue_editing
@@ -81,7 +82,7 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
                            form_url='', obj=None):
         extra_context = {'show_delete': True,
                          'is_popup': popup_status(request),
-                         'select_folder': selectfolder_status(request),}
+                         'select_folder': selectfolder_status(request), }
         context.update(extra_context)
         return super(FileAdmin, self).render_change_form(
             request=request, context=context, add=False, change=False,
@@ -118,8 +119,8 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
                               kwargs={'folder_id': parent_folder.id})
             else:
                 url = reverse('admin:filer-directory_listing-unfiled_images')
-            url = "%s%s%s" % (url,popup_param(request),
-                              selectfolder_param(request,"&"))
+            url = "%s%s%s" % (url, popup_param(request),
+                              selectfolder_param(request, "&"))
             return HttpResponseRedirect(url)
         return r
 
@@ -132,5 +133,14 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
             'change': True,
             'delete': True,
         }
+
+    def display_canonical(self, instance):
+        canonical = instance.canonical_url
+        if canonical:
+            return '<a href="%s">%s</a>' % (canonical, canonical)
+        else:
+            return '-'
+    display_canonical.allow_tags = True
+    display_canonical.short_description = _('canonical URL')
 
 FileAdmin.fieldsets = FileAdmin.build_fieldsets()

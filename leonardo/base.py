@@ -11,7 +11,7 @@ from leonardo.conf import Default
 from leonardo.decorators import _decorate_urlconf, require_auth
 from leonardo.utils import is_leonardo_module
 from leonardo.utils.settings import (get_conf_from_module,
-                                     get_leonardo_modules, get_loaded_modules,
+                                     get_loaded_modules,
                                      merge)
 
 
@@ -21,6 +21,16 @@ default = Default()
 
 class Leonardo(AppLoader):
 
+    '''Main CMS instance
+
+    .. code-block:: python
+
+        from leonardo import leonardo
+
+        print(leonardo.config.apps)
+        print(leonardo.config.widgets)
+    '''
+
     default = default
 
     MODULES_AUTOLOAD = True
@@ -29,41 +39,6 @@ class Leonardo(AppLoader):
     CONFIG_MODULE_SPEC_CLASS = "leonardo.conf.spec.CONF_SPEC"
     CONFIG_MODULE_OBJECT_CLASS = "leonardo.conf.base.ModuleConfig"
     CONFIG_MASTER_OBJECT_CLASS = "leonardo.conf.base.LeonardoConfig"
-
-    def load_modules(self):
-        """find all leonardo modules from environment"""
-        if self.MODULES_AUTOLOAD:
-            self.add_modules(get_leonardo_modules())
-        return self.modules
-
-    @property
-    def is_loaded(self):
-        return True if hasattr(self, '_modules') else False
-
-    @property
-    def modules(self):
-        """loaded modules
-        auto populated if is not present
-        """
-        return self._modules
-
-    def set_modules(self, modules):
-        """setter for modules"""
-        self._modules = modules
-
-    def add_modules(self, modules):
-        """Merge new modules to loaded modules"""
-        merged_modules = merge(modules, self.modules)
-        self.set_modules(merged_modules)
-
-    def get_modules(self, modules=None):
-        """load configuration for all modules"""
-        if not hasattr(self, "loaded_modules"):
-            self.loaded_modules = get_loaded_modules(modules or self.modules)
-        return self.loaded_modules
-
-    def get_modules_as_list(self):
-        return [module_cfg for mod, module_cfg in self.get_modules()]
 
     def get_app_modules(self, apps):
         """return array of imported leonardo modules for apps
@@ -147,12 +122,5 @@ class Leonardo(AppLoader):
         return urlpatterns
 
     _instance = None
-
-    def __new__(cls, *args, **kwargs):
-        """A singleton implementation of Leonardo. There can be only one.
-        """
-        if not cls._instance:
-            cls._instance = super(Leonardo, cls).__new__(cls, *args, **kwargs)
-        return cls._instance
 
 leonardo = Leonardo()

@@ -192,6 +192,19 @@ class File(PolymorphicModel, mixins.IconsMixin):
     delete.alters_data = True
 
     @property
+    def canonical_url(self):
+        url = ''
+        if self.file and self.is_public:
+            try:
+                url = urlresolvers.reverse('canonical', kwargs={
+                    'uploaded_at': self.uploaded_at.strftime('%s'),
+                    'file_id': self.id
+                })
+            except urlresolvers.NoReverseMatch:
+                pass  # No canonical url, return empty string
+        return url
+
+    @property
     def label(self):
         if self.name in ['', None]:
             text = self.original_filename or 'unnamed file'

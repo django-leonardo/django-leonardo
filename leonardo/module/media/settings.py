@@ -31,7 +31,7 @@ MEDIA_FILE_MODELS = getattr(settings, 'MEDIA_FILE_MODELS',
 )
 
 DEFAULT_FILE_STORAGE = getattr(settings, 'DEFAULT_FILE_STORAGE', 'django.core.files.storage.FileSystemStorage')
-
+MEDIA_CANONICAL_URL = getattr(settings, 'MEDIA_CANONICAL_URL', 'files/')
 
 DEFAULT_MEDIA_STORAGES = {
     'public': {

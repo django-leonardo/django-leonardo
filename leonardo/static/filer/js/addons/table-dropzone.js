@@ -2,36 +2,51 @@
 // This script implements the dropzone settings
 'use strict';
 
-/* globals Dropzone */
+/* globals Dropzone, Cl */
 (function ($) {
     $(function () {
         var submitNum = 0;
         var maxSubmitNum = 1;
-        var dropzoneBase = $('.js-dropzone-base');
-        var dropzoneSelector = '.js-dropzone';
+        var dropzoneInstances = [];
+        var dropzoneBase = $('.js-filer-dropzone-base');
+        var dropzoneSelector = '.js-filer-dropzone';
         var dropzones;
-        var infoMessageClass = 'js-dropzone-info-message';
+        var infoMessageClass = 'js-filer-dropzone-info-message';
         var infoMessage = $('.' + infoMessageClass);
-        var folderName = $('.js-dropzone-folder-name');
-        var uploadInfo = $('.js-dropzone-upload-info');
-        var uploadWelcome = $('.js-dropzone-upload-welcome');
-        var uploadNumber = $('.js-dropzone-upload-number');
-        var uploadFileName = $('.js-dropzone-file-name');
-        var uploadProgress = $('.js-dropzone-progress');
-        var uploadSuccess = $('.js-dropzone-upload-success');
+        var folderName = $('.js-filer-dropzone-folder-name');
+        var uploadInfoContainer = $('.js-filer-dropzone-upload-info-container');
+        var uploadInfo = $('.js-filer-dropzone-upload-info');
+        var uploadWelcome = $('.js-filer-dropzone-upload-welcome');
+        var uploadNumber = $('.js-filer-dropzone-upload-number');
+        var uploadFileNameSelector = '.js-filer-dropzone-file-name';
+        var uploadProgressSelector = '.js-filer-dropzone-progress';
+        var uploadSuccess = $('.js-filer-dropzone-upload-success');
+        var uploadCanceled = $('.js-filer-dropzone-upload-canceled');
+        var cancelUpload = $('.js-filer-dropzone-cancel');
         var dragHoverClass = 'dz-drag-hover';
+        var dataUploaderConnections = 'max-uploader-connections';
         var hiddenClass = 'hidden';
         var hideMessageTimeout;
         var hasErrors = false;
         var baseUrl;
         var baseFolderTitle;
+        var updateUploadNumber = function () {
+            uploadNumber.text(maxSubmitNum - submitNum + '/' + maxSubmitNum);
+        };
+        var destroyDropzones = function () {
+            $.each(dropzoneInstances, function (index) {
+                dropzoneInstances[index].destroy();
+            });
+        };
 
         if (dropzoneBase && dropzoneBase.length) {
             baseUrl = dropzoneBase.data('url');
             baseFolderTitle = dropzoneBase.data('folder-name');
 
-            $('body').data('url', baseUrl).data('folder-name', baseFolderTitle).addClass('js-dropzone');
+            $('body').data('url', baseUrl).data('folder-name', baseFolderTitle).addClass('js-filer-dropzone');
         }
+
+        Cl.mediator.subscribe('filer-upload-in-progress', destroyDropzones);
 
         dropzones = $(dropzoneSelector);
 
@@ -40,30 +55,37 @@
             dropzones.each(function () {
                 var dropzone = $(this);
                 var dropzoneUrl = $(this).data('url');
-                new Dropzone(this, {
+                var dropzoneInstance = new Dropzone(this, {
                     url: dropzoneUrl,
                     paramName: 'file',
                     maxFiles: 100,
                     previewTemplate: '<div></div>',
                     clickable: false,
                     addRemoveLinks: false,
+                    parallelUploads: dropzone.data(dataUploaderConnections) || 3,
                     addedfile: function () {
+                        Cl.mediator.remove('filer-upload-in-progress', destroyDropzones);
+                        Cl.mediator.publish('filer-upload-in-progress');
                         submitNum++;
 
-                        if (maxSubmitNum < submitNum) {
+                        if (submitNum > maxSubmitNum) {
                             maxSubmitNum = submitNum;
                         }
-                    },
-                    maxfilesexceeded: function (file) {
-                        this.removeAllFiles();
-                        this.addFile(file);
+
+                        cancelUpload.removeClass(hiddenClass);
+                        updateUploadNumber(this.files);
+
+                        dropzones.removeClass('reset-hover');
+                        clearTimeout(hideMessageTimeout);
+                        infoMessage.removeClass(hiddenClass);
+                        dropzones.removeClass(dragHoverClass);
                     },
                     dragover: function (dragEvent) {
                         var folderTitle = $(dragEvent.target).closest(dropzoneSelector).data('folder-name');
-
+                        $(dropzones).addClass('reset-hover');
                         uploadSuccess.addClass(hiddenClass);
                         infoMessage.removeClass(hiddenClass);
-                        dropzone.addClass(dragHoverClass);
+                        dropzone.addClass(dragHoverClass).removeClass('reset-hover');
 
                         folderName.text(folderTitle);
                     },
@@ -76,34 +98,43 @@
                         infoMessage.removeClass(hiddenClass);
                         dropzones.removeClass(dragHoverClass);
                     },
-                    drop: function () {
-                        clearTimeout(hideMessageTimeout);
-                        infoMessage.removeClass(hiddenClass);
-                        dropzones.removeClass(dragHoverClass);
-                    },
                     sending: function (file) {
+                        var uploadInfoClone = uploadInfo.clone();
+
                         uploadWelcome.addClass(hiddenClass);
-                        uploadFileName.text(file.name);
-                        uploadProgress.width(0);
-                        uploadInfo.removeClass(hiddenClass);
+
+                        uploadInfoClone.find(uploadFileNameSelector).text(file.name);
+                        uploadInfoClone.find(uploadProgressSelector).width(0);
+                        uploadInfoClone.removeClass(hiddenClass)
+                            .attr('id', 'file-' + file.size + file.lastModified)
+                            .appendTo(uploadInfoContainer);
                     },
                     uploadprogress: function (file, progress) {
-                        uploadProgress.width(progress + '%');
-                        uploadNumber.text(maxSubmitNum - submitNum + 1 + '/' + maxSubmitNum);
+                        $('#file-' + file.size + file.lastModified).find(uploadProgressSelector)
+                            .width(progress + '%');
                     },
-                    complete: function () {
+                    complete: function (file) {
+                        $('#file-' + file.size + file.lastModified).remove();
                         submitNum--;
+                        updateUploadNumber(this.files);
                     },
                     queuecomplete: function () {
-                        maxSubmitNum = 1;
+                        if (submitNum !== 0) {
+                            return;
+                        }
 
+                        updateUploadNumber(this.files);
+
+                        cancelUpload.addClass(hiddenClass);
                         uploadInfo.addClass(hiddenClass);
-                        uploadSuccess.removeClass(hiddenClass);
+
                         if (hasErrors) {
+                            uploadNumber.addClass(hiddenClass);
                             setTimeout(function () {
                                 window.location.reload();
-                            }, 3000);
+                            }, 1000);
                         } else {
+                            uploadSuccess.removeClass(hiddenClass);
                             window.location.reload();
                         }
                     },
@@ -112,6 +143,13 @@
                         window.showError(file.name + ': ' + file.xhr.statusText);
                     }
                 });
+                cancelUpload.on('click', function (clickEvent) {
+                    clickEvent.preventDefault();
+                    cancelUpload.addClass(hiddenClass);
+                    uploadCanceled.removeClass(hiddenClass);
+                    dropzoneInstance.removeAllFiles(true);
+                });
+                dropzoneInstances.push(dropzoneInstance);
             });
         }
     });

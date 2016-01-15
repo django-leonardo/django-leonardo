@@ -10,7 +10,7 @@ from django import VERSION
 from leonardo.conf.spec import DJANGO_CONF
 from leonardo.base import leonardo, default
 from leonardo.utils.settings import (get_conf_from_module, merge,
-                                     get_leonardo_modules, get_loaded_modules)
+                                     get_loaded_modules)
 from importlib import import_module  # noqa
 from django.utils.module_loading import module_has_submodule  # noqa
 

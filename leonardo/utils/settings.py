@@ -80,48 +80,6 @@ def _is_leonardo_module(whatever):
             return True
 
 
-def get_leonardo_modules():
-    """return all leonardo modules
-
-    check every installed module for leonardo descriptor
-
-    by default use in memory cache
-    """
-    global LEONARDO_MODULES
-
-    if not LEONARDO_MODULES:
-        modules = []
-
-        try:
-            import pip
-            installed_packages = pip.get_installed_distributions()
-        except Exception:
-            installed_packages = []
-            warnings.warn(
-                'pip is not installed module, scan module is skipped.',
-                RuntimeWarning)
-
-        for package in installed_packages:
-            # check for default descriptor
-            pkg_names = [k for k in package._get_metadata("top_level.txt")]
-            for pkg_name in pkg_names:
-                if pkg_name not in BLACKLIST:
-                    try:
-                        mod = import_module(pkg_name)
-                        if hasattr(mod, 'default') \
-                                or hasattr(mod, 'leonardo_module_conf'):
-                            modules.append(mod)
-                            continue
-                        for key in dir(mod):
-                            if 'LEONARDO' in key:
-                                modules.append(mod)
-                                break
-                    except Exception:
-                        pass
-        LEONARDO_MODULES = modules
-    return LEONARDO_MODULES
-
-
 def extract_conf_from(mod, conf=ModuleConfig(CONF_SPEC), depth=0, max_depth=2):
     """recursively extract keys from module or object
     by passed config scheme
