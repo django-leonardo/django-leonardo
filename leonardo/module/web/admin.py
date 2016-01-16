@@ -42,6 +42,41 @@ class PageAdmin(FeinPageAdmin):
         item_editor.FEINCMS_CONTENT_FIELDSET,
     ]
 
+    def get_feincms_inlines(self, model, request):
+        """ Generate genuine django inlines for registered content types. """
+        model._needs_content_types()
+
+        inlines = []
+        for content_type in model._feincms_content_types:
+            if not self.can_add_content(request, content_type):
+                continue
+
+            attrs = {
+                '__module__': model.__module__,
+                'model': content_type,
+            }
+
+            if hasattr(content_type, 'feincms_item_editor_inline'):
+                inline = content_type.feincms_item_editor_inline
+                attrs['form'] = inline.form
+
+                #if hasattr(content_type, 'feincms_item_editor_form'):
+                #    warnings.warn(
+                #        'feincms_item_editor_form on %s is ignored because '
+                #        'feincms_item_editor_inline is set too' % content_type,
+                #        RuntimeWarning)
+
+            else:
+                inline = FeinCMSInline
+                attrs['form'] = getattr(
+                    content_type, 'feincms_item_editor_form', inline.form)
+
+            name = '%sFeinCMSInline' % content_type.__name__
+            # TODO: We generate a new class every time. Is that really wanted?
+            inline_class = type(str(name), (inline,), attrs)
+            inlines.append(inline_class)
+        return inlines
+
 admin.site.register(Page, PageAdmin)
 
 
