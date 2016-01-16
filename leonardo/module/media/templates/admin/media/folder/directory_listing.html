@@ -116,7 +116,7 @@
                     <span class="icon fa fa-chevron-right"></span>
                     {{ folder.name }}
 
-                    {% if not is_popup and not select_folder and folder.file_type == 'Folder' and permissions.has_edit_permission %}
+                    {% if not select_folder and folder.file_type == 'Folder' and permissions.has_edit_permission %}
                         <div class="dropdown-container dropdown-container-down">
                             <a href="#" data-toggle="dropdown" aria-expanded="false">
                                 <span class="fa fa-caret-down"></span>
@@ -138,6 +138,16 @@
         {% block object-tools %}
             <div class="navigator-tools">
                 {% block object-tools-items %}
+                    {% if paginated_items.object_list|length %}
+                    <div class="dropdown-container js-actions-menu">
+                        <a href="#" data-toggle="dropdown" aria-expanded="false" class="nav-button nav-button-dots">
+                            <span class="fa fa-ellipsis-h"></span>
+                        </a>
+                        <ul class="create-menu-dropdown dropdown-menu">
+                            <!-- Actions will go here -->
+                        </ul>
+                    </div>
+                    {% endif %}
                     <div class="navigator-button-wrapper">
                         {% if folder.can_have_subfolders and can_make_folder %}
                             <a href="{% url 'admin:filer-directory_listing-make_root_folder' %}?parent_id={{ folder.id }}"
@@ -153,45 +163,22 @@
                             </a>
                         {% endif %}
                     </div>
-                {% endblock %}
-                {% if paginated_items.object_list|length and not is_popup %}
-                    <div class="actions-wrapper">
-                        {% comment %}
-                        <ul class="actions-separated-list">
-                            <li>
-                                <a href="#" class="js-action-delete"><span class="fa fa-trash-o"></span></a>
-                            </li>
-                            <li>
-                                <a href="#" class="js-action-copy"><span class="fa fa-copy"></span></a>
-                            </li>
-                            <li>
-                                <a href="#" class="js-action-move"><span class="fa fa-cut"></span></a>
-                            </li>
-                        </ul>
-                        {% endcomment %}
-                        <div class="dropdown-container js-actions-menu">
-                            <a href="#" data-toggle="dropdown" aria-expanded="false" class="nav-button nav-button-dots">
-                                <span class="fa fa-ellipsis-h"></span>
-                            </a>
-                            <ul class="create-menu-dropdown dropdown-menu">
-                                <!-- Actions will go here -->
-                            </ul>
-                        </div>
-                    </div>
-                {% endif %}
-                <div class="actions">
-                    {% if actions_selection_counter %}
-                        <script type="text/javascript">var _actions_icnt="{{ paginated_items.object_list|length|default:"0" }}";</script>
-                        <span class="action-counter">{{ selection_note }}</span>
-                        {% if paginator.count != paginated_items.object_list|length %}
-                            <span class="all">{{ selection_note_all }}</span>
-                            <span class="question">
-                                <a href="javascript:;" title="{% trans "Click here to select the objects across all pages" %}">{% blocktrans with paginator.count as total_count %}Select all {{ total_count }}{% endblocktrans %}</a>
-                            </span>
-                            <span class="clear"><a href="javascript:;">{% trans "Clear selection" %}</a></span>
+
+                    <div class="actions">
+                        {% if actions_selection_counter %}
+                            <script type="text/javascript">var _actions_icnt="{{ paginated_items.object_list|length|default:"0" }}";</script>
+                            <span class="action-counter">{{ selection_note }}</span>
+                            {% if paginator.count != paginated_items.object_list|length %}
+                                <span class="all">{{ selection_note_all }}</span>
+                                <span class="question">
+                                    <a href="javascript:;" title="{% trans "Click here to select the objects across all pages" %}">{% blocktrans with paginator.count as total_count %}Select all {{ total_count }}{% endblocktrans %}</a>
+                                </span>
+                                <span class="clear"><a href="javascript:;">{% trans "Clear selection" %}</a></span>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
-                </div>
+                    </div>
+                {% endblock %}
+
             </div>
         {% endblock %}
     </div>
@@ -203,11 +190,11 @@
                 {% if is_popup %}
                     <input type="hidden" name="_popup" value="1">
                 {% endif %}
-                {% if action_form and actions_on_top and paginator.count and not select_folder and not is_popup %}
+                {% if action_form and actions_on_top and paginator.count and not select_folder %}
                     {% filer_actions %}
                 {% endif %}
                 {% include "admin/media/folder/directory_table.html" %}
-                {% if action_form and actions_on_bottom and paginator.count and not select_folder and not is_popup %}
+                {% if action_form and actions_on_bottom and paginator.count and not select_folder %}
                     {% filer_actions %}
                 {% endif %}
             </form>

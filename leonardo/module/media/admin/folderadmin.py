@@ -33,6 +33,7 @@ from .forms import (CopyFilesAndFoldersForm, ResizeImagesForm,
 from .permissions import PrimitivePermissionAwareModelAdmin
 from ..views import (popup_status, popup_param, selectfolder_status,
                          selectfolder_param)
+from collections import OrderedDict
 from .tools import  (userperms_for_request,
                                 check_folder_edit_permissions,
                                 check_files_edit_permissions,
@@ -541,7 +542,40 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
             return None
 
     def get_actions(self, request):
-        actions = super(FolderAdmin, self).get_actions(request)
+        """
+        Return a dictionary mapping the names of all actions for this
+        ModelAdmin to a tuple of (callable, name, description) for each action.
+        """
+        # If self.actions is explicitly set to None that means that we don't
+        # want *any* actions enabled on this page.
+        if self.actions is None:
+            return OrderedDict()
+
+        actions = []
+
+        # Gather actions from the admin site first
+        for (name, func) in self.admin_site.actions:
+            description = getattr(func, 'short_description', name.replace('_', ' '))
+            actions.append((func, name, description))
+
+        # Then gather them from the model admin and all parent classes,
+        # starting with self and working back up.
+        for klass in self.__class__.mro()[::-1]:
+            class_actions = getattr(klass, 'actions', [])
+            # Avoid trying to iterate over None
+            if not class_actions:
+                continue
+            actions.extend(self.get_action(action) for action in class_actions)
+
+        # get_action might have returned None, so filter any of those out.
+        actions = filter(None, actions)
+
+        # Convert the actions into an OrderedDict keyed by name.
+        actions = OrderedDict(
+            (name, (func, name, desc))
+            for func, name, desc in actions
+        )
+
         if 'delete_selected' in actions:
             del actions['delete_selected']
         return actions
@@ -886,6 +920,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
             "folders_queryset": folders_queryset,
             "perms_lacking": perms_needed,
             "opts": opts,
+            'is_popup': popup_status(request),
             "root_path": reverse('admin:index'),
             "app_label": app_label,
             "action_checkbox_name": helpers.ACTION_CHECKBOX_NAME,
@@ -972,6 +1007,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
             "opts": opts,
             "root_path": reverse('admin:index'),
             "app_label": app_label,
+            'is_popup': popup_status(request),
             "action_checkbox_name": helpers.ACTION_CHECKBOX_NAME,
         }
 
@@ -1101,6 +1137,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
             "folders_queryset": folders_queryset,
             "perms_lacking": perms_needed,
             "opts": opts,
+            'is_popup': popup_status(request),
             "root_path": reverse('admin:index'),
             "app_label": app_label,
             "action_checkbox_name": helpers.ACTION_CHECKBOX_NAME,
@@ -1223,6 +1260,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
             "folders_queryset": folders_queryset,
             "perms_lacking": perms_needed,
             "opts": opts,
+            'is_popup': popup_status(request),
             "root_path": reverse('admin:index'),
             "app_label": app_label,
             "action_checkbox_name": helpers.ACTION_CHECKBOX_NAME,

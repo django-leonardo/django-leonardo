@@ -91,9 +91,9 @@ Cl.mediator = new Mediator();
             actionsSelectOptions.each(function (index) {
                 var className = '';
                 if (index !== 0) {
-                    if (this.value === valueDelete || this.value === valueCopy || this.value === valueMove) {
-                        className = 'class="hidden"';
-                    }
+                    //if (this.value === valueDelete || this.value === valueCopy || this.value === valueMove) {
+                    //    className = 'class="hidden"';
+                    //}
                     html += '<li><a href="#"' + className + '>' + $(this).text() + '</a></li>';
 
                 }

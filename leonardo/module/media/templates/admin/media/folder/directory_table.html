@@ -1,11 +1,11 @@
 {% load i18n l10n admin_list filer_tags staticfiles %}
 
-<section class="navigator{% if is_popup %} navigator-popup{% endif %}">
+<section class="navigator">
     <table class="js-filer-dropzone js-filer-dropzone-base navigator-table" id="result_list" data-url="{% if folder.id %}{% url 'admin:filer-ajax_upload' folder_id=folder.id %}{% else %}{% url 'admin:filer-ajax_upload' %}{% endif %}" data-folder-name="{% if folder.name and not folder.name == 'root' %}{{ folder.name }}{% else %}unfiled files{% endif %}" data-max-uploader-connections="{{ uploader_connections }}">
         <thead>
             <tr>
                 <th class="column-checkbox">
-                    {% if paginator.count and not select_folder and not is_popup %}
+                    {% if paginator.count and not select_folder %}
                         <input type="checkbox" id="action-toggle">
                     {% endif %}
                 </th>
@@ -27,8 +27,9 @@
                                         href="#" onclick="opener.dismissRelatedFolderLookupPopup(window, {{ subfolder.id }}, '{{ subfolder.quoted_logical_path }}'); return false;" >
                                         &nbsp;
                                     </a>
-                                {% elif action_form and item.pk and not is_popup %}
-                                    <input type="checkbox" class="action-select" value="folder-{{ item.pk }}" name="_selected_action">
+                                {% elif action_form and item.pk %}
+                                    <input type="checkbox" class="action-select" value="folder-{{ item.pk }}" id="folder-{{ item.pk }}" name="_selected_action">
+                                    <label for="folder-{{ item.pk }}"></label>
                                 {% endif %}
                             </td>
                             <td class="column-icon">
@@ -90,10 +91,13 @@
                     {% with item as file %}
                         <tr>
                             <td class="column-checkbox">
+                                {% comment %}
                                 {% if is_popup and not select_folder %}
                                     <a class="insertlink insertlinkButton" href="#" onclick="opener.dismissRelatedImageLookupPopup(window, {{ file.id|unlocalize }}, '{{ file.icons.48|escapejs }}', '{{ file.label|escapejs }}'); return false;"
                                         title="{% trans 'Select this file' %}">&nbsp;</a>
-                                {% elif action_form and not is_popup %}
+                                {% endif %}
+                                {% endcomment %}
+                                {% if action_form and item.pk %}
                                     <input type="checkbox" class="action-select" value="file-{{ item.pk }}" id="file-{{ item.pk }}" name="_selected_action">
                                     <label for="file-{{ item.pk }}"></label>
                                 {% endif %}
