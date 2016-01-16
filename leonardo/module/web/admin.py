@@ -27,15 +27,18 @@ class PageAdmin(FeinPageAdmin):
 
     fieldsets = [
         (None, {
-            'fields': [
-                ('title', 'slug'),
-                ('active', 'in_navigation'),
-            ],
+            'fields': ['parent'],
         }),
-        (_('Other options'), {
+        (_('Main'), {
             'classes': ['collapse'],
             'fields': [
-                'template_key', 'parent', 'override_url', 'redirect_to', 'theme', 'color_scheme', 'layout'],
+                'title', 'slug', 'active', 'in_navigation', 'override_url', 'redirect_to', 'parent',
+            ],
+        }),
+        (_('Styles'), {
+            'classes': ['collapse'],
+            'fields': [
+                'template_key', 'theme', 'color_scheme', 'layout'],
         }),
         # <-- insertion point, extensions appear here, see insertion_index
         # above
