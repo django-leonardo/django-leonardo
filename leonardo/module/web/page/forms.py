@@ -97,7 +97,7 @@ class PageCreateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
                     ),
                 Tab(_('Navigation'),
                     'in_navigation', 'parent', 'slug', 'override_url', 'redirect_to',
-                    'symlinked_page'
+                    'symlinked_page', 'navigation_extension'
                     ),
                 Tab(_('Heading'),
                     '_content_title', '_page_title',
@@ -163,7 +163,7 @@ class PageUpdateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
                     ),
                 Tab(_('Navigation'),
                     'in_navigation', 'parent', 'slug', 'override_url', 'redirect_to',
-                    'symlinked_page'
+                    'symlinked_page', 'navigation_extension'
                     ),
                 Tab(_('Theme'),
                     'template_key', 'layout', Fieldset(

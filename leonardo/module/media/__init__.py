@@ -43,6 +43,7 @@ class Default(object):
         'MEDIA_PUBLIC_UPLOAD_TO': ('public', _('Prefix for public files from MEDIA_ROOT')),
         'MEDIA_PRIVATE_UPLOAD_TO': ('private', _('Prefix for private files from MEDIA_ROOT')),
         'MEDIA_IS_PUBLIC_DEFAULT': (True, _('Set uploaded files to public automatically')),
+        'MEDIA_GALLERIES_ROOT': ('', _("Used as root for navigation extensions and external app.")),
         'MEDIA_ENABLE_PERMISSIONS': (True, _(
             'Permissions for downloadable items. Experimental feature.')),
         'MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS': (False, _('ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS')),

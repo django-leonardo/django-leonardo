@@ -24,7 +24,7 @@
 	</div>
 	{% endfor %}
 </div>
-<a class="button f-right" href="../"><span><span>{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.webcms_page }}{% endif %}</span></span></a>
+<a class="button f-right" href="../"><span><span>{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.leonardo_page }}{% endif %}</span></span></a>
 {% else %}
 <div class="object-grid ui-helper-clearfix">
 	{% for object in object_list %}

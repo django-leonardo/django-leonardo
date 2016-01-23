@@ -27,9 +27,9 @@
 
 {% endif %}
 
-<div class="object-grid ui-helper-clearfix">
+<div class="object-grid row ui-helper-clearfix">
 	{% for child in object_list %}
-	<div class="span-8">
+	<div class="col-lg-3 col-md-3 col-xs-6">
 		<div class="object-cell ui-helper-clearfix">
 			<div class="object-cell-content">
 				{% if child.item_count == 0 %}
@@ -40,11 +40,10 @@
 					<h3>{{ child }} ({{ child.item_count }} {% trans "items" %})</h3>
 				</a>
 				{% else %}
-				<a class="object-image" target="_blank" href="{% app_reverse 'directory_detail_standalone' 'leonardo.module.media.apps.category_nested' category_id=child.pk %}" title="{{ child }}">
+				<a class="object-image" href="{% app_reverse 'directory_detail_standalone' 'leonardo.module.media.apps.category_nested' category_id=child.pk %}" title="{{ child }}">
 					{% thumbnail child.get_featured_image.file "200x140" format="PNG" as thumb %}
 					<img src="{{ thumb.url }}" /><br />
 					{% endthumbnail %}
-					<h3>{{ child }} ({{ child.item_count }} {% trans "items" %})</h3>
 				</a>
 				{% endif %}
 			</div>

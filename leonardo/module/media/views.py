@@ -277,22 +277,30 @@ def directory_list_nested(request,
                           grandparent_directory_slug=None):
     if directory_slug is None:
         object = None
-        object_list = Folder.objects.filter(parent=None)
+        root = getattr(settings, 'MEDIA_GALLERIES_ROOT', None)
+        if root:
+            obj_root = Folder.objects.get(name=root)
+            object_list = Folder.objects.filter(parent=obj_root)
+        else:
+            object_list = Folder.objects.filter(parent=None)
     else:
         if parent_directory_slug is None:
-            object = Folder.objects.get(id=directory_slug)
-            object_list = object.children.all()
+            try:
+                object = Folder.objects.get(id=directory_slug)
+            except:
+                object = Folder.objects.get(name=directory_slug)
+            object_list = object.files.all()
         else:
             if grandparent_directory_slug is None:
                 object = Folder.objects.get(
                     name=directory_slug, parent__name=parent_directory_slug)
-                object_list = object.children.all()
+                object_list = object.files.all()
             else:
                 object = Folder.objects.get(
                     name=directory_slug,
                     parent__name=parent_directory_slug,
                     parent__parent__name=grandparent_directory_slug)
-                object_list = object.children.all()
+                object_list = object.files.all()
 
     return render_to_response(
         'media/directory_list_nested.html', {

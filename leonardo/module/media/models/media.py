@@ -1,6 +1,7 @@
 
 import os
 
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from feincms.module.page.extensions.navigation import (NavigationExtension,
@@ -151,7 +152,14 @@ class MediaCategoriesNavigationExtension(NavigationExtension):
 
     def children(self, page, **kwargs):
         base_url = page.get_absolute_url()
-        category_list = Folder.objects.filter(parent=None)
+        root = getattr(settings, 'MEDIA_GALLERIES_ROOT', None)
+
+        if root:
+            obj_root = Folder.objects.get(name=root)
+            category_list = Folder.objects.filter(parent=obj_root)
+        else:
+            category_list = Folder.objects.filter(parent=None)
+
         for category in category_list:
             subchildren = []
             for subcategory in category.media_folder_children.all():
