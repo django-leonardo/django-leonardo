@@ -5,16 +5,13 @@
 {% block content %}
 {% if object != None %}
 
-{% if object.translation.description %}
-  {{ object.translation.description|safe }}
-{% endif %}
-
+<div class="media-gallery">
 <div class="row">
   {% for object in object.files %}
   <div class="col-lg-3 col-md-3 col-xs-6">
     {% thumbnail object.file.file "200x840" format="PNG" as thumb %}
     {% thumbnail object.file.file "800x800" as image %}
-    <a class="thumbnail" data-title="{{ image.translation.caption }}" data-footer="{{ image.translation.description }}" data-toggle="lightbox" href="{{ image.url }}" rel="colorbox" title="{{ object.file }}">
+    <a class="thumbnail" data-title="{{ object.default_caption|default:'' }}" data-footer="{{ object.description|default:'' }}" data-toggle="lightbox" href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
       <img class="img-responsive" src="{{ thumb.url }}" />
     </a>
     {% endthumbnail %}
@@ -22,8 +19,9 @@
   </div>
   {% endfor %}
 </div>
+</div>
 
-<div>
+<div class="media-back-button">
   <a class="btn btn-primary" href="../">{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.webcms_page }}{% endif %}</a>
 </div>
 
