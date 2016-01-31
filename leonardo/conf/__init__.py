@@ -57,9 +57,6 @@ class Default(object):
 
             'leonardo',
 
-            'constance',
-            'constance.backends.database',
-
         ]
 
     @property

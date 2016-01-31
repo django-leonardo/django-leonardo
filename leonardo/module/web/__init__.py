@@ -47,17 +47,28 @@ class Default(object):
 
         INSTALLED_APPS = []
 
+        # optionaly enable sorl.thumbnail
         try:
             import sorl  # noqa
             INSTALLED_APPS += ['sorl.thumbnail']
         except Exception:
             pass
 
+        # optionaly enable easy_thumbnails
         try:
             import easy_thumbnails  # noqa
             INSTALLED_APPS += ['easy_thumbnails']
         except Exception:
             pass
+
+        # optionaly enable constance
+        try:
+            import constance
+        except ImportError:
+            pass
+        else:
+            INSTALLED_APPS += ['constance',
+                               'constance.backends.database']
 
         return INSTALLED_APPS + [
             'feincms',
