@@ -1,9 +1,11 @@
 
 from django import forms
 from django.contrib import admin
+from django.utils import translation
 from django.contrib.admin.options import InlineModelAdmin, ModelAdmin
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.contenttypes.models import ContentType
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from feincms.admin import item_editor
 from feincms.module.page.modeladmins import PageAdmin as FeinPageAdmin
@@ -79,6 +81,27 @@ class PageAdmin(FeinPageAdmin):
             inline_class = type(str(name), (inline,), attrs)
             inlines.append(inline_class)
         return inlines
+
+    def get_changeform_initial_data(self, request):
+        '''Copy initial data from parent'''
+        initial = super(PageAdmin, self).get_changeform_initial_data(request)
+        if ('translation_of' in request.GET):
+            original = self.model._tree_manager.get(
+                pk=request.GET.get('translation_of'))
+            initial['layout'] = original.layout
+            initial['theme'] = original.theme
+            initial['color_scheme'] = original.color_scheme
+
+            # optionaly translate title and make slug
+            old_lang = translation.get_language()
+            translation.activate(request.GET.get('language'))
+            title = _(original.title)
+            if title != original.title:
+                initial['title'] = title
+                initial['slug'] = slugify(title)
+            translation.activate(old_lang)
+
+        return initial
 
 admin.site.register(Page, PageAdmin)
 
