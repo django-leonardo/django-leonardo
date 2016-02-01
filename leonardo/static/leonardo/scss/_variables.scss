@@ -1,70 +1,70 @@
 /* Horizon Variables */
 
-$gray-darker: #222222;
-$gray-dark: #333333;
-$gray: #555555;
-$gray-light: #cccccc;
-$gray-lighter: #eeeeee;
+$gray-darker: #222222 !default;
+$gray-dark: #333333 !default;
+$gray: #555555 !default;
+$gray-light: #cccccc !default;
+$gray-lighter: #eeeeee !default;
 
-$brand-primary: #428bca;
-$brand-success: #5cb85c;
-$brand-info: #5bc0de;
-$brand-warning: #f0ad4e;
-$brand-danger: #d9534f;
+$brand-primary: #428bca !default;
+$brand-success: #5cb85c !default;
+$brand-info: #5bc0de !default;
+$brand-warning: #f0ad4e !default;
+$brand-danger: #d9534f !default;
 
-$body-bg: #ffffff;
+$body-bg: #ffffff !default;
 
-$text-color: $gray-dark;
+$text-color: $gray-dark !default;
 
-$link-color: $brand-primary;
-$link-hover-color: darken($link-color, 15%);
+$link-color: $brand-primary !default;
+$link-hover-color: darken($link-color, 15%) !default;
 
-$border-color: #dddddd;
+$border-color: #dddddd !default;
 
-$headings-color: $gray-dark;
+$headings-color: $gray-dark !default;
 
-$table-border-color: $border-color;
-$table-bg-hover: #f5f5f5;
-$table-bg-odd: #f9f9f9;
+$table-border-color: $border-color !default;
+$table-bg-hover: #f5f5f5 !default;
+$table-bg-odd: #f9f9f9 !default;
 
 
 /* Workflows */
 
-$workflow-color-tab-complete-bg: #007acc;
-$workflow-color-tab-incomplete-bg: #dddddd;
-$workflow-color-tab-trough-bg: #efefef;
-$workflow-color-tab-border: #ffffff;
-$workflow-color-tab-link-active: #ffffff;
-$workflow-color-tab-link-inactive: #43a4d7;
+$workflow-color-tab-complete-bg: #007acc !default;
+$workflow-color-tab-incomplete-bg: #dddddd !default;
+$workflow-color-tab-trough-bg: #efefef !default;
+$workflow-color-tab-border: #ffffff !default;
+$workflow-color-tab-link-active: #ffffff !default;
+$workflow-color-tab-link-inactive: #43a4d7 !default;
 
-$workflow-color-label-error: $brand-danger;
+$workflow-color-label-error: $brand-danger !default;
 
-$workflow-size-tab-border: 2px;
-$workflow-size-tab-arrow: 20px;
-$workflow-size-tab-padding: 15px;
+$workflow-size-tab-border: 2px !default;
+$workflow-size-tab-arrow: 20px !default;
+$workflow-size-tab-padding: 15px !default;
 
 
 /* Resource Browser */
 
-$rbrowser-data-table-border-width: 1px;
-$rbrowser-data-table-border-color: $border-color;
+$rbrowser-data-table-border-width: 1px !default;
+$rbrowser-data-table-border-color: $border-color !default;
 
-$rbrowser-actions-column-padding: 10px;
+$rbrowser-actions-column-padding: 10px !default;
 
-$rbrowser-small-button-height: 28px;
-$rbrowser-td-height: $rbrowser-small-button-height;
+$rbrowser-small-button-height: 28px !default;
+$rbrowser-td-height: $rbrowser-small-button-height !default;
 
-$rbrowser-table-cell-padding: 8px;
+$rbrowser-table-cell-padding: 8px !default;
 
-$rbrowser-selected-color: #e9f5fa;
+$rbrowser-selected-color: #e9f5fa !default;
 
-$rbrowser-wrapper-width: 100%;
-$rbrowser-navigation-table-width: 40%;
-$rbrowser-content-table-width: $rbrowser-wrapper-width - $rbrowser-navigation-table-width;
+$rbrowser-wrapper-width: 100% !default;
+$rbrowser-navigation-table-width: 40% !default;
+$rbrowser-content-table-width: $rbrowser-wrapper-width - $rbrowser-navigation-table-width !default;
 
-$rbrowser-body-background-color: $body-bg;
-$rbrowser-header-background-color: $gray-lighter;
-$rbrowser-footer-background-color: #f1f1f1;
+$rbrowser-body-background-color: $body-bg !default;
+$rbrowser-header-background-color: $gray-lighter !default;
+$rbrowser-footer-background-color: #f1f1f1 !default;
 // Note: the content-wrapper background colors are determined by
 //       .table-striped-datatable styles.
 
