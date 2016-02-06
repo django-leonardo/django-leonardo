@@ -1,10 +1,16 @@
 
 from django import forms
+from django.conf import settings
+from django.contrib import admin
 from django.utils.translation import ugettext as _
 
-from .. import settings as filer_settings
-from ..models import Image
+from ..models import Image, ImageTranslation
 from .fileadmin import FileAdmin
+
+
+class ImageTranslationInline(admin.StackedInline):
+    model = ImageTranslation
+    max_num = len(settings.LANGUAGES)
 
 
 class ImageAdminForm(forms.ModelForm):
@@ -35,7 +41,7 @@ class ImageAdminForm(forms.ModelForm):
 
 class ImageAdmin(FileAdmin):
     form = ImageAdminForm
-
+    inlines = [ImageTranslationInline]
 
 ImageAdmin.fieldsets = ImageAdmin.build_fieldsets(
     extra_main_fields=('author', 'default_alt_text', 'default_caption',),
