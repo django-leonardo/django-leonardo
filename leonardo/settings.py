@@ -111,7 +111,8 @@ try:
     from leonardo.conf.horizon import *
     from leonardo.conf.static import *
 except Exception as e:
-    pass
+    warnings.warn(
+        'Could not import static packages %s' % str(e))
 
 if LEONARDO_SYSTEM_MODULE:
     APPS = merge(APPS, ['leonardo_system'])

@@ -36,8 +36,6 @@ import xstatic.pkg.qunit
 import xstatic.pkg.rickshaw
 import xstatic.pkg.spin
 import xstatic.pkg.termjs
-import xstatic.pkg.adminlte
-import xstatic.pkg.react
 
 webroot = '/'
 
@@ -102,10 +100,6 @@ STATICFILES_DIRS = [
     ('horizon/lib',
         xstatic.main.XStatic(xstatic.pkg.termjs,
                              root_url=webroot).base_dir),
-    ('lib',
-        xstatic.main.XStatic(xstatic.pkg.adminlte).base_dir),
-    ('lib',
-        xstatic.main.XStatic(xstatic.pkg.react).base_dir),
 ]
 
 if xstatic.main.XStatic(xstatic.pkg.jquery_ui).version.startswith('1.10.'):
