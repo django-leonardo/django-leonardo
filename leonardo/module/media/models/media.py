@@ -83,7 +83,7 @@ class Vector(MediaMixin, File):
 
     class Meta:
         verbose_name = ("vector")
-        verbose_name_plural = ('vetors')
+        verbose_name_plural = ('vectors')
 
 
 class VectorTranslation(Translation(Vector), MediaTranslationMixin):

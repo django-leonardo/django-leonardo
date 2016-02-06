@@ -29,7 +29,7 @@
 </a>
 {% endif %}
 
-{% if widget.detail == "go_to_page" %}
+{% if widget.detail == "on_page" %}
 <a class="thumbnail" href="{{ widget.parent.get_absolute_url }}">
   {% if widget.size %}
   {% thumbnail widget.image.file size format="PNG" as thumb %}
@@ -39,6 +39,17 @@
   <img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
   {% endif %}
 </a>
+
+{% else %}
+
+{% if widget.size %}
+{% thumbnail widget.image.file size format="PNG" as thumb %}
+<img class="img-responsive" src='{{ thumb.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+{% endthumbnail %}
+{% else %}
+<img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+{% endif %}
+
 {% endif %}
 
 {% endwith %}

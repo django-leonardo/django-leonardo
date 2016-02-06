@@ -8,8 +8,11 @@ def add_page_if_missing(request):
     """
 
     try:
+        page = Page.objects.for_request(request, best_match=True)
         return {
-            'feincms_page': Page.objects.for_request(request, best_match=True),
+            'leonardo_page': page,
+            # DEPRECATED
+            'feincms_page': page,
         }
     except Page.DoesNotExist:
         return {}

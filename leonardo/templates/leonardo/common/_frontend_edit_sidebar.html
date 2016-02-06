@@ -1,5 +1,5 @@
 
-{% load crispy_forms_tags i18n compress %}
+{% load crispy_forms_tags i18n %}
 
 {% block css_extra %}
 <style type="text/css">
@@ -25,7 +25,7 @@
 <div class="no-print btn btn-primary" id="settings_button"><i class="fa fa-gear"></i></div>
 <div class="no-print panel panel-default" id="settings_menu">
 
-    {% for action in request.LEONARDO_CONFIG.page_actions %}
+    {% for action in LEONARDO_CONFIG.page_actions %}
       {% include action %}
     {% endfor %}
 

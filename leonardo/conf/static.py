@@ -8,10 +8,11 @@ COMPRESS_CSS_FILTERS = (
 )
 
 COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = False
-COMPRESS_OUTPUT_DIR = 'dashboard'
+COMPRESS_OFFLINE = True
+COMPRESS_OUTPUT_DIR = 'compressed'
 COMPRESS_CSS_HASHING_METHOD = 'hash'
 COMPRESS_PARSER = 'compressor.parser.HtmlParser'
+COMPRESS_OFFLINE_CONTEXT = 'leonardo.conf.context.offline_context'
 
 import xstatic.main
 import xstatic.pkg.angular
@@ -38,7 +39,7 @@ import xstatic.pkg.termjs
 import xstatic.pkg.adminlte
 import xstatic.pkg.react
 
-webroot='/'
+webroot = '/'
 
 STATICFILES_DIRS = [
     ('horizon/lib/angular',

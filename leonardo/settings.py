@@ -260,12 +260,6 @@ for key in DJANGO_CONF.keys():
     # map value to leonardo but under our internal name
     setattr(leonardo, DJANGO_CONF[key], globals()[key])
 
-# Add HORIZON_CONFIG to the context information for offline compression
-COMPRESS_OFFLINE_CONTEXT = {
-    'STATIC_URL': STATIC_URL,
-    'HORIZON_CONFIG': HORIZON_CONFIG,
-}
-
 if DEBUG:
 
     try:
