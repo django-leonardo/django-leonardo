@@ -92,6 +92,7 @@ PAGE_TEMPLATES = (
         'path': 'layout/page.html',
         'regions': (col1, col3_center, col2, header, footer, toolbar, preview, helper),
     },
+    # DEPRECATED
     {
         'title': _('Dashboard'),
         'key': 'dashboard',
@@ -107,32 +108,22 @@ PAGE_TEMPLATES = (
 )
 
 PAGE_LAYOUT_CHOICES = (
-    ('fixed', _('Fixed')), 
-    ('fluid', _('Fluid')), 
-    ('boxed', _('Boxed')), 
+    ('fixed', _('Fixed')),
+    ('fluid', _('Fluid')),
+    ('boxed', _('Boxed')),
 )
 
 WIDGET_LAYOUT_CHOICES = (
-    ('inline', _('Inline')), 
-    ('fixed', _('Fixed')), 
-    ('fluid', _('Fluid')), 
+    ('inline', _('Inline')),
+    ('fixed', _('Fixed')),
+    ('fluid', _('Fluid')),
 )
 
 WIDGET_ALIGN_CHOICES = (
-    ('left', _('Left')), 
-    ('center', _('Center')), 
-    ('right', _('Right')), 
+    ('left', _('Left')),
+    ('center', _('Center')),
+    ('right', _('Right')),
 )
-
-TEMPLATE_LAYOUTS = {
-    'layout_flex': (0, 0, 24, 0),
-    'layout_flex_flex': (0, 12, 12, 0),
-    'layout_flex_fixed': (0, 6, 18, 0),
-    'layout_fixed_flex': (6, 0, 18, 0),
-    'layout_fixed_flex_fixed': (6, 6, 12, 0),
-    'layout_flex_flex_flex': (8, 8, 8, 0),
-    'layout_void': (6, 6, 6, 6),
-}
 
 DISPLAY_SIZE_CHOICES = (
     ('xs', _('Extra small')),
@@ -173,18 +164,6 @@ ROW_CHOICES = (
     (12, _('12 rows')),
 )
 
-CLEAR_CHOICES = (
-    (DEFAULT_CHOICE, _('none')),
-    (1, _('break before')),
-    (2, _('break after')),
-)
-
-BORDER_CHOICES = (
-    (DEFAULT_CHOICE, _('no border')),
-    (1, _('border')),
-    (2, _('wide border')),
-)
-
 ALIGN_CHOICES = (
     (DEFAULT_CHOICE, _('auto')),
     (1, _('left')),
@@ -197,18 +176,3 @@ VERTICAL_ALIGN_CHOICES = (
     ('middle', _('middle')),
     ('bottom', _('bottom')),
 )
-
-# this wil be on the Page model
-DEFAULT_DISPLAY_OPTIONS = {
-    'label': None,
-    'template_name': 'default',
-    'style': None,
-    'size': [24, 0],
-    'align': ["a", "a"],
-    'padding': [0, 0, 0, 0],
-    'margin': [0, 0, 0, 0],
-    'visible': True,
-    'border': None,
-    'clear': None,
-    'last': False,
-}

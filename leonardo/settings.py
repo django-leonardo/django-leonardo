@@ -6,6 +6,7 @@ import six
 import logging
 import warnings
 
+from django.apps import apps
 from django import VERSION
 from leonardo.conf.spec import DJANGO_CONF
 from leonardo.base import leonardo, default
@@ -120,115 +121,118 @@ if LEONARDO_SYSTEM_MODULE:
 else:
     HORIZON_CONFIG['system_module'] = False
 
-# load directly specified apps
-leonardo.get_app_modules(APPS)
+if not apps.ready:
+    # load directly specified apps
+    leonardo.get_app_modules(APPS)
 
-# propagate settings to leonardo
-leonardo.MODULES_AUTOLOAD = LEONARDO_MODULE_AUTO_INCLUDE
+    # propagate settings to leonardo
+    leonardo.MODULES_AUTOLOAD = LEONARDO_MODULE_AUTO_INCLUDE
 
-# load all modules
-leonardo.load_modules()
+    # load all modules
+    leonardo.load_modules()
 
-# just propagate all loaded modules to settings
-LEONARDO_MODULES = leonardo.get_modules()
+    # just propagate all loaded modules to settings
+    LEONARDO_MODULES = leonardo.get_modules()
 
-# iterate over sorted modules
-for mod, mod_cfg in LEONARDO_MODULES:
+    # iterate over sorted modules
+    for mod, mod_cfg in LEONARDO_MODULES:
 
-    try:
+        try:
 
-        # import all settings keys from module
-        if module_has_submodule(mod, "settings"):
-            try:
-                settings_mod = import_module(
-                    '{0}.settings'.format(mod.__name__))
-                for k in dir(settings_mod):
-                    if not k.startswith("_"):
-                        val = getattr(settings_mod, k, None)
-                        globals()[k] = val
-                        locals()[k] = val
-            except Exception as e:
-                warnings.warn(
-                    'Exception "{}" raised during loading '
-                    'settings from {}'.format(str(e), mod))
+            # import all settings keys from module
+            if module_has_submodule(mod, "settings"):
+                try:
+                    settings_mod = import_module(
+                        '{0}.settings'.format(mod.__name__))
+                    for k in dir(settings_mod):
+                        if not k.startswith("_"):
+                            val = getattr(settings_mod, k, None)
+                            globals()[k] = val
+                            locals()[k] = val
+                except Exception as e:
+                    warnings.warn(
+                        'Exception "{}" raised during loading '
+                        'settings from {}'.format(str(e), mod))
 
-        # go through django keys and merge it to main settings
-        for key in DJANGO_CONF.keys():
-            updated_value = mod_cfg.get_value(key, globals()[key])
-            globals()[key] = updated_value
-            locals()[key] = updated_value
-            # map value to leonardo but under our internal name
-            setattr(leonardo, DJANGO_CONF[key], updated_value)
+            # go through django keys and merge it to main settings
+            for key in DJANGO_CONF.keys():
+                updated_value = mod_cfg.get_value(key, globals()[key])
+                globals()[key] = updated_value
+                locals()[key] = updated_value
+                # map value to leonardo but under our internal name
+                setattr(leonardo, DJANGO_CONF[key], updated_value)
 
-        if mod_cfg.urls_conf:
-            MODULE_URLS[mod_cfg.urls_conf] = {'is_public': mod_cfg.public}
-        # TODO move to utils.settings
-        # support for one level nested in config dictionary
-        for config_key, config_value in six.iteritems(mod_cfg.config):
+            if mod_cfg.urls_conf:
+                MODULE_URLS[mod_cfg.urls_conf] = {'is_public': mod_cfg.public}
+            # TODO move to utils.settings
+            # support for one level nested in config dictionary
+            for config_key, config_value in six.iteritems(mod_cfg.config):
 
-            if isinstance(config_value, dict):
-                CONSTANCE_CONFIG_GROUPS.update({config_key: config_value})
-                for c_key, c_value in six.iteritems(config_value):
-                    mod_cfg.config[c_key] = c_value
-                # remove from main dict
-                mod_cfg.config.pop(config_key)
-            else:
-                if isinstance(mod_cfg.optgroup, six.string_types):
-                    CONSTANCE_CONFIG_GROUPS.update({
-                        mod_cfg.optgroup: mod_cfg.config})
+                if isinstance(config_value, dict):
+                    CONSTANCE_CONFIG_GROUPS.update({config_key: config_value})
+                    for c_key, c_value in six.iteritems(config_value):
+                        mod_cfg.config[c_key] = c_value
+                    # remove from main dict
+                    mod_cfg.config.pop(config_key)
                 else:
-                    if 'ungrouped' in CONSTANCE_CONFIG_GROUPS:
-                        CONSTANCE_CONFIG_GROUPS['ungrouped'].update(mod_cfg.config)
+                    if isinstance(mod_cfg.optgroup, six.string_types):
+                        CONSTANCE_CONFIG_GROUPS.update({
+                            mod_cfg.optgroup: mod_cfg.config})
                     else:
-                        CONSTANCE_CONFIG_GROUPS['ungrouped'] = \
-                            mod_cfg.config
+                        if 'ungrouped' in CONSTANCE_CONFIG_GROUPS:
+                            CONSTANCE_CONFIG_GROUPS['ungrouped'].update(mod_cfg.config)
+                        else:
+                            CONSTANCE_CONFIG_GROUPS['ungrouped'] = \
+                                mod_cfg.config
 
-        # import and update absolute overrides
-        for model, method in six.iteritems(mod_cfg.absolute_url_overrides):
-            try:
-                _mod = import_module(".".join(method.split('.')[:-1]))
-                ABSOLUTE_URL_OVERRIDES[model] = getattr(
-                    _mod, method.split('.')[-1])
-            except Exception as e:
-                raise e
+            # import and update absolute overrides
+            for model, method in six.iteritems(mod_cfg.absolute_url_overrides):
+                try:
+                    _mod = import_module(".".join(method.split('.')[:-1]))
+                    ABSOLUTE_URL_OVERRIDES[model] = getattr(
+                        _mod, method.split('.')[-1])
+                except Exception as e:
+                    raise e
 
-        for nav_extension in mod_cfg.navigation_extensions:
-            try:
-                import_module(nav_extension)
-            except ImportError:
-                pass
+            for nav_extension in mod_cfg.navigation_extensions:
+                try:
+                    import_module(nav_extension)
+                except ImportError:
+                    pass
 
-        CONSTANCE_CONFIG.update(mod_cfg.config)
+            CONSTANCE_CONFIG.update(mod_cfg.config)
 
-        if VERSION[:2] >= (1, 8):
-            TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
-            cp = TEMPLATES[0]['OPTIONS']['context_processors']
-            TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
-                cp, mod_cfg.context_processors)
+            if VERSION[:2] >= (1, 8):
+                TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
+                cp = TEMPLATES[0]['OPTIONS']['context_processors']
+                TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
+                    cp, mod_cfg.context_processors)
 
-        else:
+            else:
 
-            TEMPLATE_CONTEXT_PROCESSORS = merge(
-                TEMPLATE_CONTEXT_PROCESSORS, mod_cfg.context_processors)
-            TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
+                TEMPLATE_CONTEXT_PROCESSORS = merge(
+                    TEMPLATE_CONTEXT_PROCESSORS, mod_cfg.context_processors)
+                TEMPLATE_DIRS = merge(TEMPLATE_DIRS, mod_cfg.dirs)
 
-        # collect grouped widgets
-        if isinstance(mod_cfg.optgroup, six.string_types):
-            if len(mod_cfg.widgets) > 0:
-                WIDGETS[mod_cfg.optgroup] = merge(
-                    getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
-        else:
-            if len(mod_cfg.widgets) > 0 and DEBUG:
-                WIDGETS['ungrouped'] = merge(
-                    getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
-                warnings.warn('You have ungrouped widgets'
-                              ', please specify your ``optgroup``'
-                              'which categorize your widgets in %s' % mod)
+            # collect grouped widgets
+            if isinstance(mod_cfg.optgroup, six.string_types):
+                if len(mod_cfg.widgets) > 0:
+                    WIDGETS[mod_cfg.optgroup] = merge(
+                        getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
+            else:
+                if len(mod_cfg.widgets) > 0 and DEBUG:
+                    WIDGETS['ungrouped'] = merge(
+                        getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
+                    warnings.warn('You have ungrouped widgets'
+                                  ', please specify your ``optgroup``'
+                                  'which categorize your widgets in %s' % mod)
 
-    except Exception as e:
-        warnings.warn(
-            'Exception "{}" raised during loading '
-            'module {}'.format(str(e), mod))
+        except Exception as e:
+            warnings.warn(
+                'Exception "{}" raised during loading '
+                'module {}'.format(str(e), mod))
+else:
+    warnings.warn("Leonardo modules are already loaded. Skiped now.")
 
 setattr(leonardo, 'widgets', WIDGETS)
 

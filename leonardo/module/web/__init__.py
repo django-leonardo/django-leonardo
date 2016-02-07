@@ -162,5 +162,9 @@ class WebConfig(AppConfig, Default):
 
         Template.save = template_save
 
+        from leonardo.module.web.models import Page
+        # override page defaults without migrations
+        Page._meta.get_field('template_key').default = 'layout_flex_flex_flex'
+
 
 default = Default()
