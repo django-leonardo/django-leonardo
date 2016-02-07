@@ -59,7 +59,7 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
         instead of the default change_list_view
         """
         r = super(FileAdmin, self).response_change(request, obj)
-        if r['Location']:
+        if 'Location' in r and r['Location']:
             # it was a successful save
             if (r['Location'] in ['../'] or
                     r['Location'] == self._get_post_url(obj)):
@@ -76,6 +76,18 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
             else:
                 # this means it probably was a save_and_continue_editing
                 pass
+        else:
+            # this means it was a save: redirect to the directory view
+            if obj.folder:
+                url = reverse('admin:filer-directory_listing',
+                              kwargs={'folder_id': obj.folder.id})
+            else:
+                url = reverse(
+                    'admin:filer-directory_listing-unfiled_images')
+            url = "%s%s%s" % (url, popup_param(request),
+                              selectfolder_param(request, "&"))
+            return HttpResponseRedirect(url)
+
         return r
 
     def render_change_form(self, request, context, add=False, change=False,
