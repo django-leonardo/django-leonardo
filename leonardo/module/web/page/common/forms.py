@@ -1,19 +1,18 @@
 
 from django.db.models.fields import BLANK_CHOICE_DASH
 from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Layout
+from crispy_forms.layout import Layout, Fieldset
 from django.http import HttpResponseRedirect
 from leonardo import forms
 from django.utils.translation import ugettext_lazy as _
 from leonardo.forms import SelfHandlingForm
-from leonardo.module.web.page.fields import (
-                                             PageColorSchemeSelectField,
-                                             PageThemeSelectField)
-from leonardo.module.web.models import Page
+from leonardo.module.web.models import Page, PageTheme, PageColorScheme
 from leonardo.module.web.const import PAGE_LAYOUT_CHOICES
+from leonardo.module.web.page.forms import PageColorSchemeSwitchableFormMixin
+from django_select2.forms import Select2Widget
 
 
-class PageMassChangeForm(SelfHandlingForm):
+class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
 
     """Page Mass Update
 
@@ -24,18 +23,16 @@ class PageMassChangeForm(SelfHandlingForm):
     page_id = forms.IntegerField(
         label=_('Page ID'), widget=forms.widgets.HiddenInput)
 
-    color_scheme = PageColorSchemeSelectField(
-        label=_('Color Scheme'),
-        required=False
-    )
-
-    theme = PageThemeSelectField(
+    theme = forms.ModelChoiceField(
         label=_('Theme'),
-        required=False
+        required=False,
+        queryset=PageTheme.objects.all(),
+        widget=Select2Widget
     )
 
     layout = forms.ChoiceField(
-        label=_('Layout'), choices=BLANK_CHOICE_DASH + list(PAGE_LAYOUT_CHOICES),
+        label=_('Layout'),
+        choices=BLANK_CHOICE_DASH + list(PAGE_LAYOUT_CHOICES),
         required=False)
 
     depth = forms.IntegerField(label=_('Depth'), initial=1)
@@ -43,6 +40,10 @@ class PageMassChangeForm(SelfHandlingForm):
 
     def __init__(self, *args, **kwargs):
         super(PageMassChangeForm, self).__init__(*args, **kwargs)
+
+        color_scheme_fields = self.init_color_scheme_switch(
+            color_scheme=kwargs['initial'].get('color_scheme', None),
+            field_kwargs={'widget': Select2Widget})
 
         self.helper.layout = Layout(
             TabHolder(
@@ -53,8 +54,8 @@ class PageMassChangeForm(SelfHandlingForm):
                     ),
                 Tab(_('Styles'),
                     'layout',
-                    'theme',
-                    'color_scheme',
+                    Fieldset(
+                        'Themes', 'theme', *color_scheme_fields),
                     ),
             ),
         )
@@ -92,3 +93,9 @@ class PageMassChangeForm(SelfHandlingForm):
         root_page.save()
 
         return HttpResponseRedirect(root_page.get_absolute_url())
+
+    def clean(self):
+        cleaned = super(PageMassChangeForm, self).clean()
+        theme = cleaned['theme']
+        cleaned['color_scheme'] = self.cleaned_data['theme__%s' % theme.id]
+        return cleaned

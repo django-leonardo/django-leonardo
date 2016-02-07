@@ -12,6 +12,7 @@ from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingModelForm, SelfHandlingForm
 from django.utils.text import slugify
 from ..models import Page, PageTheme, PageColorScheme
+from django_select2.forms import Select2Widget
 
 
 class SwitchableFormFieldMixin(object):
@@ -31,7 +32,7 @@ class SwitchableFormFieldMixin(object):
 
 class PageColorSchemeSwitchableFormMixin(SwitchableFormFieldMixin):
 
-    def init_color_scheme_switch(self, color_scheme=None):
+    def init_color_scheme_switch(self, color_scheme=None, field_kwargs={}):
         color_scheme_fields = []
 
         for theme in self.fields['theme'].queryset:
@@ -41,13 +42,14 @@ class PageColorSchemeSwitchableFormMixin(SwitchableFormFieldMixin):
                 'switchable', '%s' % theme.id, ('Color Scheme'))
             field = django_forms.ModelChoiceField(label=_('Color Scheme'),
                                                   queryset=theme.templates.all(),
-                                                  required=False)
+                                                  required=False,
+                                                  **field_kwargs)
             # inital for color scheme
             if color_scheme and theme.templates.filter(id=color_scheme.id).exists():
                 field.initial = color_scheme
             elif 'parent' in self.fields and self.fields['parent'].initial:
                 field.initial = self.fields['parent'].initial.color_scheme
-            elif self.instance and hasattr(self.instance, 'color_scheme'):
+            elif hasattr(self, 'instance') and hasattr(self.instance, 'color_scheme'):
                 field.initial = self.instance.color_scheme
             else:
                 field.initial = theme.templates.first()
@@ -68,6 +70,7 @@ class PageCreateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
         model = Page
         widgets = {
             'parent': forms.widgets.HiddenInput,
+            'theme': Select2Widget,
         }
         exclude = tuple()
 
