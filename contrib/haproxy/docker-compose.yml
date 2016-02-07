@@ -1,0 +1,50 @@
+
+web:
+  restart: always
+  build: ../../
+  expose:
+    - "8000"
+  links:
+    - postgres:postgres
+    - memcached:memcached
+  env_file: ../django/.env
+  volumes:
+    - /var/lib/leonardo/static
+    - /var/lib/leonardo/media
+  command: >
+      bash -c "python /usr/lib/leonardo/myproject/manage.py makemigrations &&
+      python /usr/lib/leonardo/myproject/manage.py migrate --noinput &&
+      python /usr/lib/leonardo/myproject/manage.py sync_all -f &&
+      gunicorn leonardo_site.wsgi:application -w 2 -b :8000"
+
+lb:
+  image: tutum/haproxy
+  links:
+   - web
+  ports:
+   - "80:80"
+  environment:
+   - BACKEND_PORT=8000
+   - BALANCE=roundrobin
+
+postgres:
+  restart: always
+  image: postgres:latest
+  env_file: ../django/.env
+  volumes_from:
+    - data
+  ports:
+    - "5432:5432"
+
+memcached:
+  image: memcached
+  ports:
+    - "11211:11211"
+
+data:
+  env_file: ../django/.env
+  restart: always
+  image: postgres:latest
+  volumes:
+    - /var/lib/postgresql
+  command: "true"
