@@ -234,6 +234,38 @@ $(function() {
     });
   });
 
+  // Bind handler for swapping labels on "switchable" select fields.
+  var $document = $(document);
+  $document.on("change", 'select.switchable', function (evt) {
+    
+    $('fieldset').each(function(index, fieldset) {
+        var $fieldset = $(fieldset),
+          $switchables = $fieldset.find('select.switchable');
+
+        $switchables.each(function (index, switchable) {
+          var $switchable = $(switchable),
+            slug = $switchable.data('slug'),
+            visible = $switchable.is(':visible'),
+            val = $switchable.val();
+
+          function handle_switched_field(index, input){
+            var $input = $(input),
+              data = $input.data(slug + "-" + val);
+
+            if (typeof data === "undefined") {
+              $input.closest('.form-group').hide();
+            } else {
+              $('label[for=' + $input.attr('id') + ']').html(data);
+              $input.closest('.form-group').show();
+            }
+          }
+
+          $fieldset.find('.switched[data-switch-on*="' + slug + '"]').each(handle_switched_field);
+          $fieldset.siblings().find('.switched[data-switch-on*="' + slug + '"]').each(handle_switched_field);
+      });
+    });
+  });
+
 });
 </script>
 {% for file in HORIZON_CONFIG.js_compress_files %}

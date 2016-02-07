@@ -51,6 +51,7 @@ class PageColorSchemeSwitchableFormMixin(SwitchableFormFieldMixin):
                 field.initial = self.instance.color_scheme
             else:
                 field.initial = theme.templates.first()
+            field.widget.attrs = attributes
             self.fields[name] = field
             color_scheme_fields.append(name)
 
