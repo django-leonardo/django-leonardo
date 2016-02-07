@@ -6,37 +6,35 @@
 {% with widget.get_size as size %}
 
 {% if widget.detail == "open_modal" %}
-<a class="thumbnail" href="{{ widget.image.url }}" data-title="{{ widget.image.default_caption|default:'' }}" data-footer="{{ widget.image.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}">
+<a class="thumbnail" href="{{ widget.image.url }}" data-title="{{ widget.image.translation.default_caption|default:'' }}" data-footer="{{ widget.image.translation.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}">
   {% if widget.size %}
   {% thumbnail widget.image.file size format="PNG" as thumb %}
-  <img class="img-responsive" src='{{ thumb.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+  <img class="img-responsive" src='{{ thumb.url }}' alt='{{ widget.image.translation.default_caption|default:'' }}' />
   {% endthumbnail %}
   {% else %}
-  <img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+  <img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.translation.default_caption|default:'' }}' />
   {% endif %}
 </a>
-{% endif %}
 
-{% if widget.detail == "open_new_window" %}
+{% elif widget.detail == "open_new_window" %}
 <a class="thumbnail" href="{{ widget.image.url }}" target="_blank">
   {% if widget.size %}
   {% thumbnail widget.image.file size format="PNG" as thumb %}
-  <img class="img-responsive" src='{{ thumb.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+  <img class="img-responsive" src='{{ thumb.url }}' alt='{{ widget.image.translation.default_caption|default:'' }}' />
   {% endthumbnail %}
   {% else %}
-  <img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+  <img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.translation.default_caption|default:'' }}' />
   {% endif %}
 </a>
-{% endif %}
 
-{% if widget.detail == "on_page" %}
+{% elif widget.detail == "on_page" %}
 <a class="thumbnail" href="{{ widget.parent.get_absolute_url }}">
   {% if widget.size %}
   {% thumbnail widget.image.file size format="PNG" as thumb %}
-  <img class="img-responsive" src='{{ thumb.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+  <img class="img-responsive" src='{{ thumb.url }}' alt='{{ widget.image.translation.default_caption|default:'' }}' />
   {% endthumbnail %}
   {% else %}
-  <img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+  <img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.translation.default_caption|default:'' }}' />
   {% endif %}
 </a>
 
@@ -44,10 +42,10 @@
 
 {% if widget.size %}
 {% thumbnail widget.image.file size format="PNG" as thumb %}
-<img class="img-responsive" src='{{ thumb.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+<img class="img-responsive" src='{{ thumb.url }}' alt='{{ widget.image.translation.default_caption|default:'' }}' />
 {% endthumbnail %}
 {% else %}
-<img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.default_caption|default:'' }}' />
+<img class="img-responsive" src='{{ widget.image.url }}' alt='{{ widget.image.translation.default_caption|default:'' }}' />
 {% endif %}
 
 {% endif %}
