@@ -8,6 +8,8 @@
 </div>
 <a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'page_update' feincms_page.id %}" data-toggle="tooltip" title="{% trans 'Edit Page' %}"><i class="fa fa-sliders"></i> {% trans 'Edit Page' %}</a>
 
+<a class="btn btn-primary btn-sm btn-block ajax-modal" data-toggle="tooltip" title="{% trans 'Add Widget' %}" href="{% url 'widget_create_without_region' feincms_page.id feincms_page.cls_name %}"><i class="fa fa-plus"></i> {% trans 'Add Widget' %}</a>
+
 <div class="btn-group" style="margin-top:5px;margin-bottom:5px; width: 100%;">
 	{% url 'admin:web_page_change' feincms_page.id as page_admin %}
 	<a class="btn btn-primary btn-sm ajax-modal col-md-10" href="{% url 'modal_iframe' url=page_admin %}" data-toggle="tooltip" title="{% trans 'Page Admin' %}"><i class="fa fa-sliders"></i> {% trans 'Page Admin' %}</a>

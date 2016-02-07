@@ -169,10 +169,11 @@ class WidgetSelectForm(SelfHandlingForm):
 
     ordering = forms.IntegerField(
         widget=forms.widgets.HiddenInput,
-        initial=0
+        initial=99
     )
-    region = forms.CharField(
-        widget=forms.widgets.HiddenInput,
+    region = forms.ChoiceField(
+        label=('Region'),
+        widget=Select2Widget()
     )
     parent = forms.IntegerField(
         widget=forms.widgets.HiddenInput,
@@ -193,8 +194,19 @@ class WidgetSelectForm(SelfHandlingForm):
 
         self.fields['page_id'].initial = feincms_object.id
         self.fields['region'].initial = region_name
-        self.fields['ordering'].initial = \
-            len(getattr(feincms_object.content, region_name, [])) + 1
+
+        # load template regions
+        self.fields['region'].choices = \
+            [(str(region.key),
+              '%s%s' % (
+                str(region.title),
+                ' - Inherited' if region.inherited else ''))
+             for region in feincms_object.template.regions]
+
+        if region_name:
+            self.fields['ordering'].initial = \
+                len(getattr(feincms_object.content, region_name, [])) + 1
+
         self.fields['parent'].initial = feincms_object.id
 
         choices, grouped, ungrouped = get_grouped_widgets(
@@ -208,11 +220,11 @@ class WidgetSelectForm(SelfHandlingForm):
         grouped['Web'] = ungrouped + grouped.get('Web', [])
 
         self.helper.layout = Layout(
-            Field('region'),
             Field('parent'),
             Field('page_id'),
             Field('ordering'),
             'cls_name',
+            Field('region'),
             Field('first'),
         )
 

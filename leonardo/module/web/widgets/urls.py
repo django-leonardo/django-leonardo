@@ -7,6 +7,8 @@ from .views import *
 
 
 urlpatterns = patterns('',
+                       url(r'^(?P<page_id>[\w\.\-]+)/(?P<cls_name>[\w\.\-]+)/select-widget/$',
+                           WidgetPreCreateView.as_view(), name='widget_create_without_region'),
                        url(r'^(?P<page_id>[\w\.\-]+)/(?P<region>[\w\.\-]+)/(?P<cls_name>[\w\.\-]+)/select-widget/$',
                            WidgetPreCreateView.as_view(), name='widget_create'),
                        url(r'^(?P<page_id>[\w\.\-]+)/(?P<region>[\w\.\-]+)/(?P<cls_name>[\w\.\-]+)/(?P<ordering>[\w\.\-]+)/(?P<parent>[\w\.\-]+)/create/$',

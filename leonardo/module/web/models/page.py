@@ -217,3 +217,8 @@ class Page(FeinCMSPage):
             raise e
 
         return content
+
+    @cached_property
+    def cls_name(self):
+        return '%s.%s' % (self._meta.app_label,
+                          self.__class__.__name__)
