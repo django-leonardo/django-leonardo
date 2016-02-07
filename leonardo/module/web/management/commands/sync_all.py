@@ -19,11 +19,15 @@ class Command(BaseCommand):
         make_option("-n", "--nocompress",
                     action="store_true", dest="nocompress", default=False,
                     help="Without compress command"),
+        make_option("--nocommon",
+                    action="store_true", dest="nocommon", default=False,
+                    help="Without common templates"),
     )
 
     def handle(self, **options):
         force = options.get('force', False)
         nocompress = options.get('nocompress', True)
+        nocommon = options.get('nocommon', True)
 
         # sync widgets
         sync_cmd = SyncWidgetsCommand()
@@ -42,6 +46,12 @@ class Command(BaseCommand):
             'force': force,
             'verbosity': False})
         self.stdout.write('Syncing page themes complete.')
+
+        # sync common templates
+        if not nocommon:
+            self.stdout.write('Syncing common templates...')
+            call_command('sync_common', force=force)
+            self.stdout.write('Syncing common templates complete.')
 
         if settings.COMPRESS_OFFLINE and not nocompress:
             self.stdout.write('Compressing static files...')

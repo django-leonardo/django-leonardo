@@ -3,4 +3,4 @@ Disallow: /admin/
 Disallow: /utils/
 Disallow: /static/
 Allow: /
-Sitemap: http://{{ domain }}/sitemap.xml
+Sitemap: /sitemap.xml

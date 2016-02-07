@@ -15,7 +15,7 @@ class Command(NoArgsCommand):
         make_option("-f", "--force",
                     action="store_true", dest="force", default=False,
                     help="overwrite existing database templates"),
-        )
+    )
 
     def handle_noargs(self, **options):
         force = options.get('force')
@@ -23,7 +23,9 @@ class Command(NoArgsCommand):
         get_or_create_template("404.html", force=force, notfix='admin')
         get_or_create_template("403.html", force=force, notfix='admin')
         get_or_create_template("500.html", force=force, notfix='admin')
-        get_or_create_template("crossdomain.xml", force=force, extension='.xml')
+        get_or_create_template(
+            "crossdomain.xml", force=force, extension='.xml')
         get_or_create_template("robots.txt", force=force, extension='.txt')
 
-        self.stdout.write('Successfully synced common templates')
+        self.stdout.write('Successfully synced common templates '
+                          '(404.html, 403.html, 500.html, crossdomain.txt, robots.txt)')
