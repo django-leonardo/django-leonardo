@@ -91,12 +91,6 @@
                     {% with item as file %}
                         <tr>
                             <td class="column-checkbox">
-                                {% comment %}
-                                {% if is_popup and not select_folder %}
-                                    <a class="insertlink insertlinkButton" href="#" onclick="opener.dismissRelatedImageLookupPopup(window, {{ file.id|unlocalize }}, '{{ file.icons.48|escapejs }}', '{{ file.label|escapejs }}'); return false;"
-                                        title="{% trans 'Select this file' %}">&nbsp;</a>
-                                {% endif %}
-                                {% endcomment %}
                                 {% if action_form and item.pk %}
                                     <input type="checkbox" class="action-select" value="file-{{ item.pk }}" id="file-{{ item.pk }}" name="_selected_action">
                                     <label for="file-{{ item.pk }}"></label>
@@ -104,7 +98,7 @@
                             </td>
                             <td class="column-icon">
                                 {% if is_popup and not select_folder %}
-                                    <a href="#" onclick="opener.dismissRelatedImageLookupPopup(window, {{ file.id|unlocalize }}, '{{ file.icons.48|escapejs }}', '{{ file.label|escapejs }}'); return false;"
+                                    <a href="{{ file.get_admin_url_path }}{% if is_popup %}?_popup=1{% if select_folder %}&amp;select_folder=1{% endif %}{% endif %}"
                                         title="{% trans 'Select this file' %}">
                                 {% elif item_perms.change %}
                                     <a href="{{ file.get_admin_url_path }}{% if is_popup %}?_popup=1{% if select_folder %}&amp;select_folder=1{% endif %}{% endif %}"
@@ -119,8 +113,7 @@
                                 <div>
                                     <strong>
                                         {% if is_popup and not select_folder %}
-                                            <a href="#" onclick="opener.dismissRelatedImageLookupPopup(window, {{ file.id|unlocalize }}, '{{ file.icons.48|escapejs }}', '{{ file.label|escapejs }}'); return false;"
-                                                title="{% trans 'Select this file' %}">
+                                            <a href="{{ file.get_admin_url_path }}{% if is_popup %}?_popup=1{% if select_folder %}&amp;select_folder=1{% endif %}{% endif %}" title="{% trans 'Select this file' %}">
                                         {% elif item_perms.change %}
                                             <a href="{{ file.get_admin_url_path }}{% if is_popup %}?_popup=1{% if select_folder %}&amp;select_folder=1{% endif %}{% endif %}"
                                                 title="{% blocktrans with file.label as item_label %}Change '{{ item_label }}' details{% endblocktrans %}">

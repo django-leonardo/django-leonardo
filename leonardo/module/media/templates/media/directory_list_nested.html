@@ -11,7 +11,7 @@
   <div class="col-lg-3 col-md-3 col-xs-6">
     {% thumbnail object.file.file "200x840" format="PNG" as thumb %}
     {% thumbnail object.file.file "800x800" as image %}
-    <a class="thumbnail" data-title="{{ object.default_caption|default:'' }}" data-footer="{{ object.description|default:'' }}" data-toggle="lightbox" href="{{ image.url }}" rel="{{ widget.fe_identifier }}">
+    <a class="thumbnail" data-title="{{ object.default_caption|default:'' }}" data-footer="{{ object.description|default:'' }}" data-toggle="lightbox" href="{{ image.url }}" rel="{{ widget.fe_identifier }}" data-gallery="multiimages">
       <img class="img-responsive" src="{{ thumb.url }}" />
     </a>
     {% endthumbnail %}

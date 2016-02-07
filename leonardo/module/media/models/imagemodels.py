@@ -13,14 +13,14 @@ from django.conf import settings
 from django.db import models
 from django.utils.timezone import now, make_aware, get_current_timezone
 from django.utils.translation import ugettext_lazy as _
-
+from feincms.translations import TranslatedObjectMixin
 from .abstract import BaseImage
 from filer.utils.loader import load_object
 
 logger = logging.getLogger("media")
 
 
-class Image(BaseImage):
+class Image(BaseImage, TranslatedObjectMixin):
     date_taken = models.DateTimeField(_('date taken'), null=True, blank=True,
                                       editable=False)
 

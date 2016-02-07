@@ -123,6 +123,12 @@ class Default(object):
         'css/lib/select2.css',
     ]
 
+    css_files = [
+        'css/lib/animate.css',
+        'css/lib/select2.css',
+        'css/lib/lightbox.css',
+    ]
+
     config = {
         'META_KEYWORDS': ('', _('Site specific meta keywords')),
         'META_DESCRIPTION': ('', _('Site specific meta description')),

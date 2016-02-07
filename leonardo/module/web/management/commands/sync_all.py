@@ -16,10 +16,14 @@ class Command(BaseCommand):
         make_option("-f", "--force",
                     action="store_true", dest="force", default=False,
                     help="overwrite existing database templates"),
+        make_option("-n", "--nocompress",
+                    action="store_true", dest="nocompress", default=False,
+                    help="Without compress command"),
     )
 
     def handle(self, **options):
         force = options.get('force', False)
+        nocompress = options.get('nocompress', True)
 
         # sync widgets
         sync_cmd = SyncWidgetsCommand()
@@ -39,7 +43,7 @@ class Command(BaseCommand):
             'verbosity': False})
         self.stdout.write('Syncing page themes complete.')
 
-        if settings.COMPRESS_OFFLINE:
+        if settings.COMPRESS_OFFLINE and not nocompress:
             self.stdout.write('Compressing static files...')
             call_command('compress')
             self.stdout.write('Compressing static files complete.')
