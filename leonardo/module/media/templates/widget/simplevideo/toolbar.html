@@ -3,17 +3,30 @@
 {% load thumbnail %}
 
 {% block content %}
-
-<div class="video fs-background-element fs-background">
+<style type="text/css">
+#background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url({{ widget.thumb.file.url }}) no-repeat;
+    background-size: cover;
+}
+</style>
+<div class="video embed-responsive embed-responsive-16by9 fs-background-element fs-background">
     <div class="overlay"></div>
-
-    <div class="scroll-down page-scroll">
-        <a class="btn page-scroll" href="#about"><i class="fa fa-angle-down"></i></a>
-    </div>
 
 	<div class="fs-background-container">
 		<div class="fs-background-media  fs-background-animated">
-			<video loop="" muted=""><source src="{{ widget.video.file.url }}" type="video/mp4"></video>
+			<video class="embed-responsive-item" autoplay loop muted poster="{{ widget.thumb.file.url }}" id="background">
+			    <source src="{{ widget.video.file.url }}" type="video/mp4">
+			</video>
 		</div>
 	</div>
 </div>
