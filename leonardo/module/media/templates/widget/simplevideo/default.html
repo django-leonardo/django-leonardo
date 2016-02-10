@@ -3,21 +3,10 @@
 {% load i18n %}
 
 {% block content %}
-<div id="{{ widget.fe_identifier }}-video">
-	<p>{% trans "Click link to get Flash Player or try to enable JavaScript and reload the page." %}</p>
-	<p>
-		<a href="http://www.adobe.com/go/getflashplayer">
-			<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="{% trans 'Get Adobe Flash player' %}" />
-		</a>
-	</p>
+<div id="{{ widget.fe_identifier }}-video" class="embed-responsive embed-responsive-16by9">
+	<video class="embed-responsive-item" width="100%" poster="{{ widget.thumb.file.url }}" controls>
+	  <source src="{{ widget.video.file.url }}" type="video/mp4">
+	  Your browser does not support HTML5 video.
+	</video>
 </div>
-
-<script type="text/javascript">
-var vars = { skin: "/static/lib/webcms-themes/amersec/swf/amsecskin.swf", thumbnail: '{{ widget.thumb.file.url }}', video: '{{ widget.video.file.url }}' };
-var params = { bgcolor: '#ffffff', scale: "noscale", wmode: "transparent" };
-var attributes = { id:'cu3er', name:'cu3er' };
-var swf_path = '/static/lib/webcms-themes/amersec/swf/player.swf';
-var swf_install_path = "/static/lib/swfobject/expressinstall.swf";
-swfobject.embedSWF(swf_path, "{{ widget.fe_identifier }}-video", {{ widget.width }}, {{ widget.height }}, "10.0.0", swf_install_path, vars, params, attributes );
-</script>
 {% endblock %}
