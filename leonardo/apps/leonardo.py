@@ -71,3 +71,7 @@ class LeonardoConfig(AppConfig):
 
             except Exception as e:
                 raise e
+
+        # patch compress
+        from leonardo.utils.compress_patch import compress_monkey_patch
+        compress_monkey_patch()
