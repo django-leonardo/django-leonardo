@@ -45,7 +45,7 @@ def head_title(request):
         return fragments.get("_head_title")
     else:
         return getattr(request.leonardo_page,
-                       "page_title", request.leonardoo_page.title)
+                       "page_title", request.leonardo_page.title)
 
 
 @register.inclusion_tag('leonardo/common/_region_tools.html',
