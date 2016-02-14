@@ -111,3 +111,40 @@
 .embed-responsive-4by3 {
   padding-bottom: 75%;
 }
+
+.no-gutter > [class*="col-"] {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.no-gutter {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.carousel-caption {
+    left: 20%;
+    position: relative;
+    right: 20%;
+    width: 60%;
+}
+
+.fa-10x {
+  font-size: 10em;
+}
+
+.fa-15x {
+  font-size: 15em;
+}
+  
+.fa-20x {
+  font-size: 20em;
+}
+
+.fa-25x {
+  font-size: 25em;
+}
+
+.fullscreen-slider .slider-caption i {
+  font-size: auto!important;
+}
