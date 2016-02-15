@@ -46,7 +46,7 @@ urlpatterns += patterns('',
                         url(r'^', include('leonardo.module.media.server.urls'))
                         )
 
-if settings.DEBUG:
+if settings.DEBUG or getattr(settings, 'LEONARDO_SERVE_STATIC', False):
 
     urlpatterns += static(settings.STATIC_URL,
                           document_root=settings.STATIC_ROOT)
