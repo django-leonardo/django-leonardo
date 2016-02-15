@@ -1,9 +1,9 @@
 
-@import "_mixins";
-
 @import "_variables";
 
 @import "/bootstrap/scss/bootstrap";
+
+@import "_mixins";
 
 @import "/leonardo/scss/leonardo";
 @import "/dashboard/scss/horizon_workflow";
@@ -148,3 +148,12 @@
 .fullscreen-slider .slider-caption i {
   font-size: auto!important;
 }
+
+.carousel-inner,
+.carousel,
+.item,
+.fill {
+  height: 100%;
+  width: 100%;
+}
+

@@ -13,9 +13,11 @@
   <div class="carousel-inner" role="listbox">
     {% for item in widget.items %}
     <div class="item{% if forloop.first %} active{% endif %}">
-      {% block item_content %}
-      {% include widget.get_item_template with item=item %}
-      {% endblock %}
+      <div class="fill">
+        {% block item_content %}
+        {% include widget.get_item_template with item=item %}
+        {% endblock %}
+      </div>
     </div>
     {% endfor %}
   </div>
