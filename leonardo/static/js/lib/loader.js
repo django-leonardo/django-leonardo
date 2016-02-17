@@ -19,7 +19,13 @@ function loadResource(resources){
         if(!found){
             var domScript = document.createElement('script'); 
             domScript.type = "text/javascript";
-            if(script.callback) domScript.onload=window[script.callback];
+            if(script.callback){ 
+                if(typeof script.callback === 'function'){
+                    domScript.onload=script.callback;
+                }else{
+                    domScript.onload=window[script.callback];
+                }
+            }
             domScript.src = script.src;
             domScript.async = script.async && script.async==true;
             domScript.defer = script.defer && script.defer==true;
