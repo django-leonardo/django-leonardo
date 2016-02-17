@@ -70,7 +70,7 @@ sitemaps = {
     'pages': PageSitemap,
 }
 
-if not settings.DEBUG or not settings(settings, 'LEONARDO_PREVIEW', False):
+if not settings.DEBUG or not getattr(settings, 'LEONARDO_PREVIEW', False):
     robots_template = 'robots.txt'
 else:
     robots_template = 'robots_dev.txt'
