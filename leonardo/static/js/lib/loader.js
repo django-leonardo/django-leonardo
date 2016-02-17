@@ -34,9 +34,10 @@ function loadResource(resources){
         var lastDot = elem.src.lastIndexOf("."), resExt = elem.src.substring(lastDot);
         if(resExt === '.js'){
             addScriptFn(elem);
-        }
-        if(resExt === '.css'){
+        }else if(resExt === '.css'){
             addStyleFn(elem);
+        }else{
+            console.log("Unknown type of resource ("+elem.src+")");
         }
     };
     if(resources instanceof Array){
