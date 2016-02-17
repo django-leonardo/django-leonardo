@@ -78,7 +78,7 @@
 <script src='{{ STATIC_URL }}horizon/js/horizon.forms.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon_formset_table.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon.messages.js'></script>
-<script src='{{ STATIC_URL }}horizon/js/horizon.modals.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon_modals.js'></script>
 
 <script type="text/javascript">
   horizon.modals.MODAL_BACKDROP = "{% firstof HORIZON_CONFIG.modal_backdrop 'static' %}";
@@ -106,6 +106,22 @@
 
 {% comment %}Go!{% endcomment %}
 <script>
+  horizon.addInitFunction(function () {
+    // init lightboxes
+    $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+    // init wow
+
+    try {
+        new WOW().init();
+    }
+    catch(err) {
+        console.log(err);
+    }
+
+  });
   // Call init on DOM ready.
   $(document).ready(horizon.init);
 </script>
@@ -199,18 +215,6 @@ $.ajaxSetup({
 
 <script type="text/javascript">
 $(function() {
-
-  $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
-      event.preventDefault();
-      $(this).ekkoLightbox();
-  }); 
-
-  try {
-      new WOW().init();
-  }
-  catch(err) {
-      console.log(err);
-  }
   horizon.modals.addModalInitFunction(function(modal) {
     $('.django-select2').not('django-select2-heavy').select2();
     $('.django-select2.django-select2-heavy').each(function () {
