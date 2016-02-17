@@ -32,12 +32,10 @@ function loadResource(resources){
         document.getElementsByTagName("head")[0].appendChild(link);
     }, addElement = function(elem){
         var lastDot = elem.src.lastIndexOf("."), resExt = elem.src.substring(lastDot);
-        if(resExt === '.js'){
-            addScriptFn(elem);
-        }else if(resExt === '.css'){
+        if(resExt === '.css'){
             addStyleFn(elem);
         }else{
-            console.log("Unknown type of resource ("+elem.src+")");
+            addScriptFn(elem);
         }
     };
     if(resources instanceof Array){
