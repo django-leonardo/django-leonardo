@@ -33,45 +33,48 @@ MEDIA_FILE_MODELS = getattr(settings, 'MEDIA_FILE_MODELS',
 DEFAULT_FILE_STORAGE = getattr(settings, 'DEFAULT_FILE_STORAGE', 'django.core.files.storage.FileSystemStorage')
 MEDIA_CANONICAL_URL = getattr(settings, 'MEDIA_CANONICAL_URL', 'files/')
 
-DEFAULT_MEDIA_STORAGES = {
-    'public': {
-        'main': {
-            'ENGINE': DEFAULT_FILE_STORAGE,
-            'OPTIONS': {
-                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT)),
-                'base_url': '/media/',
+if hasattr(settings, 'DEFAULT_MEDIA_STORAGES'):
+    DEFAULT_MEDIA_STORAGES = getattr(settings, 'DEFAULT_MEDIA_STORAGES')
+else:
+    DEFAULT_MEDIA_STORAGES = {
+        'public': {
+            'main': {
+                'ENGINE': DEFAULT_FILE_STORAGE,
+                'OPTIONS': {
+                    'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT)),
+                    'base_url': '/media/',
+                },
+                'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
+                'UPLOAD_TO_PREFIX': MEDIA_PUBLIC_UPLOAD_TO,
             },
-            'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
-            'UPLOAD_TO_PREFIX': MEDIA_PUBLIC_UPLOAD_TO,
-        },
-        'thumbnails': {
-            'ENGINE': DEFAULT_FILE_STORAGE,
-            'OPTIONS': {},
-            'THUMBNAIL_OPTIONS': {
-                'base_dir': 'public_thumbnails',
+            'thumbnails': {
+                'ENGINE': DEFAULT_FILE_STORAGE,
+                'OPTIONS': {},
+                'THUMBNAIL_OPTIONS': {
+                    'base_dir': 'public_thumbnails',
+                },
             },
         },
-    },
-    'private': {
-        'main': {
-            'ENGINE': 'filer.storage.PrivateFileSystemStorage',
-            'OPTIONS': {
-                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT)),
-                'base_url': '/smedia/',
+        'private': {
+            'main': {
+                'ENGINE': 'filer.storage.PrivateFileSystemStorage',
+                'OPTIONS': {
+                    'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT)),
+                    'base_url': '/smedia/',
+                },
+                'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
+                'UPLOAD_TO_PREFIX': MEDIA_PRIVATE_UPLOAD_TO,
             },
-            'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
-            'UPLOAD_TO_PREFIX': MEDIA_PRIVATE_UPLOAD_TO,
-        },
-        'thumbnails': {
-            'ENGINE': 'filer.storage.PrivateFileSystemStorage',
-            'OPTIONS': {
-                'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT, MEDIA_PRIVATE_UPLOAD_TO)),
-                'base_url': '/smedia/private_thumbnails/',
+            'thumbnails': {
+                'ENGINE': 'filer.storage.PrivateFileSystemStorage',
+                'OPTIONS': {
+                    'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT, MEDIA_PRIVATE_UPLOAD_TO)),
+                    'base_url': '/smedia/private_thumbnails/',
+                },
+                'THUMBNAIL_OPTIONS': {},
             },
-            'THUMBNAIL_OPTIONS': {},
         },
-    },
-}
+    }
 
 # OLD FILER STUFF
 

@@ -135,6 +135,7 @@ class Default(object):
         'META_TITLE': ('', _('Site specific meta title')),
         'DEBUG': (True, _('Debug mode')),
         'FAVICON_PATH': ('/static/img/favicon.ico', _('Favicon path')),
+        'DEFAULT_FROM_EMAIL': ('webmaster@localhost', 'Default from email.'),
     }
 
     # Example of custom field

@@ -34,6 +34,7 @@ class PageCreateView(ModalFormView):
         context['form_submit'] = _("Create")
         context['heading'] = "self.get_header()"
         context['modal_size'] = "lg"
+        context['modal_classes'] = "admin"
         return context
 
     def form_valid(self, form):
@@ -87,6 +88,7 @@ class PageUpdateView(ModalFormView):
         context['form_submit'] = _("Update")
         context['heading'] = "self.get_header()"
         context['modal_size'] = "lg"
+        context['modal_classes'] = "admin"
         return context
 
     def get_form(self, form_class):
@@ -155,6 +157,7 @@ class PageDimensionUpdateView(ModalFormView):
         context['title'] = "self.get_header()"
         context['view_name'] = _("Create")
         context['heading'] = "self.get_header()"
+        context['modal_classes'] = "admin"
         return context
 
     def get_initial(self):
@@ -194,6 +197,7 @@ class PageDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
         context['form_submit'] = _('Delete')
         context['heading'] = 'Delete {} ?'.format(page)
         context['help_text'] = self.get_help_text()
+        context['modal_classes'] = "admin"
         return context
 
     def form_valid(self, form):

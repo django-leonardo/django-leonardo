@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
@@ -66,6 +66,9 @@ class WidgetViewMixin(object):
         })
         return kwargs
 
+    def get_classes(self, **kwargs):
+        return ' '.join(getattr(self, 'classes', ['admin']))
+
 
 class WidgetUpdateView(WidgetViewMixin, UpdateView):
 
@@ -76,6 +79,7 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(WidgetUpdateView, self).get_context_data(**kwargs)
         context['modal_size'] = self._get_moda_size()
+        context['modal_classes'] = self.get_classes()
         return context
 
     def get_form_class(self):
@@ -90,10 +94,16 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
         return form_class(**kwargs)
 
     def form_valid(self, form):
-        response = super(WidgetUpdateView, self).form_valid(form)
+        super(WidgetUpdateView, self).form_valid(form)
+
         obj = self.object
         self.handle_dimensions(obj)
-        return response
+
+        return JsonResponse(data={
+            'id': obj.fe_identifier,
+            'content': self.model.objects.get(
+                id=self.kwargs["id"]).render_content({'request': self.request})
+            })
 
 
 class WidgetCreateView(WidgetViewMixin, CreateView):
@@ -121,6 +131,7 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
         # add extra context for template
         context['url'] = reverse("widget_create_full", kwargs=self.kwargs)
         context['modal_size'] = self._get_moda_size()
+        context['modal_classes'] = self.get_classes()
         return context
 
     def form_valid(self, form):
@@ -129,13 +140,15 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
             obj.save(created=False)
             self.handle_dimensions(obj)
             obj.parent.save()
-            success_url = self.get_success_url()
-            response = HttpResponseRedirect(success_url)
-            response['X-Horizon-Location'] = success_url
         except Exception as e:
             raise e
 
-        return response
+        return JsonResponse(data={
+            'id': obj.fe_identifier,
+            'content': obj.render_content({'request': self.request}),
+            'region': obj.region,
+            'ordering': obj.ordering
+            })
 
     def get_initial(self):
         return self.kwargs
@@ -154,6 +167,7 @@ class WidgetPreCreateView(CreateView, WidgetViewMixin):
         context = super(WidgetPreCreateView, self).get_context_data(**kwargs)
         context['modal_size'] = 'md'
         context['form_submit'] = _('Continue')
+        context['modal_classes'] = self.get_classes()
         return context
 
     def get_form(self, form_class):
@@ -234,22 +248,23 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
         context['form_submit'] = self.get_label()
         context['heading'] = self.get_header()
         context['help_text'] = self.get_help_text()
+        context['modal_classes'] = self.get_classes()
         return context
 
     def form_valid(self, form):
         obj = self.object
+        fe_identifier = obj.fe_identifier
         try:
             parent = obj.parent
             obj.delete()
             # invalide page cache
             parent.invalidate_cache()
-            success_url = self.get_success_url()
-            response = HttpResponseRedirect(success_url)
-            response['X-Horizon-Location'] = success_url
         except Exception as e:
             raise e
 
-        return response
+        return JsonResponse(data={
+            'id': fe_identifier,
+            })
 
     def get_initial(self):
         return self.kwargs

@@ -70,12 +70,17 @@ sitemaps = {
     'pages': PageSitemap,
 }
 
+if not settings.DEBUG or not getattr(settings, 'LEONARDO_PREVIEW', False):
+    robots_template = 'robots.txt'
+else:
+    robots_template = 'robots_dev.txt'
+
 urlpatterns += patterns('',
                         (r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}),
                         (r'^favicon\.ico$', RedirectView.as_view(
                             **{'permanent': True, 'url': config.FAVICON_PATH}),),
                         (r'^robots\.txt$',
-                         TemplateView.as_view(template_name='robots.txt')),
+                         TemplateView.as_view(template_name=robots_template)),
                         (r'^crossdomain\.xml$',
                          TemplateView.as_view(template_name='crossdomain.xml')),
                         )

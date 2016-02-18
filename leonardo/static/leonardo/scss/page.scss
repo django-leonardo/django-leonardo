@@ -157,3 +157,11 @@
   width: 100%;
 }
 
+.leonardo-htmltext-widget ul {
+    list-style: initial;
+    &.dropdown-menu {
+      list-style: none;
+   }
+}
+
+
