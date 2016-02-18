@@ -53,17 +53,5 @@
 <link rel="shortcut icon" href="/favicon.ico" />
 
 {% if request.user.is_staff %}
-<style type="text/css">
-.region-tools, .widget-tools {
-  opacity: .4;
-  -webkit-transition: opacity .1s ease-out;
-  -moz-transition: opacity .1s ease-out;
-  -o-transition: opacity .1s ease-out;
-  transition: opacity .1s ease-out;
-}
-.region-tools:hover, .widget-tools:hover {
-  opacity: 1;
-}
-</style>
   {% include "leonardo/common/_frontend_edit_sidebar.html" %}
 {% endif %}

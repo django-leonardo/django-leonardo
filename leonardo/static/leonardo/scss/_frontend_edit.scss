@@ -1,0 +1,23 @@
+
+body.frontend-editing {
+  .widget-tools {
+    display: none;
+    top: -20px;
+    right: 0px;
+    z-index: 5050;
+  }
+  .leonardo-widget:hover,
+  .leonardo-widget:focus,
+  .leonardo-widget:active, {
+    outline: 2px dashed $brand-success;
+    outline-offset: 2px;
+    .widget-tools {
+      display: initial;
+    }
+  }
+  #edit-position + .dropdown-menu {
+    right: 0px;
+    left: initial;
+  }
+}
+
