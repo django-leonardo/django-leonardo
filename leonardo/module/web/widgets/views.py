@@ -66,6 +66,9 @@ class WidgetViewMixin(object):
         })
         return kwargs
 
+    def get_classes(self, **kwargs):
+        return ' '.join(getattr(self, 'classes', ['admin']))
+
 
 class WidgetUpdateView(WidgetViewMixin, UpdateView):
 
@@ -76,6 +79,7 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(WidgetUpdateView, self).get_context_data(**kwargs)
         context['modal_size'] = self._get_moda_size()
+        context['modal_classes'] = self.get_classes()
         return context
 
     def get_form_class(self):
@@ -127,6 +131,7 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
         # add extra context for template
         context['url'] = reverse("widget_create_full", kwargs=self.kwargs)
         context['modal_size'] = self._get_moda_size()
+        context['modal_classes'] = self.get_classes()
         return context
 
     def form_valid(self, form):
@@ -162,6 +167,7 @@ class WidgetPreCreateView(CreateView, WidgetViewMixin):
         context = super(WidgetPreCreateView, self).get_context_data(**kwargs)
         context['modal_size'] = 'md'
         context['form_submit'] = _('Continue')
+        context['modal_classes'] = self.get_classes()
         return context
 
     def get_form(self, form_class):
@@ -242,6 +248,7 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
         context['form_submit'] = self.get_label()
         context['heading'] = self.get_header()
         context['help_text'] = self.get_help_text()
+        context['modal_classes'] = self.get_classes()
         return context
 
     def form_valid(self, form):
