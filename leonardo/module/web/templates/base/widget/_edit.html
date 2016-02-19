@@ -1,10 +1,10 @@
 {% load i18n %}
 
-<div class="btn-group">
-  {% if widget.region == 'col3' %}
-  <a class="leonardo-widget-dnd-handle btn btn-box-tool btn-success"><i class="fa fa-arrows"></i></a>
-  {% endif %}
+{% if widget.region == 'col3' %}
+<a class="leonardo-widget-dnd-handle btn btn-box-tool btn-success"><i class="fa fa-arrows"></i></a>
+{% endif %}
 
+<div class="btn-group">
   {% for action in request.LEONARDO_CONFIG.widget_actions %}
     {% include action %}
   {% endfor %}

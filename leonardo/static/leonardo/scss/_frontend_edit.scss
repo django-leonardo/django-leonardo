@@ -1,11 +1,7 @@
 
+$sortable-helper-background: #fff !default;
+
 body.frontend-editing {
-  .widget-tools {
-    display: none;
-    top: -20px;
-    right: 0px;
-    z-index: 5050;
-  }
   .leonardo-widget:hover,
   .leonardo-widget:focus,
   .leonardo-widget:active, {
@@ -18,6 +14,38 @@ body.frontend-editing {
   #edit-position + .dropdown-menu {
     right: 0px;
     left: initial;
+  }
+}
+
+.widget-tools {
+  position: absolute;
+  display: none;
+  top: -20px;
+  right: 0px;
+  z-index: 1040;
+  width: 100%;
+  .ui-sortable-handle {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+  }
+  .btn-group {
+    float: right;
+  }
+}
+
+.ui-sortable-placeholder {
+    min-height: 20px;
+    outline: 2px dashed $brand-warning;
+    outline-offset: 5px;
+    visibility: visible !important;
+    background: lighten($brand-warning, 30);
+}
+
+.ui-sortable-helper.fe_dragging {
+  background: $sortable-helper-background;
+  .widget-tools .btn-group {
+    display: none;
   }
 }
 

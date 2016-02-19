@@ -165,10 +165,10 @@ $.ajaxSetup({
       $(".col3").sortable({
         revert: true,
         forceHelperSize: true,
-        opacity: 0.3,
         tolerance: 'pointer',
         start: function (e,ui) {
           $(ui.helper).addClass('fe_dragging');
+          $(ui.placeholder).css( "height", $(ui.helper).height() )
         },
         update: function() {
           $(this).sortable('refresh');
