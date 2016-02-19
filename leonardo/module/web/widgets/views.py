@@ -229,7 +229,7 @@ class SuccessUrlMixin(object):
 
 
 class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
-                       ContextMixin, ModelFormMixin):
+                       ContextMixin, ModelFormMixin, WidgetViewMixin):
 
     form_class = WidgetDeleteForm
 
