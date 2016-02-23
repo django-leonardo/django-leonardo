@@ -34,6 +34,7 @@ class ContextNavigationWidget(ListWidgetMixin, NavigationWidget):
         verbose_name_plural = _('Linked pages')
 
     feincms_item_editor_form = NavigationForm
+    leonardo_cache = True
 
     def render(self, **kwargs):
         return self.render_with_cache(kwargs)

@@ -3,21 +3,23 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
+from django.core.cache import caches
 from django.db import models
 from django.forms.models import fields_for_model
-from django.template import loader, RequestContext
+from django.template import RequestContext, loader
 from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from feincms.admin.item_editor import FeinCMSInline
 from feincms.models import Base as FeinCMSBase
+from leonardo.utils.memoized import widget_memoized
 from leonardo.utils.templates import find_all_templates, template_choices
 
 from ..const import *
+from ..widgets.const import ENTER_EFFECT_CHOICES, WIDGET_COLOR_SCHEME_CHOICES
 from ..widgets.forms import WIDGETS, WidgetUpdateForm
-from ..widgets.mixins import ListWidgetMixin, ContentProxyWidgetMixin
-from django.utils.functional import cached_property
-from leonardo.utils.memoized import widget_memoized
+from ..widgets.mixins import ContentProxyWidgetMixin, ListWidgetMixin
 
 try:
     from django.contrib.contenttypes import generic
@@ -145,7 +147,6 @@ class WidgetBaseTheme(models.Model):
         verbose_name_plural = _("Widget base themes")
 
 
-from ..widgets.const import ENTER_EFFECT_CHOICES, WIDGET_COLOR_SCHEME_CHOICES
 
 
 @python_2_unicode_compatible
@@ -401,6 +402,27 @@ class Widget(FeinCMSBase):
     @classmethod
     def get_widget_icon(cls):
         return getattr(cls, 'icon', 'fa fa-plus')
+
+    # CACHE TOOLS
+
+    @cached_property
+    def cache_key(self):
+        return 'widget.cache.%s' % self.fe_identifier
+
+    def is_cached(self, request):
+        '''returns True if widget will be cached or not
+        in the deafult state returns False and it's driven
+        by ``leonardo_cache`` property
+        '''
+        if request.frontend_editing:
+            return False
+        return getattr(self, 'leonardo_cache', False)
+
+    def purge_from_cache(self):
+        '''Purge widget content from cache'''
+        cache = caches['default']
+        cache.delete(self.cache_key)
+        return True
 
 
 class ListWidget(Widget, ListWidgetMixin):
