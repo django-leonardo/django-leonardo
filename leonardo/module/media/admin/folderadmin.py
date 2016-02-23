@@ -45,12 +45,13 @@ from ..settings import FILER_STATICMEDIA_PREFIX
 from filer.utils.filer_easy_thumbnails import FilerActionThumbnailer
 from filer.thumbnail_processors import normalize_subject_location
 from django.conf import settings as django_settings
+from leonardo.forms import SelfHandlingModelForm
 import os
 import re
 import itertools
 
 
-class AddFolderPopupForm(forms.ModelForm):
+class AddFolderPopupForm(SelfHandlingModelForm):
     folder = forms.HiddenInput()
 
     class Meta:

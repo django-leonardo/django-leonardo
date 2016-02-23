@@ -1,6 +1,9 @@
 
+from django.core.urlresolvers import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 from django_select2 import forms
-from django import forms as django_forms
+from leonardo.forms.fields.dynamic import (DynamicModelChoiceField,
+                                           DynamicSelectWidget)
 from ..models import Folder
 from .utils import FOLDER_SEARCH_FIELDS, FileMultipleField
 
@@ -9,7 +12,7 @@ class FolderPathSelectWidget(forms.Select2Widget):
     search_fields = FOLDER_SEARCH_FIELDS
 
 
-class FolderSelectWidget(forms.ModelSelect2Widget):
+class FolderSelectWidget(forms.ModelSelect2Widget, DynamicSelectWidget):
     model = Folder
     search_fields = FOLDER_SEARCH_FIELDS
 
@@ -29,9 +32,30 @@ class FolderFieldMixin(object):
             widget=FolderSelectWidget(), *args, **kwargs)
 
 
-class FolderField(FolderFieldMixin, django_forms.ModelChoiceField):
+class FolderField(FolderFieldMixin, DynamicModelChoiceField):
     '''Folder field for selecting folders, which has human readable label'''
-    pass
+
+    help_text = _("Type to search file or upload new one."),
+    add_item_link = reverse_lazy(
+        'forms:create_with_form',
+        kwargs={'cls_name': 'media.folder',
+                'form_cls': 'leonardo.module.media.admin.folderadmin.AddFolderPopupForm'})
+
+    def __init__(self,
+                 add_item_link=None,
+                 add_item_link_args=None,
+                 search_fields=None,
+                 *args,
+                 **kwargs):
+        super(FolderField, self).__init__(*args, **kwargs)
+
+        if search_fields:
+            self.widget.search_fields = search_fields
+
+        if add_item_link or hasattr(self, 'add_item_link'):
+            self.widget.add_item_link = add_item_link or self.add_item_link
+
+        self.widget.add_item_link_args = add_item_link_args
 
 
 class FolderMultipleField(FolderFieldMixin, FileMultipleField):

@@ -1,5 +1,6 @@
 # -#- coding: utf-8 -#-
 
+from django.core.urlresolvers import reverse_lazy
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.media.fields import FileField
@@ -9,7 +10,12 @@ from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
 class FileForm(WidgetUpdateForm):
 
-    file = FileField()
+    file = FileField(
+        help_text=_("Type to search file or upload new one."),
+        add_item_link=reverse_lazy(
+            'forms:create_with_form',
+            kwargs={'cls_name': 'media.folder',
+                    'form_cls': 'leonardo.module.media.admin.fileadmin.FileAdminChangeFrom'}))
 
 
 class DownloadItemWidget(Widget):

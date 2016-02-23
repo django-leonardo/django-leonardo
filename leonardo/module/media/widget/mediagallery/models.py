@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from leonardo.module.media.fields.folder import FolderField
 from leonardo.module.web.models import ListWidget
 from leonardo.module.web.widgets.forms import WidgetUpdateForm
+from django.core.urlresolvers import reverse_lazy
 from leonardo.module.media.models import Image
 
 DETAIL_CHOICES = (

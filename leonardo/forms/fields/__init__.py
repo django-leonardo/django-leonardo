@@ -1,9 +1,10 @@
 
 from __future__ import unicode_literals
 
-from .multiple import MultiSelectField
-
 from django_select2.forms import *
+
+from .dynamic import *
+from .multiple import MultiSelectField
 
 
 class InitMixin(object):

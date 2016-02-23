@@ -16,7 +16,7 @@ django-haystack==2.3.1
 sorl-thumbnail==12.2
 easy-thumbnails==2.2
 
-horizon-contrib>=2015.10.4
+horizon-contrib>=2016.2.0
 leonardo_horizon==2015.3
 leonardo_dbtemplates>=1.0.0a0
 leonardo_constance>=1.0.0a3
