@@ -52,7 +52,7 @@ class FolderField(FolderFieldMixin, DynamicModelChoiceField):
         if search_fields:
             self.widget.search_fields = search_fields
 
-        if add_item_link or hasattr(self, 'add_item_link'):
+        if add_item_link is not None or hasattr(self, 'add_item_link'):
             self.widget.add_item_link = add_item_link or self.add_item_link
 
         self.widget.add_item_link_args = add_item_link_args
