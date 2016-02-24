@@ -1,6 +1,11 @@
 
 from django.http import HttpResponseRedirect
 from django.utils.cache import add_never_cache_headers
+from django.core.cache import caches
+
+
+def clear_cache():
+    return caches['default'].clear()
 
 
 def frontendediting_request_processor(page, request):
@@ -14,18 +19,22 @@ def frontendediting_request_processor(page, request):
     response = HttpResponseRedirect(request.path)
 
     if request.user.has_module_perms('page'):
-        try:
-            enable_fe = int(request.GET['frontend_editing']) > 0
-        except ValueError:
-            enable_fe = False
 
-        if enable_fe:
-            response.set_cookie(str('frontend_editing'), enable_fe)
-        else:
-            response.delete_cookie(str('frontend_editing'))
+        if 'frontend_editing' in request.GET:
+
+            try:
+                enable_fe = int(request.GET['frontend_editing']) > 0
+            except ValueError:
+                enable_fe = False
+
+            if enable_fe:
+                response.set_cookie(str('frontend_editing'), enable_fe)
+                clear_cache()
+            else:
+                response.delete_cookie(str('frontend_editing'))
+                clear_cache()
     else:
         response.delete_cookie(str('frontend_editing'))
-
 
     # Redirect to cleanup URLs
     return response
