@@ -273,6 +273,23 @@ $(function() {
     });
   });
 
+   var $form = $('form');
+    $form.each(function(){
+      var $this=$(this);
+      $this.submit(function (ev) {
+        $.ajax({
+            type: $this.attr('method'),
+            url: $this.attr('action'),
+            data: $.extend($this.serializeArray().reduce(
+              function(a, x) { a[x.name] = x.value; return a; }, {}),
+              {widget_id:$this.closest("div.leonardo-widget").attr('id')}),
+            success: function (data) {
+                $this.closest("div.leonardo-widget").replaceWith(data.result);
+            }
+        });
+        ev.preventDefault();
+      });
+  });
 });
 </script>
 {% for file in HORIZON_CONFIG.js_compress_files %}
