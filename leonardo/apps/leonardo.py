@@ -75,3 +75,7 @@ class LeonardoConfig(AppConfig):
         # patch compress
         from leonardo.utils.compress_patch import compress_monkey_patch
         compress_monkey_patch()
+
+        # patch select2 width
+        from leonardo.utils.select2 import patch_select2
+        patch_select2()
