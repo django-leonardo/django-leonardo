@@ -273,7 +273,8 @@ $(function() {
     });
   });
 
-   var $form = $('form');
+  /* Handle some forms without page reload */
+   var $form = $('.leonardo-form-widget form, .leonardo-subscriptionform-widget form');
     $form.each(function(){
       var $this=$(this);
       $this.submit(function (ev) {
