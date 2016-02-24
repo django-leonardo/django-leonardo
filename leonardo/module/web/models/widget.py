@@ -1,6 +1,8 @@
 
 from __future__ import unicode_literals
 
+import sys
+
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import caches
@@ -8,6 +10,7 @@ from django.db import models
 from django.forms.models import fields_for_model
 from django.template import RequestContext, loader
 from django.template.loader import render_to_string
+from django.utils import six
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
@@ -295,7 +298,8 @@ class Widget(FeinCMSBase):
             rendered_content = self.template_source.render(context)
         except Exception as e:
             if settings.DEBUG:
-                raise e
+                exc_info = sys.exc_info()
+                raise six.reraise(*exc_info)
             rendered_content = self.render_error(context, e)
         return rendered_content
 
