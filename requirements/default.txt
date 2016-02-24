@@ -25,7 +25,7 @@ django-picklefield==0.3.1 # use for database backend
 leonardo-system>=0.0.8.post4 # optional
 leonardo-admin>=2015.10.0 # optional
 leonardo-sitestarter>=1.0.0a2 # optional
-leonardo-ckeditor>=1.0.0a1 # optional
+leonardo-ckeditor>=1.0.0b0 # optional
 
 
 -r extras/static.txt

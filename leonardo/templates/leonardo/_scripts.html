@@ -94,7 +94,6 @@
 
 {% block custom_js_files %}{% endblock %}
 {% endcompress %}
-<script src="{{ STATIC_URL }}django_select2/django_select2.js"></script>
 
 {% comment %} Client-side Templates (These should *not* be inside the "compress" tag.) {% endcomment %}
 {% include "horizon/client_side/templates.html" %}
@@ -127,6 +126,7 @@
 </script>
 
 {% if request.frontend_editing %}
+<script src="{{ STATIC_URL }}django_select2/django_select2.js"></script>
 
 <script type="text/javascript">
 
