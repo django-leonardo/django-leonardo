@@ -3,7 +3,7 @@
 from django.conf.urls import patterns, url
 
 from leonardo.module.search.forms import SearchForm
-from haystack.views import SearchView
+from ..views import SearchView
 
 
 urlpatterns = patterns('',
