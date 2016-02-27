@@ -195,6 +195,7 @@ class Page(FeinCMSPage):
         request = request_factory.get(
             self.get_absolute_url(), data={})
         request.feincms_page = request.leonardo_page = self
+        request.frontend_editing = False
         request.user = AnonymousUser()
 
         if not hasattr(request, '_feincms_extra_context'):

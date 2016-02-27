@@ -33,13 +33,15 @@ class Handler(ContentView):
     def dispatch(self, request, *args, **kwargs):
 
         if request.is_ajax():
-            try:
-                id = request.POST['widget_id']
-            except KeyError:
-                id = request.GET['widget_id']
-            widget = get_widget_from_id(id)
-            response = widget.render(**{'request': request})
-            return JsonResponse({'result': response, 'id': id})
+
+            if 'widget_id' in request.POST or 'widget_id' in request.GET:
+                try:
+                    id = request.POST['widget_id']
+                except KeyError:
+                    id = request.GET['widget_id']
+                widget = get_widget_from_id(id)
+                response = widget.render(**{'request': request})
+                return JsonResponse({'result': response, 'id': id})
 
         try:
             return super(Handler, self).dispatch(request, *args, **kwargs)
