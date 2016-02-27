@@ -77,6 +77,11 @@
       }
     , success: function(data) {
         self.show_results(data)
+
+        $(".ac-results").css({
+            'top': $(".autocomplete-me").offset().top + 40,
+            'width': $(".autocomplete-me").width()
+        });
       }
     })
   }
@@ -103,11 +108,6 @@
       elem.text("No results found.")
       results_wrapper.append(elem)
     }
-
-    $(".ac-results").css({
-        'top': $(".autocomplete-me").offset().top + 40,
-        'width': $(".autocomplete-me").width()
-    });
 
     this.query_box.after(results_wrapper)
   }
