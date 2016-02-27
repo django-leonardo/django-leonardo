@@ -11,8 +11,7 @@
     position: absolute;
     z-index: 1;
     display: block;
-    width: 180px;
-    padding-left: 20px;
+    width: 100%;
     background-color: white;
   }
 </style>
@@ -107,8 +106,8 @@
 
     $(".ac-results").css({
         'top': $(".autocomplete-me").offset().top + 40,
-        'width': $(".autocomplete-me").width(),
-      });
+        'width': $(".autocomplete-me").width()
+    });
 
     this.query_box.after(results_wrapper)
   }
