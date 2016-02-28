@@ -79,3 +79,7 @@ class LeonardoConfig(AppConfig):
         # patch select2 width
         from leonardo.utils.select2 import patch_select2
         patch_select2()
+
+        # patch Django shortcuts
+        from leonardo.utils.shortcuts_patch import patch_shortcuts
+        patch_shortcuts()

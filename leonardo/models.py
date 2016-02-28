@@ -1,4 +1,6 @@
-import six
+
+import os
+from django.utils import six
 from importlib import import_module
 from leonardo.module.web.models import *
 from leonardo.module.web.models import ApplicationWidget, Page
@@ -34,8 +36,9 @@ def register_widgets():
             if isinstance(widget, six.string_types):
                 try:
                     WidgetCls = get_class_from_string(widget)
-                except Exception as e:
-                    raise e
+                except:
+                    exc_info = sys.exc_info()
+                    raise six.reraise(*exc_info)
             elif isinstance(widget, tuple):
                 try:
                     WidgetCls = get_class_from_string(widget[0])
