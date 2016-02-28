@@ -1,5 +1,5 @@
 
-{% load compress leonardo_tags %}
+{% load compress leonardo_tags staticfiles %}
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +17,7 @@
 {% endif %}
 
 <link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" sizes="192x192" href="{% static "leonardo/img/icon.png" %}">
 
 {% include "base/head_meta.html" %}
 
