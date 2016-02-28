@@ -5,8 +5,41 @@ import django
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-if django.VERSION < (1, 9):
+if django.VERSION < (1, 8):
 
+    def render(request, *args, **kwargs):
+        """
+        Returns a HttpResponse whose content is filled with the result of calling
+        django.template.loader.render_to_string() with the passed arguments.
+        Uses a RequestContext by default.
+        """
+        httpresponse_kwargs = {
+            'content_type': kwargs.pop('content_type', None),
+            'status': kwargs.pop('status', None),
+        }
+
+        if hasattr(request, '_feincms_extra_context') and 'widget' in request._feincms_extra_context:
+            if 'context' in kwargs:
+                kwargs['context'][
+                    'widget'] = request._feincms_extra_context['widget']
+
+        if 'context_instance' in kwargs:
+            context_instance = kwargs.pop('context_instance')
+            if kwargs.get('current_app', None):
+                raise ValueError('If you provide a context_instance you must '
+                                 'set its current_app before calling render()')
+        else:
+            current_app = kwargs.pop('current_app', None)
+            context_instance = RequestContext(request, current_app=current_app)
+
+        kwargs['context_instance'] = context_instance
+
+        return HttpResponse(loader.render_to_string(*args, **kwargs),
+                            **httpresponse_kwargs)
+
+elif django.VERSION < (1, 9):
+
+    from django.utils.deprecation import RemovedInDjango110Warning
     from django.template.context import _current_app_undefined
     from django.template.engine import (_context_instance_undefined,
                                         _dictionary_undefined, _dirs_undefined)
@@ -42,7 +75,6 @@ if django.VERSION < (1, 9):
             else:
                 context_instance = RequestContext(request)
                 if current_app is not _current_app_undefined:
-                    from django.utils.deprecation import RemovedInDjango110Warning
                     warnings.warn(
                         "The current_app argument of render is deprecated. "
                         "Set the current_app attribute of request instead.",
