@@ -30,12 +30,6 @@ function loadResource(resources){
             domScript.async = script.async && script.async==true;
             domScript.defer = script.defer && script.defer==true;
             resources[0].parentNode.insertBefore(domScript, resources[0]);
-        }else if(script.callback){
-            if(typeof script.callback === 'function'){
-                script.callback();
-            }else{
-                window[script.callback]();
-            }
         }
     }, addStyleFn = function(style){
         var link = document.createElement("link");
