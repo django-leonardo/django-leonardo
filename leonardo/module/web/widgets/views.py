@@ -1,6 +1,7 @@
 
 from __future__ import absolute_import, unicode_literals
 
+import json
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -10,7 +11,6 @@ from django.utils.translation import ugettext
 from horizon.utils import memoized
 from leonardo import messages
 from leonardo.views import *
-
 from ..models import Page
 from .forms import (WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm,
                     get_widget_create_form, get_widget_update_form)
@@ -103,7 +103,7 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
             'id': obj.fe_identifier,
             'content': self.model.objects.get(
                 id=self.kwargs["id"]).render_content({'request': self.request})
-            })
+        })
 
 
 class WidgetCreateView(WidgetViewMixin, CreateView):
@@ -148,7 +148,7 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
             'content': obj.render_content({'request': self.request}),
             'region': obj.region,
             'ordering': obj.ordering
-            })
+        })
 
     def get_initial(self):
         return self.kwargs
@@ -264,7 +264,7 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
 
         return JsonResponse(data={
             'id': fe_identifier,
-            })
+        })
 
     def get_initial(self):
         return self.kwargs
@@ -389,3 +389,17 @@ class WidgetCopyView(WidgetReorderView):
         response = HttpResponseRedirect(success_url)
         response['X-Horizon-Location'] = success_url
         return response
+
+
+class JSReverseView(WidgetReorderView):
+
+    '''Returns url.'''
+
+    def post(self, *args, **kwargs):
+
+        view_name = self.request.POST.get('viewname')
+        args = self.request.POST.get('args', tuple())
+        kwargs = json.loads(self.request.POST.get('kwargs', "{}"))
+
+        return JsonResponse({'url': reverse(
+            view_name, args=args, kwargs=kwargs)})

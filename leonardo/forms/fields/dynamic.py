@@ -1,13 +1,14 @@
 import six
 from django import forms
 from django.core import urlresolvers
+from django.core.urlresolvers import reverse_lazy
 from django.forms import fields, widgets
 from django.forms.utils import flatatt  # noqa
 from django.utils import html
 from django.utils.encoding import force_text
 from django.utils.functional import Promise  # noqa
 from django.utils.translation import ugettext_lazy as _
-from django_select2.forms import Select2Widget, ModelSelect2Widget
+from django_select2.forms import ModelSelect2Widget, Select2Widget
 
 
 class SelectWidget(widgets.Select):
@@ -98,12 +99,105 @@ class DynamicSelectWidget(Select2Widget):
     use in callbacks to handle dynamic changes to the available choices.
     """
     _data_add_url_attr = "data-add-item-url"
+    _data_edit_url_attr = "data-edit-item-url"
 
     def render(self, *args, **kwargs):
         add_item_url = self.get_add_item_url()
         if add_item_url is not None:
             self.attrs[self._data_add_url_attr] = add_item_url
-        return super(DynamicSelectWidget, self).render(*args, **kwargs)
+
+        content = super(DynamicSelectWidget, self).render(*args, **kwargs)
+
+        if self.get_cls_name():
+            content += self.get_edit_handler()
+
+        return content
+
+    def get_edit_handler(self):
+        '''TODO: Fix add-to-field'''
+        return '''
+
+        <span class="input-group-btn">
+            <a href="#" id="item-edit" data-add-to-field="id_file" class="btn btn-default disabled"><span class="fa fa-pencil"></span></a></span>
+        <script>
+
+        if ($('*[data-add-item-url="%(url)s"]').val()) {
+            $('#item-edit').removeClass('disabled');
+        }
+
+        $('*[data-add-item-url="%(url)s"]').on('change', function (e) {
+            if ($('*[data-add-item-url="%(url)s"]').val()) {
+                $('#item-edit').removeClass('disabled');
+            } else {
+                $('#item-edit').addClass('disabled');
+            }
+        });
+
+        $("#item-edit").click(function() {
+            $.ajax({
+              url: "/widget/js-reverse/",
+              method: 'POST',
+              data: {
+                viewname: '%(viewname)s',
+                kwargs:  JSON.stringify({
+                    cls_name: '%(cls_name)s',
+                    id: $('*[data-add-item-url="%(url)s"]').val(),
+                    form_cls: '%(form_cls)s'
+                    })
+                }
+            })
+              .done(function( data ) {
+                if ( console && console.log ) {
+                  console.log( "Sample of data:", data );
+
+                    horizon.modals._request = $.ajax(data.url, {
+                      beforeSend: function () {
+                        horizon.modals.modal_spinner(gettext("Loading"));
+                      },
+                      complete: function () {
+                        // Clear the global storage;
+                        horizon.modals._request = null;
+                        horizon.modals.spinner.modal('hide');
+                      },
+                      error: function(jqXHR, status, errorThrown) {
+                        if (jqXHR.status === 401){
+                          var redir_url = jqXHR.getResponseHeader("X-Horizon-Location");
+                          if (redir_url){
+                            location.href = redir_url;
+                          } else {
+                            location.reload(true);
+                          }
+                        }
+                        else {
+                          if (!horizon.ajax.get_messages(jqXHR)) {
+                            // Generic error handler. Really generic.
+                            horizon.alert("danger", gettext(
+                                "An error occurred. Please try again later."));
+                          }
+                        }
+                      },
+                      success: function (data, textStatus, jqXHR) {
+                        var update_field_id = 'data-add-to-field',
+                          modal,
+                          form;
+                        modal = horizon.modals.success(
+                            data, textStatus, jqXHR);
+                        if (update_field_id) {
+                          form = modal.find("form");
+                          if (form.length) {
+                            form.attr("data-add-to-field", update_field_id);
+                          }
+                        }
+                      }
+                    });
+                }
+              });
+        });
+        </script>
+        ''' % {'viewname': 'forms:update_with_form' if self.get_form_cls() else 'forms:update',
+               'cls_name': self.get_cls_name(),
+               'url': self.get_add_item_url(),
+               'form_cls': self.get_form_cls()}
 
     def get_add_item_url(self):
         if callable(self.add_item_link):
@@ -116,6 +210,16 @@ class DynamicSelectWidget(Select2Widget):
                 return urlresolvers.reverse(self.add_item_link)
         except urlresolvers.NoReverseMatch:
             return self.add_item_link
+
+    def get_cls_name(self):
+        if hasattr(self, 'cls_name'):
+            return self.cls_name
+        return ''
+
+    def get_form_cls(self):
+        if hasattr(self, 'form_cls'):
+            return self.form_cls
+        return ''
 
 
 class DynamicChoiceField(fields.ChoiceField):
@@ -131,6 +235,8 @@ class DynamicChoiceField(fields.ChoiceField):
     def __init__(self,
                  add_item_link=None,
                  add_item_link_args=None,
+                 cls_name=None,
+                 form_cls=None,
                  search_fields=None,
                  *args,
                  **kwargs):
@@ -139,8 +245,23 @@ class DynamicChoiceField(fields.ChoiceField):
         if search_fields:
             self.widget.search_fields = search_fields
 
-        self.widget.add_item_link = add_item_link
-        self.widget.add_item_link_args = add_item_link_args
+        if cls_name:
+            self.widget.cls_name = cls_name
+
+        if form_cls:
+            self.widget.form_cls = form_cls
+
+        if cls_name and not add_item_link and not form_cls:
+            self.widget.add_item_link = 'forms:create'
+            self.widget.add_item_link_args = (cls_name, )
+
+        if cls_name and form_cls and not add_item_link:
+            self.widget.add_item_link = 'forms:create_with_form'
+            self.widget.add_item_link_args = (cls_name, form_cls)
+
+        if not form_cls:
+            self.widget.add_item_link = add_item_link
+            self.widget.add_item_link_args = add_item_link_args
 
 
 DEFAULT_SEARCH_FIELDS = [
@@ -166,16 +287,30 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
     def __init__(self,
                  add_item_link=None,
                  add_item_link_args=None,
+                 cls_name=None,
+                 form_cls=None,
                  search_fields=None,
                  *args,
                  **kwargs):
         super(DynamicModelChoiceField, self).__init__(*args, **kwargs)
 
-        if search_fields:
-            self.widget.search_fields = search_fields
+        if cls_name:
+            self.widget.cls_name = cls_name
 
-        self.widget.add_item_link = add_item_link
-        self.widget.add_item_link_args = add_item_link_args
+        if form_cls:
+            self.widget.form_cls = form_cls
+
+        if cls_name and not add_item_link and not form_cls:
+            self.widget.add_item_link = 'forms:create'
+            self.widget.add_item_link_args = (cls_name, )
+
+        if cls_name and form_cls and not add_item_link:
+            self.widget.add_item_link = 'forms:create_with_form'
+            self.widget.add_item_link_args = (cls_name, form_cls)
+
+        if not cls_name:
+            self.widget.add_item_link = add_item_link
+            self.widget.add_item_link_args = add_item_link_args
 
 
 class DynamicTypedChoiceField(DynamicChoiceField, fields.TypedChoiceField):

@@ -25,4 +25,6 @@ urlpatterns = patterns('',
                            WidgetReorderView.as_view(), name='widget_reorder'),
                        url(r'^widget-sort/$',
                            WidgetSortView.as_view(), name='widget_sort'),
+                       url(r'^js-reverse/$',
+                           JSReverseView.as_view(), name='js_reverse'),
                        )
