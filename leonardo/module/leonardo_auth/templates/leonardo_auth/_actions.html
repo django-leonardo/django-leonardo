@@ -2,7 +2,7 @@
 
 <div class="panel-body" style="padding-bottom:0;padding-top:5px;">
 {% if request.user.is_staff and request.frontend_editing %}
-<a class="btn btn-primary btn-sm btn-block" href="?frontend_editing=0"><i class="fa fa-power-off"></i> {% trans 'Stop Editing' %}</a>
+<a id="stop_edit" class="btn btn-primary btn-sm btn-block" href="?frontend_editing=0"><i class="fa fa-power-off"></i> {% trans 'Stop Editing' %}</a>
 {% else %}
 <a class="btn btn-primary btn-sm btn-block" href="?frontend_editing=1"><i class="fa fa-pencil"></i> {% trans 'Start Editing' %}</a>
 {% endif %}
@@ -10,3 +10,10 @@
 	<a class="btn btn-primary btn-sm btn-block" href="{% url 'logout' %}?next={{ request.build_absolute_uri }}"><i class="fa fa-power-off"></i> {% trans 'Logout' %}</a>
 {% endif %}
 </div>
+<script type="text/javascript">
+$(function (){
+	$("#stop_edit").on("click", function() {
+		hideSettings();
+	});
+});
+</script>
