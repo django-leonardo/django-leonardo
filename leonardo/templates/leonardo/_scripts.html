@@ -81,14 +81,14 @@
 <script src='{{ STATIC_URL }}horizon/js/horizon_modals.js'></script>
 
 <script type="text/javascript">
-  horizon.modals.MODAL_BACKDROP = "{% firstof HORIZON_CONFIG.modal_backdrop 'static' %}";
+  horizon.modals.MODAL_BACKDROP = "{% firstof LEONARDO_CONFIG.modal_backdrop 'static' %}";
 </script>
 <script src='{{ STATIC_URL }}horizon/js/horizon.tables.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon.tables_inline_edit.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon.tabs.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon.templates.js'></script>
 
-{% for file in HORIZON_CONFIG.js_files %}
+{% for file in LEONARDO_CONFIG.js_files %}
     <script src='{{ STATIC_URL }}{{ file }}'></script>
 {% endfor %}
 
@@ -239,6 +239,18 @@ $(function() {
             }
         });
     });
+
+    /* UX friendly */
+    try {
+        $(modal).find(":text, select, textarea").filter(":visible:first").focus();
+    }
+    catch(err) {}
+
+
+    if ($(modal).find(".django-select2").filter(":visible:first").length) {
+      $(modal).find(".django-select2").filter(":visible:first").select2('open');
+    }
+
   });
 
   // Bind handler for swapping labels on "switchable" select fields.
@@ -293,9 +305,9 @@ $(function() {
   });
 });
 </script>
-{% for file in HORIZON_CONFIG.js_compress_files %}
+{% for file in LEONARDO_CONFIG.js_compress_files %}
     <script src='{{ STATIC_URL }}{{ file }}'></script>
 {% endfor %}
-{% for file in HORIZON_CONFIG.js_external_files %}
+{% for file in LEONARDO_CONFIG.js_external_files %}
     <script src='{{ file }}'></script>
 {% endfor %}

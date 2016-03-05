@@ -40,5 +40,6 @@ HORIZON_CONFIG = {
     'angular_modules': [],
     'js_files': [],
     'js_spec_files': [],
+    'modal_backdrop': 'static'
 
 }
