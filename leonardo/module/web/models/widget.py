@@ -285,13 +285,22 @@ class Widget(FeinCMSBase):
         """
         return self.render_content(options)
 
+    def get_template_data(self, request):
+        '''returns dictionary
+        use this method for providing context data
+        '''
+        return {}
+
     def get_context_data(self, request):
         '''returns initial context'''
-        return RequestContext(request, {
+
+        context = {
             'widget': self,
             'base_template': self.get_base_template,
             'request': request,
-        })
+        }
+        context.update(self.get_template_data(request))
+        return context
 
     def render_content(self, options):
         '''returns rendered widget and handle error during rendering'''

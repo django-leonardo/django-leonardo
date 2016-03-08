@@ -95,17 +95,11 @@ class ApplicationWidget(Widget, ApplicationContent):
                         if k in params:
                             self.fields[k].initial = params[k]
 
-    def render_content(self, options):
-        data = {
-            'widget': self,
-            'request': options.get('request'),
+    def get_template_data(self, request):
+        return {
+            'content': getattr(
+                self, 'rendered_result', '')
         }
-        context = RequestContext(options.get('request'), data)
-
-        context['content'] = getattr(
-            self, 'rendered_result', '')
-
-        return render_to_string(self.get_template, context)
 
     def process(self, request, **kw):
         page_url = self.parent.get_absolute_url()
@@ -212,7 +206,7 @@ class ApplicationWidget(Widget, ApplicationContent):
         return render_to_response(
             self.parent.theme.template,
             context
-            )
+        )
 
     class Meta:
         abstract = True

@@ -78,48 +78,52 @@ class Leonardo(AppLoader):
         '''load and decorate urls from all modules
         then store it as cached property for less loading
         '''
-        urlpatterns = []
-        # load all urls
-        # support .urls file and urls_conf = 'elephantblog.urls' on default module
-        # decorate all url patterns if is not explicitly excluded
-        for mod in leonardo.modules:
-            # TODO this not work
-            if is_leonardo_module(mod):
+        if not hasattr(self, '_urlspatterns'):
+            urlpatterns = []
+            # load all urls
+            # support .urls file and urls_conf = 'elephantblog.urls' on default module
+            # decorate all url patterns if is not explicitly excluded
+            for mod in leonardo.modules:
+                # TODO this not work
+                if is_leonardo_module(mod):
 
-                conf = get_conf_from_module(mod)
+                    conf = get_conf_from_module(mod)
 
-                if module_has_submodule(mod, 'urls'):
-                    urls_mod = import_module('.urls', mod.__name__)
-                    if hasattr(urls_mod, 'urlpatterns'):
-                        # if not public decorate all
+                    if module_has_submodule(mod, 'urls'):
+                        urls_mod = import_module('.urls', mod.__name__)
+                        if hasattr(urls_mod, 'urlpatterns'):
+                            # if not public decorate all
 
-                        if conf['public']:
-                            urlpatterns += urls_mod.urlpatterns
-                        else:
-                            _decorate_urlconf(urls_mod.urlpatterns,
-                                              require_auth)
-                            urlpatterns += urls_mod.urlpatterns
-        # avoid circural dependency
-        # TODO use our loaded modules instead this property
-        from django.conf import settings
-        for urls_conf, conf in six.iteritems(getattr(settings, 'MODULE_URLS', {})):
-            # is public ?
-            try:
-                if conf['is_public']:
-                    urlpatterns += \
-                        patterns('',
-                                 url(r'', include(urls_conf)),
-                                 )
-                else:
-                    _decorate_urlconf(
-                        url(r'', include(urls_conf)),
-                        require_auth)
-                    urlpatterns += patterns('',
-                                            url(r'', include(urls_conf)))
-            except Exception as e:
-                raise Exception('raised %s during loading %s' %
-                                (str(e), urls_conf))
-        return urlpatterns
+                            if conf['public']:
+                                urlpatterns += urls_mod.urlpatterns
+                            else:
+                                _decorate_urlconf(urls_mod.urlpatterns,
+                                                  require_auth)
+                                urlpatterns += urls_mod.urlpatterns
+            # avoid circural dependency
+            # TODO use our loaded modules instead this property
+            from django.conf import settings
+            for urls_conf, conf in six.iteritems(getattr(settings, 'MODULE_URLS', {})):
+                # is public ?
+                try:
+                    if conf['is_public']:
+                        urlpatterns += \
+                            patterns('',
+                                     url(r'', include(urls_conf)),
+                                     )
+                    else:
+                        _decorate_urlconf(
+                            url(r'', include(urls_conf)),
+                            require_auth)
+                        urlpatterns += patterns('',
+                                                url(r'', include(urls_conf)))
+                except Exception as e:
+                    raise Exception('raised %s during loading %s' %
+                                    (str(e), urls_conf))
+
+            self._urlpatterns = urlpatterns
+
+        return self._urlpatterns
 
     _instance = None
 

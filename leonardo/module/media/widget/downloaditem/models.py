@@ -1,6 +1,5 @@
 # -#- coding: utf-8 -#-
 
-from django.core.urlresolvers import reverse_lazy
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.media.fields import FileField

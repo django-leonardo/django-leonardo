@@ -22,16 +22,12 @@ class SiteHeadingWidget(Widget):
 
     tagline = models.TextField(blank=True, verbose_name=_("Tagline"))
 
-    def render_content(self, options):
+    def get_template_data(self, request):
 
         if not self.site_title:
             self.site_title = settings.META_TITLE
 
-        context = RequestContext(options.get('request'), {
-            'widget': self,
-        })
-
-        return render_to_string(self.get_template_name(), context)
+        return {}
 
     class Meta:
         abstract = True
