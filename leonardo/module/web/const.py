@@ -39,7 +39,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('1 column'),
         'key': 'layout_flex',
-        'path': 'layout/page.html',
+        'path': 'base.html',
         'regions': (col3, header, footer, toolbar, preview, helper),
     },
     # |-------------------------------|
@@ -49,7 +49,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('2 same columns'),
         'key': 'layout_flex_flex',
-        'path': 'layout/page.html',
+        'path': 'base.html',
         'regions': (col3_left, col2, header, footer, toolbar, preview, helper),
     },
     # |-------------------------------|
@@ -59,7 +59,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('2 columns right'),
         'key': 'layout_flex_fixed',
-        'path': 'layout/page.html',
+        'path': 'base.html',
         'regions': (col3, col2, header, footer, toolbar, preview, helper),
     },
     # |-------------------------------|
@@ -69,7 +69,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('2 columns left'),
         'key': 'layout_fixed_flex',
-        'path': 'layout/page.html',
+        'path': 'base.html',
         'regions': (col3, col1, header, footer, toolbar, preview, helper),
     },
     # |-------------------------------|
@@ -79,7 +79,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('3 columns'),
         'key': 'layout_fixed_flex_fixed',
-        'path': 'layout/page.html',
+        'path': 'base.html',
         'regions': (col3, col1, col2, header, footer, toolbar, preview, helper),
     },
     # |-------------------------------|
@@ -89,7 +89,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('3 same columns'),
         'key': 'layout_flex_flex_flex',
-        'path': 'layout/page.html',
+        'path': 'base.html',
         'regions': (col1, col3_center, col2, header, footer, toolbar, preview, helper),
     },
     # DEPRECATED
