@@ -285,15 +285,20 @@ class Widget(FeinCMSBase):
         """
         return self.render_content(options)
 
-    def render_content(self, options):
-
-        context = RequestContext(options['request'], {
+    def get_context_data(self, request):
+        '''returns initial context'''
+        return RequestContext(request, {
             'widget': self,
             'base_template': self.get_base_template,
-            'request': options['request'],
+            'request': request,
         })
 
-        # handle widget render error
+    def render_content(self, options):
+        '''returns rendered widget and handle error during rendering'''
+
+        request = options['request']
+        context = self.get_context_data(request)
+
         try:
             rendered_content = self.template_source.render(context)
         except Exception as e:
@@ -305,8 +310,6 @@ class Widget(FeinCMSBase):
 
     def render_error(self, context, exception):
         return render_to_string("widget/error.html", {
-            'widget': self,
-            'request': context['request'],
             'context': context,
             'error': str(exception),
         })

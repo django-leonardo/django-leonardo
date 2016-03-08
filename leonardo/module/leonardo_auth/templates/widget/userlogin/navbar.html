@@ -13,10 +13,10 @@
   {% else %}
   <li><a href=".?frontend_editing=1">{% trans "Start Editing" %}</a></li>
   {% endif %}
-  <li><a href="{% url 'logout' %}?next={{ request.build_absolute_uri }}">{% trans "Sign Out" %}</a></li>
+  <li><a href="{% url 'logout' %}?next={{ next }}">{% trans "Sign Out" %}</a></li>
   {% else %}
   {% if widget.type == 2 %}
-  <li><a class="ajax-modal" href="{% url 'login' %}?next={{ request.build_absolute_uri }}">{% trans "Sign In" %}</a></li>
+  <li><a class="ajax-modal" href="{% url 'login' %}?next={{ next }}">{% trans "Sign In" %}</a></li>
   {% else %}
   <li><a href="{% url 'admin:login' %}">{% trans "Sign In" %}</a></li>
   {% endif %}
