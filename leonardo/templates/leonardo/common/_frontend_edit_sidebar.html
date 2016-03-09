@@ -54,6 +54,14 @@ $(function () {
   $settingsButton.css("top", parseInt(y));
   $demo_settings.css("top", parseInt(y));
 
+  var hideSettings = function () {
+      localStorage.setItem('settingsButton_open',false);
+      $settingsButton.animate({"right": "0"});
+      $settingsButton.css('left', '');
+      $demo_settings.animate({"right": "-250px"});
+      $settingsButton.removeClass("open"); 
+  }
+  window.hideSettings = hideSettings;
 
   $settingsButton.click(function () {
     if (!$settingsButton.hasClass("open")) {
@@ -62,11 +70,7 @@ $(function () {
       $settingsButton.addClass("open");
       $demo_settings.animate({"right": "0"});
     } else {
-      localStorage.setItem('settingsButton_open',false);
-      $settingsButton.animate({"right": "0"});
-        $settingsButton.css('left', '');
-      $demo_settings.animate({"right": "-250px"});
-      $settingsButton.removeClass("open");
+      hideSettings();
     }
   });
 

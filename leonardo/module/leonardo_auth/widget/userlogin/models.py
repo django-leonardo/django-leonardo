@@ -16,6 +16,15 @@ class UserLoginWidget(Widget):
     type = models.PositiveIntegerField(verbose_name=_(
         "type"), choices=LOGIN_TYPE_CHOICES, default=2)
 
+    def get_context_data(self, request):
+
+        context = super(UserLoginWidget, self).get_context_data(request)
+
+        if 'next' in request.GET:
+            context['next'] = request.GET['next']
+
+        return context
+
     class Meta:
         abstract = True
         verbose_name = _("user login")

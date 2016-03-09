@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
+from leonardo.views.page import Handler
 from leonardo.views.select2 import Select2ResponseView
 from constance import config
 from .base import leonardo
@@ -61,10 +62,14 @@ if settings.DEBUG or getattr(settings, 'LEONARDO_SERVE_STATIC', False):
     except ImportError:
         pass
 
-# feinCMS
-urlpatterns += patterns('',
-                        url(r'', include('feincms.urls')),
-                        )
+
+handler = Handler.as_view()
+
+urlpatterns += patterns(
+    '',
+    url(r'^$', handler, name='feincms_home'),
+    url(r'^(.*)/$', handler, name='feincms_handler'),
+)
 
 sitemaps = {
     'pages': PageSitemap,

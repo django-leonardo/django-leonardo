@@ -1,7 +1,5 @@
-# -#- coding: utf-8 -#-
 
 from django.db import models
-from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.nav.forms import NavigationForm
 from leonardo.module.nav.models import NavigationWidget
@@ -21,12 +19,32 @@ LINK_CHOICES = (
     ('button', _("button")),
 )
 
+
 class ContextNavigationWidget(ListWidgetMixin, NavigationWidget):
-    root = models.ForeignKey(Page, blank=True, null=True, verbose_name=_("Source page"), related_name="context_root", help_text=_('The child pages of root page are displayed in the context navigation.'))
-    page_region = models.CharField(max_length=255, verbose_name=_("Region to display"), choices=PAGE_REGIONS, default='preview', help_text=_('Which region of selected pages do you wish to display.'))
-    depth = models.IntegerField(verbose_name=_("Depth"), choices=DEPTH_CHOICES, default=1, help_text=_('Depth to which display child pages.'))
-    link_style = models.CharField(max_length=255, verbose_name=_("Link style"), choices=LINK_CHOICES, default='link', blank=True, help_text=_('Visual style of links to displayed pages.'))
-    link_text = models.CharField(max_length=255, verbose_name=_("Link label"), default='', blank=True, help_text=_('Arbitrary text of links. If empty, page\'s title will be used instead.'))
+
+    root = models.ForeignKey(Page, blank=True, null=True,
+                             verbose_name=_("Source page"),
+                             related_name="context_root", help_text=_(
+                                 'The child pages of root page are '
+                                 'displayed in the context navigation.'))
+
+    page_region = models.CharField(max_length=255, choices=PAGE_REGIONS,
+                                   verbose_name=_("Region to display"),
+                                   default='preview',
+                                   help_text=_('Which region of selected '
+                                               'pages do you wish to display.'))
+
+    depth = models.IntegerField(default=1, verbose_name=_("Depth"),
+                                choices=DEPTH_CHOICES,
+                                help_text=_('Depth to which display child pages.'))
+
+    link_style = models.CharField(max_length=255, verbose_name=_("Link style"),
+                                  choices=LINK_CHOICES, default='link',
+                                  blank=True, help_text=_('Visual style of links to displayed pages.'))
+
+    link_text = models.CharField(max_length=255, verbose_name=_("Link label"),
+                                 default='', blank=True, help_text=_(
+        'Arbitrary text of links. If empty, page\'s title will be used instead.'))
 
     class Meta:
         abstract = True
@@ -34,6 +52,7 @@ class ContextNavigationWidget(ListWidgetMixin, NavigationWidget):
         verbose_name_plural = _('Linked pages')
 
     feincms_item_editor_form = NavigationForm
+    leonardo_cache = True
 
     def render(self, **kwargs):
         return self.render_with_cache(kwargs)
@@ -51,18 +70,17 @@ class ContextNavigationWidget(ListWidgetMixin, NavigationWidget):
             root = self.root
         else:
             if not request:
-                raise Exception('call populate_items with request before access to data')
+                raise Exception(
+                    'call populate_items with request before access to data')
             root = request.leonardo_page
         return root
 
-    def render_content(self, options):
+    def get_template_data(self, request):
 
-        self.populate_items(options['request'])
+        self.populate_items(request)
 
-        return render_to_string(self.get_template_name(), { 
-            'widget': self,
-            'page': self.get_root(options['request']),
+        return {
+            'page': self.get_root(request),
             'items': self.items,
-            'request': options['request'],
             'region': self.page_region,
-        })
+        }

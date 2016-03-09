@@ -20,6 +20,8 @@ class FileIndex(indexes.SearchIndex, indexes.Indexable):
 
     uploaded_at = fields.DateTimeField(model_attr='uploaded_at', null=True)
 
+    content_auto = indexes.EdgeNgramField(model_attr='name')
+
     def get_model(self):
         return File
 

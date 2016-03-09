@@ -1,7 +1,5 @@
-# -#- coding: utf-8 -#-
 
 from django.conf import settings
-from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.web.models import Widget, Page
 
@@ -16,12 +14,13 @@ class LanguageSelectorWidget(Widget):
         verbose_name = _("Language switch")
         verbose_name_plural = _("Language switches")
 
-    def render_content(self, options):
-        request = options['request']
+    def get_template_data(self, request):
+
         try:
             language = request.session['django_language']
         except:
             language = settings.LANGUAGE_CODE
+
         languages = {}
         for lang in settings.LANGUAGES:
             languages[lang[0]] = {
@@ -48,10 +47,8 @@ class LanguageSelectorWidget(Widget):
                     languages[trans_page.language]['page'] = trans_page
                     languages[trans_page.language]['suffix'] = suffix
 
-        return render_to_string(self.get_template_name(), {
-            'widget': self,
+        return {
             'page': page,
-            'request': request,
             'language': language,
             'languages': languages
-        })
+        }

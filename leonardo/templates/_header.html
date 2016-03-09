@@ -1,7 +1,10 @@
 
-{% load compress leonardo_tags %}
+{% load compress leonardo_tags staticfiles %}
 
-<meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="robots" content="index,follow" />
+<meta name="generator" content="Leonardo" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% if feincms_page %}
 <title>{% block head_title %}{% head_title request %}{% endblock %}</title>
@@ -14,6 +17,7 @@
 {% endif %}
 
 <link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" sizes="192x192" href="{% static "leonardo/img/icon.png" %}">
 
 {% include "base/head_meta.html" %}
 
@@ -31,6 +35,8 @@
 <link href='{{ STATIC_URL }}leonardo/scss/page.scss' type='text/scss' media='screen' rel='stylesheet' />
 <link href='{{ STATIC_URL }}themes/{{ leonardo_page.theme.name }}/{{ leonardo_page.color_scheme.name|lower }}/scheme.scss' type='text/scss' media='screen' rel='stylesheet' />
 <link href="{{ STATIC_URL }}horizon/lib/bootstrap_datepicker/datepicker3.css" type="text/css" media="screen" rel="stylesheet" />
+<link href="{{ STATIC_URL }}horizon/lib/font-awesome/scss/font-awesome.scss" type="text/scss" media="screen" rel="stylesheet" />
+
 {% for file in LEONARDO_CONFIG.scss_files %}
 <link href="{{ STATIC_URL }}{{ file }}" type="text/scss" media="screen" rel="stylesheet" />
 {% endfor %}
@@ -38,7 +44,6 @@
 <link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
 {% endfor %}
 {% endcompress %}
-<link href="{{ STATIC_URL }}horizon/lib/font-awesome/scss/font-awesome.scss" type="text/scss" media="screen" rel="stylesheet" />
 
 {% endblock %}
 
@@ -50,20 +55,6 @@
 {% include "horizon/_custom_head_js.html" %}
 {% include "_custom_head_js.html" %}
 
-<link rel="shortcut icon" href="/favicon.ico" />
-
 {% if request.user.is_staff %}
-<style type="text/css">
-.region-tools, .widget-tools {
-  opacity: .4;
-  -webkit-transition: opacity .1s ease-out;
-  -moz-transition: opacity .1s ease-out;
-  -o-transition: opacity .1s ease-out;
-  transition: opacity .1s ease-out;
-}
-.region-tools:hover, .widget-tools:hover {
-  opacity: 1;
-}
-</style>
   {% include "leonardo/common/_frontend_edit_sidebar.html" %}
 {% endif %}

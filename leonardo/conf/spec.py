@@ -12,6 +12,7 @@ CONF_SPEC = {
     'page_extensions': [],
     'auth_backends': [],
     'js_compress_files': [],
+    'js_external_files': [],
     'js_files': [],
     'js_spec_files': [],
     'angular_modules': [],

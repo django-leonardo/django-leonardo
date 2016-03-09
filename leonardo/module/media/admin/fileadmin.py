@@ -10,9 +10,10 @@ from ..models import File
 from ..views import (popup_param, popup_status, selectfolder_param,
                      selectfolder_status)
 from .permissions import PrimitivePermissionAwareModelAdmin
+from leonardo.forms import SelfHandlingModelForm
 
 
-class FileAdminChangeFrom(forms.ModelForm):
+class FileAdminChangeFrom(SelfHandlingModelForm):
 
     class Meta:
         model = File

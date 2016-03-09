@@ -18,10 +18,14 @@ class OffsetSlider(Slider):
     min = 0
 
 
+class HeightSlider(OffsetSlider):
+    max = 24
+
+
 class WidgetDimensionForm(forms.ModelForm):
 
     width = forms.CharField(widget=Slider(), initial=12)
-    height = forms.CharField(widget=OffsetSlider(), initial=0)
+    height = forms.CharField(widget=HeightSlider(), initial=0)
     offset = forms.CharField(widget=OffsetSlider(), initial=0)
 
     class Meta:

@@ -1,7 +1,5 @@
-from django.test import RequestFactory
 from haystack import fields, indexes
 from leonardo.module.web.models import Page
-from leonardo.templatetags.leonardo_tags import _render_content
 
 
 class PageIndex(indexes.SearchIndex, indexes.Indexable):
@@ -26,6 +24,8 @@ class PageIndex(indexes.SearchIndex, indexes.Indexable):
     creation_date = fields.DateTimeField(model_attr='creation_date', null=True)
     modification_date = fields.DateTimeField(
         model_attr='modification_date', null=True)
+
+    content_auto = indexes.EdgeNgramField(model_attr='title')
 
     def should_update(self, instance, **kwargs):
         return instance.is_active()

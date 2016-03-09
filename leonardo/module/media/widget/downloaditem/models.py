@@ -9,7 +9,10 @@ from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
 class FileForm(WidgetUpdateForm):
 
-    file = FileField()
+    file = FileField(
+        help_text=_("Type to search file or upload new one."),
+        cls_name='media.file',
+        form_cls='leonardo.module.media.admin.fileadmin.FileAdminChangeFrom')
 
 
 class DownloadItemWidget(Widget):

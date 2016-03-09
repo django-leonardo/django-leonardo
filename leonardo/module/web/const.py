@@ -39,7 +39,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('1 column'),
         'key': 'layout_flex',
-        'path': 'layout/page.html',
+        'path': 'base/layout.html',
         'regions': (col3, header, footer, toolbar, preview, helper),
     },
     # |-------------------------------|
@@ -49,7 +49,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('2 same columns'),
         'key': 'layout_flex_flex',
-        'path': 'layout/page.html',
+        'path': 'base/layout.html',
         'regions': (col3_left, col2, header, footer, toolbar, preview, helper),
     },
     # |-------------------------------|
@@ -59,7 +59,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('2 columns right'),
         'key': 'layout_flex_fixed',
-        'path': 'layout/page.html',
+        'path': 'base/layout.html',
         'regions': (col3, col2, header, footer, toolbar, preview, helper),
     },
     # |-------------------------------|
@@ -69,7 +69,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('2 columns left'),
         'key': 'layout_fixed_flex',
-        'path': 'layout/page.html',
+        'path': 'base/layout.html',
         'regions': (col3, col1, header, footer, toolbar, preview, helper),
     },
     # |-------------------------------|
@@ -79,7 +79,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('3 columns'),
         'key': 'layout_fixed_flex_fixed',
-        'path': 'layout/page.html',
+        'path': 'base/layout.html',
         'regions': (col3, col1, col2, header, footer, toolbar, preview, helper),
     },
     # |-------------------------------|
@@ -89,7 +89,7 @@ PAGE_TEMPLATES = (
     {
         'title': _('3 same columns'),
         'key': 'layout_flex_flex_flex',
-        'path': 'layout/page.html',
+        'path': 'base/layout.html',
         'regions': (col1, col3_center, col2, header, footer, toolbar, preview, helper),
     },
     # DEPRECATED
@@ -162,6 +162,18 @@ ROW_CHOICES = (
     (10, _('10 rows')),
     (11, _('11 rows')),
     (12, _('12 rows')),
+    (13, _('13 row')),
+    (14, _('14 rows')),
+    (15, _('15 rows')),
+    (16, _('16 rows')),
+    (17, _('17 rows')),
+    (18, _('18 rows')),
+    (19, _('19 rows')),
+    (20, _('20 rows')),
+    (21, _('21 rows')),
+    (22, _('22 rows')),
+    (23, _('23 rows')),
+    (24, _('24 rows')),
 )
 
 ALIGN_CHOICES = (

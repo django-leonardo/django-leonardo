@@ -1,21 +1,16 @@
 {% load i18n %}
 
-<li><a class="ajax-modal" href="{% url 'widget_update' widget.get_ct_name widget.id %}">{% trans 'Edit' %}</a></li>
-<li><a href="{% url 'widget_copy' widget.get_ct_name widget.id %}">{% trans 'Copy' %}</a></li>
-<li><a id="ajax-info-{{ widget.fe_identifier }}" href='#'>{% trans 'Info' %}</a></li>
-<li class="divider"></li>
-
-<li class="dropdown-submenu">
-  <a tabindex="-1" href="#">Positioning</a>
-    <ul class="dropdown-menu">
-      <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id -1 %}">{% trans 'Up' %}</a></li>
-      <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 1 %}">{% trans 'Down' %}</a></li>
-      <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 0 %}">{% trans 'As first' %}</a></li>
-      <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 5 %}">{% trans 'As Last' %}</a></li>
-    </ul>
-</li>
-<li class="divider"></li>
-<li><a class="ajax-modal" href="{% url 'widget_delete' widget.get_ct_name widget.id %}">{% trans 'Delete' %}</a></li>
+<a class="ajax-modal btn btn-info" href="{% url 'widget_update' widget.get_ct_name widget.id %}">{% trans 'Edit' %}</a>
+<a class="btn btn-info" href="{% url 'widget_copy' widget.get_ct_name widget.id %}">{% trans 'Copy' %}</a>
+<a id="ajax-info-{{ widget.fe_identifier }}" class="btn btn-info" href='#'>{% trans 'Info' %}</a>
+<a class="ajax-modal btn btn-info" href="{% url 'widget_delete' widget.get_ct_name widget.id %}">{% trans 'Delete' %}</a>
+<button data-toggle="dropdown" class="btn btn-box-tool btn-info dropdown-toggle" id="edit-position">{% trans 'Position' %}</button>
+<ul role="menu" class="dropdown-menu">
+  <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id -1 %}">{% trans 'Up' %}</a></li>
+  <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 1 %}">{% trans 'Down' %}</a></li>
+  <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 0 %}">{% trans 'As first' %}</a></li>
+  <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 5 %}">{% trans 'As Last' %}</a></li>
+</ul>
 
 <script type="text/javascript">
 
@@ -80,6 +75,7 @@ $("#{{ widget.fe_identifier }}").dblclick(function (evt) {
       }
     });
     evt.preventDefault();
+    evt.stopPropagation();
   });
 
 </script>
