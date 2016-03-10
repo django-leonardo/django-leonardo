@@ -33,9 +33,11 @@
   </ul>
 </div>
 
+<script src='/static/js/lib/resize.detect.js'></script>
+
 <script type="text/javascript">
 
-$(function() {
+function evaluateWidgetTools() {
     var widget_width = $("#{{ widget.fe_identifier }}").outerWidth();
 
     if (widget_width > 250) {
@@ -45,7 +47,11 @@ $(function() {
         $("#{{ widget.fe_identifier }} .widget-tools .wide").hide();
         $("#{{ widget.fe_identifier }} .widget-tools .narrow").show();
     }
-});
+}
+
+$( document ).ready( evaluateWidgetTools );
+
+$("#{{ widget.fe_identifier }}").widthChanged( evaluateWidgetTools );
 
 </script>
 
