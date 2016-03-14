@@ -7,7 +7,7 @@ How to contribute?
 ------------------
 
 * Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug.
-* Fork https://github.com/django-leonardo/django-leonardo.git on GitHub to start making your changes to the **develop** branch.
+* Fork https://github.com/django-leonardo/django-leonardo.git on GitHub to start making your changes to the **master** branch.
 * Write a test which shows that the bug was fixed or that the feature works as expected.
 * Make sure to add yourself to the :ref:`contributors`.
 * Send a pull request
