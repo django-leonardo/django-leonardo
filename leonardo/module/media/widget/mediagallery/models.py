@@ -40,7 +40,7 @@ class MediaGalleryWidget(ListWidget):
     detail = models.CharField(max_length=255, verbose_name=_(
         "detail view"), choices=DETAIL_CHOICES, default='modal')
 
-    def thumb_geom(self):
+    def get_size(self):
         return getattr(settings,
                        'MEDIA_THUMB_%s_GEOM' % self.size.upper(),
                        '96x96')
