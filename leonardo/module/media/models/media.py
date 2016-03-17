@@ -8,9 +8,9 @@ from feincms.module.page.extensions.navigation import (NavigationExtension,
                                                        PagePretender)
 from feincms.translations import Translation
 
-from .imagemodels import Image
 from .filemodels import File
 from .foldermodels import Folder
+from .imagemodels import Image
 
 MEDIA_FILE_EXTENSIONS = {
     'media.document': ['.pdf', '.xls'],
