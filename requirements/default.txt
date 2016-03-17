@@ -13,8 +13,8 @@ django-filer==1.0.6
 django-markupfield>=1.3.4
 django-haystack==2.3.1
 
-sorl-thumbnail==12.2
-easy-thumbnails==2.2
+sorl-thumbnail==12.3
+easy-thumbnails==2.3
 
 horizon-contrib>=2016.3.0
 leonardo_horizon==2015.3
