@@ -122,7 +122,7 @@ class ListMixin(object):
         if self.objects_per_page == 0:
             return False
         if len(self.items) > self.objects_per_page \
-                or len(self.get_pages[0]) >= self.objects_per_page:
+                or len(self.get_pages[0]) > self.objects_per_page:
             return True
         return False
 
