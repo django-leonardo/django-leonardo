@@ -109,10 +109,9 @@ class ListMixin(object):
         pages = []
         page = []
         for i, item in enumerate(self.get_rows):
-            if self.objects_per_page == i:
+            if i > 0 and i % self.objects_per_page == 0:
                 pages.append(page)
                 page = []
-                i = 0
             page.append(item)
         pages.append(page)
         return pages
