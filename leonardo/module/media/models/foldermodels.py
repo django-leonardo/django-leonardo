@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.utils.http import urlquote
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from . import mixins
+from leonardo.module.media import mixins
 from .. import settings as filer_settings
 from filer.utils.compatibility import python_2_unicode_compatible
 

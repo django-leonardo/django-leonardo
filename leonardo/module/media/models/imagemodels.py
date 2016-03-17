@@ -1,6 +1,15 @@
 
-from datetime import datetime
 import logging
+from datetime import datetime
+
+from django.conf import settings
+from django.db import models
+from django.utils.timezone import get_current_timezone, make_aware, now
+from django.utils.translation import ugettext_lazy as _
+from feincms.translations import TranslatedObjectMixin
+
+from .abstract import BaseImage
+
 try:
     from PIL import Image as PILImage
 except ImportError:
@@ -9,13 +18,6 @@ except ImportError:
     except ImportError:
         raise ImportError("The Python Imaging Library was not found.")
 
-from django.conf import settings
-from django.db import models
-from django.utils.timezone import now, make_aware, get_current_timezone
-from django.utils.translation import ugettext_lazy as _
-from feincms.translations import TranslatedObjectMixin
-from .abstract import BaseImage
-from filer.utils.loader import load_object
 
 logger = logging.getLogger("media")
 
@@ -24,10 +26,13 @@ class Image(BaseImage, TranslatedObjectMixin):
     date_taken = models.DateTimeField(_('date taken'), null=True, blank=True,
                                       editable=False)
 
-    author = models.CharField(_('author'), max_length=255, null=True, blank=True)
+    author = models.CharField(
+        _('author'), max_length=255, null=True, blank=True)
 
-    must_always_publish_author_credit = models.BooleanField(_('must always publish author credit'), default=False)
-    must_always_publish_copyright = models.BooleanField(_('must always publish copyright'), default=False)
+    must_always_publish_author_credit = models.BooleanField(
+        _('must always publish author credit'), default=False)
+    must_always_publish_copyright = models.BooleanField(
+        _('must always publish copyright'), default=False)
 
     filename_extensions = ['.jpg', '.jpeg', '.png', '.gif', ]
 

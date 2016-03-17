@@ -1,5 +1,16 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+import logging
 import os
+
+from django.db import models
+from django.utils import six
+from django.utils.translation import ugettext_lazy as _
+from filer.utils.filer_easy_thumbnails import FilerThumbnailer
+from filer.utils.pil_exif import get_exif_for_file
+
+from .. import settings as filer_settings
+from .filemodels import File
+
 try:
     from PIL import Image as PILImage
 except ImportError:
@@ -8,17 +19,7 @@ except ImportError:
     except ImportError:
         raise ImportError("The Python Imaging Library was not found.")
 
-import logging
 logger = logging.getLogger(__name__)
-
-from django.db import models
-from django.utils import six
-from django.utils.translation import ugettext_lazy as _
-
-from .. import settings as filer_settings
-from .filemodels import File
-from filer.utils.filer_easy_thumbnails import FilerThumbnailer
-from filer.utils.pil_exif import get_exif_for_file
 
 
 class BaseImage(File):
@@ -37,8 +38,10 @@ class BaseImage(File):
     _height = models.IntegerField(null=True, blank=True)
     _width = models.IntegerField(null=True, blank=True)
 
-    default_alt_text = models.CharField(_('default alt text'), max_length=255, blank=True, null=True)
-    default_caption = models.CharField(_('default caption'), max_length=255, blank=True, null=True)
+    default_alt_text = models.CharField(
+        _('default alt text'), max_length=255, blank=True, null=True)
+    default_caption = models.CharField(
+        _('default caption'), max_length=255, blank=True, null=True)
 
     subject_location = models.CharField(_('subject location'), max_length=64, null=True, blank=True,
                                         default=None)
@@ -139,7 +142,7 @@ class BaseImage(File):
                 # purposes and/or just logging it, provided user configured
                 # proper logging configuration
                 if filer_settings.FILER_ENABLE_LOGGING:
-                    logger.error('Error while generating thumbnail: %s',e)
+                    logger.error('Error while generating thumbnail: %s', e)
                 if filer_settings.FILER_DEBUG:
                     raise
         return _thumbnails
