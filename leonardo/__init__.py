@@ -1,5 +1,5 @@
 
-default_app_config = 'leonardo.apps.LeonardoConfig'
+default_app_config = 'leonardo.config.LeonardoConfig'
 
 __import__('pkg_resources').declare_namespace(__name__)
 

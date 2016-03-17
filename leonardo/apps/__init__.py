@@ -11,8 +11,6 @@ try:
 except:
     from feincms.apps import standalone, permalink, unpack
 
-from .leonardo import *
-
 __all__ = (
     'ApplicationWidget',
     'app_reverse', 'app_reverse_lazy', 'permalink',
