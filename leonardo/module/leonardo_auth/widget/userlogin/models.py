@@ -22,6 +22,8 @@ class UserLoginWidget(Widget):
 
         if 'next' in request.GET:
             context['next'] = request.GET['next']
+        else:
+            context['next'] = request.path
 
         return context
 

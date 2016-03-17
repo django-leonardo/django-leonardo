@@ -39,7 +39,6 @@ if django.VERSION < (1, 8):
 
 elif django.VERSION < (1, 9):
 
-    from django.utils.deprecation import RemovedInDjango110Warning
     from django.template.context import _current_app_undefined
     from django.template.engine import (_context_instance_undefined,
                                         _dictionary_undefined, _dirs_undefined)
@@ -75,10 +74,14 @@ elif django.VERSION < (1, 9):
             else:
                 context_instance = RequestContext(request)
                 if current_app is not _current_app_undefined:
-                    warnings.warn(
-                        "The current_app argument of render is deprecated. "
-                        "Set the current_app attribute of request instead.",
-                        RemovedInDjango110Warning, stacklevel=2)
+                    try:
+                        from django.utils.deprecation import RemovedInDjango110Warning
+                        warnings.warn(
+                            "The current_app argument of render is deprecated. "
+                            "Set the current_app attribute of request instead.",
+                            RemovedInDjango110Warning, stacklevel=2)
+                    except ImportError:
+                        pass
                     request.current_app = current_app
                     # Directly set the private attribute to avoid triggering the
                     # warning in RequestContext.__init__.

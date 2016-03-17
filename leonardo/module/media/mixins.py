@@ -1,4 +1,4 @@
-from ..settings import FILER_ADMIN_ICON_SIZES, FILER_STATICMEDIA_PREFIX
+from .settings import FILER_ADMIN_ICON_SIZES, FILER_STATICMEDIA_PREFIX
 
 
 class IconsMixin(object):

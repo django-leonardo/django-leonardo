@@ -46,9 +46,9 @@ Further reading:
    :alt: Join the chat at https://gitter.im/django-leonardo/django-leonardo
    :target: https://gitter.im/django-leonardo/django-leonardo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 
-.. image:: https://coveralls.io/repos/django-leonardo/django-leonardo/badge.svg?branch=develop
+.. image:: https://coveralls.io/repos/django-leonardo/django-leonardo/badge.svg?branch=master
    :alt: Coverage
-   :target: https://coveralls.io/r/django-leonardo/django-leonardo?branch=develop
+   :target: https://coveralls.io/r/django-leonardo/django-leonardo?branch=master
 
 .. _`Leonardo Site`: http://www.leonardo-cms.org
 .. _`Demo Site`: http://demo.leonardo-cms.org
@@ -67,26 +67,26 @@ Wget
 
 .. code-block:: bash
 
-    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_leonardo.sh | sh
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/master/contrib/scripts/install_leonardo.sh | sh
 
 
 Install Blog
 
 .. code-block:: bash
 
-    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_blog.sh | sh
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/master/contrib/scripts/install_blog.sh | sh
 
 Install Store
 
 .. code-block:: bash
 
-    wget -O - https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_store.sh | sh
+    wget -O - https://github.com/django-leonardo/django-leonardo/raw/master/contrib/scripts/install_store.sh | sh
 
 Python
 
 .. code-block:: bash
 
-    python -c 'import urllib; print urllib.urlopen("https://github.com/django-leonardo/django-leonardo/raw/develop/contrib/scripts/install_leonardo_dev.sh").read()' > install_leonardo.sh
+    python -c 'import urllib; print urllib.urlopen("https://github.com/django-leonardo/django-leonardo/raw/master/contrib/scripts/install_leonardo_dev.sh").read()' > install_leonardo.sh
     sudo sh install_leonardo.sh
 
 Command by command
@@ -97,7 +97,7 @@ Command by command
     cd leonardo_venv
     . $PWD/bin/activate
 
-    pip install -e git+https://github.com/django-leonardo/django-leonardo@develop#egg=django-leonardo
+    pip install -e git+https://github.com/django-leonardo/django-leonardo#egg=django-leonardo
     pip install -r $PWD/src/django-leonardo/requirements.txt
     django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
 
@@ -106,7 +106,7 @@ Command by command
 
     python manage.py makemigrations --noinput
     python manage.py migrate --noinput
-    python manage.py bootstrap_site --url=http://raw.githubusercontent.com/django-leonardo/django-leonardo/develop/contrib/bootstrap/demo.yaml
+    python manage.py bootstrap_site --url=http://github.com/django-leonardo/django-leonardo/raw/master/contrib/bootstrap/demo.yaml
 
     echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'mail@leonardo.cz', 'admin')" | python manage.py shell
 
@@ -116,7 +116,7 @@ Command by command
 Navigate your browser to your_ip/admin and login with ``root:admin``
 For settings production mode could take inspiration from `Leonardo Documentation`_.
 
-.. _`Leonardo Documentation`: http://django-leonardo.readthedocs.org/en/develop/install/production.html
+.. _`Leonardo Documentation`: http://django-leonardo.readthedocs.org/en/master/install/production.html
 
 Core
 ====
@@ -261,7 +261,7 @@ Read More
 * http://feincms-django-cms.readthedocs.org/en/latest/index.html
 * https://django-oscar.readthedocs.org/en/releases-1.0/
 
-.. |Doc badge| image:: https://readthedocs.org/projects/django-leonardo/badge/?version=develop
+.. |Doc badge| image:: https://readthedocs.org/projects/django-leonardo/badge/?version=master
 .. |Pypi| image:: https://img.shields.io/pypi/dm/django-leonardo.svg?style=flat
 .. |PypiVersion| image:: https://badge.fury.io/py/django-leonardo.svg?style=flat
 .. |Travis| image:: https://travis-ci.org/django-leonardo/django-leonardo.svg?branch=master

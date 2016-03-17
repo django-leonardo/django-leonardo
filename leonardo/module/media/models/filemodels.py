@@ -11,7 +11,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from filer.utils.compatibility import DJANGO_1_7, python_2_unicode_compatible
 from filer.utils.files import get_valid_filename
-from . import mixins
+from leonardo.module.media import mixins
 from .. import settings as filer_settings
 from ..fields.multistorage_file import MultiStorageFileField
 

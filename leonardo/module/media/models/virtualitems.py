@@ -1,7 +1,7 @@
 
 from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
-from . import mixins
+from leonardo.module.media import mixins
 from ..models import File
 from ..models import Folder
 from .. import settings as filer_settings
