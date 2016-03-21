@@ -118,22 +118,22 @@ class DynamicSelectWidget(Select2Widget):
         return '''
 
         <span class="input-group-btn">
-            <a href="#" id="item-edit" data-add-to-field="id_file" class="btn btn-default disabled"><span class="fa fa-pencil"></span></a></span>
+            <a href="#" id="item-edit-%(id)s" data-add-to-field="id_file" class="btn btn-default disabled"><span class="fa fa-pencil"></span></a></span>
         <script>
 
         if ($('*[data-add-item-url="%(url)s"]').val()) {
-            $('#item-edit').removeClass('disabled');
+            $('#item-edit-%(id)s').removeClass('disabled');
         }
 
         $('*[data-add-item-url="%(url)s"]').on('change', function (e) {
             if ($('*[data-add-item-url="%(url)s"]').val()) {
-                $('#item-edit').removeClass('disabled');
+                $('#item-edit-%(id)s').removeClass('disabled');
             } else {
-                $('#item-edit').addClass('disabled');
+                $('#item-edit-%(id)s').addClass('disabled');
             }
         });
 
-        $("#item-edit").click(function() {
+        $("#item-edit-%(id)s").click(function() {
             $.ajax({
               url: "/widget/js-reverse/",
               method: 'POST',
@@ -194,7 +194,8 @@ class DynamicSelectWidget(Select2Widget):
         ''' % {'viewname': 'forms:update_with_form' if self.get_form_cls() else 'forms:update',
                'cls_name': self.get_cls_name(),
                'url': self.get_add_item_url(),
-               'form_cls': self.get_form_cls()}
+               'form_cls': self.get_form_cls(),
+               'id': self.__hash__()}
 
     def get_add_item_url(self):
         if callable(self.add_item_link):

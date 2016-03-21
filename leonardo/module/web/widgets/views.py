@@ -94,15 +94,20 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
         return form_class(**kwargs)
 
     def form_valid(self, form):
-        super(WidgetUpdateView, self).form_valid(form)
+        response = super(WidgetUpdateView, self).form_valid(form)
 
         obj = self.object
         self.handle_dimensions(obj)
 
+        if not self.request.is_ajax():
+            return response
+
+        request = self.request
+        request.method = 'GET'
         return JsonResponse(data={
             'id': obj.fe_identifier,
             'content': self.model.objects.get(
-                id=self.kwargs["id"]).render_content({'request': self.request})
+                id=self.kwargs["id"]).render_content({'request': request})
         })
 
 
@@ -140,8 +145,14 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
             obj.save(created=False)
             self.handle_dimensions(obj)
             obj.parent.save()
+            success_url = self.get_success_url()
+            response = HttpResponseRedirect(success_url)
+            response['X-Horizon-Location'] = success_url
         except Exception as e:
             raise e
+
+        if not self.request.is_ajax():
+            return response
 
         return JsonResponse(data={
             'id': obj.fe_identifier,
@@ -259,8 +270,14 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
             obj.delete()
             # invalide page cache
             parent.invalidate_cache()
+            success_url = self.get_success_url()
+            response = HttpResponseRedirect(success_url)
+            response['X-Horizon-Location'] = success_url
         except Exception as e:
             raise e
+
+        if not self.request.is_ajax():
+            return response
 
         return JsonResponse(data={
             'id': fe_identifier,
