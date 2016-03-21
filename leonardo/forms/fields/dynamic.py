@@ -248,6 +248,9 @@ class DynamicChoiceField(fields.ChoiceField):
         if form_cls:
             self.widget.form_cls = form_cls
 
+        if search_fields:
+            self.widget.search_fields = search_fields
+
         if cls_name and not add_item_link and not form_cls:
             self.widget.add_item_link = 'forms:create'
             self.widget.add_item_link_args = (cls_name, )
@@ -304,6 +307,9 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
         if cls_name and form_cls and not add_item_link:
             self.widget.add_item_link = 'forms:create_with_form'
             self.widget.add_item_link_args = (cls_name, form_cls)
+
+        if search_fields:
+            self.widget.search_fields = search_fields
 
         if not cls_name:
             self.widget.add_item_link = add_item_link
