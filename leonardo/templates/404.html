@@ -4,7 +4,12 @@
 
 {% block body_main %}
 
-<h1>Page {{ request_path }} not found <span>(404)</span>
+<h1>The requested page {{ request_path }} cannot be found <span>(404)</span>
+
+<ul>
+	<li>{% trans "The URL is incorrect" %}</li>
+	<li>{% trans "The page or file has been moved or is no longer available" %}</li>
+</ul>
 
 {% if request.frontend_editing and feincms_page %}
 <div class="box-tools pull-right">

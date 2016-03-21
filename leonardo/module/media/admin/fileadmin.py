@@ -11,9 +11,12 @@ from ..views import (popup_param, popup_status, selectfolder_param,
                      selectfolder_status)
 from .permissions import PrimitivePermissionAwareModelAdmin
 from leonardo.forms import SelfHandlingModelForm
+from leonardo.module.media.fields.folder import FolderField
 
 
 class FileAdminChangeFrom(SelfHandlingModelForm):
+
+    folder = FolderField(required=False)
 
     class Meta:
         model = File

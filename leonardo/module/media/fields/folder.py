@@ -35,11 +35,9 @@ class FolderFieldMixin(object):
 class FolderField(FolderFieldMixin, DynamicModelChoiceField):
     '''Folder field for selecting folders, which has human readable label'''
 
-    help_text = _("Type to search file or upload new one."),
-    add_item_link = reverse_lazy(
-        'forms:create_with_form',
-        kwargs={'cls_name': 'media.folder',
-                'form_cls': 'leonardo.module.media.admin.folderadmin.AddFolderPopupForm'})
+    help_text = _("Type to search file or upload new one.")
+    cls_name = 'media.folder'
+    form_cls = 'leonardo.module.media.admin.folderadmin.AddFolderPopupForm'
 
     def __init__(self,
                  add_item_link=None,
@@ -51,11 +49,6 @@ class FolderField(FolderFieldMixin, DynamicModelChoiceField):
 
         if search_fields:
             self.widget.search_fields = search_fields
-
-        if add_item_link is not None or hasattr(self, 'add_item_link'):
-            self.widget.add_item_link = add_item_link or self.add_item_link
-
-        self.widget.add_item_link_args = add_item_link_args
 
 
 class FolderMultipleField(FolderFieldMixin, FileMultipleField):

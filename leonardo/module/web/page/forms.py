@@ -40,16 +40,19 @@ class PageColorSchemeSwitchableFormMixin(SwitchableFormFieldMixin):
             name = 'theme__%s' % theme.id
             attributes = self.get_switched_form_field_attrs(
                 'switchable', '%s' % theme.id, ('Color Scheme'))
-            field = django_forms.ModelChoiceField(label=_('Color Scheme'),
-                                                  queryset=theme.templates.all(),
-                                                  required=False,
-                                                  **field_kwargs)
+            field = django_forms.ModelChoiceField(
+                label=_('Color Scheme'),
+                queryset=theme.templates.all(),
+                required=False,
+                **field_kwargs)
             # inital for color scheme
-            if color_scheme and theme.templates.filter(id=color_scheme.id).exists():
+            if color_scheme and theme.templates.filter(
+                    id=color_scheme.id).exists():
                 field.initial = color_scheme
             elif 'parent' in self.fields and self.fields['parent'].initial:
                 field.initial = self.fields['parent'].initial.color_scheme
-            elif hasattr(self, 'instance') and hasattr(self.instance, 'color_scheme'):
+            elif hasattr(self, 'instance') \
+                    and hasattr(self.instance, 'color_scheme'):
                 field.initial = self.instance.color_scheme
             else:
                 field.initial = theme.templates.first()
@@ -62,7 +65,8 @@ class PageColorSchemeSwitchableFormMixin(SwitchableFormFieldMixin):
         return color_scheme_fields
 
 
-class PageCreateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
+class PageCreateForm(PageColorSchemeSwitchableFormMixin,
+                     SelfHandlingModelForm):
 
     slug = forms.SlugField(required=False, initial=None)
 
@@ -100,7 +104,8 @@ class PageCreateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
                     css_id='page-main'
                     ),
                 Tab(_('Navigation'),
-                    'in_navigation', 'parent', 'slug', 'override_url', 'redirect_to',
+                    'in_navigation', 'parent', 'slug',
+                    'override_url', 'redirect_to',
                     'symlinked_page', 'navigation_extension'
                     ),
                 Tab(_('Heading'),
@@ -108,7 +113,8 @@ class PageCreateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
                     css_id='page-heading'
                     ),
                 Tab(_('Publication'),
-                    'active', 'featured', 'publication_date', 'publication_end_date',
+                    'active', 'featured', 'publication_date',
+                    'publication_end_date',
                     ),
                 Tab(_('Theme'),
                     'template_key', 'layout', Fieldset(
@@ -127,7 +133,8 @@ class PageCreateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
         return cleaned
 
 
-class PageUpdateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
+class PageUpdateForm(PageColorSchemeSwitchableFormMixin,
+                     SelfHandlingModelForm):
 
     class Meta:
         model = Page
@@ -163,10 +170,12 @@ class PageUpdateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
                     css_id='page-heading'
                     ),
                 Tab(_('Publication'),
-                    'active', 'featured', 'publication_date', 'publication_end_date',
+                    'active', 'featured', 'publication_date',
+                    'publication_end_date',
                     ),
                 Tab(_('Navigation'),
-                    'in_navigation', 'parent', 'slug', 'override_url', 'redirect_to',
+                    'in_navigation', 'parent', 'slug',
+                    'override_url', 'redirect_to',
                     'symlinked_page', 'navigation_extension'
                     ),
                 Tab(_('Theme'),
@@ -184,16 +193,17 @@ class PageUpdateForm(PageColorSchemeSwitchableFormMixin, SelfHandlingModelForm):
             if kwargs.get('instance', None):
                 page = kwargs['instance']
 
-            from .tables import PageDimensionTable
-            table = PageDimensionTable(
-                _request, page=page, data=page.dimensions, needs_form_wrapper=False)
-            dimensions = Tab(_('Dimensions'),
-                             HTML(
-                table.render()),
-                css_id='page-dimensions'
+                from .tables import PageDimensionTable
+                table = PageDimensionTable(
+                    _request, page=page, data=page.dimensions,
+                    needs_form_wrapper=False)
+                dimensions = Tab(_('Dimensions'),
+                                 HTML(
+                    table.render()),
+                    css_id='page-dimensions'
 
-            )
-            self.helper.layout[0].append(dimensions)
+                )
+                self.helper.layout[0].append(dimensions)
 
         self.fields['color_scheme'].required = False
 

@@ -9,6 +9,8 @@ from .views import *
 urlpatterns = patterns('',
                        url(r'^(?P<page_id>[\w\.\-]+)/update/$',
                            PageUpdateView.as_view(), name='page_update'),
+                       url(r'^page/create/$',
+                           PageCreateView.as_view(), name='page_create'),
                        url(r'^(?P<parent>[\w\.\-]+)/create/$',
                            PageCreateView.as_view(), name='page_create'),
                        url(r'^(?P<page_id>[\w\.\-]+)/delete/$',

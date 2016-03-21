@@ -108,7 +108,7 @@ class DynamicSelectWidget(Select2Widget):
 
         content = super(DynamicSelectWidget, self).render(*args, **kwargs)
 
-        if self.get_cls_name():
+        if self.get_cls_name() or self.get_update_view_name():
             content += self.get_edit_handler()
 
         return content
@@ -138,10 +138,12 @@ class DynamicSelectWidget(Select2Widget):
               url: "/widget/js-reverse/",
               method: 'POST',
               data: {
-                viewname: '%(viewname)s',
+                viewname: '%(update_viewname)s',
+                args: JSON.stringify({
+                    'id': $('*[data-add-item-url="%(url)s"]').val()
+                    }),
                 kwargs:  JSON.stringify({
                     cls_name: '%(cls_name)s',
-                    id: $('*[data-add-item-url="%(url)s"]').val(),
                     form_cls: '%(form_cls)s'
                     })
                 }
@@ -191,11 +193,24 @@ class DynamicSelectWidget(Select2Widget):
               });
         });
         </script>
-        ''' % {'viewname': 'forms:update_with_form' if self.get_form_cls() else 'forms:update',
+        ''' % {'update_viewname': self.get_update_view_name(),
                'cls_name': self.get_cls_name(),
                'url': self.get_add_item_url(),
                'form_cls': self.get_form_cls(),
                'id': self.__hash__()}
+
+    def get_update_view_name(self):
+
+        if hasattr(self, '_edit_url'):
+            return self._edit_url
+
+        self._edit_url = self.get_edit_item_url()
+
+        if not self._edit_url:
+            if self.get_form_cls():
+                self._edit_url = 'forms:update_with_form'
+            self._edit_url = 'forms:update'
+        return self._edit_url
 
     def get_add_item_url(self):
         if callable(self.add_item_link):
@@ -208,6 +223,18 @@ class DynamicSelectWidget(Select2Widget):
                 return urlresolvers.reverse(self.add_item_link)
         except urlresolvers.NoReverseMatch:
             return self.add_item_link
+
+    def get_edit_item_url(self):
+        if callable(self.edit_item_link):
+            return self.edit_item_link()
+        try:
+            if self.add_item_link_args:
+                return urlresolvers.reverse(self.edit_item_link,
+                                            args=self.add_item_link_args)
+            else:
+                return urlresolvers.reverse(self.edit_item_link)
+        except urlresolvers.NoReverseMatch:
+            return self.edit_item_link
 
     def get_cls_name(self):
         if hasattr(self, 'cls_name'):
@@ -233,6 +260,8 @@ class DynamicChoiceField(fields.ChoiceField):
     def __init__(self,
                  add_item_link=None,
                  add_item_link_args=None,
+                 edit_item_link=None,
+                 edit_item_link_args=None,
                  cls_name=None,
                  form_cls=None,
                  search_fields=None,
@@ -243,11 +272,13 @@ class DynamicChoiceField(fields.ChoiceField):
         if search_fields:
             self.widget.search_fields = search_fields
 
-        if cls_name:
-            self.widget.cls_name = cls_name
+        if cls_name or hasattr(self, 'cls_name'):
+            self.widget.cls_name = cls_name or self.cls_name
+            cls_name = cls_name or self.cls_name
 
-        if form_cls:
-            self.widget.form_cls = form_cls
+        if form_cls or hasattr(self, 'form_cls'):
+            self.widget.form_cls = form_cls or self.form_cls
+            form_cls = form_cls or self.form_cls
 
         if search_fields:
             self.widget.search_fields = search_fields
@@ -264,6 +295,10 @@ class DynamicChoiceField(fields.ChoiceField):
             self.widget.add_item_link = add_item_link
             self.widget.add_item_link_args = add_item_link_args
 
+        self.widget.edit_item_link = edit_item_link or getattr(
+            self, 'edit_item_link', None)
+        self.widget.edit_item_link_args = edit_item_link_args or getattr(
+            self, 'add_item_link_args', None)
 
 DEFAULT_SEARCH_FIELDS = [
     'id__icontains',
@@ -280,14 +315,19 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
     dynamically updating its elements easier.
 
     Notably, the field declaration takes an extra argument, ``add_item_link``
+    and ``edit_item_link``
     which may be a string or callable defining the URL that should be used
     for the "add" link associated with the field.
+    or just set ``cls_name`` and ``form_cls`` which will be used to
+    horizon-contrib views
     """
     widget = DynamicModelSelect2Widget
 
     def __init__(self,
                  add_item_link=None,
                  add_item_link_args=None,
+                 edit_item_link=None,
+                 edit_item_link_args=None,
                  cls_name=None,
                  form_cls=None,
                  search_fields=None,
@@ -295,11 +335,13 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
                  **kwargs):
         super(DynamicModelChoiceField, self).__init__(*args, **kwargs)
 
-        if cls_name:
-            self.widget.cls_name = cls_name
+        if cls_name or hasattr(self, 'cls_name'):
+            self.widget.cls_name = cls_name or self.cls_name
+            cls_name = cls_name or self.cls_name
 
-        if form_cls:
-            self.widget.form_cls = form_cls
+        if form_cls or hasattr(self, 'form_cls'):
+            self.widget.form_cls = form_cls or self.form_cls
+            form_cls = form_cls or self.form_cls
 
         if cls_name and not add_item_link and not form_cls:
             self.widget.add_item_link = 'forms:create'
@@ -313,8 +355,15 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
             self.widget.search_fields = search_fields
 
         if not cls_name:
-            self.widget.add_item_link = add_item_link
-            self.widget.add_item_link_args = add_item_link_args
+            self.widget.add_item_link = add_item_link or getattr(
+                self, 'add_item_link', None)
+            self.widget.add_item_link_args = add_item_link_args or getattr(
+                self, 'add_item_link_args', None)
+
+        self.widget.edit_item_link = edit_item_link or getattr(
+            self, 'edit_item_link', None)
+        self.widget.edit_item_link_args = edit_item_link_args or getattr(
+            self, 'add_item_link_args', None)
 
 
 class DynamicTypedChoiceField(DynamicChoiceField, fields.TypedChoiceField):

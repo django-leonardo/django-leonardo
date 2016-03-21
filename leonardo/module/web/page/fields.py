@@ -5,6 +5,7 @@ from django_select2.forms import *
 from ..models import Page, PageColorScheme, PageTheme
 from .widgets import (PageColorSchemeSelectWidget, PageSelectWidget,
                       PageThemeSelectWidget)
+from leonardo.forms.fields.dynamic import DynamicModelChoiceField
 
 
 class Field(forms.ModelChoiceField):
@@ -21,10 +22,13 @@ class Field(forms.ModelChoiceField):
         return obj.tree_label
 
 
-class PageSelectField(Field):
+class PageSelectField(Field, DynamicModelChoiceField):
     '''Page Select2 Field'''
     model = Page
     widget = PageSelectWidget
+
+    add_item_link = 'page_create'
+    edit_item_link = 'page_update'
 
 
 class PageColorSchemeSelectField(Field):

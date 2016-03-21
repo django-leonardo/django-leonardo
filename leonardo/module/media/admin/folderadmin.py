@@ -44,6 +44,7 @@ from ..models import (Folder, FolderRoot, UnfiledImages, File, tools,
 from ..settings import FILER_STATICMEDIA_PREFIX
 from filer.utils.filer_easy_thumbnails import FilerActionThumbnailer
 from filer.thumbnail_processors import normalize_subject_location
+from leonardo.module.media.fields.folder import FolderField
 from django.conf import settings as django_settings
 from leonardo.forms import SelfHandlingModelForm
 import os
@@ -52,11 +53,15 @@ import itertools
 
 
 class AddFolderPopupForm(SelfHandlingModelForm):
+
+    id = forms.IntegerField('id',
+                            widget=forms.widgets.HiddenInput, required=False)
     folder = forms.HiddenInput()
+    parent = FolderField(required=False)
 
     class Meta:
         model = Folder
-        fields = ('name',)
+        exclude = tuple()
 
 
 class FolderAdmin(PrimitivePermissionAwareModelAdmin):

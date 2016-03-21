@@ -412,11 +412,18 @@ class JSReverseView(WidgetReorderView):
 
     '''Returns url.'''
 
+    def clean_kwargs(self, kwargs):
+        _kwargs = {}
+        for key, value in kwargs.items():
+            if value != '':
+                _kwargs[key] = value
+        return _kwargs
+
     def post(self, *args, **kwargs):
 
         view_name = self.request.POST.get('viewname')
-        args = self.request.POST.get('args', tuple())
+        args = json.loads(self.request.POST.get('args', "{}")).values()
         kwargs = json.loads(self.request.POST.get('kwargs', "{}"))
 
         return JsonResponse({'url': reverse(
-            view_name, args=args, kwargs=kwargs)})
+            view_name, args=args, kwargs=self.clean_kwargs(kwargs))})
