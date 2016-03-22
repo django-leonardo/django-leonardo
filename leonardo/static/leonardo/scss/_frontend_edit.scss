@@ -9,6 +9,17 @@ body.frontend-editing {
     outline-offset: 2px;
     .widget-tools {
       display: initial;
+      ~ div .widget-tools {
+        display: none;
+      }
+    }
+    .leonardo-widget:hover,
+    .leonardo-widget:focus,
+    .leonardo-widget:active {
+      outline-color: $brand-info;
+      .widget-tools {
+        display: initial;
+      }
     }
   }
   #edit-position + .dropdown-menu {
@@ -20,17 +31,27 @@ body.frontend-editing {
 .widget-tools {
   position: absolute;
   display: none;
-  top: -20px;
+  top: 0px;
   right: 0px;
   z-index: 1040;
   width: 100%;
-  .ui-sortable-handle {
-    position: absolute;
-    top: 0px;
-    left: 50%;
+  .leonardo-widget-dnd-handle {
+    margin-left: 1px;
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    > .fa {
+      vertical-align: middle;
+    }
   }
-  .btn-group {
-    float: right;
+  > .btn-group > a,
+    .btn-group > button {
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    > .fa {
+      vertical-align: middle;
+    }
   }
 }
 
