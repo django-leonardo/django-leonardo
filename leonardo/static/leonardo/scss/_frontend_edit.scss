@@ -1,11 +1,132 @@
 
-$sortable-helper-background: #fff !default;
+// Variables
+
+$sortable-helper-background: #fff;
+
+$leonardo-primary: rgb(21, 140, 186);
+$leonardo-info: rgb(117, 202, 235);
+$leonardo-warning: rgb(255, 133, 27);
+$leonardo-success: rgb(40, 182, 44);
+$leonardo-danger: rgb(255, 65, 54);
+
+$leonardo-btn-default-color:              #333;
+$leonardo-btn-default-bg:                 #fff;
+$leonardo-btn-default-hover-bg:           #ccc;
+$leonardo-btn-default-border:             #ccc;
+
+$leonardo-btn-primary-color:              #666;
+$leonardo-btn-primary-bg:                 #fff;
+$leonardo-btn-primary-hover-bg:           lighten($leonardo-primary, 20);
+$leonardo-btn-primary-border:             #666;
+
+$leonardo-btn-success-color:              #666;
+$leonardo-btn-success-bg:                 #fff;
+$leonardo-btn-success-hover-bg:           lighten($leonardo-success, 20);
+$leonardo-btn-success-border:             #666;
+
+$leonardo-btn-info-color:                 #666;
+$leonardo-btn-info-bg:                    #fff;
+$leonardo-btn-info-hover-bg:              lighten($leonardo-info, 20);
+$leonardo-btn-info-border:                #666;
+
+$leonardo-btn-warning-color:              #666;
+$leonardo-btn-warning-bg:                 #fff;
+$leonardo-btn-warning-hover-bg:           lighten($leonardo-warning, 20);
+$leonardo-btn-warning-border:             #666;
+
+$leonardo-btn-danger-color:               #666;
+$leonardo-btn-danger-bg:                  #fff;
+$leonardo-btn-danger-hover-bg:            lighten($leonardo-danger, 20);
+$leonardo-btn-danger-border:              #666;
+
+// Mixins
+
+@mixin leonardo-button-variant($color, $background, $hover-background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border !important;
+
+  .fa:before {
+    color: $color !important;
+  }
+
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: $hover-background;
+  }
+  &:hover {
+    color: $color;
+    background-color: $hover-background;
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: $hover-background;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: $hover-background;
+    }
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus,
+    &.focus {
+      background-color: $background;
+          border-color: $border;
+    }
+  }
+
+  .badge {
+    color: $background;
+    background-color: $color;
+  }
+}
+
+// Custom button variants
+
+.leonardo-btn-default {
+  @include leonardo-button-variant($leonardo-btn-default-color, $leonardo-btn-default-bg, $leonardo-btn-default-hover-bg, $leonardo-btn-default-border);
+}
+
+.leonardo-btn-primary {
+  @include leonardo-button-variant($leonardo-btn-primary-color, $leonardo-btn-primary-bg, $leonardo-btn-primary-hover-bg, $leonardo-btn-primary-border);
+}
+
+.leonardo-btn-success {
+  @include leonardo-button-variant($leonardo-btn-success-color, $leonardo-btn-success-bg, $leonardo-btn-success-hover-bg, $leonardo-btn-success-border);
+}
+
+.leonardo-btn-info {
+  @include leonardo-button-variant($leonardo-btn-info-color, $leonardo-btn-info-bg, $leonardo-btn-info-hover-bg, $leonardo-btn-info-border);
+}
+
+.leonardo-btn-warning {
+  @include leonardo-button-variant($leonardo-btn-warning-color, $leonardo-btn-warning-bg, $leonardo-btn-warning-hover-bg, $leonardo-btn-warning-border);
+}
+
+.leonardo-btn-danger {
+  @include leonardo-button-variant($leonardo-btn-danger-color, $leonardo-btn-danger-bg, $leonardo-btn-danger-hover-bg, $leonardo-btn-danger-border);
+}
+
+// General
 
 body.frontend-editing {
   .leonardo-widget:hover,
   .leonardo-widget:focus,
   .leonardo-widget:active, {
-    outline: 2px dashed $brand-success;
+    outline: 2px dashed $leonardo-success;
     outline-offset: 2px;
     .widget-tools {
       display: initial;
@@ -16,9 +137,12 @@ body.frontend-editing {
     .leonardo-widget:hover,
     .leonardo-widget:focus,
     .leonardo-widget:active {
-      outline-color: $brand-info;
+      outline-color: $leonardo-primary;
       .widget-tools {
         display: initial;
+        & > * {
+          float: left !important;
+        }
       }
     }
   }
@@ -38,26 +162,39 @@ body.frontend-editing {
   .leonardo-widget-dnd-handle {
     margin-left: 1px;
     font-size: 16px;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     > .fa {
       vertical-align: middle;
     }
   }
-  > .btn-group > a,
-    .btn-group > button {
-    font-size: 16px;
-    width: 40px;
-    height: 40px;
-    > .fa {
-      vertical-align: middle;
+  .btn {
+    border: 2px solid;
+    border-radius: 0px;
+  }
+  > .btn-group { 
+    border: 2px solid #666;
+    .btn {
+      font-size: 16px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      > .fa {
+        vertical-align: middle;
+        &.fa-exchange {
+          margin-top: -4px;
+        }
+        &.fa-pencil-square-o {
+          margin-left: 1px;
+        }
+      }
     }
   }
 }
 
 .ui-sortable-placeholder {
     min-height: 20px;
-    outline: 2px dashed $brand-warning;
+    outline: 2px dashed $leonardo-warning;
     outline-offset: 5px;
     visibility: visible !important;
     background: lighten($brand-warning, 30);
