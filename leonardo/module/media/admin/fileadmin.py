@@ -1,5 +1,4 @@
 
-from django import forms
 from django.contrib.admin.util import unquote
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -12,11 +11,13 @@ from ..views import (popup_param, popup_status, selectfolder_param,
 from .permissions import PrimitivePermissionAwareModelAdmin
 from leonardo.forms import SelfHandlingModelForm
 from leonardo.module.media.fields.folder import FolderField
+from leonardo.forms.fields.common import UserField
 
 
 class FileAdminChangeFrom(SelfHandlingModelForm):
 
     folder = FolderField(required=False)
+    owner = UserField(required=False)
 
     class Meta:
         model = File

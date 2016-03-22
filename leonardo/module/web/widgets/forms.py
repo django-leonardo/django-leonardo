@@ -80,7 +80,7 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                     *self.get_main_fields(main_fields),
                     css_id='field-{}'.format(slugify(self._meta.model))
                     ),
-                Tab(_('Theme'),
+                Tab(_('Styles'),
                     'base_theme', 'content_theme', 'color_scheme',
                     Fieldset(_('Positions'), 'layout', 'align',
                              'vertical_align'),
@@ -145,6 +145,12 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         else:
             self.fields['content_theme'].initial = content_theme
 
+    def get_tabs(self):
+        '''Merge form tabs with models tabs'''
+        tabs = getattr(self._meta.model, 'tabs', {})
+        tabs.update(getattr(self, 'tabs', {}))
+        return tabs
+
     def init_custom_tabs(self):
         '''init custom tabs
         tabs = {
@@ -154,9 +160,8 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
             }
         }
         '''
-        if hasattr(self, 'tabs'):
-            for tab_name, tab in self.tabs.items():
-                self.insert_tab(tab.get('name', tab_name), tab['fields'])
+        for tab_name, tab in self.get_tabs().items():
+            self.insert_tab(tab.get('name', tab_name), tab['fields'])
 
     def get_main_fields(self, fields):
         '''filter field which are included in custom tab'''
@@ -170,9 +175,8 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         '''returns acumulated fields from ``tabs``'''
         fields = []
         if not hasattr(self, '__custom_fields'):
-            if hasattr(self, 'tabs'):
-                for tab_name, tab in self.tabs.items():
-                    fields += list(tab['fields'])
+            for tab_name, tab in self.get_tabs().items():
+                fields += list(tab['fields'])
             self.__custom_fields = fields
         return self.__custom_fields
 
@@ -181,11 +185,11 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         in the default state is after main widget tab
         '''
         self.helper.layout[0].insert(
-                position,
-                Tab(name,
-                    *fields
-                    )
+            position,
+            Tab(name,
+                *fields
                 )
+        )
 
 
 class WidgetCreateForm(WidgetUpdateForm):

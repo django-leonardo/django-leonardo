@@ -31,6 +31,15 @@ class ListModelMixin(models.Model):
         verbose_name=_("Pagination Style"), max_length=50,
         choices=PAGINATION_CHOICES, default='paginator')
 
+    tabs = {
+        'pagination': {
+            'name': _('Pagination'),
+            'fields': ('objects_per_page',
+                       'objects_per_row',
+                       'pagination_style')
+        }
+    }
+
     class Meta:
         abstract = True
 
