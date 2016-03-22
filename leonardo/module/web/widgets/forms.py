@@ -31,7 +31,16 @@ WIDGETS = {
 
 class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
-    '''Widget Create/Update Form'''
+    '''Generic Widget Form
+
+        tabs = {
+            'tab1': {
+                'name': 'Verbose Name'
+                'fields': ('field_name1',)
+            }
+        }
+
+    '''
 
     id = forms.CharField(
         widget=forms.widgets.HiddenInput,
@@ -64,10 +73,11 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         # get all fields for widget
         main_fields = self._meta.model.fields()
         main_fields.update({'label': 'label'})
+
         self.helper.layout = Layout(
             TabHolder(
                 Tab(self._meta.model._meta.verbose_name.capitalize(),
-                    *main_fields,
+                    *self.get_main_fields(main_fields),
                     css_id='field-{}'.format(slugify(self._meta.model))
                     ),
                 Tab(_('Theme'),
@@ -108,6 +118,9 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         if 'text' in self.fields:
             self.fields['text'].label = ''
 
+        # finally add custom tabs
+        self.init_custom_tabs()
+
     def init_themes(self):
         queryset = self.fields['content_theme'].queryset
 
@@ -131,6 +144,48 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                 self.fields['content_theme'].queryset.first()
         else:
             self.fields['content_theme'].initial = content_theme
+
+    def init_custom_tabs(self):
+        '''init custom tabs
+        tabs = {
+            'tab1': {
+                'name': 'Verbose Name'
+                'fields': ('field_name1',)
+            }
+        }
+        '''
+        if hasattr(self, 'tabs'):
+            for tab_name, tab in self.tabs.items():
+                self.insert_tab(tab.get('name', tab_name), tab['fields'])
+
+    def get_main_fields(self, fields):
+        '''filter field which are included in custom tab'''
+        _fields = []
+        for field in fields:
+            if field not in self._custom_fields():
+                _fields.append(field)
+        return _fields
+
+    def _custom_fields(self):
+        '''returns acumulated fields from ``tabs``'''
+        fields = []
+        if not hasattr(self, '__custom_fields'):
+            if hasattr(self, 'tabs'):
+                for tab_name, tab in self.tabs.items():
+                    fields += list(tab['fields'])
+            self.__custom_fields = fields
+        return self.__custom_fields
+
+    def insert_tab(self, name, fields, position=1):
+        '''Push tab to specific position
+        in the default state is after main widget tab
+        '''
+        self.helper.layout[0].insert(
+                position,
+                Tab(name,
+                    *fields
+                    )
+                )
 
 
 class WidgetCreateForm(WidgetUpdateForm):

@@ -115,6 +115,9 @@ class DynamicSelectWidget(Select2Widget):
 
     def get_edit_handler(self):
         '''TODO: Fix add-to-field'''
+        # just a flag
+        self.generic = 'false'
+
         return '''
 
         <span class="input-group-btn">
@@ -134,20 +137,37 @@ class DynamicSelectWidget(Select2Widget):
         });
 
         $("#item-edit-%(id)s").click(function() {
-            $.ajax({
-              url: "/widget/js-reverse/",
-              method: 'POST',
-              data: {
-                viewname: '%(update_viewname)s',
-                args: JSON.stringify({
-                    'id': $('*[data-add-item-url="%(url)s"]').val()
-                    }),
-                kwargs:  JSON.stringify({
-                    cls_name: '%(cls_name)s',
-                    form_cls: '%(form_cls)s'
-                    })
-                }
-            })
+
+            var generic = %(generic)s;
+            var ajax_opts = {};
+            var id = $('*[data-add-item-url="%(url)s"]').val();
+
+            if (generic) {
+
+                ajax_opts = {
+                  url: "/widget/js-reverse/",
+                  method: 'POST',
+                  data: {
+                    viewname: '%(update_viewname)s',
+                    kwargs:  JSON.stringify({
+                        cls_name: '%(cls_name)s',
+                        id: id,
+                        form_cls: '%(form_cls)s'
+                        })
+                    }
+                };
+
+            } else {
+                ajax_opts = {
+                  url: "/widget/js-reverse/",
+                  method: 'POST',
+                  data: {
+                    viewname: '%(update_viewname)s',
+                    args: JSON.stringify({id: id})
+                    }
+                };
+            }
+            $.ajax(ajax_opts)
               .done(function( data ) {
 
                 horizon.modals._request = $.ajax(data.url, {
@@ -197,7 +217,8 @@ class DynamicSelectWidget(Select2Widget):
                'cls_name': self.get_cls_name(),
                'url': self.get_add_item_url(),
                'form_cls': self.get_form_cls(),
-               'id': self.__hash__()}
+               'id': self.__hash__(),
+               'generic': self.generic}
 
     def get_update_view_name(self):
 
@@ -209,7 +230,9 @@ class DynamicSelectWidget(Select2Widget):
         if not self._edit_url:
             if self.get_form_cls():
                 self._edit_url = 'forms:update_with_form'
-            self._edit_url = 'forms:update'
+            else:
+                self._edit_url = 'forms:update'
+            self.generic = 'true'
         return self._edit_url
 
     def get_add_item_url(self):
