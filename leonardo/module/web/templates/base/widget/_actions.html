@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="btn-group pull-right wide">
+<div class="btn-group wide">
   <a class="ajax-modal btn leonardo-btn-info" href="{% url 'widget_update' widget.get_ct_name widget.id %}"><i class="fa fa-pencil-square-o"></i></a>
   <a class="btn leonardo-btn-info" href="{% url 'widget_copy' widget.get_ct_name widget.id %}"><i class="fa fa-files-o"></i></a>
   <a id="ajax-info-{{ widget.fe_identifier }}" class="btn leonardo-btn-info" href='#'><i class="fa fa-info-circle"></i></a>
@@ -14,7 +14,7 @@
   </ul>
 </div>
 
-<div class="btn-group pull-right narrow">
+<div class="btn-group narrow">
   <button data-toggle="dropdown" class="btn btn-box-tool leonardo-btn-info dropdown-toggle" id="edit-position"><i class="fa fa-pencil-square-o"></i></button>
   <ul class="dropdown-menu dropdown-menu-right">
     <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id -1 %}">{% trans 'Edit' %}</a></li>

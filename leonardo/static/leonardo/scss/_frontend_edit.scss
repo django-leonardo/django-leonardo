@@ -140,9 +140,8 @@ body.frontend-editing {
       outline-color: $leonardo-primary;
       .widget-tools {
         display: initial;
-        & > * {
-          float: left !important;
-        }
+        left: 0px;
+        right: initial;
       }
     }
   }
@@ -158,7 +157,6 @@ body.frontend-editing {
   top: 0px;
   right: 0px;
   z-index: 1040;
-  width: 100%;
   .leonardo-widget-dnd-handle {
     margin-left: 1px;
     padding: 8px 12px 5px 12px;
