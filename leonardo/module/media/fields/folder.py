@@ -12,7 +12,7 @@ class FolderPathSelectWidget(forms.Select2Widget):
     search_fields = FOLDER_SEARCH_FIELDS
 
 
-class FolderSelectWidget(forms.ModelSelect2Widget, DynamicSelectWidget):
+class FolderSelectWidget(FolderPathSelectWidget, DynamicSelectWidget):
     model = Folder
     search_fields = FOLDER_SEARCH_FIELDS
 
@@ -37,7 +37,7 @@ class FolderField(FolderFieldMixin, DynamicModelChoiceField):
 
     help_text = _("Type to search file or upload new one.")
     cls_name = 'media.folder'
-    form_cls = 'leonardo.module.media.admin.folderadmin.AddFolderPopupForm'
+    form_cls = 'leonardo.module.media.admin.folder.admin.FolderForm'
 
     def __init__(self,
                  add_item_link=None,

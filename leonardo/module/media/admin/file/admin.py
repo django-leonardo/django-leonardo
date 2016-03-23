@@ -3,25 +3,17 @@ from django.contrib.admin.util import unquote
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
-
-from .. import settings
-from ..models import File
-from ..views import (popup_param, popup_status, selectfolder_param,
-                     selectfolder_status)
-from .permissions import PrimitivePermissionAwareModelAdmin
 from leonardo.forms import SelfHandlingModelForm
-from leonardo.module.media.fields.folder import FolderField
 from leonardo.forms.fields.common import UserField
+from leonardo.module.media import settings
+from leonardo.module.media.fields.folder import FolderField
+from leonardo.module.media.models import File
+from leonardo.module.media.views import (popup_param, popup_status,
+                                         selectfolder_param,
+                                         selectfolder_status)
 
-
-class FileAdminChangeFrom(SelfHandlingModelForm):
-
-    folder = FolderField(required=False)
-    owner = UserField(required=False)
-
-    class Meta:
-        model = File
-        exclude = ()
+from ..permissions import PrimitivePermissionAwareModelAdmin
+from .forms import FileForm
 
 
 class FileAdmin(PrimitivePermissionAwareModelAdmin):
@@ -37,16 +29,19 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
     # render_change_form() override add and change to False.
     save_as = True
 
-    form = FileAdminChangeFrom
+    form = FileForm
 
     @classmethod
-    def build_fieldsets(cls, extra_main_fields=(), extra_advanced_fields=(), extra_fieldsets=()):
+    def build_fieldsets(cls, extra_main_fields=(),
+                        extra_advanced_fields=(), extra_fieldsets=()):
         fieldsets = (
             (None, {
-                'fields': ('name', 'owner', 'description',) + extra_main_fields,
+                'fields': ('name', 'owner',
+                           'description',) + extra_main_fields,
             }),
             (_('Advanced'), {
-                'fields': ('file', 'sha1', 'display_canonical') + extra_advanced_fields,
+                'fields': ('file', 'sha1',
+                           'display_canonical') + extra_advanced_fields,
                 'classes': ('collapse',),
             }),
         ) + extra_fieldsets
@@ -126,6 +121,7 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
             extra_context=extra_context)
 
         url = r.get("Location", None)
+
         # Check against filer_file_changelist as file deletion is always made by
         # the base class
         if (url in ["../../../../", "../../"] or

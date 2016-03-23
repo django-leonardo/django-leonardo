@@ -1,139 +1,55 @@
 from __future__ import unicode_literals
 
-from django import forms
-from django import template
-from django.core.exceptions import ValidationError
-from django.contrib.admin import helpers
-from django.contrib.admin.util import quote, unquote, capfirst
+import itertools
+import os
+import re
+from collections import OrderedDict
+
+from django import forms, template
+from django.conf import settings as django_settings
 from django.contrib import messages
-from django.utils.http import urlquote
-from .patched.admin_utils import get_deleted_objects
-from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.admin import helpers
+from django.contrib.admin.util import capfirst, quote, unquote
+from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.urlresolvers import reverse
-from django.db import router, models
+from django.db import models, router
 from django.db.models import Q
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
+from django.utils.html import escape
+from django.utils.http import urlquote
+from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy, ungettext
+from filer.thumbnail_processors import normalize_subject_location
 from filer.utils.compatibility import get_delete_permission
+from filer.utils.filer_easy_thumbnails import FilerActionThumbnailer
+from leonardo.module.media import settings
+from leonardo.module.media.models import (File, Folder, FolderPermission,
+                                          FolderRoot, Image,
+                                          ImagesWithMissingData, UnfiledImages,
+                                          tools)
+from leonardo.module.media.settings import FILER_STATICMEDIA_PREFIX
+from leonardo.module.media.views import (popup_param, popup_status,
+                                         selectfolder_param,
+                                         selectfolder_status)
+
+from ..forms import CopyFilesAndFoldersForm, RenameFilesForm, ResizeImagesForm
+from ..permissions import PrimitivePermissionAwareModelAdmin
+from ..tools import (check_files_edit_permissions,
+                     check_files_read_permissions,
+                     check_folder_edit_permissions,
+                     check_folder_read_permissions, userperms_for_request)
+from .forms import FolderForm
+from ..patched.admin_utils import get_deleted_objects
+
 try:
     from django.utils.encoding import force_text
 except ImportError:
     # Django < 1.5
     from django.utils.encoding import force_unicode as force_text
-from django.utils.html import escape
-from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
-from django.utils.translation import ungettext, ugettext_lazy
-from .. import settings
-from .forms import (CopyFilesAndFoldersForm, ResizeImagesForm,
-                    RenameFilesForm)
-from .permissions import PrimitivePermissionAwareModelAdmin
-from ..views import (popup_status, popup_param, selectfolder_status,
-                     selectfolder_param)
-from collections import OrderedDict
-from .tools import (userperms_for_request,
-                    check_folder_edit_permissions,
-                    check_files_edit_permissions,
-                    check_files_read_permissions,
-                    check_folder_read_permissions)
-from ..models import (Folder, FolderRoot, UnfiledImages, File, tools,
-                      ImagesWithMissingData, FolderPermission, Image)
-from ..settings import FILER_STATICMEDIA_PREFIX
-from filer.utils.filer_easy_thumbnails import FilerActionThumbnailer
-from filer.thumbnail_processors import normalize_subject_location
-from leonardo.module.media.fields.folder import FolderField
-from django.conf import settings as django_settings
-from leonardo.forms import SelfHandlingModelForm
-import os
-import re
-import itertools
-from django.template.loader import render_to_string
-from crispy_forms.bootstrap import *
-from crispy_forms.layout import *
-from crispy_forms.layout import HTML, Layout
-from leonardo.module.media.utils import handle_uploaded_files
-
-
-class AddFolderPopupForm(SelfHandlingModelForm):
-
-    id = forms.IntegerField('id',
-                            widget=forms.widgets.HiddenInput, required=False)
-    folder = forms.HiddenInput()
-    parent = FolderField(required=False)
-    file = forms.FileField(
-        label=_('File'), required=False)
-    files = forms.FileField(
-        label=_('Folder'), required=False,
-        help_text=_('This field may support uploading whole folder'))
-
-    def handle(self, request, data):
-        data = self.clean_data(data)
-        return super(AddFolderPopupForm, self).handle(request, data)
-
-    def handle_related_models(self, request, folder):
-
-        files = []
-
-        if len(request.FILES.getlist('files')) > 0:
-            files = request.FILES.getlist('files')
-        else:
-            files = request.FILES.getlist('file')
-
-        if len(files) > 0:
-            handle_uploaded_files(files, folder, request.user)
-
-    def clean_data(self, data):
-        data.pop('file')
-        data.pop('files')
-        return data
-
-    def __init__(self, *args, **kwargs):
-        super(AddFolderPopupForm, self).__init__(*args, **kwargs)
-
-        files_area = ''
-
-        if 'id' in kwargs.get('initial'):
-
-            folder = Folder.objects.get(id=kwargs['initial']['id'])
-            files_area = render_to_string(
-                'admin/media/folder/directory_table_modal.html',
-                {'files': folder.files.all()})
-
-        self.fields['files'].widget.attrs["webkitdirectory"] = ""
-        self.fields['files'].widget.attrs["directory"] = ""
-        self.fields['files'].widget.attrs["mozdirectory="""] = ""
-
-        self.helper.layout = Layout(
-            TabHolder(
-                Tab(_('Folder'),
-                    'id', 'folder', 'name', 'parent',
-                    ),
-                Tab(_('Files'),
-                    Div(Field('file'),
-                        css_class="col-lg-6 field-wrapper"),
-                    Div(Field('files'),
-                        css_class="col-lg-6 field-wrapper"),
-                    HTML('''
-                        <a href="#" id="add-another" class="btn fa fa-plus">Add</a>
-                        <script>
-                        $(function() {
-                            $('#add-another').click(function() {
-                                var cloned = $("#id_file").clone();
-                                cloned.val(null);
-                                $(cloned).insertAfter("#id_file");
-                             });
-                            });
-                        </script>
-                        '''), HTML(files_area)
-                    ),
-            )
-        )
-
-    class Meta:
-        model = Folder
-        exclude = tuple()
 
 
 class FolderAdmin(PrimitivePermissionAwareModelAdmin):
@@ -159,7 +75,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
         """
         parent_id = request.REQUEST.get('parent_id', None)
         if parent_id:
-            return AddFolderPopupForm
+            return FolderForm
         else:
             folder_form = super(FolderAdmin, self).get_form(
                 request, obj=None, **kwargs)
@@ -268,7 +184,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
     def get_urls(self):
         from django.conf.urls import patterns, url
         urls = super(FolderAdmin, self).get_urls()
-        from .. import views
+        from leonardo.module.media import views
         url_patterns = patterns('',
                                 # we override the default list view with our own directory listing
                                 # of the root directories

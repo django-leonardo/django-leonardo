@@ -145,52 +145,6 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         else:
             self.fields['content_theme'].initial = content_theme
 
-    def get_tabs(self):
-        '''Merge form tabs with models tabs'''
-        tabs = getattr(self._meta.model, 'tabs', {})
-        tabs.update(getattr(self, 'tabs', {}))
-        return tabs
-
-    def init_custom_tabs(self):
-        '''init custom tabs
-        tabs = {
-            'tab1': {
-                'name': 'Verbose Name'
-                'fields': ('field_name1',)
-            }
-        }
-        '''
-        for tab_name, tab in self.get_tabs().items():
-            self.insert_tab(tab.get('name', tab_name), tab['fields'])
-
-    def get_main_fields(self, fields):
-        '''filter field which are included in custom tab'''
-        _fields = []
-        for field in fields:
-            if field not in self._custom_fields():
-                _fields.append(field)
-        return _fields
-
-    def _custom_fields(self):
-        '''returns acumulated fields from ``tabs``'''
-        fields = []
-        if not hasattr(self, '__custom_fields'):
-            for tab_name, tab in self.get_tabs().items():
-                fields += list(tab['fields'])
-            self.__custom_fields = fields
-        return self.__custom_fields
-
-    def insert_tab(self, name, fields, position=1):
-        '''Push tab to specific position
-        in the default state is after main widget tab
-        '''
-        self.helper.layout[0].insert(
-            position,
-            Tab(name,
-                *fields
-                )
-        )
-
 
 class WidgetCreateForm(WidgetUpdateForm):
 
