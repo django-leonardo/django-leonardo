@@ -21,6 +21,9 @@ ADMINS = (
     ('admin', 'mail@leonardo.cz'),
 )
 
+# month
+LEONARDO_CACHE_TIMEOUT = 60 * 60 * 24 * 31
+
 DEFAULT_CHARSET = 'utf-8'
 
 MANAGERS = ADMINS

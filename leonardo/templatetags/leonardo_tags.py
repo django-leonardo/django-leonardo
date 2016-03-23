@@ -84,8 +84,6 @@ def render_region_tools(context, feincms_object, region, request=None):
     }
 
 STANDALONE_REGIONS = ['header', 'footer']
-# month
-LEONARDO_CACHE_TIMEOUT = 60 * 60 * 24 * 31
 
 
 def _render_content(content, **kwargs):
@@ -112,7 +110,7 @@ def _render_content(content, **kwargs):
         value = cache.get(content.cache_key)
         if value is None:
             value = content.render(**kwargs)
-            cache.set(content.cache_key, value, LEONARDO_CACHE_TIMEOUT)
+            cache.set(content.cache_key, value, content.cache_timeout)
         return value
 
     return content.render(**kwargs)
