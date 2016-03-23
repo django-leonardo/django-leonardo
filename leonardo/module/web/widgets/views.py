@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -9,10 +10,12 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from leonardo import messages
-from leonardo.views import *
+from leonardo.views import (ContextMixin, CreateView, ModalFormView,
+                            ModelFormMixin, UpdateView)
+
 from ..models import Page
 from .forms import (WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm,
-                    get_widget_create_form, get_widget_update_form)
+                    form_repository)
 from .tables import WidgetDimensionTable
 from .utils import get_widget_from_id
 
@@ -76,7 +79,7 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
 
     def get_form_class(self):
         if not hasattr(self, '_form_class'):
-            self._form_class = get_widget_update_form(**self.kwargs)
+            self._form_class = form_repository.get_form(**self.kwargs)
         return self._form_class
 
     def get_form(self, form_class):
@@ -110,7 +113,7 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
 
     def get_form_class(self):
         if not hasattr(self, '_form_class'):
-            self._form_class = get_widget_create_form(**self.kwargs)
+            self._form_class = form_repository.get_form(**self.kwargs)
         return self._form_class
 
     def get_context_data(self, **kwargs):

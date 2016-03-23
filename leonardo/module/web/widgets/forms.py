@@ -29,7 +29,7 @@ WIDGETS = {
 }
 
 
-class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
+class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
 
     '''Generic Widget Form
 
@@ -49,7 +49,7 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)
-        super(WidgetUpdateForm, self).__init__(*args, **kwargs)
+        super(WidgetForm, self).__init__(*args, **kwargs)
 
         initial = kwargs.get('initial', None)
         if initial and initial.get('id', None):
@@ -144,6 +144,13 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                 self.fields['content_theme'].queryset.first()
         else:
             self.fields['content_theme'].initial = content_theme
+
+
+class WidgetUpdateForm(WidgetForm):
+
+    '''obsolete name'''
+
+    pass
 
 
 class WidgetCreateForm(WidgetUpdateForm):
@@ -255,45 +262,29 @@ class WidgetSelectForm(SelfHandlingForm):
         return self.next_view.as_view()(request, **data)
 
 
-@memoized
-def get_widget_update_form(**kwargs):
-    """
-    widget = get_widget_from_id(widget_id)
+class FormRepository(object):
+    '''Simple form repository which returns cached classes'''
 
-    """
-    model_cls = get_class(kwargs['cls_name'])
+    _forms = {}
 
-    form_class_base = getattr(
-        model_cls, 'feincms_item_editor_form', WidgetUpdateForm)
+    def get_form(self, cls_name, **kwargs):
 
-    default_widgets = WIDGETS
-    default_widgets.update(getattr(model_cls, 'widgets', {}))
+        if cls_name not in self._forms:
 
-    WidgetModelForm = modelform_factory(model_cls,
-                                        exclude=[],
-                                        form=form_class_base,
-                                        widgets=default_widgets)
+            model_cls = get_class(cls_name)
 
-    return WidgetModelForm
+            form_class_base = getattr(
+                model_cls, 'feincms_item_editor_form', WidgetForm)
 
+            default_widgets = WIDGETS
+            default_widgets.update(getattr(model_cls, 'widgets', {}))
 
-@memoized
-def get_widget_create_form(**kwargs):
-    """
-    widget = get_widget_from_id(widget_id)
+            self._forms[cls_name] = modelform_factory(
+                model_cls,
+                exclude=[],
+                form=form_class_base,
+                widgets=default_widgets)
 
-    """
-    model_cls = get_class(kwargs['cls_name'])
+        return self._forms[cls_name]
 
-    form_class_base = getattr(
-        model_cls, 'feincms_item_editor_form', WidgetCreateForm)
-
-    default_widgets = WIDGETS
-    default_widgets.update(getattr(model_cls, 'widgets', {}))
-
-    WidgetModelForm = modelform_factory(model_cls,
-                                        exclude=[],
-                                        form=form_class_base,
-                                        widgets=default_widgets)
-
-    return WidgetModelForm
+form_repository = FormRepository()
