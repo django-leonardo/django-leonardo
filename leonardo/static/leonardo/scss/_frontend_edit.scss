@@ -1,13 +1,19 @@
 
-// Variables
+// LEONARDO VARIABLES
 
-$sortable-helper-background: #fff;
+$leonardo-font-size-base:          	  16px;
+$leonardo-line-height-base:        	  1.428571429;
 
-$leonardo-primary: rgb(21, 140, 186);
-$leonardo-info: rgb(117, 202, 235);
-$leonardo-warning: rgb(255, 133, 27);
-$leonardo-success: rgb(40, 182, 44);
-$leonardo-danger: rgb(255, 65, 54);
+$leonardo-sortable-helper-background:	  #fff;
+$leonardo-cursor-disabled:                not-allowed;
+
+// Color variables
+
+$leonardo-primary: 			  rgb(21, 140, 186);
+$leonardo-info: 			  rgb(117, 202, 235);
+$leonardo-warning: 			  rgb(255, 133, 27);
+$leonardo-success: 			  rgb(40, 182, 44);
+$leonardo-danger: 			  rgb(255, 65, 54);
 
 $leonardo-btn-default-color:              #333;
 $leonardo-btn-default-bg:                 #fff;
@@ -38,6 +44,13 @@ $leonardo-btn-danger-color:               #666;
 $leonardo-btn-danger-bg:                  #fff;
 $leonardo-btn-danger-hover-bg:            lighten($leonardo-danger, 20);
 $leonardo-btn-danger-border:              #666;
+
+// Button variables
+
+$leonardo-btn-font-weight:                normal;
+$leonardo-padding-base-vertical:     	  6px;
+$leonardo-padding-base-horizontal:   	  12px;
+$leonardo-btn-border-radius-base:	  0px;
 
 // Mixins
 
@@ -95,6 +108,60 @@ $leonardo-btn-danger-border:              #666;
 }
 
 // Custom button variants
+
+.leonardo-btn {
+  display: inline-block;
+  margin-bottom: 0; // For input.btn
+  font-weight: $leonardo-btn-font-weight;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+  border: 2px solid transparent;
+  white-space: nowrap;
+  @include button-size($leonardo-padding-base-vertical, $leonardo-padding-base-horizontal, $leonardo-font-size-base, $leonardo-line-height-base, $leonardo-btn-border-radius-base);
+  @include user-select(none);
+
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      @include tab-focus;
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &.focus {
+    color: $leonardo-btn-default-color;
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active {
+    outline: 0;
+    background-image: none;
+    @include box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: $leonardo-cursor-disabled;
+    @include opacity(.65);
+    @include box-shadow(none);
+  }
+
+}
+
+a.leonardo-btn {
+  &.disabled,
+  fieldset[disabled] & {
+    pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
+  }
+}
 
 .leonardo-btn-default {
   @include leonardo-button-variant($leonardo-btn-default-color, $leonardo-btn-default-bg, $leonardo-btn-default-hover-bg, $leonardo-btn-default-border);
@@ -160,21 +227,15 @@ body.frontend-editing {
   .leonardo-widget-dnd-handle {
     margin-left: 1px;
     padding: 8px 12px 5px 12px;
-    font-size: 16px;
     width: 44px;
     height: 44px;
     > .fa {
       vertical-align: middle;
     }
   }
-  .btn {
-    border: 2px solid;
-    border-radius: 0px;
-  }
   > .btn-group { 
     border: 2px solid #666;
-    .btn {
-      font-size: 16px;
+    .leonardo-btn {
       padding: 8px 12px 5px 12px;
       width: 40px;
       height: 40px;
@@ -187,6 +248,9 @@ body.frontend-editing {
         &.fa-pencil-square-o {
           margin-left: 1px;
         }
+      }
+      &:not(:first-child) {
+        margin-left: -4px;
       }
     }
   }
@@ -201,9 +265,146 @@ body.frontend-editing {
 }
 
 .ui-sortable-helper.fe_dragging {
-  background: $sortable-helper-background;
+  background: $leonardo-sortable-helper-background;
   .widget-tools .btn-group {
     display: none;
   }
+}
+
+.region-tools {
+  float: right;
+  width: 100%;
+  > a {
+    width: 100%;
+  }
+}
+
+// TODO: Use Naira button effect on Region tools
+
+.button--naira {
+	padding: 0;
+	overflow: hidden;
+	-webkit-transition: background-color 0.3s;
+	transition: background-color 0.3s;
+}
+.button--naira::before {
+	content: '';
+	position: absolute;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: #37474f;
+	top: -50%;
+	z-index: -1;
+	-webkit-transform: translate3d(0, -100%, 0) rotate3d(0, 0, 1, -10deg);
+	transform: translate3d(0, -100%, 0) rotate3d(0, 0, 1, -10deg);
+}
+.button--naira.button--inverted::before {
+	background: #7986cb;
+}
+.button--naira-up::before {
+	-webkit-transform: translate3d(0, 100%, 0) rotate3d(0, 0, 1, 10deg);
+	transform: translate3d(0, 100%, 0) rotate3d(0, 0, 1, 10deg);
+}
+.button--naira > span {
+	display: block;
+}
+.button--naira .button__icon {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	left: 0;
+	color: #fff;
+	-webkit-transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, -100%, 0);
+}
+.button--naira-up .button__icon {
+	-webkit-transform: translate3d(0, 100%, 0);
+	transform: translate3d(0, 100%, 0);
+}
+.button--naira > span,
+.button--naira .button__icon {
+	padding: 1em 2em;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+	transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+}
+.button--naira:hover::before {
+	-webkit-animation: anim-naira-1 0.3s forwards ease-in;
+	animation: anim-naira-1 0.3s forwards ease-in;
+}
+.button--naira-up:hover::before {
+	-webkit-animation: anim-naira-2 0.3s forwards ease-in;
+	animation: anim-naira-2 0.3s forwards ease-in;
+}
+@-webkit-keyframes anim-naira-1 {
+	50% {
+		-webkit-transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, -10deg);
+		transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, -10deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+	}
+	100% {
+		-webkit-transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
+		transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
+	}
+}
+@keyframes anim-naira-1 {
+	50% {
+		-webkit-transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, -10deg);
+		transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, -10deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+	}
+	100% {
+		-webkit-transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
+		transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
+	}
+}
+@-webkit-keyframes anim-naira-2 {
+	50% {
+		-webkit-transform: translate3d(0, 50%, 0) rotate3d(0, 0, 1, 10deg);
+		transform: translate3d(0, 50%, 0) rotate3d(0, 0, 1, 10deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+	}
+	100% {
+		-webkit-transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
+		transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
+	}
+}
+@keyframes anim-naira-2 {
+	50% {
+		-webkit-transform: translate3d(0, 50%, 0) rotate3d(0, 0, 1, 10deg);
+		transform: translate3d(0, 50%, 0) rotate3d(0, 0, 1, 10deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+	}
+	100% {
+		-webkit-transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
+		transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
+	}
+}
+.button--naira:hover {
+	background-color: #37474f;
+	-webkit-transition: background-color 0s 0.3s;
+	transition: background-color 0s 0.3s;
+}
+.button--naira.button--inverted:hover {
+	background-color: #7986cb;
+}
+.button--naira:hover .button__icon {
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+.button--naira:hover > span {
+	opacity: 0;
+	-webkit-transform: translate3d(0, 100%, 0);
+	transform: translate3d(0, 100%, 0);
+}
+.button--naira-up:hover > span {
+	-webkit-transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, -100%, 0);
 }
 

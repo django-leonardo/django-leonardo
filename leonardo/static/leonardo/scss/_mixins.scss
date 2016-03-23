@@ -89,7 +89,7 @@
   .row-sm-24 > div { height: 1200px; }
 }
 
-@media screen and (min-width: $screen-xs) and (max-width: $screen-xs-max) {
+@media screen and (max-width: $screen-xs-max) {
   .modal-dialog {
     left: 0%!important;
   }
