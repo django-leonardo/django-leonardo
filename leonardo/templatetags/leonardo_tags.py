@@ -110,7 +110,7 @@ def _render_content(content, **kwargs):
         value = cache.get(content.cache_key)
         if value is None:
             value = content.render(**kwargs)
-            cache.set(content.cache_key, value, content.cache_timeout)
+            cache.set(content.cache_key, value, content.widget_cache_timeout)
         return value
 
     return content.render(**kwargs)

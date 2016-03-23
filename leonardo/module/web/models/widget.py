@@ -432,7 +432,7 @@ class Widget(FeinCMSBase):
         return 'widget.cache.%s' % self.fe_identifier
 
     @cached_property
-    def cache_timeout(self):
+    def widget_cache_timeout(self):
         '''allow widget to set custom cache timeout'''
         return getattr(self, 'cache_timeout', settings.LEONARDO_CACHE_TIMEOUT)
 
