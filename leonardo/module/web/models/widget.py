@@ -358,6 +358,10 @@ class Widget(FeinCMSBase):
         ]
         return " ".join(classes)
 
+    def get_classes(self):
+        '''return array of custom widget classes'''
+        return []
+
     @cached_property
     def render_base_classes(self):
         """agreggate all css classes
@@ -366,7 +370,9 @@ class Widget(FeinCMSBase):
         classes.append('%s-base-%s' % (self.widget_name, self.base_theme.name))
         classes.append('leonardo-widget')
         classes.append('leonardo-%s-widget' % self.widget_name)
-        return " ".join(classes)
+        if getattr(self, 'auto_reload', False):
+            classes.append('auto-reload')
+        return " ".join(classes + self.get_classes())
 
     @classmethod
     def templates(cls, choices=False, suffix=True):

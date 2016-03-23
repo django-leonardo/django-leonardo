@@ -309,6 +309,23 @@ $(function() {
         ev.preventDefault();
       });
   });
+
+  /* handle widget reloading */
+  var refresh_widgets = function(){
+    $('.auto-reload').each(function(i, obj) {
+      $.ajax({
+          type: "GET",
+          url: window.location,
+          data: {'widget_id': obj.id},
+          success: function (data) {
+              $(obj.id).replaceWith(data.result);
+          }
+       });
+    });
+  };
+  setTimeout(refresh_widgets, 5000);
+
+
 });
 </script>
 {% for file in LEONARDO_CONFIG.js_compress_files %}
