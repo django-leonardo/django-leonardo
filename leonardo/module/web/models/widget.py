@@ -360,6 +360,8 @@ class Widget(FeinCMSBase):
 
     def get_classes(self):
         '''return array of custom widget classes'''
+        if hasattr(self, 'classes') and isinstance(self.classes, str):
+            return self.classes.split(' ')
         return []
 
     @cached_property
