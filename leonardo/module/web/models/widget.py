@@ -1,6 +1,4 @@
 
-from __future__ import unicode_literals
-
 import sys
 
 from django.conf import settings
@@ -21,7 +19,7 @@ from leonardo.utils.templates import find_all_templates, template_choices
 
 from ..const import *
 from ..widgets.const import ENTER_EFFECT_CHOICES, WIDGET_COLOR_SCHEME_CHOICES
-from ..widgets.forms import WIDGETS, WidgetUpdateForm
+from ..widgets.forms import WIDGETS, WidgetForm
 from ..widgets.mixins import ContentProxyWidgetMixin, ListWidgetMixin
 
 try:
@@ -31,7 +29,18 @@ except ImportError:
 
 
 class WidgetInline(FeinCMSInline):
-    form = WidgetUpdateForm
+    form = WidgetForm
+
+    template = 'admin/leonardo/widget_inline.html'
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+
+        if hasattr(self.model, 'widgets') and db_field.name in self.model.widgets:
+            kwargs['widget'] = self.model.widgets[db_field.name]
+            return db_field.formfield(**kwargs)
+
+        return super(WidgetInline, self).formfield_for_dbfield(
+            db_field, request=request, **kwargs)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "base_theme":
@@ -148,8 +157,6 @@ class WidgetBaseTheme(models.Model):
     class Meta:
         verbose_name = _("Widget base theme")
         verbose_name_plural = _("Widget base themes")
-
-
 
 
 @python_2_unicode_compatible
