@@ -295,7 +295,8 @@ $(function() {
    var $form = $('.leonardo-form-widget form, .leonardo-subscriptionform-widget form');
     $form.each(function(){
       var $this=$(this);
-      $this.submit(function (ev) {
+      $this.off().on('submit',function (ev) {
+        ev.preventDefault();
         $.ajax({
             type: $this.attr('method'),
             url: $this.attr('action'),
@@ -306,7 +307,6 @@ $(function() {
                 $this.closest("div.leonardo-widget").replaceWith(data.result);
             }
         });
-        ev.preventDefault();
       });
   });
 
