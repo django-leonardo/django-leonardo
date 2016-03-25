@@ -37,7 +37,7 @@ class FolderField(FolderFieldMixin, DynamicModelChoiceField):
 
     help_text = _("Type to search file or upload new one.")
     cls_name = 'media.folder'
-    form_cls = 'leonardo.module.media.admin.folder.admin.FolderForm'
+    form_cls = 'leonardo.module.media.admin.folder.forms.FolderForm'
 
     def __init__(self,
                  add_item_link=None,
