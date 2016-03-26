@@ -406,11 +406,11 @@ class Widget(FeinCMSBase):
         '''init all widget widgets
         '''
         if hasattr(cls, 'widgets'):
-            for field, widget in cls.widgets:
+            for field, widget in cls.widgets.items():
                 if callable(widget):
                     widget = widget()
                     if widget:
-                        cls.widgets[name] = widget
+                        cls.widgets[field] = widget
 
     @classmethod
     def templates(cls, choices=False, suffix=True):
