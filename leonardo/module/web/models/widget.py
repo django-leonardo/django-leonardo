@@ -405,7 +405,7 @@ class Widget(FeinCMSBase):
     def init_widgets(cls):
         '''init all widget widgets
         '''
-        if hasattr(cls.model, 'widgets'):
+        if hasattr(cls, 'widgets'):
             for field, widget in cls.widgets:
                 if callable(widget):
                     widget = widget()
