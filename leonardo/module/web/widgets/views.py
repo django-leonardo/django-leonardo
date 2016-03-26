@@ -382,7 +382,13 @@ class WidgetCopyView(WidgetReorderView):
 
         widget = self.object
         widget.pk = None
-        widget.save()
+        widget.save(created=False)
+        # also copy dimensions
+        for dimension in self.model.objects.get(
+                id=self.kwargs["id"]).dimensions:
+            dimension.pk = None
+            dimension.widget_id = widget.id
+            dimension.save()
 
         messages.success(self.request, _('Widget was successfully cloned.'))
 
