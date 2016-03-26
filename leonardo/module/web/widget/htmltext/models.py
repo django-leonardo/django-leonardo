@@ -1,9 +1,9 @@
 # -#- coding: utf-8 -#-
 
-from django import forms
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from leonardo.module.web.models import Widget
+from leonardo.utils import get_htmltext_widget
 
 
 class HtmlTextWidget(Widget):
@@ -15,7 +15,7 @@ class HtmlTextWidget(Widget):
         _('text'), blank=True, default="<p>%s</p>" % ('Empty element'))
 
     widgets = {
-        'text': forms.Textarea()
+        'text': get_htmltext_widget
     }
     form_size = 'lg'
 

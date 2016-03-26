@@ -35,8 +35,10 @@ class WidgetInline(FeinCMSInline):
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
 
-        if hasattr(self.model, 'widgets') and db_field.name in self.model.widgets:
-            kwargs['widget'] = self.model.widgets[db_field.name]
+        widget = self.model.get_widget_for_field(db_field.name)
+
+        if widget:
+            kwargs['widget'] = widget
             return db_field.formfield(**kwargs)
 
         return super(WidgetInline, self).formfield_for_dbfield(
@@ -382,6 +384,33 @@ class Widget(FeinCMSBase):
         if getattr(self, 'auto_reload', False):
             classes.append('auto-reload')
         return " ".join(classes + self.get_classes())
+
+    @classmethod
+    def get_widget_for_field(cls, name):
+        '''returns widget for field
+        if has widgets declared
+        support function instead of widgets
+        '''
+        if hasattr(cls, 'widgets') and name in cls.widgets:
+            widget = cls.widgets[name]
+            if callable(widget):
+                widget = widget()
+                # save for later
+                if widget:
+                    cls.widgets[name] = widget
+            return widget
+        return
+
+    @classmethod
+    def init_widgets(cls):
+        '''init all widget widgets
+        '''
+        if hasattr(cls.model, 'widgets'):
+            for field, widget in cls.widgets:
+                if callable(widget):
+                    widget = widget()
+                    if widget:
+                        cls.widgets[name] = widget
 
     @classmethod
     def templates(cls, choices=False, suffix=True):

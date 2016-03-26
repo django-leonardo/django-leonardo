@@ -277,6 +277,9 @@ class FormRepository(object):
                 model_cls, 'feincms_item_editor_form', WidgetForm)
 
             default_widgets = WIDGETS
+
+            model_cls.init_widgets()
+
             default_widgets.update(getattr(model_cls, 'widgets', {}))
 
             self._forms[cls_name] = modelform_factory(
@@ -286,5 +289,6 @@ class FormRepository(object):
                 widgets=default_widgets)
 
         return self._forms[cls_name]
+
 
 form_repository = FormRepository()
