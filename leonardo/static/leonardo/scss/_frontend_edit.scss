@@ -12,7 +12,7 @@ $leonardo-cursor-disabled:                not-allowed;
 $leonardo-primary: 			  rgb(21, 140, 186);
 $leonardo-info: 			  rgb(117, 202, 235);
 $leonardo-warning: 			  rgb(255, 133, 27);
-$leonardo-success: 			  rgb(40, 182, 44);
+$leonardo-success: 			  rgb(11, 218, 20);
 $leonardo-danger: 			  rgb(255, 65, 54);
 
 $leonardo-btn-default-color:              #333;
@@ -45,6 +45,9 @@ $leonardo-btn-danger-bg:                  #fff;
 $leonardo-btn-danger-hover-bg:            lighten($leonardo-danger, 20);
 $leonardo-btn-danger-border:              #666;
 
+$widget-outline-color:			  $leonardo-success;
+$nested-widget-outline-color:		  $leonardo-info;
+
 // Button variables
 
 $leonardo-btn-font-weight:                normal;
@@ -52,7 +55,7 @@ $leonardo-padding-base-vertical:     	  6px;
 $leonardo-padding-base-horizontal:   	  12px;
 $leonardo-btn-border-radius-base:	  0px;
 
-// Mixins
+// Mixins TODO: prefix mixin
 
 @mixin leonardo-button-variant($color, $background, $hover-background, $border) {
   color: $color;
@@ -187,26 +190,26 @@ a.leonardo-btn {
   @include leonardo-button-variant($leonardo-btn-danger-color, $leonardo-btn-danger-bg, $leonardo-btn-danger-hover-bg, $leonardo-btn-danger-border);
 }
 
-// General
+// Main
 
 body.frontend-editing {
   .leonardo-widget:hover,
   .leonardo-widget:focus,
   .leonardo-widget:active, {
-    outline: 2px dashed $leonardo-success;
+    outline: 2px dashed $widget-outline-color;
     outline-offset: 2px;
     .widget-tools {
-      display: initial;
+      visibility: visible;
       ~ div .widget-tools {
-        display: none;
+        visibility: hidden;
       }
     }
     .leonardo-widget:hover,
     .leonardo-widget:focus,
     .leonardo-widget:active {
-      outline-color: $leonardo-primary;
+      outline-color: $nested-widget-outline-color;
       .widget-tools {
-        display: initial;
+        visibility: visible;
         left: 0px;
         right: initial;
       }
@@ -220,13 +223,17 @@ body.frontend-editing {
 
 .widget-tools {
   position: absolute;
-  display: none;
-  top: 0px;
+  visibility: hidden;
+  top: -40px;
+  bottom: initial;
   right: 0px;
   z-index: 1040;
+  .leonardo-btn {
+    padding: 8px 12px 5px 12px;
+    transition: background-color 0.3s ease;
+  }
   .leonardo-widget-dnd-handle {
     margin-left: 1px;
-    padding: 8px 12px 5px 12px;
     width: 44px;
     height: 44px;
     > .fa {
@@ -236,7 +243,6 @@ body.frontend-editing {
   > .btn-group { 
     border: 2px solid #666;
     .leonardo-btn {
-      padding: 8px 12px 5px 12px;
       width: 40px;
       height: 40px;
       border: none;
@@ -250,7 +256,7 @@ body.frontend-editing {
         }
       }
       &:not(:first-child) {
-        margin-left: -4px;
+        margin-left: -5px; // TODO: find better solution
       }
     }
   }
@@ -274,137 +280,94 @@ body.frontend-editing {
 .region-tools {
   float: right;
   width: 100%;
+  padding: 5px 0;
   > a {
     width: 100%;
+    padding: 10px;
+    font-family: "Ubuntu";
   }
 }
 
-// TODO: Use Naira button effect on Region tools
+// GOODIES
 
-.button--naira {
-	padding: 0;
-	overflow: hidden;
-	-webkit-transition: background-color 0.3s;
-	transition: background-color 0.3s;
-}
-.button--naira::before {
-	content: '';
-	position: absolute;
-	left: -50%;
-	width: 200%;
-	height: 200%;
-	background: #37474f;
-	top: -50%;
-	z-index: -1;
-	-webkit-transform: translate3d(0, -100%, 0) rotate3d(0, 0, 1, -10deg);
-	transform: translate3d(0, -100%, 0) rotate3d(0, 0, 1, -10deg);
-}
-.button--naira.button--inverted::before {
-	background: #7986cb;
-}
-.button--naira-up::before {
-	-webkit-transform: translate3d(0, 100%, 0) rotate3d(0, 0, 1, 10deg);
-	transform: translate3d(0, 100%, 0) rotate3d(0, 0, 1, 10deg);
-}
-.button--naira > span {
-	display: block;
-}
-.button--naira .button__icon {
-	position: absolute;
-	top: 0;
-	width: 100%;
-	left: 0;
-	color: #fff;
-	-webkit-transform: translate3d(0, -100%, 0);
-	transform: translate3d(0, -100%, 0);
-}
-.button--naira-up .button__icon {
-	-webkit-transform: translate3d(0, 100%, 0);
-	transform: translate3d(0, 100%, 0);
-}
-.button--naira > span,
-.button--naira .button__icon {
-	padding: 1em 2em;
-	-webkit-transition: -webkit-transform 0.3s;
-	transition: transform 0.3s;
-	-webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
-	transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
-}
-.button--naira:hover::before {
-	-webkit-animation: anim-naira-1 0.3s forwards ease-in;
-	animation: anim-naira-1 0.3s forwards ease-in;
-}
-.button--naira-up:hover::before {
-	-webkit-animation: anim-naira-2 0.3s forwards ease-in;
-	animation: anim-naira-2 0.3s forwards ease-in;
-}
-@-webkit-keyframes anim-naira-1 {
-	50% {
-		-webkit-transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, -10deg);
-		transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, -10deg);
-		-webkit-animation-timing-function: ease-out;
-		animation-timing-function: ease-out;
-	}
-	100% {
-		-webkit-transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
-		transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
-	}
-}
-@keyframes anim-naira-1 {
-	50% {
-		-webkit-transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, -10deg);
-		transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, -10deg);
-		-webkit-animation-timing-function: ease-out;
-		animation-timing-function: ease-out;
-	}
-	100% {
-		-webkit-transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
-		transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
-	}
-}
-@-webkit-keyframes anim-naira-2 {
-	50% {
-		-webkit-transform: translate3d(0, 50%, 0) rotate3d(0, 0, 1, 10deg);
-		transform: translate3d(0, 50%, 0) rotate3d(0, 0, 1, 10deg);
-		-webkit-animation-timing-function: ease-out;
-		animation-timing-function: ease-out;
-	}
-	100% {
-		-webkit-transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
-		transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
-	}
-}
-@keyframes anim-naira-2 {
-	50% {
-		-webkit-transform: translate3d(0, 50%, 0) rotate3d(0, 0, 1, 10deg);
-		transform: translate3d(0, 50%, 0) rotate3d(0, 0, 1, 10deg);
-		-webkit-animation-timing-function: ease-out;
-		animation-timing-function: ease-out;
-	}
-	100% {
-		-webkit-transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
-		transform: translate3d(0, 0%, 0) rotate3d(0, 0, 1, 0deg);
-	}
-}
-.button--naira:hover {
-	background-color: #37474f;
-	-webkit-transition: background-color 0s 0.3s;
-	transition: background-color 0s 0.3s;
-}
-.button--naira.button--inverted:hover {
-	background-color: #7986cb;
-}
-.button--naira:hover .button__icon {
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-}
-.button--naira:hover > span {
-	opacity: 0;
-	-webkit-transform: translate3d(0, 100%, 0);
-	transform: translate3d(0, 100%, 0);
-}
-.button--naira-up:hover > span {
-	-webkit-transform: translate3d(0, -100%, 0);
-	transform: translate3d(0, -100%, 0);
+// Aylen button effect
+
+.leonardo-btn {
+  &.aylen {
+    background: #fff;
+    color: #37474f;
+    overflow: hidden;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s;
+    position: relative;
+    z-index: 1;
+  }
+  &.aylen.aylen-inverted {
+    background: none;
+    color: #fff;
+  }
+  &.aylen::before,
+  &.aylen::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    bottom: 100%;
+    left: 0;
+    z-index: -1;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+    transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+  }
+  &.aylen.leonardo-btn-primary::before {
+    background: lighten($leonardo-primary, 15);
+  }
+  &.aylen.leonardo-btn-primary::after {
+    background: $leonardo-primary;
+  }
+  &.aylen.leonardo-btn-success::before {
+    background: lighten($leonardo-success, 15);
+  }
+  &.aylen.leonardo-btn-success::after {
+    background: $leonardo-success;
+  }
+  &.aylen.leonardo-btn-warning::before {
+    background: lighten($leonardo-warning, 15);
+  }
+  &.aylen.leonardo-btn-warning::after {
+    background: $leonardo-warning;
+  }
+  &.aylen.leonardo-btn-danger::before {
+    background: lighten($leonardo-danger, 15);
+  }
+  &.aylen.leonardo-btn-danger::after {
+    background: $leonardo-danger;
+  }
+  &.aylen.leonardo-btn-info::before {
+    background: lighten($leonardo-info, 15);
+  }
+  &.aylen.leonardo-btn-info::after {
+    background: $leonardo-info;
+  }
+  &.aylen:hover,
+  &.aylen:focus,
+  &.aylen:active {
+    color: #fff;
+    .fa:before {
+      color: #fff !important;
+    }
+    &::before,
+    &::after {
+      -webkit-transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0);
+    }
+  }
+  &.aylen:hover::after,
+  &.aylen:focus::after,
+  &.aylen:active::after, {
+    -webkit-transition-delay: 0.175s;
+    transition-delay: 0.175s;
+  }
 }
 
