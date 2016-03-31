@@ -1,24 +1,217 @@
 
-$sortable-helper-background: #fff !default;
+// LEONARDO VARIABLES
+
+$leonardo-font-size-base:          	  16px;
+$leonardo-line-height-base:        	  1.428571429;
+
+$leonardo-sortable-helper-background:	  #fff;
+$leonardo-cursor-disabled:                not-allowed;
+
+// Color variables
+
+$leonardo-primary: 			  rgb(21, 140, 186);
+$leonardo-info: 			  rgb(117, 202, 235);
+$leonardo-warning: 			  rgb(255, 133, 27);
+$leonardo-success: 			  rgb(11, 218, 20);
+$leonardo-danger: 			  rgb(255, 65, 54);
+
+$leonardo-btn-default-color:              #333;
+$leonardo-btn-default-bg:                 #fff;
+$leonardo-btn-default-hover-bg:           #ccc;
+$leonardo-btn-default-border:             #ccc;
+
+$leonardo-btn-primary-color:              #666;
+$leonardo-btn-primary-bg:                 #fff;
+$leonardo-btn-primary-hover-bg:           lighten($leonardo-primary, 20);
+$leonardo-btn-primary-border:             #666;
+
+$leonardo-btn-success-color:              #666;
+$leonardo-btn-success-bg:                 #fff;
+$leonardo-btn-success-hover-bg:           lighten($leonardo-success, 20);
+$leonardo-btn-success-border:             #666;
+
+$leonardo-btn-info-color:                 #666;
+$leonardo-btn-info-bg:                    #fff;
+$leonardo-btn-info-hover-bg:              lighten($leonardo-info, 20);
+$leonardo-btn-info-border:                #666;
+
+$leonardo-btn-warning-color:              #666;
+$leonardo-btn-warning-bg:                 #fff;
+$leonardo-btn-warning-hover-bg:           lighten($leonardo-warning, 20);
+$leonardo-btn-warning-border:             #666;
+
+$leonardo-btn-danger-color:               #666;
+$leonardo-btn-danger-bg:                  #fff;
+$leonardo-btn-danger-hover-bg:            lighten($leonardo-danger, 20);
+$leonardo-btn-danger-border:              #666;
+
+$widget-outline-color:			  $leonardo-success;
+$nested-widget-outline-color:		  $leonardo-info;
+
+// Button variables
+
+$leonardo-btn-font-weight:                normal;
+$leonardo-padding-base-vertical:     	  6px;
+$leonardo-padding-base-horizontal:   	  12px;
+$leonardo-btn-border-radius-base:	  0px;
+
+// Mixins TODO: prefix mixin
+
+@mixin leonardo-button-variant($color, $background, $hover-background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border !important;
+
+  .fa:before {
+    color: $color !important;
+  }
+
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: $hover-background;
+  }
+  &:hover {
+    color: $color;
+    background-color: $hover-background;
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: $hover-background;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: $hover-background;
+    }
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus,
+    &.focus {
+      background-color: $background;
+          border-color: $border;
+    }
+  }
+
+  .badge {
+    color: $background;
+    background-color: $color;
+  }
+}
+
+// Custom button variants
+
+.leonardo-btn {
+  display: inline-block;
+  margin-bottom: 0; // For input.btn
+  font-weight: $leonardo-btn-font-weight;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+  border: 2px solid transparent;
+  white-space: nowrap;
+  @include button-size($leonardo-padding-base-vertical, $leonardo-padding-base-horizontal, $leonardo-font-size-base, $leonardo-line-height-base, $leonardo-btn-border-radius-base);
+  @include user-select(none);
+
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      @include tab-focus;
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &.focus {
+    color: $leonardo-btn-default-color;
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active {
+    outline: 0;
+    background-image: none;
+    @include box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: $leonardo-cursor-disabled;
+    @include opacity(.65);
+    @include box-shadow(none);
+  }
+
+}
+
+a.leonardo-btn {
+  &.disabled,
+  fieldset[disabled] & {
+    pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
+  }
+}
+
+.leonardo-btn-default {
+  @include leonardo-button-variant($leonardo-btn-default-color, $leonardo-btn-default-bg, $leonardo-btn-default-hover-bg, $leonardo-btn-default-border);
+}
+
+.leonardo-btn-primary {
+  @include leonardo-button-variant($leonardo-btn-primary-color, $leonardo-btn-primary-bg, $leonardo-btn-primary-hover-bg, $leonardo-btn-primary-border);
+}
+
+.leonardo-btn-success {
+  @include leonardo-button-variant($leonardo-btn-success-color, $leonardo-btn-success-bg, $leonardo-btn-success-hover-bg, $leonardo-btn-success-border);
+}
+
+.leonardo-btn-info {
+  @include leonardo-button-variant($leonardo-btn-info-color, $leonardo-btn-info-bg, $leonardo-btn-info-hover-bg, $leonardo-btn-info-border);
+}
+
+.leonardo-btn-warning {
+  @include leonardo-button-variant($leonardo-btn-warning-color, $leonardo-btn-warning-bg, $leonardo-btn-warning-hover-bg, $leonardo-btn-warning-border);
+}
+
+.leonardo-btn-danger {
+  @include leonardo-button-variant($leonardo-btn-danger-color, $leonardo-btn-danger-bg, $leonardo-btn-danger-hover-bg, $leonardo-btn-danger-border);
+}
+
+// Main
 
 body.frontend-editing {
   .leonardo-widget:hover,
   .leonardo-widget:focus,
   .leonardo-widget:active, {
-    outline: 2px dashed $brand-success;
+    outline: 2px dashed $widget-outline-color;
     outline-offset: 2px;
     .widget-tools {
-      display: initial;
+      visibility: visible;
       ~ div .widget-tools {
-        display: none;
+        visibility: hidden;
       }
     }
     .leonardo-widget:hover,
     .leonardo-widget:focus,
     .leonardo-widget:active {
-      outline-color: $brand-info;
+      outline-color: $nested-widget-outline-color;
       .widget-tools {
-        display: initial;
+        visibility: visible;
+        left: 0px;
+        right: initial;
       }
     }
   }
@@ -30,43 +223,151 @@ body.frontend-editing {
 
 .widget-tools {
   position: absolute;
-  display: none;
-  top: 0px;
+  visibility: hidden;
+  top: -40px;
+  bottom: initial;
   right: 0px;
   z-index: 1040;
-  width: 100%;
+  .leonardo-btn {
+    padding: 8px 12px 5px 12px;
+    transition: background-color 0.3s ease;
+  }
   .leonardo-widget-dnd-handle {
     margin-left: 1px;
-    font-size: 16px;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     > .fa {
       vertical-align: middle;
     }
   }
-  > .btn-group > a,
-    .btn-group > button {
-    font-size: 16px;
-    width: 40px;
-    height: 40px;
-    > .fa {
-      vertical-align: middle;
+  > .btn-group { 
+    border: 2px solid #666;
+    .leonardo-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      > .fa {
+        vertical-align: middle;
+        &.fa-exchange {
+          margin-top: -4px;
+        }
+        &.fa-pencil-square-o {
+          margin-left: 1px;
+        }
+      }
+      &:not(:first-child) {
+        margin-left: -5px; // TODO: find better solution
+      }
     }
   }
 }
 
 .ui-sortable-placeholder {
     min-height: 20px;
-    outline: 2px dashed $brand-warning;
+    outline: 2px dashed $leonardo-warning;
     outline-offset: 5px;
     visibility: visible !important;
     background: lighten($brand-warning, 30);
 }
 
 .ui-sortable-helper.fe_dragging {
-  background: $sortable-helper-background;
+  background: $leonardo-sortable-helper-background;
   .widget-tools .btn-group {
     display: none;
+  }
+}
+
+.region-tools {
+  float: right;
+  width: 100%;
+  padding: 5px 0;
+  > a {
+    width: 100%;
+    padding: 10px;
+    font-family: "Ubuntu";
+  }
+}
+
+// GOODIES
+
+// Aylen button effect
+
+.leonardo-btn {
+  &.aylen {
+    background: #fff;
+    color: #37474f;
+    overflow: hidden;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s;
+    position: relative;
+    z-index: 1;
+  }
+  &.aylen.aylen-inverted {
+    background: none;
+    color: #fff;
+  }
+  &.aylen::before,
+  &.aylen::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    bottom: 100%;
+    left: 0;
+    z-index: -1;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+    transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+  }
+  &.aylen.leonardo-btn-primary::before {
+    background: lighten($leonardo-primary, 15);
+  }
+  &.aylen.leonardo-btn-primary::after {
+    background: $leonardo-primary;
+  }
+  &.aylen.leonardo-btn-success::before {
+    background: lighten($leonardo-success, 15);
+  }
+  &.aylen.leonardo-btn-success::after {
+    background: $leonardo-success;
+  }
+  &.aylen.leonardo-btn-warning::before {
+    background: lighten($leonardo-warning, 15);
+  }
+  &.aylen.leonardo-btn-warning::after {
+    background: $leonardo-warning;
+  }
+  &.aylen.leonardo-btn-danger::before {
+    background: lighten($leonardo-danger, 15);
+  }
+  &.aylen.leonardo-btn-danger::after {
+    background: $leonardo-danger;
+  }
+  &.aylen.leonardo-btn-info::before {
+    background: lighten($leonardo-info, 15);
+  }
+  &.aylen.leonardo-btn-info::after {
+    background: $leonardo-info;
+  }
+  &.aylen:hover,
+  &.aylen:focus,
+  &.aylen:active {
+    color: #fff;
+    .fa:before {
+      color: #fff !important;
+    }
+    &::before,
+    &::after {
+      -webkit-transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0);
+    }
+  }
+  &.aylen:hover::after,
+  &.aylen:focus::after,
+  &.aylen:active::after, {
+    -webkit-transition-delay: 0.175s;
+    transition-delay: 0.175s;
   }
 }
 

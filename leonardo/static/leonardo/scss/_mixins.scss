@@ -89,7 +89,7 @@
   .row-sm-24 > div { height: 1200px; }
 }
 
-@media screen and (min-width: $screen-xs) and (max-width: $screen-xs-max) {
+@media screen and (max-width: $screen-xs-max) {
   .modal-dialog {
     left: 0%!important;
   }
@@ -126,10 +126,6 @@
 .no-gutter > [class*="col-"] {
   padding-left: 0;
   padding-right: 0;
-}
-
-.region-tools {
-  padding: 5px 0;
 }
 
 .col1, .col2, .col3 {
