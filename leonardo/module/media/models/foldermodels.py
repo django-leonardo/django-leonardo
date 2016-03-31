@@ -87,6 +87,7 @@ class FolderPermissionManager(models.Manager):
         return allow_list - deny_list
 
 
+@python_2_unicode_compatible
 class Folder(models.Model, mixins.IconsMixin):
 
     """
@@ -210,7 +211,7 @@ class Folder(models.Model, mixins.IconsMixin):
                                     args=(self.id,))
 
     def __str__(self):
-        return "%s" % (self.name,)
+        return self.name
 
     def contains_folder(self, folder_name):
         try:
