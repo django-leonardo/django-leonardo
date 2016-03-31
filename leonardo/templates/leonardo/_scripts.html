@@ -191,6 +191,22 @@ $(function() {
 
 <script type="text/javascript">
 $(function() {
+
+  var $document = $(document);
+
+  $document.on('hidden.bs.modal', '.modal', function () {
+    $(".django-select2").each(function(i, obj){
+      /* Fixme: handle this without error
+        The select2('destroy') method was called on an element that is not using Select2.
+       */
+      try {
+        $(obj).select2('destroy').select2();
+        $(obj).trigger('change.select2');
+      }
+      catch(err) {}
+    });
+  });
+
   horizon.modals.addModalInitFunction(function(modal) {
     $('.django-select2').not('django-select2-heavy').select2();
     $('.django-select2.django-select2-heavy').each(function () {
@@ -230,7 +246,6 @@ $(function() {
   });
 
   // Bind handler for swapping labels on "switchable" select fields.
-  var $document = $(document);
   $document.on("change", 'select.switchable', function (evt) {
     
     $('fieldset').each(function(index, fieldset) {
