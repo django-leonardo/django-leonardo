@@ -195,15 +195,14 @@ $(function() {
   var $document = $(document);
 
   $document.on('hidden.bs.modal', '.modal', function () {
+    /* refresh select2 fields with new value */
     $(".django-select2").each(function(i, obj){
-      /* Fixme: handle this without error
-        The select2('destroy') method was called on an element that is not using Select2.
-       */
-      try {
+    var instance=$(obj).data('select2');
+      if(instance!=null){
         $(obj).select2('destroy').select2();
         $(obj).trigger('change.select2');
+      
       }
-      catch(err) {}
     });
   });
 
