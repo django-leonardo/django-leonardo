@@ -16,7 +16,7 @@ from feincms.admin.item_editor import FeinCMSInline
 from feincms.models import Base as FeinCMSBase
 from leonardo.utils.memoized import widget_memoized
 from leonardo.utils.templates import find_all_templates, template_choices
-
+from ..processors.config import context_config
 from ..const import *
 from ..widgets.const import ENTER_EFFECT_CHOICES, WIDGET_COLOR_SCHEME_CHOICES
 from ..widgets.forms import WIDGETS, WidgetForm
@@ -307,6 +307,7 @@ class Widget(FeinCMSBase):
             'widget': self,
             'base_template': self.get_base_template,
             'request': request,
+            'LEONARDO_CONFIG': context_config
         }
         context.update(self.get_template_data(request))
         return context
@@ -352,7 +353,10 @@ class Widget(FeinCMSBase):
         """
         classes = []
         for d in self.dimensions:
-            classes.append(d.classes)
+            # do not duplicate same classes
+            for cls in d.classes.split(' '):
+                if cls not in classes:
+                    classes.append(cls)
         return classes
 
     @cached_property
