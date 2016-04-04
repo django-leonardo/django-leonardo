@@ -33,13 +33,13 @@ class Handler(ContentView):
     def render_widget(self, request):
         '''Returns rendered widget in JSON response'''
 
-        method = request.POST.get('method', None)
+        method = request.GET.get('method', request.POST.get('method', None))
 
         if request.is_ajax() and method == 'widget':
             try:
                 id = request.POST['widget_id']
             except KeyError:
-                pass
+                id = request.GET['widget_id']
             else:
                 widget = get_widget_from_id(id)
                 response = widget.render(**{'request': request})
