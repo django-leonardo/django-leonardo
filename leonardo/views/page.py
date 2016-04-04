@@ -30,18 +30,27 @@ class Handler(ContentView):
         return self.page_model._default_manager.for_request(
             self.request, raise404=True, best_match=True, path=path)
 
-    def dispatch(self, request, *args, **kwargs):
+    def render_widget(self, request):
+        '''Returns rendered widget in JSON response'''
 
-        if request.is_ajax():
+        method = request.POST.get('method', None)
 
-            if 'widget_id' in request.POST or 'widget_id' in request.GET:
-                try:
-                    id = request.POST['widget_id']
-                except KeyError:
-                    id = request.GET['widget_id']
+        if request.is_ajax() and method == 'widget':
+            try:
+                id = request.POST['widget_id']
+            except KeyError:
+                pass
+            else:
                 widget = get_widget_from_id(id)
                 response = widget.render(**{'request': request})
                 return JsonResponse({'result': response, 'id': id})
+
+    def dispatch(self, request, *args, **kwargs):
+
+        widget_content = self.render_widget(request)
+
+        if widget_content:
+            return widget_content
 
         try:
             return super(Handler, self).dispatch(request, *args, **kwargs)

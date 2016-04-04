@@ -318,7 +318,9 @@ $(function() {
             url: $this.attr('action'),
             data: $.extend($this.serializeArray().reduce(
               function(a, x) { a[x.name] = x.value; return a; }, {}),
-              {widget_id:$this.closest("div.leonardo-widget").attr('id')}),
+              {widget_id:$this.closest("div.leonardo-widget").attr('id'),
+               method: 'widget'
+              }),
             success: function (data) {
                 $this.closest("div.leonardo-widget").replaceWith(data.result);
                 var modalBackdrop=$(".modal-backdrop");
