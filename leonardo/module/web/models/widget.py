@@ -216,6 +216,8 @@ class Widget(FeinCMSBase):
                 'widget_type': self.content_type,
             }).save()
 
+        self.purge_from_cache()
+
     def delete(self, *args, **kwargs):
         super(Widget, self).delete(*args, **kwargs)
         [d.delete() for d in self.dimensions]
@@ -470,8 +472,21 @@ class Widget(FeinCMSBase):
     # CACHE TOOLS
 
     @cached_property
+    def cache(self):
+        '''default cache'''
+        return caches['default']
+
+    @cached_property
     def cache_key(self):
-        return 'widget.cache.%s' % self.fe_identifier
+        '''default key for html content'''
+        return 'widget.html.%s' % self.fe_identifier
+
+    @cached_property
+    def cache_keys(self):
+        '''Returns all cache keys which would be
+        flushed after save
+        '''
+        return [self.cache_key]
 
     @cached_property
     def widget_cache_timeout(self):
@@ -489,9 +504,8 @@ class Widget(FeinCMSBase):
 
     def purge_from_cache(self):
         '''Purge widget content from cache'''
-        cache = caches['default']
-        cache.delete(self.cache_key)
-        return True
+
+        self.cache.delete_many(self.cache_keys)
 
 
 class ListWidget(Widget, ListWidgetMixin):
