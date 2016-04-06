@@ -829,6 +829,10 @@ form .form-group > div.dynamic-select {
     margin-right: 15px;
 }
 
+.carousel-control.left {
+    width: 33%;
+}
+
 .left form {
   margin: 0;
 }
@@ -836,6 +840,10 @@ form .form-group > div.dynamic-select {
 .right {
   float: left;
   width: 342px;
+}
+
+.carousel-control.right {
+    width: 33%;
 }
 
 .clear {
