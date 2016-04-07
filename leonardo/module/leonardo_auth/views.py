@@ -31,7 +31,7 @@ class LoginView(forms.ModalFormView):
 
     def get_context_data(self, **kwargs):
         ret = super(LoginView, self).get_context_data(**kwargs)
-        redirect_field_value = self.request.REQUEST \
+        redirect_field_value = self.request.GET \
             .get(self.redirect_field_name)
         ret.update({
             "url": self.request.build_absolute_uri(),
