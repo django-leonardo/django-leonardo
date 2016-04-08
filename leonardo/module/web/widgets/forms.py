@@ -11,7 +11,6 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django_select2.forms import Select2Widget
 from feincms.admin.item_editor import ItemEditorForm
-from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
 from leonardo.utils.widgets import get_grouped_widgets

@@ -318,6 +318,28 @@ $(function() {
   };
   setTimeout(refresh_widgets, 5000);
 
+  var ws_scheme = window.location.protocol == 'https:' ? 'wss' : 'ws';
+  var basepath = ws_scheme + "://" + window.location.hostname + ":" + window.location.port;
+
+  socket = new ReconnectingWebSocket(basepath + "/messages?session_key={{ request.session.session_key }}")
+
+  /* Bind django-messages */
+  socket.onmessage = function(e) {
+      msg = JSON.parse(e.data)
+      horizon.alert(msg.level, msg.message, msg.extra_tags)
+  }
+  socket.onopen = function() {
+      //
+  }
+
+  w_socket = new ReconnectingWebSocket(basepath + "/widgets?session_key={{ request.session.session_key }}")
+
+  /* Bind django-messages */
+  w_socket.onmessage = function(e) {
+      data = JSON.parse(e.data)
+      console.log(data);
+      $('#' + data.id).replaceWith(data.content);
+  }
 
 });
 </script>
