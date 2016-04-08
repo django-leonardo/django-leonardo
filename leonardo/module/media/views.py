@@ -150,10 +150,17 @@ def scan_folder(request, folder_id=None):
 
 @login_required
 def make_folder(request, folder_id=None):
+
     if not folder_id:
-        folder_id = request.REQUEST.get('parent_id', None)
+        folder_id = request.GET.get('parent_id')
+    if not folder_id:
+        folder_id = request.POST.get('parent_id')
+
     if folder_id:
-        folder = Folder.objects.get(id=folder_id)
+        try:
+            folder = Folder.objects.get(id=folder_id)
+        except Folder.DoesNotExist:
+            raise PermissionDenied
     else:
         folder = None
 

@@ -317,7 +317,7 @@ class Widget(FeinCMSBase):
     def render_content(self, options):
         '''returns rendered widget and handle error during rendering'''
 
-        request = options['request']
+        request = options.get('request', {})
         context = self.get_context_data(request)
 
         try:
