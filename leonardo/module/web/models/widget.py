@@ -479,7 +479,7 @@ class Widget(FeinCMSBase):
     @cached_property
     def cache_key(self):
         '''default key for html content'''
-        return 'widget.html.%s' % self.fe_identifier
+        return 'widget.%s.html' % self.fe_identifier
 
     @cached_property
     def cache_keys(self):
