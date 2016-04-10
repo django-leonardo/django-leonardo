@@ -1,33 +1,41 @@
 {% load i18n %}
 
+{% url 'widget_update' widget.get_ct_name widget.id as update_url %}
+{% url 'widget_copy' widget.get_ct_name widget.id as copy_url %}
+{% url 'widget_delete' widget.get_ct_name widget.id as delete_url %}
+{% url 'widget_reorder' widget.get_ct_name widget.id -1 as order_up_url %}
+{% url 'widget_reorder' widget.get_ct_name widget.id 1 as order_down_url %}
+{% url 'widget_reorder' widget.get_ct_name widget.id 0 as order_first_url %}
+{% url 'widget_reorder' widget.get_ct_name widget.id 5 as order_last_url %}
+
 <div class="btn-group wide">
-  <a class="ajax-modal leonardo-btn leonardo-btn-info aylen" href="{% url 'widget_update' widget.get_ct_name widget.id %}"><i class="fa fa-pencil-square-o"></i></a>
-  <a class="leonardo-btn leonardo-btn-info aylen" href="{% url 'widget_copy' widget.get_ct_name widget.id %}"><i class="fa fa-files-o"></i></a>
+  <a class="ajax-modal leonardo-btn leonardo-btn-info aylen" href="{{ update_url }}"><i class="fa fa-pencil-square-o"></i></a>
+  <a class="leonardo-btn leonardo-btn-info aylen" href="{{ copy_url }}"><i class="fa fa-files-o"></i></a>
   <a id="ajax-info-{{ widget.fe_identifier }}" class="leonardo-btn leonardo-btn-info aylen" href='#'><i class="fa fa-info-circle"></i></a>
-  <a class="ajax-modal leonardo-btn leonardo-btn-danger aylen" href="{% url 'widget_delete' widget.get_ct_name widget.id %}"><i class="fa fa-times"></i></a>
+  <a class="ajax-modal leonardo-btn leonardo-btn-danger aylen" href="{{ delete_url }}"><i class="fa fa-times"></i></a>
   <button data-toggle="dropdown" class="leonardo-btn btn-box-tool leonardo-btn-success dropdown-toggle aylen" id="edit-position"><i class="fa fa-exchange"></i></button>
   <ul class="dropdown-menu dropdown-menu-right">
-    <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id -1 %}">{% trans 'Up' %}</a></li>
-    <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 1 %}">{% trans 'Down' %}</a></li>
-    <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 0 %}">{% trans 'As first' %}</a></li>
-    <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 5 %}">{% trans 'As Last' %}</a></li>
+    <li><a href="{{ order_up_url }}">{% trans 'Up' %}</a></li>
+    <li><a href="{{ order_down_url }}">{% trans 'Down' %}</a></li>
+    <li><a href="{{ order_first_url }}">{% trans 'As first' %}</a></li>
+    <li><a href="{{ order_last_url }}">{% trans 'As Last' %}</a></li>
   </ul>
 </div>
 
 <div class="btn-group narrow">
   <button data-toggle="dropdown" class="leonardo-btn btn-box-tool leonardo-btn-info dropdown-toggle aylen" id="edit-position"><i class="fa fa-pencil-square-o"></i></button>
   <ul class="dropdown-menu dropdown-menu-right">
-    <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id -1 %}">{% trans 'Edit' %}</a></li>
-    <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 1 %}">{% trans 'Copy' %}</a></li>
-    <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 0 %}">{% trans 'Info' %}</a></li>
-    <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 5 %}">{% trans 'Delete' %}</a></li>
+    <li><a class="ajax-modal" href="{{ update_url }}">{% trans 'Edit' %}</a></li>
+    <li><a href="{{ copy_url }}">{% trans 'Copy' %}</a></li>
+    <li><a id="ajax-info-{{ widget.fe_identifier }}" href="#">{% trans 'Info' %}</a></li>
+    <li><a class="ajax-modal" href="{{ delete_url }}">{% trans 'Delete' %}</a></li>
     <li class="dropdown-submenu pull-left">
       <a tabindex="-1" href="#">Position</a>
       <ul class="dropdown-menu">
-        <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id -1 %}">{% trans 'Up' %}</a></li>
-        <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 1 %}">{% trans 'Down' %}</a></li>
-        <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 0 %}">{% trans 'As first' %}</a></li>
-        <li><a href="{% url 'widget_reorder' widget.get_ct_name widget.id 5 %}">{% trans 'As Last' %}</a></li>
+        <li><a href="{{ order_up_url }}">{% trans 'Up' %}</a></li>
+        <li><a href="{{ order_down_url }}">{% trans 'Down' %}</a></li>
+        <li><a href="{{ order_first_url }}">{% trans 'As first' %}</a></li>
+        <li><a href="{{ order_last_url }}">{% trans 'As Last' %}</a></li>
       </ul>
     </li>
   </ul>
@@ -87,7 +95,7 @@ $("#{{ widget.fe_identifier }}").dblclick(function (evt) {
       horizon.modals._request.abort();
     }
 
-    horizon.modals._request = $.ajax("{% url 'widget_update' widget.get_ct_name widget.id %}", {
+    horizon.modals._request = $.ajax("{{ update_url }}", {
       beforeSend: function () {
         horizon.modals.modal_spinner(gettext("Loading"));
       },
