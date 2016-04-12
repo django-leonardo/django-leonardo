@@ -76,4 +76,12 @@ class ModuleConfig(Config):
 
 class LeonardoConfig(MasterConfig):
 
-    pass
+    @property
+    def is_websocket_enabled(self):
+        '''Reffers if channels is installed'''
+        try:
+            import leonardo_channels
+        except ImportError:
+            return False
+        else:
+            return True
