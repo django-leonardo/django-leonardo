@@ -1,6 +1,10 @@
 
 
-from .consumers import update_widget
+try:
+    from .consumers import update_widget
+    CHANNELS = True
+except ImportError:
+    CHANNELS = False
 
 
 def update_widget_reciever(sender, instance, created, **kwargs):
