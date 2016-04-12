@@ -75,6 +75,8 @@ CONSTANCE_CONFIG = {}
 
 CONSTANCE_ADDITIONAL_FIELDS = {}
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
 # enable auto loading packages
 LEONARDO_MODULE_AUTO_INCLUDE = True
 
