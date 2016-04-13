@@ -2153,9 +2153,36 @@ label.log-length {
 
 /**** Popover ****/
 a.link-popover { cursor: default; }
-
+  
 a:hover.link-popover { text-decoration: none; }
 
 .has-feedback .form-control-feedback {
   top: 0;
+}
+
+/**** Centering (both dimensions) *****/
+.text-center {
+  a{width:100%}
+  .img-responsive {
+    margin: 0 auto;
+  }
+}
+.valignContainer {
+  white-space: nowrap;
+ 
+  *{float:none!important}
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+  }
+
+  .centered {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+    max-width:100%;
+  }
 }

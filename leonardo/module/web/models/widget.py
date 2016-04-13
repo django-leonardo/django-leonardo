@@ -366,11 +366,12 @@ class Widget(FeinCMSBase):
         """agreggate all css classes
         """
         classes = [
-            "text-%s" % self.align,
             'leonardo-content',
             'template-%s' % self.content_theme.name,
             '%s-content-%s' % (self.widget_name, self.content_theme.name)
         ]
+        if self.vertical_align == "middle":
+          classes.append("centered")
         return " ".join(classes)
 
     def get_classes(self):
@@ -387,8 +388,11 @@ class Widget(FeinCMSBase):
         classes.append('%s-base-%s' % (self.widget_name, self.base_theme.name))
         classes.append('leonardo-widget')
         classes.append('leonardo-%s-widget' % self.widget_name)
+        classes.append( "text-%s" % self.align)
         if getattr(self, 'auto_reload', False):
             classes.append('auto-reload')
+        if self.vertical_align == 'middle':
+            classes.append("valignContainer")
         return " ".join(classes + self.get_classes())
 
     @classmethod
