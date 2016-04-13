@@ -11,6 +11,9 @@
 @import "/leonardo/scss/loading";
 @import "/leonardo/scss/frontend_edit";
 
+// bootstrap 4 spacing 
+@import "_spacing";
+
 .asteriskField {
     display: none;
 }
