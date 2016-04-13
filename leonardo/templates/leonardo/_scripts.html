@@ -277,8 +277,10 @@ $(function() {
 
   /* Handle some forms without page reload */
    var $form = $('.leonardo-form-widget form, .leonardo-subscriptionform-widget form, .ajax-form form');
-   //clear all existing submit handlers
-   $(document).add($form).off('submit');     
+   if($form.length>0){
+    //ajax forms wins, clear all existing submit handlers
+    $(document).add($form).off('submit');
+   }
     $form.each(function(){
       var $this=$(this);
       $this.on('submit',function (ev) {
