@@ -17,12 +17,12 @@ MEDIA_PRIVATE_UPLOAD_TO = getattr(settings, 'MEDIA_PRIVATE_UPLOAD_TO', 'private'
 MEDIA_PAGINATE_BY = getattr(settings, 'MEDIA_PAGINATE_BY', 25)
 MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS = getattr(settings, 'MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS', False)
 
-MEDIA_IMAGE_MODEL = getattr(settings, 'MEDIA_IMAGE_MODEL', False)
+MEDIA_IMAGE_MODEL = getattr(settings, 'MEDIA_IMAGE_MODEL', 'leonardo.module.media.models.Image')
 # This is an ordered iterable that describes a list of
 # classes that I should check for when adding files
 MEDIA_FILE_MODELS = getattr(settings, 'MEDIA_FILE_MODELS',
     (
-        MEDIA_IMAGE_MODEL if MEDIA_IMAGE_MODEL else 'leonardo.module.media.models.Image',
+        MEDIA_IMAGE_MODEL,
         'leonardo.module.media.models.Document',
         'leonardo.module.media.models.Video',
         'leonardo.module.media.models.Vector',

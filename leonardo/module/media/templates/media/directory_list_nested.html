@@ -1,3 +1,4 @@
+{% extends widget.get_base_template %}
 
 {% load i18n %}
 {% load thumbnail %}
@@ -25,6 +26,23 @@
   <a class="btn btn-primary" href="../">{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.webcms_page }}{% endif %}</a>
 </div>
 
+{% else %}
+<div class="object-grid ui-helper-clearfix">
+  {% for object in object_list %}
+  <div class="col-lg-3 col-md-4 col-xs-6 {% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %}">
+    <div class="object-cell ui-helper-clearfix">
+      <div class="object-cell-content">
+        <a class="object-image" href="./{{ object.name }}/" title="{{ object }}">
+          {% thumbnail object.get_featured_image.file "200x140" format="PNG" crop="center" as thumb %}
+          <img src="{{ thumb.url }}" /><br />
+          {% endthumbnail %}
+          <h3>{{ object }}</h3>
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endif %}
 
 {% endblock %}

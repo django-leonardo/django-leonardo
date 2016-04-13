@@ -12,7 +12,7 @@ from django.conf import settings
 from leonardo.module.media import mixins
 from .. import settings as filer_settings
 from filer.utils.compatibility import python_2_unicode_compatible
-
+from filer.utils.loader import load_object
 import mptt
 
 
@@ -138,6 +138,12 @@ class Folder(models.Model, mixins.IconsMixin):
     @property
     def files(self):
         return self.media_file_files.all()
+
+    @property
+    def get_featured_image(self):
+        '''returns first image from folder'''
+        image_model = load_object(settings.MEDIA_IMAGE_MODEL)
+        return self.media_file_files.instance_of(image_model).first()
 
     @property
     def logical_path(self):
