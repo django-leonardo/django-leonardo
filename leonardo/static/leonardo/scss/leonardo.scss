@@ -2186,3 +2186,19 @@ a:hover.link-popover { text-decoration: none; }
     max-width:100%;
   }
 }
+
+/**** Simple overlay ****/
+.overlayContainer{
+    position:relative;
+    .overlay{
+        position:absolute;
+        top:0;
+        left:0;
+    }
+}
+
+
+img.svgFill{
+    width:100%;
+    height:auto;
+}
