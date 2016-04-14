@@ -33,53 +33,80 @@
 </div>
 
 <script type="text/javascript">
-$(function () {
-  var $settingsButton = $("#settings_button");
-  var $demo_settings = $('#settings_menu');
-  $settingsButton.draggable({
-    axis:'y',
-    start: function( event, ui ) {
-       event.stopPropagation();
-    },
-    stop: function( event, ui ) {
-        localStorage.setItem('settingsButton_position',ui.position.top);
-        $settingsButton.css("left", "");
-    },
-    drag: function( event, ui ) {
-        $demo_settings.css("top", ui.position.top);
-    }
-  });
-  
-  var y = localStorage.getItem('settingsButton_position') || 150;
-  $settingsButton.css("top", parseInt(y));
-  $demo_settings.css("top", parseInt(y));
+    var leonardo = function(leonardo) {
+    leonardo.frontend_admin_menu = leonardo.frontend_admin_menu || {};
 
-  var hideSettings = function () {
+    leonardo.frontend_admin_menu.initAdminMenu = function(){
+        var defaultTop = 0,
+          $settingsButton = $("#settings_button"),
+          $demoSettings = $('#settings_menu'),
+          setMenuHeight = function(topPosition,testOnly){
+            if(typeof topPosition === 'string'){
+              topPosition = parseInt(topPosition);
+            }
+            if(topPosition && topPosition>= 0){
+               if($(window).height() < topPosition){
+                topPosition=$(window).height()-($settingsButton.height()+20);
+               }
+               $settingsButton.css("top", parseInt(topPosition));
+               $demoSettings.css("top", parseInt(topPosition));
+               return true;
+            }else{
+               $settingsButton.css("top", 0);
+               $demoSettings.css("top", 0);
+              return false;
+            }
+          };
+
+      $settingsButton.draggable({
+        axis:'y',
+        start: function( event, ui ) {
+           event.stopPropagation();
+        },
+        stop: function( event, ui ) {
+            if(setMenuHeight(ui.position.top)){
+              localStorage.setItem('settingsButton_position',ui.position.top);
+            }
+            $settingsButton.css("left", "");
+        },
+        drag: function( event, ui ) {
+          $demoSettings.css("top",ui.position.top);
+        }
+      });
+      $(window).resize(function(){
+        setMenuHeight($settingsButton.css("top"));
+      });
+      
+      setMenuHeight(localStorage.getItem('settingsButton_position'));
+
+      $settingsButton.click(function () {
+        if (!$settingsButton.hasClass("open")) {
+          localStorage.setItem('settingsButton_open',true);
+          $settingsButton.animate({"right": "250px"});
+          $settingsButton.addClass("open");
+          $demoSettings.animate({"right": "0"});
+        } else {
+          leonardo.frontend_admin_menu.hideSettings();
+        }
+      });
+
+      if(localStorage.getItem('settingsButton_open') === "true"){
+        $settingsButton.animate({"right": "250px"});
+        $demoSettings.animate({"right": "0"});
+        $settingsButton.addClass("open");
+      }
+  };
+  leonardo.frontend_admin_menu.hideSettings = function () {
+      var $settingsButton = $("#settings_button"),
+          $demoSettings = $('#settings_menu');
       localStorage.setItem('settingsButton_open',false);
       $settingsButton.animate({"right": "0"});
       $settingsButton.css('left', '');
-      $demo_settings.animate({"right": "-250px"});
+      $demoSettings.animate({"right": "-250px"});
       $settingsButton.removeClass("open"); 
-  }
-  window.hideSettings = hideSettings;
-
-  $settingsButton.click(function () {
-    if (!$settingsButton.hasClass("open")) {
-      localStorage.setItem('settingsButton_open',true);
-      $settingsButton.animate({"right": "250px"});
-      $settingsButton.addClass("open");
-      $demo_settings.animate({"right": "0"});
-    } else {
-      hideSettings();
-    }
-  });
-
-  if(localStorage.getItem('settingsButton_open') === "true"){
-    $settingsButton.animate({"right": "250px"});
-    $demo_settings.animate({"right": "0"});
-    $settingsButton.addClass("open");
-  }
-
-});
+  };
+  $(leonardo.frontend_admin_menu.initAdminMenu);
+  return leonardo;
+}(leonardo || {});
 
 </script>
