@@ -37,7 +37,7 @@
     leonardo.frontend_admin_menu = leonardo.frontend_admin_menu || {};
 
     leonardo.frontend_admin_menu.initAdminMenu = function(){
-        var defaultTop = 0,
+        var defaultTop = 150,
           $settingsButton = $("#settings_button"),
           $demoSettings = $('#settings_menu'),
           setMenuHeight = function(topPosition,testOnly){
@@ -52,8 +52,8 @@
                $demoSettings.css("top", parseInt(topPosition));
                return true;
             }else{
-               $settingsButton.css("top", defaultTop);
-               $demoSettings.css("top", defaultTop);
+               $settingsButton.css("top", 0);
+               $demoSettings.css("top", 0);
               return false;
             }
           };
