@@ -1108,11 +1108,9 @@ tr.terminated {
 }
 
 #main_content .tab-content {
-  /*
   border: 1px solid #ddd;
   border-top: 0 none;
-  padding: 10px;
-  */
+  padding: 25px 15px 15px 15px;
 }
 
 #main_content .workflow .modal-body {
@@ -2166,7 +2164,7 @@ a:hover.link-popover { text-decoration: none; }
 
 /**** Centering (both dimensions) *****/
 .text-center {
-  a{width:100%}
+  :not(.btn-group) a { width: 100%; } // Avoid btn-group members
   .img-responsive {
     margin: 0 auto;
   }

@@ -142,9 +142,11 @@
     flex:1 1 auto;
 }
 
+/*
 .nav-tabs {
-  margin-bottom: 15px!important;
+  margin-bottom: 15px!important; // Breaks bordered nav-tabs
 }
+*/
 
 .modal {
   overflow: auto;
