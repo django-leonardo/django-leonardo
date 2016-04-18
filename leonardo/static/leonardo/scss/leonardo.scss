@@ -2164,7 +2164,7 @@ a:hover.link-popover { text-decoration: none; }
 
 /**** Centering (both dimensions) *****/
 .text-center {
-  :not(.btn-group) a { width: 100%; } // Avoid btn-group members
+  :not(.btn-group) a:not(.carousel-control) { width: 100%; } // Avoid btn-group members and carousel control
   .img-responsive {
     margin: 0 auto;
   }
