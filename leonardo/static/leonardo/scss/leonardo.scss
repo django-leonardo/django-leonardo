@@ -864,7 +864,7 @@ form .form-group > div.dynamic-select {
 }
 
 .modal-header {
-  min-height: 53px; // Fixed minimal inner height to 22px
+  min-height: 53px !important; // Fixed minimal inner height to 22px
   .close {
     float: right !important; // Keep close button right even on text-center
   }
