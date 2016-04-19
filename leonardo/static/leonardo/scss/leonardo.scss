@@ -863,6 +863,13 @@ form .form-group > div.dynamic-select {
   top: 0 !important;
 }
 
+.modal-header {
+  min-height: 53px !important; // Fixed minimal inner height to 22px
+  .close {
+    float: right !important; // Keep close button right even on text-center
+  }
+}
+
 .modal-footer input {
   width: auto;
 }
@@ -1108,11 +1115,9 @@ tr.terminated {
 }
 
 #main_content .tab-content {
-  /*
   border: 1px solid #ddd;
   border-top: 0 none;
-  padding: 10px;
-  */
+  padding: 25px 15px 15px 15px;
 }
 
 #main_content .workflow .modal-body {
@@ -2166,7 +2171,7 @@ a:hover.link-popover { text-decoration: none; }
 
 /**** Centering (both dimensions) *****/
 .text-center {
-  a{width:100%}
+  // :not(.btn-group) a:not(.carousel-control) { width: 100%; } // Avoid btn-group members and carousel control; commented out, breaks bunch of stuff anyway
   .img-responsive {
     margin: 0 auto;
   }
@@ -2198,6 +2203,7 @@ a:hover.link-popover { text-decoration: none; }
         position:absolute;
         top:0;
         left:0;
+        width:100%;
     }
 }
 
@@ -2207,7 +2213,3 @@ img.svgFill{
     height:auto;
 }
 
-/**** Media gallery ****/
-.media-gallery .centered img{
-  max-height:240px;
-}

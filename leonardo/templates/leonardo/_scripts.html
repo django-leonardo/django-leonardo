@@ -105,6 +105,18 @@
 
 {% comment %}Go!{% endcomment %}
 <script>
+// Pause carousel while working in modal window
+
+$('.modal').on('shown.bs.modal', function (e) {
+    $('.carousel').carousel('pause');
+});
+
+$('.modal').on('hidden.bs.modal', function (e) {
+    $('.carousel').carousel('cycle');
+});
+</script>
+
+<script>
   horizon.addInitFunction(function () {
     // init lightboxes
     $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
