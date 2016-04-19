@@ -14,8 +14,12 @@ class FileForm(SelfHandlingModelForm):
 
     def __init__(self, *args, **kwargs):
         super(FileForm, self).__init__(*args, **kwargs)
-        self.fields['sha1'].widget.attrs['readonly'] = True
-        self.fields['_file_size'].widget.attrs['readonly'] = True
+
+        if 'sha1' in self.fields:
+            self.fields['sha1'].widget.attrs['readonly'] = True
+
+        if '_file_size' in self.fields:
+            self.fields['_file_size'].widget.attrs['readonly'] = True
 
         self.init_layout()
 
