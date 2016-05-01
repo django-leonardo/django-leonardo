@@ -9,7 +9,7 @@
 <div class="media-gallery">
 <div class="row">
   {% for object in object.files %}
-  <div class="valignContainer row-sm-11 text-center col-lg-3 col-md-4 col-xs-6 {% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %}">
+  <div class="valignContainer text-center col-lg-3 col-md-4 col-xs-6 {% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %}">
     {% thumbnail object.file.file "200x840" format="PNG" as thumb %}
     <div class="object-cell-content centered">
     <a class="thumbnail" data-title="{{ object.default_caption|default:'' }}" data-footer="{{ object.description|default:'' }}" data-toggle="lightbox" href="{{ object.file.url }}" rel="{{ widget.fe_identifier }}" data-gallery="multiimages">
@@ -29,7 +29,7 @@
 {% else %}
 <div class="object-grid ui-helper-clearfix">
   {% for object in object_list %}
-  <div class="valignContainer row-sm-11 text-center col-lg-3 col-md-4 col-xs-6 {% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %}">
+  <div class="valignContainer text-center col-lg-3 col-md-4 col-xs-6 {% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %}">
       <div class="object-cell-content centered">
         <a class="object-image" href="./{{ object.name }}/" title="{{ object }}">
           {% thumbnail object.get_featured_image.file "200x140" format="PNG" crop="center" as thumb %}
