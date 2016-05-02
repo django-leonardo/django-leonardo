@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-03 14:45+0000\n"
+"POT-Creation-Date: 2016-05-02 20:04+0200\n"
 "PO-Revision-Date: 2015-09-03 14:31+0000\n"
 "Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,17 +19,17 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n>1 && n<5 ? 1 : 2;\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: mixins.py:17
+#: mixins.py:19
 msgid "Display active"
 msgstr "Zobrazit aktivní"
 
-#: mixins.py:20
+#: mixins.py:22
 #, fuzzy
 #| msgid "linear navigation"
 msgid "Display in navigation"
 msgstr "lineární navigace"
 
-#: mixins.py:23
+#: mixins.py:25
 #, fuzzy
 #| msgid "orientation"
 msgid "Orientation"
@@ -68,11 +68,14 @@ msgstr "Další"
 msgid "previous"
 msgstr "předchozí"
 
-#: templates/widget/sitesearch/default.html:23
+#: templates/widget/sitesearch/default.html:10
+#: templates/widget/sitesearch/default.html:12
+#: templates/widget/sitesearch/navbar.html:11
+#: templates/widget/sitesearch/navbar_autocomplete.html:22
 msgid "Search"
 msgstr "Vyhledat"
 
-#: widget/breadcrumbs/models.py:17
+#: widget/breadcrumbs/models.py:16
 #, fuzzy
 #| msgid "root label"
 msgid "Root node label"
@@ -90,7 +93,7 @@ msgstr "drobečky"
 msgid "Breadcrumb trails"
 msgstr "drobečky"
 
-#: widget/contentnavigation/models.py:12
+#: widget/contentnavigation/models.py:11
 msgid "Display included pages"
 msgstr "Displej součástí stránek"
 
@@ -112,208 +115,208 @@ msgstr "obsahová navigace"
 msgid "Content navigations"
 msgstr "obsahové navigace"
 
-#: widget/contextnavigation/models.py:13
+#: widget/contextnavigation/models.py:11
 msgid "self"
 msgstr "vlastní stránka"
 
-#: widget/contextnavigation/models.py:14
+#: widget/contextnavigation/models.py:12
 msgid "one level"
 msgstr "jedna úroveň"
 
-#: widget/contextnavigation/models.py:15
+#: widget/contextnavigation/models.py:13
 msgid "all levels"
 msgstr "všechy úrovně"
 
-#: widget/contextnavigation/models.py:19 widget/linearnavigation/models.py:11
+#: widget/contextnavigation/models.py:17 widget/linearnavigation/models.py:7
 msgid "none"
 msgstr "žádný"
 
-#: widget/contextnavigation/models.py:20
+#: widget/contextnavigation/models.py:18
 msgid "link"
 msgstr "odkaz"
 
-#: widget/contextnavigation/models.py:21
+#: widget/contextnavigation/models.py:19
 msgid "button"
 msgstr "tlačítko"
 
-#: widget/contextnavigation/models.py:25
+#: widget/contextnavigation/models.py:26
 #, fuzzy
 #| msgid "root page"
 msgid "Source page"
 msgstr "kořenová stránka"
 
-#: widget/contextnavigation/models.py:25
+#: widget/contextnavigation/models.py:28
 msgid "The child pages of root page are displayed in the context navigation."
 msgstr "Podstránky kořenové stránky jsou zobrazené v kontextové navigaci."
 
-#: widget/contextnavigation/models.py:26
+#: widget/contextnavigation/models.py:32
 msgid "Region to display"
 msgstr "Region zobrazit"
 
-#: widget/contextnavigation/models.py:26
+#: widget/contextnavigation/models.py:34
 msgid "Which region of selected pages do you wish to display."
 msgstr "Který region vybraných stránek si přejete zobrazit."
 
-#: widget/contextnavigation/models.py:27
+#: widget/contextnavigation/models.py:37
 #, fuzzy
 #| msgid "depth"
 msgid "Depth"
 msgstr "hloubka"
 
-#: widget/contextnavigation/models.py:27
+#: widget/contextnavigation/models.py:39
 msgid "Depth to which display child pages."
 msgstr "Hloubka, do které zobrazovat stránky."
 
-#: widget/contextnavigation/models.py:28 widget/linearnavigation/models.py:27
-#: widget/treenavigation/models.py:25
+#: widget/contextnavigation/models.py:41 widget/linearnavigation/models.py:23
+#: widget/treenavigation/models.py:30
 #, fuzzy
 #| msgid "link style"
 msgid "Link style"
 msgstr "styl odkazů"
 
-#: widget/contextnavigation/models.py:28
+#: widget/contextnavigation/models.py:43
 msgid "Visual style of links to displayed pages."
 msgstr "Vizuální styl odkazů na zobrazené stránky."
 
-#: widget/contextnavigation/models.py:29
+#: widget/contextnavigation/models.py:45
 #, fuzzy
 #| msgid "root label"
 msgid "Link label"
 msgstr "označení kořenového prvku"
 
-#: widget/contextnavigation/models.py:29
+#: widget/contextnavigation/models.py:47
 msgid "Arbitrary text of links. If empty, page's title will be used instead."
 msgstr ""
 "Libovolný text odkazů. Pokud necháte prázdné, použije se místo toho titulek "
 "stránky."
 
-#: widget/contextnavigation/models.py:33 widget/simplelink/models.py:14
+#: widget/contextnavigation/models.py:51 widget/simplelink/models.py:12
 msgid "Linked page"
 msgstr "Odkazované stránky"
 
-#: widget/contextnavigation/models.py:34
+#: widget/contextnavigation/models.py:52
 msgid "Linked pages"
 msgstr "Odkazované stránky"
 
-#: widget/languageselector/models.py:16
+#: widget/languageselector/models.py:14
 msgid "Language switch"
 msgstr "Jazyk Přepínač"
 
-#: widget/languageselector/models.py:17
+#: widget/languageselector/models.py:15
 msgid "Language switches"
 msgstr "Jazykové spínače"
 
-#: widget/linearnavigation/models.py:12
+#: widget/linearnavigation/models.py:8
 msgid "parents"
 msgstr "rodiče"
 
-#: widget/linearnavigation/models.py:13
+#: widget/linearnavigation/models.py:9
 msgid "siblings"
 msgstr "první koleno"
 
-#: widget/linearnavigation/models.py:14
+#: widget/linearnavigation/models.py:10
 msgid "cousins"
 msgstr "druhé koleno"
 
-#: widget/linearnavigation/models.py:18
+#: widget/linearnavigation/models.py:14
 msgid "previous/next"
 msgstr "předchozí/další"
 
-#: widget/linearnavigation/models.py:19
+#: widget/linearnavigation/models.py:15
 msgid "page title"
 msgstr "název stránky"
 
-#: widget/linearnavigation/models.py:25
+#: widget/linearnavigation/models.py:21
 #, fuzzy
 #| msgid "traverse"
 msgid "Node traversal"
 msgstr "přechod"
 
-#: widget/linearnavigation/models.py:31
+#: widget/linearnavigation/models.py:28
 msgid "Linear pager"
 msgstr "Lineární pager"
 
-#: widget/linearnavigation/models.py:32
+#: widget/linearnavigation/models.py:29
 msgid "Linear pagers"
 msgstr "Lineární pagery"
 
-#: widget/simplelink/models.py:18
+#: widget/simplelink/models.py:16
 msgid "Simple link"
 msgstr "Jednoduchý odkaz"
 
-#: widget/simplelink/models.py:19
+#: widget/simplelink/models.py:17
 msgid "Simple links"
 msgstr "Jednoduché odkazy"
 
-#: widget/sitemap/models.py:14
+#: widget/sitemap/models.py:15
 #, fuzzy
 #| msgid "root page"
 msgid "Root page"
 msgstr "kořenová stránka"
 
-#: widget/sitemap/models.py:14
+#: widget/sitemap/models.py:17
 msgid "If no root page is set, widget's parent page will be used."
 msgstr ""
 "Není-li nastavena hlavní stránka, bude pro hlavní stránku použita stránka, "
 "kde se nachází komponenta."
 
-#: widget/sitemap/models.py:18
+#: widget/sitemap/models.py:22
 #, fuzzy
 #| msgid "site map"
 msgid "Site map"
 msgstr "mapa stránek"
 
-#: widget/sitemap/models.py:19
+#: widget/sitemap/models.py:23
 #, fuzzy
 #| msgid "site maps"
 msgid "Site maps"
 msgstr "mapy stránek"
 
-#: widget/sitesearch/models.py:9
+#: widget/sitesearch/models.py:8
 msgid "Google Custom Search"
 msgstr "Google Custom Search"
 
-#: widget/sitesearch/models.py:10
+#: widget/sitesearch/models.py:9
 msgid "Django Haystack"
 msgstr "Django Haystack"
 
-#: widget/sitesearch/models.py:16
+#: widget/sitesearch/models.py:15
 #, fuzzy
 #| msgid "Search"
 msgid "Search engine"
 msgstr "Vyhledat"
 
-#: widget/sitesearch/models.py:21
+#: widget/sitesearch/models.py:20
 #, fuzzy
 #| msgid "site search"
 msgid "Site search"
 msgstr "vyhledávání na stránkách"
 
-#: widget/sitesearch/models.py:22
+#: widget/sitesearch/models.py:21
 #, fuzzy
 #| msgid "site searches"
 msgid "Site searches"
 msgstr "vyhledávání na stránkách"
 
-#: widget/treenavigation/models.py:12
+#: widget/treenavigation/models.py:9
 #, fuzzy
 #| msgid "only one level"
 msgid "Only one level"
 msgstr "pouze jedna úroveň"
 
-#: widget/treenavigation/models.py:13
+#: widget/treenavigation/models.py:10
 #, fuzzy
 #| msgid "include contextual pages"
 msgid "Include subpages"
 msgstr "včetně kontextových stránek"
 
-#: widget/treenavigation/models.py:16
+#: widget/treenavigation/models.py:13
 #, fuzzy
 #| msgid "page title"
 msgid "Default title"
 msgstr "název stránky"
 
-#: widget/treenavigation/models.py:17
+#: widget/treenavigation/models.py:14
 #, fuzzy
 #| msgid "page title"
 msgid "Detailed title"
@@ -323,11 +326,11 @@ msgstr "název stránky"
 msgid "depth"
 msgstr "hloubka"
 
-#: widget/treenavigation/models.py:23
+#: widget/treenavigation/models.py:24
 msgid "root page"
 msgstr "kořenová stránka"
 
-#: widget/treenavigation/models.py:23
+#: widget/treenavigation/models.py:26
 #, fuzzy
 #| msgid "If no root page is set, widget's parent page will be used."
 msgid "If not set, widget's parent page will be used as root page."
@@ -335,13 +338,13 @@ msgstr ""
 "Není-li nastavena hlavní stránka, bude pro hlavní stránku použita stránka, "
 "kde se nachází komponenta."
 
-#: widget/treenavigation/models.py:29
+#: widget/treenavigation/models.py:35
 #, fuzzy
 #| msgid "navigation menu"
 msgid "Navigation menu"
 msgstr "navigační menu"
 
-#: widget/treenavigation/models.py:30
+#: widget/treenavigation/models.py:36
 #, fuzzy
 #| msgid "navigation menus"
 msgid "Navigation menus"
