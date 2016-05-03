@@ -1,3 +1,4 @@
+{% extends widget.get_base_template %}
 
 {% load i18n %}
 {% load thumbnail %}
@@ -28,8 +29,8 @@
 {% else %}
 <div class="object-grid ui-helper-clearfix">
 	{% for object in object_list %}
-	<div class="span-8">
-		<div class="object-cell ui-helper-clearfix">
+	<div class="valignContainer row-sm-3 text-center">
+		<div class="object-cell centered">
 			<div class="object-cell-content">
 				<a class="object-image" href="./{{ object.name }}/" title="{{ object }}">
 					{% thumbnail object.get_featured_image.file "200x140" format="PNG" crop="center" as thumb %}

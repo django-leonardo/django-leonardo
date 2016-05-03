@@ -21,6 +21,9 @@ ADMINS = (
     ('admin', 'mail@leonardo.cz'),
 )
 
+# month
+LEONARDO_CACHE_TIMEOUT = 60 * 60 * 24 * 31
+
 DEFAULT_CHARSET = 'utf-8'
 
 MANAGERS = ADMINS
@@ -72,6 +75,8 @@ CONSTANCE_CONFIG = {}
 
 CONSTANCE_ADDITIONAL_FIELDS = {}
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
 # enable auto loading packages
 LEONARDO_MODULE_AUTO_INCLUDE = True
 
@@ -87,9 +92,11 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-LOGIN_URL = '/login'
+
+LOGIN_URL = '/auth/login'
+
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_URL = "/logout"
+LOGOUT_URL = "/"
 
 LOGOUT_ON_GET = True
 

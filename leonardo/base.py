@@ -52,11 +52,13 @@ class Leonardo(AppLoader):
             package_string = '.'.join(['leonardo', 'module'])
 
             for app in apps:
+                exc = '...'
                 try:
                     # check if is not full app
                     _app = import_module(app)
                 except Exception as e:
                     _app = False
+                    exc = e
 
                 if module_has_submodule(
                         import_module(package_string), app) or _app:
@@ -68,7 +70,7 @@ class Leonardo(AppLoader):
                         modules.append(mod)
                         continue
 
-                warnings.warn('%s was skipped because %s ' % (app, e))
+                warnings.warn('%s was skipped because %s ' % (app, exc))
 
             self._modules = modules
         return self._modules

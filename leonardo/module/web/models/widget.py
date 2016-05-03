@@ -1,6 +1,4 @@
 
-from __future__ import unicode_literals
-
 import sys
 
 from django.conf import settings
@@ -18,10 +16,10 @@ from feincms.admin.item_editor import FeinCMSInline
 from feincms.models import Base as FeinCMSBase
 from leonardo.utils.memoized import widget_memoized
 from leonardo.utils.templates import find_all_templates, template_choices
-
+from ..processors.config import context_config
 from ..const import *
 from ..widgets.const import ENTER_EFFECT_CHOICES, WIDGET_COLOR_SCHEME_CHOICES
-from ..widgets.forms import WIDGETS, WidgetUpdateForm
+from ..widgets.forms import WIDGETS, WidgetForm
 from ..widgets.mixins import ContentProxyWidgetMixin, ListWidgetMixin
 
 try:
@@ -31,7 +29,20 @@ except ImportError:
 
 
 class WidgetInline(FeinCMSInline):
-    form = WidgetUpdateForm
+    form = WidgetForm
+
+    template = 'admin/leonardo/widget_inline.html'
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+
+        widget = self.model.get_widget_for_field(db_field.name)
+
+        if widget:
+            kwargs['widget'] = widget
+            return db_field.formfield(**kwargs)
+
+        return super(WidgetInline, self).formfield_for_dbfield(
+            db_field, request=request, **kwargs)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "base_theme":
@@ -150,8 +161,6 @@ class WidgetBaseTheme(models.Model):
         verbose_name_plural = _("Widget base themes")
 
 
-
-
 @python_2_unicode_compatible
 class Widget(FeinCMSBase):
 
@@ -206,6 +215,8 @@ class Widget(FeinCMSBase):
                 'widget_id': self.pk,
                 'widget_type': self.content_type,
             }).save()
+
+        self.purge_from_cache()
 
     def delete(self, *args, **kwargs):
         super(Widget, self).delete(*args, **kwargs)
@@ -298,6 +309,7 @@ class Widget(FeinCMSBase):
             'widget': self,
             'base_template': self.get_base_template,
             'request': request,
+            'LEONARDO_CONFIG': context_config
         }
         context.update(self.get_template_data(request))
         return context
@@ -305,7 +317,7 @@ class Widget(FeinCMSBase):
     def render_content(self, options):
         '''returns rendered widget and handle error during rendering'''
 
-        request = options['request']
+        request = options.get('request', {})
         context = self.get_context_data(request)
 
         try:
@@ -343,7 +355,10 @@ class Widget(FeinCMSBase):
         """
         classes = []
         for d in self.dimensions:
-            classes.append(d.classes)
+            # do not duplicate same classes
+            for cls in d.classes.split(' '):
+                if cls not in classes:
+                    classes.append(cls)
         return classes
 
     @cached_property
@@ -351,12 +366,19 @@ class Widget(FeinCMSBase):
         """agreggate all css classes
         """
         classes = [
-            "text-%s" % self.align,
             'leonardo-content',
             'template-%s' % self.content_theme.name,
             '%s-content-%s' % (self.widget_name, self.content_theme.name)
         ]
+        if self.vertical_align == "middle":
+          classes.append("centered")
         return " ".join(classes)
+
+    def get_classes(self):
+        '''return array of custom widget classes'''
+        if hasattr(self, 'classes') and isinstance(self.classes, str):
+            return self.classes.split(' ')
+        return []
 
     @cached_property
     def render_base_classes(self):
@@ -366,7 +388,39 @@ class Widget(FeinCMSBase):
         classes.append('%s-base-%s' % (self.widget_name, self.base_theme.name))
         classes.append('leonardo-widget')
         classes.append('leonardo-%s-widget' % self.widget_name)
-        return " ".join(classes)
+        classes.append( "text-%s" % self.align)
+        if getattr(self, 'auto_reload', False):
+            classes.append('auto-reload')
+        if self.vertical_align == 'middle':
+            classes.append("valignContainer")
+        return " ".join(classes + self.get_classes())
+
+    @classmethod
+    def get_widget_for_field(cls, name):
+        '''returns widget for field
+        if has widgets declared
+        support function instead of widgets
+        '''
+        if hasattr(cls, 'widgets') and name in cls.widgets:
+            widget = cls.widgets[name]
+            if callable(widget):
+                widget = widget()
+                # save for later
+                if widget:
+                    cls.widgets[name] = widget
+            return widget
+        return
+
+    @classmethod
+    def init_widgets(cls):
+        '''init all widget widgets
+        '''
+        if hasattr(cls, 'widgets'):
+            for field, widget in cls.widgets.items():
+                if callable(widget):
+                    widget = widget()
+                    if widget:
+                        cls.widgets[field] = widget
 
     @classmethod
     def templates(cls, choices=False, suffix=True):
@@ -422,8 +476,26 @@ class Widget(FeinCMSBase):
     # CACHE TOOLS
 
     @cached_property
+    def cache(self):
+        '''default cache'''
+        return caches['default']
+
+    @cached_property
     def cache_key(self):
-        return 'widget.cache.%s' % self.fe_identifier
+        '''default key for html content'''
+        return 'widget.%s.html' % self.fe_identifier
+
+    @cached_property
+    def cache_keys(self):
+        '''Returns all cache keys which would be
+        flushed after save
+        '''
+        return [self.cache_key]
+
+    @cached_property
+    def widget_cache_timeout(self):
+        '''allow widget to set custom cache timeout'''
+        return getattr(self, 'cache_timeout', settings.LEONARDO_CACHE_TIMEOUT)
 
     def is_cached(self, request):
         '''returns True if widget will be cached or not
@@ -436,9 +508,8 @@ class Widget(FeinCMSBase):
 
     def purge_from_cache(self):
         '''Purge widget content from cache'''
-        cache = caches['default']
-        cache.delete(self.cache_key)
-        return True
+
+        self.cache.delete_many(self.cache_keys)
 
 
 class ListWidget(Widget, ListWidgetMixin):

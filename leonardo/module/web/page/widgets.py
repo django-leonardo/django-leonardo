@@ -1,9 +1,10 @@
 
 from django_select2.forms import ModelSelect2Widget
 from leonardo.module.web.models.page import Page, PageColorScheme, PageTheme
+from leonardo.forms.fields.dynamic import DynamicSelectWidget
 
 
-class PageSelectWidget(ModelSelect2Widget):
+class PageSelectWidget(DynamicSelectWidget):
 
     model = Page
 

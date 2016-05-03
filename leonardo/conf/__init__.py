@@ -7,16 +7,13 @@ class Default(object):
     @property
     def middlewares(self):
         MIDDLEWARE_CLASSES = [
-            'django.middleware.common.CommonMiddleware',
             'django.middleware.csrf.CsrfViewMiddleware',
             'django.middleware.http.ConditionalGetMiddleware',
             'django.contrib.sessions.middleware.SessionMiddleware',
             'django.contrib.messages.middleware.MessageMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
             'django.middleware.clickjacking.XFrameOptionsMiddleware',
-            'django.middleware.locale.LocaleMiddleware',
             'django.contrib.sites.middleware.CurrentSiteMiddleware',
-
         ]
         import django
         if django.VERSION >= (1, 8, 0):
@@ -30,6 +27,10 @@ class Default(object):
             MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware']
         except ImportError:
             pass
+
+        # Add locale after session and before common
+        MIDDLEWARE_CLASSES += ['django.middleware.locale.LocaleMiddleware']
+        MIDDLEWARE_CLASSES += ['django.middleware.common.CommonMiddleware']
 
         return MIDDLEWARE_CLASSES
 

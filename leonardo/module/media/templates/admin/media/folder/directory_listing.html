@@ -139,14 +139,29 @@
             <div class="navigator-tools">
                 {% block object-tools-items %}
                     {% if paginated_items.object_list|length %}
-                    <div class="dropdown-container js-actions-menu">
-                        <a href="#" data-toggle="dropdown" aria-expanded="false" class="nav-button nav-button-dots">
-                            <span class="fa fa-ellipsis-h"></span>
-                        </a>
-                        <ul class="create-menu-dropdown dropdown-menu">
-                            <!-- Actions will go here -->
+                    <div class="actions-wrapper">
+                        <ul class="actions-separated-list">
+                            <li>
+                                <a href="#" class="js-action-delete" title="{% trans 'Delete' %}"><span class="fa fa-trash"></span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="js-action-copy" title="{% trans 'Copy' %}"><span class="fa fa-copy"></span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="js-action-move" title="{% trans 'Move' %}"><span class="fa fa-cut"></span></a>
+                            </li>
                         </ul>
+
+                        <div class="dropdown-container js-actions-menu">
+                            <a href="#" data-toggle="dropdown" aria-expanded="false" class="nav-button nav-button-dots">
+                                <span class="fa fa-ellipsis-h"></span>
+                            </a>
+                            <ul class="create-menu-dropdown dropdown-menu">
+                                <!-- Actions will go here -->
+                            </ul>
+                        </div>
                     </div>
+
                     {% endif %}
                     <div class="navigator-button-wrapper">
                         {% if folder.can_have_subfolders and can_make_folder %}

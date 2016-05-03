@@ -1,10 +1,17 @@
 {% extends widget.get_base_template %}
+{% load thumbnail %}
 
 {% block content %}
+{% if widget.logo %}
+{% thumbnail widget.logo.file "300x100" format="PNG" as thumb %}
+<a class="navbar-brand" href="/"><img class="img-responsive" src='{{ thumb.url }}' alt='logo' /></a>
+{% endthumbnail %}
+{% else %}
 <h1>
   <a href="/"><b>{{ widget.site_title }}</b></a>
   {% if widget.tagline %}
   <span>{{ widget.tagline }}</span>
   {% endif %}
 </h1>
+{% endif %}
 {% endblock %}

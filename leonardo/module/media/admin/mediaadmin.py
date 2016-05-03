@@ -1,5 +1,5 @@
 
-from .fileadmin import FileAdmin
+from .file.admin import FileAdmin
 
 
 class DocumentAdmin(FileAdmin):

@@ -82,3 +82,7 @@ class WebMiddleware(object):
         # old
         request.webcms_page = page
         request.webcms_options = leonardo_options
+
+        # Force updating CSRF cookie
+        # because we using ajax forms
+        request.META["CSRF_COOKIE_USED"] = True

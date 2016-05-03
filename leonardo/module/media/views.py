@@ -8,13 +8,15 @@ from django.conf import settings
 from django.contrib.admin import widgets
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import (get_object_or_404, redirect, render,
+                              render_to_response)
 from django.template import RequestContext
+from django.utils.encoding import uri_to_iri
 from django.utils.translation import ugettext_lazy as _
+
 from .management.commands.import_files import FileImporter
-from .models import File, Clipboard, Folder, FolderRoot, Image, tools
-from django.http import Http404
+from .models import Clipboard, File, Folder, FolderRoot, Image, tools
 
 
 class NewFolderForm(forms.ModelForm):
@@ -150,10 +152,17 @@ def scan_folder(request, folder_id=None):
 
 @login_required
 def make_folder(request, folder_id=None):
+
     if not folder_id:
-        folder_id = request.REQUEST.get('parent_id', None)
+        folder_id = request.GET.get('parent_id')
+    if not folder_id:
+        folder_id = request.POST.get('parent_id')
+
     if folder_id:
-        folder = Folder.objects.get(id=folder_id)
+        try:
+            folder = Folder.objects.get(id=folder_id)
+        except Folder.DoesNotExist:
+            raise PermissionDenied
     else:
         folder = None
 
@@ -256,18 +265,31 @@ def clone_files_from_clipboard_to_folder(request):
 
 
 def directory_list(request, directory_slug, category_parent_slug):
+
+    if directory_slug:
+        directory_slug = uri_to_iri(directory_slug)
+
     if directory_slug is None:
-        category_list = Folder.objects.filter(level=0)
-        category = None
+        object = None
+        root = getattr(settings, 'MEDIA_GALLERIES_ROOT', None)
+        if root:
+            obj_root = Folder.objects.get(name=root)
+            object_list = Folder.objects.filter(parent=obj_root)
+        else:
+            object_list = Folder.objects.filter(parent=None)
     else:
-        category = Folder.objects.get(name=directory_slug)
-        category_list = Folder.objects.filter(parent=category)
-    return render_to_response(
-        'media/directory_list.html', {
-            'object_list': category_list,
-            'object': category,
-        },
-        context_instance=RequestContext(request)
+        try:
+            object = Folder.objects.get(id=directory_slug)
+        except:
+            object = Folder.objects.get(name=directory_slug)
+        object_list = object.files.all()
+
+    return render(
+        request,
+        'media/directory_list.html',
+        {
+            'object_list': object_list,
+        }
     )
 
 
@@ -275,6 +297,13 @@ def directory_list_nested(request,
                           directory_slug=None,
                           parent_directory_slug=None,
                           grandparent_directory_slug=None):
+
+    if directory_slug:
+        directory_slug = uri_to_iri(directory_slug)
+
+    if parent_directory_slug:
+        parent_directory_slug = uri_to_iri(parent_directory_slug)
+
     if directory_slug is None:
         object = None
         root = getattr(settings, 'MEDIA_GALLERIES_ROOT', None)
@@ -302,21 +331,23 @@ def directory_list_nested(request,
                     parent__parent__name=grandparent_directory_slug)
                 object_list = object.files.all()
 
-    return render_to_response(
-        'media/directory_list_nested.html', {
+    return render(
+        request,
+        'media/directory_list_nested.html',
+        {
             'object_list': object_list,
             'object': object,
-        },
-        context_instance=RequestContext(request, {'standalone': True})
+        }
     )
 
 
 def directory_detail_standalone(request, category_id):
     object = Folder.objects.get(id=category_id)
 
-    return render_to_response(
-        'media/directory_detail.html', {
+    return render(
+        request,
+        'media/directory_detail.html',
+        {
             'object': object,
         },
-        context_instance=RequestContext(request)
     )

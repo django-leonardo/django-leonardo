@@ -12,7 +12,7 @@ from django.conf import settings
 from leonardo.module.media import mixins
 from .. import settings as filer_settings
 from filer.utils.compatibility import python_2_unicode_compatible
-
+from filer.utils.loader import load_object
 import mptt
 
 
@@ -87,6 +87,7 @@ class FolderPermissionManager(models.Manager):
         return allow_list - deny_list
 
 
+@python_2_unicode_compatible
 class Folder(models.Model, mixins.IconsMixin):
 
     """
@@ -137,6 +138,12 @@ class Folder(models.Model, mixins.IconsMixin):
     @property
     def files(self):
         return self.media_file_files.all()
+
+    @property
+    def get_featured_image(self):
+        '''returns first image from folder'''
+        image_model = load_object(settings.MEDIA_IMAGE_MODEL)
+        return self.media_file_files.instance_of(image_model).first()
 
     @property
     def logical_path(self):
@@ -210,7 +217,7 @@ class Folder(models.Model, mixins.IconsMixin):
                                     args=(self.id,))
 
     def __str__(self):
-        return "%s" % (self.name,)
+        return self.name
 
     def contains_folder(self, folder_name):
         try:

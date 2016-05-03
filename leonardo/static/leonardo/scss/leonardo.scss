@@ -3,6 +3,10 @@ $icon-font-path: "../../bootstrap/fonts/bootstrap/";
 $font-size-base: 13px;
 $modal-md: 732px;
 
+.leonardo-content{
+  height:100%;
+}
+
 /* new clearfix */
 .clearfix:after {
   visibility: hidden;
@@ -829,6 +833,10 @@ form .form-group > div.dynamic-select {
     margin-right: 15px;
 }
 
+.carousel-control.left {
+    width: 33%;
+}
+
 .left form {
   margin: 0;
 }
@@ -836,6 +844,10 @@ form .form-group > div.dynamic-select {
 .right {
   float: left;
   width: 342px;
+}
+
+.carousel-control.right {
+    width: 33%;
 }
 
 .clear {
@@ -849,6 +861,13 @@ form .form-group > div.dynamic-select {
 // Fixes issue with bootstrap positioning of modal container
 .modal {
   top: 0 !important;
+}
+
+.modal-header {
+  min-height: 53px !important; // Fixed minimal inner height to 22px
+  .close {
+    float: right !important; // Keep close button right even on text-center
+  }
 }
 
 .modal-footer input {
@@ -1096,11 +1115,9 @@ tr.terminated {
 }
 
 #main_content .tab-content {
-  /*
   border: 1px solid #ddd;
   border-top: 0 none;
-  padding: 10px;
-  */
+  padding: 25px 15px 15px 15px;
 }
 
 #main_content .workflow .modal-body {
@@ -2145,9 +2162,54 @@ label.log-length {
 
 /**** Popover ****/
 a.link-popover { cursor: default; }
-
+  
 a:hover.link-popover { text-decoration: none; }
 
 .has-feedback .form-control-feedback {
   top: 0;
 }
+
+/**** Centering (both dimensions) *****/
+.text-center {
+  // :not(.btn-group) a:not(.carousel-control) { width: 100%; } // Avoid btn-group members and carousel control; commented out, breaks bunch of stuff anyway
+  .img-responsive {
+    margin: 0 auto;
+  }
+}
+.valignContainer {
+  white-space: nowrap;
+ 
+  *{float:none!important}
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+  }
+
+  .centered {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+    max-width:100%;
+  }
+}
+
+/**** Simple overlay ****/
+.overlayContainer{
+    position:relative;
+    .overlay{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+    }
+}
+
+
+img.svgFill{
+    width:100%;
+    height:auto;
+}
+

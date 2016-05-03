@@ -39,7 +39,7 @@ class NotAuthorized(LeonardoException):
     have permission-based access to (such as when failing the
     :func:`~horizon.decorators.require_perms` decorator).
 
-    The included :class:`~horizon.middleware.HorizonMiddleware` catches
+    The included :class:`~leonardo.web.middlewares.HorizonMiddleware` catches
     ``NotAuthorized`` and handles it gracefully by displaying an error
     message and redirecting the user to a login page.
     """

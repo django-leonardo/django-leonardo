@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext as _
 
 from ..models import Image, ImageTranslation
-from .fileadmin import FileAdmin
+from .file.admin import FileAdmin
 
 
 class ImageTranslationInline(admin.StackedInline):

@@ -2,18 +2,20 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
-from horizon.utils import memoized
 from leonardo import messages
-from leonardo.views import *
+from leonardo.views import (ContextMixin, CreateView, ModalFormView,
+                            ModelFormMixin, UpdateView)
+
 from ..models import Page
 from .forms import (WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm,
-                    get_widget_create_form, get_widget_update_form)
+                    form_repository)
 from .tables import WidgetDimensionTable
 from .utils import get_widget_from_id
 
@@ -48,16 +50,10 @@ class WidgetViewMixin(object):
                 obj.delete()
         return True
 
-    def _get_moda_size(self):
-        '''try get form_size attribute form form or widget'''
-        form_class = self.get_form_class()
-        return getattr(form_class,
-                       'form_size',
-                       getattr(self.model, 'form_size', 'md'))
-
-    @memoized.memoized_method
     def get_page(self):
-        return Page.objects.get(id=self.kwargs['page_id'])
+        if not hasattr(self, '_page'):
+            self._page = Page.objects.get(id=self.kwargs['page_id'])
+        return self._page
 
     def get_form_kwargs(self):
         kwargs = super(WidgetViewMixin, self).get_form_kwargs()
@@ -78,31 +74,36 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(WidgetUpdateView, self).get_context_data(**kwargs)
-        context['modal_size'] = self._get_moda_size()
         context['modal_classes'] = self.get_classes()
         return context
 
     def get_form_class(self):
         if not hasattr(self, '_form_class'):
-            self._form_class = get_widget_update_form(**self.kwargs)
+            self._form_class = form_repository.get_form(**self.kwargs)
         return self._form_class
 
     def get_form(self, form_class):
         """Returns an instance of the form to be used in this view."""
-
-        kwargs = self.get_form_kwargs()
-        return form_class(**kwargs)
+        if not hasattr(self, '_form'):
+            kwargs = self.get_form_kwargs()
+            self._form = form_class(**kwargs)
+        return self._form
 
     def form_valid(self, form):
-        super(WidgetUpdateView, self).form_valid(form)
+        response = super(WidgetUpdateView, self).form_valid(form)
 
         obj = self.object
         self.handle_dimensions(obj)
 
+        if not self.request.is_ajax():
+            return response
+
+        request = self.request
+        request.method = 'GET'
         return JsonResponse(data={
             'id': obj.fe_identifier,
             'content': self.model.objects.get(
-                id=self.kwargs["id"]).render_content({'request': self.request})
+                id=self.kwargs["id"]).render_content({'request': request})
         })
 
 
@@ -110,27 +111,16 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
 
     template_name = 'leonardo/common/modal.html'
 
-    def get_label(self):
-        form = self.get_form(self.get_form_class())
-        return ugettext("Add new {} to {}".format(
-            form._meta.model._meta.verbose_name,
-            self.get_page()))
-
     def get_form_class(self):
         if not hasattr(self, '_form_class'):
-            self._form_class = get_widget_create_form(**self.kwargs)
+            self._form_class = form_repository.get_form(**self.kwargs)
         return self._form_class
-
-    def get_form(self, form_class):
-        kwargs = self.get_form_kwargs()
-        return form_class(**kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(WidgetCreateView, self).get_context_data(**kwargs)
         context['table'] = WidgetDimensionTable(self.request, data=[])
         # add extra context for template
         context['url'] = reverse("widget_create_full", kwargs=self.kwargs)
-        context['modal_size'] = self._get_moda_size()
         context['modal_classes'] = self.get_classes()
         return context
 
@@ -140,8 +130,14 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
             obj.save(created=False)
             self.handle_dimensions(obj)
             obj.parent.save()
+            success_url = self.get_success_url()
+            response = HttpResponseRedirect(success_url)
+            response['X-Horizon-Location'] = success_url
         except Exception as e:
             raise e
+
+        if not self.request.is_ajax():
+            return response
 
         return JsonResponse(data={
             'id': obj.fe_identifier,
@@ -259,8 +255,14 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
             obj.delete()
             # invalide page cache
             parent.invalidate_cache()
+            success_url = self.get_success_url()
+            response = HttpResponseRedirect(success_url)
+            response['X-Horizon-Location'] = success_url
         except Exception as e:
             raise e
+
+        if not self.request.is_ajax():
+            return response
 
         return JsonResponse(data={
             'id': fe_identifier,
@@ -380,7 +382,13 @@ class WidgetCopyView(WidgetReorderView):
 
         widget = self.object
         widget.pk = None
-        widget.save()
+        widget.save(created=False)
+        # also copy dimensions
+        for dimension in self.model.objects.get(
+                id=self.kwargs["id"]).dimensions:
+            dimension.pk = None
+            dimension.widget_id = widget.id
+            dimension.save()
 
         messages.success(self.request, _('Widget was successfully cloned.'))
 
@@ -395,11 +403,18 @@ class JSReverseView(WidgetReorderView):
 
     '''Returns url.'''
 
+    def clean_kwargs(self, kwargs):
+        _kwargs = {}
+        for key, value in kwargs.items():
+            if value != '':
+                _kwargs[key] = value
+        return _kwargs
+
     def post(self, *args, **kwargs):
 
         view_name = self.request.POST.get('viewname')
-        args = self.request.POST.get('args', tuple())
+        args = json.loads(self.request.POST.get('args', "{}")).values()
         kwargs = json.loads(self.request.POST.get('kwargs', "{}"))
 
         return JsonResponse({'url': reverse(
-            view_name, args=args, kwargs=kwargs)})
+            view_name, args=args, kwargs=self.clean_kwargs(kwargs))})

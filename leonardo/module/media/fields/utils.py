@@ -49,7 +49,8 @@ class FileFieldMixin(object):
 class FileField(FileFieldMixin, DynamicModelChoiceField):
     '''Basic File Field for easy selecting files everywhere'''
 
-    pass
+    cls_name = 'media.file'
+    form_cls = 'leonardo.module.media.admin.file.forms.FileForm'
 
 
 class FileMultipleField(FileFieldMixin, forms.ModelMultipleChoiceField):

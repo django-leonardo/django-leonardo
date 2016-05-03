@@ -55,5 +55,5 @@ class Command(BaseCommand):
 
         if settings.COMPRESS_OFFLINE and not nocompress:
             self.stdout.write('Compressing static files...')
-            call_command('compress')
+            call_command('compress', verbosity=0)
             self.stdout.write('Compressing static files complete.')

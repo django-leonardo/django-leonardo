@@ -11,15 +11,11 @@
 @import "/leonardo/scss/loading";
 @import "/leonardo/scss/frontend_edit";
 
+// bootstrap 4 spacing 
+@import "_spacing";
+
 .asteriskField {
     display: none;
-}
-
-.text-center > .img-responsive {
-  margin: 0 auto;
-}
-.text-center > .img-responsive {
-  margin: 0 auto;
 }
 
 .dropdown-submenu {

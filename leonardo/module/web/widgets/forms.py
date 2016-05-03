@@ -11,7 +11,6 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django_select2.forms import Select2Widget
 from feincms.admin.item_editor import ItemEditorForm
-from horizon.utils.memoized import memoized
 from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
 from leonardo.utils.widgets import get_grouped_widgets
@@ -29,9 +28,18 @@ WIDGETS = {
 }
 
 
-class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
+class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
 
-    '''Widget Create/Update Form'''
+    '''Generic Widget Form
+
+        tabs = {
+            'tab1': {
+                'name': 'Verbose Name'
+                'fields': ('field_name1',)
+            }
+        }
+
+    '''
 
     id = forms.CharField(
         widget=forms.widgets.HiddenInput,
@@ -40,7 +48,7 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)
-        super(WidgetUpdateForm, self).__init__(*args, **kwargs)
+        super(WidgetForm, self).__init__(*args, **kwargs)
 
         initial = kwargs.get('initial', None)
         if initial and initial.get('id', None):
@@ -64,13 +72,14 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         # get all fields for widget
         main_fields = self._meta.model.fields()
         main_fields.update({'label': 'label'})
+
         self.helper.layout = Layout(
             TabHolder(
                 Tab(self._meta.model._meta.verbose_name.capitalize(),
-                    *main_fields,
+                    *self.get_main_fields(main_fields),
                     css_id='field-{}'.format(slugify(self._meta.model))
                     ),
-                Tab(_('Theme'),
+                Tab(_('Styles'),
                     'base_theme', 'content_theme', 'color_scheme',
                     Fieldset(_('Positions'), 'layout', 'align',
                              'vertical_align'),
@@ -108,6 +117,9 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
         if 'text' in self.fields:
             self.fields['text'].label = ''
 
+        # finally add custom tabs
+        self.init_custom_tabs()
+
     def init_themes(self):
         queryset = self.fields['content_theme'].queryset
 
@@ -131,6 +143,13 @@ class WidgetUpdateForm(ItemEditorForm, SelfHandlingModelForm):
                 self.fields['content_theme'].queryset.first()
         else:
             self.fields['content_theme'].initial = content_theme
+
+
+class WidgetUpdateForm(WidgetForm):
+
+    '''obsolete name'''
+
+    pass
 
 
 class WidgetCreateForm(WidgetUpdateForm):
@@ -242,45 +261,33 @@ class WidgetSelectForm(SelfHandlingForm):
         return self.next_view.as_view()(request, **data)
 
 
-@memoized
-def get_widget_update_form(**kwargs):
-    """
-    widget = get_widget_from_id(widget_id)
+class FormRepository(object):
+    '''Simple form repository which returns cached classes'''
 
-    """
-    model_cls = get_class(kwargs['cls_name'])
+    _forms = {}
 
-    form_class_base = getattr(
-        model_cls, 'feincms_item_editor_form', WidgetUpdateForm)
+    def get_form(self, cls_name, **kwargs):
 
-    default_widgets = WIDGETS
-    default_widgets.update(getattr(model_cls, 'widgets', {}))
+        if cls_name not in self._forms:
 
-    WidgetModelForm = modelform_factory(model_cls,
-                                        exclude=[],
-                                        form=form_class_base,
-                                        widgets=default_widgets)
+            model_cls = get_class(cls_name)
 
-    return WidgetModelForm
+            form_class_base = getattr(
+                model_cls, 'feincms_item_editor_form', WidgetForm)
+
+            default_widgets = WIDGETS
+
+            model_cls.init_widgets()
+
+            default_widgets.update(getattr(model_cls, 'widgets', {}))
+
+            self._forms[cls_name] = modelform_factory(
+                model_cls,
+                exclude=[],
+                form=form_class_base,
+                widgets=default_widgets)
+
+        return self._forms[cls_name]
 
 
-@memoized
-def get_widget_create_form(**kwargs):
-    """
-    widget = get_widget_from_id(widget_id)
-
-    """
-    model_cls = get_class(kwargs['cls_name'])
-
-    form_class_base = getattr(
-        model_cls, 'feincms_item_editor_form', WidgetCreateForm)
-
-    default_widgets = WIDGETS
-    default_widgets.update(getattr(model_cls, 'widgets', {}))
-
-    WidgetModelForm = modelform_factory(model_cls,
-                                        exclude=[],
-                                        form=form_class_base,
-                                        widgets=default_widgets)
-
-    return WidgetModelForm
+form_repository = FormRepository()

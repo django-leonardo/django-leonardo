@@ -31,6 +31,15 @@ class ListModelMixin(models.Model):
         verbose_name=_("Pagination Style"), max_length=50,
         choices=PAGINATION_CHOICES, default='paginator')
 
+    tabs = {
+        'pagination': {
+            'name': _('Pagination'),
+            'fields': ('objects_per_page',
+                       'objects_per_row',
+                       'pagination_style')
+        }
+    }
+
     class Meta:
         abstract = True
 
@@ -83,14 +92,13 @@ class ListMixin(object):
     @cached_property
     def get_rows(self):
         '''returns rows with items
-        [[item1 item2 item3], [item2 ]]'''
+        [[item1 item2], [item3 item4], [item5]]'''
         rows = []
         row = []
         for i, item in enumerate(self.items):
-            if self.objects_per_row == i:
+            if i > 0 and i % self.objects_per_row == 0:
                 rows.append(row)
                 row = []
-                i = 0
             row.append(item)
         rows.append(row)
         return rows
@@ -110,10 +118,9 @@ class ListMixin(object):
         pages = []
         page = []
         for i, item in enumerate(self.get_rows):
-            if self.objects_per_page == i:
+            if i > 0 and i % self.objects_per_page == 0:
                 pages.append(page)
                 page = []
-                i = 0
             page.append(item)
         pages.append(page)
         return pages
@@ -124,7 +131,7 @@ class ListMixin(object):
         if self.objects_per_page == 0:
             return False
         if len(self.items) > self.objects_per_page \
-                or len(self.get_pages[0]) >= self.objects_per_page:
+                or len(self.get_pages[0]) > self.objects_per_page:
             return True
         return False
 

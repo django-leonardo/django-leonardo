@@ -49,7 +49,7 @@ class Default(object):
         'MEDIA_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS': (False, _('ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS')),
         'MEDIA_THUMB_SMALL_GEOM': ('64x64', _('MEDIA_THUMB_SMALL_GEOM')),
         'MEDIA_THUMB_SMALL_OPT': ('', _('Another options for small thumnails')),
-        'MEDIA_THUMB_MEDIUM_GEOM': ('256x256', _('MEDIA_THUMB_MEDIUM_GEOM')),
+        'MEDIA_THUMB_MEDIUM_GEOM': ('356x190', _('MEDIA_THUMB_MEDIUM_GEOM')),
         'MEDIA_THUMB_MEDIUM_OPT': ('', _('Another options for medium thumnails')),
         'MEDIA_THUMB_LARGE_GEOM': ('768x768', _('MEDIA_THUMB_LARGE_GEOM')),
         'MEDIA_THUMB_LARGE_OPT': ('', _('Another options for large thumnails')),

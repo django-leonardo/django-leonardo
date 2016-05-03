@@ -180,7 +180,8 @@ if not apps.ready:
                             mod_cfg.optgroup: mod_cfg.config})
                     else:
                         if 'ungrouped' in CONSTANCE_CONFIG_GROUPS:
-                            CONSTANCE_CONFIG_GROUPS['ungrouped'].update(mod_cfg.config)
+                            CONSTANCE_CONFIG_GROUPS[
+                                'ungrouped'].update(mod_cfg.config)
                         else:
                             CONSTANCE_CONFIG_GROUPS['ungrouped'] = \
                                 mod_cfg.config
@@ -203,7 +204,8 @@ if not apps.ready:
             CONSTANCE_CONFIG.update(mod_cfg.config)
 
             if VERSION[:2] >= (1, 8):
-                TEMPLATES[0]['DIRS'] = merge(TEMPLATES[0]['DIRS'], mod_cfg.dirs)
+                TEMPLATES[0]['DIRS'] = merge(
+                    TEMPLATES[0]['DIRS'], mod_cfg.dirs)
                 cp = TEMPLATES[0]['OPTIONS']['context_processors']
                 TEMPLATES[0]['OPTIONS']['context_processors'] = merge(
                     cp, mod_cfg.context_processors)
@@ -221,11 +223,12 @@ if not apps.ready:
                         getattr(WIDGETS, mod_cfg.optgroup, []), mod_cfg.widgets)
             else:
                 if len(mod_cfg.widgets) > 0 and DEBUG:
-                    WIDGETS['ungrouped'] = merge(
-                        getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
                     warnings.warn('You have ungrouped widgets'
                                   ', please specify your ``optgroup``'
                                   'which categorize your widgets in %s' % mod)
+                if len(mod_cfg.widgets) > 0:
+                    WIDGETS['ungrouped'] = merge(
+                        getattr(WIDGETS, 'ungrouped', []), mod_cfg.widgets)
 
         except Exception as e:
             warnings.warn(

@@ -33,6 +33,23 @@ def require_auth(view_func):
     return dec
 
 
+def staff_member(view_func):
+    """Performs user authentication check.
+
+    Similar to Django's `login_required` decorator, except that this throws
+    :exc:`~leonardo.exceptions.NotAuthenticated` exception if the user is not
+    signed-in.
+    """
+    from leonardo.exceptions import NotAuthorized  # noqa
+
+    @functools.wraps(view_func, assigned=available_attrs(view_func))
+    def dec(request, *args, **kwargs):
+        if request.user.is_staff:
+            return view_func(request, *args, **kwargs)
+        raise NotAuthorized(_("You haven't permissions to do this action."))
+    return dec
+
+
 def _decorate_urlconf(urlpatterns, decorator=require_auth, *args, **kwargs):
     '''Decorate all urlpatterns by specified decorator'''
 
@@ -52,6 +69,7 @@ def _decorate_urlconf(urlpatterns, decorator=require_auth, *args, **kwargs):
 
 # make this method public
 decorate_urlconf = _decorate_urlconf
+
 
 def catch_result(task_func):
     """Catch printed result from Celery Task and return it in task response

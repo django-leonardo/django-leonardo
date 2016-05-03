@@ -18,21 +18,29 @@ class PageCreateView(ModalFormView):
 
     @property
     def parent(self):
+        '''We use parent for some initial data'''
 
-        try:
-            obj = Page.objects.get(id=self.kwargs["parent"])
-        except Exception as e:
-            raise e
-        return obj
+        if not hasattr(self, '_parent'):
+
+            if 'parent' in self.kwargs:
+
+                try:
+                    self._parent = Page.objects.get(id=self.kwargs["parent"])
+                except Exception as e:
+                    raise e
+            else:
+                if hasattr(self.request, 'leonardo_page'):
+                    self._parent = self.request.leonardo_page
+                else:
+                    return None
+
+        return self._parent
 
     def get_context_data(self, **kwargs):
         context = super(PageCreateView, self).get_context_data(**kwargs)
-        # add extra context for template
         context['url'] = self.request.build_absolute_uri()
         context['modal_header'] = _("Create Page")
-        context['title'] = "self.get_header()"
         context['form_submit'] = _("Create")
-        context['heading'] = "self.get_header()"
         context['modal_size'] = "lg"
         context['modal_classes'] = "admin"
         return context
@@ -49,20 +57,24 @@ class PageCreateView(ModalFormView):
         return HttpResponseRedirect(page.get_absolute_url())
 
     def get_initial(self):
-        parent = self.parent
-        initial = {
-            'parent': parent,
-            'slug': self.kwargs.get('slug', None),
-            'color_scheme': parent.color_scheme,
-            'theme': parent.theme,
-            'layout': parent.layout,
-            'site': parent.site,
-            'template_key': parent.template_key,
-            'in_navigation': parent.in_navigation,
-        }
+
+        initial = {}
+
+        if self.parent:
+            initial.update({
+                'parent': self.parent,
+                'color_scheme': self.parent.color_scheme,
+                'theme': self.parent.theme,
+                'layout': self.parent.layout,
+                'site': self.parent.site,
+                'template_key': self.parent.template_key,
+                'in_navigation': self.parent.in_navigation,
+            })
+
         if 'slug' in self.kwargs:
             initial['slug'] = self.kwargs['slug']
             initial['title'] = self.kwargs['slug'].capitalize()
+
         return initial
 
 
@@ -84,9 +96,7 @@ class PageUpdateView(ModalFormView):
         # add extra context for template
         context['url'] = self.request.build_absolute_uri()
         context['modal_header'] = _("Update Page")
-        context['title'] = "self.get_header()"
         context['form_submit'] = _("Update")
-        context['heading'] = "self.get_header()"
         context['modal_size'] = "lg"
         context['modal_classes'] = "admin"
         return context
@@ -154,9 +164,7 @@ class PageDimensionUpdateView(ModalFormView):
         # add extra context for template
         context['url'] = self.request.build_absolute_uri()
         context['modal_header'] = _("Add Page Dimesion")
-        context['title'] = "self.get_header()"
         context['view_name'] = _("Create")
-        context['heading'] = "self.get_header()"
         context['modal_classes'] = "admin"
         return context
 

@@ -2,8 +2,8 @@
 from django.contrib import admin
 
 from .clipboardadmin import ClipboardAdmin
-from .fileadmin import FileAdmin
-from .folderadmin import FolderAdmin
+from .file.admin import FileAdmin
+from .folder.admin import FolderAdmin
 from .imageadmin import ImageAdmin
 from .permissionadmin import PermissionAdmin
 from ..models import File, FolderPermission, Folder, Clipboard, Image

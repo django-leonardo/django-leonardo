@@ -1,7 +1,9 @@
+from __future__ import absolute_import
 
 from django.conf import settings
 from django.utils import six
 from importlib import import_module
+from django import forms
 
 
 def load_widget_classes(widgets):
@@ -106,3 +108,14 @@ def find_widget_class(name):
         if name.lower() in w_cls.__name__.lower():
             return w_cls
     return None
+
+
+def get_htmltext_widget():
+    '''Returns the default widget
+    for html text fields
+    '''
+
+    return getattr(settings,
+                   'LEONARDO_HTMLTEXT_WIDGET',
+                   forms.Textarea
+                   )

@@ -19,14 +19,14 @@ web.Page:
             site_title: Leonardo Site
             content_theme: navbar
             base_theme: default
-          dimenssions:
+          dimensions:
             md: 2
         web.TreeNavigationWidget:
           attrs:
             depth: 2
             content_theme: navbar
             base_theme: default
-          dimenssions:
+          dimensions:
             md: 6
         web.UserLoginWidget:
           attrs:
@@ -34,5 +34,5 @@ web.Page:
             type: 2
             content_theme: navbar
             base_theme: default
-          dimenssions:
+          dimensions:
             md: 4
