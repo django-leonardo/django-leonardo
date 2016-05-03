@@ -3,7 +3,7 @@ Django<1.9,>=1.7
 FeinCMS==1.11.1
 django-extensions==1.5.9
 django-floppyforms==1.5.1
-django-crispy-forms==1.4.0
+django-crispy-forms==1.6.0
 django_compressor==2.0
 Django-Select2==5.2.0
 python-app-loader>=0.0.5
