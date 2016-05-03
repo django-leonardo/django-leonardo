@@ -32,17 +32,12 @@
 
 {% compress css %}
 <link href="{{ STATIC_URL }}horizon/lib/font-awesome/scss/font-awesome.scss" type="text/scss" media="screen" rel="stylesheet" />
-<link href='{{ STATIC_URL }}leonardo/scss/page.scss' type='text/scss' media='screen' rel='stylesheet' />
 <link href="{{ STATIC_URL }}horizon/lib/bootstrap_datepicker/datepicker3.css" type="text/css" media="screen" rel="stylesheet" />
-<link href="{{ STATIC_URL }}horizon/lib/font-awesome/scss/font-awesome.scss" type="text/scss" media="screen" rel="stylesheet" />
 
-{% for file in LEONARDO_CONFIG.scss_files %}
-<link href="{{ STATIC_URL }}{{ file }}" type="text/scss" media="screen" rel="stylesheet" />
-{% endfor %}
 {% for file in LEONARDO_CONFIG.css_files %}
 <link href="{{ STATIC_URL }}{{ file }}" type="text/css" media="screen" rel="stylesheet" />
 {% endfor %}
-<link href='{{ STATIC_URL }}themes/{{ leonardo_page.theme.name }}/{{ leonardo_page.color_scheme.name|lower }}/scheme.scss' type='text/scss' media='screen' rel='stylesheet' />
+
 {% endcompress %}
 
 {% endblock %}
@@ -52,7 +47,6 @@
 
 {% include "horizon/_conf.html" %}
 {% include "horizon/client_side/_script_loader.html" %}
-{% include "horizon/_custom_head_js.html" %}
 {% include "_custom_head_js.html" %}
 
 {% if request.user.is_staff %}

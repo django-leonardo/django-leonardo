@@ -1,0 +1,12 @@
+
+@import "/leonardo/scss/page.scss";
+
+// My Themes
+@import "/themes/{{ leonardo_page.theme.name|lower }}/{{ leonardo_page.color_scheme.name|lower }}/_variables.scss";
+
+{% for file in LEONARDO_CONFIG.scss_files %}
+@import '/{{ file }}';
+{% endfor %}
+
+// Custom Styles
+@import "/themes/{{ leonardo_page.theme.name|lower }}/{{ leonardo_page.color_scheme.name|lower }}/scheme.scss";

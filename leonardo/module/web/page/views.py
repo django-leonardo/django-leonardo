@@ -118,9 +118,6 @@ class PageUpdateView(ModalFormView):
 
         return HttpResponseRedirect(page.get_absolute_url())
 
-    def form_invalid(self, form):
-        raise Exception(form.errors)
-
     def construct_tables(self):
         table = PageDimensionTable(
             self.request, data=self.object.dimensions.all())
