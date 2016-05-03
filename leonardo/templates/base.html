@@ -6,8 +6,13 @@
   <head>
     {% include "_header.html" %}
   </head>
-  <body id="{% block body_id %}main_content{% endblock %}" ng-app='hz'>
+  <body id="{% block body_id %}main_content{% endblock %}" ng-app='horizon.app' ng-strict-di>
     {% include "horizon/_messages.html" %}
+    <noscript>
+      <div class="javascript_disabled_alert">
+        {% trans "This application requires JavaScript to be enabled in your web browser." %}
+      </div>
+    </noscript>
     {% block body %}{% endblock %}
     {% block body_main %}{% endblock %}
     {% include "leonardo/_footer.html" %}
