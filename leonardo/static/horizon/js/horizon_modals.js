@@ -245,7 +245,7 @@ horizon.addInitFunction(horizon.modals.init = function() {
         }
 
         var compile = function (content) {
-           var $injector = angular.injector(['ng', 'hz']);
+           var $injector = angular.injector(['ng', 'horizon.app']);
            $injector.invoke(function($rootScope, $compile) {
              $compile(content)($rootScope);
            });

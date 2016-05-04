@@ -298,6 +298,14 @@ HORIZON_CONFIG['scss_files'] = leonardo.scss_files
 HORIZON_CONFIG['angular_modules'] = leonardo.angular_modules
 HORIZON_CONFIG['page_actions'] = leonardo.page_actions
 HORIZON_CONFIG['widget_actions'] = leonardo.widget_actions
+
+from leonardo.conf.static import find_static_files  # noqa
+# populate HORIZON_CONFIG with auto-discovered JavaScript sources, mock files,
+# specs files and external templates.
+find_static_files(HORIZON_CONFIG)
+
+leonardo.js_files = merge(HORIZON_CONFIG['js_files'], leonardo.js_files)
+
 # path horizon config
 from horizon import conf
 conf.HORIZON_CONFIG = HORIZON_CONFIG

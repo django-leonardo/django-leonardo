@@ -2,8 +2,13 @@
 {% load leonardo_tags feincms_page_tags branding i18n %}
 <html>
   {% include "_header.html" %}
-  <body id="{% block body_id %}main_content{% endblock %}" ng-app='hz' class="skin-blue">
+  <body id="{% block body_id %}main_content{% endblock %}" ng-app='horizon.app' ng-strict-di>
     {% include "horizon/_messages.html" %}
+    <noscript>
+      <div class="javascript_disabled_alert">
+        {% trans "This application requires JavaScript to be enabled in your web browser." %}
+      </div>
+    </noscript>
     <div class="wrapper">
       <header>
         <div class="{{ page.get_layout_class }}">

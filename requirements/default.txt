@@ -3,7 +3,7 @@ Django<1.9,>=1.7
 FeinCMS==1.11.1
 django-extensions==1.5.9
 django-floppyforms==1.5.1
-django-crispy-forms==1.4.0
+django-crispy-forms==1.6.0
 django_compressor==2.0
 Django-Select2==5.2.0
 python-app-loader>=0.0.5
@@ -17,7 +17,7 @@ sorl-thumbnail==12.3
 easy-thumbnails==2.3
 
 horizon-contrib>=2016.3.2
-leonardo_horizon==2015.3
+leonardo_horizon==2016.5.1
 leonardo_dbtemplates>=1.0.0a0
 leonardo_constance>=1.0.0a7
 django-picklefield==0.3.2 # use for database backend
