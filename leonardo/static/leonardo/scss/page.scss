@@ -1,6 +1,7 @@
 
 @import "_variables";
 
+@import "/bootstrap/scss/bootstrap-sprockets";
 @import "/bootstrap/scss/bootstrap";
 
 @import "_mixins";
@@ -14,6 +15,10 @@
 // bootstrap 4 spacing 
 @import "_spacing";
 
+// hide font during web font loading
+html.wf-loading * {
+    color: transparent !important;
+}
 .asteriskField {
     display: none;
 }
