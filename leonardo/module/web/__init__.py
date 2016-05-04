@@ -98,6 +98,7 @@ class Default(object):
         return [
             'leonardo.module.web.processors.page.add_page_if_missing',
             'leonardo.module.web.processors.config.leonardo',
+            'leonardo.module.web.processors.font.webfont_cookie',
         ]
 
     @property
