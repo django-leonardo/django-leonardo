@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 20:04+0200\n"
+"POT-Creation-Date: 2016-05-04 19:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -522,7 +522,7 @@ msgid "Go"
 msgstr ""
 
 #: templates/admin/media/actions.html:14
-#: templates/admin/media/folder/directory_listing.html:174
+#: templates/admin/media/folder/directory_listing.html:189
 msgid "Click here to select the objects across all pages"
 msgstr ""
 
@@ -532,7 +532,7 @@ msgid "Select all %(total_count)s files and/or folders"
 msgstr ""
 
 #: templates/admin/media/actions.html:16
-#: templates/admin/media/folder/directory_listing.html:176
+#: templates/admin/media/folder/directory_listing.html:191
 msgid "Clear selection"
 msgstr ""
 
@@ -665,6 +665,7 @@ msgid "Destination folder:"
 msgstr ""
 
 #: templates/admin/media/folder/choose_copy_destination.html:45
+#: templates/admin/media/folder/directory_listing.html:148
 msgid "Copy"
 msgstr ""
 
@@ -716,6 +717,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/media/folder/choose_move_destination.html:42
+#: templates/admin/media/folder/directory_listing.html:151
 msgid "Move"
 msgstr ""
 
@@ -750,20 +752,25 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
-#: templates/admin/media/folder/directory_listing.html:154
+#: templates/admin/media/folder/directory_listing.html:145
+#: templates/admin/media/tools/detail_info.html:215
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/media/folder/directory_listing.html:169
 msgid "Adds a new Folder"
 msgstr ""
 
-#: templates/admin/media/folder/directory_listing.html:157
+#: templates/admin/media/folder/directory_listing.html:172
 msgid "New Folder"
 msgstr ""
 
-#: templates/admin/media/folder/directory_listing.html:161
-#: templates/admin/media/folder/directory_listing.html:162
+#: templates/admin/media/folder/directory_listing.html:176
+#: templates/admin/media/folder/directory_listing.html:177
 msgid "Upload Files"
 msgstr ""
 
-#: templates/admin/media/folder/directory_listing.html:174
+#: templates/admin/media/folder/directory_listing.html:189
 #, python-format
 msgid "Select all %(total_count)s"
 msgstr ""
@@ -1000,10 +1007,6 @@ msgstr ""
 
 #: templates/admin/media/tools/detail_info.html:206
 msgid "Change File"
-msgstr ""
-
-#: templates/admin/media/tools/detail_info.html:215
-msgid "Delete"
 msgstr ""
 
 #: templates/admin/media/tools/search_form.html:15

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 20:03+0200\n"
+"POT-Creation-Date: 2016-05-04 19:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: __init__.py:117
+#: __init__.py:118
 msgid "Horizon"
 msgstr ""
 
-#: __init__.py:138
+#: __init__.py:139
 msgid "Site specific meta keywords"
 msgstr ""
 
-#: __init__.py:139
+#: __init__.py:140
 msgid "Site specific meta description"
 msgstr ""
 
-#: __init__.py:140
+#: __init__.py:141
 msgid "Site specific meta title"
 msgstr ""
 
-#: __init__.py:141
+#: __init__.py:142
 msgid "Debug mode"
 msgstr ""
 
-#: __init__.py:142
+#: __init__.py:143
 msgid "Favicon path"
 msgstr ""
 
@@ -609,7 +609,7 @@ msgstr ""
 msgid "Create Page"
 msgstr ""
 
-#: page/views.py:43 page/views.py:167
+#: page/views.py:43 page/views.py:164
 msgid "Create"
 msgstr ""
 
@@ -626,11 +626,11 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: page/views.py:166
+#: page/views.py:163
 msgid "Add Page Dimesion"
 msgstr ""
 
-#: page/views.py:205 templates/base/page/_actions.html:28
+#: page/views.py:202 templates/base/page/_actions.html:28
 #: templates/base/widget/_actions.html:31 templates/widget/base.html:6
 msgid "Delete"
 msgstr ""
@@ -670,6 +670,10 @@ msgstr ""
 
 #: templates/base/page/_actions.html:36
 msgid "Admin"
+msgstr ""
+
+#: templates/base/page/bootstrap.html:9
+msgid "This application requires JavaScript to be enabled in your web browser."
 msgstr ""
 
 #: templates/base/widget/_actions.html:18

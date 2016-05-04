@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 20:04+0200\n"
+"POT-Creation-Date: 2016-05-04 19:51+0000\n"
 "PO-Revision-Date: 2015-09-03 14:47+0000\n"
 "Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgstr "Auth"
 #: templates/widget/userlogin/default.html:14
 #: templates/widget/userlogin/navbar.html:13
 msgid "Stop Editing"
-msgstr "Zastavit Editace"
+msgstr "Přestat editovat"
 
 #: templates/leonardo_auth/_actions.html:7
 #: templates/widget/userlogin/default.html:16
@@ -73,11 +73,11 @@ msgstr "Začít s úpravami"
 
 #: templates/leonardo_auth/_actions.html:10
 msgid "Logout"
-msgstr ""
+msgstr "Odhlásit"
 
 #: templates/leonardo_auth/_login.html:9
 msgid "Close"
-msgstr ""
+msgstr "Zavřít"
 
 #: templates/leonardo_auth/_login.html:10 templates/leonardo_auth/login.html:4
 #: templates/leonardo_auth/login.html:7 views.py:38

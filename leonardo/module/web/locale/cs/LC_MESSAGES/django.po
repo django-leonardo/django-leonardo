@@ -35,7 +35,7 @@ msgstr "meta popis"
 
 #: __init__.py:140
 msgid "Site specific meta title"
-msgstr "Site specific meta titul"
+msgstr "Specifický popis stránky"
 
 #: __init__.py:141
 msgid "Debug mode"
@@ -43,7 +43,7 @@ msgstr "Ladicí režim"
 
 #: __init__.py:142
 msgid "Favicon path"
-msgstr ""
+msgstr "cesta k favicon"
 
 #: admin.py:34 page/forms.py:99 page/forms.py:161
 msgid "Main"
@@ -173,7 +173,7 @@ msgstr "Velmi malé"
 
 #: const.py:130
 msgid "Small"
-msgstr ""
+msgstr "Malé"
 
 #: const.py:131
 msgid "Medium"
@@ -421,11 +421,11 @@ msgstr "Sloupec 3 Šířka"
 
 #: models/page.py:33
 msgid "Page dimension"
-msgstr "Rozměr Page"
+msgstr "Rozměr stránky"
 
 #: models/page.py:34
 msgid "Page dimensions"
-msgstr "Rozměry Page"
+msgstr "Rozměry stránky"
 
 #: models/page.py:41 models/page.py:60 models/widget.py:125
 #: models/widget.py:147
@@ -447,7 +447,7 @@ msgstr "šablona"
 
 #: models/page.py:46
 msgid "Style"
-msgstr "Móda"
+msgstr "Styly"
 
 #: models/page.py:52
 #, fuzzy
@@ -530,7 +530,7 @@ msgstr "Obsah"
 
 #: models/widget.py:133
 msgid "Widget class"
-msgstr "Třída Widget u"
+msgstr "Třída Widgetu u"
 
 #: models/widget.py:139
 msgid "Widget content theme"
@@ -673,25 +673,21 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: page/tables.py:109
-#, fuzzy
 #| msgid "Dimensions"
 msgid "Dimension"
 msgstr "Rozměry"
 
 #: page/tables.py:110
-#, fuzzy
 #| msgid "Left column"
 msgid "Left Column Size (1)"
 msgstr "Levý sloupec"
 
 #: page/tables.py:111
-#, fuzzy
 #| msgid "Center column"
 msgid "Central Column Size (3)"
 msgstr "Střední sloupec"
 
 #: page/tables.py:112
-#, fuzzy
 #| msgid "Right column"
 msgid "Right Column Size (2)"
 msgstr "Pravý sloupec"
@@ -708,13 +704,11 @@ msgid "Create"
 msgstr "Vytvořit"
 
 #: page/views.py:52
-#, fuzzy, python-format
 #| msgid "Widget successfully updated."
 msgid "Page %s was successfully crated."
 msgstr "Komponenta byla úspěšně změněna."
 
 #: page/views.py:98
-#, fuzzy
 #| msgid "Replace Page"
 msgid "Update Page"
 msgstr "Nahradit stránku"
@@ -733,33 +727,29 @@ msgid "Delete"
 msgstr "Smazat"
 
 #: templates/base/page/_actions.html:6
-#, fuzzy
-#| msgid "Add child page"
 msgid "Child Page"
-msgstr "Přidat podstránku"
+msgstr "Podstránka"
 
 #: templates/base/page/_actions.html:7
-#, fuzzy
-#| msgid "Page"
 msgid "Root Page"
-msgstr "Přidat kořenovou složku"
+msgstr "Přidat kořenovou stránku"
+
+msgid "Page"
+msgstr "Stránka"
 
 #: templates/base/page/_actions.html:9
-#, fuzzy
-#| msgid "Page"
 msgid "Edit Page"
 msgstr "Vlastnosti stránky"
 
-#: templates/base/page/_actions.html:11
-#, fuzzy
-#| msgid "Add child page"
-msgid "Add Widget"
+msgid "Add child page"
 msgstr "Přidat podstránku"
+
+#: templates/base/page/_actions.html:11
+msgid "Add Widget"
+msgstr "Přidat widget"
 
 #: templates/base/page/_actions.html:15 templates/base/page/_actions.html:22
 #: templates/base/page/_actions.html:34
-#, fuzzy
-#| msgid "Page dimension"
 msgid "Page Admin"
 msgstr "Rozměr Page"
 
@@ -768,49 +758,48 @@ msgid "Page Admin in new window"
 msgstr ""
 
 #: templates/base/page/_actions.html:25
-#, fuzzy
-#| msgid "last updated"
 msgid "Mass Update"
-msgstr "naposledy aktualizováno"
+msgstr "Hromadná aktualizace"
 
-#: templates/base/page/_actions.html:28
-#, fuzzy
-#| msgid "Replace Page"
-msgid "Delete Page"
+msgid "Replace Page"
 msgstr "Nahradit stránku"
 
-#: templates/base/page/_actions.html:36
-#, fuzzy
-#| msgid "Open admin"
-msgid "Admin"
+#: templates/base/page/_actions.html:28
+msgid "Delete Page"
+msgstr "Odstranit stránku"
+
+msgid "Open admin"
 msgstr "Otevřít administraci"
+
+#: templates/base/page/_actions.html:36
+msgid "Admin"
+msgstr "Administrace"
 
 #: templates/base/widget/_actions.html:18
 #: templates/base/widget/_actions.html:35
 msgid "Up"
-msgstr ""
+msgstr "Nahoru"
 
 #: templates/base/widget/_actions.html:19
 #: templates/base/widget/_actions.html:36
 msgid "Down"
-msgstr ""
+msgstr "Dolů"
 
 #: templates/base/widget/_actions.html:20
 #: templates/base/widget/_actions.html:37
 msgid "As first"
-msgstr ""
+msgstr "Jako první"
 
 #: templates/base/widget/_actions.html:21
 #: templates/base/widget/_actions.html:38
 msgid "As Last"
-msgstr ""
+msgstr "Jako poslední"
 
 #: templates/base/widget/_actions.html:28 templates/widget/base.html:5
 msgid "Edit"
-msgstr "Edit"
+msgstr "Editovat"
 
 #: templates/base/widget/_actions.html:29
-#, fuzzy
 #| msgid "Copy Page"
 msgid "Copy"
 msgstr "Kopírovat stránku"
@@ -824,19 +813,14 @@ msgid "Toggle navigation"
 msgstr "Přepnout navigace"
 
 #: widget/application/models.py:57
-#, fuzzy
-#| msgid "external application"
 msgid "application"
-msgstr "externí aplikace"
+msgstr "aplikace"
 
 #: widget/application/models.py:213
-#, fuzzy
-#| msgid "external application"
 msgid "External application"
 msgstr "externí aplikace"
 
 #: widget/application/models.py:214
-#, fuzzy
 #| msgid "external applications"
 msgid "External applications"
 msgstr "externí aplikace"
@@ -1013,29 +997,27 @@ msgstr "Pozice"
 
 #: widgets/forms.py:179
 msgid "If is checked, widget will be placed as first widget in this region"
-msgstr ""
+msgstr "Pokud je toto pole zaškrtnuto, widget bude umístěn jako první v tomto regionu."
 
 #: widgets/mixins.py:25
 msgid "Objects per page"
-msgstr "Objekty na stránce"
+msgstr "Objektů na stránce"
 
 #: widgets/mixins.py:28
 msgid "Objects per row"
-msgstr "Objekty na řádek"
+msgstr "Objektů na řádeku"
 
 #: widgets/mixins.py:31
 msgid "Pagination Style"
-msgstr "Stránkování Style"
+msgstr "Styl stránkování"
 
 #: widgets/mixins.py:36
-#, fuzzy
-#| msgid "Pagination Style"
 msgid "Pagination"
-msgstr "Stránkování Style"
+msgstr "Stránkování"
 
 #: widgets/mixins.py:177
 msgid "Source Address"
-msgstr "Source Address"
+msgstr "Zdrojová adresa"
 
 #: widgets/mixins.py:180
 msgid "Cache validity"
@@ -1046,61 +1028,50 @@ msgid "Cache data"
 msgstr "Cache dat"
 
 #: widgets/mixins.py:186
-#, fuzzy
-#| msgid "last updated"
 msgid "Cache update"
-msgstr "naposledy aktualizováno"
+msgstr "Čase timeout"
 
 #: widgets/mixins.py:265
-#, fuzzy
-#| msgid "Users"
 msgid "Username"
-msgstr "Uživatelé"
+msgstr "Uživatelské jméno"
 
 #: widgets/mixins.py:268
-#, fuzzy
-#| msgid "New password"
 msgid "Password"
-msgstr "Nové heslo"
+msgstr "Heslo"
 
 #: widgets/mixins.py:271
 msgid "API Token"
 msgstr "API Token"
 
 #: widgets/views.py:160
-#, fuzzy
-#| msgid "Add new item"
 msgid "Add new Widget to {}"
-msgstr "Přidat novou položku"
+msgstr "Přidat nový widget do {}"
 
-#: widgets/views.py:165
-#, fuzzy
-#| msgid "Content"
-msgid "Continue"
+msgid "Content"
 msgstr "Obsah"
 
+#: widgets/views.py:165
+msgid "Continue"
+msgstr "Pokračovat"
+
 #: widgets/views.py:235
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete {}"
-msgstr "Smazat"
+msgstr "Smazat {}"
 
 #: widgets/views.py:302
 msgid "Error occured while sorting widgets."
-msgstr "Chyba při třídění widgety."
+msgstr "Chyba při třídění widgetů."
 
 #: widgets/views.py:311
 msgid "Widget sorting success."
-msgstr "Widget třídění úspěch."
+msgstr "Změna pořadí widgetů proběhla úspěšně."
 
 #: widgets/views.py:369
-#, fuzzy
 #| msgid "Widgets successfully reordered."
 msgid "Widget was successfully moved."
 msgstr "Komponenta byla úspěšně přesunuta."
 
 #: widgets/views.py:393
-#, fuzzy
 #| msgid "Widgets successfully reordered."
 msgid "Widget was successfully cloned."
 msgstr "Komponenta byla úspěšně přesunuta."
