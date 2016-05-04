@@ -1,0 +1,18 @@
+  {% if WFONT %}
+  <link href='https://fonts.googleapis.com/css?family={{ font }}' rel='stylesheet' type='text/css'>
+  <script>document.documentElement.className="wf-active";</script>
+  {% else %}
+  <script>
+    WebFontConfig = { 
+    google: { families: ['{{ font }}'] },
+    active:function(){document.cookie ='wfont=1; expires='+(new Date(new Date().getTime() + 86400000)).toGMTString()+'; path=/'} 
+    };
+      var el = document.documentElement;
+      el.className += ' wf-loading';
+      setTimeout(function () {
+                  el.className = el.className.replace(/(^|\s)wf-loading(\s|$)/g, ' ');
+              }, 1000); // 1 second
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js" async defer></script>
+  <link rel="prefetch" href="https://fonts.googleapis.com/css?family={{ font }}">
+  {% endif %}
