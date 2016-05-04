@@ -17,12 +17,12 @@
 
 {% block modal-footer %}
 {% if cancel_url == None %}
-<a href="{{ cancel_url }}" class="btn btn-default cancel" data-dismiss="modal">{{ cancel_label|default:'Cancel' }}</a>
+<a href="{{ cancel_url }}" class="btn btn-default cancel" data-dismiss="modal">{{ cancel_label|default:_('Cancel') }}</a>
 {% elif cancel_url %}
 <a href="{% block cancel_url %}{{ cancel_url }}{% endblock %}"
  class="btn btn-default cancel">
-{{ cancel_label|default:'Cancel' }}
+{{ cancel_label|default:_('Cancel') }}
 </a>
 {% endif %}
-  <input class="btn btn-primary" type="submit" value="{{ form_submit|default:'Save' }}" />
+  <input class="btn btn-primary" type="submit" value="{{ form_submit|default:_('Save') }}" />
 {% endblock %}
