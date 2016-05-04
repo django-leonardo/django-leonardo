@@ -243,14 +243,6 @@ horizon.addInitFunction(horizon.modals.init = function() {
         if (redirect_header === null) {
           $('.ajax-modal, .dropdown-toggle').removeAttr("disabled");
         }
-
-        var compile = function (content) {
-           var $injector = angular.injector(['ng', 'horizon.app']);
-           $injector.invoke(function($rootScope, $compile) {
-             $compile(content)($rootScope);
-           });
-        }
-
         // custom update handling
         if (data.hasOwnProperty('id')) {
           if (data.hasOwnProperty('content')) {
@@ -269,7 +261,7 @@ horizon.addInitFunction(horizon.modals.init = function() {
                 $('#' + data.id).replaceWith(data.content);
               }
               // compile content
-              compile($('#' + data.id));
+              horizon.utils.loadAngular($('#' + data.id));
 
           } else {
               // remove
