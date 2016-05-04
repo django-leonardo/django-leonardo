@@ -1,7 +1,4 @@
-
 {% load thumbnail %}
-
-{% with widget.get_size as size %}
 
 {% if widget.detail == "open_modal" %}
 <a class="thumbnail" href="{{ image.url }}" data-title="{{ image.translation.default_caption|default:'' }}" data-footer="{{ image.translation.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}">
@@ -43,9 +40,9 @@
 <img class="img-responsive" src='{{ thumb.url }}' alt='{{ image.translation.default_caption|default:'' }}' />
 {% endthumbnail %}
 {% else %}
-<img class="img-responsive" src='{{ image.url }}' alt='{{ image.translation.default_caption|default:'' }}' />
+{% thumbnail image.file size format="PNG" as thumb %}
+<img class="img-responsive" src='{{ thumb.url }}' alt='{{ image.translation.default_caption|default:'' }}' />
+{% endthumbnail %}
 {% endif %}
 
 {% endif %}
-
-{% endwith %}
