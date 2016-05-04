@@ -36,11 +36,11 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
                         extra_advanced_fields=(), extra_fieldsets=()):
         fieldsets = (
             (None, {
-                'fields': ('name', 'owner',
+                'fields': ('name', 'owner', 'file',
                            'description',) + extra_main_fields,
             }),
             (_('Advanced'), {
-                'fields': ('file', 'sha1',
+                'fields': ('sha1',
                            'display_canonical') + extra_advanced_fields,
                 'classes': ('collapse',),
             }),

@@ -83,7 +83,7 @@ msgstr ""
 #: admin/file/admin.py:42 admin/file/forms.py:39
 #: templates/admin/media/tools/detail_info.html:168
 msgid "Advanced"
-msgstr "Rozšířené"
+msgstr "Pokročilé"
 
 #: admin/file/admin.py:157
 msgid "canonical URL"
