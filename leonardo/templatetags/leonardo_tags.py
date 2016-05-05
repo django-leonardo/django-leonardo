@@ -45,6 +45,12 @@ def head_title(request):
     if '_head_title' in fragments and fragments.get("_head_title"):
         return fragments.get("_head_title")
     else:
+        # append site name
+        if settings.LEONARDO_SITE_NAME != '':
+            return getattr(request.leonardo_page,
+                           "page_title", request.leonardo_page.title) \
+                + ' | ' + settings.LEONARDO_SITE_NAME
+
         return getattr(request.leonardo_page,
                        "page_title", request.leonardo_page.title)
 

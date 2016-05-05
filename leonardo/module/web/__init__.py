@@ -136,6 +136,7 @@ class Default(object):
     ]
 
     config = {
+        'LEONARDO_SITE_NAME': ('', _('Site name used for title')),
         'META_KEYWORDS': ('', _('Site specific meta keywords')),
         'META_DESCRIPTION': ('', _('Site specific meta description')),
         'META_TITLE': ('', _('Site specific meta title')),
