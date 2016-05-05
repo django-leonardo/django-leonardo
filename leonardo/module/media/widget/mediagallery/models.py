@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 from leonardo.module.media.fields.folder import FolderField
 from leonardo.module.web.models import ListWidget
 from leonardo.module.web.widgets.forms import WidgetUpdateForm
-from django.core.urlresolvers import reverse_lazy
 from leonardo.module.media.models import Image
 
 DETAIL_CHOICES = (
@@ -40,13 +39,28 @@ class MediaGalleryWidget(ListWidget):
     detail = models.CharField(max_length=255, verbose_name=_(
         "detail view"), choices=DETAIL_CHOICES, default='modal')
 
-    def get_size(self):
-        return getattr(settings,
-                       'MEDIA_THUMB_%s_GEOM' % self.size.upper(),
-                       '96x96')
-
     def get_items(self):
         return self.folder.media_file_files.instance_of(Image)
+
+    def get_size(self):
+        if not hasattr(self, '_image_size'):
+            self._image_size = getattr(
+                settings,
+                'MEDIA_THUMB_%s_GEOM' % self.size.upper(),
+                '96x96')
+
+        return self._image_size
+
+    def get_template_data(self, *args, **kwargs):
+        '''Add image dimensions'''
+
+        # little tricky with vertical centering
+        dimension = int(self.get_size().split('x')[0])
+
+        if dimension <= 356:
+            return {'image_dimension': "row-md-13"}
+
+        return {}
 
     class Meta:
         abstract = True

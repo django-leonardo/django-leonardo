@@ -44,6 +44,10 @@ class SimpleImageWidget(Widget):
                        'MEDIA_THUMB_%s_GEOM' % self.size.upper(),
                        '96x96')
 
+    def get_template_data(self, *args, **kwargs):
+        '''Add size to context'''
+        return {'size': self.get_size()}
+
     class Meta:
         abstract = True
         verbose_name = _("simple image")
