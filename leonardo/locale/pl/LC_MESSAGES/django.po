@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-04 19:50+0000\n"
+"POT-Creation-Date: 2016-05-05 21:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -227,6 +227,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: templates/leonardo/common/_region_tools.html:6
-msgid "Add Widget"
+#: templates/leonardo/common/_region_tools.html:7
+#, python-format
+msgid "Add Widget to %(region_name)s on page %(feincms_object)s"
 msgstr ""

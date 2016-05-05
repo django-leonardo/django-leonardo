@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-04 19:51+0000\n"
+"POT-Creation-Date: 2016-05-05 21:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,130 +19,131 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: templates/devel/_modal_iframe.html:29
+#: module/devel/templates/devel/_modal_iframe.html:29
 msgid "Close"
 msgstr ""
 
-#: templates/widget/visualtest/_test_heading.html:4
+#: module/devel/templates/widget/visualtest/_test_heading.html:4
 msgid "Largest Heading"
 msgstr ""
 
-#: templates/widget/visualtest/_test_heading.html:5
+#: module/devel/templates/widget/visualtest/_test_heading.html:5
 msgid "2nd Largest Heading"
 msgstr ""
 
-#: templates/widget/visualtest/_test_heading.html:6
+#: module/devel/templates/widget/visualtest/_test_heading.html:6
 msgid "3rd Largest Heading"
 msgstr ""
 
-#: templates/widget/visualtest/_test_heading.html:7
+#: module/devel/templates/widget/visualtest/_test_heading.html:7
 msgid "3rd Smallest Heading"
 msgstr ""
 
-#: templates/widget/visualtest/_test_heading.html:8
+#: module/devel/templates/widget/visualtest/_test_heading.html:8
 msgid "2nd Smallest Heading"
 msgstr ""
 
-#: templates/widget/visualtest/_test_heading.html:9
+#: module/devel/templates/widget/visualtest/_test_heading.html:9
 msgid "Smallest Heading"
 msgstr ""
 
-#: templates/widget/visualtest/_test_list.html:4
+#: module/devel/templates/widget/visualtest/_test_list.html:4
 msgid "Ordered List"
 msgstr ""
 
-#: templates/widget/visualtest/_test_list.html:34
+#: module/devel/templates/widget/visualtest/_test_list.html:34
 msgid "Unordered List"
 msgstr ""
 
-#: templates/widget/visualtest/_test_list.html:41
+#: module/devel/templates/widget/visualtest/_test_list.html:41
 msgid "Definition List"
 msgstr ""
 
-#: templates/widget/visualtest/_test_list.html:55
+#: module/devel/templates/widget/visualtest/_test_list.html:55
 msgid "Custom List"
 msgstr ""
 
-#: widget/clientinfo/models.py:13
+#: module/devel/widget/clientinfo/models.py:13
 msgid "browser information"
 msgstr ""
 
-#: widget/clientinfo/models.py:14
+#: module/devel/widget/clientinfo/models.py:14
 msgid "operating system"
 msgstr ""
 
-#: widget/clientinfo/models.py:15
+#: module/devel/widget/clientinfo/models.py:15
 msgid "IP address"
 msgstr ""
 
-#: widget/clientinfo/models.py:16
+#: module/devel/widget/clientinfo/models.py:16
 msgid "hostname"
 msgstr ""
 
-#: widget/clientinfo/models.py:23
+#: module/devel/widget/clientinfo/models.py:23
 msgid "show info"
 msgstr ""
 
-#: widget/clientinfo/models.py:27 widget/clientinfo/models.py:28
+#: module/devel/widget/clientinfo/models.py:27
+#: module/devel/widget/clientinfo/models.py:28
 msgid "client info"
 msgstr ""
 
-#: widget/clientinfo/models.py:40
+#: module/devel/widget/clientinfo/models.py:40
 msgid "Please install httpagentparser"
 msgstr ""
 
-#: widget/visualtest/models.py:13
+#: module/devel/widget/visualtest/models.py:13
 msgid "Paragraphs"
 msgstr ""
 
-#: widget/visualtest/models.py:14
+#: module/devel/widget/visualtest/models.py:14
 msgid "Lists"
 msgstr ""
 
-#: widget/visualtest/models.py:15
+#: module/devel/widget/visualtest/models.py:15
 msgid "Headings"
 msgstr ""
 
-#: widget/visualtest/models.py:16
+#: module/devel/widget/visualtest/models.py:16
 msgid "Tables"
 msgstr ""
 
-#: widget/visualtest/models.py:17
+#: module/devel/widget/visualtest/models.py:17
 msgid "Forms"
 msgstr ""
 
-#: widget/visualtest/models.py:18
+#: module/devel/widget/visualtest/models.py:18
 msgid "Buttons"
 msgstr ""
 
-#: widget/visualtest/models.py:19
+#: module/devel/widget/visualtest/models.py:19
 msgid "Typography"
 msgstr ""
 
-#: widget/visualtest/models.py:20
+#: module/devel/widget/visualtest/models.py:20
 msgid "Grid"
 msgstr ""
 
-#: widget/visualtest/models.py:21
+#: module/devel/widget/visualtest/models.py:21
 msgid "Icons"
 msgstr ""
 
-#: widget/visualtest/models.py:27
+#: module/devel/widget/visualtest/models.py:27
 msgid "Date taken"
 msgstr ""
 
-#: widget/visualtest/models.py:69
+#: module/devel/widget/visualtest/models.py:69
 msgid "Contact details"
 msgstr ""
 
-#: widget/visualtest/models.py:85
+#: module/devel/widget/visualtest/models.py:85
 msgid "type of test"
 msgstr ""
 
-#: widget/visualtest/models.py:92
+#: module/devel/widget/visualtest/models.py:92
 msgid "visual tester"
 msgstr ""
 
-#: widget/visualtest/models.py:93
+#: module/devel/widget/visualtest/models.py:93
 msgid "visual testers"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 20:03+0200\n"
+"POT-Creation-Date: 2016-05-05 21:32+0000\n"
 "PO-Revision-Date: 2015-09-03 14:48+0000\n"
 "Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr "Prosím přihlašte se pro pokračování."
 
 #: decorators.py:49
 msgid "You haven't permissions to do this action."
-msgstr ""
+msgstr "Nemáte oprávnění pro provedení této akce"
 
 #: exceptions.py:90
 #, python-format
@@ -68,28 +68,28 @@ msgstr ""
 
 #: templates/404.html:16 templates/404_technical.html:36
 msgid "Create Page with the "
-msgstr ""
+msgstr "Vytvořit stránku s"
 
 #: templates/404.html:16 templates/404_technical.html:36
 msgid "slug"
-msgstr ""
+msgstr "slug"
 
 #: templates/admin/leonardo/widget_inline.html:8
 msgid "Change"
-msgstr ""
+msgstr "Změnit"
 
 #: templates/admin/leonardo/widget_inline.html:10
 msgid "View on site"
-msgstr ""
+msgstr "Zobrazit na webu"
 
 #: templates/admin/leonardo/widget_inline.html:27
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 #: templates/admin/leonardo/widget_inline.html:28
 #, python-format
 msgid "Add another %(verbose_name)s"
-msgstr ""
+msgstr "Přidat další %(verbose_name)s"
 
 #: templates/admin_doc/index.html:6
 msgid "Home"
@@ -97,16 +97,17 @@ msgstr "Domů"
 
 #: templates/admin_doc/index.html:7 templates/admin_doc/index.html.py:10
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentace"
 
 #: templates/admin_doc/index.html:14
 msgid "Links"
-msgstr ""
+msgstr "Odkazy"
 
 #: templates/admin_doc/index.html:16
-#, fuzzy
-#| msgid "Leonardo Info"
 msgid "Leonardo CMS"
+msgstr "Leonardo CMS"
+
+msgid "Leonardo Info"
 msgstr "Leonardo Info"
 
 #: templates/admin_doc/index.html:17
@@ -121,11 +122,11 @@ msgstr "Instalace balíčků"
 
 #: templates/admin_doc/index.html:19
 msgid "Report Bug or Request Feature"
-msgstr ""
+msgstr "Nahlásit chybu nebo požádát o novou funkcionalitu"
 
 #: templates/admin_doc/index.html:20
 msgid "Contribute"
-msgstr ""
+msgstr "Přispět"
 
 #: templates/admin_doc/index.html:21
 msgid "Github"
@@ -187,6 +188,10 @@ msgstr ""
 msgid "Tools for your browser to quickly access admin functionality."
 msgstr ""
 
+#: templates/base.html:13
+msgid "This application requires JavaScript to be enabled in your web browser."
+msgstr ""
+
 #: templates/horizon/common/_data_table.html:63
 msgid "Summary"
 msgstr "Souhrn"
@@ -215,16 +220,25 @@ msgstr ""
 msgid "Add Entry"
 msgstr "Přidat záznam"
 
-#: templates/leonardo/common/_modal.html:19
+#: templates/leonardo/common/_modal.html:20
+#: templates/leonardo/common/_modal.html:24
+#: templates/leonardo/common/_modal_form.html:45
+#: templates/leonardo/common/_modal_form.html:49
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: templates/leonardo/common/_region_tools.html:6
-msgid "Add Widget"
-msgstr "Přidat widget"
+#: templates/leonardo/common/_modal.html:27
+#: templates/leonardo/common/_modal_form.html:52
+msgid "Save"
+msgstr "Uložit"
 
-#~ msgid "Save"
-#~ msgstr "Uložit"
+#: templates/leonardo/common/_region_tools.html:7
+#, python-format
+msgid "Add Widget to %(region_name)s on page %(feincms_object)s"
+msgstr "Přidat widget do %(region_name)s na stránce %(feincms_object)s"
+
+#~ msgid "Add Widget"
+#~ msgstr "Přidat widget"
 
 #~ msgid "Close"
 #~ msgstr "Zavřít"

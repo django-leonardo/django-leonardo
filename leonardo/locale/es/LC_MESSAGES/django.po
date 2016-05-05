@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 20:03+0200\n"
+"POT-Creation-Date: 2016-05-05 21:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,6 +182,10 @@ msgstr ""
 msgid "Tools for your browser to quickly access admin functionality."
 msgstr ""
 
+#: templates/base.html:13
+msgid "This application requires JavaScript to be enabled in your web browser."
+msgstr ""
+
 #: templates/horizon/common/_data_table.html:63
 msgid "Summary"
 msgstr ""
@@ -210,10 +214,19 @@ msgstr ""
 msgid "Add Entry"
 msgstr ""
 
-#: templates/leonardo/common/_modal.html:19
+#: templates/leonardo/common/_modal.html:20
+#: templates/leonardo/common/_modal.html:24
+#: templates/leonardo/common/_modal_form.html:45
+#: templates/leonardo/common/_modal_form.html:49
 msgid "Cancel"
 msgstr ""
 
-#: templates/leonardo/common/_region_tools.html:6
-msgid "Add Widget"
+#: templates/leonardo/common/_modal.html:27
+#: templates/leonardo/common/_modal_form.html:52
+msgid "Save"
+msgstr ""
+
+#: templates/leonardo/common/_region_tools.html:7
+#, python-format
+msgid "Add Widget to %(region_name)s on page %(feincms_object)s"
 msgstr ""

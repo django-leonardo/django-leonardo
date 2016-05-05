@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-04 19:51+0000\n"
+"POT-Creation-Date: 2016-05-05 21:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,953 +19,968 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: __init__.py:118
+#: module/web/__init__.py:118
 msgid "Horizon"
 msgstr ""
 
-#: __init__.py:139
+#: module/web/__init__.py:139
+msgid "Site name used for title"
+msgstr ""
+
+#: module/web/__init__.py:140
 msgid "Site specific meta keywords"
 msgstr ""
 
-#: __init__.py:140
+#: module/web/__init__.py:141
 msgid "Site specific meta description"
 msgstr ""
 
-#: __init__.py:141
+#: module/web/__init__.py:142
 msgid "Site specific meta title"
 msgstr ""
 
-#: __init__.py:142
+#: module/web/__init__.py:143
 msgid "Debug mode"
 msgstr ""
 
-#: __init__.py:143
+#: module/web/__init__.py:144
 msgid "Favicon path"
 msgstr ""
 
-#: admin.py:34 page/forms.py:99 page/forms.py:161
+#: module/web/admin.py:34 module/web/page/forms.py:99
+#: module/web/page/forms.py:161
 msgid "Main"
 msgstr ""
 
-#: admin.py:40 models/page.py:63 page/common/forms.py:55 widgets/forms.py:82
+#: module/web/admin.py:40 module/web/models/page.py:63
+#: module/web/page/common/forms.py:55 module/web/widgets/forms.py:82
 msgid "Styles"
 msgstr ""
 
-#: const.py:12 const.py:28
+#: module/web/const.py:12 module/web/const.py:35
 msgid "Content"
 msgstr ""
 
-#: const.py:13
+#: module/web/const.py:13
 msgid "Left sidebar"
 msgstr ""
 
-#: const.py:14
+#: module/web/const.py:14
 msgid "Right sidebar"
 msgstr ""
 
-#: const.py:15 const.py:27
+#: module/web/const.py:15 module/web/const.py:34
 msgid "Header"
 msgstr ""
 
-#: const.py:16 const.py:29
+#: module/web/const.py:16 module/web/const.py:36
 msgid "Footer"
 msgstr ""
 
-#: const.py:17 const.py:30
+#: module/web/const.py:17 module/web/const.py:37
 msgid "Toolbar"
 msgstr ""
 
-#: const.py:18 const.py:31
+#: module/web/const.py:18 module/web/const.py:38
 msgid "Preview"
 msgstr ""
 
-#: const.py:19 const.py:32
+#: module/web/const.py:19 module/web/const.py:39
 msgid "Helper"
 msgstr ""
 
-#: const.py:22 const.py:26
+#: module/web/const.py:29 module/web/const.py:33
 msgid "Left column"
 msgstr ""
 
-#: const.py:23
+#: module/web/const.py:30
 msgid "Right column"
 msgstr ""
 
-#: const.py:24
+#: module/web/const.py:31
 msgid "Main content"
 msgstr ""
 
-#: const.py:25
+#: module/web/const.py:32
 msgid "Center column"
 msgstr ""
 
-#: const.py:40
+#: module/web/const.py:47
 msgid "1 column"
 msgstr ""
 
-#: const.py:50
+#: module/web/const.py:57
 msgid "2 same columns"
 msgstr ""
 
-#: const.py:60
+#: module/web/const.py:67
 msgid "2 columns right"
 msgstr ""
 
-#: const.py:70
+#: module/web/const.py:77
 msgid "2 columns left"
 msgstr ""
 
-#: const.py:80
+#: module/web/const.py:87
 msgid "3 columns"
 msgstr ""
 
-#: const.py:90
+#: module/web/const.py:97
 msgid "3 same columns"
 msgstr ""
 
-#: const.py:97
+#: module/web/const.py:104
 msgid "Dashboard"
 msgstr ""
 
-#: const.py:103
+#: module/web/const.py:110
 msgid "API"
 msgstr ""
 
-#: const.py:111 const.py:118
+#: module/web/const.py:118 module/web/const.py:125
 msgid "Fixed"
 msgstr ""
 
-#: const.py:112 const.py:119
+#: module/web/const.py:119 module/web/const.py:126
 msgid "Fluid"
 msgstr ""
 
-#: const.py:113
+#: module/web/const.py:120
 msgid "Boxed"
 msgstr ""
 
-#: const.py:117
+#: module/web/const.py:124
 msgid "Inline"
 msgstr ""
 
-#: const.py:123
+#: module/web/const.py:130
 msgid "Left"
 msgstr ""
 
-#: const.py:124
+#: module/web/const.py:131
 msgid "Center"
 msgstr ""
 
-#: const.py:125
+#: module/web/const.py:132
 msgid "Right"
 msgstr ""
 
-#: const.py:129
+#: module/web/const.py:136
 msgid "Extra small"
 msgstr ""
 
-#: const.py:130
+#: module/web/const.py:137
 msgid "Small"
 msgstr ""
 
-#: const.py:131
+#: module/web/const.py:138
 msgid "Medium"
 msgstr ""
 
-#: const.py:132
+#: module/web/const.py:139
 msgid "Large"
 msgstr ""
 
-#: const.py:137
+#: module/web/const.py:144
 msgid "1 col"
 msgstr ""
 
-#: const.py:138
+#: module/web/const.py:145
 msgid "2 cols"
 msgstr ""
 
-#: const.py:139
+#: module/web/const.py:146
 msgid "3 cols"
 msgstr ""
 
-#: const.py:140
+#: module/web/const.py:147
 msgid "4 cols"
 msgstr ""
 
-#: const.py:141
+#: module/web/const.py:148
 msgid "5 cols"
 msgstr ""
 
-#: const.py:142
+#: module/web/const.py:149
 msgid "6 cols"
 msgstr ""
 
-#: const.py:143
+#: module/web/const.py:150
 msgid "7 cols"
 msgstr ""
 
-#: const.py:144
+#: module/web/const.py:151
 msgid "8 cols"
 msgstr ""
 
-#: const.py:145
+#: module/web/const.py:152
 msgid "9 cols"
 msgstr ""
 
-#: const.py:146
+#: module/web/const.py:153
 msgid "10 cols"
 msgstr ""
 
-#: const.py:147
+#: module/web/const.py:154
 msgid "11 cols"
 msgstr ""
 
-#: const.py:148
+#: module/web/const.py:155
 msgid "12 cols"
 msgstr ""
 
-#: const.py:153
+#: module/web/const.py:160
 msgid "1 row"
 msgstr ""
 
-#: const.py:154
+#: module/web/const.py:161
 msgid "2 rows"
 msgstr ""
 
-#: const.py:155
+#: module/web/const.py:162
 msgid "3 rows"
 msgstr ""
 
-#: const.py:156
+#: module/web/const.py:163
 msgid "4 rows"
 msgstr ""
 
-#: const.py:157
+#: module/web/const.py:164
 msgid "5 rows"
 msgstr ""
 
-#: const.py:158
+#: module/web/const.py:165
 msgid "6 rows"
 msgstr ""
 
-#: const.py:159
+#: module/web/const.py:166
 msgid "7 rows"
 msgstr ""
 
-#: const.py:160
+#: module/web/const.py:167
 msgid "8 rows"
 msgstr ""
 
-#: const.py:161
+#: module/web/const.py:168
 msgid "9 rows"
 msgstr ""
 
-#: const.py:162
+#: module/web/const.py:169
 msgid "10 rows"
 msgstr ""
 
-#: const.py:163
+#: module/web/const.py:170
 msgid "11 rows"
 msgstr ""
 
-#: const.py:164
+#: module/web/const.py:171
 msgid "12 rows"
 msgstr ""
 
-#: const.py:165
+#: module/web/const.py:172
 msgid "13 row"
 msgstr ""
 
-#: const.py:166
+#: module/web/const.py:173
 msgid "14 rows"
 msgstr ""
 
-#: const.py:167
+#: module/web/const.py:174
 msgid "15 rows"
 msgstr ""
 
-#: const.py:168
+#: module/web/const.py:175
 msgid "16 rows"
 msgstr ""
 
-#: const.py:169
+#: module/web/const.py:176
 msgid "17 rows"
 msgstr ""
 
-#: const.py:170
+#: module/web/const.py:177
 msgid "18 rows"
 msgstr ""
 
-#: const.py:171
+#: module/web/const.py:178
 msgid "19 rows"
 msgstr ""
 
-#: const.py:172
+#: module/web/const.py:179
 msgid "20 rows"
 msgstr ""
 
-#: const.py:173
+#: module/web/const.py:180
 msgid "21 rows"
 msgstr ""
 
-#: const.py:174
+#: module/web/const.py:181
 msgid "22 rows"
 msgstr ""
 
-#: const.py:175
+#: module/web/const.py:182
 msgid "23 rows"
 msgstr ""
 
-#: const.py:176
+#: module/web/const.py:183
 msgid "24 rows"
 msgstr ""
 
-#: const.py:180
+#: module/web/const.py:187
 msgid "auto"
 msgstr ""
 
-#: const.py:181
+#: module/web/const.py:188
 msgid "left"
 msgstr ""
 
-#: const.py:182
+#: module/web/const.py:189
 msgid "center"
 msgstr ""
 
-#: const.py:183
+#: module/web/const.py:190
 msgid "right"
 msgstr ""
 
-#: const.py:187
+#: module/web/const.py:194
 msgid "top"
 msgstr ""
 
-#: const.py:188
+#: module/web/const.py:195
 msgid "middle"
 msgstr ""
 
-#: const.py:189
+#: module/web/const.py:196
 msgid "bottom"
 msgstr ""
 
-#: models/page.py:19 models/page.py:85
+#: module/web/models/page.py:19 module/web/models/page.py:85
 msgid "Page"
 msgstr ""
 
-#: models/page.py:22
+#: module/web/models/page.py:22
 msgid "Column 1 width"
 msgstr ""
 
-#: models/page.py:24
+#: module/web/models/page.py:24
 msgid "Column 2 width"
 msgstr ""
 
-#: models/page.py:26
+#: module/web/models/page.py:26
 msgid "Column 3 width"
 msgstr ""
 
-#: models/page.py:33
+#: module/web/models/page.py:33
 msgid "Page dimension"
 msgstr ""
 
-#: models/page.py:34
+#: module/web/models/page.py:34
 msgid "Page dimensions"
 msgstr ""
 
-#: models/page.py:41 models/page.py:60 models/widget.py:125
-#: models/widget.py:147
+#: module/web/models/page.py:41 module/web/models/page.py:60
+#: module/web/models/widget.py:125 module/web/models/widget.py:147
 msgid "Name"
 msgstr ""
 
-#: models/page.py:43 models/page.py:62 models/widget.py:127
-#: models/widget.py:149 models/widget.py:174
+#: module/web/models/page.py:43 module/web/models/page.py:62
+#: module/web/models/widget.py:127 module/web/models/widget.py:149
+#: module/web/models/widget.py:174
 msgid "Title"
 msgstr ""
 
-#: models/page.py:45 models/page.py:66
+#: module/web/models/page.py:45 module/web/models/page.py:66
 msgid "Template"
 msgstr ""
 
-#: models/page.py:46
+#: module/web/models/page.py:46
 msgid "Style"
 msgstr ""
 
-#: models/page.py:52
+#: module/web/models/page.py:52
 msgid "Page theme"
 msgstr ""
 
-#: models/page.py:53
+#: module/web/models/page.py:53
 msgid "Page themes"
 msgstr ""
 
-#: models/page.py:64
+#: module/web/models/page.py:64
 msgid "variables"
 msgstr ""
 
-#: models/page.py:72
+#: module/web/models/page.py:72
 msgid "Page color scheme"
 msgstr ""
 
-#: models/page.py:73
+#: module/web/models/page.py:73
 msgid "Page color schemes"
 msgstr ""
 
-#: models/page.py:79 models/widget.py:182 page/common/forms.py:34
+#: module/web/models/page.py:79 module/web/models/widget.py:182
+#: module/web/page/common/forms.py:34
 msgid "Layout"
 msgstr ""
 
-#: models/page.py:80 models/widget.py:72 page/common/forms.py:27
-#: page/forms.py:119 page/forms.py:181
+#: module/web/models/page.py:80 module/web/models/widget.py:72
+#: module/web/page/common/forms.py:27 module/web/page/forms.py:119
+#: module/web/page/forms.py:181
 msgid "Theme"
 msgstr ""
 
-#: models/page.py:82 models/widget.py:203
+#: module/web/models/page.py:82 module/web/models/widget.py:203
 msgid "Color scheme"
 msgstr ""
 
-#: models/page.py:86 templates/base/page/_actions.html:34
+#: module/web/models/page.py:86
+#: module/web/templates/base/page/_actions.html:34
 msgid "Pages"
 msgstr ""
 
-#: models/widget.py:78 widgets/forms.py:90
+#: module/web/models/widget.py:78 module/web/widgets/forms.py:90
 msgid "Effects"
 msgstr ""
 
-#: models/widget.py:97
+#: module/web/models/widget.py:97
 msgid "Width"
 msgstr ""
 
-#: models/widget.py:99 widgets/tables.py:85
+#: module/web/models/widget.py:99 module/web/widgets/tables.py:85
 msgid "Height"
 msgstr ""
 
-#: models/widget.py:101 widgets/tables.py:86
+#: module/web/models/widget.py:101 module/web/widgets/tables.py:86
 msgid "Offset"
 msgstr ""
 
-#: models/widget.py:117
+#: module/web/models/widget.py:117
 msgid "Widget dimension"
 msgstr ""
 
-#: models/widget.py:118
+#: module/web/models/widget.py:118
 msgid "Widget dimensions"
 msgstr ""
 
-#: models/widget.py:129
+#: module/web/models/widget.py:129
 msgid "Content template"
 msgstr ""
 
-#: models/widget.py:131
+#: module/web/models/widget.py:131
 msgid "Content style"
 msgstr ""
 
-#: models/widget.py:133
+#: module/web/models/widget.py:133
 msgid "Widget class"
 msgstr ""
 
-#: models/widget.py:139
+#: module/web/models/widget.py:139
 msgid "Widget content theme"
 msgstr ""
 
-#: models/widget.py:140
+#: module/web/models/widget.py:140
 msgid "Widget content themes"
 msgstr ""
 
-#: models/widget.py:151
+#: module/web/models/widget.py:151
 msgid "Base template"
 msgstr ""
 
-#: models/widget.py:154
+#: module/web/models/widget.py:154
 msgid "Base style"
 msgstr ""
 
-#: models/widget.py:160
+#: module/web/models/widget.py:160
 msgid "Widget base theme"
 msgstr ""
 
-#: models/widget.py:161
+#: module/web/models/widget.py:161
 msgid "Widget base themes"
 msgstr ""
 
-#: models/widget.py:170
+#: module/web/models/widget.py:170
 msgid "prerendered content"
 msgstr ""
 
-#: models/widget.py:172
+#: module/web/models/widget.py:172
 msgid "Is visible?"
 msgstr ""
 
-#: models/widget.py:176
+#: module/web/models/widget.py:176
 msgid "Base theme"
 msgstr ""
 
-#: models/widget.py:179
+#: module/web/models/widget.py:179
 msgid "Content theme"
 msgstr ""
 
-#: models/widget.py:185
+#: module/web/models/widget.py:185
 msgid "Alignment"
 msgstr ""
 
-#: models/widget.py:188
+#: module/web/models/widget.py:188
 msgid "Vertical Alignment"
 msgstr ""
 
-#: models/widget.py:193
+#: module/web/models/widget.py:193
 msgid "Enter effect style"
 msgstr ""
 
-#: models/widget.py:197
+#: module/web/models/widget.py:197
 msgid "Enter Effect Duration"
 msgstr ""
 
-#: models/widget.py:227
+#: module/web/models/widget.py:229
 msgid "Abstract widget"
 msgstr ""
 
-#: models/widget.py:228
+#: module/web/models/widget.py:230
 msgid "Abstract widgets"
 msgstr ""
 
-#: page/common/forms.py:24
+#: module/web/page/common/forms.py:24
 msgid "Page ID"
 msgstr ""
 
-#: page/common/forms.py:38
+#: module/web/page/common/forms.py:38
 msgid "Depth"
 msgstr ""
 
-#: page/common/forms.py:39
+#: module/web/page/common/forms.py:39
 msgid "From Root ?"
 msgstr ""
 
-#: page/common/forms.py:50
+#: module/web/page/common/forms.py:50
 msgid "Options"
 msgstr ""
 
-#: page/common/views.py:37
+#: module/web/page/common/views.py:37
 msgid "Change Pages"
 msgstr ""
 
-#: page/common/views.py:38
+#: module/web/page/common/views.py:38
 msgid "Apply"
 msgstr ""
 
-#: page/dimension/forms.py:27
+#: module/web/page/dimension/forms.py:27
 msgid "Summary of dimensions must be 12"
 msgstr ""
 
-#: page/forms.py:44
+#: module/web/page/forms.py:44
 msgid "Color Scheme"
 msgstr ""
 
-#: page/forms.py:106 page/forms.py:176
+#: module/web/page/forms.py:106 module/web/page/forms.py:176
 msgid "Navigation"
 msgstr ""
 
-#: page/forms.py:111 page/forms.py:168
+#: module/web/page/forms.py:111 module/web/page/forms.py:168
 msgid "Heading"
 msgstr ""
 
-#: page/forms.py:115 page/forms.py:172
+#: module/web/page/forms.py:115 module/web/page/forms.py:172
 msgid "Publication"
 msgstr ""
 
-#: page/forms.py:200 widgets/forms.py:108
+#: module/web/page/forms.py:200 module/web/widgets/forms.py:108
 msgid "Dimensions"
 msgstr ""
 
-#: page/tables.py:49
+#: module/web/page/tables.py:49
 msgid "Override page dimension"
 msgstr ""
 
-#: page/tables.py:66
+#: module/web/page/tables.py:66
 msgid "Delete Page Dimension"
 msgid_plural "Delete Page Dimension"
 msgstr[0] ""
 msgstr[1] ""
 
-#: page/tables.py:74
+#: module/web/page/tables.py:74
 msgid "Deleted Page Dimension"
 msgid_plural "Deleted Page Dimension"
 msgstr[0] ""
 msgstr[1] ""
 
-#: page/tables.py:109
+#: module/web/page/tables.py:109
 msgid "Dimension"
 msgstr ""
 
-#: page/tables.py:110
+#: module/web/page/tables.py:110
 msgid "Left Column Size (1)"
 msgstr ""
 
-#: page/tables.py:111
+#: module/web/page/tables.py:111
 msgid "Central Column Size (3)"
 msgstr ""
 
-#: page/tables.py:112
+#: module/web/page/tables.py:112
 msgid "Right Column Size (2)"
 msgstr ""
 
-#: page/views.py:42 templates/base/page/_actions.html:6
-#: templates/base/page/_actions.html:7
+#: module/web/page/views.py:42 module/web/templates/base/page/_actions.html:6
+#: module/web/templates/base/page/_actions.html:7
 msgid "Create Page"
 msgstr ""
 
-#: page/views.py:43 page/views.py:164
+#: module/web/page/views.py:43 module/web/page/views.py:164
 msgid "Create"
 msgstr ""
 
-#: page/views.py:52
+#: module/web/page/views.py:52
 #, python-format
 msgid "Page %s was successfully crated."
 msgstr ""
 
-#: page/views.py:98
+#: module/web/page/views.py:98
 msgid "Update Page"
 msgstr ""
 
-#: page/views.py:99
+#: module/web/page/views.py:99
 msgid "Update"
 msgstr ""
 
-#: page/views.py:163
+#: module/web/page/views.py:163
 msgid "Add Page Dimesion"
 msgstr ""
 
-#: page/views.py:202 templates/base/page/_actions.html:28
-#: templates/base/widget/_actions.html:31 templates/widget/base.html:6
+#: module/web/page/views.py:202
+#: module/web/templates/base/page/_actions.html:28
+#: module/web/templates/base/widget/_actions.html:31
+#: module/web/templates/widget/base.html:6
 msgid "Delete"
 msgstr ""
 
-#: templates/base/page/_actions.html:6
+#: module/web/templates/base/page/_actions.html:6
 msgid "Child Page"
 msgstr ""
 
-#: templates/base/page/_actions.html:7
+#: module/web/templates/base/page/_actions.html:7
 msgid "Root Page"
 msgstr ""
 
-#: templates/base/page/_actions.html:9
+#: module/web/templates/base/page/_actions.html:9
 msgid "Edit Page"
 msgstr ""
 
-#: templates/base/page/_actions.html:11
+#: module/web/templates/base/page/_actions.html:11
 msgid "Add Widget"
 msgstr ""
 
-#: templates/base/page/_actions.html:15 templates/base/page/_actions.html:22
-#: templates/base/page/_actions.html:34
+#: module/web/templates/base/page/_actions.html:15
+#: module/web/templates/base/page/_actions.html:22
+#: module/web/templates/base/page/_actions.html:34
 msgid "Page Admin"
 msgstr ""
 
-#: templates/base/page/_actions.html:22
+#: module/web/templates/base/page/_actions.html:22
 msgid "Page Admin in new window"
 msgstr ""
 
-#: templates/base/page/_actions.html:25
+#: module/web/templates/base/page/_actions.html:25
 msgid "Mass Update"
 msgstr ""
 
-#: templates/base/page/_actions.html:28
+#: module/web/templates/base/page/_actions.html:28
 msgid "Delete Page"
 msgstr ""
 
-#: templates/base/page/_actions.html:36
+#: module/web/templates/base/page/_actions.html:36
 msgid "Admin"
 msgstr ""
 
-#: templates/base/page/bootstrap.html:9
+#: module/web/templates/base/page/bootstrap.html:9
 msgid "This application requires JavaScript to be enabled in your web browser."
 msgstr ""
 
-#: templates/base/widget/_actions.html:18
-#: templates/base/widget/_actions.html:35
+#: module/web/templates/base/widget/_actions.html:18
+#: module/web/templates/base/widget/_actions.html:35
 msgid "Up"
 msgstr ""
 
-#: templates/base/widget/_actions.html:19
-#: templates/base/widget/_actions.html:36
+#: module/web/templates/base/widget/_actions.html:19
+#: module/web/templates/base/widget/_actions.html:36
 msgid "Down"
 msgstr ""
 
-#: templates/base/widget/_actions.html:20
-#: templates/base/widget/_actions.html:37
+#: module/web/templates/base/widget/_actions.html:20
+#: module/web/templates/base/widget/_actions.html:37
 msgid "As first"
 msgstr ""
 
-#: templates/base/widget/_actions.html:21
-#: templates/base/widget/_actions.html:38
+#: module/web/templates/base/widget/_actions.html:21
+#: module/web/templates/base/widget/_actions.html:38
 msgid "As Last"
 msgstr ""
 
-#: templates/base/widget/_actions.html:28 templates/widget/base.html:5
+#: module/web/templates/base/widget/_actions.html:28
+#: module/web/templates/widget/base.html:5
 msgid "Edit"
 msgstr ""
 
-#: templates/base/widget/_actions.html:29
+#: module/web/templates/base/widget/_actions.html:29
 msgid "Copy"
 msgstr ""
 
-#: templates/base/widget/_actions.html:30
+#: module/web/templates/base/widget/_actions.html:30
 msgid "Info"
 msgstr ""
 
-#: templates/widget/siteheading/navbar.html:8
+#: module/web/templates/widget/siteheading/navbar.html:8
 msgid "Toggle navigation"
 msgstr ""
 
-#: widget/application/models.py:57
+#: module/web/widget/application/models.py:57
 msgid "application"
 msgstr ""
 
-#: widget/application/models.py:213
+#: module/web/widget/application/models.py:213
 msgid "External application"
 msgstr ""
 
-#: widget/application/models.py:214
+#: module/web/widget/application/models.py:214
 msgid "External applications"
 msgstr ""
 
-#: widget/feedreader/models.py:14
+#: module/web/widget/feedreader/models.py:14
 msgid "Modal window"
 msgstr ""
 
-#: widget/feedreader/models.py:15
+#: module/web/widget/feedreader/models.py:15
 msgid "Blank window"
 msgstr ""
 
-#: widget/feedreader/models.py:20
+#: module/web/widget/feedreader/models.py:20
 msgid "max. items"
 msgstr ""
 
-#: widget/feedreader/models.py:24
+#: module/web/widget/feedreader/models.py:24
 msgid "feed reader"
 msgstr ""
 
-#: widget/feedreader/models.py:25
+#: module/web/widget/feedreader/models.py:25
 msgid "feed readers"
 msgstr ""
 
-#: widget/htmltext/models.py:15 widget/markuptext/models.py:9
+#: module/web/widget/htmltext/models.py:15
+#: module/web/widget/markuptext/models.py:9
 msgid "text"
 msgstr ""
 
-#: widget/htmltext/models.py:24
+#: module/web/widget/htmltext/models.py:24
 msgid "HTML text"
 msgstr ""
 
-#: widget/htmltext/models.py:25
+#: module/web/widget/htmltext/models.py:25
 msgid "HTML texts"
 msgstr ""
 
-#: widget/htmltext/models.py:29
+#: module/web/widget/htmltext/models.py:29
 msgid "Empty element"
 msgstr ""
 
-#: widget/icon/const.py:602
+#: module/web/widget/icon/const.py:602
 msgid "Normal"
 msgstr ""
 
-#: widget/icon/const.py:603
+#: module/web/widget/icon/const.py:603
 msgid "Larger"
 msgstr ""
 
-#: widget/icon/const.py:604
+#: module/web/widget/icon/const.py:604
 msgid "2x larger"
 msgstr ""
 
-#: widget/icon/const.py:605
+#: module/web/widget/icon/const.py:605
 msgid "3x larger"
 msgstr ""
 
-#: widget/icon/const.py:606
+#: module/web/widget/icon/const.py:606
 msgid "4x larger"
 msgstr ""
 
-#: widget/icon/const.py:607
+#: module/web/widget/icon/const.py:607
 msgid "5x larger"
 msgstr ""
 
-#: widget/icon/const.py:608
+#: module/web/widget/icon/const.py:608
 msgid "10x larger"
 msgstr ""
 
-#: widget/icon/const.py:609
+#: module/web/widget/icon/const.py:609
 msgid "15x larger"
 msgstr ""
 
-#: widget/icon/const.py:610
+#: module/web/widget/icon/const.py:610
 msgid "20x larger"
 msgstr ""
 
-#: widget/icon/const.py:611
+#: module/web/widget/icon/const.py:611
 msgid "25x larger"
 msgstr ""
 
-#: widget/icon/models.py:19 widget/icon/models.py:30
+#: module/web/widget/icon/models.py:19 module/web/widget/icon/models.py:30
 msgid "Icon"
 msgstr ""
 
-#: widget/icon/models.py:22 widgets/tables.py:83
+#: module/web/widget/icon/models.py:22 module/web/widgets/tables.py:83
 msgid "Size"
 msgstr ""
 
-#: widget/icon/models.py:24
+#: module/web/widget/icon/models.py:24
 msgid "Spin"
 msgstr ""
 
-#: widget/icon/models.py:26
+#: module/web/widget/icon/models.py:26
 msgid "Border"
 msgstr ""
 
-#: widget/icon/models.py:31
+#: module/web/widget/icon/models.py:31
 msgid "Icons"
 msgstr ""
 
-#: widget/markuptext/models.py:10
+#: module/web/widget/markuptext/models.py:10
 msgid "Empty text"
 msgstr ""
 
-#: widget/markuptext/models.py:14
+#: module/web/widget/markuptext/models.py:14
 msgid "markup text"
 msgstr ""
 
-#: widget/markuptext/models.py:15
+#: module/web/widget/markuptext/models.py:15
 msgid "markup texts"
 msgstr ""
 
-#: widget/pagetitle/models.py:10
+#: module/web/widget/pagetitle/models.py:10
 msgid "page title"
 msgstr ""
 
-#: widget/pagetitle/models.py:11
+#: module/web/widget/pagetitle/models.py:11
 msgid "page titles"
 msgstr ""
 
-#: widget/siteheading/models.py:19
+#: module/web/widget/siteheading/models.py:19
 msgid "Site Title"
 msgstr ""
 
-#: widget/siteheading/models.py:21
+#: module/web/widget/siteheading/models.py:21
 msgid "Logo"
 msgstr ""
 
-#: widget/siteheading/models.py:23
+#: module/web/widget/siteheading/models.py:23
 msgid "Tagline"
 msgstr ""
 
-#: widget/siteheading/models.py:34
+#: module/web/widget/siteheading/models.py:34
 msgid "site heading"
 msgstr ""
 
-#: widget/siteheading/models.py:35
+#: module/web/widget/siteheading/models.py:35
 msgid "site headings"
 msgstr ""
 
-#: widget/table/models.py:97
+#: module/web/widget/table/models.py:97
 msgid "plain"
 msgstr ""
 
-#: widget/table/models.py:98
+#: module/web/widget/table/models.py:98
 msgid "title row"
 msgstr ""
 
-#: widget/table/models.py:100
+#: module/web/widget/table/models.py:100
 msgid "title row and column"
 msgstr ""
 
-#: widget/table/models.py:106
+#: module/web/widget/table/models.py:106
 msgid "table"
 msgstr ""
 
-#: widget/table/models.py:107
+#: module/web/widget/table/models.py:107
 msgid "tables"
 msgstr ""
 
-#: widget/table/models.py:116
+#: module/web/widget/table/models.py:116
 msgid "type"
 msgstr ""
 
-#: widget/table/models.py:120
+#: module/web/widget/table/models.py:120
 msgid "data"
 msgstr ""
 
-#: widgets/forms.py:84
+#: module/web/widgets/forms.py:84
 msgid "Positions"
 msgstr ""
 
-#: widgets/forms.py:179
+#: module/web/widgets/forms.py:179
 msgid "If is checked, widget will be placed as first widget in this region"
 msgstr ""
 
-#: widgets/mixins.py:25
+#: module/web/widgets/mixins.py:25
 msgid "Objects per page"
 msgstr ""
 
-#: widgets/mixins.py:28
+#: module/web/widgets/mixins.py:28
 msgid "Objects per row"
 msgstr ""
 
-#: widgets/mixins.py:31
+#: module/web/widgets/mixins.py:31
 msgid "Pagination Style"
 msgstr ""
 
-#: widgets/mixins.py:36
+#: module/web/widgets/mixins.py:36
 msgid "Pagination"
 msgstr ""
 
-#: widgets/mixins.py:177
+#: module/web/widgets/mixins.py:177
 msgid "Source Address"
 msgstr ""
 
-#: widgets/mixins.py:180
+#: module/web/widgets/mixins.py:180
 msgid "Cache validity"
 msgstr ""
 
-#: widgets/mixins.py:183
+#: module/web/widgets/mixins.py:183
 msgid "Cache data"
 msgstr ""
 
-#: widgets/mixins.py:186
+#: module/web/widgets/mixins.py:186
 msgid "Cache update"
 msgstr ""
 
-#: widgets/mixins.py:265
+#: module/web/widgets/mixins.py:265
 msgid "Username"
 msgstr ""
 
-#: widgets/mixins.py:268
+#: module/web/widgets/mixins.py:268
 msgid "Password"
 msgstr ""
 
-#: widgets/mixins.py:271
+#: module/web/widgets/mixins.py:271
 msgid "API Token"
 msgstr ""
 
-#: widgets/views.py:160
+#: module/web/widgets/views.py:163
 msgid "Add new Widget to {}"
 msgstr ""
 
-#: widgets/views.py:165
+#: module/web/widgets/views.py:168
 msgid "Continue"
 msgstr ""
 
-#: widgets/views.py:235
+#: module/web/widgets/views.py:238
 msgid "Delete {}"
 msgstr ""
 
-#: widgets/views.py:302
+#: module/web/widgets/views.py:305
 msgid "Error occured while sorting widgets."
 msgstr ""
 
-#: widgets/views.py:311
+#: module/web/widgets/views.py:314
 msgid "Widget sorting success."
 msgstr ""
 
-#: widgets/views.py:369
+#: module/web/widgets/views.py:372
 msgid "Widget was successfully moved."
 msgstr ""
 
-#: widgets/views.py:393
+#: module/web/widgets/views.py:396
 msgid "Widget was successfully cloned."
 msgstr ""

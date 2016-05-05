@@ -29,22 +29,25 @@ class WidgetViewMixin(object):
         from ..models import WidgetDimension
         formset = WidgetDimensionFormset(
             self.request.POST, prefix='dimensions')
-        for form in formset.forms:
-            if form.is_valid():
-                if 'id' in form.cleaned_data:
-                    form.save()
-            else:
-                # little ugly
-                data = form.cleaned_data
-                data['widget_type'] = \
-                    ContentType.objects.get_for_model(obj)
-                data['widget_id'] = obj.id
-                data.pop('DELETE', None)
-                wd = WidgetDimension(**data)
-                wd.save()
-        # optionaly delete dimensions
+
         if formset.is_valid():
-            formset.save(commit=False)
+            formset.save()
+        else:
+            for form in formset.forms:
+                if form.is_valid():
+                    if 'id' in form.cleaned_data:
+                        form.save()
+                else:
+                    # little ugly
+                    data = form.cleaned_data
+                    data['widget_type'] = \
+                        ContentType.objects.get_for_model(obj)
+                    data['widget_id'] = obj.id
+                    data.pop('DELETE', None)
+                    wd = WidgetDimension(**data)
+                    wd.save()
+
+        if formset.is_valid():
             # delete objects
             for obj in formset.deleted_objects:
                 obj.delete()

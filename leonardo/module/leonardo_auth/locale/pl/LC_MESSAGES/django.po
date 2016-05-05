@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-04 19:51+0000\n"
+"POT-Creation-Date: 2016-05-05 21:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,119 +19,122 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: forms.py:19 forms.py:23 forms.py:52 forms.py:56
+#: module/leonardo_auth/forms.py:19 module/leonardo_auth/forms.py:23
+#: module/leonardo_auth/forms.py:52 module/leonardo_auth/forms.py:56
 msgid "Username"
 msgstr ""
 
-#: forms.py:26 forms.py:63
+#: module/leonardo_auth/forms.py:26 module/leonardo_auth/forms.py:63
 msgid "Password"
 msgstr ""
 
-#: forms.py:28
+#: module/leonardo_auth/forms.py:28
 msgid "Remember Me"
 msgstr ""
 
-#: forms.py:60
+#: module/leonardo_auth/forms.py:60
 msgid "E-mail address"
 msgstr ""
 
-#: forms.py:68
+#: module/leonardo_auth/forms.py:68
 msgid "Confirm Password"
 msgstr ""
 
-#: forms.py:82
+#: module/leonardo_auth/forms.py:82
 msgid "Username or email exists in database."
 msgstr ""
 
-#: forms.py:86
+#: module/leonardo_auth/forms.py:86
 msgid "Passwords do not match."
 msgstr ""
 
-#: forms.py:97
+#: module/leonardo_auth/forms.py:97
 msgid "User account {} was successfuly created."
 msgstr ""
 
-#: forms.py:105
+#: module/leonardo_auth/forms.py:105
 msgid "Create Account failed."
 msgstr ""
 
-#: panel.py:10
+#: module/leonardo_auth/panel.py:10
 msgid "Auth"
 msgstr ""
 
-#: templates/leonardo_auth/_actions.html:5
-#: templates/widget/userlogin/default.html:14
-#: templates/widget/userlogin/navbar.html:13
+#: module/leonardo_auth/templates/leonardo_auth/_actions.html:5
+#: module/leonardo_auth/templates/widget/userlogin/default.html:14
+#: module/leonardo_auth/templates/widget/userlogin/navbar.html:13
 msgid "Stop Editing"
 msgstr ""
 
-#: templates/leonardo_auth/_actions.html:7
-#: templates/widget/userlogin/default.html:16
-#: templates/widget/userlogin/navbar.html:15
+#: module/leonardo_auth/templates/leonardo_auth/_actions.html:7
+#: module/leonardo_auth/templates/widget/userlogin/default.html:16
+#: module/leonardo_auth/templates/widget/userlogin/navbar.html:15
 msgid "Start Editing"
 msgstr ""
 
-#: templates/leonardo_auth/_actions.html:10
+#: module/leonardo_auth/templates/leonardo_auth/_actions.html:10
 msgid "Logout"
 msgstr ""
 
-#: templates/leonardo_auth/_login.html:9
+#: module/leonardo_auth/templates/leonardo_auth/_login.html:9
 msgid "Close"
 msgstr ""
 
-#: templates/leonardo_auth/_login.html:10 templates/leonardo_auth/login.html:4
-#: templates/leonardo_auth/login.html:7 views.py:38
+#: module/leonardo_auth/templates/leonardo_auth/_login.html:10
+#: module/leonardo_auth/templates/leonardo_auth/login.html:4
+#: module/leonardo_auth/templates/leonardo_auth/login.html:7
+#: module/leonardo_auth/views.py:38
 msgid "Login"
 msgstr ""
 
-#: templates/widget/userlogin/default.html:19
-#: templates/widget/userlogin/navbar.html:17
+#: module/leonardo_auth/templates/widget/userlogin/default.html:19
+#: module/leonardo_auth/templates/widget/userlogin/navbar.html:17
 msgid "Sign Out"
 msgstr ""
 
-#: templates/widget/userlogin/default.html:22
-#: templates/widget/userlogin/default.html:24
-#: templates/widget/userlogin/navbar.html:20
-#: templates/widget/userlogin/navbar.html:22
+#: module/leonardo_auth/templates/widget/userlogin/default.html:22
+#: module/leonardo_auth/templates/widget/userlogin/default.html:24
+#: module/leonardo_auth/templates/widget/userlogin/navbar.html:20
+#: module/leonardo_auth/templates/widget/userlogin/navbar.html:22
 msgid "Sign In"
 msgstr ""
 
-#: templates/widget/userregistration/default.html:8
+#: module/leonardo_auth/templates/widget/userregistration/default.html:8
 msgid "Sign Up"
 msgstr ""
 
-#: views.py:66
+#: module/leonardo_auth/views.py:66
 msgid "Register"
 msgstr ""
 
-#: views.py:87
+#: module/leonardo_auth/views.py:87
 msgid "Logout complete"
 msgstr ""
 
-#: widget/registration/models.py:21
+#: module/leonardo_auth/widget/registration/models.py:21
 msgid "user registration"
 msgstr ""
 
-#: widget/registration/models.py:22
+#: module/leonardo_auth/widget/registration/models.py:22
 msgid "user registrations"
 msgstr ""
 
-#: widget/userlogin/models.py:10
+#: module/leonardo_auth/widget/userlogin/models.py:10
 msgid "Admin"
 msgstr ""
 
-#: widget/userlogin/models.py:11
+#: module/leonardo_auth/widget/userlogin/models.py:11
 msgid "Public"
 msgstr ""
 
-#: widget/userlogin/models.py:17
+#: module/leonardo_auth/widget/userlogin/models.py:17
 msgid "type"
 msgstr ""
 
-#: widget/userlogin/models.py:32
+#: module/leonardo_auth/widget/userlogin/models.py:32
 msgid "user login"
 msgstr ""
 
-#: widget/userlogin/models.py:33
+#: module/leonardo_auth/widget/userlogin/models.py:33
 msgid "user logins"
 msgstr ""

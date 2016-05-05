@@ -3,6 +3,7 @@
 
 {% if edit %}
 <div class="col-md-12 region-tools">
-  <a href="{{ widget_add_url }}" class='leonardo-btn leonardo-btn-success aylen ajax-modal' data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Add new widget to region {{ region }} of page {{ feincms_object.title }}.">{% trans 'Add Widget' %}</a>
+  <a href="{{ widget_add_url }}" class='leonardo-btn leonardo-btn-success aylen ajax-modal' data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Add new widget to region {{ region }} of page {{ feincms_object.title }}.">
+  {% blocktrans %}Add Widget to {{ region_name }} on page {{ feincms_object }}{% endblocktrans %}</a>
 </div>
 {% endif %}

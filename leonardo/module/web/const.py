@@ -19,6 +19,13 @@ PAGE_REGIONS = (
     ('helper', _('Helper'))
 )
 
+
+def get_page_region(name):
+    '''Just a helper'''
+    for region in PAGE_REGIONS:
+        if region[0] == name:
+            return region[1]
+
 col1 = ('col1', _('Left column'), 'inherited')
 col2 = ('col2', _('Right column'), 'inherited')
 col3 = ('col3', _('Main content'))

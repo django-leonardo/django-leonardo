@@ -2,16 +2,18 @@
 from __future__ import absolute_import, unicode_literals
 
 import logging
+
 from django import template
 from django.conf import settings
+from django.core.cache import caches
 from django.core.urlresolvers import NoReverseMatch
 from django.template import TemplateSyntaxError
 from django.template.defaulttags import kwarg_re
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
-from django.core.cache import caches
 from feincms.templatetags.fragment_tags import (fragment, get_fragment,
                                                 has_fragment)
+from leonardo.module.web.const import get_page_region
 from leonardo.module.web.widget.application.reverse import \
     app_reverse as do_app_reverse
 from leonardo.module.web.widget.application.reverse import reverse_lazy
@@ -80,6 +82,7 @@ def render_region_tools(context, feincms_object, region, request=None):
         'edit': edit,
         'feincms_object': feincms_object,
         'region': region,
+        'region_name': get_page_region(region),
         'widget_add_url': reverse_lazy(
             'widget_create',
             args=[feincms_object.id,
