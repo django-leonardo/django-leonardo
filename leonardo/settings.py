@@ -68,7 +68,7 @@ else:
     )
 
 try:
-    # obsole location since 1.0.3 use `leonrdo_site.settings`
+    # obsolete location since 1.0.3 use `leonrdo_site.settings`
     from leonardo_site.local.settings import *
     warnings.warn(
         'leonardo_site.local.settings is obsolete use new location')
@@ -102,6 +102,11 @@ if not DEBUG:
         TEMPLATES[0]['OPTIONS']['debug'] = False
 else:
     TEMPLATE_DEBUG = DEBUG
+    TEMPLATES[0]['OPTIONS']['loaders'] = [
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'horizon.loaders.TemplateLoader',
+    ]
 
 APPS = merge(APPS, default.core)
 
