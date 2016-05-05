@@ -3,8 +3,9 @@
   <script>document.documentElement.className+=" wf-active";</script>
   {% else %}
   <script>
+    var 
     WebFontConfig = { 
-    google: { families: ['{{ font }}'] },
+    google: { families: '{{ font }}'.split('|') },
     active:function(){document.cookie ='wfont=1; expires='+(new Date(new Date().getTime() + 86400000)).toGMTString()+'; path=/'} 
     };
       var el = document.documentElement;
