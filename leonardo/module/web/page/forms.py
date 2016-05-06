@@ -3,16 +3,19 @@ import copy
 
 import floppyforms as forms
 from crispy_forms.bootstrap import Tab, TabHolder
-from crispy_forms.layout import Field, HTML, Layout, Fieldset
-from django.forms.models import modelform_factory
-from django.utils.translation import ugettext_lazy as _
-from horizon.utils.memoized import memoized
+from crispy_forms.layout import HTML, Field, Fieldset, Layout
 from django import forms as django_forms
-from horizon_contrib.common import get_class
-from leonardo.forms import SelfHandlingModelForm, SelfHandlingForm
+from django.forms.models import modelform_factory
 from django.utils.text import slugify
-from ..models import Page, PageTheme, PageColorScheme
+from django.utils.translation import ugettext_lazy as _
 from django_select2.forms import Select2Widget
+from horizon.utils.memoized import memoized
+from horizon_contrib.common import get_class
+from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
+from leonardo.forms.fields.sites import SiteSelectField
+
+from ..models import Page, PageColorScheme, PageTheme
+from .fields import PageSelectField
 
 
 class SwitchableFormFieldMixin(object):
@@ -70,6 +73,11 @@ class PageCreateForm(PageColorSchemeSwitchableFormMixin,
 
     slug = forms.SlugField(required=False, initial=None)
 
+    parent = PageSelectField(required=False)
+    translation_of = PageSelectField(required=False)
+    symlinked_page = PageSelectField(required=False)
+    site = SiteSelectField()
+
     class Meta:
         model = Page
         widgets = {
@@ -82,72 +90,96 @@ class PageCreateForm(PageColorSchemeSwitchableFormMixin,
         """slug title if is not provided
         """
         slug = self.cleaned_data.get('slug', None)
-        if slug is None or len(slug) == 0:
+        if slug is None or len(slug) == 0 and 'title' in self.cleaned_data:
             slug = slugify(self.cleaned_data['title'])
         return slug
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, request, *args, **kwargs):
         parent = kwargs.pop('parent', None)
         super(PageCreateForm, self).__init__(*args, **kwargs)
 
-        self.fields['parent'].initial = parent
-        color_scheme_fields = self.init_color_scheme_switch(
-            color_scheme=kwargs['initial'].get('color_scheme', None))
+        if parent:
+            self.fields['parent'].initial = parent
 
-        self.helper.layout = Layout(
-            TabHolder(
-                Tab(_('Main'),
-                    'title',
-                    'language',
-                    'translation_of',
-                    'site',
-                    css_id='page-main'
-                    ),
-                Tab(_('Navigation'),
-                    'in_navigation', 'parent', 'slug',
-                    'override_url', 'redirect_to',
-                    'symlinked_page', 'navigation_extension'
-                    ),
-                Tab(_('Heading'),
-                    '_content_title', '_page_title',
-                    css_id='page-heading'
-                    ),
-                Tab(_('Publication'),
-                    'active', 'featured', 'publication_date',
-                    'publication_end_date',
-                    ),
-                Tab(_('Theme'),
-                    'template_key', 'layout', Fieldset(
-                        'Themes', 'theme', *color_scheme_fields),
-                    css_id='page-theme-settings'
-                    ),
+        if request.method == 'GET':
+            color_scheme_fields = self.init_color_scheme_switch(
+                color_scheme=kwargs['initial'].get('color_scheme', None))
+
+            self.helper.layout = Layout(
+                TabHolder(
+                    Tab(_('Main'),
+                        'title',
+                        'language',
+                        'translation_of',
+                        'parent',
+                        'site',
+                        css_id='page-main'
+                        ),
+                    Tab(_('Navigation'),
+                        'in_navigation', 'slug',
+                        'override_url', 'redirect_to',
+                        'symlinked_page', 'navigation_extension'
+                        ),
+                    Tab(_('Heading'),
+                        '_content_title', '_page_title',
+                        css_id='page-heading'
+                        ),
+                    Tab(_('Publication'),
+                        'active', 'featured', 'publication_date',
+                        'publication_end_date',
+                        ),
+                    Tab(_('Theme'),
+                        'template_key', 'layout', Fieldset(
+                            'Themes', 'theme', *color_scheme_fields),
+                        css_id='page-theme-settings'
+                        ),
+                )
             )
-        )
 
         self.fields['color_scheme'].required = False
 
     def clean(self):
         cleaned = super(PageCreateForm, self).clean()
-        theme = cleaned['theme']
-        cleaned['color_scheme'] = self.cleaned_data['theme__%s' % theme.id]
+
+        if 'theme' in cleaned:
+
+            if cleaned['parent']:
+                theme = cleaned['parent'].theme
+                cleaned['theme'] = theme
+            else:
+                theme = cleaned['theme']
+
+            # small combo
+            value = self.fields['color_scheme'].widget.value_from_datadict(
+                self.data, self.files, self.add_prefix('theme__%s' % theme.id))
+
+            cleaned['color_scheme'] = self.fields['color_scheme'].clean(value)
+
         return cleaned
 
 
 class PageUpdateForm(PageColorSchemeSwitchableFormMixin,
                      SelfHandlingModelForm):
 
+    parent = PageSelectField(required=False)
+    translation_of = PageSelectField(required=False)
+    symlinked_page = PageSelectField(required=False)
+    site = SiteSelectField()
+
     class Meta:
         model = Page
         widgets = {
-            'parent': forms.widgets.HiddenInput,
             'publication_date': forms.widgets.DateInput,
         }
         exclude = tuple()
 
     def clean(self):
         cleaned = super(PageUpdateForm, self).clean()
-        theme = cleaned['theme']
-        cleaned['color_scheme'] = self.cleaned_data['theme__%s' % theme.id]
+
+        if 'theme' in cleaned:
+            theme = cleaned['theme']
+            cleaned['color_scheme'] = self.cleaned_data['theme__%s' % theme.id]
+
         return cleaned
 
     def __init__(self, *args, **kwargs):
@@ -162,6 +194,7 @@ class PageUpdateForm(PageColorSchemeSwitchableFormMixin,
                     'title',
                     'language',
                     'translation_of',
+                    'parent',
                     'site',
                     css_id='page-main'
                     ),
@@ -174,7 +207,7 @@ class PageUpdateForm(PageColorSchemeSwitchableFormMixin,
                     'publication_end_date',
                     ),
                 Tab(_('Navigation'),
-                    'in_navigation', 'parent', 'slug',
+                    'in_navigation', 'slug',
                     'override_url', 'redirect_to',
                     'symlinked_page', 'navigation_extension'
                     ),

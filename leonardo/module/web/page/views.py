@@ -2,21 +2,23 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.http import HttpResponseRedirect
+from django.utils.functional import cached_property
+from django.utils.encoding import smart_text
 from django.utils.translation import ugettext_lazy as _
-from leonardo.views import *
 from leonardo import messages
+from leonardo.views import *
 
 from ..models import Page
 from .dimension.forms import PageDimensionForm
-from .tables import PageDimensionTable
 from .forms import PageCreateForm, PageDeleteForm, PageUpdateForm
+from .tables import PageDimensionTable
 
 
 class PageCreateView(ModalFormView):
 
     form_class = PageCreateForm
 
-    @property
+    @cached_property
     def parent(self):
         '''We use parent for some initial data'''
 
@@ -46,6 +48,18 @@ class PageCreateView(ModalFormView):
         return context
 
     def form_valid(self, form):
+
+        # update values from actual parent
+        parent = form.cleaned_data['parent']
+
+        fields = ['color_scheme', 'layout', 'theme',
+                  'site', 'in_navigation', 'template_key']
+
+        changed_fields = form.changed_data
+        for field_name, field in form.fields.items():
+            if field_name not in changed_fields and field_name in fields:
+                form.cleaned_data[field_name] = getattr(parent, field_name)
+
         try:
             page = form.save()
             messages.success(
@@ -58,15 +72,18 @@ class PageCreateView(ModalFormView):
 
     def get_initial(self):
 
-        initial = {}
+        initial = super(PageCreateView, self).get_initial()
 
-        if self.parent:
+        # do not override parent, may was change during edit
+        if 'parent' in self.kwargs and self.request.method == 'GET':
+
             initial.update({
-                'parent': self.parent,
                 'color_scheme': self.parent.color_scheme,
                 'theme': self.parent.theme,
+                'parent': self.parent,
                 'layout': self.parent.layout,
                 'site': self.parent.site,
+                'language': self.parent.language,
                 'template_key': self.parent.template_key,
                 'in_navigation': self.parent.in_navigation,
             })
@@ -82,7 +99,7 @@ class PageUpdateView(ModalFormView):
 
     form_class = PageUpdateForm
 
-    @property
+    @cached_property
     def object(self):
 
         try:
@@ -95,8 +112,9 @@ class PageUpdateView(ModalFormView):
         context = super(PageUpdateView, self).get_context_data(**kwargs)
         # add extra context for template
         context['url'] = self.request.build_absolute_uri()
-        context['modal_header'] = _("Update Page")
-        context['form_submit'] = _("Update")
+        context['modal_header'] = smart_text(
+            _("Update Page") + ' %s' % self.object)
+        context['form_submit'] = _("Update Page")
         context['modal_size'] = "lg"
         context['modal_classes'] = "admin"
         return context
@@ -157,7 +175,8 @@ class PageDimensionUpdateView(ModalFormView):
         return obj
 
     def get_context_data(self, **kwargs):
-        context = super(PageDimensionUpdateView, self).get_context_data(**kwargs)
+        context = super(PageDimensionUpdateView,
+                        self).get_context_data(**kwargs)
         # add extra context for template
         context['url'] = self.request.build_absolute_uri()
         context['modal_header'] = _("Add Page Dimesion")
