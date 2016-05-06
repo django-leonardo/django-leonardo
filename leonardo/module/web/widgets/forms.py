@@ -151,6 +151,41 @@ class WidgetUpdateForm(WidgetForm):
 
     pass
 
+from leonardo.module.web.page.fields import PageSelectField
+
+
+class WidgetMoveForm(SelfHandlingModelForm):
+
+    '''Widget move form'''
+
+    parent = PageSelectField(
+        label=_('Page')
+    )
+
+    region = forms.ChoiceField(
+        label=_('Region'),
+        widget=Select2Widget()
+    )
+
+    def __init__(self, *args, **kwargs):
+
+        super(WidgetMoveForm, self).__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            if field_name not in ['parent', 'region']:
+                field.widget = forms.widgets.HiddenInput()
+
+        # load template regions
+        self.fields['region'].choices = \
+            [(str(region.key),
+              '%s%s' % (
+                str(region.title),
+                ' - Inherited' if region.inherited else ''))
+             for region in self.instance.parent.template.regions]
+
+    class Meta:
+        widgets = {}
+
 
 class WidgetCreateForm(WidgetUpdateForm):
 
@@ -168,14 +203,14 @@ class WidgetDeleteForm(SelfHandlingForm):
 class WidgetSelectForm(SelfHandlingForm):
 
     cls_name = forms.ChoiceField(
-        label="Widget Type",
+        label=_("Widget Type"),
         choices=[],
         required=True,
         widget=Select2Widget()
     )
 
     first = forms.BooleanField(
-        label=('First'),
+        label=_('First ?'),
         help_text=_('If is checked, widget will be'
                     ' placed as first widget in this region'),
         initial=False,
@@ -191,7 +226,7 @@ class WidgetSelectForm(SelfHandlingForm):
         initial=99
     )
     region = forms.ChoiceField(
-        label=('Region'),
+        label=_('Region'),
         widget=Select2Widget()
     )
     parent = forms.IntegerField(
@@ -219,7 +254,7 @@ class WidgetSelectForm(SelfHandlingForm):
             [(str(region.key),
               '%s%s' % (
                 str(region.title),
-                ' - Inherited' if region.inherited else ''))
+                _(' - Inherited') if region.inherited else ''))
              for region in feincms_object.template.regions]
 
         if region_name:
@@ -289,5 +324,12 @@ class FormRepository(object):
 
         return self._forms[cls_name]
 
+    def get_generic_form(self, cls_name, form_cls, widgets={}, **kwargs):
+        model_cls = get_class(cls_name)
+        return modelform_factory(
+            model_cls,
+            exclude=[],
+            form=form_cls,
+            widgets=widgets)
 
 form_repository = FormRepository()

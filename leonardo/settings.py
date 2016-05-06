@@ -101,12 +101,14 @@ if not DEBUG:
             ])]
         TEMPLATES[0]['OPTIONS']['debug'] = False
 else:
+    # Debugging stuff
     TEMPLATE_DEBUG = DEBUG
     TEMPLATES[0]['OPTIONS']['loaders'] = [
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
         'horizon.loaders.TemplateLoader',
     ]
+    COMPRESS_ENABLED = False
 
 APPS = merge(APPS, default.core)
 

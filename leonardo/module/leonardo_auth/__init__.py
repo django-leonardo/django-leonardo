@@ -1,5 +1,6 @@
 
 from django.apps import AppConfig
+from django.utils.translation import ugettext_lazy as _
 
 LEONARDO_WIDGETS = [
     'leonardo.module.leonardo_auth.models.UserLoginWidget',
@@ -17,4 +18,4 @@ LEONARDO_PAGE_ACTIONS = ['leonardo_auth/_actions.html']
 
 class Config(AppConfig):
     name = 'leonardo.module.leonardo_auth'
-    verbose_name = "Auth module"
+    verbose_name = _("Auth module")

@@ -14,8 +14,8 @@ from leonardo.views import (ContextMixin, CreateView, ModalFormView,
                             ModelFormMixin, UpdateView)
 
 from ..models import Page
-from .forms import (WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm,
-                    form_repository)
+from .forms import (WidgetDeleteForm, WidgetMoveForm, WidgetSelectForm,
+                    WidgetUpdateForm, form_repository)
 from .tables import WidgetDimensionTable
 from .utils import get_widget_from_id
 
@@ -105,6 +105,7 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
         request.method = 'GET'
         return JsonResponse(data={
             'id': obj.fe_identifier,
+            'parent_slug': obj.parent.slug,
             'content': self.model.objects.get(
                 id=self.kwargs["id"]).render_content({'request': request})
         })
@@ -145,6 +146,7 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
         return JsonResponse(data={
             'id': obj.fe_identifier,
             'content': obj.render_content({'request': self.request}),
+            'parent_slug': obj.parent.slug,
             'region': obj.region,
             'ordering': obj.ordering
         })
@@ -421,3 +423,42 @@ class JSReverseView(WidgetReorderView):
 
         return JsonResponse({'url': reverse(
             view_name, args=args, kwargs=self.clean_kwargs(kwargs))})
+
+
+class WidgetMoveView(WidgetUpdateView):
+    '''Move action'''
+
+    form_class = WidgetMoveForm
+
+    def get_form_class(self):
+        if not hasattr(self, '_form_class'):
+            kw = self.kwargs
+            kw['form_cls'] = self.form_class
+            kw['widgets'] = self.form_class.Meta.widgets
+            self._form_class = form_repository.get_generic_form(**self.kwargs)
+        return self._form_class
+
+    def get_form(self, form_class):
+        """Returns an instance of the form to be used in this view."""
+        if not hasattr(self, '_form'):
+            kwargs = self.get_form_kwargs()
+            self._form = form_class(instance=self.object, **kwargs)
+        return self._form
+
+    def form_valid(self, form):
+
+        obj = self.object
+        obj.parent = form.cleaned_data['parent']
+        obj.region = form.cleaned_data['region']
+        obj.save()
+        obj.parent.save()
+
+        if not self.request.is_ajax():
+            success_url = obj.parent.get_absolute_url()
+            response = HttpResponseRedirect(success_url)
+            response['X-Horizon-Location'] = success_url
+
+        return JsonResponse(data={
+            'needs_reload': True,
+#            'target': obj.parent.get_absolute_url(),
+        })

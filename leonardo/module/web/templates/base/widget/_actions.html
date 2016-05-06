@@ -7,6 +7,7 @@
 {% url 'widget_reorder' widget.get_ct_name widget.id 1 as order_down_url %}
 {% url 'widget_reorder' widget.get_ct_name widget.id 0 as order_first_url %}
 {% url 'widget_reorder' widget.get_ct_name widget.id 5 as order_last_url %}
+{% url 'widget_move' widget.get_ct_name widget.id as move_url %}
 
 <div class="btn-group wide">
   <a class="ajax-modal leonardo-btn leonardo-btn-info aylen" href="{{ update_url }}"><i class="fa fa-pencil-square-o"></i></a>
@@ -15,6 +16,7 @@
   <a class="ajax-modal leonardo-btn leonardo-btn-danger aylen" href="{{ delete_url }}"><i class="fa fa-times"></i></a>
   <button data-toggle="dropdown" class="leonardo-btn btn-box-tool leonardo-btn-success dropdown-toggle aylen" id="edit-position"><i class="fa fa-exchange"></i></button>
   <ul class="dropdown-menu dropdown-menu-right">
+    <li><a href="{{ move_url }}" class="ajax-modal">{% trans 'Move' %}</a></li>
     <li><a href="{{ order_up_url }}">{% trans 'Up' %}</a></li>
     <li><a href="{{ order_down_url }}">{% trans 'Down' %}</a></li>
     <li><a href="{{ order_first_url }}">{% trans 'As first' %}</a></li>
@@ -32,6 +34,7 @@
     <li class="dropdown-submenu pull-left">
       <a tabindex="-1" href="#">Position</a>
       <ul class="dropdown-menu">
+        <li><a href="{{ move_url }}" class="ajax-modal">{% trans 'Move' %}</a></li>
         <li><a href="{{ order_up_url }}">{% trans 'Up' %}</a></li>
         <li><a href="{{ order_down_url }}">{% trans 'Down' %}</a></li>
         <li><a href="{{ order_first_url }}">{% trans 'As first' %}</a></li>

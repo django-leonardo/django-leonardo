@@ -58,7 +58,7 @@ msgstr "Vytvořit účet nezdařilo."
 
 #: module/leonardo_auth/panel.py:10
 msgid "Auth"
-msgstr "Auth"
+msgstr "Autentifikace"
 
 #: module/leonardo_auth/templates/leonardo_auth/_actions.html:5
 #: module/leonardo_auth/templates/widget/userlogin/default.html:14

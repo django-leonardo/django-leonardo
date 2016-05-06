@@ -254,7 +254,18 @@ horizon.addInitFunction(horizon.modals.init = function() {
                   window.location.replace('#' + data.id);
                 } else {
                   // append before region tools
-                  $(data.content).insertBefore('.' + data.region + ' > .region-tools');
+                  if (data.hasOwnProperty('parent_slug')) {
+                    var data_region = $('.' + data.region + '-' + data.parent_slug);
+                    if ($('#' + data.parent_slug) !== undefined) {
+                      /* this content is in the context navigation */
+                      $(data.content).insertBefore('#' + data.parent_slug + '>:first-child > .region-tools');
+                    } else {
+                        /* standard placing */
+                        $(data.content).insertBefore('.' + data.region + ' > .region-tools');
+                      }
+                  } else {
+                    $(data.content).insertBefore('.' + data.region + ' > .region-tools');
+                  }
                 }
               } else {
                 // update
@@ -273,6 +284,7 @@ horizon.addInitFunction(horizon.modals.init = function() {
           $form.closest(".modal").modal("hide");
 
         } else {
+
           $form.closest(".modal").modal("hide");
           if (redirect_header) {
             location.href = redirect_header;
@@ -286,6 +298,16 @@ horizon.addInitFunction(horizon.modals.init = function() {
           } else {
             horizon.modals.success(data, textStatus, jqXHR);
           }
+
+          /* handle reload request */
+          if (data.hasOwnProperty('needs_reload')) {
+            if (data.hasOwnProperty('target')) {
+              location.href = data.target;
+            } else {
+              location.reload();
+            }
+          }
+
         }
       },
       error: function (jqXHR, status, errorThrown) {

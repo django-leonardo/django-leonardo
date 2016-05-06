@@ -3,7 +3,7 @@
 {% block content %}
 {% for item in items %}
 <div id="{{ item.slug }}" class='fullSection'>
-  <div class="container{% if item.layout == 'fluid' %}-fluid{% endif %}">
+  <div class="container{% if item.layout == 'fluid' %}-fluid{% endif %} {{ widget.page_region }}-{{ widget.parent.slug }}">
     {% include "widget/contextnavigation/_item.html" with item=item  %}
   </div>
 </div>
