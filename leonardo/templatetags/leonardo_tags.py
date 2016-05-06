@@ -257,3 +257,13 @@ def feincms_object_tools(context, cls_name):
             'horizon:contrib:forms:create',
             args=[cls_name])
     }
+
+
+@register.inclusion_tag('leonardo/common/_webfont_loader.html',
+                        takes_context=True)
+def font_loader(context, font):
+    """
+    {% font_loader "Raleway:300,400,500,600,700,800|Ubuntu:300,400,500,700" %}
+    """
+
+    return {'font': font}
