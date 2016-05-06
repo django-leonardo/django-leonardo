@@ -63,9 +63,8 @@ def technical_404_response(request, exception):
         feincms_page = Page.objects.for_request(request, best_match=True)
         template = feincms_page.theme.template
     except:
-        feincms_page = None
-        slug = None
-        template = None
+        feincms_page = Page.objects.filter(parent=None).first()
+        template = feincms_page.theme.template
     else:
         # nested path is not allowed for this time
         try:
