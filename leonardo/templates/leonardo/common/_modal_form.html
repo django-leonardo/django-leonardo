@@ -1,10 +1,19 @@
+{% load i18n %}
 <div id="{% block modal_id %}{% endblock %}"
   class="{% block modal_class %}{% if hide %}modal{% else %}static_page{% endif %}{% endblock %} {{ modal_size|default:'md' }} {{ modal_classes }}" data-backdrop="{{ modal_backdrop|default:'static' }}">
   <div class="{% if hide %}modal-dialog{% endif %} modal-{{ modal_size|default:'md' }}">
     <div class="{% if hide %}modal-content{% endif %}">
       <div class="modal-header">
         {% if hide %}<a href="#" class="close" data-dismiss="modal">&times;</a>{% endif %}
-        {% if hide %}<a href="#" class="full-screen" id="modal-full-screen"><i class="fa fa-expand"></i></a>{% endif %}
+        <a href="#" class="full-screen" id="modal-full-screen"><i class="fa fa-expand"></i></a>
+        {% if actions %}
+        <div style="float: right !important;width: 300px;">
+        <span>{% trans "Quick Actions" %}:&nbsp;</span>
+        {% for extra_action in actions %}
+        <a href="{{ extra_action.url }}" title="{{ extra_action.description|default:extra_action.url }}" alt="{{ extra_action.description|default:extra_action.url }}" data-toggle="tooltip" class="{{ extra_action.classes }}" id="{{ extra_action.id }}"><i class="{{ extra_action.icon|default:'fa fa-expand' }}"></i></a>
+        {% endfor %}
+        {% endif %}
+        </div>
         <h3>{% block modal-header %}{% endblock %}</h3>
       </div>
 

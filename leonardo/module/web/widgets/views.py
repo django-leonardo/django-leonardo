@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -78,6 +78,12 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(WidgetUpdateView, self).get_context_data(**kwargs)
         context['modal_classes'] = self.get_classes()
+        context['actions'] = [{
+            'url': reverse_lazy('page_update', args=(self.object.parent.id,)),
+            'icon': 'fa fa-pencil',
+            'classes': 'ajax-modal',
+            'description': _('Edit parent page')
+        }]
         return context
 
     def get_form_class(self):
