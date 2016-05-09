@@ -12,8 +12,8 @@
         {% for extra_action in actions %}
         <a href="{{ extra_action.url }}" title="{{ extra_action.description|default:extra_action.url }}" alt="{{ extra_action.description|default:extra_action.url }}" data-toggle="tooltip" class="{{ extra_action.classes }}" id="{{ extra_action.id }}"><i class="{{ extra_action.icon|default:'fa fa-expand' }}"></i></a>
         {% endfor %}
-        {% endif %}
         </div>
+        {% endif %}
         <h3>{% block modal-header %}{% endblock %}</h3>
       </div>
 
