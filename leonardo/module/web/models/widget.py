@@ -299,21 +299,21 @@ class Widget(FeinCMSBase):
         return self.render_content(options)
 
     def get_template_data(self, request):
-        '''returns dictionary
+        '''returns a RequestContext
         use this method for providing context data
         '''
-        return {}
+        return RequestContext(request, {})
 
     def get_context_data(self, request):
         '''returns initial context'''
 
-        context = {
+        context = RequestContext(request, {
             'widget': self,
             'base_template': self.get_base_template,
             'request': request,
             'LEONARDO_CONFIG': context_config
-        }
-        context.update(self.get_template_data(request))
+        })
+        context.push(self.get_template_data(request))
         return context
 
     def render_content(self, options):
