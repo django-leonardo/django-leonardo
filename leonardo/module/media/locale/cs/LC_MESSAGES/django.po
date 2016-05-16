@@ -948,6 +948,9 @@ msgid ""
 "                Page %(number)s of %(num_pages)s.\n"
 "            "
 msgstr ""
+"\n"
+"                Stránka %(number)s z %(num_pages)s.\n"
+"            "
 
 #: module/media/templates/admin/media/folder/directory_table.html:199
 msgid "next"
@@ -956,14 +959,14 @@ msgstr "další"
 #: module/media/templates/admin/media/folder/new_folder_form.html:5
 #: module/media/templates/admin/media/folder/scan_form.html:19
 msgid "Add new"
-msgstr "Přidat nový %(name)s "
+msgstr "Přidat novou složku"
 
 #: module/media/templates/admin/media/folder/new_folder_form.html:16
 #: module/media/templates/admin/media/folder/scan_form.html:28
 msgid "Please correct the error below."
 msgid_plural "Please correct the errors below."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Prosím opravte chybu vyznačenou níže."
+msgstr[1] "Prosím opravte chyby vyznačené níže."
 
 #: module/media/templates/admin/media/folder/new_folder_form.html:31
 msgid "Save"
