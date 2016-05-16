@@ -27,6 +27,7 @@ CONF_SPEC = {
     'widget_actions': [],
     'ordering': 0,
     'channel_routing': [],
+    'extra_context': {},
 }
 
 # just MAP - Django - Our spec
