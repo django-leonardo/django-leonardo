@@ -9,7 +9,8 @@ from random import SystemRandom
 import six
 from django.core.cache import cache
 from django.core.urlresolvers import *
-from django.core.urlresolvers import get_script_prefix, set_script_prefix
+from django.core.urlresolvers import (clear_script_prefix, get_script_prefix,
+                                      set_script_prefix)
 from django.template.response import TemplateResponse
 
 from .models import ApplicationWidget
@@ -66,6 +67,9 @@ def app_reverse(viewname, urlconf=None, args=None, kwargs=None,
     url_prefix = cache.get(cache_key)
 
     if url_prefix is None:
+
+        clear_script_prefix()
+
         content = appcontent_class.closest_match(urlconf)
 
         if content is not None:
@@ -78,6 +82,7 @@ def app_reverse(viewname, urlconf=None, args=None, kwargs=None,
             prefix += '/' if prefix[-1] != '/' else ''
 
             url_prefix = (urlconf, prefix)
+
             cache.set(cache_key, url_prefix, timeout=APP_REVERSE_CACHE_TIMEOUT)
 
     if url_prefix:
@@ -170,20 +175,24 @@ def reverse(viewname, urlconf=None, args=None, kwargs=None, current_app=None):
                 resolved_path.append(ns)
                 ns_pattern = ns_pattern + extra
             except KeyError as key:
+
                 for urlconf, config in six.iteritems(
                         ApplicationWidget._feincms_content_models[0].ALL_APPS_CONFIG):
-                    partials = viewname.split(':')[1:]
 
-                    try:
-                        url = app_reverse(
-                            ':'.join(partials), urlconf, args=args, kwargs=kwargs,
-                            current_app=current_app)
-                    except NoReverseMatch:
-                        pass
-                    else:
-                        # ensure that viewname is in urlconf
-                        if urlconf.split(".")[-1] in viewname:
-                            return url
+                    partials = viewname.split(':')
+                    app = partials[0]
+                    partials = partials[1:]
+
+                    # check if namespace is same as app name and try resolve
+                    if urlconf.split(".")[-1] == app:
+
+                        try:
+                            return app_reverse(
+                                ':'.join(partials),
+                                urlconf, args=args, kwargs=kwargs,
+                                current_app=current_app)
+                        except NoReverseMatch:
+                            pass
 
                 if resolved_path:
                     raise NoReverseMatch(
