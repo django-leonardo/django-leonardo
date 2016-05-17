@@ -2,7 +2,7 @@
 
 from __future__ import absolute_import, unicode_literals
 
-from django.core.urlresolvers import (Resolver404, resolve)
+from django.core.urlresolvers import Resolver404, resolve
 from django.db import models
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
@@ -12,6 +12,7 @@ from django.utils.functional import curry as partial
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from feincms.utils import get_object
+from leonardo.forms import Select2Widget
 from leonardo.module.web.models import Widget
 from leonardo.module.web.widgets.forms import WidgetUpdateForm
 
@@ -24,6 +25,10 @@ except:
 class ApplicationWidget(Widget, ApplicationContent):
 
     icon = "fa fa-plug"
+
+    widgets = {
+        'urlconf_path': Select2Widget
+    }
 
     @classmethod
     def initialize_type(cls, APPLICATIONS):
