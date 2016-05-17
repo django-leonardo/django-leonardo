@@ -113,6 +113,13 @@ class ListMixin(object):
         return md, (sm or md), 12
 
     @cached_property
+    def item_classes(self):
+        '''Return all classes for every item in row
+        This is specific for concrete frontend framework
+        '''
+        return 'col-md-{} col-xs-{} col-sm-{}'.format(self.columns_classes)
+
+    @cached_property
     def get_pages(self):
         '''returns pages with rows'''
         pages = []
