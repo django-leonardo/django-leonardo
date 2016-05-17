@@ -83,6 +83,7 @@ class PageCreateForm(PageColorSchemeSwitchableFormMixin,
         widgets = {
             'parent': forms.widgets.HiddenInput,
             'theme': Select2Widget,
+            'language': Select2Widget,
         }
         exclude = tuple()
 
@@ -170,6 +171,8 @@ class PageUpdateForm(PageColorSchemeSwitchableFormMixin,
         model = Page
         widgets = {
             'publication_date': forms.widgets.DateInput,
+            'language': Select2Widget,
+            'navigation_extension': Select2Widget
         }
         exclude = tuple()
 

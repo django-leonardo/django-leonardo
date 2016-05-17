@@ -9,25 +9,28 @@ from leonardo.forms import SelfHandlingForm
 from leonardo.module.web.models import Page, PageTheme, PageColorScheme
 from leonardo.module.web.const import PAGE_LAYOUT_CHOICES
 from leonardo.module.web.page.forms import PageColorSchemeSwitchableFormMixin
-from django_select2.forms import Select2Widget
+from leonardo.forms import LanguageSelectField, Select2Widget
+from leonardo.module.web.page.fields import PageThemeSelectField
 
 
 class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
 
     """Page Mass Update
 
-    Form for mass update of page theme, color scheme and layout
+    Form for mass update of page theme, color scheme, layout and language
 
     """
 
     page_id = forms.IntegerField(
         label=_('Page ID'), widget=forms.widgets.HiddenInput)
 
-    theme = forms.ModelChoiceField(
+    language = LanguageSelectField(
+        required=False
+    )
+
+    theme = PageThemeSelectField(
         label=_('Theme'),
-        required=False,
-        queryset=PageTheme.objects.all(),
-        widget=Select2Widget
+        required=False
     )
 
     layout = forms.ChoiceField(
@@ -51,6 +54,7 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
                     'depth',
                     'page_id',
                     'from_root',
+                    'language',
                     ),
                 Tab(_('Styles'),
                     'layout',
@@ -81,6 +85,8 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
         for page in root_page.get_descendants():
 
             if page.level <= data['depth']:
+                if data.get('language', None):
+                    page.language = data['language']
                 if color_scheme:
                     page.color_scheme = data['color_scheme']
                 if layout:
@@ -97,5 +103,8 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
     def clean(self):
         cleaned = super(PageMassChangeForm, self).clean()
         theme = cleaned['theme']
-        cleaned['color_scheme'] = self.cleaned_data['theme__%s' % theme.id]
+
+        if theme:
+            cleaned['color_scheme'] = self.cleaned_data['theme__%s' % theme.id]
+
         return cleaned
