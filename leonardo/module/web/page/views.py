@@ -227,7 +227,7 @@ class PageDeleteView(ModalFormView, ContextMixin, ModelFormMixin):
     def form_valid(self, form):
         obj = self.object
         try:
-            if object.parent:
+            if obj.parent:
                 success_url = obj.parent.get_absolute_url()
             else:
                 success_url = '/'
