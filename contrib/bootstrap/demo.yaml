@@ -36,3 +36,17 @@ web.Page:
             base_theme: default
           dimensions:
             md: 4
+      col3:
+        web.HtmlTextWidget:
+          attrs:
+            content_theme: documentation
+            base_theme: default
+            label: Quickstart
+            text: " "
+      footer:
+        web.HtmlTextWidget:
+          attrs:
+            content_theme: footer
+            base_theme: default
+            align: center
+            text: " "
