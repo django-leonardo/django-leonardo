@@ -14,6 +14,7 @@ from feincms.admin.item_editor import ItemEditorForm
 from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
 from leonardo.utils.widgets import get_grouped_widgets
+from leonardo.module.web.page.fields import PageSelectField
 
 
 class IconPreviewSelect(floppyforms.widgets.Select):
@@ -22,7 +23,6 @@ class IconPreviewSelect(floppyforms.widgets.Select):
 
 WIDGETS = {
     'template_name': forms.RadioSelect(choices=[]),
-    'parent': forms.widgets.HiddenInput,
     'ordering': forms.widgets.HiddenInput,
     'icon': IconPreviewSelect(attrs={'style': "font-family: 'FontAwesome', Helvetica;"}),
 }
@@ -45,6 +45,9 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
         widget=forms.widgets.HiddenInput,
         required=False
     )
+
+    parent = PageSelectField(
+        label=_("Parent"), help_text=_("Parent Page"))
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)
@@ -72,6 +75,7 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
         # get all fields for widget
         main_fields = self._meta.model.fields()
         main_fields.update({'label': 'label'})
+        main_fields.pop("parent", None)
 
         self.helper.layout = Layout(
             TabHolder(
@@ -82,9 +86,8 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
                 Tab(_('Styles'),
                     'base_theme', 'content_theme', 'color_scheme',
                     Fieldset(_('Positions'), 'layout', 'align',
-                             'vertical_align'),
-                    'id', 'region', 'ordering',
-                    'parent',
+                             'vertical_align', 'parent'),
+                    *self.get_id_field(),
                     css_id='theme-widget-settings'
                     ),
                 Tab(_('Effects'),
@@ -119,6 +122,11 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
 
         # finally add custom tabs
         self.init_custom_tabs()
+
+    def get_id_field(self):
+        if 'id' in self.fields:
+            return ['id']
+        return []
 
     def init_themes(self):
         queryset = self.fields['content_theme'].queryset
@@ -297,6 +305,7 @@ class WidgetSelectForm(SelfHandlingForm):
 
 
 class FormRepository(object):
+
     '''Simple form repository which returns cached classes'''
 
     _forms = {}
