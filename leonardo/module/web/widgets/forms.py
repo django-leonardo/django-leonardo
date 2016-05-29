@@ -49,6 +49,10 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
     parent = PageSelectField(
         label=_("Parent"), help_text=_("Parent Page"))
 
+    prerendered_content = forms.CharField(
+        label=_("CSS Classes"), help_text=_("Custom CSS classes"),
+        required=False)
+
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)
         super(WidgetForm, self).__init__(*args, **kwargs)
@@ -85,6 +89,7 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
                     ),
                 Tab(_('Styles'),
                     'base_theme', 'content_theme', 'color_scheme',
+                    'prerendered_content',
                     Fieldset(_('Positions'), 'layout', 'align',
                              'vertical_align', 'parent'),
                     *self.get_id_field(),

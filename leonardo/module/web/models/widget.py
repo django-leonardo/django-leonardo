@@ -9,7 +9,7 @@ from django.forms.models import fields_for_model
 from django.template import RequestContext, loader
 from django.template.loader import render_to_string
 from django.utils import six
-from django.utils.encoding import python_2_unicode_compatible
+from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from feincms.admin.item_editor import FeinCMSInline
@@ -111,7 +111,7 @@ class WidgetDimension(models.Model):
         return ' '.join(classes)
 
     def __str__(self):
-        return "{0} - {1}".format(self.widget_type, self.classes)
+        return smart_text("{0} - {1}".format(self.widget_type, self.classes))
 
     class Meta:
         verbose_name = _("Widget dimension")
@@ -133,7 +133,7 @@ class WidgetContentTheme(models.Model):
         verbose_name=_('Widget class'), max_length=255)
 
     def __str__(self):
-        return self.label or str(self._meta.verbose_name + ' %s' % self.pk)
+        return self.label or smart_text(self._meta.verbose_name + ' %s' % self.pk)
 
     class Meta:
         verbose_name = _("Widget content theme")
@@ -154,7 +154,7 @@ class WidgetBaseTheme(models.Model):
     style = models.TextField(verbose_name=_('Base style'), blank=True)
 
     def __str__(self):
-        return self.label or str(self._meta.verbose_name + ' %s' % self.pk)
+        return self.label or smart_text(self._meta.verbose_name + ' %s' % self.pk)
 
     class Meta:
         verbose_name = _("Widget base theme")
@@ -166,8 +166,6 @@ class Widget(FeinCMSBase):
 
     feincms_item_editor_inline = WidgetInline
 
-    prerendered_content = models.TextField(
-        verbose_name=_('prerendered content'), blank=True)
     enabled = models.NullBooleanField(
         verbose_name=_('Is visible?'), default=True)
     label = models.CharField(
@@ -187,6 +185,10 @@ class Widget(FeinCMSBase):
     vertical_align = models.CharField(
         verbose_name=_("Vertical Alignment"), max_length=25,
         default='top', choices=VERTICAL_ALIGN_CHOICES)
+
+    # TODO: rename this to widget_classes
+    prerendered_content = models.TextField(
+        verbose_name=_('prerendered content'), blank=True)
 
     # common attributes
     enter_effect_style = models.CharField(
@@ -230,7 +232,7 @@ class Widget(FeinCMSBase):
         verbose_name_plural = _("Abstract widgets")
 
     def __str__(self):
-        return self.label or (
+        return self.label or smart_text(
             '%s<pk=%s, parent=%s<pk=%s, %s>, region=%s,'
             ' ordering=%d>') % (
             self.__class__.__name__,
@@ -251,12 +253,6 @@ class Widget(FeinCMSBase):
     def content_type(self):
         return ContentType.objects.get_for_model(self)
 
-    def thumb_geom(self):
-        return config_value('MEDIA', 'THUMB_MEDIUM_GEOM')
-
-    def thumb_options(self):
-        return config_value('MEDIA', 'THUMB_MEDIUM_OPTIONS')
-
     def get_template_name(self):
         return self.content_theme.template
 
@@ -266,7 +262,7 @@ class Widget(FeinCMSBase):
 
     def _template_xml_name(self):
         template = 'default'
-        return u'widget/%s/%s.xml' % (self.widget_name, template)
+        return 'widget/%s/%s.xml' % (self.widget_name, template)
     template_xml_name = property(_template_xml_name)
 
     @property
@@ -365,37 +361,49 @@ class Widget(FeinCMSBase):
 
     @cached_property
     def render_content_classes(self):
-        """agreggate all css classes
+        """agreggate all content classes
+        ordered from abstract to concrete instance
         """
         classes = [
             'leonardo-content',
             'template-%s' % self.content_theme.name,
-            '%s-content-%s' % (self.widget_name, self.content_theme.name)
+            '%s-content-%s' % (self.widget_name, self.content_theme.name),
+            '%s-content' % self.fe_identifier,
         ]
-        if self.vertical_align == "middle":
-          classes.append("centered")
-        return " ".join(classes)
 
-    def get_classes(self):
-        '''return array of custom widget classes'''
-        if hasattr(self, 'classes') and isinstance(self.classes, str):
-            return self.classes.split(' ')
-        return []
+        if self.vertical_align == "middle":
+            classes.append("centered")
+
+        return " ".join(classes)
 
     @cached_property
     def render_base_classes(self):
-        """agreggate all css classes
+        """agreggate all wrapper classes
+        ordered from abstract to concrete instance
         """
         classes = self.get_dimension_classes
-        classes.append('%s-base-%s' % (self.widget_name, self.base_theme.name))
         classes.append('leonardo-widget')
-        classes.append('leonardo-%s-widget' % self.widget_name)
-        classes.append( "text-%s" % self.align)
+        classes.append('text-%s' % self.align)
+        classes.append('%s-base-%s' % (self.widget_name, self.base_theme.name))
+        classes.append('%s-base' % (self.fe_identifier))
+
+        # trigger widget auto-reload
         if getattr(self, 'auto_reload', False):
             classes.append('auto-reload')
+
+        # special vertical align
         if self.vertical_align == 'middle':
             classes.append("valignContainer")
-        return " ".join(classes + self.get_classes())
+
+        # specific widget classes without overhead
+        if hasattr(self, 'classes') and isinstance(self.classes, str):
+            classes += self.classes.split(' ')
+
+        # TODO: add or rename this field to widget_classes
+        if self.prerendered_content:
+            classes.append(self.prerendered_content)
+
+        return " ".join(classes)
 
     @classmethod
     def get_widget_for_field(cls, name):
