@@ -57,7 +57,7 @@ class WidgetViewMixin(object):
 
     def get_page(self):
         if not hasattr(self, '_page'):
-            self._page = Page.objects.get(id=self.kwargs['page_id'])
+            self._page = self.model.objects.get(id=self.kwargs['page_id'])
         return self._page
 
     def get_form_kwargs(self):

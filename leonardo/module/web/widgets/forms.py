@@ -13,8 +13,8 @@ from django_select2.forms import Select2Widget
 from feincms.admin.item_editor import ItemEditorForm
 from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
-from leonardo.utils.widgets import get_grouped_widgets
 from leonardo.module.web.page.fields import PageSelectField
+from leonardo.utils.widgets import get_grouped_widgets
 
 
 class IconPreviewSelect(floppyforms.widgets.Select):
@@ -163,8 +163,6 @@ class WidgetUpdateForm(WidgetForm):
     '''obsolete name'''
 
     pass
-
-from leonardo.module.web.page.fields import PageSelectField
 
 
 class WidgetMoveForm(SelfHandlingModelForm):
