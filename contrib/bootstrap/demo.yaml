@@ -43,6 +43,18 @@ web.Page:
             base_theme: default
             label: Quickstart
             text: " "
+          dimensions:
+            md: 6
+       web.FeedReaderWidget:
+          attrs:
+            content_theme: default
+            base_theme: default
+            label: Recent News
+            objects_per_row: 1
+            objects_per_page: 8
+            source_address: https://www.leonardo-cms.org/en/news/feed/ 
+          dimensions:
+            md: 6
       footer:
         web.HtmlTextWidget:
           attrs:

@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+import sys
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -13,6 +14,7 @@ from leonardo import messages
 from leonardo.views import (ContextMixin, CreateView, ModalFormView,
                             ModelFormMixin, UpdateView)
 
+from django.utils import six
 from ..models import Page
 from .forms import (WidgetDeleteForm, WidgetMoveForm, WidgetSelectForm,
                     WidgetUpdateForm, form_repository)
@@ -143,8 +145,9 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
-        except Exception as e:
-            raise e
+        except Exception:
+            exc_info = sys.exc_info()
+            raise six.reraise(*exc_info)
 
         if not self.request.is_ajax():
             return response

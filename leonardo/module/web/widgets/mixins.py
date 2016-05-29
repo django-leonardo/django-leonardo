@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 import json
-
+import datetime
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -232,6 +232,9 @@ class ContentProxyWidgetMixin(models.Model):
         """
         raise NotImplementedError
 
+    def get_items(self):
+        return self.data
+
     @property
     def data(self):
         """this property just calls ``get_data``
@@ -252,15 +255,35 @@ class JSONContentMixin(object):
     """just expect json data from ``get_data`` method
     """
 
+    def parse_time(self, time):
+        return datetime.date(*time[:3]).isoformat()
+
     @property
     def data(self):
         """load and cache data in json format
         """
 
         if self.is_obsolete():
-            self.cache_data = json.dumps(self.get_data())
-            self.update_cache()
-        return json.loads(self.cache_data)
+            data = self.get_data()
+            for datum in data:
+                if 'published_parsed' in datum:
+                    datum['published_parsed'] = \
+                        self.parse_time(datum['published_parsed'])
+
+            try:
+                dumped_data = json.dumps(data)
+            except:
+                self.update_cache(data)
+            else:
+                self.update_cache(dumped_data)
+                return data
+
+        try:
+            return json.loads(self.cache_data)
+        except:
+            return self.cache_data
+
+        return self.get_data()
 
 
 class AuthContentProxyWidgetMixin(models.Model):
