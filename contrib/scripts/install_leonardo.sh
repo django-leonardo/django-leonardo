@@ -14,9 +14,8 @@ cd myproject
 
 python manage.py makemigrations --noinput
 python manage.py migrate --noinput
-python manage.py bootstrap_site --url=http://raw.githubusercontent.com/django-leonardo/django-leonardo/develop/contrib/bootstrap/demo.yaml
+python manage.py bootstrap_site --url=http://github.com/django-leonardo/django-leonardo/raw/master/contrib/bootstrap/demo.yaml
 
 echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'mail@leonardo.cz', 'admin')" | python manage.py shell
 
 python manage.py runserver 0.0.0.0:80
-
