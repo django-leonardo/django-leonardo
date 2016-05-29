@@ -8,25 +8,13 @@ from django.template.loader import render_to_string
 CONTENT_TYPE = 'text/html'
 
 
-def _get_page_from_request(request):
-    """return page from request
-    """
-
-    try:
-        from leonardo.module.web.models import Page
-        feincms_page = Page.objects.for_request(request, best_match=True)
-    except:
-        feincms_page = None
-
-    return feincms_page
-
-
 def render_in_page(request, template):
-
     """return rendered template in standalone mode or ``False``
     """
+    from leonardo.module.web.models import Page
 
-    page = _get_page_from_request(request)
+    page = request.leonardo_page if hasattr(
+        request, 'leonardo_page') else Page.objects.filter(parent=None).first()
 
     if page:
         try:
@@ -40,7 +28,8 @@ def render_in_page(request, template):
                 'feincms_page': page,
                 'slug': slug,
                 'standalone': True}))
-            response = http.HttpResponseNotFound(body, content_type=CONTENT_TYPE)
+            response = http.HttpResponseNotFound(
+                body, content_type=CONTENT_TYPE)
         except TemplateDoesNotExist:
             response = False
 
@@ -70,7 +59,8 @@ def page_not_found(request, template_name='404.html'):
     template = Template(
         '<h1>Not Found</h1>'
         '<p>The requested URL {{ request_path }} was not found on this server.</p>')
-    body = template.render(RequestContext(request, {'request_path': request.path}))
+    body = template.render(RequestContext(
+        request, {'request_path': request.path}))
     return http.HttpResponseNotFound(body, content_type=CONTENT_TYPE)
 
 
