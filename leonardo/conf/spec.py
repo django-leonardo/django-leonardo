@@ -28,6 +28,7 @@ CONF_SPEC = {
     'ordering': 0,
     'channel_routing': [],
     'extra_context': {},
+    'demo_paths': []
 }
 
 # just MAP - Django - Our spec
