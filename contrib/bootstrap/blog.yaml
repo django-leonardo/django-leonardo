@@ -55,12 +55,11 @@ web.Page:
   Blog:
     title: Blog
     slug: blog
-    override_url: /
     featured: false
     theme: bootstrap
     in_navigation: true
     active: true
-    color_scheme: default
+    color_scheme: Default
     parent: quickstart
     content:
       col3:
