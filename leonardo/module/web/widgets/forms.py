@@ -6,6 +6,7 @@ from crispy_forms.bootstrap import Tab, TabHolder
 from crispy_forms.layout import HTML, Field, Fieldset, Layout
 from django import forms
 from django.apps import apps
+from leonardo.module.web.models import Page
 from django.forms.models import modelform_factory
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -46,18 +47,24 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
         required=False
     )
 
-    parent = PageSelectField(
-        label=_("Parent"), help_text=_("Parent Page"))
-
     prerendered_content = forms.CharField(
         label=_("CSS Classes"), help_text=_("Custom CSS classes"),
         required=False)
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)
+        model = kwargs.pop('model', None)
+
         super(WidgetForm, self).__init__(*args, **kwargs)
 
+        if isinstance(model, Page):
+            self.fields['parent'] = PageSelectField(
+                label=_("Parent"), help_text=_("Parent Page"))
+        else:
+            self.fields['parent'].widget = forms.widgets.HiddenInput()
+
         initial = kwargs.get('initial', None)
+
         if initial and initial.get('id', None):
             widget = self._meta.model.objects.get(
                 id=initial['id'])
