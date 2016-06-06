@@ -27,7 +27,7 @@ class SiteMapWidget(Widget):
         return self.root if self.root else self.parent
 
     def get_template_data(self, request):
-        page_list = self.root.get_children()
+        page_list = self.get_root().get_children()
 
         return {
             'page_list': page_list,
