@@ -6,11 +6,12 @@ from django.http import HttpResponseRedirect
 from leonardo import forms
 from django.utils.translation import ugettext_lazy as _
 from leonardo.forms import SelfHandlingForm
-from leonardo.module.web.models import Page, PageTheme, PageColorScheme
+from leonardo.module.web.models import Page
 from leonardo.module.web.const import PAGE_LAYOUT_CHOICES
 from leonardo.module.web.page.forms import PageColorSchemeSwitchableFormMixin
 from leonardo.forms import LanguageSelectField, Select2Widget
 from leonardo.module.web.page.fields import PageThemeSelectField
+from leonardo.forms.fields.sites import SiteSelectField
 
 
 class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
@@ -38,6 +39,10 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
         choices=BLANK_CHOICE_DASH + list(PAGE_LAYOUT_CHOICES),
         required=False)
 
+    site = SiteSelectField(
+        required=False
+    )
+
     depth = forms.IntegerField(label=_('Depth'), initial=1)
     from_root = forms.BooleanField(label=_('From Root ?'), initial=True)
 
@@ -54,6 +59,7 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
                     'depth',
                     'page_id',
                     'from_root',
+                    'site',
                     'language',
                     ),
                 Tab(_('Styles'),
@@ -74,25 +80,33 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
         color_scheme = data.get('color_scheme', None)
         theme = data.get('theme', None)
         layout = data.get('layout', None)
+        site = data.get('site', None)
+        language = data.get('language', None)
 
         if color_scheme:
-            root_page.color_scheme = data['color_scheme']
+            root_page.color_scheme = color_scheme
         if layout:
-            root_page.layout = data['layout']
+            root_page.layout = layout
         if theme:
-            root_page.theme = data['theme']
+            root_page.theme = theme
+        if site:
+            root_page.site = site
+        if language:
+            root_page.site = language
 
         for page in root_page.get_descendants():
 
             if page.level <= data['depth']:
-                if data.get('language', None):
-                    page.language = data['language']
+                if language:
+                    page.language = language
                 if color_scheme:
-                    page.color_scheme = data['color_scheme']
+                    page.color_scheme = color_scheme
                 if layout:
-                    page.layout = data['layout']
+                    page.layout = layout
                 if theme:
-                    page.theme = data['theme']
+                    page.theme = theme
+                if site:
+                    page.site = site
 
                 page.save()
 
