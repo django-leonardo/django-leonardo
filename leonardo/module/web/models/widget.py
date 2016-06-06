@@ -328,10 +328,11 @@ class Widget(FeinCMSBase):
         return rendered_content
 
     def render_error(self, context, exception):
-        return render_to_string("widget/error.html", {
-            'context': context,
-            'error': str(exception),
-        })
+        '''returns rendered widget with error
+        maybe we shouldn't render error to page without debug
+        '''
+        context.push({'error': str(exception)})
+        return render_to_string("widget/error.html", context)
 
     def render_response(self, context={}):
         '''just render to string shortcut for less imports'''
