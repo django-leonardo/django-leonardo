@@ -57,9 +57,6 @@ class ListMixin(object):
     pagination
     """
 
-    # template for single object
-    item_template = "_item.html"
-
     objects_per_page = 25
     objects_per_row = 3
     pagination_style = "paginator"
@@ -149,8 +146,22 @@ class ListMixin(object):
 
     @cached_property
     def get_item_template(self):
-        '''returns template for one item from queryset'''
-        return "widget/%s/%s" % (self.widget_name, self.item_template)
+        '''returns template for signle object from queryset
+        If you have a template name my_list_template.html
+        then template for a single object will be
+        _my_list_template.html
+
+        Now only for default generates _item.html
+        _item.html is obsolete use _default.html
+        '''
+        content_template = self.get_template_name()
+
+        # _item.html is obsolete use _default.html
+        # TODO: remove this condition after all _item.html will be converted
+        if content_template == "default.html":
+            return "widget/%s/_item.html" % self.widget_name
+
+        return "widget/%s/_%s" % (self.widget_name, content_template)
 
     def __init__(self, *args, **kwargs):
         super(ListMixin, self).__init__(*args, **kwargs)
