@@ -154,14 +154,15 @@ class ListMixin(object):
         Now only for default generates _item.html
         _item.html is obsolete use _default.html
         '''
-        content_template = self.get_template_name()
+        content_template = self.content_theme.name
 
         # _item.html is obsolete use _default.html
         # TODO: remove this condition after all _item.html will be converted
-        if content_template == "default.html":
+        if content_template == "default":
             return "widget/%s/_item.html" % self.widget_name
 
-        return "widget/%s/_%s" % (self.widget_name, content_template)
+        # TODO: support more template suffixes
+        return "widget/%s/_%s.html" % (self.widget_name, content_template)
 
     def __init__(self, *args, **kwargs):
         super(ListMixin, self).__init__(*args, **kwargs)
