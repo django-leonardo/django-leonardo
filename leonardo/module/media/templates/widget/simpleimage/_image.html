@@ -1,7 +1,7 @@
 {% load thumbnail %}
 
 {% if widget.detail == "open_modal" %}
-<a class="thumbnail" href="{{ image.url }}" data-title="{{ image.translation.default_caption|default:'' }}" data-footer="{{ image.translation.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}">
+<a class="thumbnail" href="{{ image.url }}" data-title="{{ image.translation.default_caption|default:'' }}" data-footer="{{ image.translation.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}" {% if gallery or widget.gallery %}data-gallery="multiimages"{% endif %}>
   {% if widget.size %}
   {% thumbnail image.file size format="PNG" as thumb %}
   <img class="img-responsive" src='{{ thumb.url }}' alt='{{ image.translation.default_caption|default:'' }}' />

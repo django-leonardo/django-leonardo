@@ -43,14 +43,14 @@
   opacity: 1;
 }
 
-.ekko-lightbox .glyphicon-chevron-left {
+.ekko-lightbox .fa-chevron-left {
   left: 0;
   float: left;
   padding-left: 15px;
   text-align: left;
 }
 
-.ekko-lightbox .glyphicon-chevron-right {
+.ekko-lightbox .fa-chevron-right {
   right: 0;
   float: right;
   padding-right: 15px;
