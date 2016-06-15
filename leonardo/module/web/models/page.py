@@ -32,6 +32,7 @@ class PageDimension(models.Model):
     class Meta:
         verbose_name = _("Page dimension")
         verbose_name_plural = _("Page dimensions")
+        app_label = "web"
 
 
 @python_2_unicode_compatible
@@ -51,6 +52,7 @@ class PageTheme(models.Model):
     class Meta:
         verbose_name = _("Page theme")
         verbose_name_plural = _("Page themes")
+        app_label = "web"
 
 
 @python_2_unicode_compatible
@@ -71,6 +73,7 @@ class PageColorScheme(models.Model):
     class Meta:
         verbose_name = _("Page color scheme")
         verbose_name_plural = _("Page color schemes")
+        app_label = "web"
 
 
 class Page(FeinCMSPage):
@@ -85,6 +88,7 @@ class Page(FeinCMSPage):
         verbose_name = _("Page")
         verbose_name_plural = _("Pages")
         ordering = ['tree_id', 'lft']
+        app_label = "web"
 
     @cached_property
     def tree_label(self):

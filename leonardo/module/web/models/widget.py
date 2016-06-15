@@ -116,6 +116,7 @@ class WidgetDimension(models.Model):
     class Meta:
         verbose_name = _("Widget dimension")
         verbose_name_plural = _("Widget dimensions")
+        app_label = "web"
 
 
 @python_2_unicode_compatible
@@ -138,6 +139,7 @@ class WidgetContentTheme(models.Model):
     class Meta:
         verbose_name = _("Widget content theme")
         verbose_name_plural = _("Widget content themes")
+        app_label = "web"
 
 
 @python_2_unicode_compatible
@@ -159,6 +161,7 @@ class WidgetBaseTheme(models.Model):
     class Meta:
         verbose_name = _("Widget base theme")
         verbose_name_plural = _("Widget base themes")
+        app_label = "web"
 
 
 @python_2_unicode_compatible
@@ -230,6 +233,7 @@ class Widget(FeinCMSBase):
         abstract = True
         verbose_name = _("Abstract widget")
         verbose_name_plural = _("Abstract widgets")
+        app_label = "web"
 
     def __str__(self):
         return self.label or smart_text(
