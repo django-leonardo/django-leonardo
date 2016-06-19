@@ -227,11 +227,6 @@ def app_reverse(parser, token):
     return AppReverseNode(viewname, urlconf, args, kwargs, asvar)
 
 
-@register.tag
-def url(parser, token):
-    return app_reverse(parser, token)
-
-
 @register.inclusion_tag('leonardo/common/_feincms_object_tools.html',
                         takes_context=True)
 def feincms_object_tools(context, cls_name):

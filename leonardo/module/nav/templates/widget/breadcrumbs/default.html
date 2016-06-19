@@ -6,10 +6,18 @@
 <ul class="breadcrumb {{ widget.orientation }}">
 {% if widget.orientation == "vertical" %}
 {% for url, more, title in trail %}
-{% if not forloop.first %}
+{% if widget.root_text %}
 <li {% if not url %}class="active"{% endif %}>
 	{% if url %}
-	<a href="{{ url }}">{% if forloop.first and widget.root_label %}{{ widget.root_label }}{% else %}{{ title }}{% endif %}</a>
+	<a href="{{ url }}">{% if forloop.first and widget.root_text %}{{ widget.root_text }}{% else %}{{ title }}{% endif %}</a>
+	{% else %}
+	{{ title }}
+	{% endif %}
+</li>
+{% elif not forloop.first %}
+<li {% if not url %}class="active"{% endif %}>
+	{% if url %}
+	<a href="{{ url }}">{% if forloop.first and widget.root_text %}{{ widget.root_text }}{% else %}{{ title }}{% endif %}</a>
 	{% else %}
 	{{ title }}
 	{% endif %}
@@ -25,7 +33,7 @@
 {% if not forloop.first %}
 <li {% if not url %}class="active"{% endif %}>
 	{% if url and title %}
-	<a href="{{ url }}">{% if forloop.first and widget.root_label %}{{ widget.root_label }}{% else %}{{ title }}{% endif %}</a>
+	<a href="{{ url }}">{% if forloop.first and widget.root_text %}{{ widget.root_text }}{% else %}{{ title }}{% endif %}</a>
 	{% else %}
 	{{ title }}
 	{% endif %}
