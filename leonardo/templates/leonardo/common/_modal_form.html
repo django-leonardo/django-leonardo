@@ -5,7 +5,7 @@
     <div class="{% if hide %}modal-content{% endif %}">
       <div class="modal-header">
         {% if hide %}<a href="#" class="close" data-dismiss="modal">&times;</a>{% endif %}
-        <a href="#" class="full-screen" id="modal-full-screen"><i class="fa fa-expand"></i></a>
+        {% if hide %}<a href="#" class="full-screen" id="modal-full-screen"><i class="fa fa-expand"></i></a>{% endif %}
         {% if actions %}
         <div style="float: right !important;width: 300px;">
         <span>{% trans "Quick Actions" %}:&nbsp;</span>
