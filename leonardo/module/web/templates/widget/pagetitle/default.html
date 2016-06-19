@@ -1,16 +1,14 @@
 {% extends widget.get_base_template %}
 
 {% block content %}
-{% if title %}
-<div class="col-md-{% if subtitle %}4{% else %}12{% endif %}">
+
+{% if title and subtitle %}
+  <h1>{{ title|safe }} <small>{{ subtitle|safe|linebreaksbr }}</small></h1>
+{% elif title %}
+<div class="col-md-12">
   <a id="top"></a>
   <h1>{{ title|safe }}</h1>
 </div>
-{% if subtitle %}
-<div class="col-md-8">
-  <p>{{ subtitle|safe|linebreaksbr }}</p>
-</div>
-{% endif %}
 {% else %}
 {% if page.content_title %}
 <div class="col-md-{% if page.content_subtitle %}4{% else %}12{% endif %}">
