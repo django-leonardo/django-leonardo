@@ -39,7 +39,8 @@ class LoginView(forms.ModalFormView):
             "modal_size": 'sm',
             "site": Site.objects.get_current(),
             "redirect_field_name": self.redirect_field_name,
-            "redirect_field_value": redirect_field_value})
+            "redirect_field_value": redirect_field_value,
+            "modal_header": _("Login")})
         return ret
 
     def get_initial(self):
@@ -65,7 +66,8 @@ class SignupView(forms.ModalFormView):
             "url": self.request.build_absolute_uri(),
             "view_name": _("Register"),
             "redirect_field_name": redirect_field_name,
-            "redirect_field_value": redirect_field_value})
+            "redirect_field_value": redirect_field_value,
+            "modal_header": _("Sign Up")})
         return ret
 
 
@@ -98,7 +100,8 @@ class LogoutView(forms.ModalFormView):
             .get(self.redirect_field_name)
         ctx.update({
             "redirect_field_name": self.redirect_field_name,
-            "redirect_field_value": redirect_field_value})
+            "redirect_field_value": redirect_field_value,
+            "modal_header": _("Logout")})
         return ctx
 
     def get_redirect_url(self):

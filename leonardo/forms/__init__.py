@@ -9,7 +9,8 @@ from horizon.forms.base import DateForm, SelfHandlingMixin
 from horizon.forms.fields import (DynamicChoiceField, DynamicTypedChoiceField,
                                   IPField, IPv4, IPv6, MultiIPField,
                                   SelectWidget)
-from horizon.forms.views import ModalFormMixin, ModalFormView
+from horizon.forms.views import ModalFormMixin
+from .views import ModalFormView
 from horizon_contrib.forms import SelfHandlingForm
 from horizon_contrib.forms import SelfHandlingModelForm
 from horizon_contrib.forms.forms import SelfHandlingModelForm as SHMForm
