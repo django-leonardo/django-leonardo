@@ -267,7 +267,17 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
         fe_identifier = obj.fe_identifier
         try:
             parent = obj.parent
+            region = obj.region
             obj.delete()
+
+            # sort widgets
+            widgets = getattr(parent.content, region)
+            widgets.sort(key=lambda w: w.ordering)
+
+            for i, w in enumerate(widgets):
+                w.ordering = i
+                w.save()
+
             # invalide page cache
             parent.invalidate_cache()
             success_url = self.get_success_url()
@@ -351,24 +361,38 @@ class WidgetReorderView(WidgetActionMixin, ModalFormView, ModelFormMixin):
                 _widget.save()
 
         elif int(ordering) == -1:
-            next_ordering = widget.ordering - 1
+
             widgets = getattr(widget.parent.content, widget.region)
-            for w in widgets:
-                if w.ordering == next_ordering:
-                    w.ordering = widget.ordering
+            widgets.sort(key=lambda w: w.ordering)
+
+            for i, w in enumerate(widgets):
+                if w.id == widget.id:
+                    w.ordering = i - 1
                     w.save()
-                    widget.ordering = next_ordering
-                    widget.save()
+                    try:
+                        next_widget = widgets[i - 1]
+                    except IndexError:
+                        pass
+                    else:
+                        next_widget.ordering += 1
+                        next_widget.save()
+
         elif int(ordering) == 1:
 
-            next_ordering = widget.ordering + 1
             widgets = getattr(widget.parent.content, widget.region)
-            for w in widgets:
-                if w.ordering == next_ordering:
-                    w.ordering = widget.ordering
+            widgets.sort(key=lambda w: w.ordering)
+
+            for i, w in enumerate(widgets):
+                if w.id == widget.id:
+                    w.ordering = i + 1
                     w.save()
-                    widget.ordering = next_ordering
-                    widget.save()
+                    try:
+                        next_widget = widgets[i + 1]
+                    except IndexError:
+                        pass
+                    else:
+                        next_widget.ordering -= 1
+                        next_widget.save()
 
         else:
             widget.ordering = widget.next_ordering
@@ -380,6 +404,8 @@ class WidgetReorderView(WidgetActionMixin, ModalFormView, ModelFormMixin):
             for i, _widget in enumerate(widgets):
                 _widget.ordering = i
                 _widget.save()
+
+        widget.parent.invalidate_cache()
 
         messages.success(self.request, _('Widget was successfully moved.'))
 
