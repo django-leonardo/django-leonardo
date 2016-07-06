@@ -143,6 +143,13 @@ dt {
   display: none!important;
 }
 
+/* Fix select2 visibility in some themes */
+.select2-results__option {
+    color: #333;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-size: 16px;
+}
+
 /* Login Splash Page */
 
 #splash .login {

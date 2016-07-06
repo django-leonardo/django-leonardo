@@ -279,6 +279,69 @@ $(function() {
       });
     });
 
+//    $('.col1 a, .col2 a, .col1 a').each(function(){
+//      var $this=$(this);
+//      $this.on('click',function (ev) {
+//        ev.preventDefault();
+//        console.log($this.attr('href'))
+//        $.ajax({
+//            type: 'GET',
+//            url: $this.attr('href'),
+//            data: {region: 'col3',
+//                   method: 'region'
+//              },
+//            success: function (data) {
+//              console.log(data);
+//                $('.col3').html(data.result);
+//                // set window location
+//                try {
+//                    window.history.pushState('page2', 'Title', $this.attr('href'));
+//                }
+//                catch(err) {
+//                    console.log(err);
+//                }
+//
+//                var modalBackdrop=$(".modal-backdrop");
+//                if(modalBackdrop.hasClass("fade in")) {
+//                    modalBackdrop.fadeOut();
+//                    $("body").removeClass(".modal-open");
+//                } 
+//            }
+//        });
+//      });
+//    });
+
+//    $('.leonardo-application-widget a').each(function(){
+//      var $this=$(this);
+//      $this.on('click',function (ev) {
+//        ev.preventDefault();
+//        console.log($this.attr('href'))
+//        $.ajax({
+//            type: 'GET',
+//            url: $this.attr('href'),
+//            data: {widget_id:$this.closest("div.leonardo-widget").attr('id'),
+//               method: 'widget'
+//              },
+//            success: function (data) {
+//                $this.closest("div.leonardo-widget").replaceWith(data);
+//                // set window location
+//                try {
+//                    window.history.pushState('page2', 'Title', $this.attr('href'));
+//                }
+//                catch(err) {
+//                    console.log(err);
+//                }
+//
+//                var modalBackdrop=$(".modal-backdrop");
+//                if(modalBackdrop.hasClass("fade in")) {
+//                    modalBackdrop.fadeOut();
+//                    $("body").removeClass(".modal-open");
+//                } 
+//            }
+//        });
+//      });
+//    });
+
   /* handle widget reloading */
   var refresh_widgets = function(){
     $('.auto-reload').each(function(i, obj) {

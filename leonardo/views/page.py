@@ -45,12 +45,37 @@ class Handler(ContentView):
                 response = widget.render(**{'request': request})
                 return JsonResponse({'result': response, 'id': id})
 
+    def render_region(self, request):
+        '''Returns rendered region in JSON response'''
+
+        method = request.GET.get('method', request.POST.get('method', None))
+
+        if request.is_ajax() and method == 'region':
+            page = self.get_object()
+            try:
+                region = request.POST['region']
+            except KeyError:
+                region = request.GET['region']
+
+            from leonardo.templatetags.leonardo_tags import _render_content
+            request.query_string = None
+            result = ''.join(
+                _render_content(content, request=request, context={})
+                for content in getattr(page.content, region))
+            raise Exception(page)
+            return JsonResponse({'result': result, 'region': region})
+
     def dispatch(self, request, *args, **kwargs):
 
         widget_content = self.render_widget(request)
 
         if widget_content:
             return widget_content
+
+        region_content = self.render_region(request)
+
+        if region_content:
+            return region_content
 
         try:
             return super(Handler, self).dispatch(request, *args, **kwargs)
