@@ -99,13 +99,3 @@ class LeonardoConfig(MasterConfig):
             return False
         else:
             return True
-
-    @property
-    def site_name(self):
-        if not hasattr(self, '_site_name'):
-            from django.conf import settings
-            if settings.LEONARDO_SITE_NAME != '':
-                self._site_name = settings.LEONARDO_SITE_NAME
-            else:
-                self._site_name = settings.SITE_NAME
-        return self._site_name

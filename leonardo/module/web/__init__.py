@@ -44,7 +44,9 @@ class Default(object):
 
     channel_routing = [
         ('leonardo.module.web.widgets.routing.channel_routing',
-         {'path': r"^/widgets"})
+            {'path': r"^/widgets"}),
+        ('leonardo.module.web.routing.channel_routing',
+            {'path': r'^(.*)/$'})
     ]
 
     @property
@@ -113,6 +115,18 @@ class Default(object):
             'leonardo.module.web.models.PageTitleWidget',
             'leonardo.module.web.models.IconWidget',
         ]
+
+    @property
+    def extra_context(self):
+        """Add site_name to context
+        """
+        from django.conf import settings
+
+        return {
+            "site_name": (lambda r: settings.LEONARDO_SITE_NAME
+                          if getattr(settings, 'LEONARDO_SITE_NAME', '') != ''
+                          else settings.SITE_NAME)
+        }
 
     plugins = [
         ('leonardo.module.web.apps.horizon', _('Horizon'))
