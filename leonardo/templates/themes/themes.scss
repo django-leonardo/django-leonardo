@@ -2,11 +2,15 @@
 @import "/leonardo/scss/page.scss";
 
 // My Themes
+{% if leonardo_page %}
 @import "/themes/{{ leonardo_page.theme.name|lower }}/{{ leonardo_page.color_scheme.name|lower }}/_variables.scss";
+{% endif %}
 
 {% for file in LEONARDO_CONFIG.scss_files %}
 @import '/{{ file }}';
 {% endfor %}
 
 // Custom Styles
+{% if leonardo_page %}
 @import "/themes/{{ leonardo_page.theme.name|lower }}/{{ leonardo_page.color_scheme.name|lower }}/scheme.scss";
+{% endif %}
