@@ -138,6 +138,10 @@ dt {
   font-size: 13px !important;
 }
 
+/* Hide select2 fields */
+.django-select2 {
+  display: none!important;
+}
 
 /* Login Splash Page */
 
