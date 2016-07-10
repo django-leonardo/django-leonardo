@@ -3,7 +3,7 @@ Django<1.9,>=1.7
 FeinCMS==1.11.1
 django-extensions==1.5.9
 django-floppyforms==1.5.1
-django-crispy-forms==1.6.0
+django-crispy-forms==1.4.0 # https://github.com/django-leonardo/django-leonardo/issues/164
 django_compressor==2.0
 Django-Select2==5.2.0
 python-app-loader>=0.0.5
@@ -29,5 +29,7 @@ leonardo-sitestarter>=1.0.0a2 # optional
 leonardo-ckeditor>=1.0.0b1 # optional
 leonardo-epiceditor>=0.0.5 # optional
 
+# default search backend for Haystack just replace this with your favourite
+Whoosh==2.7.4
 
 -r extras/static.txt
