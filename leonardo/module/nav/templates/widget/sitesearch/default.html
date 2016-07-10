@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<form action="{% url 'haystack_search' 'leonardo.module.search.apps.search' %}" method="get" class="navbar-collapse collapse navbar-form navbar-left" role="search">
+<form action="{% app_reverse 'haystack_search' 'leonardo.module.search.apps.search' %}" method="get" class="navbar-collapse collapse navbar-form navbar-left" role="search">
   <div class="input-group">
 	<input value="{{ query }}" type="text" class="form-control" placeholder="{% trans "Search" %}" name="q" id="search_keywords" />
   	<span class="input-group-btn">
