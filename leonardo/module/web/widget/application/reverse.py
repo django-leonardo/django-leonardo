@@ -100,7 +100,9 @@ def app_reverse(viewname, urlconf=None, args=None, kwargs=None,
         finally:
             set_script_prefix(prefix)
 
-    raise NoReverseMatch("Unable to find ApplicationContent for %r" % urlconf)
+    raise NoReverseMatch("Unable to find ApplicationContent for %(app)s"
+                         " usually it is due to the fact that you haven't mapped external application %(app)s" % {
+                             'app': urlconf})
 
 
 #: Lazy version of ``app_reverse``

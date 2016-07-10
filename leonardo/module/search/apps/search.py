@@ -2,9 +2,15 @@
 
 from django.conf.urls import patterns, url
 
-from leonardo.module.search.forms import SearchForm
-from ..views import SearchView, SearchAutocomplete
 
+try:
+    from leonardo.module.search.forms import SearchForm
+    from ..views import SearchView, SearchAutocomplete
+except ImportError:
+    raise Exception("Please install and configure haystack."
+                    " Check your HAYSTACK_CONNECTIONS."
+                    " This may fix pip install Whoosh"
+                    " This is suitable backend only for development.")
 
 urlpatterns = patterns('',
                        url(r'autocomplete/$', SearchAutocomplete.as_view(),
