@@ -348,7 +348,7 @@ $(function() {
       $.ajax({
           type: "GET",
           url: window.location,
-          data: {'widget_id': obj.id, method: 'widget'},
+          data: {'widget_id': obj.id, method: 'widget_content'},
           success: function (data) {
               $(obj.id).replaceWith(data.result);
           }
