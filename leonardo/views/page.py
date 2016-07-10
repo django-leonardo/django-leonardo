@@ -15,6 +15,15 @@ logger = logging.getLogger(__name__)
 
 
 class Handler(ContentView):
+
+    """This is the main view for all pages
+
+    In default state just render best match path
+
+    Support AJAX widget calling for rendering regions and single widgets
+    Also support calling custom methods on widgets with checking permissions on page level
+    """
+
     page_model_path = None
     context_object_name = 'feincms_page'
 
@@ -30,52 +39,101 @@ class Handler(ContentView):
         return self.page_model._default_manager.for_request(
             self.request, raise404=True, best_match=True, path=path)
 
-    def render_widget(self, request):
+    def render_widget(self, request, widget_id):
         '''Returns rendered widget in JSON response'''
 
-        method = request.GET.get('method', request.POST.get('method', None))
+        widget = get_widget_from_id(widget_id)
 
-        if request.is_ajax() and method == 'widget':
-            try:
-                id = request.POST['widget_id']
-            except KeyError:
-                id = request.GET['widget_id']
-            else:
-                widget = get_widget_from_id(id)
-                response = widget.render(**{'request': request})
-                return JsonResponse({'result': response, 'id': id})
+        response = widget.render(**{'request': request})
+
+        return JsonResponse({'result': response, 'id': widget_id})
 
     def render_region(self, request):
         '''Returns rendered region in JSON response'''
 
-        method = request.GET.get('method', request.POST.get('method', None))
+        page = self.get_object()
 
-        if request.is_ajax() and method == 'region':
-            page = self.get_object()
+        try:
+            region = request.POST['region']
+        except KeyError:
+            region = request.GET['region']
+
+        from leonardo.templatetags.leonardo_tags import _render_content
+        request.query_string = None
+        result = ''.join(
+            _render_content(content, request=request, context={})
+            for content in getattr(page.content, region))
+        return JsonResponse({'result': result, 'region': region})
+
+    def handle_ajax_method(self, request, method):
+        """handle ajax methods and return serialized reponse
+
+        - Depends on method parameter render whole region or single widget
+
+        - If widget_id is present then try to load this widget and call method on them
+
+        - If class_name is present then try to load class and then call static method on this class
+
+        TODO: check permissions
+        """
+
+        response = {}
+
+        def get_param(request, name):
+
             try:
-                region = request.POST['region']
+                return request.POST[name]
             except KeyError:
-                region = request.GET['region']
+                return request.GET.get(name, None)
 
-            from leonardo.templatetags.leonardo_tags import _render_content
-            request.query_string = None
-            result = ''.join(
-                _render_content(content, request=request, context={})
-                for content in getattr(page.content, region))
-            raise Exception(page)
-            return JsonResponse({'result': result, 'region': region})
+        widget_id = get_param(request, "widget_id")
+        class_name = get_param(request, "class_name")
+
+        if method in 'widget_content':
+            return self.render_widget(request, widget_id)
+
+        if method == 'region':
+            return self.render_region(request)
+
+        # handle methods called directly on widget
+        if widget_id:
+
+            widget = get_widget_from_id(widget_id)
+
+            try:
+                func = getattr(widget, method)
+            except AttributeError:
+                response["exception"] = "%s method is not implmented on %s" % (method, widget)
+            else:
+                response["result"] = func(request)
+
+        elif class_name:
+
+            try:
+                cls = get_model(*class_name.split('.'))
+                func = getattr(cls, method)
+            except Exception:
+                response["exception"] = str(e)
+            else:
+                response["result"] = func(request)
+
+        return JsonResponse(response)
+
+    def get_method_for_ajax(self, request):
+        """return method parameter from request only if is AJAX
+        """
+        if request.is_ajax():
+            return request.GET.get('method', request.POST.get('method', None))
+
 
     def dispatch(self, request, *args, **kwargs):
 
-        widget_content = self.render_widget(request)
+        method = self.get_method_for_ajax(request)
 
-        if widget_content:
-            return widget_content
+        if method:
+            # handle AJAX calls
 
-        region_content = self.render_region(request)
-
-        if region_content:
-            return region_content
+            return self.handle_ajax_method(request, method)
 
         try:
             return super(Handler, self).dispatch(request, *args, **kwargs)

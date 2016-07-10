@@ -7,14 +7,15 @@ import sys
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.utils import six
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from leonardo import messages
+from leonardo.templatetags.leonardo_tags import _render_content
 from leonardo.views import (ContextMixin, CreateView, ModalFormView,
                             ModelFormMixin, UpdateView)
 
-from django.utils import six
 from ..models import Page
 from .forms import (WidgetDeleteForm, WidgetMoveForm, WidgetSelectForm,
                     WidgetUpdateForm, form_repository)
@@ -155,11 +156,51 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
 
         return JsonResponse(data={
             'id': obj.fe_identifier,
-            'content': obj.render_content({'request': self.request}),
+            'region_content': self.render_region(obj, response),
             'parent_slug': obj.parent.slug,
             'region': obj.region,
             'ordering': obj.ordering
         })
+
+    def render_region(self, obj, response):
+        """returns rendered content
+        this is not too clear and little tricky,
+        because external apps needs calling process
+        """
+
+        # change the request
+        self.request.query_string = None
+        self.request.method = "GET"
+
+        if not hasattr(self.request, '_feincms_extra_context'):
+            self.request._feincms_extra_context = {}
+
+        # call processors
+        for fn in reversed(list(obj.parent.request_processors.values())):
+            r = fn(obj.parent, self.request)
+
+        for fn in obj.parent.response_processors.values():
+            r = fn(obj.parent, self.request, response)
+
+        contents = {}
+
+        for content in obj.parent.content.all_of_type(tuple(
+                obj.parent._feincms_content_types_with_process)):
+
+            try:
+                r = content.process(self.request, view=self)
+            except Exception as e:
+                raise e
+            else:
+                # this is HttpResponse object or string
+                contents[content.fe_identifier] = getattr(r, 'content', r)
+
+        region_content = ''.join(
+            contents[content.fe_identifier] if content.fe_identifier in contents else _render_content(
+                content, request=self.request, context={})
+            for content in getattr(obj.parent.content, obj.region))
+
+        return region_content
 
     def get_initial(self):
         return self.kwargs
@@ -462,6 +503,7 @@ class JSReverseView(WidgetReorderView):
 
 
 class WidgetMoveView(WidgetUpdateView):
+
     '''Move action'''
 
     form_class = WidgetMoveForm
@@ -496,5 +538,5 @@ class WidgetMoveView(WidgetUpdateView):
 
         return JsonResponse(data={
             'needs_reload': True,
-#            'target': obj.parent.get_absolute_url(),
+            #            'target': obj.parent.get_absolute_url(),
         })

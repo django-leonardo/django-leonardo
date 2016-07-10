@@ -246,36 +246,44 @@ horizon.addInitFunction(horizon.modals.init = function() {
         // custom update handling
         if (data.hasOwnProperty('id')) {
           if (data.hasOwnProperty('content')) {
-              // create
-              if (data.hasOwnProperty('region')) {
-                // prepend first
-                if (data.ordering === 0) {
-                  $('.' + data.region).prepend(data.content);
-                  window.location.replace('#' + data.id);
-                } else {
-                  // append before region tools
-                  if (data.hasOwnProperty('parent_slug')) {
-                    var data_region = $('.' + data.region + '-' + data.parent_slug);
-                    if ($('#' + data.parent_slug) !== undefined) {
-                      /* this content is in the context navigation */
-                      $(data.content).insertBefore('#' + data.parent_slug + '>:first-child > .region-tools');
-                    } else {
-                        /* standard placing */
-                        $(data.content).insertBefore('.' + data.region + ' > .region-tools');
-                      }
-                  } else {
-                    $(data.content).insertBefore('.' + data.region + ' > .region-tools');
-                  }
-                }
-              } else {
-                // update
-                $('#' + data.id).replaceWith(data.content);
-              }
+              // update widget
+              $('#' + data.id).replaceWith(data.content);
               // compile content
               horizon.utils.loadAngular($('#' + data.id));
 
+          } else if (data.hasOwnProperty('region_content')) {
+              // create widget
+              // on create its simplier to render whole region, instead of manipulation with single widgets
+
+              if (data.hasOwnProperty('region')) {
+
+                // render whole region
+                var $region_tools = $('.' + data.region).find(".region-tools");
+
+                // find region container by first leonardo widget parent
+                // usually this could be first element with class .region
+                var $region_container = $('.' + data.region).find(".leonardo-widget");
+
+                // if hasnt widgets we have no anchor for placing then we place it directly to region
+                if (typeof($region_container[0]) === "undefined") {
+                  $region_container = $('.' + data.region);
+                } else {
+                  $region_container = $region_container.parent();
+                }
+
+                $region_container.html(data.region_content);
+
+                if (typeof($region_tools[0]) !== "undefined") {
+                  $region_container.append($region_tools[0].outerHTML);
+                }
+
+                // compile region
+                horizon.utils.loadAngular($region_container);
+
+              }                
+
           } else {
-              // remove
+              // remove widget
               $('#' + data.id).remove();
           }
 
