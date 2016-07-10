@@ -16,7 +16,7 @@
   }
 </style>
 
- <form action="{% url 'haystack_search' 'leonardo.module.search.apps.search' %}" method="get" class="navbar-collapse collapse navbar-form navbar-left autocomplete-me" role="search">
+ <form action="{% app_reverse 'haystack_search' 'leonardo.module.search.apps.search' %}" method="get" class="navbar-collapse collapse navbar-form navbar-left autocomplete-me" role="search">
   <div>
       <div class="input-group">
         <input type="text" placeholder="{% trans "Search" %}" class="form-control" name="q" placeholder="Search">
