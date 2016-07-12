@@ -90,12 +90,18 @@ class ModuleConfig(Config):
 
 class LeonardoConfig(MasterConfig):
 
-    @property
-    def is_websocket_enabled(self):
-        '''Reffers if channels is installed'''
+    def get_attr(self, name, default=None, fail_silently=True):
+        """try extra context
+        """
         try:
-            import leonardo_channels
-        except ImportError:
-            return False
-        else:
-            return True
+            return getattr(self, name)
+        except KeyError:
+            extra_context = getattr(self, "extra_context")
+
+            if name in extra_context:
+                value = extra_context[name]
+
+                if callable(value):
+                    return value(request=None)
+
+            return default

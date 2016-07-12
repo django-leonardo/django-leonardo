@@ -27,6 +27,10 @@ class ContextConfig(dict):
         if attr == 'request':
             return self.get(attr)
 
+        # for template convention support only lower case names
+        # LEONARDO_CONFIG.DEBUG and LEONARDO_CONFIG.debug has same property
+        attr = attr.lower()
+
         if attr in conf.HORIZON_CONFIG:
             return conf.HORIZON_CONFIG.get(attr)
 

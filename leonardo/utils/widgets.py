@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 
+from django import forms
 from django.conf import settings
 from django.utils import six
 from importlib import import_module
-from django import forms
 
 
 def load_widget_classes(widgets):
@@ -119,3 +119,46 @@ def get_htmltext_widget():
                    'LEONARDO_HTMLTEXT_WIDGET',
                    forms.Textarea
                    )
+
+def render_region(widget, request=None, view=None):
+    """returns rendered content
+    this is not too clear and little tricky,
+    because external apps needs calling process method
+    """
+
+    # change the request
+    if not isinstance(request, dict):
+        request.query_string = None
+        request.method = "GET"
+
+    if not hasattr(request, '_feincms_extra_context'):
+        request._feincms_extra_context = {}
+
+    # call processors
+    for fn in reversed(list(widget.parent.request_processors.values())):
+        try:
+            r = fn(widget.parent, request)
+        except:
+            pass
+
+    contents = {}
+
+    for content in widget.parent.content.all_of_type(tuple(
+            widget.parent._feincms_content_types_with_process)):
+
+        try:
+            r = content.process(request, view=view)
+        except Exception as e:
+            raise e
+        else:
+            # this is HttpResponse object or string
+            contents[content.fe_identifier] = getattr(r, 'content', r)
+
+    from leonardo.templatetags.leonardo_tags import _render_content
+
+    region_content = ''.join(
+        contents[content.fe_identifier] if content.fe_identifier in contents else _render_content(
+            content, request=request, context={})
+        for content in getattr(widget.parent.content, widget.region))
+
+    return region_content

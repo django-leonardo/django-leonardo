@@ -11,8 +11,8 @@ from django.utils import six
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
-from leonardo import messages
-from leonardo.templatetags.leonardo_tags import _render_content
+from leonardo import leonardo, messages
+from leonardo.utils import render_region
 from leonardo.views import (ContextMixin, CreateView, ModalFormView,
                             ModelFormMixin, UpdateView)
 
@@ -48,6 +48,8 @@ class WidgetViewMixin(object):
                     data['widget_id'] = obj.id
                     data.pop('DELETE', None)
                     wd = WidgetDimension(**data)
+                    # do not update widget view
+                    wd.update_view = False
                     wd.save()
 
         if formset.is_valid():
@@ -87,6 +89,14 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
             'icon': 'fa fa-pencil',
             'classes': 'ajax-modal',
             'description': _('Edit parent page')
+        },
+            {
+            'url': reverse_lazy('widget_delete', args=(
+                self.kwargs['cls_name'],
+                self.kwargs['id'],)),
+            'icon': 'fa fa-trash',
+            'classes': 'ajax-modal',
+            'description': _('Delete widget')
         }]
         return context
 
@@ -140,10 +150,12 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
 
     def form_valid(self, form):
         try:
+
             obj = form.save(commit=False)
+
             obj.save(created=False)
             self.handle_dimensions(obj)
-            obj.parent.save()
+
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
@@ -154,53 +166,19 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
         if not self.request.is_ajax():
             return response
 
-        return JsonResponse(data={
+        response = JsonResponse(data={
             'id': obj.fe_identifier,
-            'region_content': self.render_region(obj, response),
             'parent_slug': obj.parent.slug,
-            'region': obj.region,
             'ordering': obj.ordering
         })
 
-    def render_region(self, obj, response):
-        """returns rendered content
-        this is not too clear and little tricky,
-        because external apps needs calling process
-        """
+        # this is not necessary if websocket is installed
+        if not leonardo.config.get_attr("is_websocket_enabled", None):
+            response['region_content'] = render_region(
+                obj, self.request, response)
+            response['region'] = obj.region
 
-        # change the request
-        self.request.query_string = None
-        self.request.method = "GET"
-
-        if not hasattr(self.request, '_feincms_extra_context'):
-            self.request._feincms_extra_context = {}
-
-        # call processors
-        for fn in reversed(list(obj.parent.request_processors.values())):
-            r = fn(obj.parent, self.request)
-
-        for fn in obj.parent.response_processors.values():
-            r = fn(obj.parent, self.request, response)
-
-        contents = {}
-
-        for content in obj.parent.content.all_of_type(tuple(
-                obj.parent._feincms_content_types_with_process)):
-
-            try:
-                r = content.process(self.request, view=self)
-            except Exception as e:
-                raise e
-            else:
-                # this is HttpResponse object or string
-                contents[content.fe_identifier] = getattr(r, 'content', r)
-
-        region_content = ''.join(
-            contents[content.fe_identifier] if content.fe_identifier in contents else _render_content(
-                content, request=self.request, context={})
-            for content in getattr(obj.parent.content, obj.region))
-
-        return region_content
+        return response
 
     def get_initial(self):
         return self.kwargs
@@ -304,23 +282,14 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
         return context
 
     def form_valid(self, form):
+
         obj = self.object
         fe_identifier = obj.fe_identifier
+
         try:
-            parent = obj.parent
-            region = obj.region
+
             obj.delete()
 
-            # sort widgets
-            widgets = getattr(parent.content, region)
-            widgets.sort(key=lambda w: w.ordering)
-
-            for i, w in enumerate(widgets):
-                w.ordering = i
-                w.save()
-
-            # invalide page cache
-            parent.invalidate_cache()
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url

@@ -42,13 +42,6 @@ class Default(object):
             'leonardo.module.web.middlewares.horizon.HorizonMiddleware',
         ]
 
-    channel_routing = [
-        ('leonardo.module.web.widgets.routing.channel_routing',
-            {'path': r"^/widgets"}),
-        ('leonardo.module.web.routing.channel_routing',
-            {'path': r'^(.*)/$'})
-    ]
-
     @property
     def apps(self):
 
@@ -125,7 +118,8 @@ class Default(object):
         return {
             "site_name": (lambda r: settings.LEONARDO_SITE_NAME
                           if getattr(settings, 'LEONARDO_SITE_NAME', '') != ''
-                          else settings.SITE_NAME)
+                          else settings.SITE_NAME),
+            "debug": lambda r: settings.TEMPLATE_DEBUG
         }
 
     plugins = [
@@ -188,9 +182,5 @@ class WebConfig(AppConfig, Default):
         # override page defaults without migrations
         Page._meta.get_field('template_key').default = 'layout_flex_flex_flex'
 
-        from django.db.models.signals import post_save
-        from .widgets.reciever import update_widget_reciever
-        post_save.connect(update_widget_reciever,
-                          dispatch_uid="update_widgets")
 
 default = Default()

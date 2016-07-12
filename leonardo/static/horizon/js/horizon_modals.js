@@ -243,8 +243,10 @@ horizon.addInitFunction(horizon.modals.init = function() {
         if (redirect_header === null) {
           $('.ajax-modal, .dropdown-toggle').removeAttr("disabled");
         }
+
         // custom update handling
-        if (data.hasOwnProperty('id')) {
+        // enable this only if websocket is not available
+        if (!horizon.conf.is_websocket_enabled && data.hasOwnProperty('id')) {
           if (data.hasOwnProperty('content')) {
               // update widget
               $('#' + data.id).replaceWith(data.content);

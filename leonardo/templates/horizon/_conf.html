@@ -73,9 +73,15 @@ conf.auto_fade_alerts = {
   fade_duration: {{ HORIZON_CONFIG.auto_fade_alerts.fade_duration|default:"1500" }},
   types: {{ HORIZON_CONFIG.auto_fade_alerts.types|default:"[]"|safe }}
 };
+
+/* leonardo related settings */
+conf.is_websocket_enabled = false;
+conf.debug = {{ LEONARDO_CONFIG.DEBUG|yesno:"true,false" }};
+
 conf.disable_password_reveal =
   {{ HORIZON_CONFIG.disable_password_reveal|yesno:"true,false" }};
 })(this);
+
 
 /* fix standard carousel */
 angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])

@@ -151,6 +151,20 @@ class Page(FeinCMSPage):
             classes.get(col)
             for classes in self.get_all_col_classes])
 
+    def flush_ct_inventory(self):
+        """internal method used only if ct_inventory is enabled
+        """
+        if hasattr(self, '_ct_inventory'):
+
+            # skip self from update
+            self._ct_inventory = None
+            self.update_view = False
+            self.save()
+
+            # for instance in self.get_descendants(include_self=False):
+            #     instance._ct_inventory = None
+            #     instance.save()
+
     @classmethod
     def register_default_processors(cls, frontend_editing=None):
         """

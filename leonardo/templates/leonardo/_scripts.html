@@ -379,12 +379,52 @@ $(function() {
 
   w_socket = new ReconnectingWebSocket(basepath + "/widgets?session_key={{ request.session.session_key }}")
 
-  /* Bind django-messages */
+  /* Bind content updates
+    
+    TODO: move this to the function
+  */
   w_socket.onmessage = function(e) {
       data = JSON.parse(e.data)
-      console.log(data);
-      $('#' + data.id).replaceWith(data.content);
+
+      if (horizon.conf.debug) {
+        console.log(data);
+      }
+
+      if (data.hasOwnProperty('region')) {
+        //$('.' + data.region).replaceWith(data.content);
+
+        // render whole region
+        var $region_tools = $('.' + data.region).find(".region-tools");
+
+        // find region container by first leonardo widget parent
+        // usually this could be first element with class .region
+        var $region_container = $('.' + data.region).find(".leonardo-widget");
+
+        // if hasnt widgets we have no anchor for placing then we place it directly to region
+        if (typeof($region_container[0]) === "undefined") {
+          $region_container = $('.' + data.region);
+        } else {
+          $region_container = $region_container.parent();
+        }
+
+        $region_container.html(data.content);
+
+        if (typeof($region_tools[0]) !== "undefined") {
+          $region_container.append($region_tools[0].outerHTML);
+        }
+
+        // compile region
+        horizon.utils.loadAngular($region_container);
+
+
+      } else {
+        $('#' + data.id).replaceWith(data.content);
+      }
   }
+
+  // propagate this info to JS
+  horizon.conf.is_websocket_enabled = true;
+
   {% endif %}
 
 });

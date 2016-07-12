@@ -215,6 +215,12 @@ class Widget(FeinCMSBase):
         if self.pk is None and created:
             self.created = True
 
+        region = self.parent.template.regions_dict[self.region]
+
+        # for CT Inventory we need flush cache
+        if region.inherited and hasattr(self.parent, 'flush_ct_inventory'):
+            self.parent.flush_ct_inventory()
+
         super(Widget, self).save(*args, **kwargs)
 
         if not self.dimensions.exists() and self.created:
@@ -225,9 +231,35 @@ class Widget(FeinCMSBase):
 
         self.purge_from_cache()
 
+        # if anyone tells you otherwise we needs update
+        # this flag is handled by leonardo_channels.widgets.reciever
+        self.update_view = True
+
     def delete(self, *args, **kwargs):
+
+        region = self.region
+        parent = self.parent
+
+        # this is required for flushing inherited content
+        # is important to do this before widget delete
+        # because delete trigger render before flush cache
+        if parent.template.regions_dict[region].inherited:
+            if hasattr(parent, 'flush_ct_inventory'):
+                parent.flush_ct_inventory()
+
         super(Widget, self).delete(*args, **kwargs)
         [d.delete() for d in self.dimensions]
+
+        # sort widgets in region
+        widgets = getattr(parent.content, region)
+        widgets.sort(key=lambda w: w.ordering)
+
+        for i, w in enumerate(widgets):
+            w.ordering = i
+            w.update_view = False
+            w.save()
+
+        parent.invalidate_cache()
 
     class Meta:
         abstract = True
