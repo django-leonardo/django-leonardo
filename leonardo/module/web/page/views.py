@@ -1,11 +1,12 @@
 
 from __future__ import absolute_import, unicode_literals
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.utils.functional import cached_property
 from django.utils.encoding import smart_text
 from django.utils.translation import ugettext_lazy as _
 from leonardo import messages
+from leonardo import leonardo
 from leonardo.views import *
 
 from ..models import Page
@@ -133,6 +134,9 @@ class PageUpdateView(ModalFormView):
             page = form.save()
         except Exception as e:
             messages.error(self.request, str(e))
+
+        if leonardo.config.get_attr('is_websocket_enabled', False):
+            return JsonResponse(data={})
 
         return HttpResponseRedirect(page.get_absolute_url())
 
