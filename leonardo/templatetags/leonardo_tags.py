@@ -139,9 +139,10 @@ def feincms_render_region(context, feincms_object, region, request=None):
         return ''
 
     if not context.get('standalone', False) or region in STANDALONE_REGIONS:
-        return ''.join(
+        region_content = ''.join(
             _render_content(content, request=request, context=context)
             for content in getattr(feincms_object.content, region))
+        return '<div id=%s>%s</div>' % (region, region_content)
     return ''
 
 
