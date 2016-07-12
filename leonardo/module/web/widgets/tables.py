@@ -28,6 +28,11 @@ class WidgetDimensionForm(forms.ModelForm):
     height = forms.CharField(widget=HeightSlider(), initial=0)
     offset = forms.CharField(widget=OffsetSlider(), initial=0)
 
+    def __init__(self, *args, **kw):
+        super(WidgetDimensionForm, self).__init__(*args, **kw)
+
+        self.fields['size'].initial = 'xs'
+
     class Meta:
         model = WidgetDimension
         exclude = tuple()

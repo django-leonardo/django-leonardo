@@ -227,6 +227,7 @@ class Widget(FeinCMSBase):
             WidgetDimension(**{
                 'widget_id': self.pk,
                 'widget_type': self.content_type,
+                'size': 'xs'
             }).save()
 
         self.purge_from_cache()
