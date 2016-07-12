@@ -215,10 +215,8 @@ class Widget(FeinCMSBase):
         if self.pk is None and created:
             self.created = True
 
-        region = self.parent.template.regions_dict[self.region]
-
         # for CT Inventory we need flush cache
-        if region.inherited and hasattr(self.parent, 'flush_ct_inventory'):
+        if hasattr(self.parent, 'flush_ct_inventory'):
             self.parent.flush_ct_inventory()
 
         super(Widget, self).save(*args, **kwargs)
@@ -244,9 +242,8 @@ class Widget(FeinCMSBase):
         # this is required for flushing inherited content
         # is important to do this before widget delete
         # because delete trigger render before flush cache
-        if parent.template.regions_dict[region].inherited:
-            if hasattr(parent, 'flush_ct_inventory'):
-                parent.flush_ct_inventory()
+        if hasattr(parent, 'flush_ct_inventory'):
+            parent.flush_ct_inventory()
 
         super(Widget, self).delete(*args, **kwargs)
         [d.delete() for d in self.dimensions]
