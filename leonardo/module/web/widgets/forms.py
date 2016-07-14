@@ -16,6 +16,7 @@ from horizon_contrib.common import get_class
 from leonardo.forms import SelfHandlingForm, SelfHandlingModelForm
 from leonardo.module.web.page.fields import PageSelectField
 from leonardo.utils.widgets import get_grouped_widgets
+from django.template.loader import render_to_string
 
 
 class IconPreviewSelect(floppyforms.widgets.Select):
@@ -108,12 +109,17 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
                     'enter_effect_iteration',
                     css_id='theme-widget-effects'
                     ),
-            )
+            ),
+            HTML(render_to_string('widget/_update_preview.html',
+                                  {'class_name': ".".join([
+                                      self._meta.model._meta.app_label,
+                                      self._meta.model._meta.model_name])
+                                   }))
+
         )
 
-        self.fields['label'].widget = \
-            forms.TextInput(
-                attrs={'placeholder': self._meta.model._meta.verbose_name})
+        self.fields['label'].widget = forms.TextInput(
+            attrs={'placeholder': self._meta.model._meta.verbose_name})
 
         if request:
             _request = copy.copy(request)
@@ -122,9 +128,9 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
             from .tables import WidgetDimensionTable
             dimensions = Tab(_('Dimensions'),
                              HTML(
-                                 WidgetDimensionTable(_request,
-                                                      widget=widget,
-                                                      data=data).render()),
+                WidgetDimensionTable(_request,
+                                     widget=widget,
+                                     data=data).render()),
                              )
             self.helper.layout[0].append(dimensions)
 
@@ -143,15 +149,15 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
     def init_themes(self):
         queryset = self.fields['content_theme'].queryset
 
-        self.fields['content_theme'].queryset = \
-            queryset.filter(widget_class=self._meta.model.__name__)
+        self.fields['content_theme'].queryset = queryset.filter(
+            widget_class=self._meta.model.__name__)
 
         try:
             base_theme = self.fields['base_theme'].queryset.get(
                 name__icontains='default')
         except:
-            self.fields['base_theme'].initial = \
-                self.fields['base_theme'].queryset.first()
+            self.fields['base_theme'].initial = self.fields[
+                'base_theme'].queryset.first()
         else:
             self.fields['base_theme'].initial = base_theme
 
@@ -159,8 +165,8 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
             content_theme = self.fields['content_theme'].queryset.get(
                 name__icontains='default')
         except:
-            self.fields['content_theme'].initial = \
-                self.fields['content_theme'].queryset.first()
+            self.fields['content_theme'].initial = self.fields[
+                'content_theme'].queryset.first()
         else:
             self.fields['content_theme'].initial = content_theme
 
@@ -194,12 +200,11 @@ class WidgetMoveForm(SelfHandlingModelForm):
                 field.widget = forms.widgets.HiddenInput()
 
         # load template regions
-        self.fields['region'].choices = \
-            [(str(region.key),
-              '%s%s' % (
-                str(region.title),
-                ' - Inherited' if region.inherited else ''))
-             for region in self.instance.parent.template.regions]
+        self.fields['region'].choices = [(str(region.key),
+                                          '%s%s' % (
+            str(region.title),
+            ' - Inherited' if region.inherited else ''))
+            for region in self.instance.parent.template.regions]
 
     class Meta:
         widgets = {}
@@ -268,16 +273,15 @@ class WidgetSelectForm(SelfHandlingForm):
         self.fields['region'].initial = region_name
 
         # load template regions
-        self.fields['region'].choices = \
-            [(str(region.key),
-              '%s%s' % (
-                str(region.title),
-                _(' - Inherited') if region.inherited else ''))
-             for region in feincms_object.template.regions]
+        self.fields['region'].choices = [(str(region.key),
+                                          '%s%s' % (
+            str(region.title),
+            _(' - Inherited') if region.inherited else ''))
+            for region in feincms_object.template.regions]
 
         if region_name:
-            self.fields['ordering'].initial = \
-                len(getattr(feincms_object.content, region_name, [])) + 1
+            self.fields['ordering'].initial = len(
+                getattr(feincms_object.content, region_name, [])) + 1
 
         self.fields['parent'].initial = feincms_object.id
 

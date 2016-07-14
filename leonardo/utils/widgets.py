@@ -120,6 +120,7 @@ def get_htmltext_widget():
                    forms.Textarea
                    )
 
+
 def render_region(widget, request=None, view=None):
     """returns rendered content
     this is not too clear and little tricky,
@@ -148,8 +149,8 @@ def render_region(widget, request=None, view=None):
 
         try:
             r = content.process(request, view=view)
-        except Exception as e:
-            raise e
+        except:
+            pass
         else:
             # this is HttpResponse object or string
             contents[content.fe_identifier] = getattr(r, 'content', r)

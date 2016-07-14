@@ -1,0 +1,33 @@
+
+<div style="min-height: 500px; width: 400px; background-color: white; top: -99px; left: 610px; position: absolute;" id="preview"></div>
+
+<script>
+horizon.modals.addModalInitFunction(function(modal) {
+    $('#preview').css("left", $(".modal").children().width() + 10 + "px");
+    $('#preview').css("min-height", $(".modal-content").height() + "px");
+});
+
+var render_preview = function() {
+
+    var form_data = $.extend($("#preview").closest("form").serializeArray().reduce(
+    function(a, x) { a[x.name] = x.value; return a; }, {}),
+    {'method': 'render_preview', 'class_name': '{{ class_name }}'})
+
+    $.ajax({
+        'method': 'POST',
+        'data': form_data,
+        'success': function (data, textStatus, jqXHR) {
+            console.log(data);
+
+            if (data.hasOwnProperty('result')) {
+                $('#preview').html(data.result);
+            }
+
+        }
+    });
+}
+
+$("#preview").closest("form").find("input, textarea, select, optgroup").change(render_preview);
+
+render_preview();
+</script>

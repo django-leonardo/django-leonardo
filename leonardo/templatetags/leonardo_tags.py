@@ -142,7 +142,8 @@ def feincms_render_region(context, feincms_object, region, request=None):
         region_content = ''.join(
             _render_content(content, request=request, context=context)
             for content in getattr(feincms_object.content, region))
-        return '<div id=%s>%s</div>' % (region, region_content)
+        return '<div id=%s-%s>%s</div>' % (
+            region, getattr(feincms_object, 'slug', feincms_object), region_content)
     return ''
 
 
