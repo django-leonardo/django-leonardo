@@ -121,7 +121,8 @@ def get_htmltext_widget():
                    )
 
 
-def render_region(widget, request=None, view=None):
+def render_region(widget=None, request=None, view=None,
+                  page=None, region=None):
     """returns rendered content
     this is not too clear and little tricky,
     because external apps needs calling process method
@@ -135,17 +136,20 @@ def render_region(widget, request=None, view=None):
     if not hasattr(request, '_feincms_extra_context'):
         request._feincms_extra_context = {}
 
+    leonardo_page = widget.parent if widget else page
+    render_region = widget.region if widget else region
+
     # call processors
-    for fn in reversed(list(widget.parent.request_processors.values())):
+    for fn in reversed(list(leonardo_page.request_processors.values())):
         try:
-            r = fn(widget.parent, request)
+            r = fn(leonardo_page, request)
         except:
             pass
 
     contents = {}
 
-    for content in widget.parent.content.all_of_type(tuple(
-            widget.parent._feincms_content_types_with_process)):
+    for content in leonardo_page.content.all_of_type(tuple(
+            leonardo_page._feincms_content_types_with_process)):
 
         try:
             r = content.process(request, view=view)
@@ -160,6 +164,6 @@ def render_region(widget, request=None, view=None):
     region_content = ''.join(
         contents[content.fe_identifier] if content.fe_identifier in contents else _render_content(
             content, request=request, context={})
-        for content in getattr(widget.parent.content, widget.region))
+        for content in getattr(leonardo_page.content, render_region))
 
     return region_content
