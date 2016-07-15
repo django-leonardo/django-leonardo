@@ -44,7 +44,7 @@ class ContextConfig(dict):
             else:
                 return func
 
-        return getattr(main.config, attr, None)
+        return main.config.get_attr(attr, None)
 
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
