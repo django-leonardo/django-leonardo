@@ -262,9 +262,9 @@ horizon.addInitFunction(horizon.modals.init = function() {
                 $("#" + data.region).html(data.region_content);
 
                 // compile region
-                horizon.utils.loadAngular($region_container);
+                horizon.utils.loadAngular($("#" + data.region));
 
-              }                
+              }
 
           } else {
               // remove widget

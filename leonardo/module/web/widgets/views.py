@@ -166,19 +166,21 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
         if not self.request.is_ajax():
             return response
 
-        response = JsonResponse(data={
+        data = {
             'id': obj.fe_identifier,
             'parent_slug': obj.parent.slug,
             'ordering': obj.ordering
-        })
+        }
 
         # this is not necessary if websocket is installed
         if not leonardo.config.get_attr("is_websocket_enabled", None):
-            response['region_content'] = render_region(
-                obj, self.request, response)
-            response['region'] = obj.region
+            data['region_content'] = render_region(
+                obj, request=self.request, view=self)
+            data['region'] = '%s-%s' % (
+                obj.region,
+                getattr(obj.parent, 'slug', obj.parent))
 
-        return response
+        return JsonResponse(data=data)
 
     def get_initial(self):
         return self.kwargs
@@ -286,9 +288,8 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
         obj = self.object
         fe_identifier = obj.fe_identifier
 
+        obj.delete()
         try:
-
-            obj.delete()
 
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)

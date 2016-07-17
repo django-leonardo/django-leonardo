@@ -6,7 +6,7 @@
 {% block form_id %}{{ form_id }}{% endblock %}
 {% block form_action %}{{ url }}{% endblock %}
 
-{% block modal-header %}{{ modal_header }}{% endblock %}
+{% block modal-header %}{% if page_title %}{{ page_title }}{% else %}{{ modal_header }}{% endif %}{% endblock %}
 
 {% block modal-body %}
 
