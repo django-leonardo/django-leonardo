@@ -257,7 +257,9 @@ class Widget(FeinCMSBase):
             w.update_view = False
             w.save()
 
-        parent.invalidate_cache()
+        # this is page specific
+        if hasattr(parent, 'invalidate_cache'):
+            parent.invalidate_cache()
 
     class Meta:
         abstract = True

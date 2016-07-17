@@ -289,13 +289,9 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
         fe_identifier = obj.fe_identifier
 
         obj.delete()
-        try:
-
-            success_url = self.get_success_url()
-            response = HttpResponseRedirect(success_url)
-            response['X-Horizon-Location'] = success_url
-        except Exception as e:
-            raise e
+        success_url = self.get_success_url()
+        response = HttpResponseRedirect(success_url)
+        response['X-Horizon-Location'] = success_url
 
         if not self.request.is_ajax():
             return response
