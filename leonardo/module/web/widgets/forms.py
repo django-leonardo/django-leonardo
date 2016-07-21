@@ -71,11 +71,13 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
                 id=initial['id'])
             data = widget.dimensions
 
-            # filter content themes by widget
-            queryset = self.fields['content_theme'].queryset
-            self.fields['content_theme'].queryset = \
-                queryset.filter(widget_class=self._meta.model.__name__)
+            self.init_content_themes()
 
+        elif 'instance' in kwargs:
+            widget = kwargs['instance']
+            data = widget.dimensions
+
+            self.init_content_themes()
         else:
             data = []
             widget = None
@@ -145,6 +147,12 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
         if 'id' in self.fields:
             return ['id']
         return []
+
+    def init_content_themes(self):
+        # filter content themes by widget
+        queryset = self.fields['content_theme'].queryset
+        self.fields['content_theme'].queryset = \
+            queryset.filter(widget_class=self._meta.model.__name__)
 
     def init_themes(self):
         queryset = self.fields['content_theme'].queryset

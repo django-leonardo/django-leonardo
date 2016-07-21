@@ -80,7 +80,12 @@ class WidgetDimensionTable(FormsetDataTable):
 
     def __init__(self, *args, **kwargs):
         self._meta.row_class = CustomFormsetRow
-        self.widget = kwargs.pop('widget', None)
+        try:
+            self.widget = kwargs['widget']
+        except KeyError:
+            raise KeyError('Widget object not defined in kwargs')
+        except Exception:
+            raise Exception
         super(WidgetDimensionTable, self).__init__(*args, **kwargs)
 
     widget_id = tables.Column('widget_id', hidden=True)
