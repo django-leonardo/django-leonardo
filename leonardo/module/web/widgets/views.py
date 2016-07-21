@@ -55,7 +55,8 @@ class WidgetViewMixin(object):
         if formset.is_valid():
             # delete objects
             for obj in formset.deleted_objects:
-                obj.delete()
+                if obj.id != None:
+                    obj.delete()
         return True
 
     def get_page(self):
