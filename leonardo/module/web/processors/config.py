@@ -1,6 +1,6 @@
 from horizon import conf
 from leonardo import leonardo as main
-
+from constance import config
 
 class ContextConfig(dict):
 
@@ -30,6 +30,11 @@ class ContextConfig(dict):
         # for template convention support only lower case names
         # LEONARDO_CONFIG.DEBUG and LEONARDO_CONFIG.debug has same property
         attr = attr.lower()
+
+        try:
+	    return getattr(config, attr.upper())
+        except Exception:
+            pass
 
         if attr in conf.HORIZON_CONFIG:
             return conf.HORIZON_CONFIG.get(attr)
