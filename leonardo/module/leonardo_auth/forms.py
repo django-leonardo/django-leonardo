@@ -2,16 +2,25 @@ from __future__ import absolute_import
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.tokens import default_token_generator as token_generator
 from django.contrib.sites.models import Site
 from django.core import exceptions
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext, ugettext
+from django.contrib.auth import get_user_model
+
+from leonardo.utils.emails import send_templated_email as send_mail
+
 from horizon import forms, messages
-from leonardo.forms import SelfHandlingForm, Layout, InlineCheckboxes
+from horizon_contrib.forms import SelfHandlingForm
 from horizon.utils import validators
+
+from . import app_settings
+from .utils import user_pk_to_url_str
+
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
 
 
 class LoginForm(SelfHandlingForm):
@@ -24,14 +33,19 @@ class LoginForm(SelfHandlingForm):
                                           'autofocus': 'autofocus'}))
 
     password = forms.CharField(label=_("Password"),
-                               widget=forms.PasswordInput(render_value=False))
+                               widget=forms.PasswordInput(render_value=True))
     remember = forms.BooleanField(label=_("Remember Me"),
                                   required=False)
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
+
         self.helper.layout = Layout(
-            'username', 'password', 'remember',
+            "username", "password", "remember",
+
+            HTML("<a href = %s> Sign Up </a>" % reverse("signup")),
+            HTML("<a href = %s> Reset Password </a>" % reverse("reset_pwd"))
+
         )
 
     def handle(self, request, data):
@@ -71,7 +85,7 @@ class SignupForm(SelfHandlingForm):
 
     def clean(self):
         '''Check to make sure password fields match.'''
-        data = super(forms.Form, self).clean()
+        data = super(SignupForm, self).clean()
 
         # basic check for now
         if 'username' in data:
@@ -106,13 +120,13 @@ class SignupForm(SelfHandlingForm):
         return False
 
 
-"""
-class ChangePasswordForm(UserForm):
-
-    oldpassword = PasswordField(label=_("Current Password"))
-    password1 = SetPasswordField(label=_("New Password"))
-    password2 = PasswordField(label=_("New Password (again)"))
-
+class ChangePasswordForm(SelfHandlingForm):
+    oldpassword = forms.CharField(label=_("Current Password"),
+                               widget=forms.PasswordInput(render_value=False))
+    password1 = forms.CharField(label=_("New Password"),
+                               widget=forms.PasswordInput(render_value=False))
+    password2 = forms.CharField(label=_("New Password (again)"),
+                               widget=forms.PasswordInput(render_value=False))
     def clean_oldpassword(self):
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
             raise forms.ValidationError(_("Please type your current"
@@ -128,30 +142,12 @@ class ChangePasswordForm(UserForm):
                                               " each time."))
         return self.cleaned_data["password2"]
 
-    def save(self):
-        get_adapter().set_password(self.user, self.cleaned_data["password1"])
+    def handle(self, request, data):
+        self.user.set_password(data["password1"])
 
 
-class SetPasswordForm(UserForm):
 
-    password1 = SetPasswordField(label=_("Password"))
-    password2 = PasswordField(label=_("Password (again)"))
-
-    def clean_password2(self):
-        if ("password1" in self.cleaned_data
-                and "password2" in self.cleaned_data):
-            if (self.cleaned_data["password1"]
-                    != self.cleaned_data["password2"]):
-                raise forms.ValidationError(_("You must type the same password"
-                                              " each time."))
-        return self.cleaned_data["password2"]
-
-    def save(self):
-        get_adapter().set_password(self.user, self.cleaned_data["password1"])
-
-
-class ResetPasswordForm(forms.Form):
-
+class ResetPasswordForm(SelfHandlingForm):
     email = forms.EmailField(
         label=_("E-mail"),
         required=True,
@@ -159,59 +155,47 @@ class ResetPasswordForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        email = get_adapter().clean_email(email)
+
         self.users = get_user_model().objects \
-            .filter(Q(email__iexact=email)
-                    | Q(emailaddress__email__iexact=email)).distinct()
+            .filter(Q(email__iexact=email)).distinct()
+
         if not self.users.exists():
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))
         return self.cleaned_data["email"]
 
-    def save(self, request, **kwargs):
-
+    def handle(self, request, data):
         email = self.cleaned_data["email"]
-        token_generator = kwargs.get("token_generator",
-                                     default_token_generator)
-
         for user in self.users:
-
             temp_key = token_generator.make_token(user)
-
             # save it to the password reset model
             # password_reset = PasswordReset(user=user, temp_key=temp_key)
             # password_reset.save()
-
             current_site = Site.objects.get_current()
-
             # send the password reset email
+
             path = reverse("account_reset_password_from_key",
                            kwargs=dict(uidb36=user_pk_to_url_str(user),
                                        key=temp_key))
-            url = build_absolute_uri(request, path,
-                                     protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
+            url = request.build_absolute_uri(path)
             context = {"site": current_site,
                        "user": user,
                        "password_reset_url": url}
-            if app_settings.AUTHENTICATION_METHOD \
-                    != AuthenticationMethod.EMAIL:
-                context['username'] = user_username(user)
-            get_adapter().send_mail('account/email/password_reset_key',
-                                    email,
-                                    context)
+            context['username'] = user.username
+            send_mail('Reset password', 'leonardo_auth/email/password_reset_key.html', context ,
+                                    [email],'nazgerul@gmail.com')
         return self.cleaned_data["email"]
 
 
-class ResetPasswordKeyForm(forms.Form):
-
-    password1 = SetPasswordField(label=_("New Password"))
-    password2 = PasswordField(label=_("New Password (again)"))
-
+class ResetPasswordKeyForm(SelfHandlingForm):
+    password1 = forms.CharField(label=_("New Password"),
+                               widget=forms.PasswordInput(render_value=False))
+    password2 = forms.CharField(label=_("New Password (again)"),
+                               widget=forms.PasswordInput(render_value=False))
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         self.temp_key = kwargs.pop("temp_key", None)
         super(ResetPasswordKeyForm, self).__init__(*args, **kwargs)
-
     # FIXME: Inspecting other fields -> should be put in def clean(self) ?
     def clean_password2(self):
         if ("password1" in self.cleaned_data
@@ -221,7 +205,54 @@ class ResetPasswordKeyForm(forms.Form):
                 raise forms.ValidationError(_("You must type the same"
                                               " password each time."))
         return self.cleaned_data["password2"]
+    def handle(self, request, data):
+        self.user.set_password(data["password1"])
 
+class UserTokenForm(SelfHandlingForm):
+
+    uidb36 = forms.CharField()
+    key = forms.CharField()
+
+    reset_user = None
+    token_generator = default_token_generator
+
+    error_messages = {
+        'token_invalid': _('The password reset token was invalid.'),
+    }
+
+    def _get_user(self, uidb36):
+        User = get_user_model()
+        try:
+            pk = url_str_to_user_pk(uidb36)
+            return User.objects.get(pk=pk)
+        except (ValueError, User.DoesNotExist):
+            return None
+
+    def clean(self):
+        cleaned_data = super(UserTokenForm, self).clean()
+
+        uidb36 = cleaned_data['uidb36']
+        key = cleaned_data['key']
+
+        self.reset_user = self._get_user(uidb36)
+        if (self.reset_user is None or
+                not self.token_generator.check_token(self.reset_user, key)):
+            raise forms.ValidationError(self.error_messages['token_invalid'])
+
+        return cleaned_data
+
+"""
+class SetPasswordForm(UserForm):
+    password1 = SetPasswordField(label=_("Password"))
+    password2 = PasswordField(label=_("Password (again)"))
+    def clean_password2(self):
+        if ("password1" in self.cleaned_data
+                and "password2" in self.cleaned_data):
+            if (self.cleaned_data["password1"]
+                    != self.cleaned_data["password2"]):
+                raise forms.ValidationError(_("You must type the same password"
+                                              " each time."))
+        return self.cleaned_data["password2"]
     def save(self):
         get_adapter().set_password(self.user, self.cleaned_data["password1"])
 """
