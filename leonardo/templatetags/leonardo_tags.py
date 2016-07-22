@@ -128,7 +128,8 @@ def _render_content(content, **kwargs):
 
 
 @register.simple_tag(takes_context=True)
-def feincms_render_region(context, feincms_object, region, request=None):
+def feincms_render_region(context, feincms_object, region, request=None,
+                          classes='', wrapper=True):
     """
     {% feincms_render_region feincms_page "main" request %}
 
@@ -142,9 +143,27 @@ def feincms_render_region(context, feincms_object, region, request=None):
         region_content = ''.join(
             _render_content(content, request=request, context=context)
             for content in getattr(feincms_object.content, region))
-        return '<div id=%s-%s>%s</div>' % (
-            region, getattr(feincms_object, 'slug', feincms_object), region_content)
-    return ''
+    else:
+        region_content = ''
+
+    if not wrapper:
+        return region_content
+
+    _classes = "leonardo-region leonardo-region-%(region)s %(classes)s" % {
+        'region': region,
+        'classes': classes
+    }
+
+    _id = "%(region)s-%(id)s" % {
+        'id': feincms_object.id,
+        'region': region,
+    }
+
+    return '<div class="%(classes)s" id=%(id)s>%(content)s</div>' % {
+        'id': _id,
+        'classes': _classes,
+        'content': region_content
+    }
 
 
 class AppReverseNode(template.Node):
