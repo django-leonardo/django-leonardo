@@ -8,10 +8,13 @@ urlpatterns = patterns(
     url(r"^login/$", views.LoginView.as_view(), name="login"),
     url(r"^signup/$", views.SignupView.as_view(), name="signup"),
     url(r"^logout/$", views.LogoutView.as_view(), name="logout"),
+    url(r"^change_password/$",
+        views.PasswordChangeView.as_view(), name="change_pwd"),
     url(r"^reset_password/$",
         views.ResetPasswordInitialView.as_view(), name="reset_pwd"),
     url(r"^password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$",
-        views.ResetPasswordKeyView.as_view(), name="account_reset_password_from_key"),
+        views.ResetPasswordKeyView.as_view(),
+        name="account_reset_password_from_key"),
 )
 
 """

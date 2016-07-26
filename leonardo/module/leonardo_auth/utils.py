@@ -50,3 +50,12 @@ def url_str_to_user_pk(s):
     except ValidationError:
         pk = base36_to_int(s)
     return pk
+
+
+def logout_on_password_change(request, user):
+    # Since it is the default behavior of Django to invalidate all sessions on
+    # password change, this function actually has to preserve the session when
+    # logout isn't desired.
+    if (update_session_auth_hash is not None and
+            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
+        update_session_auth_hash(request, user)

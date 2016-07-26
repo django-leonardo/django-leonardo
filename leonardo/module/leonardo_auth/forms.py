@@ -115,7 +115,14 @@ class SignupForm(SelfHandlingForm):
         return False
 
 
-class ChangePasswordForm(SelfHandlingForm):
+class UserForm(SelfHandlingForm):
+
+    def __init__(self, user=None, *args, **kwargs):
+        self.user = user
+        super(UserForm, self).__init__(*args, **kwargs)
+
+
+class ChangePasswordForm(UserForm):
     oldpassword = forms.CharField(label=_("Current Password"),
                                   widget=forms.PasswordInput(
         render_value=False))
@@ -135,6 +142,7 @@ class ChangePasswordForm(SelfHandlingForm):
     def clean_password2(self):
         if ("password1" in self.cleaned_data
                 and "password2" in self.cleaned_data):
+
             if (self.cleaned_data["password1"]
                     != self.cleaned_data["password2"]):
                 raise forms.ValidationError(_("You must type the same password"
@@ -143,6 +151,18 @@ class ChangePasswordForm(SelfHandlingForm):
 
     def handle(self, request, data):
         self.user.set_password(data["password1"])
+        self.user.save()
+
+        user = authenticate(
+            username=self.user.username,
+            password=data["password1"])
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+
+                messages.success(request, "Password changed successfully")
+                return True
 
 
 class ResetPasswordForm(SelfHandlingForm):
@@ -253,19 +273,3 @@ class UserTokenForm(forms.Form):
             raise forms.ValidationError(self.error_messages['token_invalid'])
 
         return cleaned_data
-
-"""
-class SetPasswordForm(UserForm):
-    password1 = SetPasswordField(label=_("Password"))
-    password2 = PasswordField(label=_("Password (again)"))
-    def clean_password2(self):
-        if ("password1" in self.cleaned_data
-                and "password2" in self.cleaned_data):
-            if (self.cleaned_data["password1"]
-                    != self.cleaned_data["password2"]):
-                raise forms.ValidationError(_("You must type the same password"
-                                              " each time."))
-        return self.cleaned_data["password2"]
-    def save(self):
-        get_adapter().set_password(self.user, self.cleaned_data["password1"])
-"""

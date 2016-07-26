@@ -9,7 +9,11 @@ from leonardo import forms, messages
 from .forms import (ChangePasswordForm, LoginForm, ResetPasswordForm,
                     ResetPasswordKeyForm, SignupForm, UserTokenForm)
 from django.http import HttpResponseRedirect
+from leonardo.decorators import require_auth
 
+from .utils import logout_on_password_change
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 
 class AuthViewMixin(object):
 
@@ -205,4 +209,35 @@ class LogoutView(forms.ModalFormView):
     def get_redirect_url(self):
         ret = self.request.GET.get(
             self.redirect_field_name, settings.LOGOUT_URL)
+        return ret
+
+
+class PasswordChangeView(forms.ModalFormView):
+    template_name = 'leonardo_auth/change_password.html'
+    form_class = ChangePasswordForm
+    success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
+    redirect_field_name = "next"
+
+    def get_success_url(self):
+        # Explicitly passed ?next= URL takes precedence
+        ret = getattr(self.kwargs, self.redirect_field_name, self.success_url)
+        return ret
+
+    def get_form_kwargs(self):
+        kwargs = super(PasswordChangeView, self).get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+    @method_decorator(require_auth)
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.has_usable_password():
+            return HttpResponseRedirect(reverse('account_set_password'))
+        return super(PasswordChangeView, self).dispatch(request, *args,
+                                                        **kwargs)
+
+    def get_context_data(self, **kwargs):
+        ret = super(PasswordChangeView, self).get_context_data(**kwargs)
+        # NOTE: For backwards compatibility
+        ret['password_change_form'] = ret.get('form')
+        # (end NOTE)
         return ret
