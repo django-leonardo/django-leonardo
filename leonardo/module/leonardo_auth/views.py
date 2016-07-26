@@ -11,11 +11,11 @@ from .forms import (ChangePasswordForm, LoginForm, ResetPasswordForm,
 from django.http import HttpResponseRedirect
 from leonardo.decorators import require_auth
 
-from .utils import logout_on_password_change
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
 
-class AuthViewMixin(object):
+
+class HelperMixin(object):
 
     redirect_field_name = "next"
 
@@ -23,10 +23,19 @@ class AuthViewMixin(object):
 
     @property
     def redirect_field_value(self):
-        return getattr(
-            self.kwargs,
-            self.redirect_field_name,
-            self.success_url)
+        redirect_field_value = self.get_request_param(
+            self.redirect_field_name)
+        return redirect_field_value or self.success_url
+
+    def get_success_url(self):
+        return self.redirect_field_value
+
+    def get_request_param(self, param, default=None):
+        return self.request.POST.get(param) or self.request.GET.get(
+            param, default)
+
+
+class AuthViewMixin(HelperMixin):
 
     def dispatch(self, request, *args, **kwargs):
         # WORKAROUND: https://code.djangoproject.com/ticket/19316
@@ -48,11 +57,6 @@ class LoginView(AuthViewMixin, forms.ModalFormView):
     template_name = 'leonardo_auth/login.html'
     success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
-    def get_success_url(self):
-        # Explicitly passed ?next= URL takes precedence
-        ret = self.request.GET.get(self.redirect_field_name, self.success_url)
-        return ret
-
     def get_context_data(self, **kwargs):
         ret = super(LoginView, self).get_context_data(**kwargs)
 
@@ -64,6 +68,7 @@ class LoginView(AuthViewMixin, forms.ModalFormView):
             "redirect_field_name": self.redirect_field_name,
             "redirect_field_value": self.redirect_field_value,
             "modal_header": _("Login")})
+
         return ret
 
     def get_initial(self):
@@ -74,11 +79,6 @@ class SignupView(AuthViewMixin, forms.ModalFormView):
     template_name = "leonardo/common/modal.html"
     form_class = SignupForm
     success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
-
-    def get_success_url(self):
-        # Explicitly passed ?next= URL takes precedence
-        ret = getattr(self.kwargs, self.redirect_field_name, self.success_url)
-        return ret
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
@@ -95,11 +95,6 @@ class ResetPasswordInitialView(AuthViewMixin, forms.ModalFormView):
     template_name = "leonardo/common/modal.html"
     form_class = ResetPasswordForm
 
-    def get_success_url(self):
-        # Explicitly passed ?next= URL takes precedence
-        ret = getattr(self.kwargs, self.redirect_field_name, self.success_url)
-        return ret
-
     def get_context_data(self, **kwargs):
         ret = super(ResetPasswordInitialView, self).get_context_data(**kwargs)
         ret.update({
@@ -113,11 +108,6 @@ class ResetPasswordInitialView(AuthViewMixin, forms.ModalFormView):
 
 class ResetPasswordKeyView(AuthViewMixin, forms.ModalFormView):
     form_class = ResetPasswordKeyForm
-
-    def get_success_url(self):
-        # Explicitly passed ?next= URL takes precedence
-        ret = getattr(self.kwargs, self.redirect_field_name, self.success_url)
-        return ret
 
     def get_context_data(self, **kwargs):
         ret = super(ResetPasswordKeyView, self).get_context_data(**kwargs)
@@ -158,11 +148,6 @@ class ResetPasswordKeyView(AuthViewMixin, forms.ModalFormView):
 class ChangePasswordView(AuthViewMixin, forms.ModalFormView):
     form_class = ChangePasswordForm
     template_name = "leonrdo/common/modal.html"
-
-    def get_success_url(self):
-        # Explicitly passed ?next= URL takes precedence
-        ret = getattr(self.kwargs, self.redirect_field_name, self.success_url)
-        return ret
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
@@ -212,16 +197,9 @@ class LogoutView(forms.ModalFormView):
         return ret
 
 
-class PasswordChangeView(forms.ModalFormView):
+class PasswordChangeView(HelperMixin, forms.ModalFormView):
     template_name = 'leonardo_auth/change_password.html'
     form_class = ChangePasswordForm
-    success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
-    redirect_field_name = "next"
-
-    def get_success_url(self):
-        # Explicitly passed ?next= URL takes precedence
-        ret = getattr(self.kwargs, self.redirect_field_name, self.success_url)
-        return ret
 
     def get_form_kwargs(self):
         kwargs = super(PasswordChangeView, self).get_form_kwargs()
