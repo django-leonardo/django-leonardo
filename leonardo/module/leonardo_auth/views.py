@@ -1,29 +1,48 @@
 
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.utils.translation import ugettext_lazy as _
-
-from django.contrib.auth import get_user_model
 from django.conf import settings
-from leonardo import forms
-from leonardo import messages
-
-from .forms import LoginForm, SignupForm, ChangePasswordForm, ResetPasswordForm, ResetPasswordKeyForm
-
-from django.contrib.sites.models import Site
-
 from django.contrib.auth import logout as auth_logout
+from django.contrib.sites.models import Site
 from django.shortcuts import redirect
+from django.utils.translation import ugettext_lazy as _
+from leonardo import forms, messages
 
-from django.views.decorators.debug import sensitive_post_parameters  # noqa
+from .forms import (ChangePasswordForm, LoginForm, ResetPasswordForm,
+                    ResetPasswordKeyForm, SignupForm, UserTokenForm)
+from django.http import HttpResponseRedirect
 
 
-class LoginView(forms.ModalFormView):
+class AuthViewMixin(object):
+
+    redirect_field_name = "next"
+
+    success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
+
+    @property
+    def redirect_field_value(self):
+        return getattr(
+            self.kwargs,
+            self.redirect_field_name,
+            self.success_url)
+
+    def dispatch(self, request, *args, **kwargs):
+        # WORKAROUND: https://code.djangoproject.com/ticket/19316
+        self.request = request
+        # (end WORKAROUND)
+        if request.user.is_authenticated() and \
+                settings.LOGIN_REDIRECT_URL:
+            return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
+        else:
+            response = super(AuthViewMixin,
+                             self).dispatch(request,
+                                            *args,
+                                            **kwargs)
+        return response
+
+
+class LoginView(AuthViewMixin, forms.ModalFormView):
     form_class = LoginForm
     template_name = 'leonardo_auth/login.html'
     success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
-
-    redirect_field_name = "next"
 
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence
@@ -32,15 +51,14 @@ class LoginView(forms.ModalFormView):
 
     def get_context_data(self, **kwargs):
         ret = super(LoginView, self).get_context_data(**kwargs)
-        redirect_field_value = self.request.GET \
-            .get(self.redirect_field_name)
+
         ret.update({
             "url": self.request.build_absolute_uri(),
             "view_name": _("Login"),
             "modal_size": 'sm',
             "site": Site.objects.get_current(),
             "redirect_field_name": self.redirect_field_name,
-            "redirect_field_value": redirect_field_value,
+            "redirect_field_value": self.redirect_field_value,
             "modal_header": _("Login")})
         return ret
 
@@ -48,10 +66,9 @@ class LoginView(forms.ModalFormView):
         return {}
 
 
-class SignupView(forms.ModalFormView):
+class SignupView(AuthViewMixin, forms.ModalFormView):
     template_name = "leonardo/common/modal.html"
     form_class = SignupForm
-    redirect_field_name = "next"
     success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
     def get_success_url(self):
@@ -61,20 +78,18 @@ class SignupView(forms.ModalFormView):
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
-        redirect_field_name = self.redirect_field_name
-        redirect_field_value = self.request.REQUEST.get(redirect_field_name)
         ret.update({
             "url": self.request.build_absolute_uri(),
             "view_name": _("Register"),
-            "redirect_field_name": redirect_field_name,
-            "redirect_field_value": redirect_field_value,
+            "redirect_field_name": self.redirect_field_name,
+            "redirect_field_value": self.redirect_field_value,
             "modal_header": _("Sign Up")})
         return ret
 
-class ResetPasswordInitialView(forms.ModalFormView):
+
+class ResetPasswordInitialView(AuthViewMixin, forms.ModalFormView):
     template_name = "leonardo/common/modal.html"
     form_class = ResetPasswordForm
-    redirect_field_name = "next"
 
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence
@@ -83,20 +98,17 @@ class ResetPasswordInitialView(forms.ModalFormView):
 
     def get_context_data(self, **kwargs):
         ret = super(ResetPasswordInitialView, self).get_context_data(**kwargs)
-        redirect_field_name = self.redirect_field_name
-        redirect_field_value = self.request.REQUEST.get(redirect_field_name)
         ret.update({
             "url": self.request.build_absolute_uri(),
             "view_name": _("Register"),
-            "redirect_field_name": redirect_field_name,
-            "redirect_field_value": redirect_field_value,
+            "redirect_field_name": self.redirect_field_name,
+            "redirect_field_value": self.redirect_field_value,
             "modal_header": _("Sign Up")})
         return ret
 
 
-class ResetPasswordKeyView(forms.ModalFormView):
+class ResetPasswordKeyView(AuthViewMixin, forms.ModalFormView):
     form_class = ResetPasswordKeyForm
-    redirect_field_name = "next"
 
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence
@@ -105,13 +117,11 @@ class ResetPasswordKeyView(forms.ModalFormView):
 
     def get_context_data(self, **kwargs):
         ret = super(ResetPasswordKeyView, self).get_context_data(**kwargs)
-        redirect_field_name = self.redirect_field_name
-        redirect_field_value = self.request.REQUEST.get(redirect_field_name)
         ret.update({
             "url": self.request.build_absolute_uri(),
             "view_name": _("Register"),
-            "redirect_field_name": redirect_field_name,
-            "redirect_field_value": redirect_field_value,
+            "redirect_field_name": self.redirect_field_name,
+            "redirect_field_value": self.redirect_field_value,
             "modal_header": _("Sign Up")})
         return ret
 
@@ -123,28 +133,27 @@ class ResetPasswordKeyView(forms.ModalFormView):
 
         if not token_form.is_valid():
             self.reset_user = None
-            response = self.render_to_response(
-                self.get_context_data(token_fail=True)
-            )
-            return _ajax_response(self.request, response, form=token_form)
+            context = self.get_context_data(token_fail=True)
+            context["form"] = token_form
+            response = self.render_to_response(context)
+            return response
         else:
             self.reset_user = token_form.reset_user
-            return super(PasswordResetFromKeyView, self).dispatch(request,
-                                                                  uidb36,
-                                                                  key,
-                                                                  **kwargs)
+            return super(ResetPasswordKeyView, self).dispatch(request,
+                                                              uidb36,
+                                                              key,
+                                                              **kwargs)
 
     def get_form_kwargs(self):
-        kwargs = super(PasswordResetFromKeyView, self).get_form_kwargs()
+        kwargs = super(ResetPasswordKeyView, self).get_form_kwargs()
         kwargs["user"] = self.reset_user
         kwargs["temp_key"] = self.key
         return kwargs
 
 
-class ChangePasswordView(forms.ModalFormView):
+class ChangePasswordView(AuthViewMixin, forms.ModalFormView):
     form_class = ChangePasswordForm
     template_name = "leonrdo/common/modal.html"
-    redirect_field_name = "next"
 
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence
@@ -153,13 +162,11 @@ class ChangePasswordView(forms.ModalFormView):
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
-        redirect_field_name = self.redirect_field_name
-        redirect_field_value = self.request.REQUEST.get(redirect_field_name)
         ret.update({
             "url": self.request.build_absolute_uri(),
             "view_name": _("Register"),
-            "redirect_field_name": redirect_field_name,
-            "redirect_field_value": redirect_field_value,
+            "redirect_field_name": self.redirect_field_name,
+            "redirect_field_value": self.redirect_field_value,
             "modal_header": _("Sign Up")})
         return ret
 
@@ -189,11 +196,9 @@ class LogoutView(forms.ModalFormView):
 
     def get_context_data(self, **kwargs):
         ctx = kwargs
-        redirect_field_value = self.request.REQUEST \
-            .get(self.redirect_field_name)
         ctx.update({
             "redirect_field_name": self.redirect_field_name,
-            "redirect_field_value": redirect_field_value,
+            "redirect_field_value": self.redirect_field_value,
             "modal_header": _("Logout")})
         return ctx
 
@@ -201,4 +206,3 @@ class LogoutView(forms.ModalFormView):
         ret = self.request.GET.get(
             self.redirect_field_name, settings.LOGOUT_URL)
         return ret
-

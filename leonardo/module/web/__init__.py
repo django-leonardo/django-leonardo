@@ -135,11 +135,6 @@ class Default(object):
     css_files = [
         'css/lib/animate.css',
         'css/lib/select2.css',
-    ]
-
-    css_files = [
-        'css/lib/animate.css',
-        'css/lib/select2.css',
         'css/lib/lightbox.css',
     ]
 
