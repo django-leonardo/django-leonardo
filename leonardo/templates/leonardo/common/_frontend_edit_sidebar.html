@@ -19,6 +19,95 @@
     width: 250px;
     z-index: 1040;
 }
+
+{# Show widgets #}
+
+.show-widgets .leonardo-widget {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(60, 179, 113, 0.5),
+    rgba(60, 179, 113, 0.5) 10px,
+    rgba(46, 139, 87, 0.5) 10px,
+    rgba(46, 139, 87, 0.5) 20px
+  );
+  background-position: 4px 4px;
+  background-size: calc(100% - 8px) calc(100% - 8px);
+  background-repeat: no-repeat;
+  outline: 1px solid #97c5ab;
+}
+
+{# Show containers #}
+
+.show-containers .container {
+  background-color: rgba(0,255,0,0.1);
+}
+
+.show-containers .container-fluid {
+  background-color: rgba(0,0,255,0.1);
+}
+
+{# Region grid CSS overrides #}
+
+.leonardo-region {
+  position: relative;
+}
+
+.leonardo-region:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#grid-displayer {
+  position: absolute !important;
+  display: initial !important;
+  z-index: 999 !important;
+}
+
+#grid-displayer .gd-container {
+  padding: 0px 15px;
+}
+
+#grid-displayer .gd-container .gd-column {
+  border-width: 0px 5px !important;
+}
+
+#grid-displayer-tools {
+  display: none !important;
+}
+
+{# Region grid colors #}
+
+.leonardo-region-header .gd-column {
+  outline-color: #32CD32 !important;
+  background-color: #32CD32 !important;
+}
+
+.leonardo-region-toolbar .gd-column {
+  outline-color: #1E90FF !important;
+  background-color: #1E90FF !important;
+}
+
+.leonardo-region-col1 .gd-column {
+  outline-color: #B22222 !important;
+  background-color: #B22222 !important;
+}
+
+.leonardo-region-col3 .gd-column {
+  outline-color: #FF4500 !important;
+  background-color: #FF4500 !important;
+}
+
+.leonardo-region-col2 .gd-column {
+  outline-color: #008080 !important;
+  background-color: #008080 !important;
+}
+
+.leonardo-region-footer .gd-column {
+  outline-color: #9370DB !important;
+  background-color: #9370DB !important;
+}
+
 </style>
 {% endblock %}
 
