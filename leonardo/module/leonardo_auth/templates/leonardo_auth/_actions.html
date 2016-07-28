@@ -44,7 +44,7 @@ $('#show-containers-button').click(function() {
 
 </script>
 
-{# SHow regions button #}
+{# Show regions button #}
 
 <script type="text/javascript">
 
@@ -52,8 +52,7 @@ $('#show-regions-button').click(function() {
   var startBookmarklet = function($) {      
     
     // Set bookmarklet framework
-    var rootSelector = ".leonardo-region"
-    var scriptSrc  = "http://alefeuvre.github.com/foundation-grid-displayer/gd-bookmarklet.min.js",
+    var rootSelector = ".leonardo-region",
         bmletFramework = "b";
 
     // Close grid displayer
@@ -251,7 +250,6 @@ $('#show-regions-button').click(function() {
                     + "  <div class=\"gdt-button\"><a href=\"#null\" id=\"gdt-close\">Close</a></div>"
                     + "</div>";
 
-      $("head").append("<link rel='stylesheet' type='text/css' href='http://alefeuvre.github.com/foundation-grid-displayer/stylesheets/gd-bookmarklet.min.css'>");
       $(rootSelector).prepend(gridHtml).prepend(gridToolsHtml);
       $("#grid-displayer-tools").delay(1200).fadeTo("slow",0.1);
 
