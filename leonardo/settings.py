@@ -249,13 +249,6 @@ setattr(leonardo, 'widgets', WIDGETS)
 # FINALLY OVERRIDE ALL
 
 try:
-    # local settings
-    from local_settings import *
-except ImportError:
-    warnings.warn(
-        'Missing local_settings !')
-
-try:
     # full settings
     from leonardo_site.local.settings import *
 except ImportError:
@@ -266,6 +259,13 @@ try:
     from leonardo_site.settings import *
 except ImportError:
     pass
+
+try:
+    # local settings
+    from local_settings import *
+except ImportError:
+    warnings.warn(
+        'Missing local_settings !')
 
 # and again merge core with others
 APPS = merge(APPS, default.core)
@@ -319,3 +319,5 @@ conf.HORIZON_CONFIG = HORIZON_CONFIG
 
 if DEBUG:
     logging.basicConfig(level=logging.DEBUG)
+
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
