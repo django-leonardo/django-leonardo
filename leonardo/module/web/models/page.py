@@ -1,16 +1,18 @@
 
 from __future__ import unicode_literals
 
+import logging
 from django.db import models
-from django.test import RequestFactory
-from django.contrib.auth.models import AnonymousUser
 from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from feincms.module.page.models import BasePage as FeinCMSPage
 from django.core.exceptions import PermissionDenied
+from leonardo.module.web.page.utils import get_anonymous_request
 from ..const import *
 from ..processors import edit as edit_processors
+
+LOG = logging.getLogger(__name__)
 
 
 @python_2_unicode_compatible
@@ -18,13 +20,17 @@ class PageDimension(models.Model):
 
     page = models.ForeignKey('Page', verbose_name=_('Page'))
     size = models.CharField(
-        verbose_name="Size", max_length=20, choices=DISPLAY_SIZE_CHOICES, default='md')
-    col1_width = models.IntegerField(verbose_name=_("Column 1 width"),
-                                     choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
-    col2_width = models.IntegerField(verbose_name=_("Column 2 width"),
-                                     choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
-    col3_width = models.IntegerField(verbose_name=_("Column 3 width"),
-                                     choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+        verbose_name="Size", max_length=20,
+        choices=DISPLAY_SIZE_CHOICES, default='md')
+    col1_width = models.IntegerField(
+        verbose_name=_("Column 1 width"),
+        choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    col2_width = models.IntegerField(
+        verbose_name=_("Column 2 width"),
+        choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
+    col3_width = models.IntegerField(
+        verbose_name=_("Column 3 width"),
+        choices=COLUMN_CHOICES, default=DEFAULT_WIDTH)
 
     def __str__(self):
         return "{0} - {1}".format(self.page, self.size)
@@ -43,7 +49,10 @@ class PageTheme(models.Model):
     label = models.CharField(
         verbose_name=_("Title"), max_length=255, null=True, blank=True)
     template = models.ForeignKey(
-        'dbtemplates.Template', verbose_name=_('Template'), related_name='page_templates', limit_choices_to={'name__startswith': "base/page/"})
+        'dbtemplates.Template',
+        verbose_name=_('Template'),
+        related_name='page_templates',
+        limit_choices_to={'name__startswith': "base/page/"})
     styles = models.TextField(verbose_name=_('Style'), blank=True)
 
     def __str__(self):
@@ -79,7 +88,8 @@ class PageColorScheme(models.Model):
 class Page(FeinCMSPage):
 
     layout = models.CharField(
-        verbose_name=_("Layout"), max_length=25, default='fixed', choices=PAGE_LAYOUT_CHOICES)
+        verbose_name=_("Layout"), max_length=25,
+        default='fixed', choices=PAGE_LAYOUT_CHOICES)
     theme = models.ForeignKey(PageTheme, verbose_name=_('Theme'))
     color_scheme = models.ForeignKey(
         PageColorScheme, verbose_name=_('Color scheme'))
@@ -209,21 +219,11 @@ class Page(FeinCMSPage):
         '''
         from leonardo.templatetags.leonardo_tags import _render_content
 
-        request_factory = RequestFactory()
-        request = request_factory.get(
-            self.get_absolute_url(), data={})
-        request.feincms_page = request.leonardo_page = self
-        request.frontend_editing = False
-        request.user = AnonymousUser()
-
-        if not hasattr(request, '_feincms_extra_context'):
-            request._feincms_extra_context = {}
+        request = get_anonymous_request(self)
 
         content = ''
-        try:
 
-            # check permissions etc..
-            self.run_request_processors(request)
+        try:
 
             for region in [region.key
                            for region in self._feincms_all_regions]:
@@ -233,7 +233,7 @@ class Page(FeinCMSPage):
         except PermissionDenied:
             pass
         except Exception as e:
-            raise e
+            LOG.exception(e)
 
         return content
 
