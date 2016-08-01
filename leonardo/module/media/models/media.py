@@ -169,7 +169,8 @@ class MediaCategoriesNavigationExtension(NavigationExtension):
             for subcategory in category.media_folder_children.all():
                 subchildren.append(PagePretender(
                     title=subcategory,
-                    url='%s%s/%s/' % (base_url, category.name, subcategory.name),
+                    url='%s%s/%s/' % (base_url,
+                                      category.name, subcategory.name),
                     level=5
                 ))
             yield PagePretender(

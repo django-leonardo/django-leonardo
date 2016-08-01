@@ -319,5 +319,3 @@ conf.HORIZON_CONFIG = HORIZON_CONFIG
 
 if DEBUG:
     logging.basicConfig(level=logging.DEBUG)
-
-EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'

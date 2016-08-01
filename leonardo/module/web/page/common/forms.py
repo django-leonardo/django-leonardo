@@ -12,6 +12,7 @@ from leonardo.module.web.page.forms import PageColorSchemeSwitchableFormMixin
 from leonardo.forms import LanguageSelectField, Select2Widget
 from leonardo.module.web.page.fields import PageThemeSelectField
 from leonardo.forms.fields.sites import SiteSelectField
+from feincms.utils import copy_model_instance
 
 
 class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
@@ -43,8 +44,11 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
         required=False
     )
 
-    depth = forms.IntegerField(label=_('Depth'), initial=1)
-    from_root = forms.BooleanField(label=_('From Root ?'), initial=True)
+    depth = forms.IntegerField(label=_('Depth'), initial=1,
+                               help_text=_("Zero means only this page will be set."))
+
+    from_root = forms.BooleanField(label=_('From Root ?'), initial=True,
+                                   help_text=_("Start from root ?"))
 
     def __init__(self, *args, **kwargs):
         super(PageMassChangeForm, self).__init__(*args, **kwargs)
@@ -122,3 +126,29 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
             cleaned['color_scheme'] = self.cleaned_data['theme__%s' % theme.id]
 
         return cleaned
+
+
+class PageCopyForm(PageMassChangeForm):
+
+    """Copy content
+
+    TODO: now works only for page content
+
+    """
+
+    depth = forms.IntegerField(
+        label=_('Depth'), initial=0,
+        help_text=_("Zero means only this page will be copied."))
+
+    from_root = forms.BooleanField(label=_('From Root ?'), initial=True,
+                                   help_text=_("Start from root ?"))
+
+    def handle(self, request, data):
+
+        root_page = Page.objects.get(pk=data['page_id'])
+
+        new_page = copy_model_instance(root_page,
+                                       exclude=('id', 'parent'))
+
+        if data.get("depth", 0):
+            Page.copy_content_from(root_page)

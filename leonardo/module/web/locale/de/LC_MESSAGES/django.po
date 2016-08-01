@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-06 19:39+0000\n"
+"POT-Creation-Date: 2016-07-29 18:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,39 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: __init__.py:118
+#: __init__.py:126
 msgid "Horizon"
 msgstr ""
 
-#: __init__.py:139
+#: __init__.py:142
 msgid "Site name used for title"
 msgstr ""
 
-#: __init__.py:140
+#: __init__.py:143
 msgid "Site specific meta keywords"
 msgstr ""
 
-#: __init__.py:141
+#: __init__.py:144
 msgid "Site specific meta description"
 msgstr ""
 
-#: __init__.py:142
+#: __init__.py:145
 msgid "Site specific meta title"
 msgstr ""
 
-#: __init__.py:143
+#: __init__.py:146
 msgid "Debug mode"
 msgstr ""
 
-#: __init__.py:144
+#: __init__.py:147
 msgid "Favicon path"
 msgstr ""
 
-#: admin.py:34 page/forms.py:110 page/forms.py:193
+#: admin.py:34 page/forms.py:111 page/forms.py:196
 msgid "Main"
 msgstr ""
 
-#: admin.py:40 models/page.py:63 page/common/forms.py:55 widgets/forms.py:82
+#: admin.py:40 models/page.py:65 page/common/forms.py:69 widgets/forms.py:100
 msgid "Styles"
 msgstr ""
 
@@ -350,7 +350,7 @@ msgstr ""
 msgid "bottom"
 msgstr ""
 
-#: models/page.py:19 models/page.py:85 widgets/forms.py:162
+#: models/page.py:19 models/page.py:88 widgets/forms.py:194
 msgid "Page"
 msgstr ""
 
@@ -374,62 +374,62 @@ msgstr ""
 msgid "Page dimensions"
 msgstr ""
 
-#: models/page.py:41 models/page.py:60 models/widget.py:125
-#: models/widget.py:147
+#: models/page.py:42 models/page.py:62 models/widget.py:126
+#: models/widget.py:149
 msgid "Name"
 msgstr ""
 
-#: models/page.py:43 models/page.py:62 models/widget.py:127
-#: models/widget.py:149 models/widget.py:174
+#: models/page.py:44 models/page.py:64 models/widget.py:128
+#: models/widget.py:151 models/widget.py:175
 msgid "Title"
 msgstr ""
 
-#: models/page.py:45 models/page.py:66
+#: models/page.py:46 models/page.py:68
 msgid "Template"
 msgstr ""
 
-#: models/page.py:46
+#: models/page.py:47
 msgid "Style"
 msgstr ""
 
-#: models/page.py:52
+#: models/page.py:53
 msgid "Page theme"
 msgstr ""
 
-#: models/page.py:53
+#: models/page.py:54
 msgid "Page themes"
 msgstr ""
 
-#: models/page.py:64
+#: models/page.py:66
 msgid "variables"
 msgstr ""
 
-#: models/page.py:72
+#: models/page.py:74
 msgid "Page color scheme"
 msgstr ""
 
-#: models/page.py:73
+#: models/page.py:75
 msgid "Page color schemes"
 msgstr ""
 
-#: models/page.py:79 models/widget.py:182 page/common/forms.py:34
+#: models/page.py:82 models/widget.py:183 page/common/forms.py:39
 msgid "Layout"
 msgstr ""
 
-#: models/page.py:80 models/widget.py:72 page/common/forms.py:27
-#: page/forms.py:131 page/forms.py:214
+#: models/page.py:83 models/widget.py:72 page/common/forms.py:34
+#: page/forms.py:132 page/forms.py:217
 msgid "Theme"
 msgstr ""
 
-#: models/page.py:82 models/widget.py:203
+#: models/page.py:85 models/widget.py:208
 msgid "Color scheme"
 msgstr ""
 
-#: models/page.py:86 templates/base/page/_actions.html:34
+#: models/page.py:89 templates/base/page/_actions.html:34
 msgid "Pages"
 msgstr ""
 
-#: models/widget.py:78 widgets/forms.py:90
+#: models/widget.py:78 widgets/forms.py:108
 msgid "Effects"
 msgstr ""
 
@@ -437,11 +437,11 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: models/widget.py:99 widgets/tables.py:85
+#: models/widget.py:99 widgets/tables.py:90
 msgid "Height"
 msgstr ""
 
-#: models/widget.py:101 widgets/tables.py:86
+#: models/widget.py:101 widgets/tables.py:91
 msgid "Offset"
 msgstr ""
 
@@ -453,96 +453,108 @@ msgstr ""
 msgid "Widget dimensions"
 msgstr ""
 
-#: models/widget.py:129
+#: models/widget.py:130
 msgid "Content template"
 msgstr ""
 
-#: models/widget.py:131
+#: models/widget.py:132
 msgid "Content style"
 msgstr ""
 
-#: models/widget.py:133
+#: models/widget.py:134
 msgid "Widget class"
 msgstr ""
 
-#: models/widget.py:139
+#: models/widget.py:140
 msgid "Widget content theme"
 msgstr ""
 
-#: models/widget.py:140
+#: models/widget.py:141
 msgid "Widget content themes"
 msgstr ""
 
-#: models/widget.py:151
+#: models/widget.py:153
 msgid "Base template"
 msgstr ""
 
-#: models/widget.py:154
+#: models/widget.py:156
 msgid "Base style"
 msgstr ""
 
-#: models/widget.py:160
+#: models/widget.py:162
 msgid "Widget base theme"
 msgstr ""
 
-#: models/widget.py:161
+#: models/widget.py:163
 msgid "Widget base themes"
 msgstr ""
 
-#: models/widget.py:170
-msgid "prerendered content"
-msgstr ""
-
-#: models/widget.py:172
+#: models/widget.py:173
 msgid "Is visible?"
 msgstr ""
 
-#: models/widget.py:176
+#: models/widget.py:177
 msgid "Base theme"
 msgstr ""
 
-#: models/widget.py:179
+#: models/widget.py:180
 msgid "Content theme"
 msgstr ""
 
-#: models/widget.py:185
+#: models/widget.py:186
 msgid "Alignment"
 msgstr ""
 
-#: models/widget.py:188
+#: models/widget.py:189
 msgid "Vertical Alignment"
 msgstr ""
 
-#: models/widget.py:193
+#: models/widget.py:194
+msgid "prerendered content"
+msgstr ""
+
+#: models/widget.py:198
 msgid "Enter effect style"
 msgstr ""
 
-#: models/widget.py:197
+#: models/widget.py:202
 msgid "Enter Effect Duration"
 msgstr ""
 
-#: models/widget.py:229
+#: models/widget.py:266
 msgid "Abstract widget"
 msgstr ""
 
-#: models/widget.py:230
+#: models/widget.py:267
 msgid "Abstract widgets"
 msgstr ""
 
-#: page/common/forms.py:24
+#: page/common/forms.py:27
 msgid "Page ID"
 msgstr ""
 
-#: page/common/forms.py:38
+#: page/common/forms.py:47 page/common/forms.py:140
 msgid "Depth"
 msgstr ""
 
-#: page/common/forms.py:39
+#: page/common/forms.py:48
+msgid "Zero means only this page will be set."
+msgstr ""
+
+#: page/common/forms.py:50 page/common/forms.py:143
 msgid "From Root ?"
 msgstr ""
 
-#: page/common/forms.py:50
+#: page/common/forms.py:51 page/common/forms.py:144
+msgid "Start from root ?"
+msgstr ""
+
+#: page/common/forms.py:62
 msgid "Options"
+msgstr ""
+
+#: page/common/forms.py:141
+msgid "Zero means only this page will be copied."
 msgstr ""
 
 #: page/common/views.py:37
@@ -553,6 +565,14 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
+#: page/common/views.py:70
+msgid "Copy Page tree and content"
+msgstr ""
+
+#: page/common/views.py:71 templates/base/widget/_actions.html:31
+msgid "Copy"
+msgstr ""
+
 #: page/dimension/forms.py:27
 msgid "Summary of dimensions must be 12"
 msgstr ""
@@ -561,19 +581,19 @@ msgstr ""
 msgid "Color Scheme"
 msgstr ""
 
-#: page/forms.py:118 page/forms.py:209
+#: page/forms.py:119 page/forms.py:212
 msgid "Navigation"
 msgstr ""
 
-#: page/forms.py:123 page/forms.py:201
+#: page/forms.py:124 page/forms.py:204
 msgid "Heading"
 msgstr ""
 
-#: page/forms.py:127 page/forms.py:205
+#: page/forms.py:128 page/forms.py:208
 msgid "Publication"
 msgstr ""
 
-#: page/forms.py:233 widgets/forms.py:108
+#: page/forms.py:236 widgets/forms.py:131
 msgid "Dimensions"
 msgstr ""
 
@@ -609,29 +629,29 @@ msgstr ""
 msgid "Right Column Size (2)"
 msgstr ""
 
-#: page/views.py:44 templates/base/page/_actions.html:6
+#: page/views.py:45 templates/base/page/_actions.html:6
 #: templates/base/page/_actions.html:7
 msgid "Create Page"
 msgstr ""
 
-#: page/views.py:45 page/views.py:183
+#: page/views.py:46 page/views.py:187
 msgid "Create"
 msgstr ""
 
-#: page/views.py:66
+#: page/views.py:67
 #, python-format
 msgid "Page %s was successfully crated."
 msgstr ""
 
-#: page/views.py:116 page/views.py:117
+#: page/views.py:117 page/views.py:118
 msgid "Update Page"
 msgstr ""
 
-#: page/views.py:182
+#: page/views.py:186
 msgid "Add Page Dimesion"
 msgstr ""
 
-#: page/views.py:221 templates/base/page/_actions.html:28
+#: page/views.py:225 templates/base/page/_actions.html:28
 #: templates/base/widget/_actions.html:33 templates/widget/base.html:6
 msgid "Delete"
 msgstr ""
@@ -706,47 +726,49 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: templates/base/widget/_actions.html:31
-msgid "Copy"
-msgstr ""
-
 #: templates/base/widget/_actions.html:32
 msgid "Info"
+msgstr ""
+
+#: templates/widget/feedreader/_item.html:10
+msgid "Read More"
+msgstr ""
+
+#: templates/widget/htmltext/footer.html:7
+#, python-format
+msgid ""
+"\n"
+"<div class=\"copyright\">Copyright &copy; %(year)s <a class=\"copyright-link"
+"\" href=\"/\">%(site_name)s</a> : Powered by <a class=\"copyright-link\" "
+"href=\"https://www.leonardo-cms.org\" target=\"_blank\">Leonardo CMS </a>: "
+"All rights reserved</div>\n"
 msgstr ""
 
 #: templates/widget/siteheading/navbar.html:8
 msgid "Toggle navigation"
 msgstr ""
 
-#: widget/application/models.py:57
+#: widget/application/models.py:62
 msgid "application"
 msgstr ""
 
-#: widget/application/models.py:213
+#: widget/application/models.py:218
 msgid "External application"
 msgstr ""
 
-#: widget/application/models.py:214
+#: widget/application/models.py:219
 msgid "External applications"
 msgstr ""
 
-#: widget/feedreader/models.py:14
-msgid "Modal window"
-msgstr ""
-
-#: widget/feedreader/models.py:15
-msgid "Blank window"
-msgstr ""
-
-#: widget/feedreader/models.py:20
+#: widget/feedreader/models.py:16
 msgid "max. items"
 msgstr ""
 
-#: widget/feedreader/models.py:24
+#: widget/feedreader/models.py:20
 msgid "feed reader"
 msgstr ""
 
-#: widget/feedreader/models.py:25
+#: widget/feedreader/models.py:21
 msgid "feed readers"
 msgstr ""
 
@@ -810,7 +832,7 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#: widget/icon/models.py:22 widgets/tables.py:83
+#: widget/icon/models.py:22 widgets/tables.py:88
 msgid "Size"
 msgstr ""
 
@@ -894,27 +916,43 @@ msgstr ""
 msgid "data"
 msgstr ""
 
-#: widgets/forms.py:84
+#: widgets/forms.py:52
+msgid "CSS Classes"
+msgstr ""
+
+#: widgets/forms.py:52
+msgid "Custom CSS classes"
+msgstr ""
+
+#: widgets/forms.py:63
+msgid "Parent"
+msgstr ""
+
+#: widgets/forms.py:63
+msgid "Parent Page"
+msgstr ""
+
+#: widgets/forms.py:103
 msgid "Positions"
 msgstr ""
 
-#: widgets/forms.py:166 widgets/forms.py:229
+#: widgets/forms.py:198 widgets/forms.py:260
 msgid "Region"
 msgstr ""
 
-#: widgets/forms.py:206
+#: widgets/forms.py:237
 msgid "Widget Type"
 msgstr ""
 
-#: widgets/forms.py:213
+#: widgets/forms.py:244
 msgid "First ?"
 msgstr ""
 
-#: widgets/forms.py:214
+#: widgets/forms.py:245
 msgid "If is checked, widget will be placed as first widget in this region"
 msgstr ""
 
-#: widgets/forms.py:257
+#: widgets/forms.py:287
 msgid " - Inherited"
 msgstr ""
 
@@ -934,58 +972,66 @@ msgstr ""
 msgid "Pagination"
 msgstr ""
 
-#: widgets/mixins.py:177
+#: widgets/mixins.py:196
 msgid "Source Address"
 msgstr ""
 
-#: widgets/mixins.py:180
+#: widgets/mixins.py:199
 msgid "Cache validity"
 msgstr ""
 
-#: widgets/mixins.py:183
+#: widgets/mixins.py:202
 msgid "Cache data"
 msgstr ""
 
-#: widgets/mixins.py:186
+#: widgets/mixins.py:205
 msgid "Cache update"
 msgstr ""
 
-#: widgets/mixins.py:265
+#: widgets/mixins.py:307
 msgid "Username"
 msgstr ""
 
-#: widgets/mixins.py:268
+#: widgets/mixins.py:310
 msgid "Password"
 msgstr ""
 
-#: widgets/mixins.py:271
+#: widgets/mixins.py:313
 msgid "API Token"
 msgstr ""
 
-#: widgets/views.py:165
+#: widgets/views.py:92
+msgid "Edit parent page"
+msgstr ""
+
+#: widgets/views.py:100
+msgid "Delete widget"
+msgstr ""
+
+#: widgets/views.py:197
 msgid "Add new Widget to {}"
 msgstr ""
 
-#: widgets/views.py:170
+#: widgets/views.py:202
 msgid "Continue"
 msgstr ""
 
-#: widgets/views.py:240
+#: widgets/views.py:272
 msgid "Delete {}"
 msgstr ""
 
-#: widgets/views.py:307
+#: widgets/views.py:335
 msgid "Error occured while sorting widgets."
 msgstr ""
 
-#: widgets/views.py:316
+#: widgets/views.py:344
 msgid "Widget sorting success."
 msgstr ""
 
-#: widgets/views.py:374
+#: widgets/views.py:418
 msgid "Widget was successfully moved."
 msgstr ""
 
-#: widgets/views.py:398
+#: widgets/views.py:442
 msgid "Widget was successfully cloned."
 msgstr ""

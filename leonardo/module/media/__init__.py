@@ -35,7 +35,8 @@ class Default(object):
 
     plugins = [
         ('leonardo.module.media.apps.category_nested', 'List of directories'),
-        ('leonardo.module.media.apps.category_simple', 'Simple list of directories'),
+        ('leonardo.module.media.apps.category_simple',
+         'Simple list of directories'),
     ]
 
     config = {
@@ -60,8 +61,25 @@ class Default(object):
     page_actions = ['media/_actions.html']
 
 
+def fill_language_code_choices(sender, **kwargs):
+    """
+    Fills in the choices for ``language_code`` from the ``LANGUAGES`` class
+    variable. This method is a receiver of Django's ``class_prepared``
+    signal.
+    """
+
+    raise Exception(sender)
+
+
 class MediaConfig(AppConfig, Default):
     name = 'leonardo.module.media'
     verbose_name = "Media"
+
+    def ready(self, *args, **kwargs):
+        from django.apps import apps
+        ImageTranslation = apps.get_model("media", "ImageTranslation")
+        ImageTranslation._prepare()
+
+        #raise Exception(class_prepared.receivers)
 
 default = Default()

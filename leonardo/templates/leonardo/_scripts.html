@@ -357,6 +357,27 @@ $(function() {
       if (horizon.conf.debug) {
         console.log(data);
       }
+      
+/*      patterns = data.region.split("-");
+      var region_name = patterns.slice(0, 1)[0];
+      var region_id = patterns.slice(1, patterns.length).join('-');
+
+      console.log(region_name);
+      console.log(region_id);
+
+      var paths = window.location.pathname.split("/");
+      var uri = paths.slice(paths.length - 2, paths.length - 1)[0];
+
+      console.log(uri);
+
+
+      //$("[id*='" + region_name + "']").html(data.content);
+      $("#" + patterns.slice(0, 1)[0] + "-" + paths.slice(paths.length - 2, paths.length - 1)[0]).html(data.content);
+*/
+/*       document.title = data.page_title;
+       window.history.pushState({"html":data.content,"pageTitle":data.page_title},"", data.path);
+*/
+      /*$(".spinner-container").hide();*/
 
       if (data.hasOwnProperty('region')) {
 
@@ -369,6 +390,20 @@ $(function() {
         $('#' + data.id).replaceWith(data.content);
       }
   }
+
+/*  $("a").on("click", function(e) {
+     e.preventDefault();
+
+     var href = $(this).attr('href');
+     console.log(href);
+
+     w_socket.send(JSON.stringify({
+        'path': href
+      }));
+      return false;
+
+     });
+*/
 
   // propagate this info to JS
   horizon.conf.is_websocket_enabled = true;

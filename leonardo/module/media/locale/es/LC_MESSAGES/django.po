@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-05 21:32+0000\n"
+"POT-Creation-Date: 2016-07-29 18:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,816 +18,795 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: module/media/__init__.py:42
+#: __init__.py:43
 msgid "Pagination count for media files"
 msgstr ""
 
-#: module/media/__init__.py:43
+#: __init__.py:44
 msgid "Prefix for public files from MEDIA_ROOT"
 msgstr ""
 
-#: module/media/__init__.py:44
+#: __init__.py:45
 msgid "Prefix for private files from MEDIA_ROOT"
 msgstr ""
 
-#: module/media/__init__.py:45
+#: __init__.py:46
 msgid "Set uploaded files to public automatically"
 msgstr ""
 
-#: module/media/__init__.py:46
+#: __init__.py:47
 msgid "Used as root for navigation extensions and external app."
 msgstr ""
 
-#: module/media/__init__.py:48
+#: __init__.py:49
 msgid "Permissions for downloadable items. Experimental feature."
 msgstr ""
 
-#: module/media/__init__.py:49
+#: __init__.py:50
 msgid "ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS"
 msgstr ""
 
-#: module/media/__init__.py:50
+#: __init__.py:51
 msgid "MEDIA_THUMB_SMALL_GEOM"
 msgstr ""
 
-#: module/media/__init__.py:51
+#: __init__.py:52
 msgid "Another options for small thumnails"
 msgstr ""
 
-#: module/media/__init__.py:52
+#: __init__.py:53
 msgid "MEDIA_THUMB_MEDIUM_GEOM"
 msgstr ""
 
-#: module/media/__init__.py:53
+#: __init__.py:54
 msgid "Another options for medium thumnails"
 msgstr ""
 
-#: module/media/__init__.py:54
+#: __init__.py:55
 msgid "MEDIA_THUMB_LARGE_GEOM"
 msgstr ""
 
-#: module/media/__init__.py:55
+#: __init__.py:56
 msgid "Another options for large thumnails"
 msgstr ""
 
-#: module/media/__init__.py:56
+#: __init__.py:57
 msgid "If is True all folders and files will has same path in the OS"
 msgstr ""
 
-#: module/media/__init__.py:57
+#: __init__.py:58
 msgid ""
 "Contrary to the file's actual URL, the canonical URL does not change if you "
 "upload a new version of the file."
 msgstr ""
 
-#: module/media/admin/file/admin.py:42 module/media/admin/file/forms.py:39
-#: module/media/templates/admin/media/tools/detail_info.html:168
+#: admin/file/admin.py:42 admin/file/forms.py:39
+#: templates/admin/media/tools/detail_info.html:168
 msgid "Advanced"
 msgstr ""
 
-#: module/media/admin/file/admin.py:157
+#: admin/file/admin.py:157
 msgid "canonical URL"
 msgstr ""
 
-#: module/media/admin/file/forms.py:28 module/media/admin/file/tables.py:53
-#: module/media/admin/folder/forms.py:23
+#: admin/file/forms.py:28 admin/file/tables.py:53 admin/folder/forms.py:23
 msgid "File"
 msgstr ""
 
-#: module/media/admin/file/tables.py:52
-#: module/media/templates/admin/media/folder/directory_table.html:13
-#: module/media/templates/admin/media/folder/directory_table_modal.html:13
+#: admin/file/tables.py:52
+#: templates/admin/media/folder/directory_table.html:13
+#: templates/admin/media/folder/directory_table_modal.html:13
 msgid "Name"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:374
-#: module/media/admin/folder/admin.py:527
+#: admin/folder/admin.py:374 admin/folder/admin.py:527
 msgid ""
 "Items must be selected in order to perform actions on them. No items have "
 "been changed."
 msgstr ""
 
-#: module/media/admin/folder/admin.py:396
+#: admin/folder/admin.py:396
 #, python-format
 msgid "%(total_count)s selected"
 msgid_plural "All %(total_count)s selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: module/media/admin/folder/admin.py:431
+#: admin/folder/admin.py:431
 #, python-format
 msgid "0 of %(cnt)s selected"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:557
+#: admin/folder/admin.py:557
 msgid "No action selected."
 msgstr ""
 
-#: module/media/admin/folder/admin.py:605
+#: admin/folder/admin.py:605
 msgid "Scan folder"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:609
+#: admin/folder/admin.py:609
 msgid "Create Subfolder"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:616
+#: admin/folder/admin.py:616
 msgid "actions"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:653
+#: admin/folder/admin.py:653
 #, python-format
 msgid "Successfully moved %(count)d files to clipboard."
 msgstr ""
 
-#: module/media/admin/folder/admin.py:659
+#: admin/folder/admin.py:659
 msgid "Move selected files to clipboard"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:695
+#: admin/folder/admin.py:695
 #, python-format
 msgid "Successfully disabled permissions for %(count)d files."
 msgstr ""
 
-#: module/media/admin/folder/admin.py:699
+#: admin/folder/admin.py:699
 #, python-format
 msgid "Successfully enabled permissions for %(count)d files."
 msgstr ""
 
-#: module/media/admin/folder/admin.py:709
+#: admin/folder/admin.py:709
 msgid "Enable permissions for selected files"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:715
+#: admin/folder/admin.py:715
 msgid "Disable permissions for selected files"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:782
+#: admin/folder/admin.py:782
 #, python-format
 msgid "Successfully deleted %(count)d files and/or folders."
 msgstr ""
 
-#: module/media/admin/folder/admin.py:789
+#: admin/folder/admin.py:789
 msgid "Cannot delete files and/or folders"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:791
+#: admin/folder/admin.py:791
 msgid "Are you sure?"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:796
+#: admin/folder/admin.py:796
 msgid "Delete files and/or folders"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:816
+#: admin/folder/admin.py:816
 msgid "Delete selected files and/or folders"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:944
+#: admin/folder/admin.py:944
 #, python-format
 msgid "Folders with names %s already exist at the selected destination"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:949
+#: admin/folder/admin.py:949
 #, python-format
 msgid ""
 "Successfully moved %(count)d files and/or folders to folder "
 "'%(destination)s'."
 msgstr ""
 
-#: module/media/admin/folder/admin.py:956
-#: module/media/admin/folder/admin.py:958
+#: admin/folder/admin.py:956 admin/folder/admin.py:958
 msgid "Move files and/or folders"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:977
+#: admin/folder/admin.py:977
 msgid "Move selected files and/or folders"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:1040
+#: admin/folder/admin.py:1040
 #, python-format
 msgid "Successfully renamed %(count)d files."
 msgstr ""
 
-#: module/media/admin/folder/admin.py:1048
-#: module/media/admin/folder/admin.py:1050
-#: module/media/admin/folder/admin.py:1068
+#: admin/folder/admin.py:1048 admin/folder/admin.py:1050
+#: admin/folder/admin.py:1068
 msgid "Rename files"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:1174
+#: admin/folder/admin.py:1174
 #, python-format
 msgid ""
 "Successfully copied %(count)d files and/or folders to folder "
 "'%(destination)s'."
 msgstr ""
 
-#: module/media/admin/folder/admin.py:1191
-#: module/media/admin/folder/admin.py:1193
+#: admin/folder/admin.py:1191 admin/folder/admin.py:1193
 msgid "Copy files and/or folders"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:1214
+#: admin/folder/admin.py:1214
 msgid "Copy selected files and/or folders"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:1322
+#: admin/folder/admin.py:1322
 #, python-format
 msgid "Successfully resized %(count)d images."
 msgstr ""
 
-#: module/media/admin/folder/admin.py:1330
-#: module/media/admin/folder/admin.py:1332
+#: admin/folder/admin.py:1330 admin/folder/admin.py:1332
 msgid "Resize images"
 msgstr ""
 
-#: module/media/admin/folder/admin.py:1351
+#: admin/folder/admin.py:1351
 msgid "Resize selected images"
 msgstr ""
 
-#: module/media/admin/folder/forms.py:25 module/media/admin/folder/forms.py:67
-#: module/media/models/foldermodels.py:235
-#: module/media/templates/admin/media/widgets/admin_folder.html:4
+#: admin/folder/forms.py:25 admin/folder/forms.py:67
+#: models/foldermodels.py:235
+#: templates/admin/media/widgets/admin_folder.html:4
 msgid "Folder"
 msgstr ""
 
-#: module/media/admin/folder/forms.py:26
+#: admin/folder/forms.py:26
 msgid "This field may support uploading whole folder"
 msgstr ""
 
-#: module/media/admin/folder/forms.py:70
-#: module/media/templates/media/_actions.html:8
+#: admin/folder/forms.py:70 templates/media/_actions.html:8
 msgid "Files"
 msgstr ""
 
-#: module/media/admin/forms.py:22
+#: admin/forms.py:22
 msgid "Suffix which will be appended to filenames of copied files."
 msgstr ""
 
-#: module/media/admin/forms.py:29
+#: admin/forms.py:29
 #, python-format
 msgid ""
 "Suffix should be a valid, simple and lowercase filename part, like "
 "\"%(valid)s\"."
 msgstr ""
 
-#: module/media/admin/forms.py:50
+#: admin/forms.py:50
 #, python-format
 msgid "Unknown rename format value key \"%(key)s\"."
 msgstr ""
 
-#: module/media/admin/forms.py:52
+#: admin/forms.py:52
 #, python-format
 msgid "Invalid rename format: %(error)s."
 msgstr ""
 
-#: module/media/admin/forms.py:58 module/media/widget/flashobject/models.py:32
-#: module/media/widget/pdfdocument/models.py:26
-#: module/media/widget/simplevideo/models.py:25
+#: admin/forms.py:58 widget/flashobject/models.py:32
+#: widget/pdfdocument/models.py:26 widget/simplevideo/models.py:25
 msgid "width"
 msgstr ""
 
-#: module/media/admin/forms.py:59 module/media/widget/flashobject/models.py:34
-#: module/media/widget/pdfdocument/models.py:24
-#: module/media/widget/simplevideo/models.py:26
+#: admin/forms.py:59 widget/flashobject/models.py:34
+#: widget/pdfdocument/models.py:24 widget/simplevideo/models.py:26
 msgid "height"
 msgstr ""
 
-#: module/media/admin/forms.py:60
+#: admin/forms.py:60
 msgid "crop"
 msgstr ""
 
-#: module/media/admin/forms.py:61
+#: admin/forms.py:61
 msgid "upscale"
 msgstr ""
 
-#: module/media/admin/forms.py:66
+#: admin/forms.py:66
 msgid "Thumbnail option or resize parameters must be choosen."
 msgstr ""
 
-#: module/media/admin/forms.py:68
+#: admin/forms.py:68
 msgid "Resize parameters must be choosen."
 msgstr ""
 
-#: module/media/admin/imageadmin.py:19
+#: admin/imageadmin.py:19
 msgid "Subject location"
 msgstr ""
 
-#: module/media/admin/imageadmin.py:20
+#: admin/imageadmin.py:20
 msgid "Location of the main subject of the scene."
 msgstr ""
 
-#: module/media/fields/folder.py:38
-#: module/media/widget/downloaditem/models.py:13
+#: fields/folder.py:38 widget/downloaditem/models.py:13
 msgid "Type to search file or upload new one."
 msgstr ""
 
-#: module/media/models/abstract.py:42 module/media/models/media.py:136
+#: models/abstract.py:42 models/media.py:140
 msgid "default alt text"
 msgstr ""
 
-#: module/media/models/abstract.py:44 module/media/models/media.py:139
+#: models/abstract.py:44 models/media.py:143
 msgid "default caption"
 msgstr ""
 
-#: module/media/models/abstract.py:46
+#: models/abstract.py:46
 msgid "subject location"
 msgstr ""
 
-#: module/media/models/abstract.py:175 module/media/models/imagemodels.py:63
-#: module/media/widget/simpleimage/models.py:36
+#: models/abstract.py:175 models/imagemodels.py:63
+#: widget/simpleimage/models.py:36
 msgid "image"
 msgstr ""
 
-#: module/media/models/abstract.py:176 module/media/models/imagemodels.py:64
+#: models/abstract.py:176 models/imagemodels.py:64
 msgid "images"
 msgstr ""
 
-#: module/media/models/clipboardmodels.py:15
-#: module/media/models/foldermodels.py:270
+#: models/clipboardmodels.py:15 models/foldermodels.py:270
 msgid "user"
 msgstr ""
 
-#: module/media/models/clipboardmodels.py:17
-#: module/media/models/filemodels.py:352
+#: models/clipboardmodels.py:17 models/filemodels.py:352
 msgid "files"
 msgstr ""
 
-#: module/media/models/clipboardmodels.py:36
-#: module/media/models/clipboardmodels.py:42
+#: models/clipboardmodels.py:36 models/clipboardmodels.py:42
 msgid "clipboard"
 msgstr ""
 
-#: module/media/models/clipboardmodels.py:37
+#: models/clipboardmodels.py:37
 msgid "clipboards"
 msgstr ""
 
-#: module/media/models/clipboardmodels.py:41
-#: module/media/models/filemodels.py:48 module/media/models/filemodels.py:351
-#: module/media/widget/downloaditem/models.py:24
+#: models/clipboardmodels.py:41 models/filemodels.py:48
+#: models/filemodels.py:351 widget/downloaditem/models.py:24
 msgid "file"
 msgstr ""
 
-#: module/media/models/clipboardmodels.py:46
+#: models/clipboardmodels.py:46
 msgid "clipboard item"
 msgstr ""
 
-#: module/media/models/clipboardmodels.py:47
+#: models/clipboardmodels.py:47
 msgid "clipboard items"
 msgstr ""
 
-#: module/media/models/filemodels.py:45
-#: module/media/templates/admin/media/folder/change_form.html:8
-#: module/media/templates/admin/media/folder/directory_listing.html:99
-#: module/media/templates/admin/media/folder/new_folder_form.html:5
-#: module/media/templates/admin/media/folder/scan_form.html:19
-#: module/media/widget/downloadlist/models.py:22
+#: models/filemodels.py:45 templates/admin/media/folder/change_form.html:8
+#: templates/admin/media/folder/directory_listing.html:99
+#: templates/admin/media/folder/new_folder_form.html:5
+#: templates/admin/media/folder/scan_form.html:19
+#: widget/downloadlist/models.py:22
 msgid "folder"
 msgstr ""
 
-#: module/media/models/filemodels.py:49
+#: models/filemodels.py:49
 msgid "file size"
 msgstr ""
 
-#: module/media/models/filemodels.py:51
+#: models/filemodels.py:51
 msgid "sha1"
 msgstr ""
 
-#: module/media/models/filemodels.py:54
+#: models/filemodels.py:54
 msgid "has all mandatory data"
 msgstr ""
 
-#: module/media/models/filemodels.py:57 module/media/models/media.py:37
+#: models/filemodels.py:57 models/media.py:37
 msgid "original filename"
 msgstr ""
 
-#: module/media/models/filemodels.py:59
-#: module/media/models/foldermodels.py:109 module/media/models/media.py:39
-#: module/media/models/media.py:51 module/media/models/media.py:134
+#: models/filemodels.py:59 models/foldermodels.py:109 models/media.py:39
+#: models/media.py:51 models/media.py:138
 msgid "name"
 msgstr ""
 
-#: module/media/models/filemodels.py:61 module/media/models/media.py:41
-#: module/media/models/media.py:142
+#: models/filemodels.py:61 models/media.py:41 models/media.py:146
 msgid "description"
 msgstr ""
 
-#: module/media/models/filemodels.py:65
+#: models/filemodels.py:65
 msgid "owner"
 msgstr ""
 
-#: module/media/models/filemodels.py:67
-#: module/media/models/foldermodels.py:115
+#: models/filemodels.py:67 models/foldermodels.py:115
 msgid "uploaded at"
 msgstr ""
 
-#: module/media/models/filemodels.py:68
-#: module/media/models/foldermodels.py:118
+#: models/filemodels.py:68 models/foldermodels.py:118
 msgid "modified at"
 msgstr ""
 
-#: module/media/models/filemodels.py:72
+#: models/filemodels.py:72
 msgid "Permissions disabled"
 msgstr ""
 
-#: module/media/models/filemodels.py:73
+#: models/filemodels.py:73
 msgid ""
 "Disable any permission checking for this file. File will be publicly "
 "accessible to anyone."
 msgstr ""
 
-#: module/media/models/foldermodels.py:117
+#: models/foldermodels.py:117
 msgid "created at"
 msgstr ""
 
-#: module/media/models/foldermodels.py:236
-#: module/media/templates/media/_actions.html:6
+#: models/foldermodels.py:236 templates/media/_actions.html:6
 msgid "Folders"
 msgstr ""
 
-#: module/media/models/foldermodels.py:255
+#: models/foldermodels.py:255
 msgid "all items"
 msgstr ""
 
-#: module/media/models/foldermodels.py:256
+#: models/foldermodels.py:256
 msgid "this item only"
 msgstr ""
 
-#: module/media/models/foldermodels.py:257
+#: models/foldermodels.py:257
 msgid "this item and all children"
 msgstr ""
 
-#: module/media/models/foldermodels.py:261
+#: models/foldermodels.py:261
 msgid "allow"
 msgstr ""
 
-#: module/media/models/foldermodels.py:262
+#: models/foldermodels.py:262
 msgid "deny"
 msgstr ""
 
-#: module/media/models/foldermodels.py:267
+#: models/foldermodels.py:267
 msgid "type"
 msgstr ""
 
-#: module/media/models/foldermodels.py:273
+#: models/foldermodels.py:273
 msgid "group"
 msgstr ""
 
-#: module/media/models/foldermodels.py:274
+#: models/foldermodels.py:274
 msgid "everybody"
 msgstr ""
 
-#: module/media/models/foldermodels.py:277
+#: models/foldermodels.py:277
 msgid "can edit"
 msgstr ""
 
-#: module/media/models/foldermodels.py:279
+#: models/foldermodels.py:279
 msgid "can read"
 msgstr ""
 
-#: module/media/models/foldermodels.py:281
+#: models/foldermodels.py:281
 msgid "can add children"
 msgstr ""
 
-#: module/media/models/foldermodels.py:326
+#: models/foldermodels.py:326
 msgid "folder permission"
 msgstr ""
 
-#: module/media/models/foldermodels.py:327
+#: models/foldermodels.py:327
 msgid "folder permissions"
 msgstr ""
 
-#: module/media/models/imagemodels.py:26
+#: models/imagemodels.py:26
 msgid "date taken"
 msgstr ""
 
-#: module/media/models/imagemodels.py:30
+#: models/imagemodels.py:30
 msgid "author"
 msgstr ""
 
-#: module/media/models/imagemodels.py:33
+#: models/imagemodels.py:33
 msgid "must always publish author credit"
 msgstr ""
 
-#: module/media/models/imagemodels.py:35
+#: models/imagemodels.py:35
 msgid "must always publish copyright"
 msgstr ""
 
-#: module/media/models/media.py:151
+#: models/media.py:155
 msgid "All media categories"
 msgstr ""
 
-#: module/media/models/virtualitems.py:46
+#: models/virtualitems.py:46
 msgid "unfiled files"
 msgstr ""
 
-#: module/media/models/virtualitems.py:60
+#: models/virtualitems.py:60
 msgid "files with missing metadata"
 msgstr ""
 
-#: module/media/models/virtualitems.py:74
-#: module/media/templates/admin/media/breadcrumbs.html:7
-#: module/media/templates/admin/media/folder/change_form.html:8
-#: module/media/templates/admin/media/folder/directory_listing.html:65
-#: module/media/templates/admin/media/folder/directory_listing.html:99
+#: models/virtualitems.py:74 templates/admin/media/breadcrumbs.html:7
+#: templates/admin/media/folder/change_form.html:8
+#: templates/admin/media/folder/directory_listing.html:65
+#: templates/admin/media/folder/directory_listing.html:99
 msgid "root"
 msgstr ""
 
-#: module/media/templates/admin/media/actions.html:5
+#: templates/admin/media/actions.html:5
 msgid "Run the selected action"
 msgstr ""
 
-#: module/media/templates/admin/media/actions.html:5
+#: templates/admin/media/actions.html:5
 msgid "Go"
 msgstr ""
 
-#: module/media/templates/admin/media/actions.html:14
-#: module/media/templates/admin/media/folder/directory_listing.html:189
+#: templates/admin/media/actions.html:14
+#: templates/admin/media/folder/directory_listing.html:189
 msgid "Click here to select the objects across all pages"
 msgstr ""
 
-#: module/media/templates/admin/media/actions.html:14
+#: templates/admin/media/actions.html:14
 #, python-format
 msgid "Select all %(total_count)s files and/or folders"
 msgstr ""
 
-#: module/media/templates/admin/media/actions.html:16
-#: module/media/templates/admin/media/folder/directory_listing.html:191
+#: templates/admin/media/actions.html:16
+#: templates/admin/media/folder/directory_listing.html:191
 msgid "Clear selection"
 msgstr ""
 
-#: module/media/templates/admin/media/breadcrumbs.html:4
-#: module/media/templates/admin/media/folder/directory_listing.html:56
+#: templates/admin/media/breadcrumbs.html:4
+#: templates/admin/media/folder/directory_listing.html:56
 msgid "Go back to admin homepage"
 msgstr ""
 
-#: module/media/templates/admin/media/breadcrumbs.html:4
-#: module/media/templates/admin/media/folder/change_form.html:6
-#: module/media/templates/admin/media/folder/directory_listing.html:57
-#: module/media/templates/admin/media/folder/scan_form.html:6
-#: module/media/widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:40
+#: templates/admin/media/breadcrumbs.html:4
+#: templates/admin/media/folder/change_form.html:6
+#: templates/admin/media/folder/directory_listing.html:57
+#: templates/admin/media/folder/scan_form.html:6
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:40
 msgid "Home"
 msgstr ""
 
-#: module/media/templates/admin/media/breadcrumbs.html:5
-#: module/media/templates/admin/media/folder/directory_listing.html:60
+#: templates/admin/media/breadcrumbs.html:5
+#: templates/admin/media/folder/directory_listing.html:60
 msgid "Go back to Media app"
 msgstr ""
 
-#: module/media/templates/admin/media/breadcrumbs.html:5
-#: module/media/templates/admin/media/folder/change_form.html:7
-#: module/media/templates/admin/media/folder/directory_listing.html:61
-#: module/media/templates/admin/media/folder/scan_form.html:7
+#: templates/admin/media/breadcrumbs.html:5
+#: templates/admin/media/folder/change_form.html:7
+#: templates/admin/media/folder/directory_listing.html:61
+#: templates/admin/media/folder/scan_form.html:7
 msgid "Media"
 msgstr ""
 
-#: module/media/templates/admin/media/breadcrumbs.html:7
-#: module/media/templates/admin/media/folder/directory_listing.html:65
+#: templates/admin/media/breadcrumbs.html:7
+#: templates/admin/media/folder/directory_listing.html:65
 msgid "Go back to root folder"
 msgstr ""
 
-#: module/media/templates/admin/media/breadcrumbs.html:10
-#: module/media/templates/admin/media/breadcrumbs.html:13
-#: module/media/templates/admin/media/folder/change_form.html:10
-#: module/media/templates/admin/media/folder/directory_listing.html:70
-#: module/media/templates/admin/media/folder/directory_listing.html:77
+#: templates/admin/media/breadcrumbs.html:10
+#: templates/admin/media/breadcrumbs.html:13
+#: templates/admin/media/folder/change_form.html:10
+#: templates/admin/media/folder/directory_listing.html:70
+#: templates/admin/media/folder/directory_listing.html:77
 #, python-format
 msgid "Go back to '%(folder_name)s' folder"
 msgstr ""
 
-#: module/media/templates/admin/media/change_form.html:29
+#: templates/admin/media/change_form.html:29
 msgid "duplicates"
 msgstr ""
 
-#: module/media/templates/admin/media/delete_selected_files_confirmation.html:11
+#: templates/admin/media/delete_selected_files_confirmation.html:11
 msgid ""
 "Deleting the selected files and/or folders would result in deleting related "
 "objects, but your account doesn't have permission to delete the following "
 "types of objects:"
 msgstr ""
 
-#: module/media/templates/admin/media/delete_selected_files_confirmation.html:19
+#: templates/admin/media/delete_selected_files_confirmation.html:19
 msgid ""
 "Deleting the selected files and/or folders would require deleting the "
 "following protected related objects:"
 msgstr ""
 
-#: module/media/templates/admin/media/delete_selected_files_confirmation.html:27
+#: templates/admin/media/delete_selected_files_confirmation.html:27
 msgid ""
 "Are you sure you want to delete the selected files and/or folders? All of "
 "the following objects and their related items will be deleted:"
 msgstr ""
 
-#: module/media/templates/admin/media/delete_selected_files_confirmation.html:46
+#: templates/admin/media/delete_selected_files_confirmation.html:46
 msgid "Yes, I&#39;m sure"
 msgstr ""
 
-#: module/media/templates/admin/media/file/change_form.html:25
-#: module/media/templates/admin/media/folder/change_form.html:21
-#: module/media/templates/admin/media/image/change_form.html:25
+#: templates/admin/media/file/change_form.html:25
+#: templates/admin/media/folder/change_form.html:21
+#: templates/admin/media/image/change_form.html:25
 msgid "History"
 msgstr ""
 
-#: module/media/templates/admin/media/file/change_form.html:27
-#: module/media/templates/admin/media/folder/change_form.html:23
-#: module/media/templates/admin/media/image/change_form.html:27
-#: module/media/widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:18
-#: module/media/widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:31
+#: templates/admin/media/file/change_form.html:27
+#: templates/admin/media/folder/change_form.html:23
+#: templates/admin/media/image/change_form.html:27
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:18
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:31
 msgid "View on site"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/change_form.html:6
-#: module/media/templates/admin/media/folder/change_form.html:7
-#: module/media/templates/admin/media/folder/change_form.html:8
-#: module/media/templates/admin/media/folder/directory_listing.html:99
-#: module/media/templates/admin/media/folder/scan_form.html:6
-#: module/media/templates/admin/media/folder/scan_form.html:7
+#: templates/admin/media/folder/change_form.html:6
+#: templates/admin/media/folder/change_form.html:7
+#: templates/admin/media/folder/change_form.html:8
+#: templates/admin/media/folder/directory_listing.html:99
+#: templates/admin/media/folder/scan_form.html:6
+#: templates/admin/media/folder/scan_form.html:7
 msgid "Go back to"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/change_form.html:6
-#: module/media/templates/admin/media/folder/scan_form.html:6
+#: templates/admin/media/folder/change_form.html:6
+#: templates/admin/media/folder/scan_form.html:6
 msgid "admin homepage"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/change_form.html:37
-#: module/media/templates/admin/media/folder/directory_table.html:38
-#: module/media/templates/admin/media/folder/directory_table.html:78
-#: module/media/templates/admin/media/folder/directory_table_modal.html:38
-#: module/media/templates/admin/media/folder/directory_table_modal.html:78
+#: templates/admin/media/folder/change_form.html:37
+#: templates/admin/media/folder/directory_table.html:38
+#: templates/admin/media/folder/directory_table.html:78
+#: templates/admin/media/folder/directory_table_modal.html:38
+#: templates/admin/media/folder/directory_table_modal.html:78
 msgid "Folder Icon"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_copy_destination.html:15
+#: templates/admin/media/folder/choose_copy_destination.html:15
 msgid ""
 "Your account doesn't have permissions to copy all of the selected files and/"
 "or folders."
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_copy_destination.html:18
-#: module/media/templates/admin/media/folder/choose_move_destination.html:18
+#: templates/admin/media/folder/choose_copy_destination.html:18
+#: templates/admin/media/folder/choose_move_destination.html:18
 msgid "There are no destination folders available."
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_copy_destination.html:21
+#: templates/admin/media/folder/choose_copy_destination.html:21
 msgid "There are no files and/or folders available to copy."
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_copy_destination.html:23
+#: templates/admin/media/folder/choose_copy_destination.html:23
 msgid ""
 "The following files and/or folders will be copied to a destination folder "
 "(retaining their tree structure):"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_copy_destination.html:37
-#: module/media/templates/admin/media/folder/choose_move_destination.html:35
+#: templates/admin/media/folder/choose_copy_destination.html:37
+#: templates/admin/media/folder/choose_move_destination.html:35
 msgid "Destination folder:"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_copy_destination.html:45
-#: module/media/templates/admin/media/folder/directory_listing.html:148
+#: templates/admin/media/folder/choose_copy_destination.html:45
+#: templates/admin/media/folder/directory_listing.html:148
 msgid "Copy"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_images_resize_options.html:15
+#: templates/admin/media/folder/choose_images_resize_options.html:15
 msgid ""
 "Your account doesn't have permissions to resize all of the selected images."
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_images_resize_options.html:18
+#: templates/admin/media/folder/choose_images_resize_options.html:18
 msgid "There are no images available to resize."
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_images_resize_options.html:20
+#: templates/admin/media/folder/choose_images_resize_options.html:20
 msgid "The following images will be resized:"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_images_resize_options.html:33
+#: templates/admin/media/folder/choose_images_resize_options.html:33
 msgid "Choose an existing thumbnail option or enter resize parameters:"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_images_resize_options.html:35
+#: templates/admin/media/folder/choose_images_resize_options.html:35
 msgid "Choose resize parameters:"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_images_resize_options.html:38
+#: templates/admin/media/folder/choose_images_resize_options.html:38
 msgid ""
 "Warning: Images will be resized in-place and originals will be lost. Maybe "
 "first make a copy of them to retain the originals."
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_images_resize_options.html:39
+#: templates/admin/media/folder/choose_images_resize_options.html:39
 msgid "Resize"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_move_destination.html:15
+#: templates/admin/media/folder/choose_move_destination.html:15
 msgid ""
 "Your account doesn't have permissions to move all of the selected files and/"
 "or folders."
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_move_destination.html:21
+#: templates/admin/media/folder/choose_move_destination.html:21
 msgid "There are no files and/or folders available to move."
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_move_destination.html:23
+#: templates/admin/media/folder/choose_move_destination.html:23
 msgid ""
 "The following files and/or folders will be moved to a destination folder "
 "(retaining their tree structure):"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_move_destination.html:42
-#: module/media/templates/admin/media/folder/directory_listing.html:151
+#: templates/admin/media/folder/choose_move_destination.html:42
+#: templates/admin/media/folder/directory_listing.html:151
 msgid "Move"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_rename_format.html:15
+#: templates/admin/media/folder/choose_rename_format.html:15
 msgid ""
 "Your account doesn't have permissions to rename all of the selected files."
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_rename_format.html:18
+#: templates/admin/media/folder/choose_rename_format.html:18
 msgid "There are no files available to rename."
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_rename_format.html:20
+#: templates/admin/media/folder/choose_rename_format.html:20
 msgid ""
 "The following files will be renamed (they will stay in their folders and "
 "keep original filename, only displayed filename will be changed):"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/choose_rename_format.html:59
+#: templates/admin/media/folder/choose_rename_format.html:59
 msgid "Rename"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_listing.html:111
+#: templates/admin/media/folder/directory_listing.html:111
 msgid "Go back to the parent folder"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_listing.html:126
+#: templates/admin/media/folder/directory_listing.html:126
 msgid "Change current folder details"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_listing.html:126
+#: templates/admin/media/folder/directory_listing.html:126
 msgid "Change"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_listing.html:145
-#: module/media/templates/admin/media/tools/detail_info.html:215
+#: templates/admin/media/folder/directory_listing.html:145
+#: templates/admin/media/tools/detail_info.html:215
 msgid "Delete"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_listing.html:169
+#: templates/admin/media/folder/directory_listing.html:169
 msgid "Adds a new Folder"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_listing.html:172
+#: templates/admin/media/folder/directory_listing.html:172
 msgid "New Folder"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_listing.html:176
-#: module/media/templates/admin/media/folder/directory_listing.html:177
+#: templates/admin/media/folder/directory_listing.html:176
+#: templates/admin/media/folder/directory_listing.html:177
 msgid "Upload Files"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_listing.html:189
+#: templates/admin/media/folder/directory_listing.html:189
 #, python-format
 msgid "Select all %(total_count)s"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:14
-#: module/media/templates/admin/media/folder/directory_table_modal.html:14
-#: module/media/templates/admin/media/tools/detail_info.html:61
-#: module/media/templates/admin/media/tools/detail_info.html:152
+#: templates/admin/media/folder/directory_table.html:14
+#: templates/admin/media/folder/directory_table_modal.html:14
+#: templates/admin/media/tools/detail_info.html:61
+#: templates/admin/media/tools/detail_info.html:152
 msgid "Owner"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:15
-#: module/media/templates/admin/media/folder/directory_table_modal.html:15
-#: module/media/templates/admin/media/tools/detail_info.html:40
-#: module/media/templates/admin/media/tools/detail_info.html:104
+#: templates/admin/media/folder/directory_table.html:15
+#: templates/admin/media/folder/directory_table_modal.html:15
+#: templates/admin/media/tools/detail_info.html:40
+#: templates/admin/media/tools/detail_info.html:104
 msgid "Size"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:16
-#: module/media/templates/admin/media/folder/directory_table_modal.html:16
+#: templates/admin/media/folder/directory_table.html:16
+#: templates/admin/media/folder/directory_table_modal.html:16
 msgid "Action"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:37
-#: module/media/templates/admin/media/folder/directory_table.html:44
-#: module/media/templates/admin/media/folder/directory_table.html:77
-#: module/media/templates/admin/media/folder/directory_table.html:84
-#: module/media/templates/admin/media/folder/directory_table_modal.html:37
-#: module/media/templates/admin/media/folder/directory_table_modal.html:44
-#: module/media/templates/admin/media/folder/directory_table_modal.html:77
-#: module/media/templates/admin/media/folder/directory_table_modal.html:84
+#: templates/admin/media/folder/directory_table.html:37
+#: templates/admin/media/folder/directory_table.html:44
+#: templates/admin/media/folder/directory_table.html:77
+#: templates/admin/media/folder/directory_table.html:84
+#: templates/admin/media/folder/directory_table_modal.html:37
+#: templates/admin/media/folder/directory_table_modal.html:44
+#: templates/admin/media/folder/directory_table_modal.html:77
+#: templates/admin/media/folder/directory_table_modal.html:84
 #, python-format
 msgid "Change '%(item_label)s' folder details"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:55
-#: module/media/templates/admin/media/folder/directory_table_modal.html:55
+#: templates/admin/media/folder/directory_table.html:55
+#: templates/admin/media/folder/directory_table_modal.html:55
 #, python-format
 msgid ""
 "\n"
@@ -838,8 +817,8 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:58
-#: module/media/templates/admin/media/folder/directory_table_modal.html:58
+#: templates/admin/media/folder/directory_table.html:58
+#: templates/admin/media/folder/directory_table_modal.html:58
 #, python-format
 msgid ""
 "\n"
@@ -850,75 +829,75 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:66
-#: module/media/templates/admin/media/folder/directory_table_modal.html:66
+#: templates/admin/media/folder/directory_table.html:66
+#: templates/admin/media/folder/directory_table_modal.html:66
 msgid "Change folder details"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:67
-#: module/media/templates/admin/media/folder/directory_table_modal.html:67
+#: templates/admin/media/folder/directory_table.html:67
+#: templates/admin/media/folder/directory_table_modal.html:67
 msgid "Remove folder"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:102
-#: module/media/templates/admin/media/folder/directory_table.html:116
-#: module/media/templates/admin/media/folder/directory_table_modal.html:102
+#: templates/admin/media/folder/directory_table.html:102
+#: templates/admin/media/folder/directory_table.html:116
+#: templates/admin/media/folder/directory_table_modal.html:102
 msgid "Select this file"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:105
-#: module/media/templates/admin/media/folder/directory_table.html:119
-#: module/media/templates/admin/media/folder/directory_table.html:139
-#: module/media/templates/admin/media/folder/directory_table_modal.html:131
+#: templates/admin/media/folder/directory_table.html:105
+#: templates/admin/media/folder/directory_table.html:119
+#: templates/admin/media/folder/directory_table.html:139
+#: templates/admin/media/folder/directory_table_modal.html:131
 #, python-format
 msgid "Change '%(item_label)s' details"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:128
-#: module/media/templates/admin/media/folder/directory_table_modal.html:120
+#: templates/admin/media/folder/directory_table.html:128
+#: templates/admin/media/folder/directory_table_modal.html:120
 msgid "Permissions"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:128
-#: module/media/templates/admin/media/folder/directory_table_modal.html:120
+#: templates/admin/media/folder/directory_table.html:128
+#: templates/admin/media/folder/directory_table_modal.html:120
 msgid "disabled"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:128
-#: module/media/templates/admin/media/folder/directory_table_modal.html:120
+#: templates/admin/media/folder/directory_table.html:128
+#: templates/admin/media/folder/directory_table_modal.html:120
 msgid "enabled"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:140
-#: module/media/templates/admin/media/folder/directory_table_modal.html:132
+#: templates/admin/media/folder/directory_table.html:140
+#: templates/admin/media/folder/directory_table_modal.html:132
 msgid "Remove file"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:149
-#: module/media/templates/admin/media/folder/directory_table_modal.html:141
+#: templates/admin/media/folder/directory_table.html:149
+#: templates/admin/media/folder/directory_table_modal.html:141
 msgid "there are no files or subfolders"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:159
-#: module/media/templates/admin/media/folder/directory_table_modal.html:151
+#: templates/admin/media/folder/directory_table.html:159
+#: templates/admin/media/folder/directory_table_modal.html:151
 msgid "Drop your file to upload into:"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:176
-#: module/media/templates/admin/media/folder/directory_table_modal.html:168
+#: templates/admin/media/folder/directory_table.html:176
+#: templates/admin/media/folder/directory_table_modal.html:168
 msgid "Upload success!"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:180
-#: module/media/templates/admin/media/folder/directory_table_modal.html:172
+#: templates/admin/media/folder/directory_table.html:180
+#: templates/admin/media/folder/directory_table_modal.html:172
 msgid "Upload canceled!"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:187
+#: templates/admin/media/folder/directory_table.html:187
 msgid "previous"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:192
+#: templates/admin/media/folder/directory_table.html:192
 #, python-format
 msgid ""
 "\n"
@@ -926,131 +905,131 @@ msgid ""
 "            "
 msgstr ""
 
-#: module/media/templates/admin/media/folder/directory_table.html:199
+#: templates/admin/media/folder/directory_table.html:199
 msgid "next"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/new_folder_form.html:5
-#: module/media/templates/admin/media/folder/scan_form.html:19
+#: templates/admin/media/folder/new_folder_form.html:5
+#: templates/admin/media/folder/scan_form.html:19
 msgid "Add new"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/new_folder_form.html:16
-#: module/media/templates/admin/media/folder/scan_form.html:28
+#: templates/admin/media/folder/new_folder_form.html:16
+#: templates/admin/media/folder/scan_form.html:28
 msgid "Please correct the error below."
 msgid_plural "Please correct the errors below."
 msgstr[0] ""
 msgstr[1] ""
 
-#: module/media/templates/admin/media/folder/new_folder_form.html:31
+#: templates/admin/media/folder/new_folder_form.html:31
 msgid "Save"
 msgstr ""
 
-#: module/media/templates/admin/media/folder/scan_form.html:43
+#: templates/admin/media/folder/scan_form.html:43
 msgid "Scan"
 msgstr ""
 
-#: module/media/templates/admin/media/scan_files.html:6
-#: module/media/templates/admin/media/scan_files.html:14
+#: templates/admin/media/scan_files.html:6
+#: templates/admin/media/scan_files.html:14
 msgid "Scan files"
 msgstr ""
 
-#: module/media/templates/admin/media/scan_files.html:9
-#: module/media/templates/admin/media/select_folder.html:9
+#: templates/admin/media/scan_files.html:9
+#: templates/admin/media/select_folder.html:9
 msgid "Media files"
 msgstr ""
 
-#: module/media/templates/admin/media/scan_files.html:10
-#: module/media/templates/admin/media/select_folder.html:10
+#: templates/admin/media/scan_files.html:10
+#: templates/admin/media/select_folder.html:10
 msgid "Project dashboard"
 msgstr ""
 
-#: module/media/templates/admin/media/scan_files.html:27
+#: templates/admin/media/scan_files.html:27
 msgid "Start Scan"
 msgstr ""
 
-#: module/media/templates/admin/media/select_folder.html:6
-#: module/media/templates/admin/media/select_folder.html:14
+#: templates/admin/media/select_folder.html:6
+#: templates/admin/media/select_folder.html:14
 msgid "Select folder for upload"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:24
+#: templates/admin/media/tools/detail_info.html:24
 msgid "Open file"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:26
-#: module/media/templates/admin/media/tools/detail_info.html:88
+#: templates/admin/media/tools/detail_info.html:26
+#: templates/admin/media/tools/detail_info.html:88
 msgid "Full size preview"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:36
-#: module/media/templates/admin/media/tools/detail_info.html:95
+#: templates/admin/media/tools/detail_info.html:36
+#: templates/admin/media/tools/detail_info.html:95
 msgid "Type"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:44
-#: module/media/templates/admin/media/tools/detail_info.html:113
+#: templates/admin/media/tools/detail_info.html:44
+#: templates/admin/media/tools/detail_info.html:113
 msgid "File-size"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:48
-#: module/media/templates/admin/media/tools/detail_info.html:122
+#: templates/admin/media/tools/detail_info.html:48
+#: templates/admin/media/tools/detail_info.html:122
 msgid "Modified"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:52
-#: module/media/templates/admin/media/tools/detail_info.html:131
+#: templates/admin/media/tools/detail_info.html:52
+#: templates/admin/media/tools/detail_info.html:131
 msgid "Created"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:160
+#: templates/admin/media/tools/detail_info.html:160
 msgid "Add Description"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:178
+#: templates/admin/media/tools/detail_info.html:178
 msgid "Author"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:185
+#: templates/admin/media/tools/detail_info.html:185
 msgid "Add Alt-Text"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:192
+#: templates/admin/media/tools/detail_info.html:192
 msgid "Add caption"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:199
+#: templates/admin/media/tools/detail_info.html:199
 msgid "Add Tags"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/detail_info.html:206
+#: templates/admin/media/tools/detail_info.html:206
 msgid "Change File"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/search_form.html:15
+#: templates/admin/media/tools/search_form.html:15
 msgid "Check it to limit the search to current folder"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/search_form.html:20
+#: templates/admin/media/tools/search_form.html:20
 msgid "Click here to run search for entered phrase"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/search_form.html:25
+#: templates/admin/media/tools/search_form.html:25
 msgid "found"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/search_form.html:25
+#: templates/admin/media/tools/search_form.html:25
 #, python-format
 msgid "%(counter)s folder"
 msgid_plural "%(counter)s folders"
 msgstr[0] ""
 msgstr[1] ""
 
-#: module/media/templates/admin/media/tools/search_form.html:25
+#: templates/admin/media/tools/search_form.html:25
 msgid "and"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/search_form.html:26
+#: templates/admin/media/tools/search_form.html:26
 #, python-format
 msgid ""
 "\n"
@@ -1061,271 +1040,265 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: module/media/templates/admin/media/tools/search_form.html:29
+#: templates/admin/media/tools/search_form.html:29
 msgid "cancel search"
 msgstr ""
 
-#: module/media/templates/admin/media/tools/upload_button_js.html:24
-#: module/media/templates/admin/media/widgets/admin_file.html:24
-#: module/media/templates/admin/media/widgets/admin_file.html:25
+#: templates/admin/media/tools/upload_button_js.html:24
+#: templates/admin/media/widgets/admin_file.html:24
+#: templates/admin/media/widgets/admin_file.html:25
 msgid "file missing"
 msgstr ""
 
-#: module/media/templates/admin/media/widgets/admin_file.html:8
-#: module/media/templates/admin/media/widgets/admin_file.html:36
-#: module/media/templates/admin/media/widgets/admin_folder.html:11
+#: templates/admin/media/widgets/admin_file.html:8
+#: templates/admin/media/widgets/admin_file.html:36
+#: templates/admin/media/widgets/admin_folder.html:11
 msgid "Clear"
 msgstr ""
 
-#: module/media/templates/admin/media/widgets/admin_file.html:15
+#: templates/admin/media/widgets/admin_file.html:15
 msgid "or drop your file here"
 msgstr ""
 
-#: module/media/templates/admin/media/widgets/admin_file.html:28
+#: templates/admin/media/widgets/admin_file.html:28
 msgid "no file selected"
 msgstr ""
 
-#: module/media/templates/admin/media/widgets/admin_file.html:32
-#: module/media/templates/admin/media/widgets/lookup.html:3
-#: module/media/templates/admin/media/widgets/lookup.html:4
+#: templates/admin/media/widgets/admin_file.html:32
+#: templates/admin/media/widgets/lookup.html:3
+#: templates/admin/media/widgets/lookup.html:4
 msgid "Lookup"
 msgstr ""
 
-#: module/media/templates/admin/media/widgets/admin_file.html:33
+#: templates/admin/media/widgets/admin_file.html:33
 msgid "Add File"
 msgstr ""
 
-#: module/media/templates/admin/media/widgets/admin_folder.html:8
+#: templates/admin/media/widgets/admin_folder.html:8
 msgid "none selected"
 msgstr ""
 
-#: module/media/templates/admin/svg/edit_link.html:2
-#: module/media/widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:32
-#: module/media/widget/vectorgraphics/templates/admin/svgfile/edit_link.html:2
+#: templates/admin/svg/edit_link.html:2
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:32
+#: widget/vectorgraphics/templates/admin/svgfile/edit_link.html:2
 msgid "Edit on site"
 msgstr ""
 
-#: module/media/templates/admin/svg/link.html:2
-#: module/media/widget/vectorgraphics/templates/admin/svgfile/link.html:2
+#: templates/admin/svg/link.html:2
+#: widget/vectorgraphics/templates/admin/svgfile/link.html:2
 msgid "View"
 msgstr ""
 
-#: module/media/templates/media/_actions.html:10
+#: templates/media/_actions.html:10
 msgid "Images"
 msgstr ""
 
-#: module/media/templates/media/_actions.html:12
+#: templates/media/_actions.html:12
 msgid "Documents"
 msgstr ""
 
-#: module/media/templates/media/_actions.html:14
+#: templates/media/_actions.html:14
 msgid "Videos"
 msgstr ""
 
-#: module/media/templates/media/directory_list.html:28
-#: module/media/templates/media/directory_list_nested.html:26
+#: templates/media/directory_list.html:28
+#: templates/media/directory_list_nested.html:26
 msgid "Back to"
 msgstr ""
 
-#: module/media/templates/widget/flashobject/default.html:7
+#: templates/widget/flashobject/default.html:7
 msgid ""
 "Click link to get Flash Player or try to enable JavaScript and reload the "
 "page."
 msgstr ""
 
-#: module/media/templates/widget/flashobject/default.html:8
+#: templates/widget/flashobject/default.html:8
 msgid "Get Adobe Flash player"
 msgstr ""
 
-#: module/media/views.py:185
+#: views.py:185
 msgid "Folder with this name already exists."
 msgstr ""
 
-#: module/media/widget/downloaditem/models.py:29
+#: widget/downloaditem/models.py:29
 msgid "download item"
 msgstr ""
 
-#: module/media/widget/downloaditem/models.py:30
+#: widget/downloaditem/models.py:30
 msgid "download items"
 msgstr ""
 
-#: module/media/widget/downloadlist/models.py:29
+#: widget/downloadlist/models.py:29
 msgid "download list"
 msgstr ""
 
-#: module/media/widget/downloadlist/models.py:30
+#: widget/downloadlist/models.py:30
 msgid "download lists"
 msgstr ""
 
-#: module/media/widget/flashobject/models.py:9
+#: widget/flashobject/models.py:9
 msgid "version 10 and newer"
 msgstr ""
 
-#: module/media/widget/flashobject/models.py:10
+#: widget/flashobject/models.py:10
 msgid "version 9 and newer"
 msgstr ""
 
-#: module/media/widget/flashobject/models.py:28
+#: widget/flashobject/models.py:28
 msgid "flash file"
 msgstr ""
 
-#: module/media/widget/flashobject/models.py:30
+#: widget/flashobject/models.py:30
 msgid "flash version"
 msgstr ""
 
-#: module/media/widget/flashobject/models.py:35
+#: widget/flashobject/models.py:35
 msgid "variables"
 msgstr ""
 
-#: module/media/widget/flashobject/models.py:37
+#: widget/flashobject/models.py:37
 msgid "parameters"
 msgstr ""
 
-#: module/media/widget/flashobject/models.py:39
+#: widget/flashobject/models.py:39
 msgid "attributes"
 msgstr ""
 
-#: module/media/widget/flashobject/models.py:43
+#: widget/flashobject/models.py:43
 msgid "flash object"
 msgstr ""
 
-#: module/media/widget/flashobject/models.py:44
+#: widget/flashobject/models.py:44
 msgid "flash objects"
 msgstr ""
 
-#: module/media/widget/internetvideo/models.py:31
+#: widget/internetvideo/models.py:31
 msgid "video link"
 msgstr ""
 
-#: module/media/widget/internetvideo/models.py:32
+#: widget/internetvideo/models.py:32
 msgid ""
 "This should be a link to a youtube or vimeo video, i.e.: http://www.youtube."
 "com/watch?v=zmj1rpzDRZ0"
 msgstr ""
 
-#: module/media/widget/internetvideo/models.py:48
+#: widget/internetvideo/models.py:48
 msgid "internet video"
 msgstr ""
 
-#: module/media/widget/internetvideo/models.py:49
+#: widget/internetvideo/models.py:49
 msgid "internet videos"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:12
+#: widget/mediagallery/models.py:12
 msgid "open in modal window"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:13
+#: widget/mediagallery/models.py:13
 msgid "open new window"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:14
+#: widget/mediagallery/models.py:14
 msgid "disply in page"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:18
-#: module/media/widget/simpleimage/models.py:18
+#: widget/mediagallery/models.py:18 widget/simpleimage/models.py:18
 msgid "small"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:19
-#: module/media/widget/simpleimage/models.py:19
+#: widget/mediagallery/models.py:19 widget/simpleimage/models.py:19
 msgid "medium"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:20
-#: module/media/widget/simpleimage/models.py:20
+#: widget/mediagallery/models.py:20 widget/simpleimage/models.py:20
 msgid "large"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:36
+#: widget/mediagallery/models.py:36
 msgid "Directory"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:38
+#: widget/mediagallery/models.py:38
 msgid "thumbnail size"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:40
+#: widget/mediagallery/models.py:40
 msgid "detail view"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:67
+#: widget/mediagallery/models.py:67
 msgid "media gallery"
 msgstr ""
 
-#: module/media/widget/mediagallery/models.py:68
+#: widget/mediagallery/models.py:68
 msgid "media galleries"
 msgstr ""
 
-#: module/media/widget/pdfdocument/models.py:22
-#: module/media/widget/pdfdocument/models.py:30
+#: widget/pdfdocument/models.py:22 widget/pdfdocument/models.py:30
 msgid "pdf document"
 msgstr ""
 
-#: module/media/widget/pdfdocument/models.py:31
+#: widget/pdfdocument/models.py:31
 msgid "pdf documents"
 msgstr ""
 
-#: module/media/widget/simpleimage/models.py:12
+#: widget/simpleimage/models.py:12
 msgid "Open in modal window"
 msgstr ""
 
-#: module/media/widget/simpleimage/models.py:13
+#: widget/simpleimage/models.py:13
 msgid "Open new window"
 msgstr ""
 
-#: module/media/widget/simpleimage/models.py:14
+#: widget/simpleimage/models.py:14
 msgid "Display in page"
 msgstr ""
 
-#: module/media/widget/simpleimage/models.py:38
+#: widget/simpleimage/models.py:38
 msgid "size"
 msgstr ""
 
-#: module/media/widget/simpleimage/models.py:40
+#: widget/simpleimage/models.py:40
 msgid "on click action"
 msgstr ""
 
-#: module/media/widget/simpleimage/models.py:53
+#: widget/simpleimage/models.py:53
 msgid "simple image"
 msgstr ""
 
-#: module/media/widget/simpleimage/models.py:54
+#: widget/simpleimage/models.py:54
 msgid "simple images"
 msgstr ""
 
-#: module/media/widget/simplevideo/models.py:22
+#: widget/simplevideo/models.py:22
 msgid "thumbnail"
 msgstr ""
 
-#: module/media/widget/simplevideo/models.py:24
+#: widget/simplevideo/models.py:24
 msgid "video"
 msgstr ""
 
-#: module/media/widget/simplevideo/models.py:30
-#: module/media/widget/simplevideo/models.py:31
+#: widget/simplevideo/models.py:30 widget/simplevideo/models.py:31
 msgid "simple video"
 msgstr ""
 
-#: module/media/widget/vectorgraphics/models.py:25
-#: module/media/widget/vectorgraphics/models.py:26
+#: widget/vectorgraphics/models.py:25 widget/vectorgraphics/models.py:26
 msgid "Vector graphics"
 msgstr ""
 
-#: module/media/widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:21
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:21
 msgid "Preview"
 msgstr ""
 
-#: module/media/widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:24
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:24
 msgid "Add child page"
 msgstr ""
 
-#: module/media/widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:27
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:27
 #, python-format
 msgid "Replace page %(to_replace)s"
 msgstr ""
 
-#: module/media/widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:30
+#: widget/vectorgraphics/templates/admin/feincms/page/page/item_editor.html:30
 msgid "Create hidden copy of this page"
 msgstr ""
