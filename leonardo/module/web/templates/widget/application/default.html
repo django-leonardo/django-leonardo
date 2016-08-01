@@ -13,6 +13,5 @@
 
 {% fragment request "sidebar" %}{% block sidebar %}{% endblock %}{% endfragment %}
 {% block content %}
-{% include "base/messages.html" %}
 {{ content|safe }}
 {% endblock %}
