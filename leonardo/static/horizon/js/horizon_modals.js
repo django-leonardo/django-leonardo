@@ -247,6 +247,9 @@ horizon.addInitFunction(horizon.modals.init = function() {
         // custom update handling
         // enable this only if websocket is not available
         if (!horizon.conf.is_websocket_enabled && data.hasOwnProperty('id')) {
+          if (horizon.conf.debug) {
+            console.log(data);
+          }
           if (data.hasOwnProperty('content')) {
               // update widget
               $('#' + data.id).replaceWith(data.content);

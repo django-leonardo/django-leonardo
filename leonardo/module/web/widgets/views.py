@@ -169,7 +169,6 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
 
         data = {
             'id': obj.fe_identifier,
-            'parent_slug': obj.parent.slug,
             'ordering': obj.ordering
         }
 
@@ -179,7 +178,7 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
                 obj, request=self.request, view=self)
             data['region'] = '%s-%s' % (
                 obj.region,
-                getattr(obj.parent, 'slug', obj.parent))
+                obj.parent.id)
 
         return JsonResponse(data=data)
 
