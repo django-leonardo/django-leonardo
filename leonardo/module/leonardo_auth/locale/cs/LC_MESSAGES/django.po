@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-29 18:52+0200\n"
+"POT-Creation-Date: 2016-08-03 12:33+0200\n"
 "PO-Revision-Date: 2015-09-03 14:47+0000\n"
 "Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,7 +113,7 @@ msgstr "Přestat editovat"
 msgid "Start Editing"
 msgstr "Začít s úpravami"
 
-#: templates/leonardo_auth/_actions.html:10 views.py:191
+#: templates/leonardo_auth/_actions.html:15 views.py:191
 msgid "Logout"
 msgstr "Odhlásit"
 
