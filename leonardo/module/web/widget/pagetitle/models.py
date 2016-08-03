@@ -11,7 +11,6 @@ class PageTitleWidget(Widget):
         verbose_name_plural = _('page titles')
 
     def get_template_data(self, request):
-        page = self.parent
 
         try:
             fragments = request._feincms_fragments
@@ -22,7 +21,7 @@ class PageTitleWidget(Widget):
         subtitle = fragments.get("_page_subtitle", None)
 
         return {
-            'page': page,
+            'page': self.request.leonardo_page,
             'title': title,
             'subtitle': subtitle,
         }
