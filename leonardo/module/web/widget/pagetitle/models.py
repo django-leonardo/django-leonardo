@@ -21,7 +21,7 @@ class PageTitleWidget(Widget):
         subtitle = fragments.get("_page_subtitle", None)
 
         return {
-            'page': self.request.leonardo_page,
+            'page': request.leonardo_page,
             'title': title,
             'subtitle': subtitle,
         }
