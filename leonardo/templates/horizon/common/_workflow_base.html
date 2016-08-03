@@ -1,0 +1,13 @@
+{% extends widget.get_base_template %}
+{% load i18n %}
+
+{% comment %}
+{% block title %}{% trans workflow.name %}{% endblock %}
+{% block page_header %}
+  {% include "horizon/common/_page_header.html" with title=workflow.name %}
+{% endblock page_header %}
+{% endcomment %}
+
+{% block content %}
+  {% include 'horizon/common/_workflow.html' %}
+{% endblock %}

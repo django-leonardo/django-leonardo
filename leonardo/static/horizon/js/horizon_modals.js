@@ -128,6 +128,22 @@ horizon.modals.init_wizard = function () {
 
       return false;
     }
+
+    if (response.hasOwnProperty('rendered')) {
+
+      if (horizon.conf.debug) {
+        console.log(response);
+      }
+
+      for (var key in response.rendered) {
+          // append dynamic content
+          $("#" + key).html(response.rendered[key]);
+          // compile tab
+          horizon.utils.loadAngular($("#" + key));
+      }
+
+    }
+
   };
 
   $('.workflow.wizard').bootstrapWizard({
