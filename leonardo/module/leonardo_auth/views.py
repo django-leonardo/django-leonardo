@@ -127,10 +127,9 @@ class ResetPasswordKeyView(AuthViewMixin, forms.ModalFormView):
 
         if not token_form.is_valid():
             self.reset_user = None
-            context = self.get_context_data(token_fail=True)
-            context["form"] = token_form
-            response = self.render_to_response(context)
-            return response
+            messages.error(
+                self.request, _('Token is invalid !'))
+            return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
         else:
             self.reset_user = token_form.reset_user
             return super(ResetPasswordKeyView, self).dispatch(request,
