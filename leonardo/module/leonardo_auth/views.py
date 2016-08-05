@@ -102,7 +102,7 @@ class ResetPasswordInitialView(AuthViewMixin, forms.ModalFormView):
             "view_name": _("Register"),
             "redirect_field_name": self.redirect_field_name,
             "redirect_field_value": self.redirect_field_value,
-            "modal_header": _("Sign Up")})
+            "modal_header": _("Reset password")})
         return ret
 
 
@@ -155,7 +155,7 @@ class ChangePasswordView(AuthViewMixin, forms.ModalFormView):
             "view_name": _("Register"),
             "redirect_field_name": self.redirect_field_name,
             "redirect_field_value": self.redirect_field_value,
-            "modal_header": _("Sign Up")})
+            "modal_header": _("Change password")})
         return ret
 
 
@@ -216,5 +216,6 @@ class PasswordChangeView(HelperMixin, forms.ModalFormView):
         ret = super(PasswordChangeView, self).get_context_data(**kwargs)
         # NOTE: For backwards compatibility
         ret['password_change_form'] = ret.get('form')
+        ret.update({"modal_header": _("Change password")})
         # (end NOTE)
         return ret
