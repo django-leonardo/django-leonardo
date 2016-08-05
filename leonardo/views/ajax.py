@@ -47,11 +47,12 @@ class AJAXMixin(object):
         except KeyError:
             region = request.GET['region']
 
-        from leonardo.templatetags.leonardo_tags import _render_content
         request.query_string = None
-        result = ''.join(
-            _render_content(content, request=request, context={})
-            for content in getattr(page.content, region))
+
+        from leonardo.utils.widgets import render_region
+
+        result = render_region(page=page, request=request, region=region)
+
         return JsonResponse({'result': result, 'region': region})
 
     @method_decorator(login_required)

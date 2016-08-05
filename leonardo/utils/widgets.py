@@ -157,7 +157,11 @@ def render_region(widget=None, request=None, view=None,
             pass
         else:
             # this is HttpResponse object or string
-            contents[content.fe_identifier] = getattr(r, 'content', r)
+            if not isinstance(r, six.string_types):
+                r.render()
+                contents[content.fe_identifier] = getattr(r, 'content', r)
+            else:
+                contents[content.fe_identifier] = r
 
     from leonardo.templatetags.leonardo_tags import _render_content
 
