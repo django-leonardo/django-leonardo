@@ -37,12 +37,6 @@ class LoginForm(SelfHandlingForm):
 
         self.helper.layout = Layout(
             "username", "password", "remember",
-
-            HTML(
-                '<div class="login-actions"><a href="{}">{}</a><a href="{}">{}</a></div>'.format(
-                    reverse("signup"), _("Sign Up"),
-                     reverse("reset_pwd"), _("Reset Password")))
-
         )
 
     def handle(self, request, data):
