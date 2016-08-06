@@ -6,6 +6,13 @@
 {% block from_id %}sign_up{% endblock %}
 {% block form_action %}{% url "login" %}?{{ redirect_field_name }}={{ redirect_field_value }}{% endblock %}
 
+{% block modal-body %}
+  {{ block.super }}
+    <div class="login-actions">
+        <a href="{% url "signup" %}">{% trans "Sign Up" %}</a><br>
+        <a href="{% url "reset_pwd" %}">{% trans "Reset Password" %}</a>
+    </div>
+{% endblock %}
 
 
 {% block modal-footer %}
