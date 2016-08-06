@@ -1,7 +1,7 @@
 {% load i18n %}
 <div id="{% block modal_id %}{% endblock %}"
   class="{% block modal_class %}{% if hide %}modal{% else %}static_page{% endif %}{% endblock %} {{ modal_size|default:'md' }} {{ modal_classes }}" data-backdrop="{{ modal_backdrop|default:'static' }}">
-  <div class="{% if hide %}modal-dialog{% endif %} modal-{{ modal_size|default:'md' }}">
+  <div class="{% if hide %}modal-dialog{% else %}center-block{% endif %} modal-{{ modal_size|default:'md' }}">
     <div class="{% if hide %}modal-content{% endif %}">
       <div class="modal-header">
         {% if hide %}<a href="#" class="close" data-dismiss="modal">&times;</a>{% endif %}
