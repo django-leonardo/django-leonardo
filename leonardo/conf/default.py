@@ -63,6 +63,8 @@ INSTALLED_APPS = default.apps
 
 # For easy_thumbnails to support retina displays (recent MacBooks, iOS)
 
+THUMBNAIL_FORMAT = "PNG"
+
 FEINCMS_USE_PAGE_ADMIN = False
 
 LEONARDO_USE_PAGE_ADMIN = True
