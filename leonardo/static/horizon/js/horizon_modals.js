@@ -140,6 +140,9 @@ horizon.modals.init_wizard = function () {
           $("#" + key).html(response.rendered[key]);
           // compile tab
           horizon.utils.loadAngular($("#" + key));
+          // init switchable
+          // call initModal on every call..
+          $('form').find('select.switchable').trigger('change');
       }
 
     }
@@ -156,6 +159,9 @@ horizon.modals.init_wizard = function () {
       var current = index;
       var $footer = $('.modal-footer');
       _max_visited_step = Math.max(_max_visited_step, current);
+      if (total == 1) {
+        $footer.find('.button-back').hide();
+      }
       if (current + 1 >= total) {
         $footer.find('.button-next').hide();
         $footer.find('.button-final').show();
