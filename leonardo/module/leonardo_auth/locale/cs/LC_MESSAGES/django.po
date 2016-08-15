@@ -60,20 +60,16 @@ msgid "Create Account failed."
 msgstr "Vytvořit účet nezdařilo."
 
 #: forms.py:126
-#, fuzzy
-#| msgid "Confirm Password"
 msgid "Current Password"
-msgstr "Potvrďte heslo"
+msgstr "Současné heslo"
 
 #: forms.py:129 forms.py:217
-#, fuzzy
-#| msgid "Password"
 msgid "New Password"
-msgstr "Heslo"
+msgstr "Nové heslo"
 
 #: forms.py:132 forms.py:221
 msgid "New Password (again)"
-msgstr ""
+msgstr "Nové heslo (znovu)"
 
 #: forms.py:138
 msgid "Please type your current password."
@@ -84,8 +80,6 @@ msgid "You must type the same password each time."
 msgstr ""
 
 #: forms.py:170
-#, fuzzy
-#| msgid "E-mail address"
 msgid "E-mail"
 msgstr "Emailová adresa"
 
@@ -125,10 +119,8 @@ msgstr "Zavřít"
 #: templates/leonardo_auth/_change_password.html:13
 #: templates/leonardo_auth/change_password.html:4
 #: templates/leonardo_auth/change_password.html:7
-#, fuzzy
-#| msgid "Confirm Password"
 msgid "Change password"
-msgstr "Potvrďte heslo"
+msgstr "Změnit heslo"
 
 #: templates/leonardo_auth/_login.html:13 templates/leonardo_auth/login.html:4
 #: templates/leonardo_auth/login.html:7 views.py:65 views.py:70
