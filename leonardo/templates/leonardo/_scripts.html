@@ -5,7 +5,7 @@
 {% datepicker_locale as DATEPICKER_LOCALE %}
 
 {% comment %} Django's JavaScript i18n Implementation {% endcomment %}
-<script type="text/javascript" src="{% url 'horizon:jsi18n' 'horizon' %}"></script>
+<script type="text/javascript" src="{% url 'jsi18n' 'leonardo' %}"></script>
 
 {% comment %} Compress jQuery, Angular, Plugins, Bootstrap, Hogan.js and Horizon-specific JS. {% endcomment %}
 {% compress js %}
@@ -211,7 +211,7 @@ $(function() {
 
     /* UX friendly */
     try {
-        $(modal).find(":text, select, textarea").filter(":visible:first").focus();
+        $(modal).find("input, :text, select, textarea").filter(":visible:first").focus();
     }
     catch(err) {}
 
