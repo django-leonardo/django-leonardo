@@ -46,9 +46,9 @@ class LoginForm(SelfHandlingForm):
             if user.is_active:
                 login(request, user)
 
-                messages.success(request, "Login success.")
+                messages.success(request, _("Login success."))
                 return True
-        messages.error(request, "Login failed.")
+        messages.error(request, _("Login failed."))
         return False
 
 
