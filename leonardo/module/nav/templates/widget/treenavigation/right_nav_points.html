@@ -1,0 +1,22 @@
+{% extends widget.get_base_template %}
+{% load feincms_page_tags %}
+
+{% block content %}
+{% feincms_nav root level=level depth=1 as toplevel %}
+<nav class="points-nav">
+    <ul class="nav nav-pills nav-stacked">
+{% for page in toplevel %}
+		<li class="{% if page|is_equal_or_parent_of:current %}active fa-circle-o{% endif %}">
+		<a class="scroll-{{ page.slug }}-btn" href="#{{ page.slug }}"><i class="fa {% if page|is_equal_or_parent_of:current %}fa-circle{% else %}fa-circle-o{% endif %}" aria-hidden="true"></i></a>
+		</li>
+		<script>
+		  $(".scroll-{{ page.slug }}-btn").click(function() {
+		      $('html,body').animate({
+		          scrollTop: $("#{{ page.slug }}").offset().top},
+		          'slow');
+		  });
+		</script>
+{% endfor %}
+	</ul>
+</div>
+{% endblock %}

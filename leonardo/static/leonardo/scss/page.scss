@@ -10,6 +10,7 @@
 @import "/leonardo/scss/workflow";
 @import "/leonardo/scss/loading";
 @import "/leonardo/scss/frontend_edit";
+@import "/leonardo/scss/scrollspy";
 
 // bootstrap 4 spacing 
 @import "_spacing";
@@ -164,5 +165,3 @@ html.wf-loading * {
       list-style: none;
    }
 }
-
-
