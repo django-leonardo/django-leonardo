@@ -6,8 +6,8 @@
 <nav class="points-nav">
     <ul class="nav nav-pills nav-stacked">
 {% for page in toplevel %}
-		<li class="{% if page|is_equal_or_parent_of:current %}active fa-circle-o{% endif %}">
-		<a class="scroll-{{ page.slug }}-btn" href="#{{ page.slug }}"><i class="fa {% if page|is_equal_or_parent_of:current %}fa-circle{% else %}fa-circle-o{% endif %}" aria-hidden="true"></i></a>
+		<li class="{% if page|is_equal_or_parent_of:current %}active{% endif %}">
+		<a class="scroll-{{ page.slug }}-btn" href="#{{ page.slug }}"></a>
 		</li>
 		<script>
 		  $(".scroll-{{ page.slug }}-btn").click(function() {

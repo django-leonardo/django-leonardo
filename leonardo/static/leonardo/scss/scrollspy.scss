@@ -15,10 +15,18 @@
 		line-height: 30px;
 	}
 	.nav-pills > li {
+    	a::before {
+    		font-family: fontawesome;
+    		content: '\f10c';
+    	}
 		&.active > a {
 			background-color: transparent;
     		color: $brand-primary;
     		transition: all 0.4s ease;
+    	}
+    	&.active > a::before {
+    		font-family: fontawesome;
+    		content: '\f111';
     	}
     	a:hover, a:focus {
     		background-color: transparent;
