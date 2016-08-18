@@ -20,7 +20,7 @@ class SearchForm(ModelSearchForm):
         super(SearchForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_tag = False
+        self.helper.form_show_labels = False
         self.helper.layout = Layout(
-            Field('q', placeholder=_("Search"), css_class="form-control", wrapper_class='form-group'),
-            StrictButton(_("Search..."), type='submit', css_class="btn btn-default"),
+            FieldWithButtons('q', StrictButton(_("Search...")), css_class="col-xs-6 col-md-offset-3")
         )

@@ -7,6 +7,7 @@
         {% crispy form %}
 
         {% if query %}
+        <div class="col-xs-12 text-center">
             <h3>{% trans "Search results" %}</h3>
 
             {% for result in page.object_list %}
@@ -31,5 +32,6 @@
         {% else %}
             {# Show some example queries to run, maybe query syntax, something else? #}
         {% endif %}
+        </div>
     </form>
 {% endblock %}
