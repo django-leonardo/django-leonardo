@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-29 18:51+0200\n"
+"POT-Creation-Date: 2016-08-18 12:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,6 +64,8 @@ msgstr ""
 #: templates/widget/sitesearch/default.html:12
 #: templates/widget/sitesearch/navbar.html:11
 #: templates/widget/sitesearch/navbar_autocomplete.html:22
+#: templates/widget/sitesearch/navbar_fullscreen.html:15
+#: templates/widget/sitesearch/navbar_fullscreen.html:16
 msgid "Search"
 msgstr ""
 

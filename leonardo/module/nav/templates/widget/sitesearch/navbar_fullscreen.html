@@ -13,7 +13,7 @@
     <button type="button" class="close">×</button>
     <form action="{% app_reverse 'haystack_search' 'leonardo.module.search.apps.search' %}" method="get" role="search">
         <input type="search" value="" name="q" placeholder="{% trans "Search" %}" />
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
     </form>
 </div>
 

@@ -2262,7 +2262,7 @@ img.svgFill{
         opacity: 1;
     }
     input[type="search"] {
-        position: absolute;
+        /*position: absolute;*/
         top: 50%;
         width: 100%;
         color: rgb(255, 255, 255);
@@ -2272,7 +2272,7 @@ img.svgFill{
         text-align: center;
         border: 0px;
         margin: 0px auto;
-        margin-top: -51px;
+        margin-top: 12%;
         padding-left: 30px;
         padding-right: 30px;
         outline: none;
