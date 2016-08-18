@@ -32,13 +32,17 @@ var Formset = (function() {
 
         // Setup the empty form for add_form()
         var empty_form = $(this.form_selector + ':first').clone(true).get(0);
-        // Clear all values except for hidden field values.
-        $(empty_form).find(':input')
-            .removeAttr('checked')
-            .removeAttr('selected')
-            .not(':button, :submit, :reset, [type="hidden"], :radio, :checkbox')
-            .val('')
-            .attr('value',''); // Handle UpdateView default values
+
+        if (!context.hasOwnProperty("use_defaults")) {
+            // Clear all values except for hidden field values.
+            $(empty_form).find(':input')
+                .removeAttr('checked')
+                .removeAttr('selected')
+                .not(':button, :submit, :reset, [type="hidden"], :radio, :checkbox')
+                .val('')
+                .attr('value',''); // Handle UpdateView default values
+        }
+
         this.empty_form = empty_form;
 
         if (this.callbacks.setup)
@@ -50,10 +54,10 @@ var Formset = (function() {
 
         // Assume new forms get last index counter
         var index = this.form_count;
-        console.log(form);
+
         // Create form to add
         var form = $(this.empty_form).clone(true).get(0);
-        console.log(form);
+
         this.update_index(form, index, false);
         
         // Add form after last one, or after the placeholder if none exist.
