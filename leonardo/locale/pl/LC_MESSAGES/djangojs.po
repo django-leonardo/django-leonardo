@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-15 22:38+0200\n"
+"POT-Creation-Date: 2016-08-18 19:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,4 +62,8 @@ msgstr ""
 
 #: static/horizon/js/horizon_modals.js:407
 msgid "An error occurred. Please try again later."
+msgstr ""
+
+#: static/leonardo/js/searchautocomplete.js:77
+msgid "No results found."
 msgstr ""

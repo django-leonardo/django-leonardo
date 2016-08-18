@@ -74,7 +74,7 @@ Autocomplete.prototype.show_results = function(data) {
   }
   else {
     var elem = base_elem.clone()
-    elem.text("No results found.")
+    elem.text(gettext("No results found."))
     results_wrapper.append(elem)
   }
 

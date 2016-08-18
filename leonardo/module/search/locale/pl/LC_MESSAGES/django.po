@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-29 18:49+0200\n"
+"POT-Creation-Date: 2016-08-18 19:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,27 +19,34 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: module/search/__init__.py:37 module/search/forms.py:25
-#: module/search/forms.py:26
+#: __init__.py:37 forms.py:24
 msgid "Search"
 msgstr ""
 
-#: module/search/forms.py:27
-msgid "Options"
+#: forms.py:25
+msgid "Search..."
 msgstr ""
 
-#: module/search/templates/googlesearch/search.html:8
+#: templates/googlesearch/search.html:8
 msgid "You searched for"
 msgstr ""
 
-#: module/search/templates/googlesearch/search.html:10
+#: templates/googlesearch/search.html:10
 msgid "No search query entered"
 msgstr ""
 
-#: module/search/templates/search/search.html:26
+#: templates/search/search.html:10
+msgid "Search results"
+msgstr ""
+
+#: templates/search/search.html:21
+msgid "No results found."
+msgstr ""
+
+#: templates/search/search.html:26
 msgid "Previous"
 msgstr ""
 
-#: module/search/templates/search/search.html:28
+#: templates/search/search.html:28
 msgid "Next"
 msgstr ""

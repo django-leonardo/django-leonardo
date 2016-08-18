@@ -22,5 +22,5 @@ class SearchForm(ModelSearchForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Field('q', placeholder=_("Search"), css_class="form-control", wrapper_class='form-group'),
-            StrictButton(_("Search"), type='submit', css_class="btn btn-default"),
+            StrictButton(_("Search..."), type='submit', css_class="btn btn-default"),
         )

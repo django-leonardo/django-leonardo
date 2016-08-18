@@ -7,7 +7,7 @@
         {% crispy form %}
 
         {% if query %}
-            <h3>Results</h3>
+            <h3>{% trans "Search results" %}</h3>
 
             {% for result in page.object_list %}
                 <p>
@@ -18,7 +18,7 @@
                     {% endif %}
                 </p>
             {% empty %}
-                <p>No results found.</p>
+                <p>{% trans "No results found." %}</p>
             {% endfor %}
 
             {% if page.has_previous or page.has_next %}
