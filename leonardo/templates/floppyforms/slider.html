@@ -24,9 +24,6 @@
                  } /** * Update value output */
                  $document.on('input', selector, function (e) {
                      valueOutput(e.target);
-                 }); /** * Initialize the elements */
-                 $inputRange.rangeslider({
-                     polyfill: false
                  }); /** * Example functionality to demonstrate programmatic value changes */
                  $document.on('click', '#js-example-change-value button', function (e) {
                      var $inputRange = $('[data-rangeslider]', e.target.parentNode);
