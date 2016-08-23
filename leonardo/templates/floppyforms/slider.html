@@ -1,34 +1,33 @@
 {% load staticfiles %}
 {% block content %}
 
-<input type="{{ type }}" name="{{ name }}"{% if value %} value="{{ value }}"{% endif %}{% if required %} required{% endif %}{% include "floppyforms/attrs.html" %} data-rangeslider><output class="btn-default" id="js-output-{{ attrs.id }}"></output>
+<input type="{{ type }}" name="{{ name }}"{% if value %} value="{{ value }}"{% endif %}{% if required %} required{% endif %}{% include "floppyforms/attrs.html" %} data-min="{{ attrs.min }}" data-max="{{ attrs.max }}" data-step="{{ attrs.step }}" data-from="{{ value }}">
 
 <script type="text/javascript">
-// (function(){
-//     leonardo.utils.loadResource({
-//         src: "{% static 'js/lib/rangeslider.min.js' %}",
-//         callback: function(){
-    $(function () {
-        var $document = $(document);
-        var selector = '[data-rangeslider]';
-        var $inputRange = $(selector); /** * Example functionality to demonstrate a value feedback * and change the output's value. */
-
-
-        function valueOutput(element) {
-            var value = element.value;
-            var output = element.parentNode.getElementsByTagName('output')[0];
-            output.innerHTML = value;
-        } /** * Initial value output */
-        for (var i = $inputRange.length - 1; i >= 0; i--) {
-            valueOutput($inputRange[i]);
-        } /** * Update value output */
-        $document.on('input', selector, function (e) {
-           valueOutput(e.target);
-        }); /** * Example functionality to demonstrate destroy functionality */
-                // $('input[type="range"]').rangeslider('destroy');
+(function(){
+    leonardo.utils.loadResource({
+        src: "{% static 'css/lib/ionslider/ion.rangeSlider.css' %}",
     });
-//         }});
-// })();
+    leonardo.utils.loadResource({
+        src: "{% static 'css/lib/ionslider/ion.rangeSlider.skinHTML5.css' %}",
+    });
+    leonardo.utils.loadResource({
+        src: "{% static 'js/lib/ion.rangeSlider.min.js' %}",
+        callback: function(){
+    $(function () {
+
+        $("#{{ attrs.id }}").ionRangeSlider({
+            min: {{ attrs.min }},
+            max: {{ attrs.max }},
+            from: {{ value }},
+            onChange: function(value) {
+                $("#{{ attrs.id }}").attr("value", value.from);
+            }
+        });
+    });
+  }});
+
+})();
 </script>
 
 {% endblock %}
