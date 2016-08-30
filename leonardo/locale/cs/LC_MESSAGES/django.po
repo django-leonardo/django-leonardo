@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-25 10:23+0200\n"
+"POT-Creation-Date: 2016-08-30 15:28+0200\n"
 "PO-Revision-Date: 2015-09-03 14:48+0000\n"
 "Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,25 +62,33 @@ msgstr "Auth"
 msgid "Modules"
 msgstr "Moduly"
 
-#: templates/403.html:11
+#: templates/403.html:8
+msgid "Permission Denied"
+msgstr ""
+
+#: templates/403.html:10
 msgid "You do not have permission for this page."
 msgstr ""
 
-#: templates/404.html:10
+#: templates/404.html:11
 msgid "The URL is incorrect"
 msgstr ""
 
-#: templates/404.html:11
+#: templates/404.html:12
 msgid "The page or file has been moved or is no longer available"
 msgstr ""
 
-#: templates/404.html:16 templates/404_technical.html:36
+#: templates/404.html:17 templates/404_technical.html:36
 msgid "Create Page with the "
 msgstr "Vytvořit stránku s"
 
-#: templates/404.html:16 templates/404_technical.html:36
+#: templates/404.html:17 templates/404_technical.html:36
 msgid "slug"
 msgstr "slug"
+
+#: templates/500.html:8
+msgid "Internal Server Error"
+msgstr ""
 
 #: templates/admin/leonardo/widget_inline.html:8
 msgid "Change"
@@ -221,16 +229,25 @@ msgstr ""
 msgid "%(name)s: %(error)s"
 msgstr ""
 
-#: templates/leonardo/common/_feincms_object_tools.html:6
-msgid "Add Entry"
-msgstr "Přidat záznam"
+#: templates/horizon/common/_workflow.html:50
+msgid "Back"
+msgstr "Zpět"
 
+#: templates/horizon/common/_workflow.html:54
+msgid "Next"
+msgstr "Další"
+
+#: templates/horizon/common/_workflow.html:59
 #: templates/leonardo/common/_modal.html:20
 #: templates/leonardo/common/_modal.html:24
 #: templates/leonardo/common/_modal_form.html:54
 #: templates/leonardo/common/_modal_form.html:58
 msgid "Cancel"
 msgstr "Zrušit"
+
+#: templates/leonardo/common/_feincms_object_tools.html:6
+msgid "Add Entry"
+msgstr "Přidat záznam"
 
 #: templates/leonardo/common/_modal.html:27
 #: templates/leonardo/common/_modal_form.html:61
@@ -434,9 +451,6 @@ msgstr "Přidat widget do %(region_name)s na stránce %(feincms_object)s"
 
 #~ msgid "Previous"
 #~ msgstr "Předchozí"
-
-#~ msgid "Next"
-#~ msgstr "Příští"
 
 #~ msgid "Server was successfuly restarted !"
 #~ msgstr "Server byl úspěšně restartován!"

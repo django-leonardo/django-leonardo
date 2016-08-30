@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-29 18:49+0200\n"
+"POT-Creation-Date: 2016-08-30 15:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,24 +62,32 @@ msgstr ""
 msgid "Modules"
 msgstr ""
 
-#: templates/403.html:11
+#: templates/403.html:8
+msgid "Permission Denied"
+msgstr ""
+
+#: templates/403.html:10
 msgid "You do not have permission for this page."
 msgstr ""
 
-#: templates/404.html:10
+#: templates/404.html:11
 msgid "The URL is incorrect"
 msgstr ""
 
-#: templates/404.html:11
+#: templates/404.html:12
 msgid "The page or file has been moved or is no longer available"
 msgstr ""
 
-#: templates/404.html:16 templates/404_technical.html:36
+#: templates/404.html:17 templates/404_technical.html:36
 msgid "Create Page with the "
 msgstr ""
 
-#: templates/404.html:16 templates/404_technical.html:36
+#: templates/404.html:17 templates/404_technical.html:36
 msgid "slug"
+msgstr ""
+
+#: templates/500.html:8
+msgid "Internal Server Error"
 msgstr ""
 
 #: templates/admin/leonardo/widget_inline.html:8
@@ -219,15 +227,24 @@ msgstr ""
 msgid "%(name)s: %(error)s"
 msgstr ""
 
-#: templates/leonardo/common/_feincms_object_tools.html:6
-msgid "Add Entry"
+#: templates/horizon/common/_workflow.html:50
+msgid "Back"
 msgstr ""
 
+#: templates/horizon/common/_workflow.html:54
+msgid "Next"
+msgstr ""
+
+#: templates/horizon/common/_workflow.html:59
 #: templates/leonardo/common/_modal.html:20
 #: templates/leonardo/common/_modal.html:24
 #: templates/leonardo/common/_modal_form.html:54
 #: templates/leonardo/common/_modal_form.html:58
 msgid "Cancel"
+msgstr ""
+
+#: templates/leonardo/common/_feincms_object_tools.html:6
+msgid "Add Entry"
 msgstr ""
 
 #: templates/leonardo/common/_modal.html:27

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-29 18:51+0200\n"
+"POT-Creation-Date: 2016-08-30 15:28+0200\n"
 "PO-Revision-Date: 2010-06-17 11:11\n"
 "Last-Translator: <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,796 +17,812 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.5.3\n"
 
-#: __init__.py:126
+#: module/web/__init__.py:126
 #, fuzzy
 #| msgid "horizontal"
 msgid "Horizon"
 msgstr "horizontálny"
 
-#: __init__.py:142
+#: module/web/__init__.py:142
 msgid "Site name used for title"
 msgstr ""
 
-#: __init__.py:143
+#: module/web/__init__.py:143
 msgid "Site specific meta keywords"
 msgstr ""
 
-#: __init__.py:144
+#: module/web/__init__.py:144
 msgid "Site specific meta description"
 msgstr ""
 
-#: __init__.py:145
+#: module/web/__init__.py:145
 msgid "Site specific meta title"
 msgstr ""
 
-#: __init__.py:146
+#: module/web/__init__.py:146
 msgid "Debug mode"
 msgstr ""
 
-#: __init__.py:147
+#: module/web/__init__.py:147
 msgid "Favicon path"
 msgstr ""
 
-#: admin.py:34 page/forms.py:111 page/forms.py:196
+#: module/web/admin.py:34 module/web/page/forms.py:111
+#: module/web/page/forms.py:196
 msgid "Main"
 msgstr ""
 
-#: admin.py:40 models/page.py:65 page/common/forms.py:69 widgets/forms.py:100
+#: module/web/admin.py:40 module/web/models/page.py:74
+#: module/web/page/common/forms.py:69 module/web/widgets/forms.py:100
 msgid "Styles"
 msgstr ""
 
-#: const.py:12 const.py:35
+#: module/web/const.py:12 module/web/const.py:35
 msgid "Content"
 msgstr "Obsah"
 
-#: const.py:13
+#: module/web/const.py:13
 msgid "Left sidebar"
 msgstr "Lavý stĺpec"
 
-#: const.py:14
+#: module/web/const.py:14
 msgid "Right sidebar"
 msgstr "Pravý stĺpec"
 
-#: const.py:15 const.py:34
+#: module/web/const.py:15 module/web/const.py:34
 msgid "Header"
 msgstr "Záhlavie"
 
-#: const.py:16 const.py:36
+#: module/web/const.py:16 module/web/const.py:36
 msgid "Footer"
 msgstr "Zápätie"
 
-#: const.py:17 const.py:37
+#: module/web/const.py:17 module/web/const.py:37
 msgid "Toolbar"
 msgstr "Lišta"
 
-#: const.py:18 const.py:38
+#: module/web/const.py:18 module/web/const.py:38
 msgid "Preview"
 msgstr "Náhľad"
 
-#: const.py:19 const.py:39
+#: module/web/const.py:19 module/web/const.py:39
 msgid "Helper"
 msgstr "Pomocný panel"
 
-#: const.py:29 const.py:33
+#: module/web/const.py:29 module/web/const.py:33
 msgid "Left column"
 msgstr "Lavý stĺpec"
 
-#: const.py:30
+#: module/web/const.py:30
 msgid "Right column"
 msgstr "Pravý stĺpec"
 
-#: const.py:31
+#: module/web/const.py:31
 msgid "Main content"
 msgstr "Hlavný obsah"
 
-#: const.py:32
+#: module/web/const.py:32
 msgid "Center column"
 msgstr "Stredný stĺpec"
 
-#: const.py:47
+#: module/web/const.py:47
 msgid "1 column"
 msgstr "1 stĺpec"
 
-#: const.py:57
+#: module/web/const.py:57
 msgid "2 same columns"
 msgstr "2 rovnaké stĺpce"
 
-#: const.py:67
+#: module/web/const.py:67
 msgid "2 columns right"
 msgstr "2 stĺpece vpravo"
 
-#: const.py:77
+#: module/web/const.py:77
 msgid "2 columns left"
 msgstr "2 stĺpece vlevo"
 
-#: const.py:87
+#: module/web/const.py:87
 msgid "3 columns"
 msgstr "3 stĺpece"
 
-#: const.py:97
+#: module/web/const.py:97
 msgid "3 same columns"
 msgstr "3 rovnaké stĺpce"
 
-#: const.py:104
+#: module/web/const.py:104
 msgid "Dashboard"
 msgstr "Úvodná stránka"
 
-#: const.py:110
+#: module/web/const.py:110
 msgid "API"
 msgstr ""
 
-#: const.py:118 const.py:125
+#: module/web/const.py:118 module/web/const.py:125
 msgid "Fixed"
 msgstr ""
 
-#: const.py:119 const.py:126
+#: module/web/const.py:119 module/web/const.py:126
 msgid "Fluid"
 msgstr ""
 
-#: const.py:120
+#: module/web/const.py:120
 msgid "Boxed"
 msgstr ""
 
-#: const.py:124
+#: module/web/const.py:124
 msgid "Inline"
 msgstr ""
 
-#: const.py:130
+#: module/web/const.py:130
 msgid "Left"
 msgstr ""
 
-#: const.py:131
+#: module/web/const.py:131
 #, fuzzy
 #| msgid "Center column"
 msgid "Center"
 msgstr "Stredný stĺpec"
 
-#: const.py:132
+#: module/web/const.py:132
 msgid "Right"
 msgstr ""
 
-#: const.py:136
+#: module/web/const.py:136
 msgid "Extra small"
 msgstr ""
 
-#: const.py:137
+#: module/web/const.py:137
 msgid "Small"
 msgstr ""
 
-#: const.py:138
+#: module/web/const.py:138
 msgid "Medium"
 msgstr ""
 
-#: const.py:139
+#: module/web/const.py:139
 msgid "Large"
 msgstr ""
 
-#: const.py:144
+#: module/web/const.py:144
 #, fuzzy
 #| msgid "1 column"
 msgid "1 col"
 msgstr "1 stĺpec"
 
-#: const.py:145
+#: module/web/const.py:145
 #, fuzzy
 #| msgid "3 columns"
 msgid "2 cols"
 msgstr "3 stĺpece"
 
-#: const.py:146
+#: module/web/const.py:146
 #, fuzzy
 #| msgid "3 columns"
 msgid "3 cols"
 msgstr "3 stĺpece"
 
-#: const.py:147
+#: module/web/const.py:147
 #, fuzzy
 #| msgid "3 columns"
 msgid "4 cols"
 msgstr "3 stĺpece"
 
-#: const.py:148
+#: module/web/const.py:148
 #, fuzzy
 #| msgid "3 columns"
 msgid "5 cols"
 msgstr "3 stĺpece"
 
-#: const.py:149
+#: module/web/const.py:149
 #, fuzzy
 #| msgid "3 columns"
 msgid "6 cols"
 msgstr "3 stĺpece"
 
-#: const.py:150
+#: module/web/const.py:150
 #, fuzzy
 #| msgid "3 columns"
 msgid "7 cols"
 msgstr "3 stĺpece"
 
-#: const.py:151
+#: module/web/const.py:151
 #, fuzzy
 #| msgid "3 columns"
 msgid "8 cols"
 msgstr "3 stĺpece"
 
-#: const.py:152
+#: module/web/const.py:152
 #, fuzzy
 #| msgid "3 columns"
 msgid "9 cols"
 msgstr "3 stĺpece"
 
-#: const.py:153
+#: module/web/const.py:153
 #, fuzzy
 #| msgid "1 column"
 msgid "10 cols"
 msgstr "1 stĺpec"
 
-#: const.py:154
+#: module/web/const.py:154
 #, fuzzy
 #| msgid "1 column"
 msgid "11 cols"
 msgstr "1 stĺpec"
 
-#: const.py:155
+#: module/web/const.py:155
 #, fuzzy
 #| msgid "1 column"
 msgid "12 cols"
 msgstr "1 stĺpec"
 
-#: const.py:160
+#: module/web/const.py:160
 msgid "1 row"
 msgstr ""
 
-#: const.py:161
+#: module/web/const.py:161
 msgid "2 rows"
 msgstr ""
 
-#: const.py:162
+#: module/web/const.py:162
 msgid "3 rows"
 msgstr ""
 
-#: const.py:163
+#: module/web/const.py:163
 msgid "4 rows"
 msgstr ""
 
-#: const.py:164
+#: module/web/const.py:164
 msgid "5 rows"
 msgstr ""
 
-#: const.py:165
+#: module/web/const.py:165
 msgid "6 rows"
 msgstr ""
 
-#: const.py:166
+#: module/web/const.py:166
 msgid "7 rows"
 msgstr ""
 
-#: const.py:167
+#: module/web/const.py:167
 msgid "8 rows"
 msgstr ""
 
-#: const.py:168
+#: module/web/const.py:168
 msgid "9 rows"
 msgstr ""
 
-#: const.py:169
+#: module/web/const.py:169
 msgid "10 rows"
 msgstr ""
 
-#: const.py:170
+#: module/web/const.py:170
 msgid "11 rows"
 msgstr ""
 
-#: const.py:171
+#: module/web/const.py:171
 msgid "12 rows"
 msgstr ""
 
-#: const.py:172
+#: module/web/const.py:172
 msgid "13 row"
 msgstr ""
 
-#: const.py:173
+#: module/web/const.py:173
 msgid "14 rows"
 msgstr ""
 
-#: const.py:174
+#: module/web/const.py:174
 msgid "15 rows"
 msgstr ""
 
-#: const.py:175
+#: module/web/const.py:175
 msgid "16 rows"
 msgstr ""
 
-#: const.py:176
+#: module/web/const.py:176
 msgid "17 rows"
 msgstr ""
 
-#: const.py:177
+#: module/web/const.py:177
 msgid "18 rows"
 msgstr ""
 
-#: const.py:178
+#: module/web/const.py:178
 msgid "19 rows"
 msgstr ""
 
-#: const.py:179
+#: module/web/const.py:179
 msgid "20 rows"
 msgstr ""
 
-#: const.py:180
+#: module/web/const.py:180
 msgid "21 rows"
 msgstr ""
 
-#: const.py:181
+#: module/web/const.py:181
 msgid "22 rows"
 msgstr ""
 
-#: const.py:182
+#: module/web/const.py:182
 msgid "23 rows"
 msgstr ""
 
-#: const.py:183
+#: module/web/const.py:183
 msgid "24 rows"
 msgstr ""
 
-#: const.py:187
+#: module/web/const.py:187
 msgid "auto"
 msgstr ""
 
-#: const.py:188
+#: module/web/const.py:188
 msgid "left"
 msgstr ""
 
-#: const.py:189
+#: module/web/const.py:189
 msgid "center"
 msgstr ""
 
-#: const.py:190
+#: module/web/const.py:190
 msgid "right"
 msgstr ""
 
-#: const.py:194
+#: module/web/const.py:194
 msgid "top"
 msgstr ""
 
-#: const.py:195
+#: module/web/const.py:195
 msgid "middle"
 msgstr ""
 
-#: const.py:196
+#: module/web/const.py:196
 msgid "bottom"
 msgstr ""
 
-#: models/page.py:19 models/page.py:88 widgets/forms.py:194
+#: module/web/middlewares/horizon.py:154
+msgid "Unauthorized. Please try logging in again."
+msgstr ""
+
+#: module/web/models/page.py:21 module/web/models/page.py:98
+#: module/web/widgets/forms.py:194
 #, fuzzy
 msgid "Page"
 msgstr "Stránky"
 
-#: models/page.py:22
+#: module/web/models/page.py:26
 msgid "Column 1 width"
 msgstr ""
 
-#: models/page.py:24
+#: module/web/models/page.py:29
 msgid "Column 2 width"
 msgstr ""
 
-#: models/page.py:26
+#: module/web/models/page.py:32
 msgid "Column 3 width"
 msgstr ""
 
-#: models/page.py:33
+#: module/web/models/page.py:39
 msgid "Page dimension"
 msgstr ""
 
-#: models/page.py:34
+#: module/web/models/page.py:40
 msgid "Page dimensions"
 msgstr ""
 
-#: models/page.py:42 models/page.py:62 models/widget.py:126
-#: models/widget.py:149
+#: module/web/models/page.py:48 module/web/models/page.py:71
+#: module/web/models/widget.py:126 module/web/models/widget.py:149
 msgid "Name"
 msgstr "Meno"
 
-#: models/page.py:44 models/page.py:64 models/widget.py:128
-#: models/widget.py:151 models/widget.py:175
+#: module/web/models/page.py:50 module/web/models/page.py:73
+#: module/web/models/widget.py:128 module/web/models/widget.py:151
+#: module/web/models/widget.py:175
 #, fuzzy
 msgid "Title"
 msgstr "názov"
 
-#: models/page.py:46 models/page.py:68
+#: module/web/models/page.py:53 module/web/models/page.py:77
 #, fuzzy
 #| msgid "template"
 msgid "Template"
 msgstr "šablóna"
 
-#: models/page.py:47
+#: module/web/models/page.py:56
 msgid "Style"
 msgstr ""
 
-#: models/page.py:53
+#: module/web/models/page.py:62
 #, fuzzy
 #| msgid "Change Theme"
 msgid "Page theme"
 msgstr "Zmeniť vzhľad"
 
-#: models/page.py:54
+#: module/web/models/page.py:63
 #, fuzzy
 #| msgid "Change Theme"
 msgid "Page themes"
 msgstr "Zmeniť vzhľad"
 
-#: models/page.py:66
+#: module/web/models/page.py:75
 #, fuzzy
 msgid "variables"
 msgstr "kategórie obchodu"
 
-#: models/page.py:74
+#: module/web/models/page.py:83
 msgid "Page color scheme"
 msgstr ""
 
-#: models/page.py:75
+#: module/web/models/page.py:84
 msgid "Page color schemes"
 msgstr ""
 
-#: models/page.py:82 models/widget.py:183 page/common/forms.py:39
+#: module/web/models/page.py:91 module/web/models/widget.py:183
+#: module/web/page/common/forms.py:39
 msgid "Layout"
 msgstr ""
 
-#: models/page.py:83 models/widget.py:72 page/common/forms.py:34
-#: page/forms.py:132 page/forms.py:217
+#: module/web/models/page.py:93 module/web/models/widget.py:72
+#: module/web/page/common/forms.py:34 module/web/page/forms.py:132
+#: module/web/page/forms.py:217
 msgid "Theme"
 msgstr ""
 
-#: models/page.py:85 models/widget.py:208
+#: module/web/models/page.py:95 module/web/models/widget.py:208
 msgid "Color scheme"
 msgstr ""
 
-#: models/page.py:89 templates/base/page/_actions.html:34
+#: module/web/models/page.py:99
+#: module/web/templates/base/page/_actions.html:34
 msgid "Pages"
 msgstr "Stránky"
 
-#: models/widget.py:78 widgets/forms.py:108
+#: module/web/models/widget.py:78 module/web/widgets/forms.py:108
 msgid "Effects"
 msgstr ""
 
-#: models/widget.py:97
+#: module/web/models/widget.py:97
 msgid "Width"
 msgstr ""
 
-#: models/widget.py:99 widgets/tables.py:90
+#: module/web/models/widget.py:99 module/web/widgets/tables.py:90
 msgid "Height"
 msgstr ""
 
-#: models/widget.py:101 widgets/tables.py:91
+#: module/web/models/widget.py:101 module/web/widgets/tables.py:91
 msgid "Offset"
 msgstr ""
 
-#: models/widget.py:117
+#: module/web/models/widget.py:117
 msgid "Widget dimension"
 msgstr ""
 
-#: models/widget.py:118
+#: module/web/models/widget.py:118
 msgid "Widget dimensions"
 msgstr ""
 
-#: models/widget.py:130
+#: module/web/models/widget.py:130
 #, fuzzy
 msgid "Content template"
 msgstr "django šablóna"
 
-#: models/widget.py:132
+#: module/web/models/widget.py:132
 #, fuzzy
 #| msgid "content title"
 msgid "Content style"
 msgstr "titulok obsahu"
 
-#: models/widget.py:134
+#: module/web/models/widget.py:134
 msgid "Widget class"
 msgstr ""
 
-#: models/widget.py:140
+#: module/web/models/widget.py:140
 #, fuzzy
 #| msgid "content title"
 msgid "Widget content theme"
 msgstr "titulok obsahu"
 
-#: models/widget.py:141
+#: module/web/models/widget.py:141
 msgid "Widget content themes"
 msgstr ""
 
-#: models/widget.py:153
+#: module/web/models/widget.py:153
 #, fuzzy
 msgid "Base template"
 msgstr "django šablóna"
 
-#: models/widget.py:156
+#: module/web/models/widget.py:156
 msgid "Base style"
 msgstr ""
 
-#: models/widget.py:162
+#: module/web/models/widget.py:162
 msgid "Widget base theme"
 msgstr ""
 
-#: models/widget.py:163
+#: module/web/models/widget.py:163
 msgid "Widget base themes"
 msgstr ""
 
-#: models/widget.py:173
+#: module/web/models/widget.py:173
 msgid "Is visible?"
 msgstr ""
 
-#: models/widget.py:177
+#: module/web/models/widget.py:177
 #, fuzzy
 #| msgid "Change Theme"
 msgid "Base theme"
 msgstr "Zmeniť vzhľad"
 
-#: models/widget.py:180
+#: module/web/models/widget.py:180
 #, fuzzy
 #| msgid "Content"
 msgid "Content theme"
 msgstr "Obsah"
 
-#: models/widget.py:186
+#: module/web/models/widget.py:186
 msgid "Alignment"
 msgstr ""
 
-#: models/widget.py:189
+#: module/web/models/widget.py:189
 msgid "Vertical Alignment"
 msgstr ""
 
-#: models/widget.py:194
+#: module/web/models/widget.py:194
 #, fuzzy
 #| msgid "pre-rendered content"
 msgid "prerendered content"
 msgstr "predgenerovaný obsahu"
 
-#: models/widget.py:198
+#: module/web/models/widget.py:198
 msgid "Enter effect style"
 msgstr ""
 
-#: models/widget.py:202
+#: module/web/models/widget.py:202
 msgid "Enter Effect Duration"
 msgstr ""
 
-#: models/widget.py:266
+#: module/web/models/widget.py:266
 msgid "Abstract widget"
 msgstr ""
 
-#: models/widget.py:267
+#: module/web/models/widget.py:267
 msgid "Abstract widgets"
 msgstr ""
 
-#: page/common/forms.py:27
+#: module/web/page/common/forms.py:27
 #, fuzzy
 msgid "Page ID"
 msgstr "Stránky"
 
-#: page/common/forms.py:47 page/common/forms.py:140
+#: module/web/page/common/forms.py:47 module/web/page/common/forms.py:140
 msgid "Depth"
 msgstr ""
 
-#: page/common/forms.py:48
+#: module/web/page/common/forms.py:48
 msgid "Zero means only this page will be set."
 msgstr ""
 
-#: page/common/forms.py:50 page/common/forms.py:143
+#: module/web/page/common/forms.py:50 module/web/page/common/forms.py:143
 msgid "From Root ?"
 msgstr ""
 
-#: page/common/forms.py:51 page/common/forms.py:144
+#: module/web/page/common/forms.py:51 module/web/page/common/forms.py:144
 msgid "Start from root ?"
 msgstr ""
 
-#: page/common/forms.py:62
+#: module/web/page/common/forms.py:62
 #, fuzzy
 #| msgid "Action"
 msgid "Options"
 msgstr "Akcie"
 
-#: page/common/forms.py:141
+#: module/web/page/common/forms.py:141
 msgid "Zero means only this page will be copied."
 msgstr ""
 
-#: page/common/views.py:37
+#: module/web/page/common/views.py:37
 #, fuzzy
 msgid "Change Pages"
 msgstr "django šablóna"
 
-#: page/common/views.py:38
+#: module/web/page/common/views.py:38
 msgid "Apply"
 msgstr ""
 
-#: page/common/views.py:70
+#: module/web/page/common/views.py:70
 #, fuzzy
 #| msgid "pre-rendered content"
 msgid "Copy Page tree and content"
 msgstr "predgenerovaný obsahu"
 
-#: page/common/views.py:71 templates/base/widget/_actions.html:31
+#: module/web/page/common/views.py:71
+#: module/web/templates/base/widget/_actions.html:31
 msgid "Copy"
 msgstr ""
 
-#: page/dimension/forms.py:27
+#: module/web/page/dimension/forms.py:27
 msgid "Summary of dimensions must be 12"
 msgstr ""
 
-#: page/forms.py:47
+#: module/web/page/forms.py:47
 msgid "Color Scheme"
 msgstr ""
 
-#: page/forms.py:119 page/forms.py:212
+#: module/web/page/forms.py:119 module/web/page/forms.py:212
 msgid "Navigation"
 msgstr ""
 
-#: page/forms.py:124 page/forms.py:204
+#: module/web/page/forms.py:124 module/web/page/forms.py:204
 #, fuzzy
 #| msgid "Header"
 msgid "Heading"
 msgstr "Záhlavie"
 
-#: page/forms.py:128 page/forms.py:208
+#: module/web/page/forms.py:128 module/web/page/forms.py:208
 msgid "Publication"
 msgstr ""
 
-#: page/forms.py:236 widgets/forms.py:131
+#: module/web/page/forms.py:236 module/web/widgets/forms.py:131
 msgid "Dimensions"
 msgstr ""
 
-#: page/tables.py:49
+#: module/web/page/tables.py:49
 msgid "Override page dimension"
 msgstr ""
 
-#: page/tables.py:66
+#: module/web/page/tables.py:66
 msgid "Delete Page Dimension"
 msgid_plural "Delete Page Dimension"
 msgstr[0] ""
 msgstr[1] ""
 
-#: page/tables.py:74
+#: module/web/page/tables.py:74
 msgid "Deleted Page Dimension"
 msgid_plural "Deleted Page Dimension"
 msgstr[0] ""
 msgstr[1] ""
 
-#: page/tables.py:109
+#: module/web/page/tables.py:109
 msgid "Dimension"
 msgstr ""
 
-#: page/tables.py:110
+#: module/web/page/tables.py:110
 #, fuzzy
 #| msgid "Left column"
 msgid "Left Column Size (1)"
 msgstr "Lavý stĺpec"
 
-#: page/tables.py:111
+#: module/web/page/tables.py:111
 #, fuzzy
 #| msgid "Center column"
 msgid "Central Column Size (3)"
 msgstr "Stredný stĺpec"
 
-#: page/tables.py:112
+#: module/web/page/tables.py:112
 #, fuzzy
 #| msgid "Right column"
 msgid "Right Column Size (2)"
 msgstr "Pravý stĺpec"
 
-#: page/views.py:45 templates/base/page/_actions.html:6
-#: templates/base/page/_actions.html:7
+#: module/web/page/views.py:45 module/web/templates/base/page/_actions.html:6
+#: module/web/templates/base/page/_actions.html:7
 #, fuzzy
 msgid "Create Page"
 msgstr "Úvod"
 
-#: page/views.py:46 page/views.py:187
+#: module/web/page/views.py:46 module/web/page/views.py:187
 msgid "Create"
 msgstr ""
 
-#: page/views.py:67
+#: module/web/page/views.py:67
 #, python-format
 msgid "Page %s was successfully crated."
 msgstr ""
 
-#: page/views.py:117 page/views.py:118
+#: module/web/page/views.py:117 module/web/page/views.py:118
 #, fuzzy
 msgid "Update Page"
 msgstr "Úvod"
 
-#: page/views.py:186
+#: module/web/page/views.py:186
 msgid "Add Page Dimesion"
 msgstr ""
 
-#: page/views.py:225 templates/base/page/_actions.html:28
-#: templates/base/widget/_actions.html:33 templates/widget/base.html:6
+#: module/web/page/views.py:225
+#: module/web/templates/base/page/_actions.html:28
+#: module/web/templates/base/widget/_actions.html:33
+#: module/web/templates/widget/base.html:6
 msgid "Delete"
 msgstr ""
 
-#: templates/base/page/_actions.html:6
+#: module/web/templates/base/page/_actions.html:6
 #, fuzzy
 msgid "Child Page"
 msgstr "django šablóna"
 
-#: templates/base/page/_actions.html:7
+#: module/web/templates/base/page/_actions.html:7
 #, fuzzy
 msgid "Root Page"
 msgstr "Stránky"
 
-#: templates/base/page/_actions.html:9
+#: module/web/templates/base/page/_actions.html:9
 #, fuzzy
 msgid "Edit Page"
 msgstr "Stránky"
 
-#: templates/base/page/_actions.html:11
+#: module/web/templates/base/page/_actions.html:11
 msgid "Add Widget"
 msgstr ""
 
-#: templates/base/page/_actions.html:15 templates/base/page/_actions.html:22
-#: templates/base/page/_actions.html:34
+#: module/web/templates/base/page/_actions.html:15
+#: module/web/templates/base/page/_actions.html:22
+#: module/web/templates/base/page/_actions.html:34
 #, fuzzy
 #| msgid "Change Theme"
 msgid "Page Admin"
 msgstr "Zmeniť vzhľad"
 
-#: templates/base/page/_actions.html:22
+#: module/web/templates/base/page/_actions.html:22
 msgid "Page Admin in new window"
 msgstr ""
 
-#: templates/base/page/_actions.html:25
+#: module/web/templates/base/page/_actions.html:25
 #, fuzzy
 #| msgid "last updated"
 msgid "Mass Update"
 msgstr "posledná aktualizácia"
 
-#: templates/base/page/_actions.html:28
+#: module/web/templates/base/page/_actions.html:28
 msgid "Delete Page"
 msgstr ""
 
-#: templates/base/page/_actions.html:36
+#: module/web/templates/base/page/_actions.html:36
 msgid "Admin"
 msgstr ""
 
-#: templates/base/page/bootstrap.html:9
+#: module/web/templates/base/page/bootstrap.html:9
 msgid "This application requires JavaScript to be enabled in your web browser."
 msgstr ""
 
-#: templates/base/widget/_actions.html:19
-#: templates/base/widget/_actions.html:37
+#: module/web/templates/base/widget/_actions.html:19
+#: module/web/templates/base/widget/_actions.html:37
 msgid "Move"
 msgstr ""
 
-#: templates/base/widget/_actions.html:20
-#: templates/base/widget/_actions.html:38
+#: module/web/templates/base/widget/_actions.html:20
+#: module/web/templates/base/widget/_actions.html:38
 msgid "Up"
 msgstr ""
 
-#: templates/base/widget/_actions.html:21
-#: templates/base/widget/_actions.html:39
+#: module/web/templates/base/widget/_actions.html:21
+#: module/web/templates/base/widget/_actions.html:39
 msgid "Down"
 msgstr ""
 
-#: templates/base/widget/_actions.html:22
-#: templates/base/widget/_actions.html:40
+#: module/web/templates/base/widget/_actions.html:22
+#: module/web/templates/base/widget/_actions.html:40
 msgid "As first"
 msgstr ""
 
-#: templates/base/widget/_actions.html:23
-#: templates/base/widget/_actions.html:41
+#: module/web/templates/base/widget/_actions.html:23
+#: module/web/templates/base/widget/_actions.html:41
 msgid "As Last"
 msgstr ""
 
-#: templates/base/widget/_actions.html:30 templates/widget/base.html:5
+#: module/web/templates/base/widget/_actions.html:30
+#: module/web/templates/widget/base.html:5
 msgid "Edit"
 msgstr ""
 
-#: templates/base/widget/_actions.html:32
+#: module/web/templates/base/widget/_actions.html:32
 #, fuzzy
 msgid "Info"
 msgstr "e-mail"
 
-#: templates/widget/feedreader/_item.html:10
+#: module/web/templates/widget/feedreader/_item.html:10
 msgid "Read More"
 msgstr ""
 
-#: templates/widget/htmltext/footer.html:7
+#: module/web/templates/widget/htmltext/footer.html:7
 #, python-format
 msgid ""
 "\n"
@@ -816,320 +832,321 @@ msgid ""
 "All rights reserved</div>\n"
 msgstr ""
 
-#: templates/widget/siteheading/navbar.html:8
+#: module/web/templates/widget/siteheading/navbar.html:8
 msgid "Toggle navigation"
 msgstr ""
 
-#: widget/application/models.py:62
+#: module/web/widget/application/models.py:62
 #, fuzzy
 #| msgid "application sidebar"
 msgid "application"
 msgstr "pomocný panel aplikácie"
 
-#: widget/application/models.py:218
+#: module/web/widget/application/models.py:218
 #, fuzzy
 msgid "External application"
 msgstr "Akcie"
 
-#: widget/application/models.py:219
+#: module/web/widget/application/models.py:219
 #, fuzzy
 msgid "External applications"
 msgstr "Akcie"
 
-#: widget/feedreader/models.py:16
+#: module/web/widget/feedreader/models.py:16
 msgid "max. items"
 msgstr "max. položiek"
 
-#: widget/feedreader/models.py:20
+#: module/web/widget/feedreader/models.py:20
 msgid "feed reader"
 msgstr ""
 
-#: widget/feedreader/models.py:21
+#: module/web/widget/feedreader/models.py:21
 msgid "feed readers"
 msgstr ""
 
-#: widget/htmltext/models.py:15 widget/markuptext/models.py:9
+#: module/web/widget/htmltext/models.py:15
+#: module/web/widget/markuptext/models.py:9
 #, fuzzy
 msgid "text"
 msgstr "daľšia"
 
-#: widget/htmltext/models.py:24
+#: module/web/widget/htmltext/models.py:24
 msgid "HTML text"
 msgstr ""
 
-#: widget/htmltext/models.py:25
+#: module/web/widget/htmltext/models.py:25
 msgid "HTML texts"
 msgstr ""
 
-#: widget/htmltext/models.py:29
+#: module/web/widget/htmltext/models.py:29
 msgid "Empty element"
 msgstr ""
 
-#: widget/icon/const.py:602
+#: module/web/widget/icon/const.py:602
 msgid "Normal"
 msgstr ""
 
-#: widget/icon/const.py:603
+#: module/web/widget/icon/const.py:603
 msgid "Larger"
 msgstr ""
 
-#: widget/icon/const.py:604
+#: module/web/widget/icon/const.py:604
 msgid "2x larger"
 msgstr ""
 
-#: widget/icon/const.py:605
+#: module/web/widget/icon/const.py:605
 msgid "3x larger"
 msgstr ""
 
-#: widget/icon/const.py:606
+#: module/web/widget/icon/const.py:606
 msgid "4x larger"
 msgstr ""
 
-#: widget/icon/const.py:607
+#: module/web/widget/icon/const.py:607
 msgid "5x larger"
 msgstr ""
 
-#: widget/icon/const.py:608
+#: module/web/widget/icon/const.py:608
 msgid "10x larger"
 msgstr ""
 
-#: widget/icon/const.py:609
+#: module/web/widget/icon/const.py:609
 msgid "15x larger"
 msgstr ""
 
-#: widget/icon/const.py:610
+#: module/web/widget/icon/const.py:610
 msgid "20x larger"
 msgstr ""
 
-#: widget/icon/const.py:611
+#: module/web/widget/icon/const.py:611
 msgid "25x larger"
 msgstr ""
 
-#: widget/icon/models.py:19 widget/icon/models.py:30
+#: module/web/widget/icon/models.py:19 module/web/widget/icon/models.py:30
 msgid "Icon"
 msgstr ""
 
-#: widget/icon/models.py:22 widgets/tables.py:88
+#: module/web/widget/icon/models.py:22 module/web/widgets/tables.py:88
 msgid "Size"
 msgstr ""
 
-#: widget/icon/models.py:24
+#: module/web/widget/icon/models.py:24
 msgid "Spin"
 msgstr ""
 
-#: widget/icon/models.py:26
+#: module/web/widget/icon/models.py:26
 msgid "Border"
 msgstr ""
 
-#: widget/icon/models.py:31
+#: module/web/widget/icon/models.py:31
 msgid "Icons"
 msgstr ""
 
-#: widget/markuptext/models.py:10
+#: module/web/widget/markuptext/models.py:10
 msgid "Empty text"
 msgstr ""
 
-#: widget/markuptext/models.py:14
+#: module/web/widget/markuptext/models.py:14
 msgid "markup text"
 msgstr ""
 
-#: widget/markuptext/models.py:15
+#: module/web/widget/markuptext/models.py:15
 msgid "markup texts"
 msgstr ""
 
-#: widget/pagetitle/models.py:10
+#: module/web/widget/pagetitle/models.py:10
 msgid "page title"
 msgstr "titulok stránky"
 
-#: widget/pagetitle/models.py:11
+#: module/web/widget/pagetitle/models.py:11
 #, fuzzy
 msgid "page titles"
 msgstr "titulok stránky"
 
-#: widget/siteheading/models.py:19
+#: module/web/widget/siteheading/models.py:19
 #, fuzzy
 msgid "Site Title"
 msgstr "názov"
 
-#: widget/siteheading/models.py:21
+#: module/web/widget/siteheading/models.py:21
 #, fuzzy
 msgid "Logo"
 msgstr "Vyhľadávanie"
 
-#: widget/siteheading/models.py:23
+#: module/web/widget/siteheading/models.py:23
 msgid "Tagline"
 msgstr ""
 
-#: widget/siteheading/models.py:34
+#: module/web/widget/siteheading/models.py:34
 msgid "site heading"
 msgstr ""
 
-#: widget/siteheading/models.py:35
+#: module/web/widget/siteheading/models.py:35
 msgid "site headings"
 msgstr ""
 
-#: widget/table/models.py:97
+#: module/web/widget/table/models.py:97
 #, fuzzy
 msgid "plain"
 msgstr "odkaz"
 
-#: widget/table/models.py:98
+#: module/web/widget/table/models.py:98
 msgid "title row"
 msgstr ""
 
-#: widget/table/models.py:100
+#: module/web/widget/table/models.py:100
 #, fuzzy
 msgid "title row and column"
 msgstr "Stredný stĺpec"
 
-#: widget/table/models.py:106
+#: module/web/widget/table/models.py:106
 #, fuzzy
 msgid "table"
 msgstr "označenie"
 
-#: widget/table/models.py:107
+#: module/web/widget/table/models.py:107
 msgid "tables"
 msgstr ""
 
-#: widget/table/models.py:116
+#: module/web/widget/table/models.py:116
 msgid "type"
 msgstr ""
 
-#: widget/table/models.py:120
+#: module/web/widget/table/models.py:120
 msgid "data"
 msgstr ""
 
-#: widgets/forms.py:52
+#: module/web/widgets/forms.py:52
 msgid "CSS Classes"
 msgstr ""
 
-#: widgets/forms.py:52
+#: module/web/widgets/forms.py:52
 msgid "Custom CSS classes"
 msgstr ""
 
-#: widgets/forms.py:63
+#: module/web/widgets/forms.py:63
 msgid "Parent"
 msgstr ""
 
-#: widgets/forms.py:63
+#: module/web/widgets/forms.py:63
 #, fuzzy
 msgid "Parent Page"
 msgstr "Úvod"
 
-#: widgets/forms.py:103
+#: module/web/widgets/forms.py:103
 #, fuzzy
 #| msgid "orientation"
 msgid "Positions"
 msgstr "orientácia"
 
-#: widgets/forms.py:198 widgets/forms.py:260
+#: module/web/widgets/forms.py:198 module/web/widgets/forms.py:260
 msgid "Region"
 msgstr ""
 
-#: widgets/forms.py:237
+#: module/web/widgets/forms.py:237
 msgid "Widget Type"
 msgstr ""
 
-#: widgets/forms.py:244
+#: module/web/widgets/forms.py:244
 msgid "First ?"
 msgstr ""
 
-#: widgets/forms.py:245
+#: module/web/widgets/forms.py:245
 msgid "If is checked, widget will be placed as first widget in this region"
 msgstr ""
 
-#: widgets/forms.py:287
+#: module/web/widgets/forms.py:287
 msgid " - Inherited"
 msgstr ""
 
-#: widgets/mixins.py:25
+#: module/web/widgets/mixins.py:25
 msgid "Objects per page"
 msgstr ""
 
-#: widgets/mixins.py:28
+#: module/web/widgets/mixins.py:28
 msgid "Objects per row"
 msgstr ""
 
-#: widgets/mixins.py:31
+#: module/web/widgets/mixins.py:31
 msgid "Pagination Style"
 msgstr ""
 
-#: widgets/mixins.py:36
+#: module/web/widgets/mixins.py:36
 #, fuzzy
 #| msgid "application sidebar"
 msgid "Pagination"
 msgstr "pomocný panel aplikácie"
 
-#: widgets/mixins.py:196
+#: module/web/widgets/mixins.py:196
 #, fuzzy
 #| msgid "IP Address"
 msgid "Source Address"
 msgstr "IP adresa"
 
-#: widgets/mixins.py:199
+#: module/web/widgets/mixins.py:199
 msgid "Cache validity"
 msgstr ""
 
-#: widgets/mixins.py:202
+#: module/web/widgets/mixins.py:202
 msgid "Cache data"
 msgstr ""
 
-#: widgets/mixins.py:205
+#: module/web/widgets/mixins.py:205
 #, fuzzy
 #| msgid "last updated"
 msgid "Cache update"
 msgstr "posledná aktualizácia"
 
-#: widgets/mixins.py:307
+#: module/web/widgets/mixins.py:307
 #, fuzzy
 #| msgid "name"
 msgid "Username"
 msgstr "meno"
 
-#: widgets/mixins.py:310
+#: module/web/widgets/mixins.py:310
 msgid "Password"
 msgstr ""
 
-#: widgets/mixins.py:313
+#: module/web/widgets/mixins.py:313
 msgid "API Token"
 msgstr ""
 
-#: widgets/views.py:92
+#: module/web/widgets/views.py:92
 #, fuzzy
 msgid "Edit parent page"
 msgstr "Stránky"
 
-#: widgets/views.py:100
+#: module/web/widgets/views.py:100
 msgid "Delete widget"
 msgstr ""
 
-#: widgets/views.py:197
+#: module/web/widgets/views.py:196
 msgid "Add new Widget to {}"
 msgstr ""
 
-#: widgets/views.py:202
+#: module/web/widgets/views.py:201
 #, fuzzy
 #| msgid "Content"
 msgid "Continue"
 msgstr "Obsah"
 
-#: widgets/views.py:272
+#: module/web/widgets/views.py:271
 msgid "Delete {}"
 msgstr ""
 
-#: widgets/views.py:335
+#: module/web/widgets/views.py:334
 msgid "Error occured while sorting widgets."
 msgstr ""
 
-#: widgets/views.py:344
+#: module/web/widgets/views.py:343
 msgid "Widget sorting success."
 msgstr ""
 
-#: widgets/views.py:418
+#: module/web/widgets/views.py:417
 msgid "Widget was successfully moved."
 msgstr ""
 
-#: widgets/views.py:442
+#: module/web/widgets/views.py:441
 msgid "Widget was successfully cloned."
 msgstr ""
 
