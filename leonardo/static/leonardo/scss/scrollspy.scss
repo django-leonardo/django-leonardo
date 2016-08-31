@@ -4,11 +4,12 @@
 	position: fixed;
 	overflow: hidden;
 	text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
 	z-index: 500;
 	background: transparent;
 	line-height: 40px;
 	right: 30px;
-	bottom: 20%;
 	border-radius: 4px;
 	ul li {
 		transition: all 0.5s ease;
