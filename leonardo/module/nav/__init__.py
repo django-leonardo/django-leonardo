@@ -24,7 +24,7 @@ class Default(object):
         ]
 
     js_files = [
-        'js/scroll_class.js'
+        'js/jquery.scrollspy.js'
     ]
 
 
