@@ -23,6 +23,10 @@ class Default(object):
             'leonardo.module.nav.models.LanguageSelectorWidget'
         ]
 
+    js_files = [
+        'js/scroll_class.js'
+    ]
+
 
 class NavConfig(AppConfig, Default):
     name = 'leonardo.module.nav'

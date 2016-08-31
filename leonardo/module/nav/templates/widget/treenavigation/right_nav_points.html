@@ -7,15 +7,8 @@
     <ul class="nav nav-pills nav-stacked">
 {% for page in toplevel %}
 		<li class="{% if page|is_equal_or_parent_of:current %}active{% endif %}">
-		<a class="scroll-{{ page.slug }}-btn" href="#{{ page.slug }}"></a>
+		<a class="page-scroll" href="#{{ page.slug }}"></a>
 		</li>
-		<script>
-		  $(".scroll-{{ page.slug }}-btn").click(function() {
-		      $('html,body').animate({
-		          scrollTop: $("#{{ page.slug }}").offset().top},
-		          'slow');
-		  });
-		</script>
 {% endfor %}
 	</ul>
 </div>
