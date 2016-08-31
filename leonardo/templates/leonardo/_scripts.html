@@ -429,3 +429,10 @@ $(function() {
 // Call init on DOM ready.
 $(document).ready(horizon.init);
 </script>
+
+<script type="text/javascript">
+// Closes the Responsive Menu on Menu Item Click
+$('.navbar-collapse ul li a').click(function() {
+    $('.navbar-toggle:visible').click();
+});
+</script>
