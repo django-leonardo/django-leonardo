@@ -15,6 +15,7 @@ from django.utils import timezone
 from django.utils.encoding import iri_to_uri  # noqa
 from django.utils.translation import ugettext_lazy as _
 from horizon.utils import functions as utils
+from django.utils.http import is_safe_url
 from leonardo import exceptions
 from leonardo import messages
 
@@ -142,11 +143,24 @@ class HorizonMiddleware(object):
         if isinstance(exception, (exceptions.NotAuthorized,
                                   exceptions.NotAuthenticated)):
             auth_url = settings.LOGIN_URL
-            next_url = iri_to_uri(request.get_full_path())
+            next_url = None
+            # prevent submiting forms after login and
+            # use http referer
+            if request.method in ("POST", "PUT"):
+
+                referrer = request.META.get('HTTP_REFERER')
+
+                if referrer and is_safe_url(referrer, request.get_host()):
+                    next_url = referrer
+
+            if not next_url:
+                next_url = iri_to_uri(request.get_full_path())
+
             if next_url != auth_url:
                 field_name = REDIRECT_FIELD_NAME
             else:
                 field_name = None
+
             login_url = request.build_absolute_uri(auth_url)
             response = redirect_to_login(next_url, login_url=login_url,
                                          redirect_field_name=field_name)
