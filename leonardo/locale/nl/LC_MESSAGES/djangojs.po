@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-18 19:34+0200\n"
+"POT-Creation-Date: 2016-09-06 14:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,6 +52,7 @@ msgid "Cancel"
 msgstr ""
 
 #: static/horizon/js/horizon_modals.js:251
+#: static/horizon/js/horizon_tables.js:286
 msgid "Working"
 msgstr ""
 
@@ -62,6 +63,37 @@ msgstr ""
 #: static/horizon/js/horizon_modals.js:407
 msgid "An error occurred. Please try again later."
 msgstr ""
+
+#: static/horizon/js/horizon_tables.js:45
+#: static/horizon/js/horizon_tables.js:456
+msgid "No items to display."
+msgstr ""
+
+#: static/horizon/js/horizon_tables.js:58
+#: static/horizon/js/horizon_tables.js:151
+msgid "An error occurred while updating."
+msgstr ""
+
+#: static/horizon/js/horizon_tables.js:265
+#, javascript-format
+msgid "You have selected %s. "
+msgstr ""
+
+#: static/horizon/js/horizon_tables.js:267
+#, javascript-format
+msgid "Confirm %s"
+msgstr ""
+
+#: static/horizon/js/horizon_tables.js:268
+msgid "Please confirm your selection. "
+msgstr ""
+
+#: static/horizon/js/horizon_tables.js:440
+#, javascript-format
+msgid "Displaying %s item"
+msgid_plural "Displaying %s items"
+msgstr[0] ""
+msgstr[1] ""
 
 #: static/leonardo/js/searchautocomplete.js:77
 msgid "No results found."

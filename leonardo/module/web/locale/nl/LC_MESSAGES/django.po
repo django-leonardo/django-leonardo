@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-30 15:28+0200\n"
+"POT-Creation-Date: 2016-09-06 13:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,7 +352,7 @@ msgstr ""
 msgid "bottom"
 msgstr ""
 
-#: module/web/middlewares/horizon.py:154
+#: module/web/middlewares/horizon.py:168
 msgid "Unauthorized. Please try logging in again."
 msgstr ""
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: horizon 10.0.0.0b2.dev324\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-18 19:34+0200\n"
+"POT-Creation-Date: 2016-09-06 14:04+0200\n"
 "PO-Revision-Date: 2016-06-14 09:31+0000\n"
 "Last-Translator: Lenka Husáková <lenka.husakova@ultimum.io>\n"
 "Language-Team: Czech\n"
@@ -28,29 +28,30 @@ msgstr "výchozí zásoby"
 
 #: static/horizon/js/horizon_messages.js:9
 msgid "Danger: "
-msgstr "Nebezpečí:"
+msgstr "Nebezpečí: "
 
 #: static/horizon/js/horizon_messages.js:10
 msgid "Warning: "
-msgstr "Varování:"
+msgstr "Varování: "
 
 #: static/horizon/js/horizon_messages.js:11
 msgid "Notice: "
-msgstr "Oznámení:"
+msgstr "Oznámení: "
 
 #: static/horizon/js/horizon_messages.js:12
 msgid "Success: "
-msgstr "Úspěch:"
+msgstr "Úspěch: "
 
 #: static/horizon/js/horizon_messages.js:13
 msgid "Error: "
-msgstr "Chyba:"
+msgstr "Chyba: "
 
 #: static/horizon/js/horizon_modals.js:33
 msgid "Cancel"
 msgstr "Zrušit"
 
 #: static/horizon/js/horizon_modals.js:251
+#: static/horizon/js/horizon_tables.js:286
 msgid "Working"
 msgstr "Zpracovávání"
 
@@ -61,6 +62,38 @@ msgstr "Při odesílání formuláře nastal problém. Zkuste to prosím znovu."
 #: static/horizon/js/horizon_modals.js:407
 msgid "An error occurred. Please try again later."
 msgstr "Vyskytla se chyba. Prosím zkuste to znovu později."
+
+#: static/horizon/js/horizon_tables.js:45
+#: static/horizon/js/horizon_tables.js:456
+msgid "No items to display."
+msgstr "Žádné položky k zobrazení."
+
+#: static/horizon/js/horizon_tables.js:58
+#: static/horizon/js/horizon_tables.js:151
+msgid "An error occurred while updating."
+msgstr "Při aktualizaci nastal problém"
+
+#: static/horizon/js/horizon_tables.js:265
+#, python-format
+msgid "You have selected %s. "
+msgstr "Vybrali jste %s. "
+
+#: static/horizon/js/horizon_tables.js:267
+#, python-format
+msgid "Confirm %s"
+msgstr "Potvrdit %s"
+
+#: static/horizon/js/horizon_tables.js:268
+msgid "Please confirm your selection. "
+msgstr "Potvrďte prosím váš výber. "
+
+#: static/horizon/js/horizon_tables.js:440
+#, python-format
+msgid "Displaying %s item"
+msgid_plural "Displaying %s items"
+msgstr[0] "Zobrazena %s položka"
+msgstr[1] "Zobrazeny %s položky"
+msgstr[2] "Zobrazeno %s položek"
 
 #: static/leonardo/js/searchautocomplete.js:77
 msgid "No results found."
