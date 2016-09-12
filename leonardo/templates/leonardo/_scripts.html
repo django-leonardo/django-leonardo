@@ -425,6 +425,10 @@ $(function() {
 <script src='{{ STATIC_URL }}app/app.module.js'></script>
 {% endcompress %}
 
+{% if request.user.is_staff %}
+  {% include "leonardo/common/_frontend_edit_sidebar.html" %}
+{% endif %}
+
 <script type="text/javascript">
 // Call init on DOM ready.
 $(document).ready(horizon.init);

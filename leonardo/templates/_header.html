@@ -49,6 +49,3 @@
 {% include "horizon/client_side/_script_loader.html" %}
 {% include "_custom_head_js.html" %}
 
-{% if request.user.is_staff %}
-  {% include "leonardo/common/_frontend_edit_sidebar.html" %}
-{% endif %}
