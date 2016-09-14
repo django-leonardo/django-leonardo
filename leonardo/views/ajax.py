@@ -135,9 +135,13 @@ class AJAXMixin(object):
 
                     request.frontend_editing = False
 
-                    content = widget.render(**{'request': request})
+                    try:
+                        content = widget.render(**{'request': request})
+                    except Exception as e:
+                        response['result'] = widget.handle_exception(request, e)
+                    else:
+                        response['result'] = content
 
-                    response['result'] = content
                     response['id'] = widget_id
 
                 else:

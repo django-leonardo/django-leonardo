@@ -370,6 +370,11 @@ class Widget(FeinCMSBase):
         context.push({'error': str(exception)})
         return render_to_string("widget/error.html", context)
 
+    def handle_exception(self, request, exc):
+        """Handle exception and returns rendered error template
+        """
+        return self.render_error(self.get_context_data(request), exc)
+
     def render_response(self, context={}):
         '''just render to string shortcut for less imports'''
         return render_to_string(self.get_template_name, context)
