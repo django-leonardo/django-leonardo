@@ -106,25 +106,32 @@ class HorizonMiddleware(object):
                 # use django's messages methods here.
                 for tag, message, extra_tags in queued_msgs:
                     getattr(django_messages, tag)(request, message, extra_tags)
-                if response['location'].startswith(settings.LOGOUT_URL):
-                    redirect_response = http.HttpResponse(status=401)
-                    # This header is used for handling the logout in JS
-                    redirect_response['logout'] = True
-                    if self.logout_reason is not None:
-                        utils.add_logout_reason(
-                            request, redirect_response, self.logout_reason)
-                else:
-                    redirect_response = http.HttpResponse()
+                # if response['location'].startswith(settings.LOGOUT_URL):
+                #     redirect_response = http.HttpResponse(status=401)
+                #     # This header is used for handling the logout in JS
+                #     redirect_response['logout'] = True
+                #     if self.logout_reason is not None:
+                #         utils.add_logout_reason(
+                #             request, redirect_response, self.logout_reason)
+                # else:
+                redirect_response = http.HttpResponse()
+                # Use a set while checking if we want a cookie's attributes
+                # copied
+                cookie_keys = set(('max_age', 'expires', 'path', 'domain',
+                                   'secure', 'httponly', 'logout_reason'))
                 # Copy cookies from HttpResponseRedirect towards HttpResponse
                 for cookie_name, cookie in six.iteritems(response.cookies):
                     cookie_kwargs = dict((
                         (key, value) for key, value in six.iteritems(cookie)
-                        if key in ('max_age', 'expires', 'path', 'domain',
-                                   'secure', 'httponly', 'logout_reason') and value
+                        if key in cookie_keys and value
                     ))
                     redirect_response.set_cookie(
                         cookie_name, cookie.value, **cookie_kwargs)
                 redirect_response['X-Horizon-Location'] = response['location']
+                upload_url_key = 'X-File-Upload-URL'
+                if upload_url_key in response:
+                    self.copy_headers(response, redirect_response,
+                                      (upload_url_key, 'X-Auth-Token'))
                 return redirect_response
             if queued_msgs:
                 # TODO(gabriel): When we have an async connection to the
