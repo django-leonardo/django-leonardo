@@ -28,12 +28,12 @@ Autocomplete.prototype.setup = function() {
   })
 
   // On selecting a result, populate the search field.
-  this.form_elem.on('click', '.ac-result', function(ev) {
+  /*this.form_elem.on('click', '.ac-result', function(ev) {
     self.query_box.val($(this).text())
     $('.ac-results').remove()
     self.form_elem.submit();
     return false
-  })
+  })*/
 }
 
 Autocomplete.prototype.fetch = function(query) {
@@ -65,11 +65,12 @@ Autocomplete.prototype.show_results = function(data) {
 
   if(results.length > 0) {
     for(var res_offset in results) {
-      var elem = base_elem.clone()
+      var elem = base_elem.clone();
       // Don't use .html(...) here, as you open yourself to XSS.
       // Really, you should use some form of templating.
-      elem.find('.ac-result').text(results[res_offset])
-      results_wrapper.append(elem)
+      elem.find('.ac-result').attr("href", results[res_offset]['url']);
+      elem.find('.ac-result').text(results[res_offset]['title']);
+      results_wrapper.append(elem);
     }
   }
   else {
