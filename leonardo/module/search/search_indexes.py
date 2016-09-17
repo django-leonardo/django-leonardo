@@ -35,6 +35,12 @@ class PageIndex(indexes.SearchIndex, indexes.Indexable):
 
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
+
+        # if permissions are enabled then we want only public pages
+        if hasattr(self.get_model(), 'permissions'):
+            return self.get_model().objects.filter(
+                active=True, permissions__isnull=True)
+
         return self.get_model().objects.filter(active=True)
 
 # I don't know if this date is changed if some widget was changed..
