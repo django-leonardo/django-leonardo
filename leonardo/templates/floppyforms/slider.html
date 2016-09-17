@@ -24,6 +24,19 @@
                 $("#{{ attrs.id }}").attr("value", value.from);
             }
         });
+
+        horizon.formset_table.addFormInitFunction(function (table, prefix, new_row) {
+           new_row.find("input[type=range]").each(function (i, el) {
+
+            $(el).ionRangeSlider({
+                    onChange: function(value) {
+                        $(el).attr("value", value.from);
+                    }
+                });
+
+           });
+        });
+
     });
   }});
 
