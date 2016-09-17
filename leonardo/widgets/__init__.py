@@ -7,6 +7,9 @@ from leonardo.module.web.widgets.mixins import (AuthContentProxyWidgetMixin,
                                                 JSONContentMixin,
                                                 ListWidgetMixin)
 
+from leonardo.utils.widgets import get_htmltext_widget
+
 __all__ = ('Widget', 'ListWidgetMixin', 'ContentProxyWidgetMixin',
            'JSONContentMixin', 'AuthContentProxyWidgetMixin',
-           'ListWidget', 'NavigationWidgetMixin', 'NavigationWidget')
+           'ListWidget', 'NavigationWidgetMixin', 'NavigationWidget',
+           'get_htmltext_widget')
