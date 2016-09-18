@@ -44,7 +44,7 @@ else:
                     'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT)),
                     'base_url': '/media/',
                 },
-                'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
+                'UPLOAD_TO': 'leonardo.module.media.path_generators.path_based',
                 'UPLOAD_TO_PREFIX': MEDIA_PUBLIC_UPLOAD_TO,
             },
             'thumbnails': {
@@ -62,7 +62,7 @@ else:
                     'location': os.path.abspath(os.path.join(settings.MEDIA_ROOT)),
                     'base_url': '/smedia/',
                 },
-                'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
+                'UPLOAD_TO': 'leonardo.module.media.path_generators.path_based',
                 'UPLOAD_TO_PREFIX': MEDIA_PRIVATE_UPLOAD_TO,
             },
             'thumbnails': {

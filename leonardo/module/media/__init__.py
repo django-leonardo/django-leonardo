@@ -54,7 +54,6 @@ class Default(object):
         'MEDIA_THUMB_MEDIUM_OPT': ('', _('Another options for medium thumnails')),
         'MEDIA_THUMB_LARGE_GEOM': ('768x768', _('MEDIA_THUMB_LARGE_GEOM')),
         'MEDIA_THUMB_LARGE_OPT': ('', _('Another options for large thumnails')),
-        'MEDIA_LOGICAL_STRUCTURE': (False, _('If is True all folders and files will has same path in the OS')),
         'MEDIA_CANONICAL_URL': ('files/', _("Contrary to the file's actual URL, the canonical URL does not change if you upload a new version of the file.")),
     }
 
