@@ -16,8 +16,8 @@ django-haystack==2.3.1
 sorl-thumbnail==12.3
 easy-thumbnails==2.3
 
-horizon-contrib>=2016.8.0
-leonardo_horizon==2016.8.1
+horizon-contrib>=2016.9.4
+leonardo_horizon==2016.8.2
 leonardo_dbtemplates>=1.0.0a0
 leonardo_constance>=1.0.0a10.dev1
 django-picklefield==0.3.2 # use for database backend
@@ -26,7 +26,7 @@ django-picklefield==0.3.2 # use for database backend
 leonardo-system>=0.0.8.post4 # optional
 leonardo-admin>=2015.10.0 # optional
 leonardo-sitestarter>=1.0.0a2 # optional
-leonardo-ckeditor>=1.0.0b1 # optional
+leonardo-ckeditor>=1.0.0b2 # optional
 leonardo-epiceditor>=0.0.5 # optional
 
 # default search backend for Haystack just replace this with your favourite
