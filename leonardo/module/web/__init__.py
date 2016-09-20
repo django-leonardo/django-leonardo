@@ -122,10 +122,6 @@ class Default(object):
             "debug": lambda r: settings.TEMPLATE_DEBUG
         }
 
-    plugins = [
-        ('leonardo.module.web.apps.horizon', _('Horizon'))
-    ]
-
     js_files = [
         'js/lib/wow.min.js'
     ]
