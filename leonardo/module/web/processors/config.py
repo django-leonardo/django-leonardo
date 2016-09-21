@@ -2,6 +2,7 @@ from horizon import conf
 from leonardo import leonardo as main
 from constance import config
 
+
 class ContextConfig(dict):
 
     '''Lazy access for all config from templates
@@ -32,7 +33,7 @@ class ContextConfig(dict):
         attr = attr.lower()
 
         try:
-	    return getattr(config, attr.upper())
+            return getattr(config, attr.upper())
         except Exception:
             pass
 
