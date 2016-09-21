@@ -38,11 +38,11 @@ msgstr "Zapamatuj si mě"
 
 #: module/leonardo_auth/forms.py:49
 msgid "Login success."
-msgstr "Přihlášení úspěšné."
+msgstr "Přihlášení proběhlo úspěšně."
 
 #: module/leonardo_auth/forms.py:51
 msgid "Login failed."
-msgstr "Přihlášení neúspěšné."
+msgstr "Přihlášení proběhlo neúspěšně."
 
 #: module/leonardo_auth/forms.py:65
 msgid "E-mail address"
