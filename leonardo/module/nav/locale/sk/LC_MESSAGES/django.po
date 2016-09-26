@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-06 13:58+0200\n"
+"POT-Creation-Date: 2016-09-26 10:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,279 +18,276 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n>1 && n<5 ? 1 : 2;\n"
 
-#: module/nav/mixins.py:19
+#: mixins.py:19
 msgid "Display active"
 msgstr ""
 
-#: module/nav/mixins.py:22
+#: mixins.py:22
 msgid "Display in navigation"
 msgstr ""
 
-#: module/nav/mixins.py:25
+#: mixins.py:25
 msgid "Orientation"
 msgstr ""
 
-#: module/nav/models.py:19
+#: models.py:19
 msgid "Flat page content navigation"
 msgstr ""
 
-#: module/nav/models.py:41
+#: models.py:41
 msgid "Nested page content navigation"
 msgstr ""
 
-#: module/nav/templates/widget/languageselector/detail.html:7
+#: templates/widget/languageselector/detail.html:7
 msgid "Select your language"
 msgstr ""
 
-#: module/nav/templates/widget/linearnavigation/default.html:9
-#: module/nav/templates/widget/linearnavigation/default.html:11
+#: templates/widget/linearnavigation/default.html:9
+#: templates/widget/linearnavigation/default.html:11
 msgid "prev"
 msgstr ""
 
-#: module/nav/templates/widget/linearnavigation/default.html:14
-#: module/nav/templates/widget/linearnavigation/default.html:16
-#: module/nav/templates/widget/linearnavigation/paragraph.html:15
-#: module/nav/templates/widget/linearnavigation/paragraph.html:17
+#: templates/widget/linearnavigation/default.html:14
+#: templates/widget/linearnavigation/default.html:16
+#: templates/widget/linearnavigation/paragraph.html:15
+#: templates/widget/linearnavigation/paragraph.html:17
 msgid "next"
 msgstr ""
 
-#: module/nav/templates/widget/linearnavigation/paragraph.html:9
-#: module/nav/templates/widget/linearnavigation/paragraph.html:11
+#: templates/widget/linearnavigation/paragraph.html:9
+#: templates/widget/linearnavigation/paragraph.html:11
 msgid "previous"
 msgstr ""
 
-#: module/nav/templates/widget/sitesearch/default.html:10
-#: module/nav/templates/widget/sitesearch/default.html:12
-#: module/nav/templates/widget/sitesearch/navbar.html:11
-#: module/nav/templates/widget/sitesearch/navbar_autocomplete.html:22
-#: module/nav/templates/widget/sitesearch/navbar_fullscreen.html:15
+#: templates/widget/sitesearch/default.html:10
+#: templates/widget/sitesearch/default.html:12
+#: templates/widget/sitesearch/navbar.html:11
+#: templates/widget/sitesearch/navbar_autocomplete.html:22
+#: templates/widget/sitesearch/navbar_fullscreen.html:15
 msgid "Search"
 msgstr ""
 
-#: module/nav/templates/widget/sitesearch/navbar_fullscreen.html:16
+#: templates/widget/sitesearch/navbar_fullscreen.html:16
 msgid "Search..."
 msgstr ""
 
-#: module/nav/widget/breadcrumbs/models.py:16
+#: widget/breadcrumbs/models.py:16
 msgid "Root node label"
 msgstr ""
 
-#: module/nav/widget/breadcrumbs/models.py:21
+#: widget/breadcrumbs/models.py:21
 msgid "Breadcrumb trail"
 msgstr ""
 
-#: module/nav/widget/breadcrumbs/models.py:22
+#: widget/breadcrumbs/models.py:22
 msgid "Breadcrumb trails"
 msgstr ""
 
-#: module/nav/widget/contentnavigation/models.py:11
+#: widget/contentnavigation/models.py:11
 msgid "Display included pages"
 msgstr ""
 
-#: module/nav/widget/contentnavigation/models.py:14
+#: widget/contentnavigation/models.py:14
 msgid "Display widget headers"
 msgstr ""
 
-#: module/nav/widget/contentnavigation/models.py:18
+#: widget/contentnavigation/models.py:18
 msgid "Content navigation"
 msgstr ""
 
-#: module/nav/widget/contentnavigation/models.py:19
+#: widget/contentnavigation/models.py:19
 msgid "Content navigations"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:11
+#: widget/contextnavigation/models.py:11
 msgid "self"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:12
+#: widget/contextnavigation/models.py:12
 msgid "one level"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:13
+#: widget/contextnavigation/models.py:13
 msgid "all levels"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:17
-#: module/nav/widget/linearnavigation/models.py:7
+#: widget/contextnavigation/models.py:17 widget/linearnavigation/models.py:7
 msgid "none"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:18
+#: widget/contextnavigation/models.py:18
 msgid "link"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:19
+#: widget/contextnavigation/models.py:19
 msgid "button"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:26
+#: widget/contextnavigation/models.py:26
 msgid "Source page"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:28
+#: widget/contextnavigation/models.py:28
 msgid "The child pages of root page are displayed in the context navigation."
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:32
+#: widget/contextnavigation/models.py:32
 msgid "Region to display"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:34
+#: widget/contextnavigation/models.py:34
 msgid "Which region of selected pages do you wish to display."
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:37
+#: widget/contextnavigation/models.py:37
 msgid "Depth"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:39
+#: widget/contextnavigation/models.py:39
 msgid "Depth to which display child pages."
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:41
-#: module/nav/widget/linearnavigation/models.py:23
-#: module/nav/widget/treenavigation/models.py:30
+#: widget/contextnavigation/models.py:41 widget/linearnavigation/models.py:23
+#: widget/treenavigation/models.py:30
 msgid "Link style"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:43
+#: widget/contextnavigation/models.py:43
 msgid "Visual style of links to displayed pages."
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:45
+#: widget/contextnavigation/models.py:45
 msgid "Link label"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:47
+#: widget/contextnavigation/models.py:47
 msgid "Arbitrary text of links. If empty, page's title will be used instead."
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:51
-#: module/nav/widget/simplelink/models.py:12
+#: widget/contextnavigation/models.py:51 widget/simplelink/models.py:12
 msgid "Linked page"
 msgstr ""
 
-#: module/nav/widget/contextnavigation/models.py:52
+#: widget/contextnavigation/models.py:52
 msgid "Linked pages"
 msgstr ""
 
-#: module/nav/widget/languageselector/models.py:14
+#: widget/languageselector/models.py:14
 msgid "Language switch"
 msgstr ""
 
-#: module/nav/widget/languageselector/models.py:15
+#: widget/languageselector/models.py:15
 msgid "Language switches"
 msgstr ""
 
-#: module/nav/widget/linearnavigation/models.py:8
+#: widget/linearnavigation/models.py:8
 msgid "parents"
 msgstr ""
 
-#: module/nav/widget/linearnavigation/models.py:9
+#: widget/linearnavigation/models.py:9
 msgid "siblings"
 msgstr ""
 
-#: module/nav/widget/linearnavigation/models.py:10
+#: widget/linearnavigation/models.py:10
 msgid "cousins"
 msgstr ""
 
-#: module/nav/widget/linearnavigation/models.py:14
+#: widget/linearnavigation/models.py:14
 msgid "previous/next"
 msgstr ""
 
-#: module/nav/widget/linearnavigation/models.py:15
+#: widget/linearnavigation/models.py:15
 msgid "page title"
 msgstr ""
 
-#: module/nav/widget/linearnavigation/models.py:21
+#: widget/linearnavigation/models.py:21
 msgid "Node traversal"
 msgstr ""
 
-#: module/nav/widget/linearnavigation/models.py:28
+#: widget/linearnavigation/models.py:28
 msgid "Linear pager"
 msgstr ""
 
-#: module/nav/widget/linearnavigation/models.py:29
+#: widget/linearnavigation/models.py:29
 msgid "Linear pagers"
 msgstr ""
 
-#: module/nav/widget/simplelink/models.py:16
+#: widget/simplelink/models.py:16
 msgid "Simple link"
 msgstr ""
 
-#: module/nav/widget/simplelink/models.py:17
+#: widget/simplelink/models.py:17
 msgid "Simple links"
 msgstr ""
 
-#: module/nav/widget/sitemap/models.py:15
+#: widget/sitemap/models.py:15
 msgid "Root page"
 msgstr ""
 
-#: module/nav/widget/sitemap/models.py:17
+#: widget/sitemap/models.py:17
 msgid "If no root page is set, widget's parent page will be used."
 msgstr ""
 
-#: module/nav/widget/sitemap/models.py:22
+#: widget/sitemap/models.py:22
 msgid "Site map"
 msgstr ""
 
-#: module/nav/widget/sitemap/models.py:23
+#: widget/sitemap/models.py:23
 msgid "Site maps"
 msgstr ""
 
-#: module/nav/widget/sitesearch/models.py:8
+#: widget/sitesearch/models.py:8
 msgid "Google Custom Search"
 msgstr ""
 
-#: module/nav/widget/sitesearch/models.py:9
+#: widget/sitesearch/models.py:9
 msgid "Django Haystack"
 msgstr ""
 
-#: module/nav/widget/sitesearch/models.py:15
+#: widget/sitesearch/models.py:15
 msgid "Search engine"
 msgstr ""
 
-#: module/nav/widget/sitesearch/models.py:20
+#: widget/sitesearch/models.py:20
 msgid "Site search"
 msgstr ""
 
-#: module/nav/widget/sitesearch/models.py:21
+#: widget/sitesearch/models.py:21
 msgid "Site searches"
 msgstr ""
 
-#: module/nav/widget/treenavigation/models.py:9
+#: widget/treenavigation/models.py:9
 msgid "Only one level"
 msgstr ""
 
-#: module/nav/widget/treenavigation/models.py:10
+#: widget/treenavigation/models.py:10
 msgid "Include subpages"
 msgstr ""
 
-#: module/nav/widget/treenavigation/models.py:13
+#: widget/treenavigation/models.py:13
 msgid "Default title"
 msgstr ""
 
-#: module/nav/widget/treenavigation/models.py:14
+#: widget/treenavigation/models.py:14
 msgid "Detailed title"
 msgstr ""
 
-#: module/nav/widget/treenavigation/models.py:21
+#: widget/treenavigation/models.py:21
 msgid "depth"
 msgstr ""
 
-#: module/nav/widget/treenavigation/models.py:24
+#: widget/treenavigation/models.py:24
 msgid "root page"
 msgstr ""
 
-#: module/nav/widget/treenavigation/models.py:26
+#: widget/treenavigation/models.py:26
 msgid "If not set, widget's parent page will be used as root page."
 msgstr ""
 
-#: module/nav/widget/treenavigation/models.py:35
+#: widget/treenavigation/models.py:35
 msgid "Navigation menu"
 msgstr ""
 
-#: module/nav/widget/treenavigation/models.py:36
+#: widget/treenavigation/models.py:36
 msgid "Navigation menus"
 msgstr ""
