@@ -9,11 +9,10 @@
 {% block modal-body %}
   {{ block.super }}
     <div class="login-actions">
-        <a href="{% url "signup" %}">{% trans "Sign Up" %}</a><br>
-        <a href="{% url "reset_pwd" %}">{% trans "Reset Password" %}</a>
+        <a href="{% url "signup" %}" class="ajax-modal">{% trans "Sign Up" %}</a><br>
+        <a href="{% url "reset_pwd" %}" class="ajax-modal">{% trans "Reset Password" %}</a>
     </div>
 {% endblock %}
-
 
 {% block modal-footer %}
 <a href="#" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</a>

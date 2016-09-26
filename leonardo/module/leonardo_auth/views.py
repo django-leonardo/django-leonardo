@@ -56,6 +56,7 @@ class LoginView(AuthViewMixin, forms.ModalFormView):
     form_class = LoginForm
     template_name = 'leonardo_auth/login.html'
     success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
+    submit_label = _("Login")
 
     def get_context_data(self, **kwargs):
         ret = super(LoginView, self).get_context_data(**kwargs)
@@ -79,6 +80,7 @@ class SignupView(AuthViewMixin, forms.ModalFormView):
     template_name = "leonardo/common/modal.html"
     form_class = SignupForm
     success_url = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
+    submit_label = _("Sign Up")
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
@@ -94,6 +96,7 @@ class SignupView(AuthViewMixin, forms.ModalFormView):
 class ResetPasswordInitialView(AuthViewMixin, forms.ModalFormView):
     template_name = "leonardo/common/modal.html"
     form_class = ResetPasswordForm
+    submit_label = _("Reset Password")
 
     def get_context_data(self, **kwargs):
         ret = super(ResetPasswordInitialView, self).get_context_data(**kwargs)
@@ -108,6 +111,7 @@ class ResetPasswordInitialView(AuthViewMixin, forms.ModalFormView):
 
 class ResetPasswordKeyView(AuthViewMixin, forms.ModalFormView):
     form_class = ResetPasswordKeyForm
+    submit_label = _("Reset Password")
 
     def get_context_data(self, **kwargs):
         ret = super(ResetPasswordKeyView, self).get_context_data(**kwargs)
@@ -147,6 +151,7 @@ class ResetPasswordKeyView(AuthViewMixin, forms.ModalFormView):
 class ChangePasswordView(AuthViewMixin, forms.ModalFormView):
     form_class = ChangePasswordForm
     template_name = "leonrdo/common/modal.html"
+    submit_label = _("Change Password")
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
@@ -199,6 +204,7 @@ class LogoutView(forms.ModalFormView):
 class PasswordChangeView(HelperMixin, forms.ModalFormView):
     template_name = 'leonardo_auth/change_password.html'
     form_class = ChangePasswordForm
+    submit_label = _("Change Password")
 
     def get_form_kwargs(self):
         kwargs = super(PasswordChangeView, self).get_form_kwargs()

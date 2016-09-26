@@ -199,7 +199,7 @@ class ResetPasswordForm(SelfHandlingForm):
             context['username'] = user.username
 
             send_mail(
-                'Reset password',
+                _('Reset password'),
                 'leonardo_auth/email/password_reset_key.html',
                 context,
                 [email], settings.DEFAULT_FROM_EMAIL)
