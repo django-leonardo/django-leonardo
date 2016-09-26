@@ -265,7 +265,7 @@ horizon.datatables.confirm = function (action) {
     name_string = interpolate(gettext("You have selected %s. "), [name_string]);
   }
   title = interpolate(gettext("Confirm %s"), [action_string]);
-  body = name_string + gettext("Please confirm your selection. ") + help_text;
+  body = name_string + help_text;
   modal = horizon.modals.create(title, body, action_string);
   modal.modal();
   if($modal_parent.length) {
