@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-26 11:40+0200\n"
+"POT-Creation-Date: 2016-09-26 12:00+0200\n"
 "PO-Revision-Date: 2015-09-03 14:47+0000\n"
 "Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,30 +155,20 @@ msgid "Hello,"
 msgstr "Dobrý den,"
 
 #: templates/leonardo_auth/email/password_reset_key.html:3
-#, python-format
 msgid ""
 "\n"
 "You're receiving this e-mail because you or someone else has requested a "
-"password for your user account at %(site_domain)s. Click the link below to "
-"reset your password."
+"password for your user account. Click the link below to reset your password."
 msgstr ""
 "\n"
-"Tento email jste obdrželi, protože jste požádali o změnu hesla na stránkách "
-"%(site_domain)s. Pro obnovení hesla prosím pokračujte kliknutím na odkaz níže."
+"Tento email jste obdrželi, protože jste požádali o změnu hesla. "
+"Pro obnovení hesla prosím pokračujte kliknutím na odkaz "
+"níže."
 
 #: templates/leonardo_auth/email/password_reset_key.html:8
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
 msgstr "V případě že jste zapomněli, vaše uživatelské jméno je %(username)s"
-
-#: templates/leonardo_auth/email/password_reset_key.html:10
-#, python-format
-msgid ""
-"Thank you for using %(site_name)s!\n"
-"%(site_domain)s"
-msgstr ""
-"Děkujeme za používání %(site_name)s!\n"
-"%(site_domain)s"
 
 #: templates/widget/userlogin/default.html:19
 #: templates/widget/userlogin/navbar.html:17
