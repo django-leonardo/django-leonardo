@@ -196,7 +196,7 @@ msgstr "Změnit heslo"
 
 #: views.py:182
 msgid "Logout complete"
-msgstr "Odhlášení kompletní"
+msgstr "Odhlášení proběhlo úspěšně."
 
 #: widget/registration/models.py:21
 msgid "user registration"
