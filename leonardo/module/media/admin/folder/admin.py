@@ -741,10 +741,8 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
         # Hopefully this also checks for necessary permissions.
         # TODO: Check if permissions are really verified
         using = router.db_for_write(self.model)
-        deletable_files, perms_needed_files, protected_files = get_deleted_objects(
-            files_queryset, files_queryset.model._meta, request.user, self.admin_site, using)
-        deletable_folders, perms_needed_folders, protected_folders = get_deleted_objects(
-            folders_queryset, folders_queryset.model._meta, request.user, self.admin_site, using)
+        deletable_files, model_count_files, perms_needed_files, protected_files = get_deleted_objects(files_queryset, files_queryset.model._meta, request.user, self.admin_site, using)
+        deletable_folders, model_count_folder, perms_needed_folders, protected_folders = get_deleted_objects(folders_queryset, folders_queryset.model._meta, request.user, self.admin_site, using)
         all_protected.extend(protected_files)
         all_protected.extend(protected_folders)
 
