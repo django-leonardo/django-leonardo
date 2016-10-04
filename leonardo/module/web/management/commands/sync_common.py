@@ -7,7 +7,7 @@ from ._utils import get_or_create_common_template
 
 
 class Command(NoArgsCommand):
-    help = """Syncs file system templates and themes 
+    help = """Syncs file system templates and themes
             with the database bidirectionally.
             based on dbtemplates.sync_templates"""
 
@@ -25,7 +25,9 @@ class Command(NoArgsCommand):
         get_or_create_common_template("500.html", force=force, notfix='admin')
         get_or_create_common_template(
             "crossdomain.xml", force=force, extension='.xml')
-        get_or_create_common_template("robots.txt", force=force, extension='.txt')
+        get_or_create_common_template(
+            "robots.txt", force=force, extension='.txt')
 
         self.stdout.write('Successfully synced common templates '
-                          '(404.html, 403.html, 500.html, crossdomain.txt, robots.txt)')
+                          '(404.html, 403.html, 500.html, '
+                          'crossdomain.txt, robots.txt)')
