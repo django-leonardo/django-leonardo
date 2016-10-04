@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Leonardo CMS</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <style type="text/css">
+    @font-face {
+     font-family: 'Open Sans';
+     font-style: normal;
+     font-weight: 400;
+     src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+    }
+
+    @media only screen and (max-width:720px){
+
+      table[class="no-mobile"]{
+        display: none !important;
+      }
+      table[class="flexible"]{
+        width:100% !important;
+        height:auto !important;
+      }
+      td[class="content"],
+      td[class="header"],
+      td[class="footer"]{
+        padding:9px 10px 10px !important;
+      }
+    }
+  </style>
+
+</head>
+<body style="margin:0;padding:0;" bgcolor="#f2f2f2">
+<table class="wrapper" bgcolor="#f2f2f2" width="100%" cellspacing="0" cellpadding="0" style="position: relative;" >
+  <tr>
+    <td style="padding-top:16px;">
+      <table class="bg" width="100%" height="623" style="position: absolute; left: 0;top: 0;">
+      </table>
+      <table class="flexible" width="720" align="center" cellpadding="0" cellspacing="0" style="position: relative;width: 100%;max-width: 720px;min-width: 320px;">
+        <tr>
+          <td class="header" style="padding-top:9px; padding-right: 10px; padding-bottom:10px; padding-left: 10px;">
+            <table width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                {% comment %}
+                <td align="left">
+                  <img src="{{ base_url }}{% static 'img/email_logo.png' %}" alt="..." title="..." width="160" height="31">
+                </td>
+                {% endcomment %}
+                <td align="right" style="font:14px 'Open Sans', Arial, Helvetica, sans-serif; line-height:20px; color:#88ccff; padding-bottom:17px; text-align:right;">
+                  {% comment %}
+                  <a href="{{ base_url }}{% url 'customer:notifications:index' %}?tab=notifications__Emails" style="color: #3399cc;">Show on web</a>
+                  {% endcomment %}
+                </td>
+              </tr>
+            </table>
+            <table width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="center" style="font:20px 'Open Sans', Arial, Helvetica, sans-serif; line-height:16px; color:#fff; padding-top:45px; padding-bottom:17px; text-align:center;">
+                  <h1 style="font-size: 45px;font-weight:100;margin:0;">{% block title %}{% endblock %}</h1>
+                  <br>
+                  <br>
+                  {% block subtitle %}{% endblock %}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="content" style="padding-top:9px; padding-right: 10px; padding-bottom:10px; padding-left: 10px;">
+            <!-- ... content ... -->
+            <table class="flexible" cellspacing="0" cellpadding="0" width="100%" bgcolor="#ffffff">
+              <tr>
+                <td bgcolor="#f2f2f2" style="border-bottom: 1px solid #e7e7e7;">
+
+                {% comment %}
+                  <table class="flexible" align="left" cellspacing="0" cellpadding="0" width="25%">
+                    {% if case_id %}
+                    <tr>
+                      <td align="center" style="color: #79797b;font:13px 'Open Sans', Arial, Helvetica, sans-serif; line-height:26px;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;">
+                        Case ID: <span style="color: #4097d1;font-weight: 600;">{{ case_id }}</span>
+                      </td>
+                    </tr>
+                    {% endif %}
+                  </table>
+
+                  <table class="flexible" align="right" cellspacing="0" cellpadding="0" width="25%">
+                    <tr>
+                      <td align="center" style="color: #79797b; font:13px 'Open Sans', Arial, Helvetica, sans-serif; line-height:26px;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px; text-align: center">
+                        Reference: <span style="color: #4097d1;font-weight: 600;">124</span>
+                      </td>
+                    </tr>
+                  </table>
+
+                </td>
+              </tr>
+              {% endcomment %}
+              <tr>
+                <td align="left" style="font:15px 'Open Sans', Arial, Helvetica, sans-serif; line-height:26px; color:#79797b;padding-left: 7%;padding-right: 7%;padding-top: 10px;padding-bottom: 50px;">
+
+                    {% block header %}
+                    {% endblock %}
+                    {% block body %}
+                    {% endblock %}
+                    {% block footer %}
+                    {% endblock %}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="footer" style="font:15px 'Open Sans', Arial, sans-serif; line-height:27px; color:#79797b; text-align:center; padding-top:22px; padding-right: 10px; padding-bottom:40px; padding-left: 10px;">
+
+            <hr style="border-bottom: 1px solid #e7e7e7; border-top: 0; border-left: 0; border-right: 0; height: 20px; margin-top: 0; margin-bottom: 20px;">
+
+            <table width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                {% comment %}
+                <td align="left">
+                  <img src="{{ base_url }}/static/img/email_logo_b.png" alt="..." title="..." width="124" height="25">
+                </td>
+                {% endcomment %}
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
