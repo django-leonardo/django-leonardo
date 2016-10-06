@@ -838,11 +838,30 @@ form .form-group > div.dynamic-select {
   margin-bottom: 0;
 }
 
+.static_page.login-modal {
+  max-width: 400px !important;
+  .login-link {
+    float: right;
+    line-height: 36px;
+  }
+}
+
 .static_page {
-  // float: left;
   background-color: $body-bg;
   border: 1px solid $border-color;
+  margin: 0px auto;
+  margin-top: 10%;
+  &.sm {
+    max-width: $modal-sm;
+  }
+  &.md {
+    max-width: $modal-md;
+  }
+  &.lg {
+    max-width: $modal-lg;
+  }
 }
+
 .static_page > form {
   margin-bottom: 0;
 }
