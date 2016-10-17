@@ -96,7 +96,7 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
         if site:
             root_page.site = site
         if language:
-            root_page.site = language
+            root_page.language = language
 
         for page in root_page.get_descendants():
 
