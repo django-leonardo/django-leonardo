@@ -28,9 +28,6 @@ class PageColorSchemeInlineAdmin(admin.TabularInline):
 class PageAdmin(FeinPageAdmin):
 
     fieldsets = [
-        (None, {
-            'fields': ['parent'],
-        }),
         (_('Main'), {
             'classes': ['collapse'],
             'fields': [
