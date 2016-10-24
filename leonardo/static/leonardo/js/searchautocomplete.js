@@ -28,12 +28,11 @@ Autocomplete.prototype.setup = function() {
   })
 
   // On selecting a result, populate the search field.
-  /*this.form_elem.on('click', '.ac-result', function(ev) {
+  this.form_elem.on('click', '.ac-result', function(ev) {
     self.query_box.val($(this).text())
-    $('.ac-results').remove()
     self.form_elem.submit();
     return false
-  })*/
+  })
 }
 
 Autocomplete.prototype.fetch = function(query) {
