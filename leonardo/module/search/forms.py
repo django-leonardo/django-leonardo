@@ -2,7 +2,7 @@
 
 from crispy_forms.bootstrap import (Accordion, AccordionGroup, FieldWithButtons,
                                     StrictButton, Tab)
-from crispy_forms.layout import Field, HTML, Layout
+from crispy_forms.layout import Field, HTML, Layout, Submit
 from crispy_forms.helper import FormHelper
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import ModelSearchForm
@@ -22,5 +22,5 @@ class SearchForm(ModelSearchForm):
         self.helper.form_tag = False
         self.helper.form_show_labels = False
         self.helper.layout = Layout(
-            FieldWithButtons('q', StrictButton(_("Search...")), css_class="col-xs-6 col-md-offset-3")
+            FieldWithButtons('q', Submit('submit', _("Search...")), css_class="col-xs-6 col-md-offset-3")
         )
