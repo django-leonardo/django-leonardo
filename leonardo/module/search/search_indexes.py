@@ -36,12 +36,18 @@ class PageIndex(indexes.SearchIndex, indexes.Indexable):
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
 
-        # if permissions are enabled then we want only public pages
-        if hasattr(self.get_model(), 'permissions'):
-            return self.get_model().objects.filter(
-                active=True, permissions__isnull=True)
+        kwargs = {"active": True}
 
-        return self.get_model().objects.filter(active=True)
+        # if permissions are enabled then we want only public pages
+        # https://github.com/leonardo-modules/leonardo-module-pagepermissions
+        if hasattr(self.get_model(), 'permissions'):
+            kwargs['permissions__isnull'] = True
+
+        # https://github.com/leonardo-modules/leonardo-page-search
+        if hasattr(self.get_model(), 'search_exclude'):
+            kwargs['search_exclude'] = False
+
+        return self.get_model().objects.filter(**kwargs)
 
 # I don't know if this date is changed if some widget was changed..
 #    def get_updated_field(self):
