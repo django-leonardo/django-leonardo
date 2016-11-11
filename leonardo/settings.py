@@ -107,6 +107,7 @@ else:
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
         'horizon.loaders.TemplateLoader',
+        'dbtemplates.loader.Loader'
     ]
     COMPRESS_ENABLED = False
 
