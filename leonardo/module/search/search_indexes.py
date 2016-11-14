@@ -40,11 +40,11 @@ class PageIndex(indexes.SearchIndex, indexes.Indexable):
 
         # if permissions are enabled then we want only public pages
         # https://github.com/leonardo-modules/leonardo-module-pagepermissions
-        if hasattr(self.get_model(), 'permissions'):
+        if hasattr(Page(), 'permissions'):
             kwargs['permissions__isnull'] = True
 
         # https://github.com/leonardo-modules/leonardo-page-search
-        if hasattr(self.get_model(), 'search_exclude'):
+        if hasattr(Page(), 'search_exclude'):
             kwargs['search_exclude'] = False
 
         return self.get_model().objects.filter(**kwargs)
