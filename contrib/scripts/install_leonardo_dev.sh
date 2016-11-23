@@ -4,7 +4,7 @@ virtualenv -p /usr/bin/python2.7 leonardo_venv
 cd leonardo_venv
 . $PWD/bin/activate
 
-pip install -e git+https://github.com/django-leonardo/django-leonardo@develop#egg=django-leonardo
+pip install -e git+https://github.com/django-leonardo/django-leonardo@master#egg=django-leonardo
 pip install -r $PWD/src/django-leonardo/requirements.txt
 django-admin startproject --template=https://github.com/django-leonardo/site-template/archive/master.zip myproject
 
