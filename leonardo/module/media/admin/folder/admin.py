@@ -193,6 +193,21 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
                                         self.directory_listing),
                                     name='filer-directory_listing-root'),
 
+                                url(r'^order_by_name_reversed/$',
+                                    self.admin_site.admin_view(
+                                        self.directory_listing),
+                                    name='filer-order_by_name_reversed'),
+
+                                url(r'^order_by_created_at-root/$',
+                                    self.admin_site.admin_view(
+                                        self.directory_listing),
+                                    name='filer-order_by_created_at'),
+
+                                url(r'^order_by_created_at_reversed/$',
+                                    self.admin_site.admin_view(
+                                        self.directory_listing),
+                                    name='filer-order_by_created_at_reversed'),
+
                                 url(r'^last/$',
                                     self.admin_site.admin_view(
                                         self.directory_listing),
@@ -303,7 +318,15 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
             file_qs = folder.files.all()
             show_result_count = False
 
-        folder_qs = folder_qs.order_by('name')
+        if 'order_by_name_reversed' in request.path:
+            folder_qs = folder_qs.order_by('-name')
+        elif 'order_by_created_at-root' in request.path:
+            folder_qs = folder_qs.order_by('created_at')
+        elif 'order_by_created_at_reversed' in request.path:
+            folder_qs = folder_qs.order_by('-created_at')
+        else:
+            folder_qs = folder_qs.order_by('name')
+
         order_by = request.GET.get('order_by', None)
         if order_by is not None:
             order_by = order_by.split(',')

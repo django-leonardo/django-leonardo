@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-26 10:28+0200\n"
+"POT-Creation-Date: 2016-12-16 17:59+0000\n"
 "PO-Revision-Date: 2015-09-03 14:27+0000\n"
 "Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,99 +88,100 @@ msgstr ""
 msgid "File"
 msgstr "Soubor"
 
-#: admin/file/tables.py:52 templates/admin/media/folder/directory_table.html:13
+#: admin/file/tables.py:52
+#: templates/admin/media/folder/directory_table.html:14
 #: templates/admin/media/folder/directory_table_modal.html:13
 msgid "Name"
 msgstr "Název"
 
-#: admin/folder/admin.py:374 admin/folder/admin.py:527
+#: admin/folder/admin.py:397 admin/folder/admin.py:550
 msgid ""
 "Items must be selected in order to perform actions on them. No items have "
 "been changed."
 msgstr ""
 
-#: admin/folder/admin.py:396
+#: admin/folder/admin.py:419
 #, python-format
 msgid "%(total_count)s selected"
 msgid_plural "All %(total_count)s selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/folder/admin.py:431
+#: admin/folder/admin.py:454
 #, python-format
 msgid "0 of %(cnt)s selected"
 msgstr ""
 
-#: admin/folder/admin.py:557
+#: admin/folder/admin.py:580
 msgid "No action selected."
 msgstr "Vybrána žádná akce."
 
-#: admin/folder/admin.py:605
+#: admin/folder/admin.py:628
 msgid "Scan folder"
 msgstr "Skenovat soubory"
 
-#: admin/folder/admin.py:609
+#: admin/folder/admin.py:632
 msgid "Create Subfolder"
 msgstr "Vytvořit novou složku"
 
-#: admin/folder/admin.py:616
+#: admin/folder/admin.py:639
 msgid "actions"
 msgstr "Možnosti"
 
-#: admin/folder/admin.py:653
+#: admin/folder/admin.py:676
 #, python-format
 msgid "Successfully moved %(count)d files to clipboard."
 msgstr ""
 
-#: admin/folder/admin.py:659
+#: admin/folder/admin.py:682
 msgid "Move selected files to clipboard"
 msgstr "Přesuňte vybrané soubory do schránky"
 
-#: admin/folder/admin.py:695
+#: admin/folder/admin.py:718
 #, python-format
 msgid "Successfully disabled permissions for %(count)d files."
 msgstr ""
 
-#: admin/folder/admin.py:699
+#: admin/folder/admin.py:722
 #, python-format
 msgid "Successfully enabled permissions for %(count)d files."
 msgstr ""
 
-#: admin/folder/admin.py:709
+#: admin/folder/admin.py:732
 msgid "Enable permissions for selected files"
 msgstr "Povolit oprávnění pro vybrané soubory"
 
-#: admin/folder/admin.py:715
+#: admin/folder/admin.py:738
 msgid "Disable permissions for selected files"
 msgstr "Zakázat oprávnění pro vybrané soubory"
 
-#: admin/folder/admin.py:782
+#: admin/folder/admin.py:803
 #, python-format
 msgid "Successfully deleted %(count)d files and/or folders."
 msgstr "Bylo úspěšně vymazáno %(count)d souborů a složek"
 
-#: admin/folder/admin.py:789
+#: admin/folder/admin.py:810
 msgid "Cannot delete files and/or folders"
 msgstr "Nelze odstranit soubory a / nebo složky"
 
-#: admin/folder/admin.py:791
+#: admin/folder/admin.py:812
 msgid "Are you sure?"
 msgstr "Jste si jisti?"
 
-#: admin/folder/admin.py:796
+#: admin/folder/admin.py:817
 msgid "Delete files and/or folders"
 msgstr "Nahrát soubory do složky"
 
-#: admin/folder/admin.py:816
+#: admin/folder/admin.py:837
 msgid "Delete selected files and/or folders"
 msgstr "Odstranit vybrané soubory a / nebo složky"
 
-#: admin/folder/admin.py:944
+#: admin/folder/admin.py:965
 #, python-format
 msgid "Folders with names %s already exist at the selected destination"
 msgstr "Složky se jmény %s již existují na zvolené cílové"
 
-#: admin/folder/admin.py:949
+#: admin/folder/admin.py:970
 #, python-format
 msgid ""
 "Successfully moved %(count)d files and/or folders to folder "
@@ -189,25 +190,25 @@ msgstr ""
 "Bylo úspěšně přesunuto %(count)d souborů a složek do složky se jménem "
 "'%(destination)s'"
 
-#: admin/folder/admin.py:956 admin/folder/admin.py:958
+#: admin/folder/admin.py:977 admin/folder/admin.py:979
 msgid "Move files and/or folders"
 msgstr "Přesunout soubory a složky"
 
-#: admin/folder/admin.py:977
+#: admin/folder/admin.py:998
 msgid "Move selected files and/or folders"
 msgstr "Přesunout vybrané soubry a složky."
 
-#: admin/folder/admin.py:1040
+#: admin/folder/admin.py:1061
 #, python-format
 msgid "Successfully renamed %(count)d files."
 msgstr ""
 
-#: admin/folder/admin.py:1048 admin/folder/admin.py:1050
-#: admin/folder/admin.py:1068
+#: admin/folder/admin.py:1069 admin/folder/admin.py:1071
+#: admin/folder/admin.py:1089
 msgid "Rename files"
 msgstr "Přejmenovat soubory"
 
-#: admin/folder/admin.py:1174
+#: admin/folder/admin.py:1195
 #, python-format
 msgid ""
 "Successfully copied %(count)d files and/or folders to folder "
@@ -216,28 +217,29 @@ msgstr ""
 "Úspěšně bylo zkopírováno %(count)d souborů a složek do složky \"<code> "
 "'%(destination)s'."
 
-#: admin/folder/admin.py:1191 admin/folder/admin.py:1193
+#: admin/folder/admin.py:1212 admin/folder/admin.py:1214
 msgid "Copy files and/or folders"
 msgstr "Kopírovat soubory nebo složky"
 
-#: admin/folder/admin.py:1214
+#: admin/folder/admin.py:1235
 msgid "Copy selected files and/or folders"
 msgstr "Kopírovat vybrané soubory a složky"
 
-#: admin/folder/admin.py:1322
+#: admin/folder/admin.py:1343
 #, python-format
 msgid "Successfully resized %(count)d images."
 msgstr "Byla úspěšně změněna velikost u %(count)d obrázků."
 
-#: admin/folder/admin.py:1330 admin/folder/admin.py:1332
+#: admin/folder/admin.py:1351 admin/folder/admin.py:1353
 msgid "Resize images"
 msgstr "Změnit velikost obrázků"
 
-#: admin/folder/admin.py:1351
+#: admin/folder/admin.py:1372
 msgid "Resize selected images"
 msgstr "Změnit velikost vybraných obrázků"
 
-#: admin/folder/forms.py:25 admin/folder/forms.py:67 models/foldermodels.py:235
+#: admin/folder/forms.py:25 admin/folder/forms.py:67
+#: models/foldermodels.py:235
 #: templates/admin/media/widgets/admin_folder.html:4
 msgid "Folder"
 msgstr "Složka"
@@ -636,8 +638,8 @@ msgid "admin homepage"
 msgstr "admin homepage"
 
 #: templates/admin/media/folder/change_form.html:37
-#: templates/admin/media/folder/directory_table.html:38
-#: templates/admin/media/folder/directory_table.html:78
+#: templates/admin/media/folder/directory_table.html:53
+#: templates/admin/media/folder/directory_table.html:96
 #: templates/admin/media/folder/directory_table_modal.html:38
 #: templates/admin/media/folder/directory_table_modal.html:78
 msgid "Folder Icon"
@@ -790,29 +792,35 @@ msgstr "Nahrát soubory"
 msgid "Select all %(total_count)s"
 msgstr "Vybrat všechy %(total_count)s"
 
-#: templates/admin/media/folder/directory_table.html:14
+#: templates/admin/media/folder/directory_table.html:21
 #: templates/admin/media/folder/directory_table_modal.html:14
 #: templates/admin/media/tools/detail_info.html:61
 #: templates/admin/media/tools/detail_info.html:152
 msgid "Owner"
 msgstr "Vlastník"
 
-#: templates/admin/media/folder/directory_table.html:15
+#: templates/admin/media/folder/directory_table.html:23
+#: templates/admin/media/tools/detail_info.html:52
+#: templates/admin/media/tools/detail_info.html:131
+msgid "Created"
+msgstr "Vytvořeno"
+
+#: templates/admin/media/folder/directory_table.html:30
 #: templates/admin/media/folder/directory_table_modal.html:15
 #: templates/admin/media/tools/detail_info.html:40
 #: templates/admin/media/tools/detail_info.html:104
 msgid "Size"
 msgstr "Velikost"
 
-#: templates/admin/media/folder/directory_table.html:16
+#: templates/admin/media/folder/directory_table.html:31
 #: templates/admin/media/folder/directory_table_modal.html:16
 msgid "Action"
 msgstr "Možnosti"
 
-#: templates/admin/media/folder/directory_table.html:37
-#: templates/admin/media/folder/directory_table.html:44
-#: templates/admin/media/folder/directory_table.html:77
-#: templates/admin/media/folder/directory_table.html:84
+#: templates/admin/media/folder/directory_table.html:52
+#: templates/admin/media/folder/directory_table.html:59
+#: templates/admin/media/folder/directory_table.html:95
+#: templates/admin/media/folder/directory_table.html:102
 #: templates/admin/media/folder/directory_table_modal.html:37
 #: templates/admin/media/folder/directory_table_modal.html:44
 #: templates/admin/media/folder/directory_table_modal.html:77
@@ -821,7 +829,7 @@ msgstr "Možnosti"
 msgid "Change '%(item_label)s' folder details"
 msgstr "Změnit '%(item_label)s' detaily"
 
-#: templates/admin/media/folder/directory_table.html:55
+#: templates/admin/media/folder/directory_table.html:73
 #: templates/admin/media/folder/directory_table_modal.html:55
 #, python-format
 msgid ""
@@ -833,7 +841,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/admin/media/folder/directory_table.html:58
+#: templates/admin/media/folder/directory_table.html:76
 #: templates/admin/media/folder/directory_table_modal.html:58
 #, python-format
 msgid ""
@@ -845,75 +853,75 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/admin/media/folder/directory_table.html:66
+#: templates/admin/media/folder/directory_table.html:84
 #: templates/admin/media/folder/directory_table_modal.html:66
 msgid "Change folder details"
 msgstr "Změnit podrobnosti složky"
 
-#: templates/admin/media/folder/directory_table.html:67
+#: templates/admin/media/folder/directory_table.html:85
 #: templates/admin/media/folder/directory_table_modal.html:67
 msgid "Remove folder"
 msgstr "Odstranit složku"
 
-#: templates/admin/media/folder/directory_table.html:102
-#: templates/admin/media/folder/directory_table.html:116
+#: templates/admin/media/folder/directory_table.html:120
+#: templates/admin/media/folder/directory_table.html:134
 #: templates/admin/media/folder/directory_table_modal.html:102
 msgid "Select this file"
 msgstr "Vybrat tento soubor"
 
-#: templates/admin/media/folder/directory_table.html:105
-#: templates/admin/media/folder/directory_table.html:119
-#: templates/admin/media/folder/directory_table.html:139
+#: templates/admin/media/folder/directory_table.html:123
+#: templates/admin/media/folder/directory_table.html:137
+#: templates/admin/media/folder/directory_table.html:157
 #: templates/admin/media/folder/directory_table_modal.html:131
 #, python-format
 msgid "Change '%(item_label)s' details"
 msgstr "Změnit detaily u '%(item_label)s'"
 
-#: templates/admin/media/folder/directory_table.html:128
+#: templates/admin/media/folder/directory_table.html:146
 #: templates/admin/media/folder/directory_table_modal.html:120
 msgid "Permissions"
 msgstr "Oprávnění"
 
-#: templates/admin/media/folder/directory_table.html:128
+#: templates/admin/media/folder/directory_table.html:146
 #: templates/admin/media/folder/directory_table_modal.html:120
 msgid "disabled"
 msgstr "zakázán"
 
-#: templates/admin/media/folder/directory_table.html:128
+#: templates/admin/media/folder/directory_table.html:146
 #: templates/admin/media/folder/directory_table_modal.html:120
 msgid "enabled"
 msgstr "povoleno"
 
-#: templates/admin/media/folder/directory_table.html:140
+#: templates/admin/media/folder/directory_table.html:158
 #: templates/admin/media/folder/directory_table_modal.html:132
 msgid "Remove file"
 msgstr "Odstranit soubor"
 
-#: templates/admin/media/folder/directory_table.html:149
+#: templates/admin/media/folder/directory_table.html:167
 #: templates/admin/media/folder/directory_table_modal.html:141
 msgid "there are no files or subfolders"
 msgstr "nejsou k dispozici žádné soubory nebo podsložky"
 
-#: templates/admin/media/folder/directory_table.html:159
+#: templates/admin/media/folder/directory_table.html:177
 #: templates/admin/media/folder/directory_table_modal.html:151
 msgid "Drop your file to upload into:"
 msgstr "Přetáhněte soubory pro jejich nahrání."
 
-#: templates/admin/media/folder/directory_table.html:176
+#: templates/admin/media/folder/directory_table.html:194
 #: templates/admin/media/folder/directory_table_modal.html:168
 msgid "Upload success!"
 msgstr "Nahrání proběhlo úspěšně"
 
-#: templates/admin/media/folder/directory_table.html:180
+#: templates/admin/media/folder/directory_table.html:198
 #: templates/admin/media/folder/directory_table_modal.html:172
 msgid "Upload canceled!"
 msgstr "Nahrávání bylo zrušeno!"
 
-#: templates/admin/media/folder/directory_table.html:187
+#: templates/admin/media/folder/directory_table.html:205
 msgid "previous"
 msgstr "předchozí"
 
-#: templates/admin/media/folder/directory_table.html:192
+#: templates/admin/media/folder/directory_table.html:210
 #, python-format
 msgid ""
 "\n"
@@ -924,7 +932,7 @@ msgstr ""
 "                Stránka %(number)s z %(num_pages)s.\n"
 "            "
 
-#: templates/admin/media/folder/directory_table.html:199
+#: templates/admin/media/folder/directory_table.html:217
 msgid "next"
 msgstr "další"
 
@@ -995,11 +1003,6 @@ msgstr "velikost souboru"
 #: templates/admin/media/tools/detail_info.html:122
 msgid "Modified"
 msgstr "změněno"
-
-#: templates/admin/media/tools/detail_info.html:52
-#: templates/admin/media/tools/detail_info.html:131
-msgid "Created"
-msgstr "vytvořeno"
 
 #: templates/admin/media/tools/detail_info.html:160
 msgid "Add Description"
