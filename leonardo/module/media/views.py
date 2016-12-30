@@ -17,6 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .management.commands.import_files import FileImporter
 from .models import Clipboard, File, Folder, FolderRoot, Image, tools
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class NewFolderForm(forms.ModelForm):
@@ -330,6 +331,18 @@ def directory_list_nested(request,
                     parent__name=parent_directory_slug,
                     parent__parent__name=grandparent_directory_slug)
                 object_list = object.files.all()
+
+    paginator = Paginator(object_list, 16)
+
+    page = request.GET.get('page')
+    try:
+        object_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        object_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        object_list = paginator.page(paginator.num_pages)
 
     return render(
         request,
