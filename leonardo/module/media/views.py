@@ -14,7 +14,7 @@ from django.shortcuts import (get_object_or_404, redirect, render,
 from django.template import RequestContext
 from django.utils.encoding import uri_to_iri
 from django.utils.translation import ugettext_lazy as _
-
+from constance import config
 from .management.commands.import_files import FileImporter
 from .models import Clipboard, File, Folder, FolderRoot, Image, tools
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -332,7 +332,7 @@ def directory_list_nested(request,
                     parent__parent__name=grandparent_directory_slug)
                 object_list = object.files.all()
 
-    paginator = Paginator(object_list, 16)
+    paginator = Paginator(object_list, config.MEDIA_PAGINATE_BY)
 
     page = request.GET.get('page')
     try:
