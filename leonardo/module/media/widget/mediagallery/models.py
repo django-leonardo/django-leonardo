@@ -6,7 +6,10 @@ from django.utils.translation import ugettext_lazy as _
 from leonardo.module.media.fields.folder import FolderField
 from leonardo.module.web.models import ListWidget
 from leonardo.module.web.widgets.forms import WidgetUpdateForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from leonardo.module.media.models import Image
+from constance import config
+
 
 DETAIL_CHOICES = (
     ('open_modal', _('open in modal window')),
@@ -51,16 +54,45 @@ class MediaGalleryWidget(ListWidget):
 
         return self._image_size
 
-    def get_template_data(self, *args, **kwargs):
+    def get_directories(self, request):
+        """Return directories
+        """
+
+        queryset = self.folder.media_folder_children.all()
+
+        paginator = Paginator(queryset, self.objects_per_page)
+
+        page = request.GET.get('page', None)
+
+        try:
+            object_list = paginator.page(page)
+        except PageNotAnInteger:
+
+            if page == "all":
+                object_list = queryset
+            else:
+                object_list = paginator.page(1)
+
+        except EmptyPage:
+            object_list = paginator.page(paginator.num_pages)
+
+        return object_list
+
+    def get_template_data(self, request, *args, **kwargs):
         '''Add image dimensions'''
 
         # little tricky with vertical centering
         dimension = int(self.get_size().split('x')[0])
 
-        if dimension <= 356:
-            return {'image_dimension': "row-md-13"}
+        data = {}
 
-        return {}
+        if dimension <= 356:
+            data['image_dimension'] = "row-md-13"
+
+        if self.get_template_name().name.split("/")[-1] == "directories.html":
+            data['directories'] = self.get_directories(request)
+
+        return data
 
     class Meta:
         abstract = True
