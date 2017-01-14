@@ -5,6 +5,56 @@
 {% load leonardo_tags %}
 {% block content %}
 {% if object != None %}
+<style type="text/css">
+.grid figure {
+  height: 155px;
+  margin-top: 30px;
+}
+.grid figure h2 span {
+  font-weight: normal;
+  font-size: 16px;
+  word-spacing: 0;
+  color: #cecece;
+  text-transform: initial;
+}
+
+figure.effect-lily figcaption > div {
+  transform: rotate(-35deg);
+  height: 100%;
+}
+
+.grid figure h2 span:first-letter {
+  text-transform: uppercase;
+}
+.first-letter-upper:first-letter {
+  text-transform: uppercase;
+}
+
+.thumbnail > img {
+  max-height: 130px;
+  background: #3A6F9A;
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+.valignContainer .centered {
+  width: 100%;
+}
+
+.valignContainer {
+  height: 150px;
+}
+
+.thumb_directory {
+  height: 232px;
+}
+
+figure.effect-lily h2 {
+  margin-left: -15px;
+  margin-top: -10px;
+}
+
+</style>
 
 <div class="media-gallery">
 <div class="row">
