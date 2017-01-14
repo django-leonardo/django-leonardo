@@ -216,6 +216,13 @@ class Folder(models.Model, mixins.IconsMixin):
         return urlresolvers.reverse('admin:filer-directory_listing',
                                     args=(self.id,))
 
+    def get_absolute_url(self):
+        from leonardo.module.web.widget.application.reverse import app_reverse
+        return app_reverse(
+            'directory_list_nested',
+            'leonardo.module.media.apps.category_nested',
+            kwargs={'directory_slug': self.name})
+
     def __str__(self):
         return self.name
 

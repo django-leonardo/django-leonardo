@@ -1,0 +1,36 @@
+{% extends widget.get_base_template %}
+
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content %}
+{{ directories }}
+
+{% for object in directories %}
+<div class="valignContainer text-center col-lg-3 col-md-4 col-xs-6 {% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %}">
+  <div class="object-cell-content centered">
+    <a class="object-image" href="{{ object.get_absolute_url }}" title="{{ object }}">
+      {% thumbnail object.get_featured_image.file "200x140" format="PNG" crop="center" as thumb %}
+      <img src="{{ thumb.url }}" /><br />
+      {% endthumbnail %}
+      <h3>{{ object }}</h3>
+    </a>
+  </div>
+</div>
+{% endfor %}
+{% if directories.has_next %}
+<div class="col-xs-12">
+  <ul class="pagination">
+    {% if directories.has_previous %}
+      <li><a href="?page={{ object_list.previous_page_number }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+    {% endif %}
+    {% for object in directories.paginator.page_range %}
+      <li class="{% if object_list.number == forloop.counter %}active{% endif %}"><a href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+    {% endfor %}
+    {% if directories.has_next %}
+      <li><a href="?page={{ object_list.next_page_number }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}
+{% endblock content %}

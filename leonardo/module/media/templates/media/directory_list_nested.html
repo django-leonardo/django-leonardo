@@ -23,7 +23,7 @@
 </div>
 
 <div class="media-back-button">
-  <a class="btn btn-primary" href="../">{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.webcms_page }}{% endif %}</a>
+  <a class="btn btn-primary" href="../" onclick="window.history.back()">{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.webcms_page }}{% endif %}</a>
 </div>
 
 {% else %}
