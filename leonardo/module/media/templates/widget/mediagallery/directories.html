@@ -49,7 +49,7 @@ figure.effect-lily h2 {
 </style>
 
 <div class="object-grid ui-helper-clearfix grid">
-{% for object in directories %}
+{% for object in directories|dictsort:"created_at" reversed %}
   <div class="col-lg-3 col-md-4 col-xs-6 thumb_directory {% if forloop.counter > 12 %}wow fadeInUp{% endif %}">
     <figure class="effect-lily" onclick="location.href = '{{ object.get_absolute_url }}';">
       {% thumbnail object.get_featured_image.file "200x140" format="PNG" crop="center" as thumb %}
