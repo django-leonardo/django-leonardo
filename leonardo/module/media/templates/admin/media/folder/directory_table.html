@@ -8,7 +8,7 @@
         color: black;
     }
 </style>
-<section class="navigator">
+<section class="navigator{% if is_popup %} navigator-popup{% endif %}">
     <table class="js-filer-dropzone js-filer-dropzone-base navigator-table" id="result_list" data-url="{% if folder.id %}{% url 'admin:filer-ajax_upload' folder_id=folder.id %}{% else %}{% url 'admin:filer-ajax_upload' %}{% endif %}" data-folder-name="{% if folder.name and not folder.name == 'root' %}{{ folder.name }}{% else %}unfiled files{% endif %}" data-max-uploader-connections="{{ uploader_connections }}">
         <thead>
             <tr>

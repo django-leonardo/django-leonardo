@@ -3,6 +3,10 @@
 {% block extrahead %}
     {{ block.super }}
     <script type="text/javascript">
+    try {
         opener.dismissPopupAndReload(window);
+    } catch (err) {
+        opener.dismissPopupAndReloadOld(window);
+    }
     </script>
 {% endblock %}
