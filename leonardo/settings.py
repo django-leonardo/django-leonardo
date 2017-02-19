@@ -320,11 +320,3 @@ conf.HORIZON_CONFIG = HORIZON_CONFIG
 
 if DEBUG:
     logging.basicConfig(level=logging.DEBUG)
-
-# install dependencies
-if len(leonardo.config.requirements) > 0 and LEONARDO_INSTALL_DEPENDENCIES:
-
-    from leonardo.utils.package import install_package
-
-    for req in leonardo.config.requirements:
-        install_package(req)
