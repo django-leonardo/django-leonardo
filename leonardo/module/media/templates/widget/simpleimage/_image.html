@@ -40,9 +40,7 @@
 <img class="img-responsive" src='{{ thumb.url }}' alt='{{ image.translation.default_caption|default:'' }}' />
 {% endthumbnail %}
 {% else %}
-{% thumbnail image.file size format="PNG" as thumb %}
-<img class="img-responsive" src='{{ thumb.url }}' alt='{{ image.translation.default_caption|default:'' }}' />
-{% endthumbnail %}
+<img class="img-responsive" src='{{ image.url }}' alt='{{ image.translation.default_caption|default:'' }}' />
 {% endif %}
 
 {% endif %}
