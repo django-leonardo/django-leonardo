@@ -31,7 +31,9 @@ class PageAdmin(FeinPageAdmin):
         (_('Main'), {
             'classes': ['collapse'],
             'fields': [
-                'title', 'slug', 'active', 'in_navigation', 'override_url', 'redirect_to', 'parent',
+                'title', 'slug', 'active', 'in_navigation',
+                'override_url', 'redirect_to', 'parent',
+                'site', 'symlinked_page', 'language', 'translation_of'
             ],
         }),
         (_('Styles'), {

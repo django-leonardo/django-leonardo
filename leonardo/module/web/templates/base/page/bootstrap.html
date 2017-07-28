@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 {% load leonardo_tags feincms_page_tags branding i18n %}
 <html>
+  <header> 
   {% include "_header.html" %}
+  {% include "leonardo/common/_webfont_loader.html" with font="Bitter" %}
+  </header>
   <body id="{% block body_id %}main_content{% endblock %}" ng-app='horizon.app' ng-strict-di>
     {% include "horizon/_messages.html" %}
     <noscript>
