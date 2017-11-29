@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 USER_SEARCH_FIELDS = [
-    'firs_tname__icontains',
+    'first_name__icontains',
     'last_name__icontains',
     'username__icontains',
     'email__icontains',
