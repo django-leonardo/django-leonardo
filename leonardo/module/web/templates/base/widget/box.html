@@ -2,7 +2,7 @@
 
 {% include "base/widget/_base_begin.html" %}
 
-<div id="{{ widget.fe_identifier }}" class="{{ widget.render_base_classes }} {% if widget.enter_effect_style != 'disabled' %}wow {{ widget.enter_effect_style }}{% endif %}"{% if widget.enter_effect_duration %}data-wow-duration="{{ widget.enter_effect_duration }}s"{% endif %} {% if widget.enter_effect_delay %}data-wow-delay="{{ widget.enter_effect_delay }}s"{% endif %} {% if widget.enter_effect_iteration %}data-wow-iteration="{{ widget.enter_effect_iteration }}"{% endif %} {% if widget.enter_effect_offset %}data-wow-offset="{{ widget.enter_effect_offset }}"{% endif %}>
+<div id="{{ widget.fe_identifier }}" class="{{ widget.render_base_classes }}" {% if widget.enter_effect_style != 'disabled' %}data-aos="{{ widget.enter_effect_style }}"{% endif %}{% if widget.enter_effect_duration %}data-aos-duration="{{ widget.enter_effect_duration }}"{% endif %} {% if widget.enter_effect_delay %}data-aos-delay="{{ widget.enter_effect_delay }}"{% endif %} {% if widget.enter_effect_offset %}data-aos-offset="{{ widget.enter_effect_offset }}"{% endif %} {% comment %}{% if widget.enter_effect_iteration %}data-wow-iteration="{{ widget.enter_effect_iteration }}"{% endif %}{% endcomment %}>
   <div class="panel box box-solid {{ widget.render_content_classes }}">
     {% block title %}
     {% if widget.label or request.frontend_editing %}
