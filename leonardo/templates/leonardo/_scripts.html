@@ -86,10 +86,10 @@ $('.modal').on('hidden.bs.modal', function (e) {
         event.preventDefault();
         $(this).ekkoLightbox();
     });
-    // init wow
-
+    
+    // init aos
     try {
-        new WOW().init();
+        AOS.init();
     }
     catch(err) {
         console.log(err);

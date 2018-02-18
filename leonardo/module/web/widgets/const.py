@@ -1,122 +1,43 @@
 
 ENTER_EFFECT_CHOICES = (
     ('disabled', 'Disabled'),
-    ('Attention Seekers', (
-        ('bounce', 'Bounce'),
-        ('flash', 'Flash'),
-        ('pulse', 'Pulse'),
-        ("rubberBand", 'RubberBand'),
-        ("shake", 'Shake'),
-        ("swing", 'Swin)g'),
-        ("tada", 'Tada'),
-        ("wobble", 'Wobble'),
-        ("jello", 'Jello'),
+    ('Fade animations', (
+        ('fade', 'Fade'),
+        ('fade-up', 'Fade Up'),
+        ('fade-down', 'Fade Down'),
+        ('fade-left', 'Fade Left'),
+        ('fade-right', 'Fade Right'),
+        ('fade-up-right', 'Fade Up Right'),
+        ('fade-up-left', 'Fade Up Left'),
+        ('fade-down-right', 'Fade Down Right'),
+        ('fade-down-left', 'Fade Down Left'),
     )
     ),
-    ('Bouncing Entrances', (
-        ('bounceIn', 'Bounce In'),
-        ('bounceInDown', 'Bounce In Down'),
-        ('bounceInDown', 'BounceInDown'),
-        ('bounceInLeft', 'BounceInLeft'),
-        ('bounceInRight', 'BounceInRight'),
-        ('bounceInUp', 'BounceInUp'),
+    ('Flip animations', (
+        ('flip-up', 'Flip Up'),
+        ('flip-down', 'Flip Down'),
+        ('flip-left', 'Flip Left'),
+        ('flip-right', 'Flip Right'),
     )
     ),
-    ('Bouncing Exits', (
-        ('bounceIn', 'Bounce In'),
-        ('bounceOut', 'BounceOut'),
-        ('bounceOutDown', 'BounceOutDown'),
-        ('bounceOutLeft', 'BounceOutLeft'),
-        ('bounceOutRight', 'BounceOutRight'),
-        ('bounceOutUp', 'BounceOutUp'),
+    ('Slide animations', (
+        ('slide-up', 'Slide Up'),
+        ('slide-down', 'Slide Down'),
+        ('slide-left', 'Slide Left'),
+        ('slide-right', 'Slide Right'),
     )
     ),
-    ('Fading Entrances', (
-        ('fadeIn', 'fadeIn'),
-        ('fadeInDown', 'fadeInDown'),
-        ('fadeInDownBig', 'fadeInDownBig'),
-        ('fadeInLeft', 'fadeInLeft'),
-        ('fadeInLeftBig', 'fadeInLeftBig'),
-        ('fadeInRight', 'fadeInRight'),
-        ('fadeInRightBig', 'fadeInRightBig'),
-        ('fadeInUp', 'fadeInUp'),
-        ('fadeInUpBig', 'fadeInUpBig'),
-    )
-    ),
-    ('Fading Exits', (
-        ('fadeOut', 'fadeOut'),
-        ('fadeOutDown', 'fadeOutDown'),
-        ('fadeOutDownBig', 'fadeOutDownBig'),
-        ('fadeOutLeft', 'fadeOutLeft'),
-        ('fadeOutLeftBig', 'fadeOutLeftBig'),
-        ('fadeOutRight', 'fadeOutRight'),
-        ('fadeOutRightBig', 'fadeOutRightBig'),
-        ('fadeOutUp', 'fadeOutUp'),
-        ('fadeOutUpBig', 'fadeOutUpBig'),
-    )
-    ),
-    ('Flippers', (
-        ('flip', 'flip'),
-        ('flipInX', 'flipInX'),
-        ('flipInY', 'flipInY'),
-        ('flipOutX', 'flipOutX'),
-        ('flipOutY', 'flipOutY'),
-    )
-    ),
-    ('Lightspeed', (
-        ('lightSpeedIn', 'lightSpeedIn'),
-        ('lightSpeedOut', 'lightSpeedOut'),
-    )
-    ),
-    ('Rotating Entrances', (
-        ('rotateIn', 'rotateIn'),
-        ('rotateInDownLeft', 'rotateInDownLeft'),
-        ('rotateInDownRight', 'rotateInDownRight'),
-        ('rotateInUpLeft', 'rotateInUpLeft'),
-        ('rotateInUpRight', 'rotateInUpRight'),
-    )
-    ),
-    ('Rotating Exits', (
-        ('rotateOut', 'rotateOut'),
-        ('rotateOutDownLeft', 'rotateOutDownLeft'),
-        ('rotateOutDownRight', 'rotateOutDownRight'),
-        ('rotateOutUpLeft', 'rotateOutUpLeft'),
-        ('rotateOutUpRight', 'rotateOutUpRight'),
-    )
-    ),
-    ('Sliding Entrances', (
-        ('slideInUp', 'slideInUp'),
-        ('slideInDown', 'slideInDown'),
-        ('slideInLeft', 'slideInLeft'),
-        ('slideInRight', 'slideInRight'),
-    )
-    ),
-    ('Sliding Exits', (
-        ('slideOutUp', 'slideOutUp'),
-        ('slideOutDown', 'slideOutDown'),
-        ('slideOutLeft', 'slideOutLeft'),
-        ('slideOutRight', 'slideOutRight'),
-    )
-    ),
-    ('Zoom Entrances', (
-        ('slideOutUp', 'slideOutUp'),
-        ('slideOutDown', 'slideOutDown'),
-        ('slideOutLeft', 'slideOutLeft'),
-        ('slideOutRight', 'slideOutRight'),
-    )
-    ),
-    ('Zoom Exits', (
-        ('zoomIn', 'zoomIn'),
-        ('zoomInDown', 'zoomInDown'),
-        ('zoomInLeft', 'zoomInLeft'),
-        ('zoomInRight', 'zoomInRight'),
-        ('zoomInUp', 'zoomInUp'),
-    )
-    ),
-    ('Specials', (
-        ('hinge', 'hinge'),
-        ('rollIn', 'rollIn'),
-        ('rollOut', 'rollOut'),
+    ('Zoom animations', (
+        ('zoom-in', 'zoom In'),
+        ('zoom-in-up', 'Zoom In Up'),
+        ('zoom-in-down', 'Zoom In Down'),
+        ('zoom-in-left', 'Zoom In Left'),
+        ('zoom-in-right', 'Zoom In Right'),
+        ('zoom-out', 'Zoom Out'),
+        ('zoom-out-up', 'Zoom Out Up'),
+        ('zoom-out-down', 'Zoom Out Down'),
+        ('zoom-out-left', 'Zoom Out Left'),
+        ('zoom-out-right', 'Zoom Out Right'), 
     )
     ),
 )
