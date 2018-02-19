@@ -108,7 +108,7 @@ class WidgetForm(ItemEditorForm, SelfHandlingModelForm):
                 Tab(_('Effects'),
                     'enter_effect_style', 'enter_effect_duration',
                     'enter_effect_delay', 'enter_effect_offset',
-                    #'enter_effect_iteration',
+                    'enter_effect_iteration',
                     css_id='theme-widget-effects'
                     ),
             ),
