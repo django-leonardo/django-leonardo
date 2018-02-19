@@ -123,13 +123,13 @@ class Default(object):
         }
 
     js_files = [
-        'js/lib/wow.min.js'
+        'js/lib/aos.js'
     ]
 
     angular_modules = ['ngFitText']
 
     css_files = [
-        'css/lib/animate.css',
+        'css/lib/aos.css',
         'css/lib/select2.css',
         'css/lib/lightbox.css',
     ]
