@@ -77,15 +77,11 @@ $( window ).resize( evaluateWidgetTools );
 <script type="text/javascript">
 
 $(function() {
-
   $('#ajax-info-' + '{{ widget.fe_identifier }}').on('click', function (evt, modal) {
-  	    $.ajax({
+        $.ajax({
         type: "GET",
-        url: '{% url 'widget_info' widget.get_ct_name widget.id %}',
-        async: true,
-        success: function(data){
-          horizon.autoDismissAlerts();
-        }      
+        url: "{% url 'widget_info' widget.get_ct_name widget.id %}",
+        async: true,      
       });
   });
 });
