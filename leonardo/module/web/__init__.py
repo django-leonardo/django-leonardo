@@ -123,7 +123,8 @@ class Default(object):
         }
 
     js_files = [
-        'js/lib/aos.js'
+        'js/lib/aos.js',
+        'leonardo/js/bootstrap-select.js'
     ]
 
     angular_modules = ['ngFitText']
