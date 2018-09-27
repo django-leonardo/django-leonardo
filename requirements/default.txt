@@ -10,7 +10,7 @@ python-app-loader>=0.0.8
 docutils==0.12
 django-pyscss>=1.0.3
 django-filer==1.0.6
-django-markupfield>=1.3.4
+django-markupfield==1.4.3
 django-haystack==2.5
 
 sorl-thumbnail==12.3
@@ -21,7 +21,7 @@ leonardo_horizon==2016.8.2
 leonardo_dbtemplates>=1.0.0a0
 leonardo_constance>=1.0.0a10.dev1
 django-picklefield==0.3.2 # use for database backend
-
+django-mptt==0.9.0
 
 leonardo-system>=0.0.8.post4 # optional
 leonardo-admin>=2015.10.0 # optional
