@@ -59,6 +59,31 @@ def head_title(request):
                        "page_title", request.leonardo_page.title)
 
 
+@register.simple_tag
+def meta_description(request):
+    """
+    {% meta_description request %}
+    """
+    try:
+        fragments = request._feincms_fragments
+    except:
+        fragments = {}
+
+    if '_meta_description' in fragments and fragments.get("_meta_description"):
+        return fragments.get("_meta_description")
+    else:
+        # append desc
+        site_desc = getattr(settings, 'META_DESCRIPTION', '')
+
+        if site_desc != '':
+            return getattr(request.leonardo_page,
+                           "meta_description", request.leonardo_page.meta_description) \
+                + ' - ' + site_desc
+
+        return getattr(request.leonardo_page,
+                       "meta_description", request.leonardo_page.meta_description)
+
+
 @register.inclusion_tag('leonardo/common/_region_tools.html',
                         takes_context=True)
 def render_region_tools(context, feincms_object, region, request=None):

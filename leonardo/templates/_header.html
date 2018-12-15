@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% if feincms_page %}
 <title>{% block head_title %}{% head_title request %}{% endblock %}</title>
-<meta name="description" content="{{ feincms_page.meta_description|default:request.leonardo_options.meta_description }}">
+<meta name="description" content="{% block meta_description %}{% meta_description request %}{% endblock %}"/>
 <meta name="keywords" content="{{ feincms_page.meta_keywords|default:request.leonardo_options.meta_keywords }}">
 {% else %}
 <meta name="keywords" content="{{ request.leonardo_options.meta_keywords|default:'CMS, Django' }}">
