@@ -297,6 +297,10 @@ try:
 except ImportError:
     pass
 
+# django contrib redirects
+if 'django.contrib.redirects' in INSTALLED_APPS:
+    MIDDLEWARE_CLASSES += ['django.contrib.redirects.middleware.RedirectFallbackMiddleware']
+
 # use js files instead of horizon
 HORIZON_CONFIG['js_files'] = leonardo.js_files
 HORIZON_CONFIG['js_compress_files'] = leonardo.js_compress_files
