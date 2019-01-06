@@ -1,4 +1,12 @@
-pbr>=0.11,<2.0
+pbr==5.1.1
+oslo.concurrency==3.27.0
+oslo.config==6.4.0
+oslo.context==2.21.0
+oslo.i18n==3.21.0
+oslo.policy==1.38.1
+oslo.serialization==2.27.0
+oslo.utils==3.37.0
+
 Django<1.9,>=1.7
 FeinCMS==1.11.1
 django-extensions==1.5.9
@@ -21,7 +29,7 @@ leonardo_horizon==2016.8.2
 leonardo_dbtemplates>=1.0.0a0
 leonardo_constance>=1.0.0a10.dev1
 django-picklefield==0.3.2 # use for database backend
-django-mptt==0.9.0
+django-mptt==0.8.7
 
 leonardo-system>=0.0.8.post4 # optional
 leonardo-admin>=2015.10.0 # optional
