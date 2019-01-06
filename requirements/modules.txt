@@ -1,0 +1,10 @@
+-e git+https://github.com/leonardo-modules/leonardo-oembed.git#egg=leonardo_oembed
+-e git+https://github.com/leonardo-modules/leonardo-module-forms.git#egg=leonardo_module_forms
+-e git+https://github.com/leonardo-modules/leonardo-module-links.git#egg=leonardo_module_links
+-e git+https://github.com/leonardo-modules/leonardo-module-blog.git#egg=leonardo_module_blog
+-e git+https://github.com/michaelkuty/feincms-elephantblog.git@next#egg=feincms-elephantblog
+-e git+https://github.com/leonardo-modules/leonardo-geo.git#egg=leonardo_geo
+-e git+https://github.com/leonardo-modules/leonardo-module-sentry.git#egg=leonardo_module_sentry
+-e git+https://github.com/leonardo-modules/leonardo-cookie-law.git#egg=leonardo_cookie_law
+-e git+https://github.com/leonardo-modules/leonardo-admin-dashboard.git#egg=leonardo_admin_dashboard
+-e git+https://github.com/leonardo-modules/leonardo-admin-sso.git#egg=leonardo_admin_sso
