@@ -85,6 +85,7 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(WidgetUpdateView, self).get_context_data(**kwargs)
         context['modal_classes'] = self.get_classes()
+        context['url'] = reverse('widget_update', kwargs=self.kwargs)
         context['actions'] = [{
             'url': reverse_lazy('page_update', args=(self.object.parent.id,)),
             'icon': 'fa fa-pencil',
