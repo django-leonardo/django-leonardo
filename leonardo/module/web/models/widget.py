@@ -72,6 +72,7 @@ class WidgetInline(FeinCMSInline):
             (_('Theme'), {
                 'fields': [
                     ('label', 'base_theme', 'content_theme',
+                     'prerendered_content',
                      'layout', 'align', 'enabled', 'color_scheme'),
                 ],
             }),
