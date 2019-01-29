@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import logging
+import re
 
 from django import template
 from django.conf import settings
@@ -11,8 +12,11 @@ from django.template import TemplateSyntaxError
 from django.template.defaulttags import kwarg_re
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
-from feincms.templatetags.fragment_tags import (fragment, get_fragment,
-                                                has_fragment)
+from feincms.templatetags.fragment_tags import (
+    fragment,
+    get_fragment,
+    has_fragment
+)
 from leonardo.module.web.const import get_page_region
 from leonardo.module.web.widget.application.reverse import \
     app_reverse as do_app_reverse
@@ -23,6 +27,8 @@ register = template.Library()
 register.tag(fragment)
 register.tag(get_fragment)
 register.filter(has_fragment)
+
+IMAGE_NAME = re.compile(r'.*\.')
 
 
 @register.simple_tag
@@ -310,3 +316,26 @@ def font_loader(context, font):
     """
 
     return {'font': font}
+
+
+@register.filter
+def image_name(image, key='name'):
+    """
+    {{ image|image_name }}
+    {{ image|image_name:"description" }}
+    {{ image|image_name:"default_caption" }}
+
+    Return translation or image name
+    """
+    if hasattr(image, 'translation') and image.translation:
+        return getattr(image.translation, key)
+
+    if getattr(image, key):
+        return getattr(image, key)
+
+    try:
+        name = IMAGE_NAME.match(image.original_filename).group()
+    except IndexError:
+        return ''
+    else:
+        return name[:-1].capitalize()
