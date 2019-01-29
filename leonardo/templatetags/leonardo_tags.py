@@ -319,11 +319,12 @@ def font_loader(context, font):
 
 
 @register.filter
-def image_name(image, key='name'):
+def image_name(image, key='name', clear=True):
     """
     {{ image|image_name }}
     {{ image|image_name:"description" }}
     {{ image|image_name:"default_caption" }}
+    {{ image|image_name:"default_caption" False }}
 
     Return translation or image name
     """
@@ -338,4 +339,8 @@ def image_name(image, key='name'):
     except IndexError:
         return ''
     else:
-        return name[:-1].capitalize()
+        name = name[:-1].capitalize()
+        if clear:
+            return name.replace("_", " ").replace("-", " ")
+        return name
+
