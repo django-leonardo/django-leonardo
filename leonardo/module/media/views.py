@@ -350,6 +350,7 @@ def directory_list_nested(request,
         {
             'object_list': object_list,
             'object': object,
+            'folders': object.media_folder_children.all()
         }
     )
 

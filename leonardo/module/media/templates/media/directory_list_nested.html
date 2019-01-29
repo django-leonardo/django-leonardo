@@ -74,6 +74,21 @@ figure.effect-lily h2 {
     </a>
   </div>
   {% endfor %}
+  {% for object in folders %}
+  <div class="col-lg-3 col-md-4 col-xs-6 thumb_directory {% if forloop.counter > 12 %}wow fadeInUp{% endif %}">
+    <a href="{{ object.get_absolute_url }}">
+      <figure class="effect-lily">
+        {% thumbnail object.get_featured_image.file "200x140" format="PNG" crop="center" as thumb %}
+        <img src="{{ thumb.url }}" /><br />
+        {% endthumbnail %}
+        <figcaption>
+          <p class="object-image-neste-template first-letter-upper">{{ object|image_name|truncatechars:"40" }}</p>
+        </figcaption>
+      </figure>
+     <p class="object-image-neste-template first-letter-upper">{{ object|image_name|truncatechars:"40" }}</p>
+    </a>
+  </div>
+  {% endfor %}
 </div>
 </div>
 
