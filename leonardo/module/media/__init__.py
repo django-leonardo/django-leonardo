@@ -55,6 +55,8 @@ class Default(object):
         'MEDIA_THUMB_LARGE_GEOM': ('768x768', _('MEDIA_THUMB_LARGE_GEOM')),
         'MEDIA_THUMB_LARGE_OPT': ('', _('Another options for large thumnails')),
         'MEDIA_CANONICAL_URL': ('files/', _("Contrary to the file's actual URL, the canonical URL does not change if you upload a new version of the file.")),
+        'MEDIA_LIST_SHOW_DIRS': (False, _("Show dirs in nested list of directories. This expose private folders now!!")),
+        'MEDIA_LIST_SHOW_TITLES': (True, _("Show image titles in directory list.")),
     }
 
     page_actions = ['media/_actions.html']

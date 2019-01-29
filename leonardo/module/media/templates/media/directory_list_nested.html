@@ -67,10 +67,14 @@ figure.effect-lily h2 {
         <img src="{{ thumb.url }}" /><br />
         {% endthumbnail %}
         <figcaption>
+          {% if config.MEDIA_LIST_SHOW_TITLES %}
           <p class="object-image-neste-template first-letter-upper">{{ object|image_name|truncatechars:"40" }}</p>
+          {% endif %}
         </figcaption>
       </figure>
-     <p class="object-image-neste-template first-letter-upper">{{ object|image_name|truncatechars:"40" }}</p>
+        {% if config.MEDIA_LIST_SHOW_TITLES %}
+        <p class="object-image-neste-template first-letter-upper">{{ object|image_name|truncatechars:"40" }}</p>
+        {% endif %}
     </a>
   </div>
   {% endfor %}
