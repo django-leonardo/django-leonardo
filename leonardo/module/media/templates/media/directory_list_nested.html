@@ -56,23 +56,21 @@ figure.effect-lily h2 {
 
 </style>
 
-<div class="media-gallery">
+<div class="media-gallery object-grid ui-helper-clearfix grid">
 <div class="row">
   {% for object in object.files %}
   <div class="col-lg-3 col-md-4 col-xs-6 thumb_directory {% if forloop.counter > 12 %}wow fadeInUp{% endif %}">
-
-    <a href="{{ object.url }}" data-title="{{ object.translation.default_caption|default:'' }}" data-footer="{{ object.translation.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}" data-gallery="multiimages">
-      <figure class="effect-lily">
+    <a class="effect-lily" href="{{ object.url }}" data-title="{{ object.translation.default_caption|default:'' }}" data-footer="{{ object.translation.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}" data-gallery="multiimages">
+      <figure>
         {% thumbnail object.file "200x140" format="PNG" crop="center" as thumb %}
         <img src="{{ thumb.url }}" /><br />
         {% endthumbnail %}
         <figcaption>
-        <!-- some text here for hover effect -->
+        <p class="object-image-neste-template first-letter-upper">{{ object.translation.name|truncatechars:"40" }}</p>
         </figcaption>
       </figure>
+     <p class="object-image-neste-template first-letter-upper">{{ object.translation.name|truncatechars:"40" }}</p>
     </a>
-
-    <p class="object-image-neste-template first-letter-upper" onclick="location.href = '{{ object.file.get_absolute_url }}/';">{{ object.translation.name|truncatechars:"40" }}</p>
   </div>
   {% endfor %}
 </div>

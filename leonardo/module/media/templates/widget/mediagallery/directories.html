@@ -56,7 +56,7 @@ figure.effect-lily h2 {
       <img src="{{ thumb.url }}" /><br />
       {% endthumbnail %}
       <figcaption>
-      <!-- some text here for hover effect -->
+        <p class="objet-image-neste-template first-letter-upper" onclick="location.href = '{{ object.get_absolute_url }}/';">{{ object.name|truncatechars:"40" }}</p>
       </figcaption>
     </figure>
     <p class="objet-image-neste-template first-letter-upper" onclick="location.href = '{{ object.get_absolute_url }}/';">{{ object.name|truncatechars:"40" }}</p>
