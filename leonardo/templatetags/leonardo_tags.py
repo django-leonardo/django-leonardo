@@ -339,8 +339,7 @@ def image_name(image, key='name', clear=True):
     except IndexError:
         return ''
     else:
-        name = name[:-1].capitalize()
+        name = name[:-1]
         if clear:
             return name.replace("_", " ").replace("-", " ")
         return name
-
