@@ -331,7 +331,7 @@ def image_name(image, key='name', clear=True):
     if hasattr(image, 'translation') and image.translation:
         return getattr(image.translation, key)
 
-    if getattr(image, key):
+    if hasattr(image, key) and getattr(image, key):
         return getattr(image, key)
 
     try:
