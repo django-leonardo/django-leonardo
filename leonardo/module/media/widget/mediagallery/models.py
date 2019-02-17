@@ -58,7 +58,7 @@ class MediaGalleryWidget(ListWidget):
         """Return directories
         """
 
-        queryset = self.folder.media_folder_children.all().order_by("-created_at")
+        queryset = self.folder.media_folder_children.all().order_by(*config.MEDIA_FOLDERS_ORDER_BY.split(","))
 
         paginator = Paginator(queryset, self.objects_per_page)
 

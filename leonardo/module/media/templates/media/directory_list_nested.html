@@ -2,7 +2,7 @@
 
 {% load i18n %}
 {% load thumbnail %}
-{% load leonardo_tags %}
+{% load leonardo_tags filermedia %}
 {% block content %}
 {% if object != None %}
 <style type="text/css">
@@ -59,7 +59,7 @@ figure.effect-lily h2 {
 <h2 class="section-heading">{{ object.name }}</h2>
 <div class="media-gallery object-grid ui-helper-clearfix grid">
 <div class="row">
-  {% for object in object.files %}
+  {% for object in object.files|files_order_by %}
   <div class="col-lg-3 col-md-4 col-xs-6 thumb_directory {% if forloop.counter > 12 %}wow fadeInUp{% endif %}">
     <a href="{{ object.url }}" data-title="{{ object|image_name:'default_caption' }}" data-footer="{{ object.translation.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}" data-gallery="multiimages">
       <figure class="effect-lily">

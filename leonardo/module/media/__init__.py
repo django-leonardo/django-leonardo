@@ -57,6 +57,8 @@ class Default(object):
         'MEDIA_CANONICAL_URL': ('files/', _("Contrary to the file's actual URL, the canonical URL does not change if you upload a new version of the file.")),
         'MEDIA_LIST_SHOW_DIRS': (False, _("Show dirs in nested list of directories. This expose private folders now!!")),
         'MEDIA_LIST_SHOW_TITLES': (True, _("Show image titles in directory list.")),
+        'MEDIA_FILES_ORDER_BY': ('-uploaded_at', _("Field which will be used to sort files like -uploaded_at, use comma to set more")),
+        'MEDIA_FOLDERS_ORDER_BY': ('-created_at', _("Field which will be used to sort folders like -created_at, use comma to set more")),
     }
 
     page_actions = ['media/_actions.html']

@@ -351,7 +351,8 @@ def directory_list_nested(request,
             'object_list': object_list,
             'object': object,
             # TODO: filter permissions, this exposes private folders
-            'folders': (object.media_folder_children.all()
+            'folders': (object.media_folder_children.all().order_by(
+                        *config.MEDIA_FOLDERS_ORDER_BY.split(","))
                         if config.MEDIA_LIST_SHOW_DIRS
                         else [])
         }
