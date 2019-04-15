@@ -29,14 +29,12 @@ class FileAdmin(PrimitivePermissionAwareModelAdmin):
     # render_change_form() override add and change to False.
     save_as = True
 
-    form = FileForm
-
     @classmethod
     def build_fieldsets(cls, extra_main_fields=(),
                         extra_advanced_fields=(), extra_fieldsets=()):
         fieldsets = (
             (None, {
-                'fields': ('name', 'owner', 'file',
+                'fields': ('name', 'owner', 'file', 'ordering',
                            'description',) + extra_main_fields,
             }),
             (_('Advanced'), {

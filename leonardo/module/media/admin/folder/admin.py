@@ -66,7 +66,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
 
     directory_listing_template = 'admin/media/folder/directory_listing.html'
     order_by_file_fields = ('_file_size', 'original_filename', 'name', 'owner',
-                            'uploaded_at', 'modified_at')
+                            'uploaded_at', 'modified_at', 'ordering')
 
     def get_form(self, request, obj=None, **kwargs):
         """

@@ -111,6 +111,8 @@ class Folder(models.Model, mixins.IconsMixin):
     owner = models.ForeignKey(getattr(settings, 'AUTH_USER_MODEL', 'auth.User'), verbose_name=('owner'),
                               related_name='filer_owned_folders',
                               null=True, blank=True)
+    
+    ordering = models.IntegerField(_('ordering'), blank=True, null=True)
 
     uploaded_at = models.DateTimeField(_('uploaded at'), auto_now_add=True)
 
