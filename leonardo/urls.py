@@ -72,7 +72,7 @@ urlpatterns += patterns(
 )
 
 sitemaps = {
-    'pages': PageSitemap,
+    'pages': PageSitemap(extended_navigation=True),
 }
 
 if not settings.DEBUG or not getattr(settings, 'LEONARDO_PREVIEW', False):
