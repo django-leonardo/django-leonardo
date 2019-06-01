@@ -9,7 +9,7 @@ from django.core import urlresolvers
 from django.core.files.base import ContentFile
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from filer.utils.compatibility import DJANGO_1_7, python_2_unicode_compatible
+from filer.utils.compatibility import python_2_unicode_compatible
 from filer.utils.files import get_valid_filename
 from leonardo.module.media import mixins
 from .. import settings as filer_settings
@@ -244,10 +244,7 @@ class File(PolymorphicModel, mixins.IconsMixin):
         return text
 
     def get_admin_url_path(self):
-        if DJANGO_1_7:
-            model_name = self._meta.module_name
-        else:
-            model_name = self._meta.model_name
+        model_name = self._meta.model_name
         return urlresolvers.reverse(
             'admin:%s_%s_change' % (self._meta.app_label,
                                     model_name,),
