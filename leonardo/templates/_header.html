@@ -16,8 +16,8 @@
 <title>{{ request.leonardo_options.site.name }} - {{ request.leonardo_options.meta_title }}</title>
 {% endif %}
 
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="icon" sizes="192x192" href="{% static "leonardo/img/icon.png" %}">
+<link rel="shortcut icon" href="{{ request.LEONARDO_CONFIG.FAVICON_PATH }}" />
+<link rel="icon" sizes="192x192" href="{{ request.LEONARDO_CONFIG.FAVICON_PATH }}">
 
 {% include "base/head_meta.html" %}
 
