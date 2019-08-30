@@ -16,7 +16,6 @@ RUN pip install --no-cache-dir -r /source/leonardo/requirements/default.txt && \
     pip install -e /source/leonardo
 
 RUN useradd --system leonardo && \
-    mkdir -p /app/media /app/static && \
     chown -R leonardo:leonardo /app/
 
 EXPOSE 8000

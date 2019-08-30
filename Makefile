@@ -1,7 +1,7 @@
 CWD=$(shell pwd)
 APP_NAME=$(shell pwd | sed -e 's/\//:/g' | cut -d: -f5)
 
-VERSION = "1.0.7"
+VERSION = "1.0.8"
 ORGANIZATION ?= "cznewt"
 
 help:

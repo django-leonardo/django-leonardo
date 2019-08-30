@@ -1,0 +1,17 @@
+#!/bin/bash
+
+NAME="leonardo"
+DJANGODIR=/app/site:/app/module:/app/settings
+DJANGO_SETTINGS_MODULE=leonardo.settings
+DJANGO_WSGI_MODULE=wsgi
+
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+echo "Starting service $NAME as user `whoami`"
+
+exec gunicorn ${DJANGO_WSGI_MODULE}:application \
+  --name $NAME \
+  --workers $NUM_WORKERS \
+  --user=$USER --group=$GROUP \
+  --bind=0.0.0.0:8000
