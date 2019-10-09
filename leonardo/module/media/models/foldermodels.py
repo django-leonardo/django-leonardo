@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.contrib.auth import models as auth_models
 from django.core import urlresolvers
 from django.core.exceptions import ValidationError
+from django.template.defaultfilters import slugify
 from django.db import models
 from django.db.models import Q
 from django.utils.http import urlquote
@@ -159,7 +160,7 @@ class Folder(models.Model, mixins.IconsMixin):
 
     @property
     def pretty_logical_path(self):
-        return "/%s" % "/".join([f.name for f in self.logical_path + [self]])
+        return "/%s" % "/".join([slugify(f.name) for f in self.logical_path + [self]])
 
     @property
     def quoted_logical_path(self):
