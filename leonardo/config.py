@@ -32,7 +32,7 @@ class LeonardoConfig(AppConfig):
         from horizon.conf import HORIZON_CONFIG
         from horizon import conf as horizon_conf
         try:
-            # optionaly copy all live configuration to horizon/leonardo
+            # optionally copy all live configuration to horizon/leonardo
             from constance import config
 
             for k in dir(config):
