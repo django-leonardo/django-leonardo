@@ -4,6 +4,7 @@ from django.template import (Context, RequestContext,
                              loader, Template, TemplateDoesNotExist)
 from django.views.decorators.csrf import requires_csrf_token
 from django.template.loader import render_to_string
+from leonardo.exceptions import VerifySentryServerError
 
 CONTENT_TYPE = 'text/html'
 
@@ -36,6 +37,10 @@ def render_in_page(request, template):
         return response
 
     return False
+
+
+def trigger_error(request):
+    raise VerifySentryServerError
 
 
 # This can be called when CsrfViewMiddleware.process_view has not run,

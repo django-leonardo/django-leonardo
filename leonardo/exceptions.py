@@ -72,6 +72,11 @@ class RecoverableError(LeonardoException):
     status_code = 100  # HTTP status code "Continue"
 
 
+class VerifySentryServerError(LeonardoException):
+    """Raised when a requested url is sentry debug."""
+    pass
+
+
 class ServiceCatalogException(LeonardoException):
     """Raised when a requested service is not available in the
     ``ServiceCatalog`` returned by Keystone.

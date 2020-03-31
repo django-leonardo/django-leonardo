@@ -6,6 +6,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import RedirectView, TemplateView
 from feincms.module.page.sitemap import PageSitemap
 from leonardo.views.page import Handler
+from leonardo.views.defaults import trigger_error
 from leonardo.views.select2 import Select2ResponseView
 from constance import config
 from .base import leonardo
@@ -31,6 +32,12 @@ if getattr(settings, 'HORIZON_ENABLED', True):
     urlpatterns += patterns('',
                             url(r'', include(horizon.urls)),
                             )
+
+# sentry verification url
+
+urlpatterns += patterns('',
+                        url(r'^sentry-debug/$', trigger_error)
+                        )
 
 # translation
 urlpatterns += patterns('',
