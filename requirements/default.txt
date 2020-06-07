@@ -13,6 +13,7 @@ django-extensions==1.5.9
 django-floppyforms==1.5.1
 django-crispy-forms==1.4.0 # https://github.com/django-leonardo/django-leonardo/issues/164
 django_compressor==2.0
+django-appconf==1.0.3
 Django-Select2==5.2.0
 python-app-loader>=0.0.8
 docutils==0.12
