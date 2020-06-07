@@ -11,7 +11,7 @@ RUN apt-get -y update && \
 
 RUN pip install --no-cache-dir -r /source/leonardo/requirements/default.txt && \
     pip install --no-cache-dir -r /source/leonardo/requirements/modules.txt && \
-    pip install gunicorn Whoosh psycopg2-binary python-memcached && \
+    pip install gunicorn Whoosh psycopg2-binary python-memcached sentry-sdk && \
     pip install -e /source/leonardo && \
     cd /src/leonardo-cookie-law/leonardo_cookie_law && python /app/site/manage.py compilemessages
 
