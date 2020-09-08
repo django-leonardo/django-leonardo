@@ -1,0 +1,11 @@
+
+{% block title %}
+{% endblock %}
+{% block subtitle %}
+{% endblock %}
+{% block header %}
+{% endblock %}
+{% block body %}
+{% endblock %}
+{% block footer %}
+{% endblock %}

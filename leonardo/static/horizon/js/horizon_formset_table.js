@@ -1,8 +1,13 @@
 horizon.formset_table = (function () {
   'use strict';
 
-  var module = {};
+  var module = {
+    _init_functions: []
+  };
 
+  module.addFormInitFunction = function (f) {
+    horizon.formset_table._init_functions.push(f);
+  };
 
   // go through the whole table and fix the numbering of rows
   module.reenumerate_rows = function (table, prefix) {
@@ -39,6 +44,9 @@ horizon.formset_table = (function () {
   // add more empty rows in the flavors table
   module.add_row = function (table, prefix, empty_row_html) {
     var new_row = $(empty_row_html);
+    $(module._init_functions).each(function (index, f) {
+        f(table, prefix, new_row);
+      });
     module.replace_delete(new_row);
     table.find('tbody').append(new_row);
     module.reenumerate_rows(table, prefix);

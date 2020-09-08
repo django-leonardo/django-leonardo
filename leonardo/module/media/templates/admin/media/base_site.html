@@ -11,6 +11,24 @@
 
     {# upload stuff #}
     {{ media.js }}
+
+    <script type="text/javascript">
+        var __jQuery = django.jQuery;
+        window.jQuery = (__jQuery) ? __jQuery : window.jQuery || undefined;
+        window.$ = window.jQuery;
+
+        function showRelatedObjectPopupOld(triggeringLink) {
+            var href = triggeringLink.href;
+            var win = window.open(href, triggeringLink.title, 'height=500,width=800,resizable=yes,scrollbars=yes');
+            win.focus();
+            return false;
+        }
+        window.dismissPopupAndReloadOld = function (win) {
+            document.location.reload();
+            win.close();
+        };
+    </script>
+
     <script src="{% static 'filer/js/libs/class.min.js' %}"></script>
     <script src="{% static 'filer/js/libs/jquery.min.js' %}"></script>
     <script src="{% static 'filer/js/libs/jquery-ui.min.js' %}"></script>

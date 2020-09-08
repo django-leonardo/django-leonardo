@@ -99,19 +99,20 @@ def input(self, **kwargs):
 
     context = kwargs.get('context', {})
 
-    try:
-        context['leonardo_page']['theme']
-        context['leonardo_page']['color_scheme']
-    except Exception as e:
-        LOG.exception(str(e))
-    else:
-        with_variables = """
-        @import "/themes/{}/{}/_variables";
-        {}
-        """.format(
-            context['leonardo_page']['theme']['name'],
-            context['leonardo_page']['color_scheme']['name'],
-            self.content)
+    if context.get('leonardo_page', None):
+        try:
+            context['leonardo_page']['theme']
+            context['leonardo_page']['color_scheme']
+        except Exception as e:
+            LOG.exception(str(e))
+        else:
+            with_variables = """
+            @import "/themes/{}/{}/_variables";
+            {}
+            """.format(
+                context['leonardo_page']['theme']['name'],
+                context['leonardo_page']['color_scheme']['name'],
+                self.content)
 
     return self.compiler.compile_string(
         with_variables or self.content,

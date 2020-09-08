@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 20:04+0200\n"
+"POT-Creation-Date: 2016-09-26 10:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,40 +19,84 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: forms.py:19 forms.py:23 forms.py:52 forms.py:56
+#: __init__.py:21
+msgid "Auth module"
+msgstr ""
+
+#: forms.py:23 forms.py:27 forms.py:57 forms.py:61
 msgid "Username"
 msgstr ""
 
-#: forms.py:26 forms.py:63
+#: forms.py:30 forms.py:68
 msgid "Password"
 msgstr ""
 
-#: forms.py:28
+#: forms.py:32
 msgid "Remember Me"
 msgstr ""
 
-#: forms.py:60
+#: forms.py:49
+msgid "Login success."
+msgstr ""
+
+#: forms.py:51
+msgid "Login failed."
+msgstr ""
+
+#: forms.py:65
 msgid "E-mail address"
 msgstr ""
 
-#: forms.py:68
+#: forms.py:73
 msgid "Confirm Password"
 msgstr ""
 
-#: forms.py:82
+#: forms.py:87
 msgid "Username or email exists in database."
 msgstr ""
 
-#: forms.py:86
+#: forms.py:91
 msgid "Passwords do not match."
 msgstr ""
 
-#: forms.py:97
+#: forms.py:102
 msgid "User account {} was successfuly created."
 msgstr ""
 
-#: forms.py:105
+#: forms.py:110
 msgid "Create Account failed."
+msgstr ""
+
+#: forms.py:122
+msgid "Current Password"
+msgstr ""
+
+#: forms.py:125 forms.py:213
+msgid "New Password"
+msgstr ""
+
+#: forms.py:128 forms.py:217
+msgid "New Password (again)"
+msgstr ""
+
+#: forms.py:134
+msgid "Please type your current password."
+msgstr ""
+
+#: forms.py:144 forms.py:230
+msgid "You must type the same password each time."
+msgstr ""
+
+#: forms.py:166
+msgid "E-mail"
+msgstr ""
+
+#: forms.py:177
+msgid "The e-mail address is not assigned to any user account"
+msgstr ""
+
+#: forms.py:248
+msgid "The password reset token was invalid."
 msgstr ""
 
 #: panel.py:10
@@ -71,17 +115,56 @@ msgstr ""
 msgid "Start Editing"
 msgstr ""
 
-#: templates/leonardo_auth/_actions.html:10
+#: templates/leonardo_auth/_actions.html:15 views.py:190
 msgid "Logout"
 msgstr ""
 
-#: templates/leonardo_auth/_login.html:9
+#: templates/leonardo_auth/_change_password.html:12
+#: templates/leonardo_auth/_login.html:19
 msgid "Close"
 msgstr ""
 
-#: templates/leonardo_auth/_login.html:10 templates/leonardo_auth/login.html:4
-#: templates/leonardo_auth/login.html:7 views.py:38
+#: templates/leonardo_auth/_change_password.html:13
+#: templates/leonardo_auth/change_password.html:4
+#: templates/leonardo_auth/change_password.html:7 views.py:158 views.py:219
+msgid "Change password"
+msgstr ""
+
+#: templates/leonardo_auth/_login.html:12
+#: templates/widget/userlogin/navbar.html:21
+#: templates/widget/userregistration/default.html:8 views.py:90 views.py:119
+msgid "Sign Up"
+msgstr ""
+
+#: templates/leonardo_auth/_login.html:13
+msgid "Reset Password"
+msgstr ""
+
+#: templates/leonardo_auth/_login.html:20 templates/leonardo_auth/login.html:4
+#: templates/leonardo_auth/login.html:7 views.py:65 views.py:70
 msgid "Login"
+msgstr ""
+
+#: templates/leonardo_auth/email/password_reset_key.html:1
+#, python-format
+msgid ""
+"Hello from %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account at %(site_domain)s. Click the link below to "
+"reset your password."
+msgstr ""
+
+#: templates/leonardo_auth/email/password_reset_key.html:7
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr ""
+
+#: templates/leonardo_auth/email/password_reset_key.html:9
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
 msgstr ""
 
 #: templates/widget/userlogin/default.html:19
@@ -92,19 +175,23 @@ msgstr ""
 #: templates/widget/userlogin/default.html:22
 #: templates/widget/userlogin/default.html:24
 #: templates/widget/userlogin/navbar.html:20
-#: templates/widget/userlogin/navbar.html:22
+#: templates/widget/userlogin/navbar.html:23
 msgid "Sign In"
 msgstr ""
 
-#: templates/widget/userregistration/default.html:8
-msgid "Sign Up"
-msgstr ""
-
-#: views.py:66
+#: views.py:87 views.py:102 views.py:116 views.py:155
 msgid "Register"
 msgstr ""
 
-#: views.py:87
+#: views.py:105
+msgid "Reset password"
+msgstr ""
+
+#: views.py:131
+msgid "Token is invalid !"
+msgstr ""
+
+#: views.py:177
 msgid "Logout complete"
 msgstr ""
 

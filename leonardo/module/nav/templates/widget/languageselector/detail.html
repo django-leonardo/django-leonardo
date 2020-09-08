@@ -1,16 +1,13 @@
 {% extends widget.get_base_template %}
 
-{% load i18n %}
+{% load i18n leonardo_page_tags %}
 
 {% block content %}
 <div class="ui-helper-clearfix">
 	<span>{% trans "Select your language" %}:</span>
-	{% for key,lang in languages.items %}
-	{% if lang.page %}
-	<a id="set_lang_{{ lang.code }}" href="{{ lang.page.get_absolute_url }}{{ lang.suffix }}">
-		<img src="/static/lib/webcms/img/flags/{{ lang.code }}.gif" alt="{{ lang.label }}" />
-	</a>
-	{% endif %}
+    {% feincms_languagelinks for page as links all,excludecurrent,request=request %}
+    {% for key, name, link in links %}
+	<a href="{% if link %}{{ link }}{% else %}/{{ key }}/{% endif %}">{% trans name %}</a>
 	{% endfor %}
 </div>
 {% endblock %}

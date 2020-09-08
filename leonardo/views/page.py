@@ -4,17 +4,20 @@ import logging
 
 from django.http import Http404
 from django.utils.functional import cached_property
-from leonardo.module.web.widgets.utils import get_widget_from_id
 
 from feincms import settings
 from feincms._internal import get_model
 from feincms.module.mixins import ContentView
-from django.http import JsonResponse
+from .ajax import AJAXMixin
 
 logger = logging.getLogger(__name__)
 
 
-class Handler(ContentView):
+class Handler(ContentView, AJAXMixin):
+
+    """This is the main view for all pages
+    """
+
     page_model_path = None
     context_object_name = 'feincms_page'
 
@@ -30,27 +33,15 @@ class Handler(ContentView):
         return self.page_model._default_manager.for_request(
             self.request, raise404=True, best_match=True, path=path)
 
-    def render_widget(self, request):
-        '''Returns rendered widget in JSON response'''
-
-        method = request.GET.get('method', request.POST.get('method', None))
-
-        if request.is_ajax() and method == 'widget':
-            try:
-                id = request.POST['widget_id']
-            except KeyError:
-                id = request.GET['widget_id']
-            else:
-                widget = get_widget_from_id(id)
-                response = widget.render(**{'request': request})
-                return JsonResponse({'result': response, 'id': id})
-
     def dispatch(self, request, *args, **kwargs):
 
-        widget_content = self.render_widget(request)
+        # handle ajax and return response
+        # if no response continue to standard page processing
+        if request.is_ajax():
+            ajax_response = self.handle_ajax(request)
 
-        if widget_content:
-            return widget_content
+            if ajax_response:
+                return ajax_response
 
         try:
             return super(Handler, self).dispatch(request, *args, **kwargs)

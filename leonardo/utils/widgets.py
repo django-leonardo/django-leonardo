@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 
+from django import forms
 from django.conf import settings
 from django.utils import six
 from importlib import import_module
-from django import forms
 
 
 def load_widget_classes(widgets):
@@ -119,3 +119,55 @@ def get_htmltext_widget():
                    'LEONARDO_HTMLTEXT_WIDGET',
                    forms.Textarea
                    )
+
+
+def render_region(widget=None, request=None, view=None,
+                  page=None, region=None):
+    """returns rendered content
+    this is not too clear and little tricky,
+    because external apps needs calling process method
+    """
+
+    # change the request
+    if not isinstance(request, dict):
+        request.query_string = None
+        request.method = "GET"
+
+    if not hasattr(request, '_feincms_extra_context'):
+        request._feincms_extra_context = {}
+
+    leonardo_page = widget.parent if widget else page
+    render_region = widget.region if widget else region
+
+    # call processors
+    for fn in reversed(list(leonardo_page.request_processors.values())):
+        try:
+            r = fn(leonardo_page, request)
+        except:
+            pass
+
+    contents = {}
+
+    for content in leonardo_page.content.all_of_type(tuple(
+            leonardo_page._feincms_content_types_with_process)):
+
+        try:
+            r = content.process(request, view=view)
+        except:
+            pass
+        else:
+            # this is HttpResponse object or string
+            if not isinstance(r, six.string_types):
+                r.render()
+                contents[content.fe_identifier] = getattr(r, 'content', r)
+            else:
+                contents[content.fe_identifier] = r
+
+    from leonardo.templatetags.leonardo_tags import _render_content
+
+    region_content = ''.join(
+        contents[content.fe_identifier] if content.fe_identifier in contents else _render_content(
+            content, request=request, context={})
+        for content in getattr(leonardo_page.content, render_region))
+
+    return region_content

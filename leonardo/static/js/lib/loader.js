@@ -2,16 +2,16 @@
  *  Leonardo resource loader
  */
 var leonardo = function(leonardo) {
-    leonardo.fn = leonardo.fn || {};
+    leonardo.utils = leonardo.utils || {};
     /**
      * Add JS / CSS resource to DOM, if not exists
      * @example loadResource({src:'/my.js',async:true,defer:true}) <br>
-     * loadResource("/my.js") or arrays of them 
-     * loadResource(["/lol.js","/lol2.js",{src:"/lol2",async:true}])
-     * loadResource("/lol.css",{src:"/megalol.css"})
+     * leonardo.utils.loadResource("/my.js") or arrays of them 
+     * leonardo.utils.loadResource(["/lol.js","/lol2.js",{src:"/lol2",async:true}])
+     * leonardo.utils.loadResource("/lol.css",{src:"/megalol.css"})
      * USE ONLY ABSOLUTE PATHS
      */
-    leonardo.fn.loadResource = function (resources){
+    leonardo.utils.loadResource = function (resources){
         var addScriptFn = function(script){
             var resources = document.getElementsByTagName('script'),found=false;
             for(var i=0;i<resources.length;i++){
@@ -71,7 +71,8 @@ var leonardo = function(leonardo) {
         }
     };
     
-    // window temponary fallback
-    window.loadResource = leonardo.fn.loadResource;
+    // window and fn temponary fallback
+    leonardo.fn = leonardo.fn || {loadResource: leonardo.utils.loadResource};
+    window.loadResource = leonardo.utils.loadResource;
     return leonardo;
 }(leonardo || {});

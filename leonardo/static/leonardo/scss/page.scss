@@ -1,19 +1,24 @@
 
 @import "_variables";
 
+@import "/bootstrap/scss/bootstrap-sprockets";
 @import "/bootstrap/scss/bootstrap";
 
 @import "_mixins";
 
 @import "/leonardo/scss/leonardo";
-@import "/dashboard/scss/horizon_workflow";
-@import "/dashboard/scss/horizon_charts";
+@import "/leonardo/scss/workflow";
 @import "/leonardo/scss/loading";
 @import "/leonardo/scss/frontend_edit";
+@import "/leonardo/scss/scrollspy";
 
 // bootstrap 4 spacing 
 @import "_spacing";
 
+// hide font during web font loading
+html.wf-loading * {
+    color: transparent !important;
+}
 .asteriskField {
     display: none;
 }
@@ -161,4 +166,6 @@
    }
 }
 
-
+.has-feedback .form-control-feedback {
+    top: 30%;
+}

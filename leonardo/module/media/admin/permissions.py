@@ -1,7 +1,6 @@
 
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from filer.utils.compatibility import DJANGO_1_7
 
 
 class PrimitivePermissionAwareModelAdmin(admin.ModelAdmin):
@@ -30,10 +29,7 @@ class PrimitivePermissionAwareModelAdmin(admin.ModelAdmin):
         and admin url may change """
         # Code borrowed from django ModelAdmin to determine changelist on the fly
         opts = obj._meta
-        if DJANGO_1_7:
-            model_name = opts.module_name
-        else:
-            model_name = opts.model_name
+        model_name = opts.model_name
         return reverse('admin:%s_%s_changelist' %
                        (opts.app_label, model_name),
                        current_app=self.admin_site.name)

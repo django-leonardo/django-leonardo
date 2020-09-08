@@ -4,29 +4,18 @@ from django.template import (Context, RequestContext,
                              loader, Template, TemplateDoesNotExist)
 from django.views.decorators.csrf import requires_csrf_token
 from django.template.loader import render_to_string
+from leonardo.exceptions import VerifySentryServerError
 
 CONTENT_TYPE = 'text/html'
 
 
-def _get_page_from_request(request):
-    """return page from request
-    """
-
-    try:
-        from leonardo.module.web.models import Page
-        feincms_page = Page.objects.for_request(request, best_match=True)
-    except:
-        feincms_page = None
-
-    return feincms_page
-
-
 def render_in_page(request, template):
-
     """return rendered template in standalone mode or ``False``
     """
+    from leonardo.module.web.models import Page
 
-    page = _get_page_from_request(request)
+    page = request.leonardo_page if hasattr(
+        request, 'leonardo_page') else Page.objects.filter(parent=None).first()
 
     if page:
         try:
@@ -40,13 +29,18 @@ def render_in_page(request, template):
                 'feincms_page': page,
                 'slug': slug,
                 'standalone': True}))
-            response = http.HttpResponseNotFound(body, content_type=CONTENT_TYPE)
+            response = http.HttpResponseNotFound(
+                body, content_type=CONTENT_TYPE)
         except TemplateDoesNotExist:
             response = False
 
         return response
 
     return False
+
+
+def trigger_error(request):
+    raise VerifySentryServerError
 
 
 # This can be called when CsrfViewMiddleware.process_view has not run,
@@ -70,7 +64,8 @@ def page_not_found(request, template_name='404.html'):
     template = Template(
         '<h1>Not Found</h1>'
         '<p>The requested URL {{ request_path }} was not found on this server.</p>')
-    body = template.render(RequestContext(request, {'request_path': request.path}))
+    body = template.render(RequestContext(
+        request, {'request_path': request.path}))
     return http.HttpResponseNotFound(body, content_type=CONTENT_TYPE)
 
 

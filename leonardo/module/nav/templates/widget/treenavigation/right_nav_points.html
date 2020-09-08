@@ -1,0 +1,26 @@
+{% extends widget.get_base_template %}
+{% load feincms_page_tags %}
+
+{% block content %}
+{% feincms_nav root level=level depth=1 as toplevel %}
+<nav class="points-nav">
+    <ul class="nav nav-pills nav-stacked">
+{% for page in toplevel %}
+		<li class="{% if page|is_equal_or_parent_of:current %}active{% endif %}">
+		<a class="page-scroll" href="#{{ page.slug }}"></a>
+		</li>
+{% endfor %}
+	</ul>
+</div>
+
+<script type="text/javascript">
+// jQuery for page scrolling feature - requires jQuery Easing plugin
+$('a.page-scroll').bind('click', function(event) {
+    var $anchor = $(this);
+    $('html, body').stop().animate({
+        scrollTop: ($($anchor.attr('href').replace("/", "")).offset().top - 1)
+    }, 1500, 'easeInOutExpo');
+    event.preventDefault();
+});
+</script>
+{% endblock %}

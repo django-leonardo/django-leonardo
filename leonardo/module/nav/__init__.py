@@ -23,6 +23,10 @@ class Default(object):
             'leonardo.module.nav.models.LanguageSelectorWidget'
         ]
 
+    js_files = [
+        'js/jquery.scrollspy.js'
+    ]
+
 
 class NavConfig(AppConfig, Default):
     name = 'leonardo.module.nav'

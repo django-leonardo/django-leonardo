@@ -5,7 +5,7 @@
 {% datepicker_locale as DATEPICKER_LOCALE %}
 
 {% comment %} Django's JavaScript i18n Implementation {% endcomment %}
-<script type="text/javascript" src="{% url 'horizon:jsi18n' 'horizon' %}"></script>
+<script type="text/javascript" src="{% url 'jsi18n' 'leonardo' %}"></script>
 
 {% comment %} Compress jQuery, Angular, Plugins, Bootstrap, Hogan.js and Horizon-specific JS. {% endcomment %}
 {% compress js %}
@@ -14,49 +14,14 @@
 
 <script type="text/javascript">var STATIC_URL = "{{ STATIC_URL }}";</script>
 <script src='{{ STATIC_URL }}horizon/lib/angular/angular-cookies.js'></script>
+<script src='{{ STATIC_URL }}horizon/lib/angular/angular-gettext.js'></script>
 <script src='{{ STATIC_URL }}horizon/lib/angular/angular-sanitize.js'></script>
 <script src="{{ STATIC_URL }}horizon/lib/angular/lrdragndrop.js"></script>
 <script src="{{ STATIC_URL }}horizon/lib/angular/smart-table.js"></script>
 
-
-<script src='{{ STATIC_URL }}horizon/js/angular/controllers/namespace-controller.js'></script>
-<script src='{{ STATIC_URL }}horizon/js/angular/controllers/dummy.js'></script>
-<script src='{{ STATIC_URL }}horizon/js/angular/controllers/modal-form-update-metadata-ctrl.js'></script>
-<script src='{{ STATIC_URL }}horizon/js/angular/directives/forms.js'></script>
-
-<script src='{{ STATIC_URL }}horizon/js/angular/horizon.conf.js'></script>
-<script src='{{ STATIC_URL }}horizon/js/angular/services/horizon.utils.js'></script>
-<script src='{{ STATIC_URL }}horizon/js/angular/hz.api.module.js'></script>
-<script src='{{ STATIC_URL }}horizon/js/angular/services/hz.api.service.js'></script>
-
-<script src='{{ STATIC_URL }}horizon/js/angular/filters/filters.js'></script>
-<script src='{{ STATIC_URL }}horizon/js/angular/services/hz.api.security-group.js'></script>
-
 <script src="{{ STATIC_URL }}horizon/lib/d3.js"></script>
 
 <script src='{{ STATIC_URL }}js/angular/ng-FitText.js'></script>
-<script src='{{ STATIC_URL }}angular/widget.module.js'></script>
-<script src='{{ STATIC_URL }}angular/form/form.js'></script>
-<script src='{{ STATIC_URL }}angular/help-panel/help-panel.js'></script>
-<script src='{{ STATIC_URL }}angular/wizard/wizard.js'></script>
-<script src='{{ STATIC_URL }}angular/action-list/action-list.js'></script>
-<script src='{{ STATIC_URL }}angular/action-list/button-tooltip.js'></script>
-<script src='{{ STATIC_URL }}angular/table/table.js'></script>
-<script src='{{ STATIC_URL }}angular/table/basic-table.js'></script>
-<script src="{{ STATIC_URL }}angular/login/login.js"></script>
-<script src='{{ STATIC_URL }}angular/modal/modal.js'></script>
-<script src='{{ STATIC_URL }}angular/modal/modal-wait-spinner.js'></script>
-<script src='{{ STATIC_URL }}angular/bind-scope/bind-scope.js'></script>
-<script src='{{ STATIC_URL }}angular/transfer-table/transfer-table.js'></script>
-<script src='{{ STATIC_URL }}angular/charts/charts.js'></script>
-<script src='{{ STATIC_URL }}angular/charts/chart-tooltip.js'></script>
-<script src='{{ STATIC_URL }}angular/charts/pie-chart.js'></script>
-<script src='{{ STATIC_URL }}angular/metadata-tree/metadata-tree.js'></script>
-<script src='{{ STATIC_URL }}angular/metadata-tree/metadata-tree-service.js'></script>
-<script src='{{ STATIC_URL }}angular/metadata-display/metadata-display.js'></script>
-<script src='{{ STATIC_URL }}angular/magic-search/magic-search.js'></script>
-<script src='{{ STATIC_URL }}angular/validators/validators.js'></script>
-<script src='{{ STATIC_URL }}angular/workflow/workflow.js'></script>
 <script src="{{ STATIC_URL }}js/lib/select2.js"></script>
 
 <script src='{{ STATIC_URL }}horizon/lib/jquery/jquery.quicksearch.js'></script>
@@ -73,17 +38,15 @@
 
 <script src="{{ STATIC_URL }}horizon/lib/hogan.js"></script>
 
-<script src='{{ STATIC_URL }}horizon/js/horizon.accordion_nav.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.string.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon.communication.js'></script>
-<script src='{{ STATIC_URL }}horizon/js/horizon.forms.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon.datepickers.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon_forms.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon_formset_table.js'></script>
-<script src='{{ STATIC_URL }}horizon/js/horizon.messages.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon_messages.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon_modals.js'></script>
 
-<script type="text/javascript">
-  horizon.modals.MODAL_BACKDROP = "{% firstof LEONARDO_CONFIG.modal_backdrop 'static' %}";
-</script>
-<script src='{{ STATIC_URL }}horizon/js/horizon.tables.js'></script>
+<script src='{{ STATIC_URL }}horizon/js/horizon_tables.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon.tables_inline_edit.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon.tabs.js'></script>
 <script src='{{ STATIC_URL }}horizon/js/horizon.templates.js'></script>
@@ -123,18 +86,17 @@ $('.modal').on('hidden.bs.modal', function (e) {
         event.preventDefault();
         $(this).ekkoLightbox();
     });
-    // init wow
-
+    
+    // init aos
     try {
-        new WOW().init();
+        AOS.init();
     }
     catch(err) {
         console.log(err);
     }
 
   });
-  // Call init on DOM ready.
-  $(document).ready(horizon.init);
+
 </script>
 
 {% if request.frontend_editing %}
@@ -249,42 +211,10 @@ $(function() {
 
     /* UX friendly */
     try {
-        $(modal).find(":text, select, textarea").filter(":visible:first").focus();
+        $(modal).find("input, :text, select, textarea").filter(":visible:first").focus();
     }
     catch(err) {}
 
-
-  });
-
-  // Bind handler for swapping labels on "switchable" select fields.
-  $document.on("change", 'select.switchable', function (evt) {
-    
-    $('fieldset').each(function(index, fieldset) {
-        var $fieldset = $(fieldset),
-          $switchables = $fieldset.find('select.switchable');
-
-        $switchables.each(function (index, switchable) {
-          var $switchable = $(switchable),
-            slug = $switchable.data('slug'),
-            visible = $switchable.is(':visible'),
-            val = $switchable.val();
-
-          function handle_switched_field(index, input){
-            var $input = $(input),
-              data = $input.data(slug + "-" + val);
-
-            if (typeof data === "undefined") {
-              $input.closest('.form-group').hide();
-            } else {
-              $('label[for=' + $input.attr('id') + ']').html(data);
-              $input.closest('.form-group').show();
-            }
-          }
-
-          $fieldset.find('.switched[data-switch-on*="' + slug + '"]').each(handle_switched_field);
-          $fieldset.siblings().find('.switched[data-switch-on*="' + slug + '"]').each(handle_switched_field);
-      });
-    });
   });
 
   /* Handle some forms without page reload */
@@ -317,13 +247,76 @@ $(function() {
       });
     });
 
+//    $('.col1 a, .col2 a, .col1 a').each(function(){
+//      var $this=$(this);
+//      $this.on('click',function (ev) {
+//        ev.preventDefault();
+//        console.log($this.attr('href'))
+//        $.ajax({
+//            type: 'GET',
+//            url: $this.attr('href'),
+//            data: {region: 'col3',
+//                   method: 'region'
+//              },
+//            success: function (data) {
+//              console.log(data);
+//                $('.col3').html(data.result);
+//                // set window location
+//                try {
+//                    window.history.pushState('page2', 'Title', $this.attr('href'));
+//                }
+//                catch(err) {
+//                    console.log(err);
+//                }
+//
+//                var modalBackdrop=$(".modal-backdrop");
+//                if(modalBackdrop.hasClass("fade in")) {
+//                    modalBackdrop.fadeOut();
+//                    $("body").removeClass(".modal-open");
+//                } 
+//            }
+//        });
+//      });
+//    });
+
+//    $('.leonardo-application-widget a').each(function(){
+//      var $this=$(this);
+//      $this.on('click',function (ev) {
+//        ev.preventDefault();
+//        console.log($this.attr('href'))
+//        $.ajax({
+//            type: 'GET',
+//            url: $this.attr('href'),
+//            data: {widget_id:$this.closest("div.leonardo-widget").attr('id'),
+//               method: 'widget'
+//              },
+//            success: function (data) {
+//                $this.closest("div.leonardo-widget").replaceWith(data);
+//                // set window location
+//                try {
+//                    window.history.pushState('page2', 'Title', $this.attr('href'));
+//                }
+//                catch(err) {
+//                    console.log(err);
+//                }
+//
+//                var modalBackdrop=$(".modal-backdrop");
+//                if(modalBackdrop.hasClass("fade in")) {
+//                    modalBackdrop.fadeOut();
+//                    $("body").removeClass(".modal-open");
+//                } 
+//            }
+//        });
+//      });
+//    });
+
   /* handle widget reloading */
   var refresh_widgets = function(){
     $('.auto-reload').each(function(i, obj) {
       $.ajax({
           type: "GET",
           url: window.location,
-          data: {'widget_id': obj.id, method: 'widget'},
+          data: {'widget_id': obj.id, method: 'widget_content'},
           success: function (data) {
               $(obj.id).replaceWith(data.result);
           }
@@ -334,7 +327,12 @@ $(function() {
 
   {% if LEONARDO_CONFIG.is_websocket_enabled %}
   var ws_scheme = window.location.protocol == 'https:' ? 'wss' : 'ws';
-  var basepath = ws_scheme + "://" + window.location.hostname + ":" + window.location.port;
+
+  if (window.location.port) {
+      var basepath = ws_scheme + "://" + window.location.hostname + ":" + window.location.port;
+  } else {
+      var basepath = ws_scheme + "://" + window.location.hostname
+  }
 
   socket = new ReconnectingWebSocket(basepath + "/messages?session_key={{ request.session.session_key }}")
 
@@ -349,12 +347,67 @@ $(function() {
 
   w_socket = new ReconnectingWebSocket(basepath + "/widgets?session_key={{ request.session.session_key }}")
 
-  /* Bind django-messages */
+  /* Bind content updates
+    
+    TODO: move this to the function
+  */
   w_socket.onmessage = function(e) {
       data = JSON.parse(e.data)
-      console.log(data);
-      $('#' + data.id).replaceWith(data.content);
+
+      if (horizon.conf.debug) {
+        console.log(data);
+      }
+      
+/*      patterns = data.region.split("-");
+      var region_name = patterns.slice(0, 1)[0];
+      var region_id = patterns.slice(1, patterns.length).join('-');
+
+      console.log(region_name);
+      console.log(region_id);
+
+      var paths = window.location.pathname.split("/");
+      var uri = paths.slice(paths.length - 2, paths.length - 1)[0];
+
+      console.log(uri);
+
+
+      //$("[id*='" + region_name + "']").html(data.content);
+      $("#" + patterns.slice(0, 1)[0] + "-" + paths.slice(paths.length - 2, paths.length - 1)[0]).html(data.content);
+*/
+/*       document.title = data.page_title;
+       window.history.pushState({"html":data.content,"pageTitle":data.page_title},"", data.path);
+*/
+      /*$(".spinner-container").hide();*/
+
+      if (data.hasOwnProperty('region')) {
+
+        $("#" + data.region).html(data.content);
+
+        // compile region
+        horizon.utils.loadAngular($("#" + data.region));
+
+      } else {
+        $('#' + data.id).replaceWith(data.content);
+      }
   }
+
+/*  $("a").on("click", function(e) {
+     e.preventDefault();
+
+     var href = $(this).attr('href');
+     console.log(href);
+
+     w_socket.send(JSON.stringify({
+        'path': href
+      }));
+      return false;
+
+     });
+*/
+
+  // propagate this info to JS
+  horizon.conf.is_websocket_enabled = true;
+
   {% endif %}
 
 });
@@ -365,3 +418,25 @@ $(function() {
 {% for file in LEONARDO_CONFIG.js_external_files %}
     <script src='{{ file }}'></script>
 {% endfor %}
+
+{% compress js %}
+{% comment %}App specific{% endcomment %}
+<script src='{{ STATIC_URL }}app/core/core.module.js'></script>
+<script src='{{ STATIC_URL }}app/app.module.js'></script>
+{% endcompress %}
+
+{% if request.user.is_staff %}
+  {% include "leonardo/common/_frontend_edit_sidebar.html" %}
+{% endif %}
+
+<script type="text/javascript">
+// Call init on DOM ready.
+$(document).ready(horizon.init);
+</script>
+
+<script type="text/javascript">
+// Closes the Responsive Menu on Menu Item Click
+$('.navbar-collapse ul li a').click(function() {
+    $('.navbar-toggle:visible').click();
+});
+</script>

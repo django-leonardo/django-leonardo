@@ -2,20 +2,23 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+import sys
 
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.utils import six
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
-from leonardo import messages
+from leonardo import leonardo, messages
+from leonardo.utils import render_region
 from leonardo.views import (ContextMixin, CreateView, ModalFormView,
                             ModelFormMixin, UpdateView)
 
 from ..models import Page
-from .forms import (WidgetDeleteForm, WidgetSelectForm, WidgetUpdateForm,
-                    form_repository)
+from .forms import (WidgetDeleteForm, WidgetMoveForm, WidgetSelectForm,
+                    WidgetUpdateForm, form_repository)
 from .tables import WidgetDimensionTable
 from .utils import get_widget_from_id
 
@@ -29,36 +32,43 @@ class WidgetViewMixin(object):
         from ..models import WidgetDimension
         formset = WidgetDimensionFormset(
             self.request.POST, prefix='dimensions')
-        for form in formset.forms:
-            if form.is_valid():
-                if 'id' in form.cleaned_data:
-                    form.save()
-            else:
-                # little ugly
-                data = form.cleaned_data
-                data['widget_type'] = \
-                    ContentType.objects.get_for_model(obj)
-                data['widget_id'] = obj.id
-                data.pop('DELETE', None)
-                wd = WidgetDimension(**data)
-                wd.save()
-        # optionaly delete dimensions
+
         if formset.is_valid():
-            formset.save(commit=False)
+            formset.save()
+        else:
+            for form in formset.forms:
+                if form.is_valid():
+                    if 'id' in form.cleaned_data:
+                        form.save()
+                else:
+                    # little ugly
+                    data = form.cleaned_data
+                    data['widget_type'] = \
+                        ContentType.objects.get_for_model(obj)
+                    data['widget_id'] = obj.id
+                    data.pop('DELETE', None)
+                    wd = WidgetDimension(**data)
+                    # do not update widget view
+                    wd.update_view = False
+                    wd.save()
+
+        if formset.is_valid():
             # delete objects
             for obj in formset.deleted_objects:
-                obj.delete()
+                if obj.id != None:
+                    obj.delete()
         return True
 
     def get_page(self):
         if not hasattr(self, '_page'):
-            self._page = Page.objects.get(id=self.kwargs['page_id'])
+            self._page = self.model.objects.get(id=self.kwargs['page_id'])
         return self._page
 
     def get_form_kwargs(self):
         kwargs = super(WidgetViewMixin, self).get_form_kwargs()
         kwargs.update({
             'request': self.request,
+            'model': self.model
         })
         return kwargs
 
@@ -75,6 +85,21 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(WidgetUpdateView, self).get_context_data(**kwargs)
         context['modal_classes'] = self.get_classes()
+        context['url'] = reverse('widget_update', kwargs=self.kwargs)
+        context['actions'] = [{
+            'url': reverse_lazy('page_update', args=(self.object.parent.id,)),
+            'icon': 'fa fa-pencil',
+            'classes': 'ajax-modal',
+            'description': _('Edit parent page')
+        },
+            {
+            'url': reverse_lazy('widget_delete', args=(
+                self.kwargs['cls_name'],
+                self.kwargs['id'],)),
+            'icon': 'fa fa-trash',
+            'classes': 'ajax-modal',
+            'description': _('Delete widget')
+        }]
         return context
 
     def get_form_class(self):
@@ -102,6 +127,7 @@ class WidgetUpdateView(WidgetViewMixin, UpdateView):
         request.method = 'GET'
         return JsonResponse(data={
             'id': obj.fe_identifier,
+            'parent_slug': obj.parent.slug,
             'content': self.model.objects.get(
                 id=self.kwargs["id"]).render_content({'request': request})
         })
@@ -126,25 +152,36 @@ class WidgetCreateView(WidgetViewMixin, CreateView):
 
     def form_valid(self, form):
         try:
+
             obj = form.save(commit=False)
+
             obj.save(created=False)
             self.handle_dimensions(obj)
-            obj.parent.save()
+
             success_url = self.get_success_url()
             response = HttpResponseRedirect(success_url)
             response['X-Horizon-Location'] = success_url
-        except Exception as e:
-            raise e
+        except Exception:
+            exc_info = sys.exc_info()
+            raise six.reraise(*exc_info)
 
         if not self.request.is_ajax():
             return response
 
-        return JsonResponse(data={
+        data = {
             'id': obj.fe_identifier,
-            'content': obj.render_content({'request': self.request}),
-            'region': obj.region,
             'ordering': obj.ordering
-        })
+        }
+
+        # this is not necessary if websocket is installed
+        if not leonardo.config.get_attr("is_websocket_enabled", None):
+            data['region_content'] = render_region(
+                obj, request=self.request, view=self)
+            data['region'] = '%s-%s' % (
+                obj.region,
+                obj.parent.id)
+
+        return JsonResponse(data=data)
 
     def get_initial(self):
         return self.kwargs
@@ -248,18 +285,14 @@ class WidgetDeleteView(SuccessUrlMixin, ModalFormView,
         return context
 
     def form_valid(self, form):
+
         obj = self.object
         fe_identifier = obj.fe_identifier
-        try:
-            parent = obj.parent
-            obj.delete()
-            # invalide page cache
-            parent.invalidate_cache()
-            success_url = self.get_success_url()
-            response = HttpResponseRedirect(success_url)
-            response['X-Horizon-Location'] = success_url
-        except Exception as e:
-            raise e
+
+        obj.delete()
+        success_url = self.get_success_url()
+        response = HttpResponseRedirect(success_url)
+        response['X-Horizon-Location'] = success_url
 
         if not self.request.is_ajax():
             return response
@@ -336,24 +369,38 @@ class WidgetReorderView(WidgetActionMixin, ModalFormView, ModelFormMixin):
                 _widget.save()
 
         elif int(ordering) == -1:
-            next_ordering = widget.ordering - 1
+
             widgets = getattr(widget.parent.content, widget.region)
-            for w in widgets:
-                if w.ordering == next_ordering:
-                    w.ordering = widget.ordering
+            widgets.sort(key=lambda w: w.ordering)
+
+            for i, w in enumerate(widgets):
+                if w.id == widget.id:
+                    w.ordering = i - 1
                     w.save()
-                    widget.ordering = next_ordering
-                    widget.save()
+                    try:
+                        next_widget = widgets[i - 1]
+                    except IndexError:
+                        pass
+                    else:
+                        next_widget.ordering += 1
+                        next_widget.save()
+
         elif int(ordering) == 1:
 
-            next_ordering = widget.ordering + 1
             widgets = getattr(widget.parent.content, widget.region)
-            for w in widgets:
-                if w.ordering == next_ordering:
-                    w.ordering = widget.ordering
+            widgets.sort(key=lambda w: w.ordering)
+
+            for i, w in enumerate(widgets):
+                if w.id == widget.id:
+                    w.ordering = i + 1
                     w.save()
-                    widget.ordering = next_ordering
-                    widget.save()
+                    try:
+                        next_widget = widgets[i + 1]
+                    except IndexError:
+                        pass
+                    else:
+                        next_widget.ordering -= 1
+                        next_widget.save()
 
         else:
             widget.ordering = widget.next_ordering
@@ -365,6 +412,8 @@ class WidgetReorderView(WidgetActionMixin, ModalFormView, ModelFormMixin):
             for i, _widget in enumerate(widgets):
                 _widget.ordering = i
                 _widget.save()
+
+        widget.parent.invalidate_cache()
 
         messages.success(self.request, _('Widget was successfully moved.'))
 
@@ -418,3 +467,43 @@ class JSReverseView(WidgetReorderView):
 
         return JsonResponse({'url': reverse(
             view_name, args=args, kwargs=self.clean_kwargs(kwargs))})
+
+
+class WidgetMoveView(WidgetUpdateView):
+
+    '''Move action'''
+
+    form_class = WidgetMoveForm
+
+    def get_form_class(self):
+        if not hasattr(self, '_form_class'):
+            kw = self.kwargs
+            kw['form_cls'] = self.form_class
+            kw['widgets'] = self.form_class.Meta.widgets
+            self._form_class = form_repository.get_generic_form(**self.kwargs)
+        return self._form_class
+
+    def get_form(self, form_class):
+        """Returns an instance of the form to be used in this view."""
+        if not hasattr(self, '_form'):
+            kwargs = self.get_form_kwargs()
+            self._form = form_class(instance=self.object, **kwargs)
+        return self._form
+
+    def form_valid(self, form):
+
+        obj = self.object
+        obj.parent = form.cleaned_data['parent']
+        obj.region = form.cleaned_data['region']
+        obj.save()
+        obj.parent.save()
+
+        if not self.request.is_ajax():
+            success_url = obj.parent.get_absolute_url()
+            response = HttpResponseRedirect(success_url)
+            response['X-Horizon-Location'] = success_url
+
+        return JsonResponse(data={
+            'needs_reload': True,
+            #            'target': obj.parent.get_absolute_url(),
+        })

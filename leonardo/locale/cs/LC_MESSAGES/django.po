@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 20:03+0200\n"
+"POT-Creation-Date: 2016-09-26 10:26+0200\n"
 "PO-Revision-Date: 2015-09-03 14:48+0000\n"
 "Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr "Prosím přihlašte se pro pokračování."
 
 #: decorators.py:49
 msgid "You haven't permissions to do this action."
-msgstr ""
+msgstr "Nemáte oprávnění pro provedení této akce"
 
 #: exceptions.py:90
 #, python-format
@@ -41,9 +41,17 @@ msgstr "Neoprávněné:% s"
 msgid "Unauthorized. Please try logging in again."
 msgstr "Neoprávněné. Prosím, zkuste to znovu přihlásit."
 
+#: forms/fields/__init__.py:35
+msgid "Language"
+msgstr ""
+
 #: forms/fields/multiple.py:17
 #, python-format
 msgid "You must select a maximum of  %(limit_value)d choices."
+msgstr ""
+
+#: forms/fields/sites.py:11
+msgid "Site"
 msgstr ""
 
 #: module/dashboard.py:9
@@ -54,41 +62,79 @@ msgstr "Auth"
 msgid "Modules"
 msgstr "Moduly"
 
-#: templates/403.html:11
+#: templates/403.html:8
+msgid "Permission Denied"
+msgstr ""
+
+#: templates/403.html:10
 msgid "You do not have permission for this page."
 msgstr ""
 
-#: templates/404.html:10
+#: templates/404.html:11
 msgid "The URL is incorrect"
 msgstr ""
 
-#: templates/404.html:11
+#: templates/404.html:12
 msgid "The page or file has been moved or is no longer available"
 msgstr ""
 
-#: templates/404.html:16 templates/404_technical.html:36
+#: templates/404.html:17 templates/404_technical.html:36
 msgid "Create Page with the "
-msgstr ""
+msgstr "Vytvořit stránku s"
 
-#: templates/404.html:16 templates/404_technical.html:36
+#: templates/404.html:17 templates/404_technical.html:36
 msgid "slug"
+msgstr "slug"
+
+#: templates/500.html:8
+msgid "Internal Server Error"
 msgstr ""
 
 #: templates/admin/leonardo/widget_inline.html:8
 msgid "Change"
-msgstr ""
+msgstr "Změnit"
 
 #: templates/admin/leonardo/widget_inline.html:10
 msgid "View on site"
-msgstr ""
+msgstr "Zobrazit na webu"
 
 #: templates/admin/leonardo/widget_inline.html:27
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 #: templates/admin/leonardo/widget_inline.html:28
 #, python-format
 msgid "Add another %(verbose_name)s"
+msgstr "Přidat další %(verbose_name)s"
+
+#: templates/admin_doc/_documentation.html:4
+msgid "Leonardo CMS"
+msgstr "Leonardo CMS"
+
+#: templates/admin_doc/_documentation.html:5
+msgid "Hacking Leonardo"
+msgstr ""
+
+#: templates/admin_doc/_documentation.html:6
+#, fuzzy
+#| msgid "Install Packages"
+msgid "Packages"
+msgstr "Instalace balíčků"
+
+#: templates/admin_doc/_documentation.html:7
+msgid "Report Bug or Request Feature"
+msgstr "Nahlásit chybu nebo požádát o novou funkcionalitu"
+
+#: templates/admin_doc/_documentation.html:8
+msgid "Contribute"
+msgstr "Přispět"
+
+#: templates/admin_doc/_documentation.html:9
+msgid "Github"
+msgstr ""
+
+#: templates/admin_doc/_documentation.html:10
+msgid "Modules on Github"
 msgstr ""
 
 #: templates/admin_doc/index.html:6
@@ -97,94 +143,66 @@ msgstr "Domů"
 
 #: templates/admin_doc/index.html:7 templates/admin_doc/index.html.py:10
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentace"
 
 #: templates/admin_doc/index.html:14
 msgid "Links"
-msgstr ""
-
-#: templates/admin_doc/index.html:16
-#, fuzzy
-#| msgid "Leonardo Info"
-msgid "Leonardo CMS"
-msgstr "Leonardo Info"
-
-#: templates/admin_doc/index.html:17
-msgid "Hacking Leonardo"
-msgstr ""
+msgstr "Odkazy"
 
 #: templates/admin_doc/index.html:18
-#, fuzzy
-#| msgid "Install Packages"
-msgid "Packages"
-msgstr "Instalace balíčků"
-
-#: templates/admin_doc/index.html:19
-msgid "Report Bug or Request Feature"
-msgstr ""
-
-#: templates/admin_doc/index.html:20
-msgid "Contribute"
-msgstr ""
-
-#: templates/admin_doc/index.html:21
-msgid "Github"
-msgstr ""
-
-#: templates/admin_doc/index.html:22
-msgid "Modules on Github"
-msgstr ""
-
-#: templates/admin_doc/index.html:25
 msgid "Application Documentation"
 msgstr ""
 
-#: templates/admin_doc/index.html:28
+#: templates/admin_doc/index.html:21
 msgid "Tags"
 msgstr ""
 
-#: templates/admin_doc/index.html:29
+#: templates/admin_doc/index.html:22
 msgid "List of all the template tags and their functions."
 msgstr ""
 
-#: templates/admin_doc/index.html:31
+#: templates/admin_doc/index.html:24
 msgid "Filters"
 msgstr ""
 
-#: templates/admin_doc/index.html:32
+#: templates/admin_doc/index.html:25
 msgid ""
 "Filters are actions which can be applied to variables in a template to alter "
 "the output."
 msgstr ""
 
-#: templates/admin_doc/index.html:34
+#: templates/admin_doc/index.html:27
 msgid "Models"
 msgstr ""
 
-#: templates/admin_doc/index.html:35
+#: templates/admin_doc/index.html:28
 msgid ""
 "Models are descriptions of all the objects in the system and their "
 "associated fields. Each model has a list of fields which can be accessed as "
 "template variables"
 msgstr ""
 
-#: templates/admin_doc/index.html:37
+#: templates/admin_doc/index.html:30
 msgid "Views"
 msgstr ""
 
-#: templates/admin_doc/index.html:38
+#: templates/admin_doc/index.html:31
 msgid ""
 "Each page on the public site is generated by a view. The view defines which "
 "template is used to generate the page and which objects are available to "
 "that template."
 msgstr ""
 
-#: templates/admin_doc/index.html:40
+#: templates/admin_doc/index.html:33
 msgid "Bookmarklets"
 msgstr ""
 
-#: templates/admin_doc/index.html:41
+#: templates/admin_doc/index.html:34
 msgid "Tools for your browser to quickly access admin functionality."
+msgstr ""
+
+#: templates/base.html:13
+msgid "This application requires JavaScript to be enabled in your web browser."
 msgstr ""
 
 #: templates/horizon/common/_data_table.html:63
@@ -211,20 +229,45 @@ msgstr ""
 msgid "%(name)s: %(error)s"
 msgstr ""
 
+#: templates/horizon/common/_workflow.html:50
+msgid "Back"
+msgstr "Zpět"
+
+#: templates/horizon/common/_workflow.html:54
+msgid "Next"
+msgstr "Další"
+
+#: templates/horizon/common/_workflow.html:59
+#: templates/leonardo/common/_modal.html:20
+#: templates/leonardo/common/_modal.html:24
+#: templates/leonardo/common/_modal_form.html:54
+#: templates/leonardo/common/_modal_form.html:58
+msgid "Cancel"
+msgstr "Zrušit"
+
 #: templates/leonardo/common/_feincms_object_tools.html:6
 msgid "Add Entry"
 msgstr "Přidat záznam"
 
-#: templates/leonardo/common/_modal.html:19
-msgid "Cancel"
-msgstr "Zrušit"
+#: templates/leonardo/common/_modal.html:27
+#: templates/leonardo/common/_modal_form.html:61
+msgid "Save"
+msgstr "Uložit"
 
-#: templates/leonardo/common/_region_tools.html:6
-msgid "Add Widget"
-msgstr "Přidat widget"
+#: templates/leonardo/common/_modal_form.html:11
+msgid "Quick Actions"
+msgstr ""
 
-#~ msgid "Save"
-#~ msgstr "Uložit"
+#: templates/leonardo/common/_region_tools.html:7
+#, python-format
+msgid "Add Widget to %(region_name)s on page %(feincms_object)s"
+msgstr "Přidat widget do %(region_name)s na stránce %(feincms_object)s"
+
+#~ msgid "Leonardo Info"
+#~ msgstr "Leonardo Info"
+
+#~ msgid "Add Widget"
+#~ msgstr "Přidat widget"
 
 #~ msgid "Close"
 #~ msgstr "Zavřít"
@@ -408,9 +451,6 @@ msgstr "Přidat widget"
 
 #~ msgid "Previous"
 #~ msgstr "Předchozí"
-
-#~ msgid "Next"
-#~ msgstr "Příští"
 
 #~ msgid "Server was successfuly restarted !"
 #~ msgstr "Server byl úspěšně restartován!"

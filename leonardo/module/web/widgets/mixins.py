@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 import json
-
+import datetime
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -56,9 +56,6 @@ class ListMixin(object):
     note: this mixin could be used without model but is limited to default
     pagination
     """
-
-    # template for single object
-    item_template = "_item.html"
 
     objects_per_page = 25
     objects_per_row = 3
@@ -113,6 +110,13 @@ class ListMixin(object):
         return md, (sm or md), 12
 
     @cached_property
+    def item_classes(self):
+        '''Return all classes for every item in row
+        This is specific for concrete frontend framework
+        '''
+        return 'col-md-{} col-xs-{} col-sm-{}'.format(self.columns_classes)
+
+    @cached_property
     def get_pages(self):
         '''returns pages with rows'''
         pages = []
@@ -142,8 +146,23 @@ class ListMixin(object):
 
     @cached_property
     def get_item_template(self):
-        '''returns template for one item from queryset'''
-        return "widget/%s/%s" % (self.widget_name, self.item_template)
+        '''returns template for signle object from queryset
+        If you have a template name my_list_template.html
+        then template for a single object will be
+        _my_list_template.html
+
+        Now only for default generates _item.html
+        _item.html is obsolete use _default.html
+        '''
+        content_template = self.content_theme.name
+
+        # _item.html is obsolete use _default.html
+        # TODO: remove this condition after all _item.html will be converted
+        if content_template == "default":
+            return "widget/%s/_item.html" % self.widget_name
+
+        # TODO: support more template suffixes
+        return "widget/%s/_%s.html" % (self.widget_name, content_template)
 
     def __init__(self, *args, **kwargs):
         super(ListMixin, self).__init__(*args, **kwargs)
@@ -225,6 +244,9 @@ class ContentProxyWidgetMixin(models.Model):
         """
         raise NotImplementedError
 
+    def get_items(self):
+        return self.data
+
     @property
     def data(self):
         """this property just calls ``get_data``
@@ -245,15 +267,35 @@ class JSONContentMixin(object):
     """just expect json data from ``get_data`` method
     """
 
+    def parse_time(self, time):
+        return datetime.date(*time[:3]).isoformat()
+
     @property
     def data(self):
         """load and cache data in json format
         """
 
         if self.is_obsolete():
-            self.cache_data = json.dumps(self.get_data())
-            self.update_cache()
-        return json.loads(self.cache_data)
+            data = self.get_data()
+            for datum in data:
+                if 'published_parsed' in datum:
+                    datum['published_parsed'] = \
+                        self.parse_time(datum['published_parsed'])
+
+            try:
+                dumped_data = json.dumps(data)
+            except:
+                self.update_cache(data)
+            else:
+                self.update_cache(dumped_data)
+                return data
+
+        try:
+            return json.loads(self.cache_data)
+        except:
+            return self.cache_data
+
+        return self.get_data()
 
 
 class AuthContentProxyWidgetMixin(models.Model):

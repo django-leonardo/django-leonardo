@@ -13,6 +13,7 @@
 
 {% fragment request "sidebar" %}{% block sidebar %}{% endblock %}{% endfragment %}
 {% block content %}
-{% include "base/messages.html" %}
+<div class="{{ widget.prerendered_content }}">    
 {{ content|safe }}
+</div>
 {% endblock %}

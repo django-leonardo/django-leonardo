@@ -21,7 +21,7 @@
     </li>
     {% else %}
     <li class="dropdown {% if page|is_equal_or_parent_of:current %}active{% endif %}">
-      <a class="dropdown-toggle" href="{{ page.get_navigation_url }}">{{ page.title }} <span class="caret"></span></a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="{{ page.get_navigation_url }}">{{ page.title }} <span class="caret"></span></a>
       <ul class="dropdown-menu">
       {% for subpage in sublevel %}
         <li class="{% if subpage|is_equal_or_parent_of:current %}active{% endif %}">

@@ -52,3 +52,18 @@ web.Page:
             base_theme: default
           dimensions:
             md: 4
+  Blog:
+    title: Blog
+    slug: blog
+    featured: false
+    theme: bootstrap
+    in_navigation: true
+    active: true
+    color_scheme: Default
+    parent: quickstart
+    content:
+      col3:
+        web.ApplicationWidget:
+          attrs:
+            urlconf_path: 'elephantblog.urls' 
+

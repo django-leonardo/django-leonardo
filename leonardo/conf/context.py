@@ -18,3 +18,12 @@ def offline_context():
                     }
                 }
             }
+
+    # compress without any page
+    yield {
+        'STATIC_URL': settings.STATIC_URL,
+        'LEONARDO_CONFIG': settings.HORIZON_CONFIG,
+        'HORIZON_CONFIG': settings.HORIZON_CONFIG,
+        'WEBROOT': '/',
+        'leonardo_page': None
+    }

@@ -2,28 +2,102 @@
 
 {% load i18n %}
 {% load thumbnail %}
-{% load leonardo_tags %}
+{% load leonardo_tags filermedia %}
 {% block content %}
 {% if object != None %}
+<style type="text/css">
+.grid figure {
+  height: 155px;
+  margin-top: 30px;
+}
+.grid figure h2 span {
+  font-weight: normal;
+  font-size: 16px;
+  word-spacing: 0;
+  color: #cecece;
+  text-transform: initial;
+}
 
-<div class="media-gallery">
+figure.effect-lily figcaption > div {
+  transform: rotate(-35deg);
+  height: 100%;
+}
+
+.grid figure h2 span:first-letter {
+  text-transform: uppercase;
+}
+.first-letter-upper:first-letter {
+  text-transform: uppercase;
+}
+
+.thumbnail > img {
+  max-height: 130px;
+  background: #3A6F9A;
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+.valignContainer .centered {
+  width: 100%;
+}
+
+.valignContainer {
+  height: 150px;
+}
+
+.thumb_directory {
+  height: 232px;
+}
+
+figure.effect-lily h2 {
+  margin-left: -15px;
+  margin-top: -10px;
+}
+
+</style>
+
+<h2 class="section-heading">{{ object.name }}</h2>
+<div class="media-gallery object-grid ui-helper-clearfix grid">
 <div class="row">
-  {% for object in object.files %}
-  <div class="valignContainer text-center col-lg-3 col-md-4 col-xs-6 {% if forloop.counter0|divisibleby:"4" %}no-margin{% endif %}">
-    {% thumbnail object.file.file "200x840" format="PNG" as thumb %}
-    <div class="object-cell-content centered">
-    <a class="thumbnail" data-title="{{ object.default_caption|default:'' }}" data-footer="{{ object.description|default:'' }}" data-toggle="lightbox" href="{{ object.file.url }}" rel="{{ widget.fe_identifier }}" data-gallery="multiimages">
-      <img class="img-responsive" src="{{ thumb.url }}" />
+  {% for object in object.files|files_order_by %}
+  <div class="col-lg-3 col-md-4 col-xs-6 thumb_directory {% if forloop.counter > 12 %}wow fadeInUp{% endif %}">
+    <a href="{{ object.url }}" data-title="{{ object|image_name:'default_caption' }}" data-footer="{{ object.translation.description|default:'' }}" data-toggle="lightbox" rel="{{ widget.fe_identifier }}" data-gallery="multiimages">
+      <figure class="effect-lily">
+        {% thumbnail object.file "200x140" format="PNG" crop="center" as thumb %}
+        <img src="{{ thumb.url }}" /><br />
+        {% endthumbnail %}
+        <figcaption>
+          {% if config.MEDIA_LIST_SHOW_TITLES %}
+          <p class="object-image-neste-template first-letter-upper">{{ object|image_name|truncatechars:"40" }}</p>
+          {% endif %}
+        </figcaption>
+      </figure>
+        {% if config.MEDIA_LIST_SHOW_TITLES %}
+        <p class="object-image-neste-template first-letter-upper">{{ object|image_name|truncatechars:"40" }}</p>
+        {% endif %}
     </a>
-    </div>
-    {% endthumbnail %}
+  </div>
+  {% endfor %}
+  {% for object in folders %}
+  <div class="col-lg-3 col-md-4 col-xs-6 thumb_directory {% if forloop.counter > 12 %}wow fadeInUp{% endif %}">
+    <a href="{{ object.get_absolute_url }}">
+      <figure class="effect-lily">
+        {% thumbnail object.get_featured_image.file "200x140" format="PNG" crop="center" as thumb %}
+        <img src="{{ thumb.url }}" /><br />
+        {% endthumbnail %}
+        <figcaption>
+          <p class="object-image-neste-template first-letter-upper">{{ object|image_name|truncatechars:"40" }}</p>
+        </figcaption>
+      </figure>
+     <p class="object-image-neste-template first-letter-upper">{{ object|image_name|truncatechars:"40" }}</p>
+    </a>
   </div>
   {% endfor %}
 </div>
 </div>
 
 <div class="media-back-button">
-  <a class="btn btn-primary" href="../">{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.webcms_page }}{% endif %}</a>
+  <a class="btn btn-primary" href="../" onclick="window.history.back()">{% trans "Back to" %} {% if object.parent %}{{ object.parent }}{% else %}{{ request.webcms_page }}{% endif %}</a>
 </div>
 
 {% else %}
@@ -35,12 +109,24 @@
           {% thumbnail object.get_featured_image.file "200x140" format="PNG" crop="center" as thumb %}
           <img src="{{ thumb.url }}" /><br />
           {% endthumbnail %}
-          <h3>{{ object }}</h3>
+          <h3>{{ object|image_name }}</h3>
         </a>
       </div>
   </div>
   {% endfor %}
 </div>
+<div class="col-xs-12">
+  <ul class="pagination">
+    {% if object_list.has_previous %}
+      <li><a href="?page={{ object_list.previous_page_number }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+    {% endif %}
+    {% for object in object_list.paginator.page_range %}
+      <li class="{% if object_list.number == forloop.counter %}active{% endif %}"><a href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+    {% endfor %}
+    {% if object_list.has_next %}
+      <li><a href="?page={{ object_list.next_page_number }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+    {% endif %}
+  </ul>
+</div>
 {% endif %}
-
 {% endblock %}

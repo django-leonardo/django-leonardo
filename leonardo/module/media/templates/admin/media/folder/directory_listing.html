@@ -165,10 +165,10 @@
                     {% endif %}
                     <div class="navigator-button-wrapper">
                         {% if folder.can_have_subfolders and can_make_folder %}
-                            <a href="{% url 'admin:filer-directory_listing-make_root_folder' %}?parent_id={{ folder.id }}"
+                            <a href="{% url 'admin:filer-directory_listing-make_root_folder' %}?parent_id={{ folder.id }}{% if is_popup %}&amp;_popup=1{% endif %}"
                                 title="{% trans 'Adds a new Folder' %}"
                                 class="navigator-button"
-                                onclick="return showAddAnotherPopup(this);">
+                                onclick="return showRelatedObjectPopupOld(this);">
                             {% trans "New Folder" %}
                             </a>
                         {% endif %}
@@ -177,6 +177,11 @@
                                 {% trans "Upload Files" %}
                             </a>
                         {% endif %}
+                        <a href="{% url 'admin:media-scan-folder' %}{% if folder %}?folder_id={{ folder.id }}{% endif %}"
+                            title="{% trans 'Scan folders for advanced users !' %}"
+                            class="button">
+                        {% trans "Scan Folders" %}
+                        </a>
                     </div>
 
                     <div class="actions">

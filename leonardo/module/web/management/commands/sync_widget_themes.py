@@ -1,15 +1,16 @@
 
-from django.utils import six
-from django.conf import settings
+import logging
 import os
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
-from leonardo.module.web.models import Widget, WidgetContentTheme, WidgetBaseTheme
-
-from ._utils import get_or_create_template
+from leonardo.module.web.models import (WidgetBaseTheme,
+                                        WidgetContentTheme)
 from leonardo.utils.widgets import get_all_widget_classes
 
+from ._utils import get_or_create_template
+
+LOG = logging.getLogger(__name__)
 
 "widget.verbose_name - template.name"
 THEME_NAME_FORMAT = "{0} {1}"
@@ -56,13 +57,15 @@ class Command(NoArgsCommand):
                         widget_theme = WidgetBaseTheme.objects.get(
                             name__exact=name)
                     except WidgetBaseTheme.DoesNotExist:
-                        widget_theme = WidgetBaseTheme()
-                        widget_theme.name = name
-                        widget_theme.label = name.split(".")[0].title()
-                        widget_theme.template = w_base_template
-                        widget_theme.save()
-                        created_themes.append(widget_theme)
-
+                        if w_base_template:
+                            widget_theme = WidgetBaseTheme()
+                            widget_theme.name = name
+                            widget_theme.label = name.split(".")[0].title()
+                            widget_theme.template = w_base_template
+                            widget_theme.save()
+                            created_themes.append(widget_theme)
+                        else:
+                            LOG.error("Could not found %s" % f)
         # load widget templates and create widget themes with default base
         for w in get_all_widget_classes():
             templates = w.templates()
@@ -96,5 +99,8 @@ class Command(NoArgsCommand):
             self.stdout.write(synced_themes)
 
         if len(created_themes) > 0:
-            self.stdout.write('Successfully created %s new widget themes' % len(created_themes))
-        self.stdout.write('Successfully synced %s widget themes' % len(synced_themes))
+            self.stdout.write(
+                'Successfully created %s new widget themes' % len(
+                    created_themes))
+        self.stdout.write(
+            'Successfully synced %s widget themes' % len(synced_themes))

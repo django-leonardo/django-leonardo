@@ -2,16 +2,22 @@
 from __future__ import absolute_import, unicode_literals
 
 import logging
+import re
+
 from django import template
 from django.conf import settings
+from django.core.cache import caches
 from django.core.urlresolvers import NoReverseMatch
 from django.template import TemplateSyntaxError
 from django.template.defaulttags import kwarg_re
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
-from django.core.cache import caches
-from feincms.templatetags.fragment_tags import (fragment, get_fragment,
-                                                has_fragment)
+from feincms.templatetags.fragment_tags import (
+    fragment,
+    get_fragment,
+    has_fragment
+)
+from leonardo.module.web.const import get_page_region
 from leonardo.module.web.widget.application.reverse import \
     app_reverse as do_app_reverse
 from leonardo.module.web.widget.application.reverse import reverse_lazy
@@ -21,6 +27,8 @@ register = template.Library()
 register.tag(fragment)
 register.tag(get_fragment)
 register.filter(has_fragment)
+
+IMAGE_NAME = re.compile(r'.*\.')
 
 
 @register.simple_tag
@@ -45,8 +53,41 @@ def head_title(request):
     if '_head_title' in fragments and fragments.get("_head_title"):
         return fragments.get("_head_title")
     else:
+        # append site name
+        site_name = getattr(settings, 'LEONARDO_SITE_NAME', '')
+
+        if site_name != '':
+            return getattr(request.leonardo_page,
+                           "page_title", request.leonardo_page.title) \
+                + ' | ' + site_name
+
         return getattr(request.leonardo_page,
                        "page_title", request.leonardo_page.title)
+
+
+@register.simple_tag
+def meta_description(request):
+    """
+    {% meta_description request %}
+    """
+    try:
+        fragments = request._feincms_fragments
+    except:
+        fragments = {}
+
+    if '_meta_description' in fragments and fragments.get("_meta_description"):
+        return fragments.get("_meta_description")
+    else:
+        # append desc
+        site_desc = getattr(settings, 'META_DESCRIPTION', '')
+
+        if site_desc != '':
+            return getattr(request.leonardo_page,
+                           "meta_description", request.leonardo_page.meta_description) \
+                + ' - ' + site_desc
+
+        return getattr(request.leonardo_page,
+                       "meta_description", request.leonardo_page.meta_description)
 
 
 @register.inclusion_tag('leonardo/common/_region_tools.html',
@@ -74,6 +115,7 @@ def render_region_tools(context, feincms_object, region, request=None):
         'edit': edit,
         'feincms_object': feincms_object,
         'region': region,
+        'region_name': get_page_region(region),
         'widget_add_url': reverse_lazy(
             'widget_create',
             args=[feincms_object.id,
@@ -117,7 +159,8 @@ def _render_content(content, **kwargs):
 
 
 @register.simple_tag(takes_context=True)
-def feincms_render_region(context, feincms_object, region, request=None):
+def feincms_render_region(context, feincms_object, region, request=None,
+                          classes='', wrapper=True):
     """
     {% feincms_render_region feincms_page "main" request %}
 
@@ -128,10 +171,30 @@ def feincms_render_region(context, feincms_object, region, request=None):
         return ''
 
     if not context.get('standalone', False) or region in STANDALONE_REGIONS:
-        return ''.join(
+        region_content = ''.join(
             _render_content(content, request=request, context=context)
             for content in getattr(feincms_object.content, region))
-    return ''
+    else:
+        region_content = ''
+
+    if not wrapper:
+        return region_content
+
+    _classes = "leonardo-region leonardo-region-%(region)s %(classes)s" % {
+        'region': region,
+        'classes': classes
+    }
+
+    _id = "%(region)s-%(id)s" % {
+        'id': feincms_object.id,
+        'region': region,
+    }
+
+    return '<div class="%(classes)s" id=%(id)s>%(content)s</div>' % {
+        'id': _id,
+        'classes': _classes,
+        'content': region_content
+    }
 
 
 class AppReverseNode(template.Node):
@@ -218,11 +281,6 @@ def app_reverse(parser, token):
     return AppReverseNode(viewname, urlconf, args, kwargs, asvar)
 
 
-@register.tag
-def url(parser, token):
-    return app_reverse(parser, token)
-
-
 @register.inclusion_tag('leonardo/common/_feincms_object_tools.html',
                         takes_context=True)
 def feincms_object_tools(context, cls_name):
@@ -248,3 +306,40 @@ def feincms_object_tools(context, cls_name):
             'horizon:contrib:forms:create',
             args=[cls_name])
     }
+
+
+@register.inclusion_tag('leonardo/common/_webfont_loader.html',
+                        takes_context=True)
+def font_loader(context, font):
+    """
+    {% font_loader "Raleway:300,400,500,600,700,800|Ubuntu:300,400,500,700" %}
+    """
+
+    return {'font': font}
+
+
+@register.filter
+def image_name(image, key='name', clear=True):
+    """
+    {{ image|image_name }}
+    {{ image|image_name:"description" }}
+    {{ image|image_name:"default_caption" }}
+    {{ image|image_name:"default_caption" False }}
+
+    Return translation or image name
+    """
+    if hasattr(image, 'translation') and image.translation:
+        return getattr(image.translation, key)
+
+    if hasattr(image, key) and getattr(image, key):
+        return getattr(image, key)
+
+    try:
+        name = IMAGE_NAME.match(image.original_filename).group()
+    except IndexError:
+        return ''
+    else:
+        name = name[:-1]
+        if clear:
+            return name.replace("_", " ").replace("-", " ")
+        return name

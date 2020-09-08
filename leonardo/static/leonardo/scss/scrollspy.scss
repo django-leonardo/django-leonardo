@@ -1,0 +1,40 @@
+.points-nav {
+	color: $gray-lighter;
+	font-size: 15px;
+	position: fixed;
+	overflow: hidden;
+	text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+	z-index: 500;
+	background: transparent;
+	line-height: 40px;
+	right: 30px;
+	border-radius: 4px;
+	ul li {
+		transition: all 0.5s ease;
+		line-height: 30px;
+	}
+	.nav-pills > li {
+    	a::before {
+    		font-family: fontawesome;
+    		content: '\f10c';
+    	}
+		&.active > a {
+			background-color: transparent;
+    		color: $brand-primary;
+    		transition: all 0.4s ease;
+    	}
+    	&.active > a::before {
+    		font-family: fontawesome;
+    		content: '\f111';
+    	}
+    	a:hover, a:focus {
+    		background-color: transparent;
+    		color: $brand-primary;
+    	}
+    	a:active {
+    		color: $gray-lighter;
+    	}
+	}
+}

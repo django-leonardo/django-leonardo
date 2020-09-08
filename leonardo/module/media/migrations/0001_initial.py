@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
             name='DocumentTranslation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('language_code', models.CharField(default=b'en', max_length=10, verbose_name='language', choices=[(b'en', b'EN'), (b'cs', b'CS')])),
+                ('language_code', models.CharField(default=settings.LANGUAGES[0][0], max_length=10, verbose_name='language', choices=settings.LANGUAGES)),
             ],
             options={
                 'verbose_name': 'document translation',
@@ -141,7 +141,7 @@ class Migration(migrations.Migration):
             name='FolderTranslation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('language_code', models.CharField(default=b'en', max_length=10, verbose_name='language', choices=[(b'en', b'EN'), (b'cs', b'CS')])),
+                ('language_code', models.CharField(default=settings.LANGUAGES[0][0], max_length=10, verbose_name='language', choices=settings.LANGUAGES)),
                 ('name', models.CharField(default=b'', max_length=255, verbose_name='name', blank=True)),
                 ('parent', models.ForeignKey(related_name='translations', to='media.Folder')),
             ],
@@ -175,7 +175,7 @@ class Migration(migrations.Migration):
             name='ImageTranslation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('language_code', models.CharField(default=b'en', max_length=10, verbose_name='language', choices=[(b'en', b'EN'), (b'cs', b'CS')])),
+                ('language_code', models.CharField(default=settings.LANGUAGES[0][0], max_length=10, verbose_name='language', choices=settings.LANGUAGES)),
                 ('name', models.CharField(default=b'', max_length=255, verbose_name='name', blank=True)),
                 ('default_alt_text', models.CharField(default=b'', max_length=255, verbose_name='default alt text', blank=True)),
                 ('default_caption', models.CharField(default=b'', max_length=255, verbose_name='default caption', blank=True)),
@@ -203,7 +203,7 @@ class Migration(migrations.Migration):
             name='VectorTranslation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('language_code', models.CharField(default=b'en', max_length=10, verbose_name='language', choices=[(b'en', b'EN'), (b'cs', b'CS')])),
+                ('language_code', models.CharField(default=settings.LANGUAGES[0][0], max_length=10, verbose_name='language', choices=settings.LANGUAGES)),
                 ('parent', models.ForeignKey(related_name='translations', to='media.Vector')),
             ],
             options={
@@ -227,7 +227,7 @@ class Migration(migrations.Migration):
             name='VideoTranslation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('language_code', models.CharField(default=b'en', max_length=10, verbose_name='language', choices=[(b'en', b'EN'), (b'cs', b'CS')])),
+                ('language_code', models.CharField(default=settings.LANGUAGES[0][0], max_length=10, verbose_name='language', choices=settings.LANGUAGES)),
                 ('parent', models.ForeignKey(related_name='translations', to='media.Video')),
             ],
             options={

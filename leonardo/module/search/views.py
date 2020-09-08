@@ -27,7 +27,20 @@ class SearchAutocomplete(TemplateView):
         sqs = SearchQuerySet().autocomplete(
             content_auto=query, title=query)[:5]
 
-        suggestions = [result.title for result in sqs]
+        suggestions = []
+
+        for result in sqs:
+
+            r = {
+                'title': result.title,
+            }
+            if result.content_type == "Image":
+                r['url'] = result.object.url
+            else:
+                r['url'] = result.object.get_absolute_url()
+
+            suggestions.append(r)
+
         # Make sure you return a JSON object, not a bare list.
         # Otherwise, you could be vulnerable to an XSS attack.
         the_data = json.dumps({

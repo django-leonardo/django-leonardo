@@ -1,0 +1,81 @@
+{% extends widget.get_base_template %}
+
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content %}
+<style type="text/css">
+.grid figure {
+  height: 155px;
+  margin-top: 30px;
+}
+.grid figure h2 span {
+  font-weight: normal;
+  font-size: 16px;
+  word-spacing: 0;
+  color: #cecece;
+  text-transform: initial;
+}
+
+figure.effect-lily figcaption > div {
+  transform: rotate(-35deg);
+  height: 100%;
+}
+
+.grid figure h2 span:first-letter {
+  text-transform: uppercase;
+}
+.first-letter-upper:first-letter {
+  text-transform: uppercase;
+}
+
+.thumbnail > img {
+  max-height: 130px;
+}
+
+.valignContainer .centered {
+  width: 100%;
+}
+
+.thumb_directory {
+  height: 232px;
+}
+
+figure.effect-lily h2 {
+  margin-left: -15px;
+  margin-top: -10px;
+}
+
+</style>
+
+<div class="object-grid ui-helper-clearfix grid">
+{% for object in directories %}
+  <div class="col-lg-3 col-md-4 col-xs-6 thumb_directory {% if forloop.counter > 12 %}wow fadeInUp{% endif %}">
+    <figure class="effect-lily" onclick="location.href = '{{ object.get_absolute_url }}';">
+      {% thumbnail object.get_featured_image.file "200x140" format="PNG" crop="center" as thumb %}
+      <img src="{{ thumb.url }}" /><br />
+      {% endthumbnail %}
+      <figcaption>
+        <p class="objet-image-neste-template first-letter-upper" onclick="location.href = '{{ object.get_absolute_url }}/';">{{ object.name|truncatechars:"40" }}</p>
+      </figcaption>
+    </figure>
+    <p class="objet-image-neste-template first-letter-upper" onclick="location.href = '{{ object.get_absolute_url }}/';">{{ object.name|truncatechars:"40" }}</p>
+  </div>
+{% endfor %}
+</div>
+{% if directories.paginator.num_pages != 1 %}
+<div class="col-xs-12">
+  <ul class="pagination">
+    {% if directories.has_previous %}
+      <li><a href="?page={{ directories.previous_page_number }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+    {% endif %}
+    {% for object in directories.paginator.page_range %}
+      <li class="{% if directories.number == forloop.counter %}active{% endif %}"><a href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+    {% endfor %}
+    {% if directories.has_next %}
+      <li><a href="?page={{ directories.next_page_number }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}
+{% endblock content %}

@@ -11,21 +11,19 @@ web.Page:
     theme: bootstrap
     in_navigation: true
     active: true
-    color_scheme: default
+    color_scheme: Default
     content:
       header:
         web.SiteHeadingWidget:
           attrs:
             site_title: Leonardo Site
             content_theme: navbar
-            base_theme: default
           dimensions:
             md: 2
         web.TreeNavigationWidget:
           attrs:
             depth: 2
             content_theme: navbar
-            base_theme: default
           dimensions:
             md: 6
         web.UserLoginWidget:
@@ -33,6 +31,28 @@ web.Page:
             layout: inline
             type: 2
             content_theme: navbar
-            base_theme: default
           dimensions:
             md: 4
+      col3:
+        web.HtmlTextWidget:
+          attrs:
+            content_theme: documentation
+            label: Quickstart
+            text: " "
+          dimensions:
+            md: 6
+        web.FeedReaderWidget:
+          attrs:
+            label: Recent News
+            max_items: 8
+            objects_per_row: 1
+            objects_per_page: 8
+            source_address: https://www.leonardo-cms.org/en/news/feed/ 
+          dimensions:
+            md: 6
+      footer:
+        web.HtmlTextWidget:
+          attrs:
+            content_theme: footer
+            align: center
+            text: " "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 20:03+0200\n"
+"POT-Creation-Date: 2016-11-01 15:19+0100\n"
 "PO-Revision-Date: 2015-09-03 14:46+0000\n"
 "Last-Translator:   <root@admin.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,27 +19,37 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: module/search/__init__.py:37 module/search/forms.py:25
-#: module/search/forms.py:26
+#: __init__.py:37
 msgid "Search"
 msgstr "Vyhledávání"
 
-#: module/search/forms.py:27
-msgid "Options"
-msgstr "Možnosti"
+#: forms.py:25
+msgid "Search..."
+msgstr "Hledat..."
 
-#: module/search/templates/googlesearch/search.html:8
+#: templates/googlesearch/search.html:8
 msgid "You searched for"
 msgstr "Hledali jste"
 
-#: module/search/templates/googlesearch/search.html:10
+#: templates/googlesearch/search.html:10
 msgid "No search query entered"
 msgstr "Nezadán vyhledávací dotaz"
 
-#: module/search/templates/search/search.html:26
+#: templates/search/search.html:11
+msgid "Search results"
+msgstr "Výsledky hledání"
+
+#: templates/search/search.html:22
+msgid "No results found."
+msgstr "Žádné výsledky nebyly nalezeny."
+
+#: templates/search/search.html:27
 msgid "Previous"
 msgstr "Předchozí"
 
-#: module/search/templates/search/search.html:28
+#: templates/search/search.html:29
 msgid "Next"
 msgstr "Příští"
+
+#~ msgid "Options"
+#~ msgstr "Možnosti"

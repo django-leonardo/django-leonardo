@@ -14,9 +14,10 @@ from django.shortcuts import (get_object_or_404, redirect, render,
 from django.template import RequestContext
 from django.utils.encoding import uri_to_iri
 from django.utils.translation import ugettext_lazy as _
-
+from constance import config
 from .management.commands.import_files import FileImporter
 from .models import Clipboard, File, Folder, FolderRoot, Image, tools
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class NewFolderForm(forms.ModelForm):
@@ -331,12 +332,29 @@ def directory_list_nested(request,
                     parent__parent__name=grandparent_directory_slug)
                 object_list = object.files.all()
 
+    paginator = Paginator(object_list, config.MEDIA_PAGINATE_BY)
+
+    page = request.GET.get('page')
+    try:
+        object_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        object_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        object_list = paginator.page(paginator.num_pages)
+
     return render(
         request,
         'media/directory_list_nested.html',
         {
             'object_list': object_list,
             'object': object,
+            # TODO: filter permissions, this exposes private folders
+            'folders': (object.media_folder_children.all().order_by(
+                        *config.MEDIA_FOLDERS_ORDER_BY.split(","))
+                        if config.MEDIA_LIST_SHOW_DIRS
+                        else [])
         }
     )
 

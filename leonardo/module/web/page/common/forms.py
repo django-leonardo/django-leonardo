@@ -6,28 +6,33 @@ from django.http import HttpResponseRedirect
 from leonardo import forms
 from django.utils.translation import ugettext_lazy as _
 from leonardo.forms import SelfHandlingForm
-from leonardo.module.web.models import Page, PageTheme, PageColorScheme
+from leonardo.module.web.models import Page
 from leonardo.module.web.const import PAGE_LAYOUT_CHOICES
 from leonardo.module.web.page.forms import PageColorSchemeSwitchableFormMixin
-from django_select2.forms import Select2Widget
+from leonardo.forms import LanguageSelectField, Select2Widget
+from leonardo.module.web.page.fields import PageThemeSelectField
+from leonardo.forms.fields.sites import SiteSelectField
+from feincms.utils import copy_model_instance
 
 
 class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
 
     """Page Mass Update
 
-    Form for mass update of page theme, color scheme and layout
+    Form for mass update of page theme, color scheme, layout and language
 
     """
 
     page_id = forms.IntegerField(
         label=_('Page ID'), widget=forms.widgets.HiddenInput)
 
-    theme = forms.ModelChoiceField(
+    language = LanguageSelectField(
+        required=False
+    )
+
+    theme = PageThemeSelectField(
         label=_('Theme'),
-        required=False,
-        queryset=PageTheme.objects.all(),
-        widget=Select2Widget
+        required=False
     )
 
     layout = forms.ChoiceField(
@@ -35,8 +40,15 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
         choices=BLANK_CHOICE_DASH + list(PAGE_LAYOUT_CHOICES),
         required=False)
 
-    depth = forms.IntegerField(label=_('Depth'), initial=1)
-    from_root = forms.BooleanField(label=_('From Root ?'), initial=True)
+    site = SiteSelectField(
+        required=False
+    )
+
+    depth = forms.IntegerField(label=_('Depth'), initial=1,
+                               help_text=_("Zero means only this page will be set."))
+
+    from_root = forms.BooleanField(label=_('From Root ?'), initial=True,
+                                   help_text=_("Start from root ?"))
 
     def __init__(self, *args, **kwargs):
         super(PageMassChangeForm, self).__init__(*args, **kwargs)
@@ -51,6 +63,8 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
                     'depth',
                     'page_id',
                     'from_root',
+                    'site',
+                    'language',
                     ),
                 Tab(_('Styles'),
                     'layout',
@@ -70,23 +84,33 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
         color_scheme = data.get('color_scheme', None)
         theme = data.get('theme', None)
         layout = data.get('layout', None)
+        site = data.get('site', None)
+        language = data.get('language', None)
 
         if color_scheme:
-            root_page.color_scheme = data['color_scheme']
+            root_page.color_scheme = color_scheme
         if layout:
-            root_page.layout = data['layout']
+            root_page.layout = layout
         if theme:
-            root_page.theme = data['theme']
+            root_page.theme = theme
+        if site:
+            root_page.site = site
+        if language:
+            root_page.language = language
 
         for page in root_page.get_descendants():
 
             if page.level <= data['depth']:
+                if language:
+                    page.language = language
                 if color_scheme:
-                    page.color_scheme = data['color_scheme']
+                    page.color_scheme = color_scheme
                 if layout:
-                    page.layout = data['layout']
+                    page.layout = layout
                 if theme:
-                    page.theme = data['theme']
+                    page.theme = theme
+                if site:
+                    page.site = site
 
                 page.save()
 
@@ -97,5 +121,34 @@ class PageMassChangeForm(SelfHandlingForm, PageColorSchemeSwitchableFormMixin):
     def clean(self):
         cleaned = super(PageMassChangeForm, self).clean()
         theme = cleaned['theme']
-        cleaned['color_scheme'] = self.cleaned_data['theme__%s' % theme.id]
+
+        if theme:
+            cleaned['color_scheme'] = self.cleaned_data['theme__%s' % theme.id]
+
         return cleaned
+
+
+class PageCopyForm(PageMassChangeForm):
+
+    """Copy content
+
+    TODO: now works only for page content
+
+    """
+
+    depth = forms.IntegerField(
+        label=_('Depth'), initial=0,
+        help_text=_("Zero means only this page will be copied."))
+
+    from_root = forms.BooleanField(label=_('From Root ?'), initial=True,
+                                   help_text=_("Start from root ?"))
+
+    def handle(self, request, data):
+
+        root_page = Page.objects.get(pk=data['page_id'])
+
+        new_page = copy_model_instance(root_page,
+                                       exclude=('id', 'parent'))
+
+        if data.get("depth", 0):
+            Page.copy_content_from(root_page)

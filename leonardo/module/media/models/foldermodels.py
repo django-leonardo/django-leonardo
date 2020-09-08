@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.contrib.auth import models as auth_models
 from django.core import urlresolvers
 from django.core.exceptions import ValidationError
+from django.template.defaultfilters import slugify
 from django.db import models
 from django.db.models import Q
 from django.utils.http import urlquote
@@ -159,7 +160,7 @@ class Folder(models.Model, mixins.IconsMixin):
 
     @property
     def pretty_logical_path(self):
-        return "/%s" % "/".join([f.name for f in self.logical_path + [self]])
+        return "/%s" % "/".join([slugify(f.name) for f in self.logical_path + [self]])
 
     @property
     def quoted_logical_path(self):
@@ -215,6 +216,13 @@ class Folder(models.Model, mixins.IconsMixin):
     def get_admin_directory_listing_url_path(self):
         return urlresolvers.reverse('admin:filer-directory_listing',
                                     args=(self.id,))
+
+    def get_absolute_url(self):
+        from leonardo.module.web.widget.application.reverse import app_reverse
+        return app_reverse(
+            'directory_list_nested',
+            'leonardo.module.media.apps.category_nested',
+            kwargs={'directory_slug': self.name})
 
     def __str__(self):
         return self.name

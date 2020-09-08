@@ -63,6 +63,8 @@ INSTALLED_APPS = default.apps
 
 # For easy_thumbnails to support retina displays (recent MacBooks, iOS)
 
+THUMBNAIL_FORMAT = "PNG"
+
 FEINCMS_USE_PAGE_ADMIN = False
 
 LEONARDO_USE_PAGE_ADMIN = True
@@ -93,7 +95,7 @@ STATICFILES_FINDERS = (
 )
 
 
-LOGIN_URL = '/auth/login'
+LOGIN_URL = '/auth/login/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = "/"
@@ -190,3 +192,5 @@ SELECT2_CACHE_PREFIX = 'SELECT2'
 MODULE_URLS = {}
 
 WIDGETS = {}
+
+LEONARDO_INSTALL_DEPENDENCIES = True

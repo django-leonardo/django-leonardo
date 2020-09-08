@@ -9,6 +9,9 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from feincms.admin import item_editor
 from feincms.module.page.modeladmins import PageAdmin as FeinPageAdmin
+from django.conf import settings
+from django.contrib import messages
+from feincms.utils import copy_model_instance
 
 from .models import *
 
@@ -25,16 +28,74 @@ class PageColorSchemeInlineAdmin(admin.TabularInline):
     extra = 1
 
 
+def clone_branch(modeladmin, request, queryset):
+    for page in queryset:
+        copy = Page.objects.create(featured=page.featured,
+                                   in_navigation=page.in_navigation,
+                                   parent=None, theme=page.theme,
+                                   color_scheme=page.color_scheme)
+        copy.slug = 'copy-of-' + page.slug
+        copy.title = 'Copy of ' + page.title
+        copy.save()
+        copy.copy_content_from(page)
+
+
+def translate_branch(modeladmin, request, queryset):
+    if queryset[0].parent != None or queryset.count() > 1:
+        messages.error(request, "Branch must be root")
+        return
+    for lang in settings.LANGUAGES:
+        root_page = None
+        try:
+            root_page = Page.objects.get(slug=lang[0])
+        except:
+            pass
+        for page in queryset:
+            if page.get_original_translation().slug != lang[0] and root_page == None:
+                copy = Page.objects.create(featured=page.featured,
+                                           in_navigation=page.in_navigation,
+                                           parent=None, theme=page.theme,
+                                           color_scheme=page.color_scheme,
+                                           language=lang[0], translation_of=page)
+                copy.slug = lang[0]
+                copy.title = lang[1]
+                copy.save()
+                copy.copy_content_from(page)
+                for child in page.children.all():
+                    sub_copy = Page.objects.create(featured=child.featured,
+                                                   in_navigation=child.in_navigation,
+                                                   parent=copy, theme=child.theme,
+                                                   color_scheme=child.color_scheme,
+                                                   language=lang[0], translation_of=child)
+                    sub_copy.slug = child.slug
+                    sub_copy.title = child.title
+                    sub_copy.save()
+                    sub_copy.copy_content_from(child)
+                    for sub_child in child.children.all():
+                        sub_child_copy = Page.objects.create(featured=sub_child.featured,
+                                                             in_navigation=sub_child.in_navigation,
+                                                             parent=sub_copy, theme=sub_child.theme,
+                                                             color_scheme=sub_child.color_scheme,
+                                                             language=lang[0], translation_of=sub_child)
+                        sub_child_copy.slug = sub_child.slug
+                        sub_child_copy.title = sub_child.title
+                        sub_child_copy.save()
+                        sub_child_copy.copy_content_from(sub_child)
+
+    messages.success(request, "Translation of branch {} was completed".format(queryset[0]))
+
+translate_branch.short_description = "Translate branch (root page required)"
+
+
 class PageAdmin(FeinPageAdmin):
 
     fieldsets = [
-        (None, {
-            'fields': ['parent'],
-        }),
         (_('Main'), {
             'classes': ['collapse'],
             'fields': [
-                'title', 'slug', 'active', 'in_navigation', 'override_url', 'redirect_to', 'parent',
+                'title', 'slug', 'active', 'in_navigation',
+                'override_url', 'redirect_to', 'parent',
+                'site', 'symlinked_page', 'language', 'translation_of'
             ],
         }),
         (_('Styles'), {
@@ -46,6 +107,8 @@ class PageAdmin(FeinPageAdmin):
         # above
         item_editor.FEINCMS_CONTENT_FIELDSET,
     ]
+
+    actions = [clone_branch, translate_branch]
 
     def get_feincms_inlines(self, model, request):
         """ Generate genuine django inlines for registered content types. """

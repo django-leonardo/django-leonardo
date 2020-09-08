@@ -1,27 +1,46 @@
-
+{% load staticfiles %}
 {% block content %}
 
-
-<input type="{{ type }}" name="{{ name }}"{% if value %} value="{{ value }}"{% endif %}{% if required %} required{% endif %}{% include "floppyforms/attrs.html" %}>
+<input type="{{ type }}" name="{{ name }}"{% if value %} value="{{ value }}"{% endif %}{% if required %} required{% endif %}{% include "floppyforms/attrs.html" %} data-min="{{ attrs.min }}" data-max="{{ attrs.max }}" data-step="{{ attrs.step }}" data-from="{{ value }}">
 
 <script type="text/javascript">
+(function(){
+    leonardo.utils.loadResource({
+        src: "{% static 'css/lib/ionslider/ion.rangeSlider.css' %}",
+    });
+    leonardo.utils.loadResource({
+        src: "{% static 'css/lib/ionslider/ion.rangeSlider.skinHTML5.css' %}",
+    });
+    leonardo.utils.loadResource({
+        src: "{% static 'js/lib/ion.rangeSlider.min.js' %}",
+        callback: function(){
+    $(function () {
 
-$(function() {
-	$( "#{{ attrs.id }}" ).on('blur change click dblclick focus focusin focusout mousedown mouseenter mouseleave mouseout mouseover mouseup', function(){
+        $("#{{ attrs.id }}").ionRangeSlider({
+            min: {{ attrs.min }},
+            max: {{ attrs.max }},
+            from: {{ value }},
+            onChange: function(value) {
+                $("#{{ attrs.id }}").attr("value", value.from);
+            }
+        });
 
-		$("#{{ attrs.id }}").attr('data-original-title', this.value)
-          .tooltip('fixTitle').tooltip('show');
+        horizon.formset_table.addFormInitFunction(function (table, prefix, new_row) {
+           new_row.find("input[type=range]").each(function (i, el) {
 
-		$("#{{ attrs.id }}").attr("title", this.value);
-	});
+            $(el).ionRangeSlider({
+                    onChange: function(value) {
+                        $(el).attr("value", value.from);
+                    }
+                });
 
-	$("#{{ attrs.id }}").attr("data-toggle", "tooltip");
-	$("#{{ attrs.id }}").attr("data-placement", "top");
-	$("#{{ attrs.id }}").attr("title", {{ value }});
-	$("#{{ attrs.id }}").tooltip({trigger:'manual'});
+           });
+        });
 
-});
+    });
+  }});
 
+})();
 </script>
 
 {% endblock %}

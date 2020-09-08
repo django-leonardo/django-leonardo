@@ -68,7 +68,7 @@ else:
     )
 
 try:
-    # obsole location since 1.0.3 use `leonrdo_site.settings`
+    # obsolete location since 1.0.3 use `leonrdo_site.settings`
     from leonardo_site.local.settings import *
     warnings.warn(
         'leonardo_site.local.settings is obsolete use new location')
@@ -101,7 +101,15 @@ if not DEBUG:
             ])]
         TEMPLATES[0]['OPTIONS']['debug'] = False
 else:
+    # Debugging stuff
     TEMPLATE_DEBUG = DEBUG
+    TEMPLATES[0]['OPTIONS']['loaders'] = [
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'horizon.loaders.TemplateLoader',
+        'dbtemplates.loader.Loader'
+    ]
+    COMPRESS_ENABLED = False
 
 APPS = merge(APPS, default.core)
 
@@ -242,13 +250,6 @@ setattr(leonardo, 'widgets', WIDGETS)
 # FINALLY OVERRIDE ALL
 
 try:
-    # local settings
-    from local_settings import *
-except ImportError:
-    warnings.warn(
-        'Missing local_settings !')
-
-try:
     # full settings
     from leonardo_site.local.settings import *
 except ImportError:
@@ -259,6 +260,13 @@ try:
     from leonardo_site.settings import *
 except ImportError:
     pass
+
+try:
+    # local settings
+    from local_settings import *
+except ImportError:
+    warnings.warn(
+        'Missing local_settings !')
 
 # and again merge core with others
 APPS = merge(APPS, default.core)
@@ -289,6 +297,10 @@ try:
 except ImportError:
     pass
 
+# django contrib redirects
+if 'django.contrib.redirects' in INSTALLED_APPS:
+    MIDDLEWARE_CLASSES += ['django.contrib.redirects.middleware.RedirectFallbackMiddleware']
+
 # use js files instead of horizon
 HORIZON_CONFIG['js_files'] = leonardo.js_files
 HORIZON_CONFIG['js_compress_files'] = leonardo.js_compress_files
@@ -298,6 +310,14 @@ HORIZON_CONFIG['scss_files'] = leonardo.scss_files
 HORIZON_CONFIG['angular_modules'] = leonardo.angular_modules
 HORIZON_CONFIG['page_actions'] = leonardo.page_actions
 HORIZON_CONFIG['widget_actions'] = leonardo.widget_actions
+
+from leonardo.conf.static import find_static_files  # noqa
+# populate HORIZON_CONFIG with auto-discovered JavaScript sources, mock files,
+# specs files and external templates.
+find_static_files(HORIZON_CONFIG)
+
+leonardo.js_files = merge(HORIZON_CONFIG['js_files'], leonardo.js_files)
+
 # path horizon config
 from horizon import conf
 conf.HORIZON_CONFIG = HORIZON_CONFIG

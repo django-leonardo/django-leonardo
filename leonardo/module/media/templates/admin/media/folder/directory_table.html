@@ -1,6 +1,14 @@
 {% load i18n l10n admin_list filer_tags staticfiles %}
-
-<section class="navigator">
+<style type="text/css">
+    .order-arrow-folder {
+        font-size: 14px;
+        color: #6f6f6f;
+    }
+    .order-arrow-folder:hover {
+        color: black;
+    }
+</style>
+<section class="navigator{% if is_popup %} navigator-popup{% endif %}">
     <table class="js-filer-dropzone js-filer-dropzone-base navigator-table" id="result_list" data-url="{% if folder.id %}{% url 'admin:filer-ajax_upload' folder_id=folder.id %}{% else %}{% url 'admin:filer-ajax_upload' %}{% endif %}" data-folder-name="{% if folder.name and not folder.name == 'root' %}{{ folder.name }}{% else %}unfiled files{% endif %}" data-max-uploader-connections="{{ uploader_connections }}">
         <thead>
             <tr>
@@ -10,8 +18,23 @@
                     {% endif %}
                 </th>
                 <th class="column-icon">&nbsp;</th>
-                <th class="column-name">{% trans "Name" %}</th>
+                <th class="column-name">
+                {% trans "Name" %}
+                {% if not 'order_by_name_reversed' in request.path %}
+                    <a href="{% url 'admin:filer-order_by_name_reversed' %}"><i class="order-arrow-folder fa fa-caret-up pull-right" aria-hidden="true"></i></a>
+                {% elif 'order_by_name_reversed' in request.path %}
+                    <a href="{% url 'admin:filer-directory_listing-root' %}"><i class="order-arrow-folder fa fa-caret-down pull-right" aria-hidden="true"></i></a>
+                {% endif %}
+                </th>
                 <th class="column-owner">{% trans "Owner" %}</th>
+                <th class="column-created">
+                {% trans "Created" %}
+                {% if 'order_by_created_at_reversed' in request.path %}
+                    <a href="{% url 'admin:filer-order_by_created_at' %}"><i class="order-arrow-folder fa fa-caret-down pull-right" aria-hidden="true"></i></a>
+                    {% else %}
+                    <a href="{% url 'admin:filer-order_by_created_at_reversed' %}"><i class="order-arrow-folder fa fa-caret-up pull-right" aria-hidden="true"></i></a>
+                {% endif %}
+                </th>
                 <th class="column-size">{% trans "Size" %}</th>
                 <th class="column-action">{% trans "Action" %}</th>
             </tr>
@@ -48,6 +71,9 @@
                             </td>
                             <td class="column-owner">
                                 {{ subfolder.owner|default:"n/a" }}
+                            </td>
+                            <td class="column-cratedat">
+                                {{ subfolder.created_at }}
                             </td>
                             <td class="column-size">
                                 {% if not subfolder.is_root %}

@@ -3,7 +3,16 @@
 {% load url from future %}
 
 {% block form_id %}login_form{% endblock %}
+{% block from_id %}sign_up{% endblock %}
 {% block form_action %}{% url "login" %}?{{ redirect_field_name }}={{ redirect_field_value }}{% endblock %}
+
+{% block modal-body %}
+  {{ block.super }}
+    <div class="login-actions">
+        <a href="{% url "signup" %}" class="ajax-modal">{% trans "Sign Up" %}</a><br>
+        <a href="{% url "reset_pwd" %}" class="ajax-modal">{% trans "Reset Password" %}</a>
+    </div>
+{% endblock %}
 
 {% block modal-footer %}
 <a href="#" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</a>

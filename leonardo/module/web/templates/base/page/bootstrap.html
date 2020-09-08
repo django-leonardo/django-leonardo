@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 {% load leonardo_tags feincms_page_tags branding i18n %}
 <html>
+  <head> 
   {% include "_header.html" %}
-  <body id="{% block body_id %}main_content{% endblock %}" ng-app='hz' class="skin-blue">
+  {% include "leonardo/common/_webfont_loader.html" with font="Bitter" %}
+  </head>
+  <body id="{% block body_id %}main_content{% endblock %}" ng-app='horizon.app' ng-strict-di>
     {% include "horizon/_messages.html" %}
+    <noscript>
+      <div class="javascript_disabled_alert">
+        {% trans "This application requires JavaScript to be enabled in your web browser." %}
+      </div>
+    </noscript>
     <div class="wrapper">
       <header>
-        <div class="{{ page.get_layout_class }}">
+        <div class="{{ leonardo_page.get_layout_class }}">
           {% feincms_render_region feincms_page "header" request %}
         </div>
       </header>
       <div id="toolbar">
-        <div class="{{ page.get_layout_class }}">
+        <div class="{{ leonardo_page.get_layout_class }}">
           {% feincms_render_region feincms_page "toolbar" request %}
         </div>
       </div>
       <div id="main">
-        <div class="{{ page.get_layout_class }}">
+        <div class="{{ leonardo_page.get_layout_class }}">
           <aside class="col1 {% get_col_classes feincms_page 'col1' %}">
             {% feincms_render_region feincms_page "col1" request %}
             {% render_region_tools feincms_page "col1" request %}
@@ -33,8 +41,9 @@
         </div>
       </div>
       <footer>
-        <div class="{{ page.get_layout_class }}">
+        <div class="{{ leonardo_page.get_layout_class }}">
           {% feincms_render_region feincms_page "footer" request %}
+          {% render_region_tools feincms_page "footer" request %}
         </div>
       </footer>
     </div>

@@ -1,7 +1,10 @@
-{% load i18n feincms_tags feincms_page_tags leonardo_tags %}
+{% load i18n feincms_tags leonardo_tags %}
+
+{% fragment request "_page_title" replace %}{{ item }}{% endfragment %}
 
 {% feincms_render_region item region request %}
 {% render_region_tools item region request %}
+
 {% if widget.link_style != "" %}
 <div class="col-md-12 text-center">
   {% if widget.link_style == "link" %}

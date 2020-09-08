@@ -1,0 +1,36 @@
+{% extends widget.get_base_template %}
+
+{% load i18n %}
+{% load leonardo_tags %}
+
+{% block content %}
+
+<ul class="nav navbar-nav{% if widget.align == 'right' %} navbar-right{% endif %}">
+    <li><a href="#" id="{{ widget.fe_identifier }}-searchlink"><i class="fa fa-search"></i></a></li>
+</ul>
+
+<div id="{{ widget.fe_identifier }}-searchform" class="leonardo-searchform">
+    <button type="button" class="close">×</button>
+    <form action="{% app_reverse 'haystack_search' 'leonardo.module.search.apps.search' %}" method="get" role="search">
+        <input type="search" value="" name="q" placeholder="{% trans "Search" %}" />
+        <button type="submit" class="btn btn-primary">{% trans "Search..." %}</button>
+    </form>
+</div>
+
+<script>
+$(function () {
+    $('#{{ widget.fe_identifier }}-searchlink').on('click', function(event) {
+        event.preventDefault();
+        $('#{{ widget.fe_identifier }}-searchform').addClass('open');
+        $('#{{ widget.fe_identifier }}-searchform > form > input[type="search"]').focus();
+    });
+    
+    $('#{{ widget.fe_identifier }}-searchform, #{{ widget.fe_identifier }}-searchform button.close').on('click keyup', function(event) {
+        if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
+            $(this).removeClass('open');
+        }
+    });
+});
+</script>
+
+{% endblock %}

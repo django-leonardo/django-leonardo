@@ -40,6 +40,10 @@ class Leonardo(AppLoader):
     CONFIG_MODULE_OBJECT_CLASS = "leonardo.conf.base.ModuleConfig"
     CONFIG_MASTER_OBJECT_CLASS = "leonardo.conf.base.LeonardoConfig"
 
+    def __init__(self):
+
+        pass
+
     def get_app_modules(self, apps):
         """return array of imported leonardo modules for apps
         """

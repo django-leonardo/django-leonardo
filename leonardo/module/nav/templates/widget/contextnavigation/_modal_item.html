@@ -1,0 +1,40 @@
+{% load i18n leonardo_tags %}
+
+{% block items %}
+{% for row in widget.get_rows %}
+  <div class="row">
+  {% for item in row %}
+    <div class="col-md-{{ widget.columns_classes.0 }} col-xs-{{ widget.columns_classes.2 }} col-sm-{{ widget.columns_classes.1 }} item-container">
+      <div id="{{ item.slug }}-btn" class="linkedpage-modal-button">
+        {% feincms_render_region item region request %}
+        {% render_region_tools item region request %}
+      </div>
+    </div>
+    <script>
+      $(document).ready(function(){
+        $("#{{ item.slug }}-btn").click(function(){
+          $("#{{ item.slug }}-modal").modal();
+          var height = $(window).height() + 100;
+          console.log(height)
+          $("#{{ item.slug }}-modal").find(".modal-body").css("height", "auto");
+        });
+      });
+    </script>
+    <div class="modal fade" id="{{ item.slug }}-modal" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close pull-right" data-dismiss="modal">&times;</button>
+            <h4 class="modal-left-title">{{ item }}</h4>
+            <div class="row">
+              {% feincms_render_region item "col3" request %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+{% endfor %}
+{% endblock %}
+

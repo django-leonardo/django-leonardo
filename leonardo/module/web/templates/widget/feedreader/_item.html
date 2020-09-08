@@ -1,0 +1,13 @@
+{% load i18n %}
+<article>
+    <small>
+        {{ item.published_parsed }}<i class="fa fa-calendar" style="margin-left: 3px;"></i>
+    </small><br>
+    <a data-toggle="collapse" href="#collapse{{ item.title|slugify }}" aria-expanded="false" aria-controls="collapse{{ item.id }}">{{ item.title }}</a>
+	<div class="collapse" id="collapse{{ item.title|slugify }}">
+	  <div class="well">
+	    <p>{{ item.summary|striptags|truncatewords:20|safe|urlize }}</p>
+	    <a class="label label-primary" href="{{ item.links.0.href }}">{% trans "Read More" %}</a>
+	  </div>
+	</div>
+</article>

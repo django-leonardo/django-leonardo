@@ -1,0 +1,10 @@
+{% extends widget.get_base_template %}
+{% load i18n %}
+
+{% block content %}
+{{ widget.text|safe }}
+{% now "Y" as year %}
+{% blocktrans with site_name=LEONARDO_CONFIG.site_name year=year %}
+<div class="copyright">Copyright &copy; {{ year }} <a class="copyright-link" href="/">{{ site_name }}</a> : Powered by <a class="copyright-link" href="https://www.leonardo-cms.org" target="_blank">Leonardo CMS </a>: All rights reserved</div>
+{% endblocktrans %}
+{% endblock %}

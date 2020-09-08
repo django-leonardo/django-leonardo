@@ -2,21 +2,15 @@ from __future__ import unicode_literals
 
 import codecs
 import os
-from collections import OrderedDict
 
-from dbtemplates.conf import settings
 from django.contrib.staticfiles.finders import get_finders
-from django.contrib.staticfiles.storage import staticfiles_storage
-from django.core.files.storage import FileSystemStorage
-from django.core.management.base import BaseCommand, CommandError
-from django.core.management.color import no_style
-from django.utils.encoding import smart_text
-from leonardo.utils.settings import merge
+from django.contrib.staticfiles.management.commands.collectstatic import \
+    Command as CollectStatic
+from django.core.management.base import BaseCommand
 from leonardo.module.web.models import PageColorScheme, PageTheme
-from ._utils import app_template_dirs, DIRS, get_or_create_template
+from leonardo.utils.settings import merge
 
-from django.contrib.staticfiles.management.commands.collectstatic \
-    import Command as CollectStatic
+from ._utils import DIRS, app_template_dirs, get_or_create_template
 
 
 class Command(BaseCommand):
@@ -29,9 +23,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('--noinput',
-                            action='store_false', dest='interactive', default=True,
+                            action='store_false',
+                            dest='interactive', default=True,
                             help="Do NOT prompt the user for input of any kind.")
-
 
     def set_options(self, **options):
         """
@@ -70,7 +64,8 @@ class Command(BaseCommand):
                         try:
                             page_theme = PageTheme.objects.get(id=t.id)
                         except PageTheme.DoesNotExist:
-                            raise Exception("Run sync_themes before this command")
+                            raise Exception(
+                                "Run sync_themes before this command")
                         except Exception as e:
                             self.stdout.write(
                                 "Cannot load {} into database original error: {}".format(t, e))
@@ -147,5 +142,6 @@ class Command(BaseCommand):
 
         collected = self.collect()
 
-        self.stdout.write("Page themes synced {}".format(self.page_themes_updated))
+        self.stdout.write(
+            "Page themes synced {}".format(self.page_themes_updated))
         self.stdout.write("Page Skins synced {}".format(self.skins_updated))

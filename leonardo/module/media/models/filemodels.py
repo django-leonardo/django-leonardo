@@ -9,7 +9,7 @@ from django.core import urlresolvers
 from django.core.files.base import ContentFile
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from filer.utils.compatibility import DJANGO_1_7, python_2_unicode_compatible
+from filer.utils.compatibility import python_2_unicode_compatible
 from filer.utils.files import get_valid_filename
 from leonardo.module.media import mixins
 from .. import settings as filer_settings
@@ -172,15 +172,9 @@ class File(PolymorphicModel, mixins.IconsMixin):
             self.generate_sha1()
         except Exception:
             pass
-        # experimentl feature
-        if getattr(settings, 'MEDIA_LOGICAL_STRUCTURE', False):
-            # relocate file to new folder
-            if self.folder:
-                try:
-                    self.relocate_file()
-                except Exception:
-                    pass
+
         super(File, self).save(*args, **kwargs)
+
     save.alters_data = True
 
     def delete(self, *args, **kwargs):
@@ -250,10 +244,7 @@ class File(PolymorphicModel, mixins.IconsMixin):
         return text
 
     def get_admin_url_path(self):
-        if DJANGO_1_7:
-            model_name = self._meta.module_name
-        else:
-            model_name = self._meta.model_name
+        model_name = self._meta.model_name
         return urlresolvers.reverse(
             'admin:%s_%s_change' % (self._meta.app_label,
                                     model_name,),
@@ -292,25 +283,22 @@ class File(PolymorphicModel, mixins.IconsMixin):
     @property
     def get_logical_path(self):
         '''returns logical path like /directory/file.jpg'''
-        folders = [f.quoted_logical_path
-                   for f in self.logical_path
-                   if hasattr(f, 'quoted_logical_path')]
-        return os.path.join('/'.join(folders),
+
+        return os.path.join(self.folder.quoted_logical_path if self.folder else '',
                             get_valid_filename(self.original_filename))
 
     @property
     def pretty_logical_path(self):
         '''returns pretty logical path like /directory/File.jpg'''
-        folders = [f.quoted_logical_path
-                   for f in self.logical_path
-                   if hasattr(f, 'quoted_logical_path')]
-        return os.path.join('/'.join(folders),
+
+        return os.path.join(self.folder.quoted_logical_path if self.folder else '',
                             self.label)
 
     def relocate_file(self):
         '''relocate file to new directory'''
         old_path = self.file.path
         self.file.name = self.get_logical_path[1:]
+
         if self.file.path != old_path:
             try:
                 os.makedirs(os.path.dirname(self.file.path))

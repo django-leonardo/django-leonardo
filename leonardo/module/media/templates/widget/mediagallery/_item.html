@@ -1,5 +1,5 @@
-<div class="valignContainer text-center">
+<div class="valignContainer text-center {{ image_dimension }}">
     <div class="centered">
-		{% include "widget/simpleimage/_image.html" with image=item %}
+		{% include "widget/simpleimage/_image.html" with image=item size=widget.get_size gallery=True %}
 	</div>
 </div>

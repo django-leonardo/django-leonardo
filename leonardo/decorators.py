@@ -9,6 +9,7 @@ import sys
 
 from django.utils.decorators import available_attrs  # noqa
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import PermissionDenied
 
 try:
     from StringIO import StringIO
@@ -40,13 +41,12 @@ def staff_member(view_func):
     :exc:`~leonardo.exceptions.NotAuthenticated` exception if the user is not
     signed-in.
     """
-    from leonardo.exceptions import NotAuthorized  # noqa
 
     @functools.wraps(view_func, assigned=available_attrs(view_func))
     def dec(request, *args, **kwargs):
         if request.user.is_staff:
             return view_func(request, *args, **kwargs)
-        raise NotAuthorized(_("You haven't permissions to do this action."))
+        raise PermissionDenied(_("You haven't permissions to do this action."))
     return dec
 
 

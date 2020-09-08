@@ -35,7 +35,8 @@ class Default(object):
 
     plugins = [
         ('leonardo.module.media.apps.category_nested', 'List of directories'),
-        ('leonardo.module.media.apps.category_simple', 'Simple list of directories'),
+        ('leonardo.module.media.apps.category_simple',
+         'Simple list of directories'),
     ]
 
     config = {
@@ -53,15 +54,35 @@ class Default(object):
         'MEDIA_THUMB_MEDIUM_OPT': ('', _('Another options for medium thumnails')),
         'MEDIA_THUMB_LARGE_GEOM': ('768x768', _('MEDIA_THUMB_LARGE_GEOM')),
         'MEDIA_THUMB_LARGE_OPT': ('', _('Another options for large thumnails')),
-        'MEDIA_LOGICAL_STRUCTURE': (False, _('If is True all folders and files will has same path in the OS')),
         'MEDIA_CANONICAL_URL': ('files/', _("Contrary to the file's actual URL, the canonical URL does not change if you upload a new version of the file.")),
+        'MEDIA_LIST_SHOW_DIRS': (False, _("Show dirs in nested list of directories. This expose private folders now!!")),
+        'MEDIA_LIST_SHOW_TITLES': (True, _("Show image titles in directory list.")),
+        'MEDIA_FILES_ORDER_BY': ('-uploaded_at', _("Field which will be used to sort files like -uploaded_at, use comma to set more")),
+        'MEDIA_FOLDERS_ORDER_BY': ('-created_at', _("Field which will be used to sort folders like -created_at, use comma to set more")),
     }
 
     page_actions = ['media/_actions.html']
 
 
+def fill_language_code_choices(sender, **kwargs):
+    """
+    Fills in the choices for ``language_code`` from the ``LANGUAGES`` class
+    variable. This method is a receiver of Django's ``class_prepared``
+    signal.
+    """
+
+    raise Exception(sender)
+
+
 class MediaConfig(AppConfig, Default):
     name = 'leonardo.module.media'
     verbose_name = "Media"
+
+    def ready(self, *args, **kwargs):
+        from django.apps import apps
+        ImageTranslation = apps.get_model("media", "ImageTranslation")
+        ImageTranslation._prepare()
+
+        #raise Exception(class_prepared.receivers)
 
 default = Default()

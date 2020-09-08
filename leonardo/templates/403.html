@@ -4,11 +4,10 @@
 {% load i18n %}
 
 {% block body_main %}
-
-<h1>Permission Denied <span>(403)</span>
-
-<ul>
-	<li>{% trans "You do not have permission for this page." %}</li>
-</ul>
-
+<div class="panel box box-solid">  
+    <h1>{% trans "Permission Denied" %}</h1><span>(403)</span>
+    <ul>
+    	<li>{% trans "You do not have permission for this page." %}</li>
+    </ul>
+</div>
 {% endblock %}

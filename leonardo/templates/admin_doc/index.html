@@ -12,15 +12,8 @@
 {% block content %}
 
 <h1>{% trans 'Links' %}</h1>
-  <ul>
-    <li><h3><a href="https://www.leonardo-cms.org">{% trans 'Leonardo CMS' %}</a></h3></li>
-    <li><h3><a href="http://django-leonardo.readthedocs.org/">{% trans 'Hacking Leonardo' %}</a></h3></li>
-    <li><h3><a href="https://packages.leonardo-cms.org/">{% trans 'Packages' %}</a></h3></li>
-    <li><h3><a href="https://github.com/django-leonardo/django-leonardo/issues">{% trans 'Report Bug or Request Feature' %}</a></h3></li>
-    <li><h3><a href="https://github.com/django-leonardo/django-leonardo/blob/master/CONTRIBUTING.rst">{% trans 'Contribute' %}</a></h3></li>
-    <li><h3><a href="https://github.com/django-leonardo/django-leonardo">{% trans 'Github' %}</a></h3></li>
-    <li><h3><a href="https://github.com/leonardo-modules">{% trans 'Modules on Github' %}</a></h3></li>
-  </ul>
+
+{% include "admin_doc/_documentation.html" %}
 
 <h1>{% trans 'Application Documentation' %}</h1>
 

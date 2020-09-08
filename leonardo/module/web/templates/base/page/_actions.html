@@ -1,10 +1,10 @@
  {% load i18n %}
 
-
+{% if feincms_page %}
 <div class="panel-body" style='padding-top: 5px;padding-bottom:0;'>
 <div class="btn-group btn-group-justified" style="margin-bottom:5px;">
   <a class="btn btn-primary btn-sm btn-block ajax-modal" data-toggle="tooltip" title="{% trans 'Create Page' %}" href="{% url 'page_create' feincms_page.id %}"><i class="fa fa-plus"></i> {% trans 'Child Page' %}</a>
-  <a class="btn btn-primary btn-sm btn-block ajax-modal" data-toggle="tooltip" title="{% trans 'Create Page' %}" href="{% url 'page_create' feincms_page.id %}"><i class="fa fa-plus"></i> {% trans 'Root Page' %}</a>
+  <a class="btn btn-primary btn-sm btn-block ajax-modal" data-toggle="tooltip" title="{% trans 'Create Page' %}" href="{% url 'page_create' %}"><i class="fa fa-plus"></i> {% trans 'Root Page' %}</a>
 </div>
 <a class="btn btn-primary btn-sm btn-block ajax-modal" href="{% url 'page_update' feincms_page.id %}" data-toggle="tooltip" title="{% trans 'Edit Page' %}"><i class="fa fa-sliders"></i> {% trans 'Edit Page' %}</a>
 
@@ -35,3 +35,4 @@
 
 <a class="btn btn-primary btn-sm btn-block" target="_blank" href="{% url 'admin:index' %}" data-toggle="tooltip" title="{% trans 'Admin' %}"><i class="fa fa-tachometer"></i> {% trans 'Admin' %}</a>
 </div>
+{% endif %}

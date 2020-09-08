@@ -4,17 +4,27 @@ from __future__ import absolute_import
 import json
 import logging
 import time
+
 import six
-from django import http
+from django import http, shortcuts
 from django.conf import settings
 from django.contrib import messages as django_messages
+from django.contrib.auth import REDIRECT_FIELD_NAME  # noqa
+from django.contrib.auth.views import redirect_to_login  # noqa
 from django.utils import timezone
+from django.utils.encoding import iri_to_uri  # noqa
+from django.utils.translation import ugettext_lazy as _
 from horizon.utils import functions as utils
+from django.utils.http import is_safe_url
+from leonardo import exceptions
+from leonardo import messages
+
 
 LOG = logging.getLogger(__name__)
 
 
 class HorizonMiddleware(object):
+
     """The main Horizon middleware class. Required for use of Horizon."""
 
     logout_reason = None
@@ -96,25 +106,32 @@ class HorizonMiddleware(object):
                 # use django's messages methods here.
                 for tag, message, extra_tags in queued_msgs:
                     getattr(django_messages, tag)(request, message, extra_tags)
-                if response['location'].startswith(settings.LOGOUT_URL):
-                    redirect_response = http.HttpResponse(status=401)
-                    # This header is used for handling the logout in JS
-                    redirect_response['logout'] = True
-                    if self.logout_reason is not None:
-                        utils.add_logout_reason(
-                            request, redirect_response, self.logout_reason)
-                else:
-                    redirect_response = http.HttpResponse()
+                # if response['location'].startswith(settings.LOGOUT_URL):
+                #     redirect_response = http.HttpResponse(status=401)
+                #     # This header is used for handling the logout in JS
+                #     redirect_response['logout'] = True
+                #     if self.logout_reason is not None:
+                #         utils.add_logout_reason(
+                #             request, redirect_response, self.logout_reason)
+                # else:
+                redirect_response = http.HttpResponse()
+                # Use a set while checking if we want a cookie's attributes
+                # copied
+                cookie_keys = set(('max_age', 'expires', 'path', 'domain',
+                                   'secure', 'httponly', 'logout_reason'))
                 # Copy cookies from HttpResponseRedirect towards HttpResponse
                 for cookie_name, cookie in six.iteritems(response.cookies):
                     cookie_kwargs = dict((
                         (key, value) for key, value in six.iteritems(cookie)
-                        if key in ('max_age', 'expires', 'path', 'domain',
-                            'secure', 'httponly', 'logout_reason') and value
+                        if key in cookie_keys and value
                     ))
                     redirect_response.set_cookie(
                         cookie_name, cookie.value, **cookie_kwargs)
                 redirect_response['X-Horizon-Location'] = response['location']
+                upload_url_key = 'X-File-Upload-URL'
+                if upload_url_key in response:
+                    self.copy_headers(response, redirect_response,
+                                      (upload_url_key, 'X-Auth-Token'))
                 return redirect_response
             if queued_msgs:
                 # TODO(gabriel): When we have an async connection to the
@@ -124,3 +141,55 @@ class HorizonMiddleware(object):
                 # etc.) and is not meant as a long-term solution.
                 response['X-Horizon-Messages'] = json.dumps(queued_msgs)
         return response
+
+    def process_exception(self, request, exception):
+        """Catches internal Horizon exception classes such as NotAuthorized,
+        NotFound and Http302 and handles them gracefully.
+        """
+
+        if isinstance(exception, (exceptions.NotAuthorized,
+                                  exceptions.NotAuthenticated)):
+            auth_url = settings.LOGIN_URL
+            next_url = None
+            # prevent submiting forms after login and
+            # use http referer
+            if request.method in ("POST", "PUT"):
+
+                referrer = request.META.get('HTTP_REFERER')
+
+                if referrer and is_safe_url(referrer, request.get_host()):
+                    next_url = referrer
+
+            if not next_url:
+                next_url = iri_to_uri(request.get_full_path())
+
+            if next_url != auth_url:
+                field_name = REDIRECT_FIELD_NAME
+            else:
+                field_name = None
+
+            login_url = request.build_absolute_uri(auth_url)
+            response = redirect_to_login(next_url, login_url=login_url,
+                                         redirect_field_name=field_name)
+            if isinstance(exception, exceptions.NotAuthorized):
+                logout_reason = _("Unauthorized. Please try logging in again.")
+                utils.add_logout_reason(request, response, logout_reason)
+                # delete messages, created in get_data() method
+                # since we are going to redirect user to the login page
+                response.delete_cookie('messages')
+
+            if request.is_ajax():
+                response_401 = http.HttpResponse(status=401)
+                response_401['X-Horizon-Location'] = response['location']
+                return response_401
+
+            return response
+
+        # If an internal "NotFound" error gets this far, return a real 404.
+        if isinstance(exception, exceptions.NotFound):
+            raise http.Http404(exception)
+
+        if isinstance(exception, exceptions.Http302):
+            # TODO(gabriel): Find a way to display an appropriate message to
+            # the user *on* the login form...
+            return shortcuts.redirect(exception.location)

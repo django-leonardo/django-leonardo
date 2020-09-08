@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 20:04+0200\n"
+"POT-Creation-Date: 2016-12-16 17:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,60 +18,56 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: __init__.py:42
+#: __init__.py:43
 msgid "Pagination count for media files"
 msgstr ""
 
-#: __init__.py:43
+#: __init__.py:44
 msgid "Prefix for public files from MEDIA_ROOT"
 msgstr ""
 
-#: __init__.py:44
+#: __init__.py:45
 msgid "Prefix for private files from MEDIA_ROOT"
 msgstr ""
 
-#: __init__.py:45
+#: __init__.py:46
 msgid "Set uploaded files to public automatically"
 msgstr ""
 
-#: __init__.py:46
+#: __init__.py:47
 msgid "Used as root for navigation extensions and external app."
 msgstr ""
 
-#: __init__.py:48
+#: __init__.py:49
 msgid "Permissions for downloadable items. Experimental feature."
 msgstr ""
 
-#: __init__.py:49
+#: __init__.py:50
 msgid "ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS"
 msgstr ""
 
-#: __init__.py:50
+#: __init__.py:51
 msgid "MEDIA_THUMB_SMALL_GEOM"
 msgstr ""
 
-#: __init__.py:51
+#: __init__.py:52
 msgid "Another options for small thumnails"
 msgstr ""
 
-#: __init__.py:52
+#: __init__.py:53
 msgid "MEDIA_THUMB_MEDIUM_GEOM"
 msgstr ""
 
-#: __init__.py:53
+#: __init__.py:54
 msgid "Another options for medium thumnails"
 msgstr ""
 
-#: __init__.py:54
+#: __init__.py:55
 msgid "MEDIA_THUMB_LARGE_GEOM"
 msgstr ""
 
-#: __init__.py:55
-msgid "Another options for large thumnails"
-msgstr ""
-
 #: __init__.py:56
-msgid "If is True all folders and files will has same path in the OS"
+msgid "Another options for large thumnails"
 msgstr ""
 
 #: __init__.py:57
@@ -94,148 +90,148 @@ msgid "File"
 msgstr ""
 
 #: admin/file/tables.py:52
-#: templates/admin/media/folder/directory_table.html:13
+#: templates/admin/media/folder/directory_table.html:14
 #: templates/admin/media/folder/directory_table_modal.html:13
 msgid "Name"
 msgstr ""
 
-#: admin/folder/admin.py:374 admin/folder/admin.py:527
+#: admin/folder/admin.py:397 admin/folder/admin.py:550
 msgid ""
 "Items must be selected in order to perform actions on them. No items have "
 "been changed."
 msgstr ""
 
-#: admin/folder/admin.py:396
+#: admin/folder/admin.py:419
 #, python-format
 msgid "%(total_count)s selected"
 msgid_plural "All %(total_count)s selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/folder/admin.py:431
+#: admin/folder/admin.py:454
 #, python-format
 msgid "0 of %(cnt)s selected"
 msgstr ""
 
-#: admin/folder/admin.py:557
+#: admin/folder/admin.py:580
 msgid "No action selected."
 msgstr ""
 
-#: admin/folder/admin.py:605
+#: admin/folder/admin.py:628
 msgid "Scan folder"
 msgstr ""
 
-#: admin/folder/admin.py:609
+#: admin/folder/admin.py:632
 msgid "Create Subfolder"
 msgstr ""
 
-#: admin/folder/admin.py:616
+#: admin/folder/admin.py:639
 msgid "actions"
 msgstr ""
 
-#: admin/folder/admin.py:653
+#: admin/folder/admin.py:676
 #, python-format
 msgid "Successfully moved %(count)d files to clipboard."
 msgstr ""
 
-#: admin/folder/admin.py:659
+#: admin/folder/admin.py:682
 msgid "Move selected files to clipboard"
 msgstr ""
 
-#: admin/folder/admin.py:695
+#: admin/folder/admin.py:718
 #, python-format
 msgid "Successfully disabled permissions for %(count)d files."
 msgstr ""
 
-#: admin/folder/admin.py:699
+#: admin/folder/admin.py:722
 #, python-format
 msgid "Successfully enabled permissions for %(count)d files."
 msgstr ""
 
-#: admin/folder/admin.py:709
+#: admin/folder/admin.py:732
 msgid "Enable permissions for selected files"
 msgstr ""
 
-#: admin/folder/admin.py:715
+#: admin/folder/admin.py:738
 msgid "Disable permissions for selected files"
 msgstr ""
 
-#: admin/folder/admin.py:782
+#: admin/folder/admin.py:803
 #, python-format
 msgid "Successfully deleted %(count)d files and/or folders."
 msgstr ""
 
-#: admin/folder/admin.py:789
+#: admin/folder/admin.py:810
 msgid "Cannot delete files and/or folders"
 msgstr ""
 
-#: admin/folder/admin.py:791
+#: admin/folder/admin.py:812
 msgid "Are you sure?"
 msgstr ""
 
-#: admin/folder/admin.py:796
+#: admin/folder/admin.py:817
 msgid "Delete files and/or folders"
 msgstr ""
 
-#: admin/folder/admin.py:816
+#: admin/folder/admin.py:837
 msgid "Delete selected files and/or folders"
 msgstr ""
 
-#: admin/folder/admin.py:944
+#: admin/folder/admin.py:965
 #, python-format
 msgid "Folders with names %s already exist at the selected destination"
 msgstr ""
 
-#: admin/folder/admin.py:949
+#: admin/folder/admin.py:970
 #, python-format
 msgid ""
 "Successfully moved %(count)d files and/or folders to folder "
 "'%(destination)s'."
 msgstr ""
 
-#: admin/folder/admin.py:956 admin/folder/admin.py:958
+#: admin/folder/admin.py:977 admin/folder/admin.py:979
 msgid "Move files and/or folders"
 msgstr ""
 
-#: admin/folder/admin.py:977
+#: admin/folder/admin.py:998
 msgid "Move selected files and/or folders"
 msgstr ""
 
-#: admin/folder/admin.py:1040
+#: admin/folder/admin.py:1061
 #, python-format
 msgid "Successfully renamed %(count)d files."
 msgstr ""
 
-#: admin/folder/admin.py:1048 admin/folder/admin.py:1050
-#: admin/folder/admin.py:1068
+#: admin/folder/admin.py:1069 admin/folder/admin.py:1071
+#: admin/folder/admin.py:1089
 msgid "Rename files"
 msgstr ""
 
-#: admin/folder/admin.py:1174
+#: admin/folder/admin.py:1195
 #, python-format
 msgid ""
 "Successfully copied %(count)d files and/or folders to folder "
 "'%(destination)s'."
 msgstr ""
 
-#: admin/folder/admin.py:1191 admin/folder/admin.py:1193
+#: admin/folder/admin.py:1212 admin/folder/admin.py:1214
 msgid "Copy files and/or folders"
 msgstr ""
 
-#: admin/folder/admin.py:1214
+#: admin/folder/admin.py:1235
 msgid "Copy selected files and/or folders"
 msgstr ""
 
-#: admin/folder/admin.py:1322
+#: admin/folder/admin.py:1343
 #, python-format
 msgid "Successfully resized %(count)d images."
 msgstr ""
 
-#: admin/folder/admin.py:1330 admin/folder/admin.py:1332
+#: admin/folder/admin.py:1351 admin/folder/admin.py:1353
 msgid "Resize images"
 msgstr ""
 
-#: admin/folder/admin.py:1351
+#: admin/folder/admin.py:1372
 msgid "Resize selected images"
 msgstr ""
 
@@ -249,7 +245,7 @@ msgstr ""
 msgid "This field may support uploading whole folder"
 msgstr ""
 
-#: admin/folder/forms.py:70 templates/media/_actions.html:8
+#: admin/folder/forms.py:70 templates/media/_actions.html:6
 msgid "Files"
 msgstr ""
 
@@ -312,11 +308,11 @@ msgstr ""
 msgid "Type to search file or upload new one."
 msgstr ""
 
-#: models/abstract.py:42 models/media.py:136
+#: models/abstract.py:42 models/media.py:140
 msgid "default alt text"
 msgstr ""
 
-#: models/abstract.py:44 models/media.py:139
+#: models/abstract.py:44 models/media.py:143
 msgid "default caption"
 msgstr ""
 
@@ -337,7 +333,7 @@ msgstr ""
 msgid "user"
 msgstr ""
 
-#: models/clipboardmodels.py:17 models/filemodels.py:352
+#: models/clipboardmodels.py:17 models/filemodels.py:343
 msgid "files"
 msgstr ""
 
@@ -350,7 +346,7 @@ msgid "clipboards"
 msgstr ""
 
 #: models/clipboardmodels.py:41 models/filemodels.py:48
-#: models/filemodels.py:351 widget/downloaditem/models.py:24
+#: models/filemodels.py:342 widget/downloaditem/models.py:24
 msgid "file"
 msgstr ""
 
@@ -387,11 +383,11 @@ msgid "original filename"
 msgstr ""
 
 #: models/filemodels.py:59 models/foldermodels.py:109 models/media.py:39
-#: models/media.py:51 models/media.py:134
+#: models/media.py:51 models/media.py:138
 msgid "name"
 msgstr ""
 
-#: models/filemodels.py:61 models/media.py:41 models/media.py:142
+#: models/filemodels.py:61 models/media.py:41 models/media.py:146
 msgid "description"
 msgstr ""
 
@@ -493,7 +489,7 @@ msgstr ""
 msgid "must always publish copyright"
 msgstr ""
 
-#: models/media.py:151
+#: models/media.py:155
 msgid "All media categories"
 msgstr ""
 
@@ -521,7 +517,7 @@ msgid "Go"
 msgstr ""
 
 #: templates/admin/media/actions.html:14
-#: templates/admin/media/folder/directory_listing.html:174
+#: templates/admin/media/folder/directory_listing.html:189
 msgid "Click here to select the objects across all pages"
 msgstr ""
 
@@ -531,7 +527,7 @@ msgid "Select all %(total_count)s files and/or folders"
 msgstr ""
 
 #: templates/admin/media/actions.html:16
-#: templates/admin/media/folder/directory_listing.html:176
+#: templates/admin/media/folder/directory_listing.html:191
 msgid "Clear selection"
 msgstr ""
 
@@ -630,8 +626,8 @@ msgid "admin homepage"
 msgstr ""
 
 #: templates/admin/media/folder/change_form.html:37
-#: templates/admin/media/folder/directory_table.html:38
-#: templates/admin/media/folder/directory_table.html:78
+#: templates/admin/media/folder/directory_table.html:53
+#: templates/admin/media/folder/directory_table.html:96
 #: templates/admin/media/folder/directory_table_modal.html:38
 #: templates/admin/media/folder/directory_table_modal.html:78
 msgid "Folder Icon"
@@ -664,6 +660,7 @@ msgid "Destination folder:"
 msgstr ""
 
 #: templates/admin/media/folder/choose_copy_destination.html:45
+#: templates/admin/media/folder/directory_listing.html:148
 msgid "Copy"
 msgstr ""
 
@@ -715,6 +712,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/media/folder/choose_move_destination.html:42
+#: templates/admin/media/folder/directory_listing.html:151
 msgid "Move"
 msgstr ""
 
@@ -749,47 +747,58 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
-#: templates/admin/media/folder/directory_listing.html:154
+#: templates/admin/media/folder/directory_listing.html:145
+#: templates/admin/media/tools/detail_info.html:215
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/media/folder/directory_listing.html:169
 msgid "Adds a new Folder"
 msgstr ""
 
-#: templates/admin/media/folder/directory_listing.html:157
+#: templates/admin/media/folder/directory_listing.html:172
 msgid "New Folder"
 msgstr ""
 
-#: templates/admin/media/folder/directory_listing.html:161
-#: templates/admin/media/folder/directory_listing.html:162
+#: templates/admin/media/folder/directory_listing.html:176
+#: templates/admin/media/folder/directory_listing.html:177
 msgid "Upload Files"
 msgstr ""
 
-#: templates/admin/media/folder/directory_listing.html:174
+#: templates/admin/media/folder/directory_listing.html:189
 #, python-format
 msgid "Select all %(total_count)s"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:14
+#: templates/admin/media/folder/directory_table.html:21
 #: templates/admin/media/folder/directory_table_modal.html:14
 #: templates/admin/media/tools/detail_info.html:61
 #: templates/admin/media/tools/detail_info.html:152
 msgid "Owner"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:15
+#: templates/admin/media/folder/directory_table.html:23
+#: templates/admin/media/tools/detail_info.html:52
+#: templates/admin/media/tools/detail_info.html:131
+msgid "Created"
+msgstr ""
+
+#: templates/admin/media/folder/directory_table.html:30
 #: templates/admin/media/folder/directory_table_modal.html:15
 #: templates/admin/media/tools/detail_info.html:40
 #: templates/admin/media/tools/detail_info.html:104
 msgid "Size"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:16
+#: templates/admin/media/folder/directory_table.html:31
 #: templates/admin/media/folder/directory_table_modal.html:16
 msgid "Action"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:37
-#: templates/admin/media/folder/directory_table.html:44
-#: templates/admin/media/folder/directory_table.html:77
-#: templates/admin/media/folder/directory_table.html:84
+#: templates/admin/media/folder/directory_table.html:52
+#: templates/admin/media/folder/directory_table.html:59
+#: templates/admin/media/folder/directory_table.html:95
+#: templates/admin/media/folder/directory_table.html:102
 #: templates/admin/media/folder/directory_table_modal.html:37
 #: templates/admin/media/folder/directory_table_modal.html:44
 #: templates/admin/media/folder/directory_table_modal.html:77
@@ -798,7 +807,7 @@ msgstr ""
 msgid "Change '%(item_label)s' folder details"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:55
+#: templates/admin/media/folder/directory_table.html:73
 #: templates/admin/media/folder/directory_table_modal.html:55
 #, python-format
 msgid ""
@@ -810,7 +819,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/admin/media/folder/directory_table.html:58
+#: templates/admin/media/folder/directory_table.html:76
 #: templates/admin/media/folder/directory_table_modal.html:58
 #, python-format
 msgid ""
@@ -822,75 +831,75 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/admin/media/folder/directory_table.html:66
+#: templates/admin/media/folder/directory_table.html:84
 #: templates/admin/media/folder/directory_table_modal.html:66
 msgid "Change folder details"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:67
+#: templates/admin/media/folder/directory_table.html:85
 #: templates/admin/media/folder/directory_table_modal.html:67
 msgid "Remove folder"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:102
-#: templates/admin/media/folder/directory_table.html:116
+#: templates/admin/media/folder/directory_table.html:120
+#: templates/admin/media/folder/directory_table.html:134
 #: templates/admin/media/folder/directory_table_modal.html:102
 msgid "Select this file"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:105
-#: templates/admin/media/folder/directory_table.html:119
-#: templates/admin/media/folder/directory_table.html:139
+#: templates/admin/media/folder/directory_table.html:123
+#: templates/admin/media/folder/directory_table.html:137
+#: templates/admin/media/folder/directory_table.html:157
 #: templates/admin/media/folder/directory_table_modal.html:131
 #, python-format
 msgid "Change '%(item_label)s' details"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:128
+#: templates/admin/media/folder/directory_table.html:146
 #: templates/admin/media/folder/directory_table_modal.html:120
 msgid "Permissions"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:128
+#: templates/admin/media/folder/directory_table.html:146
 #: templates/admin/media/folder/directory_table_modal.html:120
 msgid "disabled"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:128
+#: templates/admin/media/folder/directory_table.html:146
 #: templates/admin/media/folder/directory_table_modal.html:120
 msgid "enabled"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:140
+#: templates/admin/media/folder/directory_table.html:158
 #: templates/admin/media/folder/directory_table_modal.html:132
 msgid "Remove file"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:149
+#: templates/admin/media/folder/directory_table.html:167
 #: templates/admin/media/folder/directory_table_modal.html:141
 msgid "there are no files or subfolders"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:159
+#: templates/admin/media/folder/directory_table.html:177
 #: templates/admin/media/folder/directory_table_modal.html:151
 msgid "Drop your file to upload into:"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:176
+#: templates/admin/media/folder/directory_table.html:194
 #: templates/admin/media/folder/directory_table_modal.html:168
 msgid "Upload success!"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:180
+#: templates/admin/media/folder/directory_table.html:198
 #: templates/admin/media/folder/directory_table_modal.html:172
 msgid "Upload canceled!"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:187
+#: templates/admin/media/folder/directory_table.html:205
 msgid "previous"
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:192
+#: templates/admin/media/folder/directory_table.html:210
 #, python-format
 msgid ""
 "\n"
@@ -898,7 +907,7 @@ msgid ""
 "            "
 msgstr ""
 
-#: templates/admin/media/folder/directory_table.html:199
+#: templates/admin/media/folder/directory_table.html:217
 msgid "next"
 msgstr ""
 
@@ -970,11 +979,6 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: templates/admin/media/tools/detail_info.html:52
-#: templates/admin/media/tools/detail_info.html:131
-msgid "Created"
-msgstr ""
-
 #: templates/admin/media/tools/detail_info.html:160
 msgid "Add Description"
 msgstr ""
@@ -997,10 +1001,6 @@ msgstr ""
 
 #: templates/admin/media/tools/detail_info.html:206
 msgid "Change File"
-msgstr ""
-
-#: templates/admin/media/tools/detail_info.html:215
-msgid "Delete"
 msgstr ""
 
 #: templates/admin/media/tools/search_form.html:15
@@ -1084,18 +1084,6 @@ msgstr ""
 #: templates/admin/svg/link.html:2
 #: widget/vectorgraphics/templates/admin/svgfile/link.html:2
 msgid "View"
-msgstr ""
-
-#: templates/media/_actions.html:10
-msgid "Images"
-msgstr ""
-
-#: templates/media/_actions.html:12
-msgid "Documents"
-msgstr ""
-
-#: templates/media/_actions.html:14
-msgid "Videos"
 msgstr ""
 
 #: templates/media/directory_list.html:28
@@ -1187,47 +1175,47 @@ msgstr ""
 msgid "internet videos"
 msgstr ""
 
-#: widget/mediagallery/models.py:13
+#: widget/mediagallery/models.py:12
 msgid "open in modal window"
 msgstr ""
 
-#: widget/mediagallery/models.py:14
+#: widget/mediagallery/models.py:13
 msgid "open new window"
 msgstr ""
 
-#: widget/mediagallery/models.py:15
+#: widget/mediagallery/models.py:14
 msgid "disply in page"
 msgstr ""
 
-#: widget/mediagallery/models.py:19 widget/simpleimage/models.py:18
+#: widget/mediagallery/models.py:18 widget/simpleimage/models.py:18
 msgid "small"
 msgstr ""
 
-#: widget/mediagallery/models.py:20 widget/simpleimage/models.py:19
+#: widget/mediagallery/models.py:19 widget/simpleimage/models.py:19
 msgid "medium"
 msgstr ""
 
-#: widget/mediagallery/models.py:21 widget/simpleimage/models.py:20
+#: widget/mediagallery/models.py:20 widget/simpleimage/models.py:20
 msgid "large"
 msgstr ""
 
-#: widget/mediagallery/models.py:37
+#: widget/mediagallery/models.py:36
 msgid "Directory"
 msgstr ""
 
-#: widget/mediagallery/models.py:39
+#: widget/mediagallery/models.py:38
 msgid "thumbnail size"
 msgstr ""
 
-#: widget/mediagallery/models.py:41
+#: widget/mediagallery/models.py:40
 msgid "detail view"
 msgstr ""
 
-#: widget/mediagallery/models.py:53
+#: widget/mediagallery/models.py:67
 msgid "media gallery"
 msgstr ""
 
-#: widget/mediagallery/models.py:54
+#: widget/mediagallery/models.py:68
 msgid "media galleries"
 msgstr ""
 
@@ -1259,11 +1247,11 @@ msgstr ""
 msgid "on click action"
 msgstr ""
 
-#: widget/simpleimage/models.py:49
+#: widget/simpleimage/models.py:53
 msgid "simple image"
 msgstr ""
 
-#: widget/simpleimage/models.py:50
+#: widget/simpleimage/models.py:54
 msgid "simple images"
 msgstr ""
 

@@ -1,13 +1,13 @@
 
 from __future__ import absolute_import
 
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
-from leonardo.views import *
 from leonardo import messages
-
 from leonardo.module.web.models import Page
+from leonardo.views import *
 
-from .forms import PageMassChangeForm
+from .forms import PageCopyForm, PageMassChangeForm
 
 
 class PageObjectMixin(object):
@@ -36,6 +36,39 @@ class PageMassUpdateView(PageObjectMixin, ModalFormView):
         context['url'] = self.request.build_absolute_uri()
         context['modal_header'] = _("Change Pages")
         context['form_submit'] = _("Apply")
+        return context
+
+    def form_invalid(self, form):
+        raise Exception(form.errors)
+
+    def get_initial(self):
+        return {'page_id': self.kwargs["page_id"]}
+
+
+class PageCopyView(PageObjectMixin, ModalFormView):
+
+    """Copy content tree and content
+
+    TODO: now works only for page
+    """
+
+    form_class = PageCopyForm
+
+    @cached_property
+    def object(self):
+
+        try:
+            obj = self.model.objects.get(id=self.kwargs["id"])
+        except Exception as e:
+            raise e
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(PageMassUpdateView, self).get_context_data(**kwargs)
+        # add extra context for template
+        context['url'] = self.request.build_absolute_uri()
+        context['modal_header'] = _("Copy Page tree and content")
+        context['form_submit'] = _("Copy")
         return context
 
     def form_invalid(self, form):

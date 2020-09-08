@@ -42,11 +42,6 @@ class Default(object):
             'leonardo.module.web.middlewares.horizon.HorizonMiddleware',
         ]
 
-    channel_routing = [
-        ('leonardo.module.web.widgets.routing.channel_routing',
-         {'path': r"^/widgets"})
-    ]
-
     @property
     def apps(self):
 
@@ -98,6 +93,7 @@ class Default(object):
         return [
             'leonardo.module.web.processors.page.add_page_if_missing',
             'leonardo.module.web.processors.config.leonardo',
+            'leonardo.module.web.processors.font.webfont_cookie',
         ]
 
     @property
@@ -113,28 +109,33 @@ class Default(object):
             'leonardo.module.web.models.IconWidget',
         ]
 
-    plugins = [
-        ('leonardo.module.web.apps.horizon', _('Horizon'))
-    ]
+    @property
+    def extra_context(self):
+        """Add site_name to context
+        """
+        from django.conf import settings
+
+        return {
+            "site_name": (lambda r: settings.LEONARDO_SITE_NAME
+                          if getattr(settings, 'LEONARDO_SITE_NAME', '') != ''
+                          else settings.SITE_NAME),
+            "debug": lambda r: settings.TEMPLATE_DEBUG
+        }
 
     js_files = [
-        'js/lib/wow.min.js'
+        'js/lib/aos.js'
     ]
 
     angular_modules = ['ngFitText']
 
     css_files = [
-        'css/lib/animate.css',
-        'css/lib/select2.css',
-    ]
-
-    css_files = [
-        'css/lib/animate.css',
+        'css/lib/aos.css',
         'css/lib/select2.css',
         'css/lib/lightbox.css',
     ]
 
     config = {
+        'LEONARDO_SITE_NAME': ('', _('Site name used for title')),
         'META_KEYWORDS': ('', _('Site specific meta keywords')),
         'META_DESCRIPTION': ('', _('Site specific meta description')),
         'META_TITLE': ('', _('Site specific meta title')),
@@ -172,9 +173,5 @@ class WebConfig(AppConfig, Default):
         # override page defaults without migrations
         Page._meta.get_field('template_key').default = 'layout_flex_flex_flex'
 
-        from django.db.models.signals import post_save
-        from .widgets.reciever import update_widget_reciever
-        post_save.connect(update_widget_reciever,
-                          dispatch_uid="update_widgets")
 
 default = Default()

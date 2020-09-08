@@ -4,11 +4,11 @@ from leonardo.module.web.models.page import Page, PageColorScheme, PageTheme
 from leonardo.forms.fields.dynamic import DynamicSelectWidget
 
 
-class PageSelectWidget(DynamicSelectWidget):
+class PageSelectWidget(DynamicSelectWidget, ModelSelect2Widget):
 
     model = Page
 
-    search_fields = ['title__icontains', ]
+    search_fields = ['title__icontains', 'slug__icontains']
 
     def label_from_instance(self, obj):
         """

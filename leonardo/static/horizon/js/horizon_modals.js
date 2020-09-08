@@ -128,6 +128,25 @@ horizon.modals.init_wizard = function () {
 
       return false;
     }
+
+    if (response.hasOwnProperty('rendered')) {
+
+      if (horizon.conf.debug) {
+        console.log(response);
+      }
+
+      for (var key in response.rendered) {
+          // append dynamic content
+          $("#" + key).html(response.rendered[key]);
+          // compile tab
+          horizon.utils.loadAngular($("#" + key));
+          // init switchable
+          // call initModal on every call..
+          $('form').find('select.switchable').trigger('change');
+      }
+
+    }
+
   };
 
   $('.workflow.wizard').bootstrapWizard({
@@ -140,6 +159,9 @@ horizon.modals.init_wizard = function () {
       var current = index;
       var $footer = $('.modal-footer');
       _max_visited_step = Math.max(_max_visited_step, current);
+      if (total == 1) {
+        $footer.find('.button-back').hide();
+      }
       if (current + 1 >= total) {
         $footer.find('.button-next').hide();
         $footer.find('.button-final').show();
@@ -244,35 +266,33 @@ horizon.addInitFunction(horizon.modals.init = function() {
           $('.ajax-modal, .dropdown-toggle').removeAttr("disabled");
         }
 
-        var compile = function (content) {
-           var $injector = angular.injector(['ng', 'hz']);
-           $injector.invoke(function($rootScope, $compile) {
-             $compile(content)($rootScope);
-           });
-        }
-
         // custom update handling
-        if (data.hasOwnProperty('id')) {
+        // enable this only if websocket is not available
+        if (!horizon.conf.is_websocket_enabled && data.hasOwnProperty('id')) {
+          if (horizon.conf.debug) {
+            console.log(data);
+          }
           if (data.hasOwnProperty('content')) {
-              // create
-              if (data.hasOwnProperty('region')) {
-                // prepend first
-                if (data.ordering === 0) {
-                  $('.' + data.region).prepend(data.content);
-                  window.location.replace('#' + data.id);
-                } else {
-                  // append before region tools
-                  $(data.content).insertBefore('.' + data.region + ' > .region-tools');
-                }
-              } else {
-                // update
-                $('#' + data.id).replaceWith(data.content);
-              }
+              // update widget
+              $('#' + data.id).replaceWith(data.content);
               // compile content
-              compile($('#' + data.id));
+              horizon.utils.loadAngular($('#' + data.id));
+
+          } else if (data.hasOwnProperty('region_content')) {
+              // create widget
+              // on create its simplier to render whole region, instead of manipulation with single widgets
+
+              if (data.hasOwnProperty('region')) {
+
+                $("#" + data.region).html(data.region_content);
+
+                // compile region
+                horizon.utils.loadAngular($("#" + data.region));
+
+              }
 
           } else {
-              // remove
+              // remove widget
               $('#' + data.id).remove();
           }
 
@@ -281,6 +301,7 @@ horizon.addInitFunction(horizon.modals.init = function() {
           $form.closest(".modal").modal("hide");
 
         } else {
+
           $form.closest(".modal").modal("hide");
           if (redirect_header) {
             location.href = redirect_header;
@@ -294,6 +315,16 @@ horizon.addInitFunction(horizon.modals.init = function() {
           } else {
             horizon.modals.success(data, textStatus, jqXHR);
           }
+
+          /* handle reload request */
+          if (data.hasOwnProperty('needs_reload')) {
+            if (data.hasOwnProperty('target')) {
+              location.href = data.target;
+            } else {
+              location.reload();
+            }
+          }
+
         }
       },
       error: function (jqXHR, status, errorThrown) {
