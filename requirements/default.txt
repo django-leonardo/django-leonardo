@@ -21,6 +21,7 @@ django-pyscss>=1.0.3
 django-filer==1.0.6
 django-markupfield==1.4.3
 django-haystack==2.5
+django-classy-tags==0.8.0
 
 sorl-thumbnail==12.3
 easy-thumbnails==2.3

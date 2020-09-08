@@ -7,3 +7,4 @@
 -e git+https://github.com/leonardo-modules/leonardo-module-sentry.git#egg=leonardo_module_sentry
 -e git+https://github.com/leonardo-modules/leonardo-cookie-law.git#egg=leonardo_cookie_law
 -e git+https://github.com/leonardo-modules/leonardo-admin-dashboard.git#egg=leonardo_admin_dashboard
+-e git+https://github.com/leonardo-modules/leonardo-system.git#egg=leonardo_system
