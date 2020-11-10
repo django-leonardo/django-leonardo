@@ -73,7 +73,7 @@ set your configuration
         'db': 0,
     }
 
-optionaly 
+optionally 
 
 .. code-block:: python
 

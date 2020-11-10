@@ -47,21 +47,21 @@ class Default(object):
 
         INSTALLED_APPS = []
 
-        # optionaly enable sorl.thumbnail
+        # optionally enable sorl.thumbnail
         try:
             import sorl  # noqa
             INSTALLED_APPS += ['sorl.thumbnail']
         except Exception:
             pass
 
-        # optionaly enable easy_thumbnails
+        # optionally enable easy_thumbnails
         try:
             import easy_thumbnails  # noqa
             INSTALLED_APPS += ['easy_thumbnails']
         except Exception:
             pass
 
-        # optionaly enable constance
+        # optionally enable constance
         try:
             import constance
         except ImportError:

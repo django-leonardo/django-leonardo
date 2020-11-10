@@ -8,7 +8,7 @@ Best example is live code, we have two base themes for you and lives under main 
 * AdminLTE - https://github.com/django-leonardo/leonardo-theme-adminlte
 * Bootswatch - https://github.com/django-leonardo/leonardo-theme-bootswatch
 
-As you can see theme must contains one template for page layout and optionaly base css for this layout and some color variations lives in ``skins`` directory.
+As you can see theme must contains one template for page layout and optionally base css for this layout and some color variations lives in ``skins`` directory.
 
 Directory structure::
 

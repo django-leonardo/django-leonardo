@@ -155,7 +155,7 @@ class PageAdmin(FeinPageAdmin):
             initial['theme'] = original.theme
             initial['color_scheme'] = original.color_scheme
 
-            # optionaly translate title and make slug
+            # optionally translate title and make slug
             old_lang = translation.get_language()
             translation.activate(request.GET.get('language'))
             title = _(original.title)

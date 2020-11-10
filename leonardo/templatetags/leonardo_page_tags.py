@@ -33,7 +33,7 @@ class LanguageLinksNode(SimpleAssignmentNodeWithVarAndArgs):
         trailing_path = ''
         request = args.get('request', None)
         if request:
-            # optionaly if is there request use app extra
+            # optionally if is there request use app extra
             try:
                 # Trailing path without first slash
                 trailing_path = request._feincms_extra_context.get(

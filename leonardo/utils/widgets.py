@@ -66,7 +66,7 @@ def get_grouped_widgets(feincms_object, request=None):
 
     requires feincms_object for getting content types
 
-    request optionaly for checking permissions, but not required
+    request optionally for checking permissions, but not required
 
     grouped = {'web': (id, label, icon)}
     '''
